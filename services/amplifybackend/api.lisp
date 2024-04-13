@@ -27,28 +27,53 @@
     ("TooManyRequestsException" . too-many-requests-exception)))
 (common-lisp:deftype auth-resources () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apiapp-sync-auth-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apiapp-sync-auth-settings-"))
-   (cognito-user-pool-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (expiration-time common-lisp:nil :type
-    (common-lisp:or |__double| common-lisp:null))
-   (open-idauth-ttl common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (open-idclient-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (open-idiat-ttl common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (open-idissue-url common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (open-idprovider-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-apiapp-sync-auth-settings common-lisp:nil
+                       ((open-idprovider-name :initarg :open-idprovider-name
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor
+                         %backend-apiapp-sync-auth-settings-open-idprovider-name
+                         :initform common-lisp:nil)
+                        (open-idissue-url :initarg :open-idissue-url :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiapp-sync-auth-settings-open-idissue-url
+                         :initform common-lisp:nil)
+                        (open-idiat-ttl :initarg :open-idiat-ttl :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiapp-sync-auth-settings-open-idiat-ttl
+                         :initform common-lisp:nil)
+                        (open-idclient-id :initarg :open-idclient-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiapp-sync-auth-settings-open-idclient-id
+                         :initform common-lisp:nil)
+                        (open-idauth-ttl :initarg :open-idauth-ttl :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiapp-sync-auth-settings-open-idauth-ttl
+                         :initform common-lisp:nil)
+                        (expiration-time :initarg :expiration-time :type
+                         (common-lisp:or |__double| common-lisp:null) :accessor
+                         %backend-apiapp-sync-auth-settings-expiration-time
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiapp-sync-auth-settings-description
+                         :initform common-lisp:nil)
+                        (cognito-user-pool-id :initarg :cognito-user-pool-id
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor
+                         %backend-apiapp-sync-auth-settings-cognito-user-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-apiapp-sync-auth-settings
                     'make-backend-apiapp-sync-auth-settings))
+ (common-lisp:defun make-backend-apiapp-sync-auth-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key open-idprovider-name open-idissue-url
+                     open-idiat-ttl open-idclient-id open-idauth-ttl
+                     expiration-time description cognito-user-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'backend-apiapp-sync-auth-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -123,14 +148,24 @@
                           backend-apiapp-sync-auth-settings))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apiauth-type (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apiauth-type-"))
-   (mode common-lisp:nil :type (common-lisp:or mode common-lisp:null))
-   (settings common-lisp:nil :type
-    (common-lisp:or backend-apiapp-sync-auth-settings common-lisp:null)))
+ (common-lisp:defclass backend-apiauth-type common-lisp:nil
+                       ((settings :initarg :settings :type
+                         (common-lisp:or backend-apiapp-sync-auth-settings
+                                         common-lisp:null)
+                         :accessor %backend-apiauth-type-settings :initform
+                         common-lisp:nil)
+                        (mode :initarg :mode :type
+                         (common-lisp:or mode common-lisp:null) :accessor
+                         %backend-apiauth-type-mode :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-apiauth-type 'make-backend-apiauth-type))
+ (common-lisp:defun make-backend-apiauth-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key settings mode)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-apiauth-type
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backend-apiauth-type))
    (common-lisp:append))
@@ -155,14 +190,20 @@
                         ((aws-sdk/generator/shape::input backend-apiauth-type))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apicodegen-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apicodegen-req-obj-"))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-apicodegen-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apicodegen-req-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))))
  (common-lisp:export
   (common-lisp:list 'backend-apicodegen-req-obj
                     'make-backend-apicodegen-req-obj))
+ (common-lisp:defun make-backend-apicodegen-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-apicodegen-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -186,22 +227,44 @@
                           backend-apicodegen-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apicodegen-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apicodegen-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-apicodegen-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apicodegen-resp-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apicodegen-resp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apicodegen-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apicodegen-resp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apicodegen-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apicodegen-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'backend-apicodegen-resp-obj
                     'make-backend-apicodegen-resp-obj))
+ (common-lisp:defun make-backend-apicodegen-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-apicodegen-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -261,14 +324,23 @@
                           backend-apicodegen-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apiconflict-resolution (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apiconflict-resolution-"))
-   (resolution-strategy common-lisp:nil :type
-    (common-lisp:or resolution-strategy common-lisp:null)))
+ (common-lisp:defclass backend-apiconflict-resolution common-lisp:nil
+                       ((resolution-strategy :initarg :resolution-strategy
+                         :type
+                         (common-lisp:or resolution-strategy common-lisp:null)
+                         :accessor
+                         %backend-apiconflict-resolution-resolution-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-apiconflict-resolution
                     'make-backend-apiconflict-resolution))
+ (common-lisp:defun make-backend-apiconflict-resolution
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resolution-strategy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'backend-apiconflict-resolution
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -292,15 +364,24 @@
                           backend-apiconflict-resolution))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apireq-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apireq-obj-"))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-apireq-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apireq-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %backend-apireq-obj-resource-config
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-apireq-obj 'make-backend-apireq-obj))
+ (common-lisp:defun make-backend-apireq-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-apireq-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backend-apireq-obj))
    (common-lisp:append))
@@ -325,23 +406,49 @@
                         ((aws-sdk/generator/shape::input backend-apireq-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apiresource-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apiresource-config-"))
-   (additional-auth-types common-lisp:nil :type
-    (common-lisp:or list-of-backend-apiauth-type common-lisp:null))
-   (api-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (conflict-resolution common-lisp:nil :type
-    (common-lisp:or backend-apiconflict-resolution common-lisp:null))
-   (default-auth-type common-lisp:nil :type
-    (common-lisp:or backend-apiauth-type common-lisp:null))
-   (service common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (transform-schema common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-apiresource-config common-lisp:nil
+                       ((transform-schema :initarg :transform-schema :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresource-config-transform-schema :initform
+                         common-lisp:nil)
+                        (service :initarg :service :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresource-config-service :initform
+                         common-lisp:nil)
+                        (default-auth-type :initarg :default-auth-type :type
+                         (common-lisp:or backend-apiauth-type common-lisp:null)
+                         :accessor
+                         %backend-apiresource-config-default-auth-type
+                         :initform common-lisp:nil)
+                        (conflict-resolution :initarg :conflict-resolution
+                         :type
+                         (common-lisp:or backend-apiconflict-resolution
+                                         common-lisp:null)
+                         :accessor
+                         %backend-apiresource-config-conflict-resolution
+                         :initform common-lisp:nil)
+                        (api-name :initarg :api-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresource-config-api-name :initform
+                         common-lisp:nil)
+                        (additional-auth-types :initarg :additional-auth-types
+                         :type
+                         (common-lisp:or list-of-backend-apiauth-type
+                                         common-lisp:null)
+                         :accessor
+                         %backend-apiresource-config-additional-auth-types
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-apiresource-config
                     'make-backend-apiresource-config))
+ (common-lisp:defun make-backend-apiresource-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transform-schema service
+                     default-auth-type conflict-resolution api-name
+                     additional-auth-types)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-apiresource-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -401,21 +508,40 @@
                           backend-apiresource-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-apiresp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-apiresp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-apiresp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresp-obj-status :initform common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresp-obj-job-id :initform common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresp-obj-error :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-apiresp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'backend-apiresp-obj 'make-backend-apiresp-obj))
+ (common-lisp:defun make-backend-apiresp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-apiresp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backend-apiresp-obj))
    (common-lisp:append))
@@ -469,19 +595,33 @@
                         ((aws-sdk/generator/shape::input backend-apiresp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-auth-apple-provider-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-auth-apple-provider-config-"))
-   (client-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (key-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (private-key common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (team-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-auth-apple-provider-config common-lisp:nil
+                       ((team-id :initarg :team-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-apple-provider-config-team-id :initform
+                         common-lisp:nil)
+                        (private-key :initarg :private-key :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-apple-provider-config-private-key
+                         :initform common-lisp:nil)
+                        (key-id :initarg :key-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-apple-provider-config-key-id :initform
+                         common-lisp:nil)
+                        (client-id :initarg :client-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-apple-provider-config-client-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-auth-apple-provider-config
                     'make-backend-auth-apple-provider-config))
+ (common-lisp:defun make-backend-auth-apple-provider-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key team-id private-key key-id client-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'backend-auth-apple-provider-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -526,21 +666,43 @@
                           backend-auth-apple-provider-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-auth-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-auth-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-auth-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-resp-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-resp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-resp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'backend-auth-resp-obj 'make-backend-auth-resp-obj))
+ (common-lisp:defun make-backend-auth-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-auth-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -600,16 +762,25 @@
                           backend-auth-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-auth-social-provider-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-auth-social-provider-config-"))
-   (client-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (client-secret common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-auth-social-provider-config common-lisp:nil
+                       ((client-secret :initarg :client-secret :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-social-provider-config-client-secret
+                         :initform common-lisp:nil)
+                        (client-id :initarg :client-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-auth-social-provider-config-client-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-auth-social-provider-config
                     'make-backend-auth-social-provider-config))
+ (common-lisp:defun make-backend-auth-social-provider-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-secret client-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'backend-auth-social-provider-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -640,17 +811,34 @@
                           backend-auth-social-provider-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-config-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-config-resp-obj-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-manager-app-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (login-auth-config common-lisp:nil :type
-    (common-lisp:or login-auth-config-req-obj common-lisp:null)))
+ (common-lisp:defclass backend-config-resp-obj common-lisp:nil
+                       ((login-auth-config :initarg :login-auth-config :type
+                         (common-lisp:or login-auth-config-req-obj
+                                         common-lisp:null)
+                         :accessor %backend-config-resp-obj-login-auth-config
+                         :initform common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-config-resp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-manager-app-id :initarg
+                         :backend-manager-app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-config-resp-obj-backend-manager-app-id
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-config-resp-obj-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-config-resp-obj 'make-backend-config-resp-obj))
+ (common-lisp:defun make-backend-config-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key login-auth-config error
+                     backend-manager-app-id app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-config-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -696,14 +884,22 @@
                           backend-config-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-job-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-job-req-obj-"))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-job-req-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-req-obj-status :initform common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-req-obj-operation :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backend-job-req-obj 'make-backend-job-req-obj))
+ (common-lisp:defun make-backend-job-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-job-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backend-job-req-obj))
    (common-lisp:append))
@@ -728,25 +924,50 @@
                         ((aws-sdk/generator/shape::input backend-job-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-job-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-job-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (create-time common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (update-time common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-job-resp-obj common-lisp:nil
+                       ((update-time :initarg :update-time :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-update-time :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-error :initform common-lisp:nil)
+                        (create-time :initarg :create-time :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-create-time :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-job-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'backend-job-resp-obj 'make-backend-job-resp-obj))
+ (common-lisp:defun make-backend-job-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-time status operation job-id error
+                     create-time backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-job-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backend-job-resp-obj))
    (common-lisp:append))
@@ -814,16 +1035,28 @@
                         ((aws-sdk/generator/shape::input backend-job-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-storage-permissions (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-storage-permissions-"))
-   (authenticated (common-lisp:error ":authenticated is required") :type
-    (common-lisp:or list-of-authenticated-element common-lisp:null))
-   (un-authenticated common-lisp:nil :type
-    (common-lisp:or list-of-un-authenticated-element common-lisp:null)))
+ (common-lisp:defclass backend-storage-permissions common-lisp:nil
+                       ((un-authenticated :initarg :un-authenticated :type
+                         (common-lisp:or list-of-un-authenticated-element
+                                         common-lisp:null)
+                         :accessor
+                         %backend-storage-permissions-un-authenticated
+                         :initform common-lisp:nil)
+                        (authenticated :initarg :authenticated :type
+                         (common-lisp:or list-of-authenticated-element
+                                         common-lisp:null)
+                         :accessor %backend-storage-permissions-authenticated
+                         :initform
+                         (common-lisp:error ":authenticated is required"))))
  (common-lisp:export
   (common-lisp:list 'backend-storage-permissions
                     'make-backend-storage-permissions))
+ (common-lisp:defun make-backend-storage-permissions
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key un-authenticated authenticated)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-storage-permissions
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -854,20 +1087,35 @@
                           backend-storage-permissions))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backend-storage-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backend-storage-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id (common-lisp:error ":job-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass backend-storage-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-storage-resp-obj-status :initform
+                         (common-lisp:error ":status is required"))
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-storage-resp-obj-job-id :initform
+                         (common-lisp:error ":job-id is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-storage-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %backend-storage-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'backend-storage-resp-obj 'make-backend-storage-resp-obj))
+ (common-lisp:defun make-backend-storage-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status job-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'backend-storage-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -920,14 +1168,22 @@
  (common-lisp:export
   (common-lisp:list 'bad-request-exception 'bad-request-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (clone-backend-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-clone-backend-req-obj-"))
-   (target-environment-name
-    (common-lisp:error ":target-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass clone-backend-req-obj common-lisp:nil
+                       ((target-environment-name :initarg
+                         :target-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-req-obj-target-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":target-environment-name is required"))))
  (common-lisp:export
   (common-lisp:list 'clone-backend-req-obj 'make-clone-backend-req-obj))
+ (common-lisp:defun make-clone-backend-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-environment-name)
+   (common-lisp:apply #'common-lisp:make-instance 'clone-backend-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -952,19 +1208,34 @@
                           clone-backend-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (clone-backend-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-clone-backend-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (target-environment-name
-    (common-lisp:error ":target-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass clone-backend-request common-lisp:nil
+                       ((target-environment-name :initarg
+                         :target-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-request-target-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":target-environment-name is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'clone-backend-request 'make-clone-backend-request))
+ (common-lisp:defun make-clone-backend-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-environment-name
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'clone-backend-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -989,21 +1260,43 @@
                           clone-backend-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (clone-backend-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-clone-backend-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass clone-backend-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-resp-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-resp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-resp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'clone-backend-resp-obj 'make-clone-backend-resp-obj))
+ (common-lisp:defun make-clone-backend-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'clone-backend-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1063,19 +1356,41 @@
                           clone-backend-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (clone-backend-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-clone-backend-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass clone-backend-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %clone-backend-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'clone-backend-response 'make-clone-backend-response))
+ (common-lisp:defun make-clone-backend-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'clone-backend-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1135,19 +1450,34 @@
                           clone-backend-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-apireq-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-apireq-obj-"))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-apireq-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apireq-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %create-backend-apireq-obj-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apireq-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-apireq-obj
                     'make-create-backend-apireq-obj))
+ (common-lisp:defun make-create-backend-apireq-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-apireq-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1186,21 +1516,38 @@
                           create-backend-apireq-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-apirequest (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-apirequest-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-apirequest common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apirequest-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %create-backend-apirequest-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apirequest-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apirequest-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-apirequest
                     'make-create-backend-apirequest))
+ (common-lisp:defun make-create-backend-apirequest
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-apirequest
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1239,20 +1586,42 @@
                           create-backend-apirequest))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-apiresponse (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-apiresponse-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-apiresponse common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apiresponse-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apiresponse-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apiresponse-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apiresponse-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apiresponse-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-apiresponse-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-apiresponse
                     'make-create-backend-apiresponse))
+ (common-lisp:defun make-create-backend-apiresponse
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-apiresponse
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1312,18 +1681,35 @@
                           create-backend-apiresponse))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-forgot-password-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-forgot-password-config-"))
-   (delivery-method (common-lisp:error ":delivery-method is required") :type
-    (common-lisp:or delivery-method common-lisp:null))
-   (email-settings common-lisp:nil :type
-    (common-lisp:or email-settings common-lisp:null))
-   (sms-settings common-lisp:nil :type
-    (common-lisp:or sms-settings common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-forgot-password-config
+                       common-lisp:nil
+                       ((sms-settings :initarg :sms-settings :type
+                         (common-lisp:or sms-settings common-lisp:null)
+                         :accessor
+                         %create-backend-auth-forgot-password-config-sms-settings
+                         :initform common-lisp:nil)
+                        (email-settings :initarg :email-settings :type
+                         (common-lisp:or email-settings common-lisp:null)
+                         :accessor
+                         %create-backend-auth-forgot-password-config-email-settings
+                         :initform common-lisp:nil)
+                        (delivery-method :initarg :delivery-method :type
+                         (common-lisp:or delivery-method common-lisp:null)
+                         :accessor
+                         %create-backend-auth-forgot-password-config-delivery-method
+                         :initform
+                         (common-lisp:error ":delivery-method is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-forgot-password-config
                     'make-create-backend-auth-forgot-password-config))
+ (common-lisp:defun make-create-backend-auth-forgot-password-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sms-settings email-settings
+                     delivery-method)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-forgot-password-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1361,17 +1747,30 @@
                           create-backend-auth-forgot-password-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-identity-pool-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-identity-pool-config-"))
-   (identity-pool-name (common-lisp:error ":identity-pool-name is required")
-    :type (common-lisp:or |__string| common-lisp:null))
-   (unauthenticated-login
-    (common-lisp:error ":unauthenticated-login is required") :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-identity-pool-config common-lisp:nil
+                       ((unauthenticated-login :initarg :unauthenticated-login
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %create-backend-auth-identity-pool-config-unauthenticated-login
+                         :initform
+                         (common-lisp:error
+                          ":unauthenticated-login is required"))
+                        (identity-pool-name :initarg :identity-pool-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-identity-pool-config-identity-pool-name
+                         :initform
+                         (common-lisp:error
+                          ":identity-pool-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-identity-pool-config
                     'make-create-backend-auth-identity-pool-config))
+ (common-lisp:defun make-create-backend-auth-identity-pool-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key unauthenticated-login identity-pool-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-identity-pool-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1403,15 +1802,25 @@
                           create-backend-auth-identity-pool-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-mfaconfig (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-mfaconfig-"))
-   (mfamode (common-lisp:error ":mfamode is required") :type
-    (common-lisp:or mfamode common-lisp:null))
-   (settings common-lisp:nil :type (common-lisp:or settings common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-mfaconfig common-lisp:nil
+                       ((settings :initarg :settings :type
+                         (common-lisp:or settings common-lisp:null) :accessor
+                         %create-backend-auth-mfaconfig-settings :initform
+                         common-lisp:nil)
+                        (mfamode :initarg :mfamode :type
+                         (common-lisp:or mfamode common-lisp:null) :accessor
+                         %create-backend-auth-mfaconfig-mfamode :initform
+                         (common-lisp:error ":mfamode is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-mfaconfig
                     'make-create-backend-auth-mfaconfig))
+ (common-lisp:defun make-create-backend-auth-mfaconfig
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key settings mfamode)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-mfaconfig
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1442,26 +1851,58 @@
                           create-backend-auth-mfaconfig))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-oauth-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-oauth-config-"))
-   (domain-prefix common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (oauth-grant-type (common-lisp:error ":oauth-grant-type is required") :type
-    (common-lisp:or oauth-grant-type common-lisp:null))
-   (oauth-scopes (common-lisp:error ":oauth-scopes is required") :type
-    (common-lisp:or list-of-oauth-scopes-element common-lisp:null))
-   (redirect-sign-in-uris
-    (common-lisp:error ":redirect-sign-in-uris is required") :type
-    (common-lisp:or list-of-string common-lisp:null))
-   (redirect-sign-out-uris
-    (common-lisp:error ":redirect-sign-out-uris is required") :type
-    (common-lisp:or list-of-string common-lisp:null))
-   (social-provider-settings common-lisp:nil :type
-    (common-lisp:or social-provider-settings common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-oauth-config common-lisp:nil
+                       ((social-provider-settings :initarg
+                         :social-provider-settings :type
+                         (common-lisp:or social-provider-settings
+                                         common-lisp:null)
+                         :accessor
+                         %create-backend-auth-oauth-config-social-provider-settings
+                         :initform common-lisp:nil)
+                        (redirect-sign-out-uris :initarg
+                         :redirect-sign-out-uris :type
+                         (common-lisp:or list-of-string common-lisp:null)
+                         :accessor
+                         %create-backend-auth-oauth-config-redirect-sign-out-uris
+                         :initform
+                         (common-lisp:error
+                          ":redirect-sign-out-uris is required"))
+                        (redirect-sign-in-uris :initarg :redirect-sign-in-uris
+                         :type (common-lisp:or list-of-string common-lisp:null)
+                         :accessor
+                         %create-backend-auth-oauth-config-redirect-sign-in-uris
+                         :initform
+                         (common-lisp:error
+                          ":redirect-sign-in-uris is required"))
+                        (oauth-scopes :initarg :oauth-scopes :type
+                         (common-lisp:or list-of-oauth-scopes-element
+                                         common-lisp:null)
+                         :accessor
+                         %create-backend-auth-oauth-config-oauth-scopes
+                         :initform
+                         (common-lisp:error ":oauth-scopes is required"))
+                        (oauth-grant-type :initarg :oauth-grant-type :type
+                         (common-lisp:or oauth-grant-type common-lisp:null)
+                         :accessor
+                         %create-backend-auth-oauth-config-oauth-grant-type
+                         :initform
+                         (common-lisp:error ":oauth-grant-type is required"))
+                        (domain-prefix :initarg :domain-prefix :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-oauth-config-domain-prefix
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-oauth-config
                     'make-create-backend-auth-oauth-config))
+ (common-lisp:defun make-create-backend-auth-oauth-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key social-provider-settings
+                     redirect-sign-out-uris redirect-sign-in-uris oauth-scopes
+                     oauth-grant-type domain-prefix)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-oauth-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1523,16 +1964,30 @@
                           create-backend-auth-oauth-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-password-policy-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-password-policy-config-"))
-   (additional-constraints common-lisp:nil :type
-    (common-lisp:or list-of-additional-constraints-element common-lisp:null))
-   (minimum-length (common-lisp:error ":minimum-length is required") :type
-    (common-lisp:or |__double| common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-password-policy-config
+                       common-lisp:nil
+                       ((minimum-length :initarg :minimum-length :type
+                         (common-lisp:or |__double| common-lisp:null) :accessor
+                         %create-backend-auth-password-policy-config-minimum-length
+                         :initform
+                         (common-lisp:error ":minimum-length is required"))
+                        (additional-constraints :initarg
+                         :additional-constraints :type
+                         (common-lisp:or list-of-additional-constraints-element
+                                         common-lisp:null)
+                         :accessor
+                         %create-backend-auth-password-policy-config-additional-constraints
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-password-policy-config
                     'make-create-backend-auth-password-policy-config))
+ (common-lisp:defun make-create-backend-auth-password-policy-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key minimum-length additional-constraints)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-password-policy-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1564,19 +2019,34 @@
                           create-backend-auth-password-policy-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-req-obj-"))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or create-backend-auth-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-req-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or create-backend-auth-resource-config
+                                         common-lisp:null)
+                         :accessor %create-backend-auth-req-obj-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-req-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-req-obj
                     'make-create-backend-auth-req-obj))
+ (common-lisp:defun make-create-backend-auth-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-auth-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1615,21 +2085,38 @@
                           create-backend-auth-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or create-backend-auth-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-request-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or create-backend-auth-resource-config
+                                         common-lisp:null)
+                         :accessor %create-backend-auth-request-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-request
                     'make-create-backend-auth-request))
+ (common-lisp:defun make-create-backend-auth-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-auth-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1668,21 +2155,43 @@
                           create-backend-auth-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-resource-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-resource-config-"))
-   (auth-resources (common-lisp:error ":auth-resources is required") :type
-    (common-lisp:or auth-resources common-lisp:null))
-   (identity-pool-configs common-lisp:nil :type
-    (common-lisp:or create-backend-auth-identity-pool-config common-lisp:null))
-   (service (common-lisp:error ":service is required") :type
-    (common-lisp:or service common-lisp:null))
-   (user-pool-configs (common-lisp:error ":user-pool-configs is required")
-    :type
-    (common-lisp:or create-backend-auth-user-pool-config common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-resource-config common-lisp:nil
+                       ((user-pool-configs :initarg :user-pool-configs :type
+                         (common-lisp:or create-backend-auth-user-pool-config
+                                         common-lisp:null)
+                         :accessor
+                         %create-backend-auth-resource-config-user-pool-configs
+                         :initform
+                         (common-lisp:error ":user-pool-configs is required"))
+                        (service :initarg :service :type
+                         (common-lisp:or service common-lisp:null) :accessor
+                         %create-backend-auth-resource-config-service :initform
+                         (common-lisp:error ":service is required"))
+                        (identity-pool-configs :initarg :identity-pool-configs
+                         :type
+                         (common-lisp:or
+                          create-backend-auth-identity-pool-config
+                          common-lisp:null)
+                         :accessor
+                         %create-backend-auth-resource-config-identity-pool-configs
+                         :initform common-lisp:nil)
+                        (auth-resources :initarg :auth-resources :type
+                         (common-lisp:or auth-resources common-lisp:null)
+                         :accessor
+                         %create-backend-auth-resource-config-auth-resources
+                         :initform
+                         (common-lisp:error ":auth-resources is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-resource-config
                     'make-create-backend-auth-resource-config))
+ (common-lisp:defun make-create-backend-auth-resource-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key user-pool-configs service
+                     identity-pool-configs auth-resources)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-resource-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1728,20 +2237,42 @@
                           create-backend-auth-resource-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-response
                     'make-create-backend-auth-response))
+ (common-lisp:defun make-create-backend-auth-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-auth-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1801,33 +2332,72 @@
                           create-backend-auth-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-user-pool-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-auth-user-pool-config-"))
-   (forgot-password common-lisp:nil :type
-    (common-lisp:or create-backend-auth-forgot-password-config
-                    common-lisp:null))
-   (mfa common-lisp:nil :type
-    (common-lisp:or create-backend-auth-mfaconfig common-lisp:null))
-   (oauth common-lisp:nil :type
-    (common-lisp:or create-backend-auth-oauth-config common-lisp:null))
-   (password-policy common-lisp:nil :type
-    (common-lisp:or create-backend-auth-password-policy-config
-                    common-lisp:null))
-   (required-sign-up-attributes
-    (common-lisp:error ":required-sign-up-attributes is required") :type
-    (common-lisp:or list-of-required-sign-up-attributes-element
-                    common-lisp:null))
-   (sign-in-method (common-lisp:error ":sign-in-method is required") :type
-    (common-lisp:or sign-in-method common-lisp:null))
-   (user-pool-name (common-lisp:error ":user-pool-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (verification-message common-lisp:nil :type
-    (common-lisp:or create-backend-auth-verification-message-config
-                    common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-user-pool-config common-lisp:nil
+                       ((verification-message :initarg :verification-message
+                         :type
+                         (common-lisp:or
+                          create-backend-auth-verification-message-config
+                          common-lisp:null)
+                         :accessor
+                         %create-backend-auth-user-pool-config-verification-message
+                         :initform common-lisp:nil)
+                        (user-pool-name :initarg :user-pool-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-auth-user-pool-config-user-pool-name
+                         :initform
+                         (common-lisp:error ":user-pool-name is required"))
+                        (sign-in-method :initarg :sign-in-method :type
+                         (common-lisp:or sign-in-method common-lisp:null)
+                         :accessor
+                         %create-backend-auth-user-pool-config-sign-in-method
+                         :initform
+                         (common-lisp:error ":sign-in-method is required"))
+                        (required-sign-up-attributes :initarg
+                         :required-sign-up-attributes :type
+                         (common-lisp:or
+                          list-of-required-sign-up-attributes-element
+                          common-lisp:null)
+                         :accessor
+                         %create-backend-auth-user-pool-config-required-sign-up-attributes
+                         :initform
+                         (common-lisp:error
+                          ":required-sign-up-attributes is required"))
+                        (password-policy :initarg :password-policy :type
+                         (common-lisp:or
+                          create-backend-auth-password-policy-config
+                          common-lisp:null)
+                         :accessor
+                         %create-backend-auth-user-pool-config-password-policy
+                         :initform common-lisp:nil)
+                        (oauth :initarg :oauth :type
+                         (common-lisp:or create-backend-auth-oauth-config
+                                         common-lisp:null)
+                         :accessor %create-backend-auth-user-pool-config-oauth
+                         :initform common-lisp:nil)
+                        (mfa :initarg :mfa :type
+                         (common-lisp:or create-backend-auth-mfaconfig
+                                         common-lisp:null)
+                         :accessor %create-backend-auth-user-pool-config-mfa
+                         :initform common-lisp:nil)
+                        (forgot-password :initarg :forgot-password :type
+                         (common-lisp:or
+                          create-backend-auth-forgot-password-config
+                          common-lisp:null)
+                         :accessor
+                         %create-backend-auth-user-pool-config-forgot-password
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-user-pool-config
                     'make-create-backend-auth-user-pool-config))
+ (common-lisp:defun make-create-backend-auth-user-pool-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key verification-message user-pool-name
+                     sign-in-method required-sign-up-attributes password-policy
+                     oauth mfa forgot-password)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-user-pool-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1902,19 +2472,35 @@
                           create-backend-auth-user-pool-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-auth-verification-message-config (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-backend-auth-verification-message-config-"))
-   (delivery-method (common-lisp:error ":delivery-method is required") :type
-    (common-lisp:or delivery-method common-lisp:null))
-   (email-settings common-lisp:nil :type
-    (common-lisp:or email-settings common-lisp:null))
-   (sms-settings common-lisp:nil :type
-    (common-lisp:or sms-settings common-lisp:null)))
+ (common-lisp:defclass create-backend-auth-verification-message-config
+                       common-lisp:nil
+                       ((sms-settings :initarg :sms-settings :type
+                         (common-lisp:or sms-settings common-lisp:null)
+                         :accessor
+                         %create-backend-auth-verification-message-config-sms-settings
+                         :initform common-lisp:nil)
+                        (email-settings :initarg :email-settings :type
+                         (common-lisp:or email-settings common-lisp:null)
+                         :accessor
+                         %create-backend-auth-verification-message-config-email-settings
+                         :initform common-lisp:nil)
+                        (delivery-method :initarg :delivery-method :type
+                         (common-lisp:or delivery-method common-lisp:null)
+                         :accessor
+                         %create-backend-auth-verification-message-config-delivery-method
+                         :initform
+                         (common-lisp:error ":delivery-method is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-auth-verification-message-config
                     'make-create-backend-auth-verification-message-config))
+ (common-lisp:defun make-create-backend-auth-verification-message-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sms-settings email-settings
+                     delivery-method)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-auth-verification-message-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1952,14 +2538,22 @@
                           create-backend-auth-verification-message-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-config-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-config-req-obj-"))
-   (backend-manager-app-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-config-req-obj common-lisp:nil
+                       ((backend-manager-app-id :initarg
+                         :backend-manager-app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-req-obj-backend-manager-app-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-config-req-obj
                     'make-create-backend-config-req-obj))
+ (common-lisp:defun make-create-backend-config-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backend-manager-app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-config-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1984,16 +2578,26 @@
                           create-backend-config-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-config-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-config-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-manager-app-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-config-request common-lisp:nil
+                       ((backend-manager-app-id :initarg
+                         :backend-manager-app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-request-backend-manager-app-id
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-config-request
                     'make-create-backend-config-request))
+ (common-lisp:defun make-create-backend-config-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backend-manager-app-id app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-config-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2018,18 +2622,35 @@
                           create-backend-config-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-config-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-config-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-config-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-resp-obj-status :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-resp-obj-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-config-resp-obj
                     'make-create-backend-config-resp-obj))
+ (common-lisp:defun make-create-backend-config-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status job-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-config-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2075,17 +2696,35 @@
                           create-backend-config-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-config-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-config-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-config-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-response-status :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-response-job-id :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-config-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-config-response
                     'make-create-backend-config-response))
+ (common-lisp:defun make-create-backend-config-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status job-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-config-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2131,22 +2770,39 @@
                           create-backend-config-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-req-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (app-name (common-lisp:error ":app-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or resource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-req-obj-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or resource-config common-lisp:null)
+                         :accessor %create-backend-req-obj-resource-config
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-req-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-name :initarg :app-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-req-obj-app-name :initform
+                         (common-lisp:error ":app-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-req-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-req-obj 'make-create-backend-req-obj))
+ (common-lisp:defun make-create-backend-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2199,22 +2855,39 @@
                           create-backend-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (app-name (common-lisp:error ":app-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or resource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-request-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or resource-config common-lisp:null)
+                         :accessor %create-backend-request-resource-config
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-name :initarg :app-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-request-app-name :initform
+                         (common-lisp:error ":app-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-request 'make-create-backend-request))
+ (common-lisp:defun make-create-backend-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2267,21 +2940,43 @@
                           create-backend-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-resp-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-resp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-resp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-resp-obj 'make-create-backend-resp-obj))
+ (common-lisp:defun make-create-backend-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2341,19 +3036,41 @@
                           create-backend-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-response 'make-create-backend-response))
+ (common-lisp:defun make-create-backend-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backend-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2413,19 +3130,37 @@
                           create-backend-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-storage-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-storage-req-obj-"))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or create-backend-storage-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-storage-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-req-obj-resource-name
+                         :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or create-backend-storage-resource-config
+                                         common-lisp:null)
+                         :accessor
+                         %create-backend-storage-req-obj-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-req-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-storage-req-obj
                     'make-create-backend-storage-req-obj))
+ (common-lisp:defun make-create-backend-storage-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-storage-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2464,21 +3199,41 @@
                           create-backend-storage-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-storage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-storage-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or create-backend-storage-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-storage-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-request-resource-name
+                         :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or create-backend-storage-resource-config
+                                         common-lisp:null)
+                         :accessor
+                         %create-backend-storage-request-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backend-storage-request
                     'make-create-backend-storage-request))
+ (common-lisp:defun make-create-backend-storage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-storage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2517,18 +3272,34 @@
                           create-backend-storage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-storage-resource-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-storage-resource-config-"))
-   (bucket-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (permissions (common-lisp:error ":permissions is required") :type
-    (common-lisp:or backend-storage-permissions common-lisp:null))
-   (service-name (common-lisp:error ":service-name is required") :type
-    (common-lisp:or service-name common-lisp:null)))
+ (common-lisp:defclass create-backend-storage-resource-config common-lisp:nil
+                       ((service-name :initarg :service-name :type
+                         (common-lisp:or service-name common-lisp:null)
+                         :accessor
+                         %create-backend-storage-resource-config-service-name
+                         :initform
+                         (common-lisp:error ":service-name is required"))
+                        (permissions :initarg :permissions :type
+                         (common-lisp:or backend-storage-permissions
+                                         common-lisp:null)
+                         :accessor
+                         %create-backend-storage-resource-config-permissions
+                         :initform
+                         (common-lisp:error ":permissions is required"))
+                        (bucket-name :initarg :bucket-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-resource-config-bucket-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-storage-resource-config
                     'make-create-backend-storage-resource-config))
+ (common-lisp:defun make-create-backend-storage-resource-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key service-name permissions bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-storage-resource-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2566,17 +3337,35 @@
                           create-backend-storage-resource-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backend-storage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backend-storage-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-backend-storage-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-response-status :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-response-job-id :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-backend-storage-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backend-storage-response
                     'make-create-backend-storage-response))
+ (common-lisp:defun make-create-backend-storage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status job-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backend-storage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2622,13 +3411,19 @@
                           create-backend-storage-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-token-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-token-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-token-request common-lisp:nil
+                       ((app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-token-request 'make-create-token-request))
+ (common-lisp:defun make-create-token-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-token-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-token-request))
    (common-lisp:append))
@@ -2639,19 +3434,31 @@
                         ((aws-sdk/generator/shape::input create-token-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-token-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-token-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (challenge-code (common-lisp:error ":challenge-code is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (session-id (common-lisp:error ":session-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ttl (common-lisp:error ":ttl is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-token-resp-obj common-lisp:nil
+                       ((ttl :initarg :ttl :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-resp-obj-ttl :initform
+                         (common-lisp:error ":ttl is required"))
+                        (session-id :initarg :session-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-resp-obj-session-id :initform
+                         (common-lisp:error ":session-id is required"))
+                        (challenge-code :initarg :challenge-code :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-resp-obj-challenge-code :initform
+                         (common-lisp:error ":challenge-code is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-token-resp-obj 'make-create-token-resp-obj))
+ (common-lisp:defun make-create-token-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ttl session-id challenge-code app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-token-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2696,17 +3503,30 @@
                           create-token-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-token-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-token-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (challenge-code common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (session-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ttl common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-token-response common-lisp:nil
+                       ((ttl :initarg :ttl :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-response-ttl :initform common-lisp:nil)
+                        (session-id :initarg :session-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-response-session-id :initform
+                         common-lisp:nil)
+                        (challenge-code :initarg :challenge-code :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-response-challenge-code :initform
+                         common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-token-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-token-response 'make-create-token-response))
+ (common-lisp:defun make-create-token-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ttl session-id challenge-code app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-token-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2751,21 +3571,37 @@
                           create-token-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-apirequest (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-apirequest-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-apirequest common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apirequest-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %delete-backend-apirequest-resource-config
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apirequest-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apirequest-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backend-apirequest
                     'make-delete-backend-apirequest))
+ (common-lisp:defun make-delete-backend-apirequest
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backend-apirequest
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2796,20 +3632,42 @@
                           delete-backend-apirequest))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-apiresponse (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-apiresponse-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-apiresponse common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apiresponse-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apiresponse-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apiresponse-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apiresponse-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apiresponse-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-apiresponse-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-backend-apiresponse
                     'make-delete-backend-apiresponse))
+ (common-lisp:defun make-delete-backend-apiresponse
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backend-apiresponse
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2869,19 +3727,32 @@
                           delete-backend-apiresponse))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-auth-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-auth-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-auth-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-request-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backend-auth-request
                     'make-delete-backend-auth-request))
+ (common-lisp:defun make-delete-backend-auth-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backend-auth-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2905,20 +3776,42 @@
                           delete-backend-auth-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-auth-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-auth-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-auth-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-auth-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-backend-auth-response
                     'make-delete-backend-auth-response))
+ (common-lisp:defun make-delete-backend-auth-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backend-auth-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2978,16 +3871,26 @@
                           delete-backend-auth-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-request common-lisp:nil
+                       ((backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backend-request 'make-delete-backend-request))
+ (common-lisp:defun make-delete-backend-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backend-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3004,21 +3907,43 @@
                           delete-backend-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-resp-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-resp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-resp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backend-resp-obj 'make-delete-backend-resp-obj))
+ (common-lisp:defun make-delete-backend-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backend-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3078,19 +4003,41 @@
                           delete-backend-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-backend-response 'make-delete-backend-response))
+ (common-lisp:defun make-delete-backend-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backend-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3150,21 +4097,39 @@
                           delete-backend-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-storage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-storage-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (service-name (common-lisp:error ":service-name is required") :type
-    (common-lisp:or service-name common-lisp:null)))
+ (common-lisp:defclass delete-backend-storage-request common-lisp:nil
+                       ((service-name :initarg :service-name :type
+                         (common-lisp:or service-name common-lisp:null)
+                         :accessor %delete-backend-storage-request-service-name
+                         :initform
+                         (common-lisp:error ":service-name is required"))
+                        (resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-storage-request-resource-name
+                         :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-storage-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-storage-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backend-storage-request
                     'make-delete-backend-storage-request))
+ (common-lisp:defun make-delete-backend-storage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key service-name resource-name
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-backend-storage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3195,17 +4160,35 @@
                           delete-backend-storage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backend-storage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backend-storage-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-backend-storage-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-storage-response-status :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-storage-response-job-id :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-storage-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-backend-storage-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-backend-storage-response
                     'make-delete-backend-storage-response))
+ (common-lisp:defun make-delete-backend-storage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status job-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-backend-storage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3251,15 +4234,23 @@
                           delete-backend-storage-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-token-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-token-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (session-id (common-lisp:error ":session-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-token-request common-lisp:nil
+                       ((session-id :initarg :session-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-token-request-session-id :initform
+                         (common-lisp:error ":session-id is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-token-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-token-request 'make-delete-token-request))
+ (common-lisp:defun make-delete-token-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key session-id app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-token-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-token-request))
    (common-lisp:append))
@@ -3270,13 +4261,19 @@
                         ((aws-sdk/generator/shape::input delete-token-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-token-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-token-resp-obj-"))
-   (is-success (common-lisp:error ":is-success is required") :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass delete-token-resp-obj common-lisp:nil
+                       ((is-success :initarg :is-success :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %delete-token-resp-obj-is-success :initform
+                         (common-lisp:error ":is-success is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-token-resp-obj 'make-delete-token-resp-obj))
+ (common-lisp:defun make-delete-token-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key is-success)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-token-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3300,13 +4297,19 @@
                           delete-token-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-token-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-token-response-"))
-   (is-success common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass delete-token-response common-lisp:nil
+                       ((is-success :initarg :is-success :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %delete-token-response-is-success :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-token-response 'make-delete-token-response))
+ (common-lisp:defun make-delete-token-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key is-success)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-token-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3331,14 +4334,22 @@
    common-lisp:nil))
 (common-lisp:deftype delivery-method () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (email-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-email-settings-"))
-   (email-message common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (email-subject common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass email-settings common-lisp:nil
+                       ((email-subject :initarg :email-subject :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %email-settings-email-subject :initform
+                         common-lisp:nil)
+                        (email-message :initarg :email-message :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %email-settings-email-message :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'email-settings 'make-email-settings))
+ (common-lisp:defun make-email-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key email-subject email-message)
+   (common-lisp:apply #'common-lisp:make-instance 'email-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input email-settings))
    (common-lisp:append))
@@ -3371,19 +4382,34 @@
   (common-lisp:list 'gateway-timeout-exception
                     'gateway-timeout-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (generate-backend-apimodels-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-generate-backend-apimodels-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass generate-backend-apimodels-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-request-resource-name
+                         :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'generate-backend-apimodels-request
                     'make-generate-backend-apimodels-request))
+ (common-lisp:defun make-generate-backend-apimodels-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'generate-backend-apimodels-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3407,20 +4433,43 @@
                           generate-backend-apimodels-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (generate-backend-apimodels-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-generate-backend-apimodels-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass generate-backend-apimodels-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-response-operation
+                         :initform common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %generate-backend-apimodels-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'generate-backend-apimodels-response
                     'make-generate-backend-apimodels-response))
+ (common-lisp:defun make-generate-backend-apimodels-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'generate-backend-apimodels-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3480,19 +4529,33 @@
                           generate-backend-apimodels-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-apimodels-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-apimodels-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-apimodels-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apimodels-request-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apimodels-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apimodels-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-apimodels-request
                     'make-get-backend-apimodels-request))
+ (common-lisp:defun make-get-backend-apimodels-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backend-apimodels-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3516,16 +4579,30 @@
                           get-backend-apimodels-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-apimodels-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-apimodels-response-"))
-   (models common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
-   (model-introspection-schema common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-apimodels-response common-lisp:nil
+                       ((model-introspection-schema :initarg
+                         :model-introspection-schema :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apimodels-response-model-introspection-schema
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %get-backend-apimodels-response-status :initform
+                         common-lisp:nil)
+                        (models :initarg :models :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apimodels-response-models :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-apimodels-response
                     'make-get-backend-apimodels-response))
+ (common-lisp:defun make-get-backend-apimodels-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key model-introspection-schema status models)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backend-apimodels-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3564,20 +4641,36 @@
                           get-backend-apimodels-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-apirequest (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-apirequest-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-apirequest common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apirequest-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %get-backend-apirequest-resource-config
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apirequest-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apirequest-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-apirequest 'make-get-backend-apirequest))
+ (common-lisp:defun make-get-backend-apirequest
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-apirequest
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3608,21 +4701,40 @@
                           get-backend-apirequest))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-apiresp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-apiresp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-apiresp-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresp-obj-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %get-backend-apiresp-obj-resource-config
+                         :initform common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-apiresp-obj 'make-get-backend-apiresp-obj))
+ (common-lisp:defun make-get-backend-apiresp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-apiresp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3675,19 +4787,38 @@
                           get-backend-apiresp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-apiresponse (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-apiresponse-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-apiresponse common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresponse-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %get-backend-apiresponse-resource-config
+                         :initform common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresponse-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresponse-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-apiresponse-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-apiresponse 'make-get-backend-apiresponse))
+ (common-lisp:defun make-get-backend-apiresponse
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-apiresponse
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3740,13 +4871,19 @@
                           get-backend-apiresponse))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-auth-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-auth-req-obj-"))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-auth-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-req-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-auth-req-obj 'make-get-backend-auth-req-obj))
+ (common-lisp:defun make-get-backend-auth-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-auth-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3770,18 +4907,31 @@
                           get-backend-auth-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-auth-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-auth-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-auth-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-request-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-auth-request 'make-get-backend-auth-request))
+ (common-lisp:defun make-get-backend-auth-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-auth-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3805,22 +4955,41 @@
                           get-backend-auth-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-auth-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-auth-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or create-backend-auth-resource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-auth-resp-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-resp-obj-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or create-backend-auth-resource-config
+                                         common-lisp:null)
+                         :accessor %get-backend-auth-resp-obj-resource-config
+                         :initform common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-resp-obj-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-auth-resp-obj
                     'make-get-backend-auth-resp-obj))
+ (common-lisp:defun make-get-backend-auth-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-auth-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3873,20 +5042,39 @@
                           get-backend-auth-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-auth-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-auth-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or create-backend-auth-resource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-auth-response common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-response-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or create-backend-auth-resource-config
+                                         common-lisp:null)
+                         :accessor %get-backend-auth-response-resource-config
+                         :initform common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-auth-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-auth-response
                     'make-get-backend-auth-response))
+ (common-lisp:defun make-get-backend-auth-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-auth-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3939,18 +5127,30 @@
                           get-backend-auth-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-job-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-job-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id (common-lisp:error ":job-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-job-request common-lisp:nil
+                       ((job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-request-job-id :initform
+                         (common-lisp:error ":job-id is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-job-request 'make-get-backend-job-request))
+ (common-lisp:defun make-get-backend-job-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key job-id backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-job-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3967,23 +5167,49 @@
                           get-backend-job-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-job-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-job-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (create-time common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (update-time common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-job-response common-lisp:nil
+                       ((update-time :initarg :update-time :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-update-time :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-error :initform
+                         common-lisp:nil)
+                        (create-time :initarg :create-time :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-create-time :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-job-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-job-response 'make-get-backend-job-response))
+ (common-lisp:defun make-get-backend-job-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-time status operation job-id error
+                     create-time backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-job-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4057,13 +5283,20 @@
                           get-backend-job-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-req-obj-"))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-req-obj common-lisp:nil
+                       ((backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-req-obj-backend-environment-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-req-obj 'make-get-backend-req-obj))
+ (common-lisp:defun make-get-backend-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backend-environment-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-backend-req-obj))
    (common-lisp:append))
@@ -4082,15 +5315,24 @@
                         ((aws-sdk/generator/shape::input get-backend-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-request common-lisp:nil
+                       ((backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-request-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-request 'make-get-backend-request))
+ (common-lisp:defun make-get-backend-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-backend-request))
    (common-lisp:append))
@@ -4109,24 +5351,47 @@
                         ((aws-sdk/generator/shape::input get-backend-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-resp-obj-"))
-   (amplify-feature-flags common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (amplify-meta-config common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (app-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-list common-lisp:nil :type
-    (common-lisp:or list-of-string common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-resp-obj common-lisp:nil
+                       ((error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-resp-obj-error :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-resp-obj-backend-environment-name
+                         :initform common-lisp:nil)
+                        (backend-environment-list :initarg
+                         :backend-environment-list :type
+                         (common-lisp:or list-of-string common-lisp:null)
+                         :accessor
+                         %get-backend-resp-obj-backend-environment-list
+                         :initform common-lisp:nil)
+                        (app-name :initarg :app-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-resp-obj-app-name :initform
+                         common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))
+                        (amplify-meta-config :initarg :amplify-meta-config
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor %get-backend-resp-obj-amplify-meta-config
+                         :initform common-lisp:nil)
+                        (amplify-feature-flags :initarg :amplify-feature-flags
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor %get-backend-resp-obj-amplify-feature-flags
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-resp-obj 'make-get-backend-resp-obj))
+ (common-lisp:defun make-get-backend-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error backend-environment-name
+                     backend-environment-list app-name app-id
+                     amplify-meta-config amplify-feature-flags)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-backend-resp-obj))
    (common-lisp:append))
@@ -4189,23 +5454,47 @@
                         ((aws-sdk/generator/shape::input get-backend-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-response-"))
-   (amplify-feature-flags common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (amplify-meta-config common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (app-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-list common-lisp:nil :type
-    (common-lisp:or list-of-string common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-response common-lisp:nil
+                       ((error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-response-error :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (backend-environment-list :initarg
+                         :backend-environment-list :type
+                         (common-lisp:or list-of-string common-lisp:null)
+                         :accessor
+                         %get-backend-response-backend-environment-list
+                         :initform common-lisp:nil)
+                        (app-name :initarg :app-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-response-app-name :initform
+                         common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-response-app-id :initform
+                         common-lisp:nil)
+                        (amplify-meta-config :initarg :amplify-meta-config
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor %get-backend-response-amplify-meta-config
+                         :initform common-lisp:nil)
+                        (amplify-feature-flags :initarg :amplify-feature-flags
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor %get-backend-response-amplify-feature-flags
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-response 'make-get-backend-response))
+ (common-lisp:defun make-get-backend-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error backend-environment-name
+                     backend-environment-list app-name app-id
+                     amplify-meta-config amplify-feature-flags)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-backend-response))
    (common-lisp:append))
@@ -4268,14 +5557,20 @@
                         ((aws-sdk/generator/shape::input get-backend-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-storage-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-storage-req-obj-"))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-storage-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-req-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-storage-req-obj
                     'make-get-backend-storage-req-obj))
+ (common-lisp:defun make-get-backend-storage-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-storage-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4299,19 +5594,32 @@
                           get-backend-storage-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-storage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-storage-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-storage-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-request-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-storage-request
                     'make-get-backend-storage-request))
+ (common-lisp:defun make-get-backend-storage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-storage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4335,20 +5643,39 @@
                           get-backend-storage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-storage-resource-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-storage-resource-config-"))
-   (bucket-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (imported (common-lisp:error ":imported is required") :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (permissions common-lisp:nil :type
-    (common-lisp:or backend-storage-permissions common-lisp:null))
-   (service-name (common-lisp:error ":service-name is required") :type
-    (common-lisp:or service-name common-lisp:null)))
+ (common-lisp:defclass get-backend-storage-resource-config common-lisp:nil
+                       ((service-name :initarg :service-name :type
+                         (common-lisp:or service-name common-lisp:null)
+                         :accessor
+                         %get-backend-storage-resource-config-service-name
+                         :initform
+                         (common-lisp:error ":service-name is required"))
+                        (permissions :initarg :permissions :type
+                         (common-lisp:or backend-storage-permissions
+                                         common-lisp:null)
+                         :accessor
+                         %get-backend-storage-resource-config-permissions
+                         :initform common-lisp:nil)
+                        (imported :initarg :imported :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %get-backend-storage-resource-config-imported
+                         :initform (common-lisp:error ":imported is required"))
+                        (bucket-name :initarg :bucket-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-resource-config-bucket-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-storage-resource-config
                     'make-get-backend-storage-resource-config))
+ (common-lisp:defun make-get-backend-storage-resource-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key service-name permissions imported
+                     bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backend-storage-resource-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4393,21 +5720,38 @@
                           get-backend-storage-resource-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-storage-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-storage-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or get-backend-storage-resource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-storage-resp-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-resp-obj-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or get-backend-storage-resource-config
+                                         common-lisp:null)
+                         :accessor
+                         %get-backend-storage-resp-obj-resource-config
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-resp-obj-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backend-storage-resp-obj
                     'make-get-backend-storage-resp-obj))
+ (common-lisp:defun make-get-backend-storage-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-storage-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4453,19 +5797,36 @@
                           get-backend-storage-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backend-storage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backend-storage-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or get-backend-storage-resource-config common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-backend-storage-response common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-response-resource-name :initform
+                         common-lisp:nil)
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or get-backend-storage-resource-config
+                                         common-lisp:null)
+                         :accessor
+                         %get-backend-storage-response-resource-config
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-backend-storage-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backend-storage-response
                     'make-get-backend-storage-response))
+ (common-lisp:defun make-get-backend-storage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backend-storage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4511,15 +5872,23 @@
                           get-backend-storage-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-token-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-token-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (session-id (common-lisp:error ":session-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-token-request common-lisp:nil
+                       ((session-id :initarg :session-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-request-session-id :initform
+                         (common-lisp:error ":session-id is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-token-request 'make-get-token-request))
+ (common-lisp:defun make-get-token-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key session-id app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-token-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-token-request))
    (common-lisp:append))
@@ -4530,19 +5899,31 @@
                         ((aws-sdk/generator/shape::input get-token-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-token-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-token-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (challenge-code (common-lisp:error ":challenge-code is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (session-id (common-lisp:error ":session-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ttl (common-lisp:error ":ttl is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-token-resp-obj common-lisp:nil
+                       ((ttl :initarg :ttl :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-resp-obj-ttl :initform
+                         (common-lisp:error ":ttl is required"))
+                        (session-id :initarg :session-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-resp-obj-session-id :initform
+                         (common-lisp:error ":session-id is required"))
+                        (challenge-code :initarg :challenge-code :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-resp-obj-challenge-code :initform
+                         (common-lisp:error ":challenge-code is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-token-resp-obj 'make-get-token-resp-obj))
+ (common-lisp:defun make-get-token-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ttl session-id challenge-code app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-token-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-token-resp-obj))
    (common-lisp:append))
@@ -4581,17 +5962,30 @@
                         ((aws-sdk/generator/shape::input get-token-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-token-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-token-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (challenge-code common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (session-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ttl common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-token-response common-lisp:nil
+                       ((ttl :initarg :ttl :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-response-ttl :initform common-lisp:nil)
+                        (session-id :initarg :session-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-response-session-id :initform
+                         common-lisp:nil)
+                        (challenge-code :initarg :challenge-code :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-response-challenge-code :initform
+                         common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-token-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-token-response 'make-get-token-response))
+ (common-lisp:defun make-get-token-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ttl session-id challenge-code app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-token-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-token-response))
    (common-lisp:append))
@@ -4630,20 +6024,34 @@
                         ((aws-sdk/generator/shape::input get-token-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-backend-auth-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-backend-auth-req-obj-"))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (native-client-id (common-lisp:error ":native-client-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-pool-id (common-lisp:error ":user-pool-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (web-client-id (common-lisp:error ":web-client-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass import-backend-auth-req-obj common-lisp:nil
+                       ((web-client-id :initarg :web-client-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-req-obj-web-client-id :initform
+                         (common-lisp:error ":web-client-id is required"))
+                        (user-pool-id :initarg :user-pool-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-req-obj-user-pool-id :initform
+                         (common-lisp:error ":user-pool-id is required"))
+                        (native-client-id :initarg :native-client-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-req-obj-native-client-id
+                         :initform
+                         (common-lisp:error ":native-client-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-req-obj-identity-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'import-backend-auth-req-obj
                     'make-import-backend-auth-req-obj))
+ (common-lisp:defun make-import-backend-auth-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key web-client-id user-pool-id
+                     native-client-id identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'import-backend-auth-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4688,25 +6096,46 @@
                           import-backend-auth-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-backend-auth-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-backend-auth-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (native-client-id (common-lisp:error ":native-client-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-pool-id (common-lisp:error ":user-pool-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (web-client-id (common-lisp:error ":web-client-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass import-backend-auth-request common-lisp:nil
+                       ((web-client-id :initarg :web-client-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-request-web-client-id :initform
+                         (common-lisp:error ":web-client-id is required"))
+                        (user-pool-id :initarg :user-pool-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-request-user-pool-id :initform
+                         (common-lisp:error ":user-pool-id is required"))
+                        (native-client-id :initarg :native-client-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-request-native-client-id
+                         :initform
+                         (common-lisp:error ":native-client-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-request-identity-pool-id
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'import-backend-auth-request
                     'make-import-backend-auth-request))
+ (common-lisp:defun make-import-backend-auth-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key web-client-id user-pool-id
+                     native-client-id identity-pool-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'import-backend-auth-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4751,20 +6180,42 @@
                           import-backend-auth-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-backend-auth-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-backend-auth-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass import-backend-auth-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-auth-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'import-backend-auth-response
                     'make-import-backend-auth-response))
+ (common-lisp:defun make-import-backend-auth-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'import-backend-auth-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4824,16 +6275,26 @@
                           import-backend-auth-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-backend-storage-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-backend-storage-req-obj-"))
-   (bucket-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (service-name (common-lisp:error ":service-name is required") :type
-    (common-lisp:or service-name common-lisp:null)))
+ (common-lisp:defclass import-backend-storage-req-obj common-lisp:nil
+                       ((service-name :initarg :service-name :type
+                         (common-lisp:or service-name common-lisp:null)
+                         :accessor %import-backend-storage-req-obj-service-name
+                         :initform
+                         (common-lisp:error ":service-name is required"))
+                        (bucket-name :initarg :bucket-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-req-obj-bucket-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'import-backend-storage-req-obj
                     'make-import-backend-storage-req-obj))
+ (common-lisp:defun make-import-backend-storage-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key service-name bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'import-backend-storage-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4864,21 +6325,38 @@
                           import-backend-storage-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-backend-storage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-backend-storage-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (bucket-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (service-name (common-lisp:error ":service-name is required") :type
-    (common-lisp:or service-name common-lisp:null)))
+ (common-lisp:defclass import-backend-storage-request common-lisp:nil
+                       ((service-name :initarg :service-name :type
+                         (common-lisp:or service-name common-lisp:null)
+                         :accessor %import-backend-storage-request-service-name
+                         :initform
+                         (common-lisp:error ":service-name is required"))
+                        (bucket-name :initarg :bucket-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-request-bucket-name :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'import-backend-storage-request
                     'make-import-backend-storage-request))
+ (common-lisp:defun make-import-backend-storage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key service-name bucket-name
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'import-backend-storage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4909,17 +6387,35 @@
                           import-backend-storage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-backend-storage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-backend-storage-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass import-backend-storage-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-response-status :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-response-job-id :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %import-backend-storage-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'import-backend-storage-response
                     'make-import-backend-storage-response))
+ (common-lisp:defun make-import-backend-storage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status job-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'import-backend-storage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4965,14 +6461,20 @@
                           import-backend-storage-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (internal-service-exception (:copier common-lisp:nil)
-      (:conc-name "struct-shape-internal-service-exception-"))
-   (message common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass internal-service-exception common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %internal-service-exception-message :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'internal-service-exception
                     'make-internal-service-exception))
+ (common-lisp:defun make-internal-service-exception
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message)
+   (common-lisp:apply #'common-lisp:make-instance 'internal-service-exception
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4996,15 +6498,23 @@
                           internal-service-exception))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (limit-exceeded-exception (:copier common-lisp:nil)
-      (:conc-name "struct-shape-limit-exceeded-exception-"))
-   (limit-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (message common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass limit-exceeded-exception common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %limit-exceeded-exception-message :initform
+                         common-lisp:nil)
+                        (limit-type :initarg :limit-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %limit-exceeded-exception-limit-type :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception 'make-limit-exceeded-exception))
+ (common-lisp:defun make-limit-exceeded-exception
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message limit-type)
+   (common-lisp:apply #'common-lisp:make-instance 'limit-exceeded-exception
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5035,19 +6545,36 @@
                           limit-exceeded-exception))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backend-job-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backend-job-req-obj-"))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integerMin1Max25| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-backend-job-req-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-job-req-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-job-req-obj-operation :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-job-req-obj-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin1Max25| common-lisp:null)
+                         :accessor %list-backend-job-req-obj-max-results
+                         :initform common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-job-req-obj-job-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backend-job-req-obj 'make-list-backend-job-req-obj))
+ (common-lisp:defun make-list-backend-job-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation next-token max-results
+                     job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backend-job-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5099,16 +6626,25 @@
                           list-backend-job-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backend-job-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backend-job-resp-obj-"))
-   (jobs common-lisp:nil :type
-    (common-lisp:or list-of-backend-job-resp-obj common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-backend-job-resp-obj common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-job-resp-obj-next-token :initform
+                         common-lisp:nil)
+                        (jobs :initarg :jobs :type
+                         (common-lisp:or list-of-backend-job-resp-obj
+                                         common-lisp:null)
+                         :accessor %list-backend-job-resp-obj-jobs :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backend-job-resp-obj
                     'make-list-backend-job-resp-obj))
+ (common-lisp:defun make-list-backend-job-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token jobs)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backend-job-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5139,25 +6675,48 @@
                           list-backend-job-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backend-jobs-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backend-jobs-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integerMin1Max25| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-backend-jobs-request common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-jobs-request-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-jobs-request-operation :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-jobs-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin1Max25| common-lisp:null)
+                         :accessor %list-backend-jobs-request-max-results
+                         :initform common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-jobs-request-job-id :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-jobs-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-jobs-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-backend-jobs-request
                     'make-list-backend-jobs-request))
+ (common-lisp:defun make-list-backend-jobs-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation next-token max-results
+                     job-id backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backend-jobs-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5209,16 +6768,25 @@
                           list-backend-jobs-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backend-jobs-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backend-jobs-response-"))
-   (jobs common-lisp:nil :type
-    (common-lisp:or list-of-backend-job-resp-obj common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-backend-jobs-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-backend-jobs-response-next-token :initform
+                         common-lisp:nil)
+                        (jobs :initarg :jobs :type
+                         (common-lisp:or list-of-backend-job-resp-obj
+                                         common-lisp:null)
+                         :accessor %list-backend-jobs-response-jobs :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backend-jobs-response
                     'make-list-backend-jobs-response))
+ (common-lisp:defun make-list-backend-jobs-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token jobs)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backend-jobs-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5249,13 +6817,19 @@
                           list-backend-jobs-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-s3buckets-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-s3buckets-req-obj-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-s3buckets-req-obj common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-s3buckets-req-obj-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-s3buckets-req-obj 'make-list-s3buckets-req-obj))
+ (common-lisp:defun make-list-s3buckets-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-s3buckets-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5279,13 +6853,19 @@
                           list-s3buckets-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-s3buckets-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-s3buckets-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-s3buckets-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-s3buckets-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-s3buckets-request 'make-list-s3buckets-request))
+ (common-lisp:defun make-list-s3buckets-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-s3buckets-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5309,15 +6889,24 @@
                           list-s3buckets-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-s3buckets-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-s3buckets-resp-obj-"))
-   (buckets (common-lisp:error ":buckets is required") :type
-    (common-lisp:or list-of-s3bucket-info common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-s3buckets-resp-obj common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-s3buckets-resp-obj-next-token :initform
+                         common-lisp:nil)
+                        (buckets :initarg :buckets :type
+                         (common-lisp:or list-of-s3bucket-info
+                                         common-lisp:null)
+                         :accessor %list-s3buckets-resp-obj-buckets :initform
+                         (common-lisp:error ":buckets is required"))))
  (common-lisp:export
   (common-lisp:list 'list-s3buckets-resp-obj 'make-list-s3buckets-resp-obj))
+ (common-lisp:defun make-list-s3buckets-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token buckets)
+   (common-lisp:apply #'common-lisp:make-instance 'list-s3buckets-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5348,15 +6937,24 @@
                           list-s3buckets-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-s3buckets-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-s3buckets-response-"))
-   (buckets common-lisp:nil :type
-    (common-lisp:or list-of-s3bucket-info common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-s3buckets-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-s3buckets-response-next-token :initform
+                         common-lisp:nil)
+                        (buckets :initarg :buckets :type
+                         (common-lisp:or list-of-s3bucket-info
+                                         common-lisp:null)
+                         :accessor %list-s3buckets-response-buckets :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-s3buckets-response 'make-list-s3buckets-response))
+ (common-lisp:defun make-list-s3buckets-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token buckets)
+   (common-lisp:apply #'common-lisp:make-instance 'list-s3buckets-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5387,20 +6985,36 @@
                           list-s3buckets-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (login-auth-config-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-login-auth-config-req-obj-"))
-   (aws-cognito-identity-pool-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (aws-cognito-region common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (aws-user-pools-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (aws-user-pools-web-client-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass login-auth-config-req-obj common-lisp:nil
+                       ((aws-user-pools-web-client-id :initarg
+                         :aws-user-pools-web-client-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %login-auth-config-req-obj-aws-user-pools-web-client-id
+                         :initform common-lisp:nil)
+                        (aws-user-pools-id :initarg :aws-user-pools-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %login-auth-config-req-obj-aws-user-pools-id :initform
+                         common-lisp:nil)
+                        (aws-cognito-region :initarg :aws-cognito-region :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %login-auth-config-req-obj-aws-cognito-region
+                         :initform common-lisp:nil)
+                        (aws-cognito-identity-pool-id :initarg
+                         :aws-cognito-identity-pool-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %login-auth-config-req-obj-aws-cognito-identity-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'login-auth-config-req-obj
                     'make-login-auth-config-req-obj))
+ (common-lisp:defun make-login-auth-config-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key aws-user-pools-web-client-id
+                     aws-user-pools-id aws-cognito-region
+                     aws-cognito-identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'login-auth-config-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5460,14 +7074,21 @@
                     'not-found-exception-resource-type)))
 (common-lisp:deftype oauth-grant-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-all-backends-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-all-backends-req-obj-"))
-   (clean-amplify-app common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass remove-all-backends-req-obj common-lisp:nil
+                       ((clean-amplify-app :initarg :clean-amplify-app :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %remove-all-backends-req-obj-clean-amplify-app
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'remove-all-backends-req-obj
                     'make-remove-all-backends-req-obj))
+ (common-lisp:defun make-remove-all-backends-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key clean-amplify-app)
+   (common-lisp:apply #'common-lisp:make-instance 'remove-all-backends-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5491,16 +7112,25 @@
                           remove-all-backends-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-all-backends-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-all-backends-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (clean-amplify-app common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass remove-all-backends-request common-lisp:nil
+                       ((clean-amplify-app :initarg :clean-amplify-app :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %remove-all-backends-request-clean-amplify-app
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'remove-all-backends-request
                     'make-remove-all-backends-request))
+ (common-lisp:defun make-remove-all-backends-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key clean-amplify-app app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'remove-all-backends-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5524,19 +7154,36 @@
                           remove-all-backends-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-all-backends-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-all-backends-resp-obj-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass remove-all-backends-resp-obj common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-resp-obj-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-resp-obj-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-resp-obj-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-resp-obj-error :initform
+                         common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-resp-obj-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'remove-all-backends-resp-obj
                     'make-remove-all-backends-resp-obj))
+ (common-lisp:defun make-remove-all-backends-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'remove-all-backends-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5588,18 +7235,36 @@
                           remove-all-backends-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-all-backends-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-all-backends-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass remove-all-backends-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-response-error :initform
+                         common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-all-backends-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'remove-all-backends-response
                     'make-remove-all-backends-response))
+ (common-lisp:defun make-remove-all-backends-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'remove-all-backends-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5651,14 +7316,20 @@
                           remove-all-backends-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-backend-auth-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-backend-auth-req-obj-"))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass remove-backend-auth-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-backend-auth-req-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))))
  (common-lisp:export
   (common-lisp:list 'remove-backend-auth-req-obj
                     'make-remove-backend-auth-req-obj))
+ (common-lisp:defun make-remove-backend-auth-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name)
+   (common-lisp:apply #'common-lisp:make-instance 'remove-backend-auth-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5682,14 +7353,21 @@
                           remove-backend-auth-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-backend-config-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-backend-config-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass remove-backend-config-request common-lisp:nil
+                       ((app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-backend-config-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'remove-backend-config-request
                     'make-remove-backend-config-request))
+ (common-lisp:defun make-remove-backend-config-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'remove-backend-config-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5706,13 +7384,21 @@
                           remove-backend-config-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-backend-config-resp-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-backend-config-resp-obj-"))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass remove-backend-config-resp-obj common-lisp:nil
+                       ((error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-backend-config-resp-obj-error :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'remove-backend-config-resp-obj
                     'make-remove-backend-config-resp-obj))
+ (common-lisp:defun make-remove-backend-config-resp-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'remove-backend-config-resp-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5736,13 +7422,21 @@
                           remove-backend-config-resp-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-backend-config-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-backend-config-response-"))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass remove-backend-config-response common-lisp:nil
+                       ((error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-backend-config-response-error :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'remove-backend-config-response
                     'make-remove-backend-config-response))
+ (common-lisp:defun make-remove-backend-config-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'remove-backend-config-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5766,16 +7460,27 @@
                           remove-backend-config-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-backend-storage-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-backend-storage-req-obj-"))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (service-name (common-lisp:error ":service-name is required") :type
-    (common-lisp:or service-name common-lisp:null)))
+ (common-lisp:defclass remove-backend-storage-req-obj common-lisp:nil
+                       ((service-name :initarg :service-name :type
+                         (common-lisp:or service-name common-lisp:null)
+                         :accessor %remove-backend-storage-req-obj-service-name
+                         :initform
+                         (common-lisp:error ":service-name is required"))
+                        (resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %remove-backend-storage-req-obj-resource-name
+                         :initform
+                         (common-lisp:error ":resource-name is required"))))
  (common-lisp:export
   (common-lisp:list 'remove-backend-storage-req-obj
                     'make-remove-backend-storage-req-obj))
+ (common-lisp:defun make-remove-backend-storage-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key service-name resource-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'remove-backend-storage-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5807,10 +7512,14 @@
    common-lisp:nil))
 (common-lisp:deftype resolution-strategy () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (resource-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-resource-config-")))
+ (common-lisp:defclass resource-config common-lisp:nil common-lisp:nil)
  (common-lisp:export (common-lisp:list 'resource-config 'make-resource-config))
+ (common-lisp:defun make-resource-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'resource-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input resource-config))
    (common-lisp:append))
@@ -5821,13 +7530,21 @@
                         ((aws-sdk/generator/shape::input resource-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3bucket-info (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3bucket-info-"))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass s3bucket-info common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %s3bucket-info-name :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %s3bucket-info-creation-date :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 's3bucket-info 'make-s3bucket-info))
+ (common-lisp:defun make-s3bucket-info
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name creation-date)
+   (common-lisp:apply #'common-lisp:make-instance 's3bucket-info
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3bucket-info))
    (common-lisp:append))
@@ -5854,13 +7571,22 @@
 (common-lisp:deftype service () 'common-lisp:string)
 (common-lisp:deftype service-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (settings (:copier common-lisp:nil) (:conc-name "struct-shape-settings-"))
-   (mfa-types common-lisp:nil :type
-    (common-lisp:or list-of-mfa-types-element common-lisp:null))
-   (sms-message common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass settings common-lisp:nil
+                       ((sms-message :initarg :sms-message :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %settings-sms-message :initform common-lisp:nil)
+                        (mfa-types :initarg :mfa-types :type
+                         (common-lisp:or list-of-mfa-types-element
+                                         common-lisp:null)
+                         :accessor %settings-mfa-types :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'settings 'make-settings))
+ (common-lisp:defun make-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sms-message mfa-types)
+   (common-lisp:apply #'common-lisp:make-instance 'settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input settings))
    (common-lisp:append))
@@ -5886,12 +7612,17 @@
    common-lisp:nil))
 (common-lisp:deftype sign-in-method () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (sms-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sms-settings-"))
-   (sms-message common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass sms-settings common-lisp:nil
+                       ((sms-message :initarg :sms-message :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %sms-settings-sms-message :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'sms-settings 'make-sms-settings))
+ (common-lisp:defun make-sms-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sms-message)
+   (common-lisp:apply #'common-lisp:make-instance 'sms-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input sms-settings))
    (common-lisp:append))
@@ -5909,19 +7640,36 @@
                         ((aws-sdk/generator/shape::input sms-settings))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (social-provider-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-social-provider-settings-"))
-   (facebook common-lisp:nil :type
-    (common-lisp:or backend-auth-social-provider-config common-lisp:null))
-   (google common-lisp:nil :type
-    (common-lisp:or backend-auth-social-provider-config common-lisp:null))
-   (login-with-amazon common-lisp:nil :type
-    (common-lisp:or backend-auth-social-provider-config common-lisp:null))
-   (sign-in-with-apple common-lisp:nil :type
-    (common-lisp:or backend-auth-apple-provider-config common-lisp:null)))
+ (common-lisp:defclass social-provider-settings common-lisp:nil
+                       ((sign-in-with-apple :initarg :sign-in-with-apple :type
+                         (common-lisp:or backend-auth-apple-provider-config
+                                         common-lisp:null)
+                         :accessor %social-provider-settings-sign-in-with-apple
+                         :initform common-lisp:nil)
+                        (login-with-amazon :initarg :login-with-amazon :type
+                         (common-lisp:or backend-auth-social-provider-config
+                                         common-lisp:null)
+                         :accessor %social-provider-settings-login-with-amazon
+                         :initform common-lisp:nil)
+                        (google :initarg :google :type
+                         (common-lisp:or backend-auth-social-provider-config
+                                         common-lisp:null)
+                         :accessor %social-provider-settings-google :initform
+                         common-lisp:nil)
+                        (facebook :initarg :facebook :type
+                         (common-lisp:or backend-auth-social-provider-config
+                                         common-lisp:null)
+                         :accessor %social-provider-settings-facebook :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'social-provider-settings 'make-social-provider-settings))
+ (common-lisp:defun make-social-provider-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sign-in-with-apple login-with-amazon
+                     google facebook)
+   (common-lisp:apply #'common-lisp:make-instance 'social-provider-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5978,21 +7726,37 @@
                     'too-many-requests-exception-limit-type
                     'too-many-requests-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-apirequest (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-apirequest-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config common-lisp:nil :type
-    (common-lisp:or backend-apiresource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-apirequest common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apirequest-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or backend-apiresource-config
+                                         common-lisp:null)
+                         :accessor %update-backend-apirequest-resource-config
+                         :initform common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apirequest-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apirequest-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-apirequest
                     'make-update-backend-apirequest))
+ (common-lisp:defun make-update-backend-apirequest
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backend-apirequest
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6023,20 +7787,42 @@
                           update-backend-apirequest))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-apiresponse (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-apiresponse-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-apiresponse common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apiresponse-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apiresponse-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apiresponse-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apiresponse-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apiresponse-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-apiresponse-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-apiresponse
                     'make-update-backend-apiresponse))
+ (common-lisp:defun make-update-backend-apiresponse
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backend-apiresponse
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6096,18 +7882,34 @@
                           update-backend-apiresponse))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-forgot-password-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-forgot-password-config-"))
-   (delivery-method common-lisp:nil :type
-    (common-lisp:or delivery-method common-lisp:null))
-   (email-settings common-lisp:nil :type
-    (common-lisp:or email-settings common-lisp:null))
-   (sms-settings common-lisp:nil :type
-    (common-lisp:or sms-settings common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-forgot-password-config
+                       common-lisp:nil
+                       ((sms-settings :initarg :sms-settings :type
+                         (common-lisp:or sms-settings common-lisp:null)
+                         :accessor
+                         %update-backend-auth-forgot-password-config-sms-settings
+                         :initform common-lisp:nil)
+                        (email-settings :initarg :email-settings :type
+                         (common-lisp:or email-settings common-lisp:null)
+                         :accessor
+                         %update-backend-auth-forgot-password-config-email-settings
+                         :initform common-lisp:nil)
+                        (delivery-method :initarg :delivery-method :type
+                         (common-lisp:or delivery-method common-lisp:null)
+                         :accessor
+                         %update-backend-auth-forgot-password-config-delivery-method
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-forgot-password-config
                     'make-update-backend-auth-forgot-password-config))
+ (common-lisp:defun make-update-backend-auth-forgot-password-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sms-settings email-settings
+                     delivery-method)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-forgot-password-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6145,14 +7947,22 @@
                           update-backend-auth-forgot-password-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-identity-pool-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-identity-pool-config-"))
-   (unauthenticated-login common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-identity-pool-config common-lisp:nil
+                       ((unauthenticated-login :initarg :unauthenticated-login
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %update-backend-auth-identity-pool-config-unauthenticated-login
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-identity-pool-config
                     'make-update-backend-auth-identity-pool-config))
+ (common-lisp:defun make-update-backend-auth-identity-pool-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key unauthenticated-login)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-identity-pool-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6177,14 +7987,25 @@
                           update-backend-auth-identity-pool-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-mfaconfig (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-mfaconfig-"))
-   (mfamode common-lisp:nil :type (common-lisp:or mfamode common-lisp:null))
-   (settings common-lisp:nil :type (common-lisp:or settings common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-mfaconfig common-lisp:nil
+                       ((settings :initarg :settings :type
+                         (common-lisp:or settings common-lisp:null) :accessor
+                         %update-backend-auth-mfaconfig-settings :initform
+                         common-lisp:nil)
+                        (mfamode :initarg :mfamode :type
+                         (common-lisp:or mfamode common-lisp:null) :accessor
+                         %update-backend-auth-mfaconfig-mfamode :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-mfaconfig
                     'make-update-backend-auth-mfaconfig))
+ (common-lisp:defun make-update-backend-auth-mfaconfig
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key settings mfamode)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-mfaconfig
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6215,24 +8036,52 @@
                           update-backend-auth-mfaconfig))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-oauth-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-oauth-config-"))
-   (domain-prefix common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (oauth-grant-type common-lisp:nil :type
-    (common-lisp:or oauth-grant-type common-lisp:null))
-   (oauth-scopes common-lisp:nil :type
-    (common-lisp:or list-of-oauth-scopes-element common-lisp:null))
-   (redirect-sign-in-uris common-lisp:nil :type
-    (common-lisp:or list-of-string common-lisp:null))
-   (redirect-sign-out-uris common-lisp:nil :type
-    (common-lisp:or list-of-string common-lisp:null))
-   (social-provider-settings common-lisp:nil :type
-    (common-lisp:or social-provider-settings common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-oauth-config common-lisp:nil
+                       ((social-provider-settings :initarg
+                         :social-provider-settings :type
+                         (common-lisp:or social-provider-settings
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-auth-oauth-config-social-provider-settings
+                         :initform common-lisp:nil)
+                        (redirect-sign-out-uris :initarg
+                         :redirect-sign-out-uris :type
+                         (common-lisp:or list-of-string common-lisp:null)
+                         :accessor
+                         %update-backend-auth-oauth-config-redirect-sign-out-uris
+                         :initform common-lisp:nil)
+                        (redirect-sign-in-uris :initarg :redirect-sign-in-uris
+                         :type (common-lisp:or list-of-string common-lisp:null)
+                         :accessor
+                         %update-backend-auth-oauth-config-redirect-sign-in-uris
+                         :initform common-lisp:nil)
+                        (oauth-scopes :initarg :oauth-scopes :type
+                         (common-lisp:or list-of-oauth-scopes-element
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-auth-oauth-config-oauth-scopes
+                         :initform common-lisp:nil)
+                        (oauth-grant-type :initarg :oauth-grant-type :type
+                         (common-lisp:or oauth-grant-type common-lisp:null)
+                         :accessor
+                         %update-backend-auth-oauth-config-oauth-grant-type
+                         :initform common-lisp:nil)
+                        (domain-prefix :initarg :domain-prefix :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-oauth-config-domain-prefix
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-oauth-config
                     'make-update-backend-auth-oauth-config))
+ (common-lisp:defun make-update-backend-auth-oauth-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key social-provider-settings
+                     redirect-sign-out-uris redirect-sign-in-uris oauth-scopes
+                     oauth-grant-type domain-prefix)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-oauth-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6294,16 +8143,29 @@
                           update-backend-auth-oauth-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-password-policy-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-password-policy-config-"))
-   (additional-constraints common-lisp:nil :type
-    (common-lisp:or list-of-additional-constraints-element common-lisp:null))
-   (minimum-length common-lisp:nil :type
-    (common-lisp:or |__double| common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-password-policy-config
+                       common-lisp:nil
+                       ((minimum-length :initarg :minimum-length :type
+                         (common-lisp:or |__double| common-lisp:null) :accessor
+                         %update-backend-auth-password-policy-config-minimum-length
+                         :initform common-lisp:nil)
+                        (additional-constraints :initarg
+                         :additional-constraints :type
+                         (common-lisp:or list-of-additional-constraints-element
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-auth-password-policy-config-additional-constraints
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-password-policy-config
                     'make-update-backend-auth-password-policy-config))
+ (common-lisp:defun make-update-backend-auth-password-policy-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key minimum-length additional-constraints)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-password-policy-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6335,16 +8197,26 @@
                           update-backend-auth-password-policy-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-req-obj-"))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or update-backend-auth-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-req-obj-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or update-backend-auth-resource-config
+                                         common-lisp:null)
+                         :accessor %update-backend-auth-req-obj-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-req-obj
                     'make-update-backend-auth-req-obj))
+ (common-lisp:defun make-update-backend-auth-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backend-auth-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6375,21 +8247,38 @@
                           update-backend-auth-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or update-backend-auth-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-request-resource-name :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or update-backend-auth-resource-config
+                                         common-lisp:null)
+                         :accessor %update-backend-auth-request-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-request
                     'make-update-backend-auth-request))
+ (common-lisp:defun make-update-backend-auth-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backend-auth-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6420,21 +8309,43 @@
                           update-backend-auth-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-resource-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-resource-config-"))
-   (auth-resources (common-lisp:error ":auth-resources is required") :type
-    (common-lisp:or auth-resources common-lisp:null))
-   (identity-pool-configs common-lisp:nil :type
-    (common-lisp:or update-backend-auth-identity-pool-config common-lisp:null))
-   (service (common-lisp:error ":service is required") :type
-    (common-lisp:or service common-lisp:null))
-   (user-pool-configs (common-lisp:error ":user-pool-configs is required")
-    :type
-    (common-lisp:or update-backend-auth-user-pool-config common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-resource-config common-lisp:nil
+                       ((user-pool-configs :initarg :user-pool-configs :type
+                         (common-lisp:or update-backend-auth-user-pool-config
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-auth-resource-config-user-pool-configs
+                         :initform
+                         (common-lisp:error ":user-pool-configs is required"))
+                        (service :initarg :service :type
+                         (common-lisp:or service common-lisp:null) :accessor
+                         %update-backend-auth-resource-config-service :initform
+                         (common-lisp:error ":service is required"))
+                        (identity-pool-configs :initarg :identity-pool-configs
+                         :type
+                         (common-lisp:or
+                          update-backend-auth-identity-pool-config
+                          common-lisp:null)
+                         :accessor
+                         %update-backend-auth-resource-config-identity-pool-configs
+                         :initform common-lisp:nil)
+                        (auth-resources :initarg :auth-resources :type
+                         (common-lisp:or auth-resources common-lisp:null)
+                         :accessor
+                         %update-backend-auth-resource-config-auth-resources
+                         :initform
+                         (common-lisp:error ":auth-resources is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-resource-config
                     'make-update-backend-auth-resource-config))
+ (common-lisp:defun make-update-backend-auth-resource-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key user-pool-configs service
+                     identity-pool-configs auth-resources)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-resource-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6480,20 +8391,42 @@
                           update-backend-auth-resource-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-response-error :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-auth-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-response
                     'make-update-backend-auth-response))
+ (common-lisp:defun make-update-backend-auth-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id error
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backend-auth-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6553,25 +8486,50 @@
                           update-backend-auth-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-user-pool-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-auth-user-pool-config-"))
-   (forgot-password common-lisp:nil :type
-    (common-lisp:or update-backend-auth-forgot-password-config
-                    common-lisp:null))
-   (mfa common-lisp:nil :type
-    (common-lisp:or update-backend-auth-mfaconfig common-lisp:null))
-   (oauth common-lisp:nil :type
-    (common-lisp:or update-backend-auth-oauth-config common-lisp:null))
-   (password-policy common-lisp:nil :type
-    (common-lisp:or update-backend-auth-password-policy-config
-                    common-lisp:null))
-   (verification-message common-lisp:nil :type
-    (common-lisp:or update-backend-auth-verification-message-config
-                    common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-user-pool-config common-lisp:nil
+                       ((verification-message :initarg :verification-message
+                         :type
+                         (common-lisp:or
+                          update-backend-auth-verification-message-config
+                          common-lisp:null)
+                         :accessor
+                         %update-backend-auth-user-pool-config-verification-message
+                         :initform common-lisp:nil)
+                        (password-policy :initarg :password-policy :type
+                         (common-lisp:or
+                          update-backend-auth-password-policy-config
+                          common-lisp:null)
+                         :accessor
+                         %update-backend-auth-user-pool-config-password-policy
+                         :initform common-lisp:nil)
+                        (oauth :initarg :oauth :type
+                         (common-lisp:or update-backend-auth-oauth-config
+                                         common-lisp:null)
+                         :accessor %update-backend-auth-user-pool-config-oauth
+                         :initform common-lisp:nil)
+                        (mfa :initarg :mfa :type
+                         (common-lisp:or update-backend-auth-mfaconfig
+                                         common-lisp:null)
+                         :accessor %update-backend-auth-user-pool-config-mfa
+                         :initform common-lisp:nil)
+                        (forgot-password :initarg :forgot-password :type
+                         (common-lisp:or
+                          update-backend-auth-forgot-password-config
+                          common-lisp:null)
+                         :accessor
+                         %update-backend-auth-user-pool-config-forgot-password
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-user-pool-config
                     'make-update-backend-auth-user-pool-config))
+ (common-lisp:defun make-update-backend-auth-user-pool-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key verification-message password-policy
+                     oauth mfa forgot-password)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-user-pool-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6624,19 +8582,35 @@
                           update-backend-auth-user-pool-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-auth-verification-message-config (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-backend-auth-verification-message-config-"))
-   (delivery-method (common-lisp:error ":delivery-method is required") :type
-    (common-lisp:or delivery-method common-lisp:null))
-   (email-settings common-lisp:nil :type
-    (common-lisp:or email-settings common-lisp:null))
-   (sms-settings common-lisp:nil :type
-    (common-lisp:or sms-settings common-lisp:null)))
+ (common-lisp:defclass update-backend-auth-verification-message-config
+                       common-lisp:nil
+                       ((sms-settings :initarg :sms-settings :type
+                         (common-lisp:or sms-settings common-lisp:null)
+                         :accessor
+                         %update-backend-auth-verification-message-config-sms-settings
+                         :initform common-lisp:nil)
+                        (email-settings :initarg :email-settings :type
+                         (common-lisp:or email-settings common-lisp:null)
+                         :accessor
+                         %update-backend-auth-verification-message-config-email-settings
+                         :initform common-lisp:nil)
+                        (delivery-method :initarg :delivery-method :type
+                         (common-lisp:or delivery-method common-lisp:null)
+                         :accessor
+                         %update-backend-auth-verification-message-config-delivery-method
+                         :initform
+                         (common-lisp:error ":delivery-method is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-auth-verification-message-config
                     'make-update-backend-auth-verification-message-config))
+ (common-lisp:defun make-update-backend-auth-verification-message-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sms-settings email-settings
+                     delivery-method)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-auth-verification-message-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6674,14 +8648,23 @@
                           update-backend-auth-verification-message-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-config-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-config-req-obj-"))
-   (login-auth-config common-lisp:nil :type
-    (common-lisp:or login-auth-config-req-obj common-lisp:null)))
+ (common-lisp:defclass update-backend-config-req-obj common-lisp:nil
+                       ((login-auth-config :initarg :login-auth-config :type
+                         (common-lisp:or login-auth-config-req-obj
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-config-req-obj-login-auth-config
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-config-req-obj
                     'make-update-backend-config-req-obj))
+ (common-lisp:defun make-update-backend-config-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key login-auth-config)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-config-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6705,16 +8688,27 @@
                           update-backend-config-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-config-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-config-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (login-auth-config common-lisp:nil :type
-    (common-lisp:or login-auth-config-req-obj common-lisp:null)))
+ (common-lisp:defclass update-backend-config-request common-lisp:nil
+                       ((login-auth-config :initarg :login-auth-config :type
+                         (common-lisp:or login-auth-config-req-obj
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-config-request-login-auth-config
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-config-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-config-request
                     'make-update-backend-config-request))
+ (common-lisp:defun make-update-backend-config-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key login-auth-config app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-config-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6738,18 +8732,37 @@
                           update-backend-config-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-config-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-config-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-manager-app-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (login-auth-config common-lisp:nil :type
-    (common-lisp:or login-auth-config-req-obj common-lisp:null)))
+ (common-lisp:defclass update-backend-config-response common-lisp:nil
+                       ((login-auth-config :initarg :login-auth-config :type
+                         (common-lisp:or login-auth-config-req-obj
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-config-response-login-auth-config
+                         :initform common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-config-response-error :initform
+                         common-lisp:nil)
+                        (backend-manager-app-id :initarg
+                         :backend-manager-app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-config-response-backend-manager-app-id
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-config-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-config-response
                     'make-update-backend-config-response))
+ (common-lisp:defun make-update-backend-config-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key login-auth-config error
+                     backend-manager-app-id app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-config-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6795,22 +8808,40 @@
                           update-backend-config-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-job-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-job-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id (common-lisp:error ":job-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-job-request common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-request-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-request-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-request-job-id :initform
+                         (common-lisp:error ":job-id is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-job-request
                     'make-update-backend-job-request))
+ (common-lisp:defun make-update-backend-job-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status operation job-id
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backend-job-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6841,24 +8872,50 @@
                           update-backend-job-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-job-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-job-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (create-time common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (error common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (update-time common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-job-response common-lisp:nil
+                       ((update-time :initarg :update-time :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-update-time :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-status :initform
+                         common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-operation :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-job-id :initform
+                         common-lisp:nil)
+                        (error :initarg :error :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-error :initform
+                         common-lisp:nil)
+                        (create-time :initarg :create-time :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-create-time :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-job-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-job-response
                     'make-update-backend-job-response))
+ (common-lisp:defun make-update-backend-job-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-time status operation job-id error
+                     create-time backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backend-job-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6932,16 +8989,29 @@
                           update-backend-job-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-storage-req-obj (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-storage-req-obj-"))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or update-backend-storage-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-storage-req-obj common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-req-obj-resource-name
+                         :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or update-backend-storage-resource-config
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-storage-req-obj-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-storage-req-obj
                     'make-update-backend-storage-req-obj))
+ (common-lisp:defun make-update-backend-storage-req-obj
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-storage-req-obj
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6972,21 +9042,41 @@
                           update-backend-storage-req-obj))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-storage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-storage-request-"))
-   (app-id (common-lisp:error ":app-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name
-    (common-lisp:error ":backend-environment-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (resource-config (common-lisp:error ":resource-config is required") :type
-    (common-lisp:or update-backend-storage-resource-config common-lisp:null))
-   (resource-name (common-lisp:error ":resource-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-storage-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-request-resource-name
+                         :initform
+                         (common-lisp:error ":resource-name is required"))
+                        (resource-config :initarg :resource-config :type
+                         (common-lisp:or update-backend-storage-resource-config
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-storage-request-resource-config
+                         :initform
+                         (common-lisp:error ":resource-config is required"))
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-request-backend-environment-name
+                         :initform
+                         (common-lisp:error
+                          ":backend-environment-name is required"))
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-request-app-id :initform
+                         (common-lisp:error ":app-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-storage-request
                     'make-update-backend-storage-request))
+ (common-lisp:defun make-update-backend-storage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name resource-config
+                     backend-environment-name app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-storage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7017,16 +9107,30 @@
                           update-backend-storage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-storage-resource-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-storage-resource-config-"))
-   (permissions (common-lisp:error ":permissions is required") :type
-    (common-lisp:or backend-storage-permissions common-lisp:null))
-   (service-name (common-lisp:error ":service-name is required") :type
-    (common-lisp:or service-name common-lisp:null)))
+ (common-lisp:defclass update-backend-storage-resource-config common-lisp:nil
+                       ((service-name :initarg :service-name :type
+                         (common-lisp:or service-name common-lisp:null)
+                         :accessor
+                         %update-backend-storage-resource-config-service-name
+                         :initform
+                         (common-lisp:error ":service-name is required"))
+                        (permissions :initarg :permissions :type
+                         (common-lisp:or backend-storage-permissions
+                                         common-lisp:null)
+                         :accessor
+                         %update-backend-storage-resource-config-permissions
+                         :initform
+                         (common-lisp:error ":permissions is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backend-storage-resource-config
                     'make-update-backend-storage-resource-config))
+ (common-lisp:defun make-update-backend-storage-resource-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key service-name permissions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-storage-resource-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7057,17 +9161,35 @@
                           update-backend-storage-resource-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backend-storage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backend-storage-response-"))
-   (app-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (backend-environment-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (job-id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-backend-storage-response common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-response-status :initform
+                         common-lisp:nil)
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-response-job-id :initform
+                         common-lisp:nil)
+                        (backend-environment-name :initarg
+                         :backend-environment-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-response-backend-environment-name
+                         :initform common-lisp:nil)
+                        (app-id :initarg :app-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-backend-storage-response-app-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backend-storage-response
                     'make-update-backend-storage-response))
+ (common-lisp:defun make-update-backend-storage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status job-id backend-environment-name
+                     app-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-backend-storage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

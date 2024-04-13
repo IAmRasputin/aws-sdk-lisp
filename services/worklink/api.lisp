@@ -29,19 +29,37 @@
     ("UnauthorizedException" . unauthorized-exception)))
 (common-lisp:deftype acm-certificate-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-domain-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-domain-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (acm-certificate-arn (common-lisp:error ":acm-certificate-arn is required")
-    :type (common-lisp:or acm-certificate-arn common-lisp:null)))
+ (common-lisp:defclass associate-domain-request common-lisp:nil
+                       ((acm-certificate-arn :initarg :acm-certificate-arn
+                         :type
+                         (common-lisp:or acm-certificate-arn common-lisp:null)
+                         :accessor
+                         %associate-domain-request-acm-certificate-arn
+                         :initform
+                         (common-lisp:error
+                          ":acm-certificate-arn is required"))
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %associate-domain-request-display-name
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %associate-domain-request-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %associate-domain-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-domain-request 'make-associate-domain-request))
+ (common-lisp:defun make-associate-domain-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key acm-certificate-arn display-name
+                     domain-name fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'associate-domain-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -86,12 +104,17 @@
                           associate-domain-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-domain-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-domain-response-")))
+ (common-lisp:defclass associate-domain-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'associate-domain-response
                     'make-associate-domain-response))
+ (common-lisp:defun make-associate-domain-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'associate-domain-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -108,21 +131,38 @@
                           associate-domain-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-website-authorization-provider-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-website-authorization-provider-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (authorization-provider-type
-    (common-lisp:error ":authorization-provider-type is required") :type
-    (common-lisp:or authorization-provider-type common-lisp:null))
-   (domain-name common-lisp:nil :type
-    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:defclass associate-website-authorization-provider-request
+                       common-lisp:nil
+                       ((domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor
+                         %associate-website-authorization-provider-request-domain-name
+                         :initform common-lisp:nil)
+                        (authorization-provider-type :initarg
+                         :authorization-provider-type :type
+                         (common-lisp:or authorization-provider-type
+                                         common-lisp:null)
+                         :accessor
+                         %associate-website-authorization-provider-request-authorization-provider-type
+                         :initform
+                         (common-lisp:error
+                          ":authorization-provider-type is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %associate-website-authorization-provider-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-website-authorization-provider-request
                     'make-associate-website-authorization-provider-request))
+ (common-lisp:defun make-associate-website-authorization-provider-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key domain-name authorization-provider-type
+                     fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-website-authorization-provider-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -161,16 +201,23 @@
                           associate-website-authorization-provider-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-website-authorization-provider-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-website-authorization-provider-response-"))
-   (authorization-provider-id common-lisp:nil :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass associate-website-authorization-provider-response
+                       common-lisp:nil
+                       ((authorization-provider-id :initarg
+                         :authorization-provider-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %associate-website-authorization-provider-response-authorization-provider-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-website-authorization-provider-response
                     'make-associate-website-authorization-provider-response))
+ (common-lisp:defun make-associate-website-authorization-provider-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key authorization-provider-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-website-authorization-provider-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -195,19 +242,34 @@
                           associate-website-authorization-provider-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-website-certificate-authority-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-website-certificate-authority-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (certificate (common-lisp:error ":certificate is required") :type
-    (common-lisp:or certificate common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null)))
+ (common-lisp:defclass associate-website-certificate-authority-request
+                       common-lisp:nil
+                       ((display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor
+                         %associate-website-certificate-authority-request-display-name
+                         :initform common-lisp:nil)
+                        (certificate :initarg :certificate :type
+                         (common-lisp:or certificate common-lisp:null)
+                         :accessor
+                         %associate-website-certificate-authority-request-certificate
+                         :initform
+                         (common-lisp:error ":certificate is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %associate-website-certificate-authority-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-website-certificate-authority-request
                     'make-associate-website-certificate-authority-request))
+ (common-lisp:defun make-associate-website-certificate-authority-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key display-name certificate fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-website-certificate-authority-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -245,15 +307,22 @@
                           associate-website-certificate-authority-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-website-certificate-authority-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-website-certificate-authority-response-"))
-   (website-ca-id common-lisp:nil :type (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass associate-website-certificate-authority-response
+                       common-lisp:nil
+                       ((website-ca-id :initarg :website-ca-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %associate-website-certificate-authority-response-website-ca-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-website-certificate-authority-response
                     'make-associate-website-certificate-authority-response))
+ (common-lisp:defun make-associate-website-certificate-authority-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key website-ca-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-website-certificate-authority-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -283,18 +352,32 @@
 (common-lisp:deftype certificate-chain () 'common-lisp:string)
 (common-lisp:deftype company-code () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-fleet-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-fleet-request-"))
-   (fleet-name (common-lisp:error ":fleet-name is required") :type
-    (common-lisp:or fleet-name common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (optimize-for-end-user-location common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-fleet-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-fleet-request-tags :initform common-lisp:nil)
+                        (optimize-for-end-user-location :initarg
+                         :optimize-for-end-user-location :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %create-fleet-request-optimize-for-end-user-location
+                         :initform common-lisp:nil)
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %create-fleet-request-display-name :initform
+                         common-lisp:nil)
+                        (fleet-name :initarg :fleet-name :type
+                         (common-lisp:or fleet-name common-lisp:null) :accessor
+                         %create-fleet-request-fleet-name :initform
+                         (common-lisp:error ":fleet-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-fleet-request 'make-create-fleet-request))
+ (common-lisp:defun make-create-fleet-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags optimize-for-end-user-location
+                     display-name fleet-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-fleet-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-fleet-request))
    (common-lisp:append))
@@ -334,13 +417,19 @@
                         ((aws-sdk/generator/shape::input create-fleet-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-fleet-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-fleet-response-"))
-   (fleet-arn common-lisp:nil :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass create-fleet-response common-lisp:nil
+                       ((fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %create-fleet-response-fleet-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-fleet-response 'make-create-fleet-response))
+ (common-lisp:defun make-create-fleet-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-fleet-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -365,13 +454,19 @@
    common-lisp:nil))
 (common-lisp:deftype date-time () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-fleet-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-fleet-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass delete-fleet-request common-lisp:nil
+                       ((fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %delete-fleet-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-fleet-request 'make-delete-fleet-request))
+ (common-lisp:defun make-delete-fleet-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-fleet-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-fleet-request))
    (common-lisp:append))
@@ -389,11 +484,15 @@
                         ((aws-sdk/generator/shape::input delete-fleet-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-fleet-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-fleet-response-")))
+ (common-lisp:defclass delete-fleet-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-fleet-response 'make-delete-fleet-response))
+ (common-lisp:defun make-delete-fleet-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-fleet-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -410,14 +509,23 @@
                           delete-fleet-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-audit-stream-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-audit-stream-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass describe-audit-stream-configuration-request
+                       common-lisp:nil
+                       ((fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-audit-stream-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-audit-stream-configuration-request
                     'make-describe-audit-stream-configuration-request))
+ (common-lisp:defun make-describe-audit-stream-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-audit-stream-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -441,15 +549,23 @@
                           describe-audit-stream-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-audit-stream-configuration-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-audit-stream-configuration-response-"))
-   (audit-stream-arn common-lisp:nil :type
-    (common-lisp:or audit-stream-arn common-lisp:null)))
+ (common-lisp:defclass describe-audit-stream-configuration-response
+                       common-lisp:nil
+                       ((audit-stream-arn :initarg :audit-stream-arn :type
+                         (common-lisp:or audit-stream-arn common-lisp:null)
+                         :accessor
+                         %describe-audit-stream-configuration-response-audit-stream-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-audit-stream-configuration-response
                     'make-describe-audit-stream-configuration-response))
+ (common-lisp:defun make-describe-audit-stream-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key audit-stream-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-audit-stream-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -473,15 +589,23 @@
                           describe-audit-stream-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-company-network-configuration-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-company-network-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass describe-company-network-configuration-request
+                       common-lisp:nil
+                       ((fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-company-network-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-company-network-configuration-request
                     'make-describe-company-network-configuration-request))
+ (common-lisp:defun make-describe-company-network-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-company-network-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -505,18 +629,31 @@
                           describe-company-network-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-company-network-configuration-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-company-network-configuration-response-"))
-   (vpc-id common-lisp:nil :type (common-lisp:or vpc-id common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or subnet-ids common-lisp:null))
-   (security-group-ids common-lisp:nil :type
-    (common-lisp:or security-group-ids common-lisp:null)))
+ (common-lisp:defclass describe-company-network-configuration-response
+                       common-lisp:nil
+                       ((security-group-ids :initarg :security-group-ids :type
+                         (common-lisp:or security-group-ids common-lisp:null)
+                         :accessor
+                         %describe-company-network-configuration-response-security-group-ids
+                         :initform common-lisp:nil)
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or subnet-ids common-lisp:null) :accessor
+                         %describe-company-network-configuration-response-subnet-ids
+                         :initform common-lisp:nil)
+                        (vpc-id :initarg :vpc-id :type
+                         (common-lisp:or vpc-id common-lisp:null) :accessor
+                         %describe-company-network-configuration-response-vpc-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-company-network-configuration-response
                     'make-describe-company-network-configuration-response))
+ (common-lisp:defun make-describe-company-network-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-group-ids subnet-ids vpc-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-company-network-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -554,15 +691,23 @@
                           describe-company-network-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-device-policy-configuration-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-device-policy-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass describe-device-policy-configuration-request
+                       common-lisp:nil
+                       ((fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-device-policy-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-device-policy-configuration-request
                     'make-describe-device-policy-configuration-request))
+ (common-lisp:defun make-describe-device-policy-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-device-policy-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -586,15 +731,23 @@
                           describe-device-policy-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-device-policy-configuration-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-device-policy-configuration-response-"))
-   (device-ca-certificate common-lisp:nil :type
-    (common-lisp:or certificate common-lisp:null)))
+ (common-lisp:defclass describe-device-policy-configuration-response
+                       common-lisp:nil
+                       ((device-ca-certificate :initarg :device-ca-certificate
+                         :type (common-lisp:or certificate common-lisp:null)
+                         :accessor
+                         %describe-device-policy-configuration-response-device-ca-certificate
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-device-policy-configuration-response
                     'make-describe-device-policy-configuration-response))
+ (common-lisp:defun make-describe-device-policy-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-ca-certificate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-device-policy-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -619,15 +772,23 @@
                           describe-device-policy-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-device-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-device-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass describe-device-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %describe-device-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-device-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-device-request 'make-describe-device-request))
+ (common-lisp:defun make-describe-device-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-device-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -658,27 +819,58 @@
                           describe-device-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-device-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-device-response-"))
-   (status common-lisp:nil :type
-    (common-lisp:or device-status common-lisp:null))
-   (model common-lisp:nil :type (common-lisp:or device-model common-lisp:null))
-   (manufacturer common-lisp:nil :type
-    (common-lisp:or device-manufacturer common-lisp:null))
-   (operating-system common-lisp:nil :type
-    (common-lisp:or device-operating-system-name common-lisp:null))
-   (operating-system-version common-lisp:nil :type
-    (common-lisp:or device-operating-system-version common-lisp:null))
-   (patch-level common-lisp:nil :type
-    (common-lisp:or device-patch-level common-lisp:null))
-   (first-accessed-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (last-accessed-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (username common-lisp:nil :type (common-lisp:or username common-lisp:null)))
+ (common-lisp:defclass describe-device-response common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or username common-lisp:null) :accessor
+                         %describe-device-response-username :initform
+                         common-lisp:nil)
+                        (last-accessed-time :initarg :last-accessed-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %describe-device-response-last-accessed-time :initform
+                         common-lisp:nil)
+                        (first-accessed-time :initarg :first-accessed-time
+                         :type (common-lisp:or date-time common-lisp:null)
+                         :accessor
+                         %describe-device-response-first-accessed-time
+                         :initform common-lisp:nil)
+                        (patch-level :initarg :patch-level :type
+                         (common-lisp:or device-patch-level common-lisp:null)
+                         :accessor %describe-device-response-patch-level
+                         :initform common-lisp:nil)
+                        (operating-system-version :initarg
+                         :operating-system-version :type
+                         (common-lisp:or device-operating-system-version
+                                         common-lisp:null)
+                         :accessor
+                         %describe-device-response-operating-system-version
+                         :initform common-lisp:nil)
+                        (operating-system :initarg :operating-system :type
+                         (common-lisp:or device-operating-system-name
+                                         common-lisp:null)
+                         :accessor %describe-device-response-operating-system
+                         :initform common-lisp:nil)
+                        (manufacturer :initarg :manufacturer :type
+                         (common-lisp:or device-manufacturer common-lisp:null)
+                         :accessor %describe-device-response-manufacturer
+                         :initform common-lisp:nil)
+                        (model :initarg :model :type
+                         (common-lisp:or device-model common-lisp:null)
+                         :accessor %describe-device-response-model :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or device-status common-lisp:null)
+                         :accessor %describe-device-response-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-device-response 'make-describe-device-response))
+ (common-lisp:defun make-describe-device-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username last-accessed-time
+                     first-accessed-time patch-level operating-system-version
+                     operating-system manufacturer model status)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-device-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -759,15 +951,24 @@
                           describe-device-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-domain-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-domain-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:defclass describe-domain-request common-lisp:nil
+                       ((domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %describe-domain-request-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-domain-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-domain-request 'make-describe-domain-request))
+ (common-lisp:defun make-describe-domain-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key domain-name fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-domain-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -798,21 +999,38 @@
                           describe-domain-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-domain-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-domain-response-"))
-   (domain-name common-lisp:nil :type
-    (common-lisp:or domain-name common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (created-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (domain-status common-lisp:nil :type
-    (common-lisp:or domain-status common-lisp:null))
-   (acm-certificate-arn common-lisp:nil :type
-    (common-lisp:or acm-certificate-arn common-lisp:null)))
+ (common-lisp:defclass describe-domain-response common-lisp:nil
+                       ((acm-certificate-arn :initarg :acm-certificate-arn
+                         :type
+                         (common-lisp:or acm-certificate-arn common-lisp:null)
+                         :accessor
+                         %describe-domain-response-acm-certificate-arn
+                         :initform common-lisp:nil)
+                        (domain-status :initarg :domain-status :type
+                         (common-lisp:or domain-status common-lisp:null)
+                         :accessor %describe-domain-response-domain-status
+                         :initform common-lisp:nil)
+                        (created-time :initarg :created-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %describe-domain-response-created-time :initform
+                         common-lisp:nil)
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %describe-domain-response-display-name
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %describe-domain-response-domain-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-domain-response 'make-describe-domain-response))
+ (common-lisp:defun make-describe-domain-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key acm-certificate-arn domain-status
+                     created-time display-name domain-name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-domain-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -864,14 +1082,21 @@
                           describe-domain-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-fleet-metadata-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-fleet-metadata-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass describe-fleet-metadata-request common-lisp:nil
+                       ((fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-fleet-metadata-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-fleet-metadata-request
                     'make-describe-fleet-metadata-request))
+ (common-lisp:defun make-describe-fleet-metadata-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-fleet-metadata-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -895,27 +1120,55 @@
                           describe-fleet-metadata-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-fleet-metadata-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-fleet-metadata-response-"))
-   (created-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (fleet-name common-lisp:nil :type
-    (common-lisp:or fleet-name common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (optimize-for-end-user-location common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (company-code common-lisp:nil :type
-    (common-lisp:or company-code common-lisp:null))
-   (fleet-status common-lisp:nil :type
-    (common-lisp:or fleet-status common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass describe-fleet-metadata-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %describe-fleet-metadata-response-tags :initform
+                         common-lisp:nil)
+                        (fleet-status :initarg :fleet-status :type
+                         (common-lisp:or fleet-status common-lisp:null)
+                         :accessor
+                         %describe-fleet-metadata-response-fleet-status
+                         :initform common-lisp:nil)
+                        (company-code :initarg :company-code :type
+                         (common-lisp:or company-code common-lisp:null)
+                         :accessor
+                         %describe-fleet-metadata-response-company-code
+                         :initform common-lisp:nil)
+                        (optimize-for-end-user-location :initarg
+                         :optimize-for-end-user-location :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %describe-fleet-metadata-response-optimize-for-end-user-location
+                         :initform common-lisp:nil)
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor
+                         %describe-fleet-metadata-response-display-name
+                         :initform common-lisp:nil)
+                        (fleet-name :initarg :fleet-name :type
+                         (common-lisp:or fleet-name common-lisp:null) :accessor
+                         %describe-fleet-metadata-response-fleet-name :initform
+                         common-lisp:nil)
+                        (last-updated-time :initarg :last-updated-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %describe-fleet-metadata-response-last-updated-time
+                         :initform common-lisp:nil)
+                        (created-time :initarg :created-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %describe-fleet-metadata-response-created-time
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-fleet-metadata-response
                     'make-describe-fleet-metadata-response))
+ (common-lisp:defun make-describe-fleet-metadata-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags fleet-status company-code
+                     optimize-for-end-user-location display-name fleet-name
+                     last-updated-time created-time)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-fleet-metadata-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -989,16 +1242,23 @@
                           describe-fleet-metadata-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-identity-provider-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-identity-provider-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass describe-identity-provider-configuration-request
+                       common-lisp:nil
+                       ((fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-identity-provider-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-identity-provider-configuration-request
                     'make-describe-identity-provider-configuration-request))
+ (common-lisp:defun make-describe-identity-provider-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-identity-provider-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1022,20 +1282,38 @@
                           describe-identity-provider-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-identity-provider-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-identity-provider-configuration-response-"))
-   (identity-provider-type common-lisp:nil :type
-    (common-lisp:or identity-provider-type common-lisp:null))
-   (service-provider-saml-metadata common-lisp:nil :type
-    (common-lisp:or saml-metadata common-lisp:null))
-   (identity-provider-saml-metadata common-lisp:nil :type
-    (common-lisp:or saml-metadata common-lisp:null)))
+ (common-lisp:defclass describe-identity-provider-configuration-response
+                       common-lisp:nil
+                       ((identity-provider-saml-metadata :initarg
+                         :identity-provider-saml-metadata :type
+                         (common-lisp:or saml-metadata common-lisp:null)
+                         :accessor
+                         %describe-identity-provider-configuration-response-identity-provider-saml-metadata
+                         :initform common-lisp:nil)
+                        (service-provider-saml-metadata :initarg
+                         :service-provider-saml-metadata :type
+                         (common-lisp:or saml-metadata common-lisp:null)
+                         :accessor
+                         %describe-identity-provider-configuration-response-service-provider-saml-metadata
+                         :initform common-lisp:nil)
+                        (identity-provider-type :initarg
+                         :identity-provider-type :type
+                         (common-lisp:or identity-provider-type
+                                         common-lisp:null)
+                         :accessor
+                         %describe-identity-provider-configuration-response-identity-provider-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-identity-provider-configuration-response
                     'make-describe-identity-provider-configuration-response))
+ (common-lisp:defun make-describe-identity-provider-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-provider-saml-metadata
+                     service-provider-saml-metadata identity-provider-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-identity-provider-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1076,17 +1354,28 @@
                           describe-identity-provider-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-website-certificate-authority-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-website-certificate-authority-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (website-ca-id (common-lisp:error ":website-ca-id is required") :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass describe-website-certificate-authority-request
+                       common-lisp:nil
+                       ((website-ca-id :initarg :website-ca-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %describe-website-certificate-authority-request-website-ca-id
+                         :initform
+                         (common-lisp:error ":website-ca-id is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %describe-website-certificate-authority-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-website-certificate-authority-request
                     'make-describe-website-certificate-authority-request))
+ (common-lisp:defun make-describe-website-certificate-authority-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key website-ca-id fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-website-certificate-authority-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1117,19 +1406,32 @@
                           describe-website-certificate-authority-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-website-certificate-authority-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-website-certificate-authority-response-"))
-   (certificate common-lisp:nil :type
-    (common-lisp:or certificate common-lisp:null))
-   (created-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null)))
+ (common-lisp:defclass describe-website-certificate-authority-response
+                       common-lisp:nil
+                       ((display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor
+                         %describe-website-certificate-authority-response-display-name
+                         :initform common-lisp:nil)
+                        (created-time :initarg :created-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %describe-website-certificate-authority-response-created-time
+                         :initform common-lisp:nil)
+                        (certificate :initarg :certificate :type
+                         (common-lisp:or certificate common-lisp:null)
+                         :accessor
+                         %describe-website-certificate-authority-response-certificate
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-website-certificate-authority-response
                     'make-describe-website-certificate-authority-response))
+ (common-lisp:defun make-describe-website-certificate-authority-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key display-name created-time certificate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-website-certificate-authority-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1173,13 +1475,21 @@
 (common-lisp:deftype device-patch-level () 'common-lisp:string)
 (common-lisp:deftype device-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (device-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-device-summary-"))
-   (device-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
-   (device-status common-lisp:nil :type
-    (common-lisp:or device-status common-lisp:null)))
+ (common-lisp:defclass device-summary common-lisp:nil
+                       ((device-status :initarg :device-status :type
+                         (common-lisp:or device-status common-lisp:null)
+                         :accessor %device-summary-device-status :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %device-summary-device-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'device-summary 'make-device-summary))
+ (common-lisp:defun make-device-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-status device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'device-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input device-summary))
    (common-lisp:append))
@@ -1212,16 +1522,25 @@
                            (trivial-types:proper-list device-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-domain-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-domain-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:defclass disassociate-domain-request common-lisp:nil
+                       ((domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %disassociate-domain-request-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %disassociate-domain-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-domain-request
                     'make-disassociate-domain-request))
+ (common-lisp:defun make-disassociate-domain-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key domain-name fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'disassociate-domain-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1252,12 +1571,17 @@
                           disassociate-domain-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-domain-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-domain-response-")))
+ (common-lisp:defclass disassociate-domain-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'disassociate-domain-response
                     'make-disassociate-domain-response))
+ (common-lisp:defun make-disassociate-domain-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'disassociate-domain-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1274,19 +1598,30 @@
                           disassociate-domain-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-website-authorization-provider-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-website-authorization-provider-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (authorization-provider-id
-    (common-lisp:error ":authorization-provider-id is required") :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass disassociate-website-authorization-provider-request
+                       common-lisp:nil
+                       ((authorization-provider-id :initarg
+                         :authorization-provider-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %disassociate-website-authorization-provider-request-authorization-provider-id
+                         :initform
+                         (common-lisp:error
+                          ":authorization-provider-id is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %disassociate-website-authorization-provider-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-website-authorization-provider-request
                     'make-disassociate-website-authorization-provider-request))
+ (common-lisp:defun make-disassociate-website-authorization-provider-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key authorization-provider-id fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-website-authorization-provider-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1318,14 +1653,18 @@
                           disassociate-website-authorization-provider-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-website-authorization-provider-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-website-authorization-provider-response-")))
+ (common-lisp:defclass disassociate-website-authorization-provider-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'disassociate-website-authorization-provider-response
                     'make-disassociate-website-authorization-provider-response))
+ (common-lisp:defun make-disassociate-website-authorization-provider-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-website-authorization-provider-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1342,18 +1681,28 @@
                           disassociate-website-authorization-provider-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-website-certificate-authority-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-website-certificate-authority-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (website-ca-id (common-lisp:error ":website-ca-id is required") :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass disassociate-website-certificate-authority-request
+                       common-lisp:nil
+                       ((website-ca-id :initarg :website-ca-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %disassociate-website-certificate-authority-request-website-ca-id
+                         :initform
+                         (common-lisp:error ":website-ca-id is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %disassociate-website-certificate-authority-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-website-certificate-authority-request
                     'make-disassociate-website-certificate-authority-request))
+ (common-lisp:defun make-disassociate-website-certificate-authority-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key website-ca-id fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-website-certificate-authority-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1384,14 +1733,18 @@
                           disassociate-website-certificate-authority-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-website-certificate-authority-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-website-certificate-authority-response-")))
+ (common-lisp:defclass disassociate-website-certificate-authority-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'disassociate-website-certificate-authority-response
                     'make-disassociate-website-certificate-authority-response))
+ (common-lisp:defun make-disassociate-website-certificate-authority-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-website-certificate-authority-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1411,18 +1764,31 @@
 (common-lisp:deftype domain-name () 'common-lisp:string)
 (common-lisp:deftype domain-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (domain-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-domain-summary-"))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (created-time (common-lisp:error ":created-time is required") :type
-    (common-lisp:or date-time common-lisp:null))
-   (domain-status (common-lisp:error ":domain-status is required") :type
-    (common-lisp:or domain-status common-lisp:null)))
+ (common-lisp:defclass domain-summary common-lisp:nil
+                       ((domain-status :initarg :domain-status :type
+                         (common-lisp:or domain-status common-lisp:null)
+                         :accessor %domain-summary-domain-status :initform
+                         (common-lisp:error ":domain-status is required"))
+                        (created-time :initarg :created-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %domain-summary-created-time :initform
+                         (common-lisp:error ":created-time is required"))
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %domain-summary-display-name :initform
+                         common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %domain-summary-domain-name :initform
+                         (common-lisp:error ":domain-name is required"))))
  (common-lisp:export (common-lisp:list 'domain-summary 'make-domain-summary))
+ (common-lisp:defun make-domain-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key domain-status created-time display-name
+                     domain-name)
+   (common-lisp:apply #'common-lisp:make-instance 'domain-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain-summary))
    (common-lisp:append))
@@ -1473,25 +1839,44 @@
 (common-lisp:deftype fleet-name () 'common-lisp:string)
 (common-lisp:deftype fleet-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (fleet-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-fleet-summary-"))
-   (fleet-arn common-lisp:nil :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (created-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (fleet-name common-lisp:nil :type
-    (common-lisp:or fleet-name common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (company-code common-lisp:nil :type
-    (common-lisp:or company-code common-lisp:null))
-   (fleet-status common-lisp:nil :type
-    (common-lisp:or fleet-status common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass fleet-summary common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %fleet-summary-tags :initform common-lisp:nil)
+                        (fleet-status :initarg :fleet-status :type
+                         (common-lisp:or fleet-status common-lisp:null)
+                         :accessor %fleet-summary-fleet-status :initform
+                         common-lisp:nil)
+                        (company-code :initarg :company-code :type
+                         (common-lisp:or company-code common-lisp:null)
+                         :accessor %fleet-summary-company-code :initform
+                         common-lisp:nil)
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %fleet-summary-display-name :initform
+                         common-lisp:nil)
+                        (fleet-name :initarg :fleet-name :type
+                         (common-lisp:or fleet-name common-lisp:null) :accessor
+                         %fleet-summary-fleet-name :initform common-lisp:nil)
+                        (last-updated-time :initarg :last-updated-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %fleet-summary-last-updated-time :initform
+                         common-lisp:nil)
+                        (created-time :initarg :created-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %fleet-summary-created-time :initform common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %fleet-summary-fleet-arn :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'fleet-summary 'make-fleet-summary))
+ (common-lisp:defun make-fleet-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags fleet-status company-code
+                     display-name fleet-name last-updated-time created-time
+                     fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'fleet-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input fleet-summary))
    (common-lisp:append))
@@ -1584,17 +1969,27 @@
   (common-lisp:list 'invalid-request-exception
                     'invalid-request-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-devices-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-devices-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-devices-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-devices-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-devices-request-next-token :initform
+                         common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %list-devices-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-devices-request 'make-list-devices-request))
+ (common-lisp:defun make-list-devices-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-devices-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-devices-request))
    (common-lisp:append))
@@ -1626,15 +2021,23 @@
                         ((aws-sdk/generator/shape::input list-devices-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-devices-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-devices-response-"))
-   (devices common-lisp:nil :type
-    (common-lisp:or device-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-devices-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-devices-response-next-token :initform
+                         common-lisp:nil)
+                        (devices :initarg :devices :type
+                         (common-lisp:or device-summary-list common-lisp:null)
+                         :accessor %list-devices-response-devices :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-devices-response 'make-list-devices-response))
+ (common-lisp:defun make-list-devices-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token devices)
+   (common-lisp:apply #'common-lisp:make-instance 'list-devices-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1665,17 +2068,27 @@
                           list-devices-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-domains-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-domains-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-domains-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-domains-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-domains-request-next-token :initform
+                         common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %list-domains-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-domains-request 'make-list-domains-request))
+ (common-lisp:defun make-list-domains-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-domains-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-domains-request))
    (common-lisp:append))
@@ -1707,15 +2120,23 @@
                         ((aws-sdk/generator/shape::input list-domains-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-domains-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-domains-response-"))
-   (domains common-lisp:nil :type
-    (common-lisp:or domain-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-domains-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-domains-response-next-token :initform
+                         common-lisp:nil)
+                        (domains :initarg :domains :type
+                         (common-lisp:or domain-summary-list common-lisp:null)
+                         :accessor %list-domains-response-domains :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-domains-response 'make-list-domains-response))
+ (common-lisp:defun make-list-domains-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token domains)
+   (common-lisp:apply #'common-lisp:make-instance 'list-domains-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1746,15 +2167,23 @@
                           list-domains-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-fleets-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-fleets-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-fleets-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-fleets-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-fleets-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-fleets-request 'make-list-fleets-request))
+ (common-lisp:defun make-list-fleets-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-fleets-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-fleets-request))
    (common-lisp:append))
@@ -1779,15 +2208,23 @@
                         ((aws-sdk/generator/shape::input list-fleets-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-fleets-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-fleets-response-"))
-   (fleet-summary-list common-lisp:nil :type
-    (common-lisp:or fleet-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-fleets-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-fleets-response-next-token :initform
+                         common-lisp:nil)
+                        (fleet-summary-list :initarg :fleet-summary-list :type
+                         (common-lisp:or fleet-summary-list common-lisp:null)
+                         :accessor %list-fleets-response-fleet-summary-list
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-fleets-response 'make-list-fleets-response))
+ (common-lisp:defun make-list-fleets-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token fleet-summary-list)
+   (common-lisp:apply #'common-lisp:make-instance 'list-fleets-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-fleets-response))
    (common-lisp:append))
@@ -1812,14 +2249,21 @@
                         ((aws-sdk/generator/shape::input list-fleets-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %list-tags-for-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1836,13 +2280,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1866,19 +2318,32 @@
                           list-tags-for-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-website-authorization-providers-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-website-authorization-providers-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-website-authorization-providers-request
+                       common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-website-authorization-providers-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-website-authorization-providers-request-next-token
+                         :initform common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %list-website-authorization-providers-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-website-authorization-providers-request
                     'make-list-website-authorization-providers-request))
+ (common-lisp:defun make-list-website-authorization-providers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-website-authorization-providers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1916,18 +2381,31 @@
                           list-website-authorization-providers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-website-authorization-providers-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-website-authorization-providers-response-"))
-   (website-authorization-providers common-lisp:nil :type
-    (common-lisp:or website-authorization-providers-summary-list
-                    common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-website-authorization-providers-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-website-authorization-providers-response-next-token
+                         :initform common-lisp:nil)
+                        (website-authorization-providers :initarg
+                         :website-authorization-providers :type
+                         (common-lisp:or
+                          website-authorization-providers-summary-list
+                          common-lisp:null)
+                         :accessor
+                         %list-website-authorization-providers-response-website-authorization-providers
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-website-authorization-providers-response
                     'make-list-website-authorization-providers-response))
+ (common-lisp:defun make-list-website-authorization-providers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     website-authorization-providers)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-website-authorization-providers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1959,19 +2437,32 @@
                           list-website-authorization-providers-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-website-certificate-authorities-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-website-certificate-authorities-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-website-certificate-authorities-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-website-certificate-authorities-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-website-certificate-authorities-request-max-results
+                         :initform common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %list-website-certificate-authorities-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-website-certificate-authorities-request
                     'make-list-website-certificate-authorities-request))
+ (common-lisp:defun make-list-website-certificate-authorities-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-website-certificate-authorities-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2009,17 +2500,30 @@
                           list-website-certificate-authorities-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-website-certificate-authorities-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-website-certificate-authorities-response-"))
-   (website-certificate-authorities common-lisp:nil :type
-    (common-lisp:or website-ca-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-website-certificate-authorities-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-website-certificate-authorities-response-next-token
+                         :initform common-lisp:nil)
+                        (website-certificate-authorities :initarg
+                         :website-certificate-authorities :type
+                         (common-lisp:or website-ca-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-website-certificate-authorities-response-website-certificate-authorities
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-website-certificate-authorities-response
                     'make-list-website-certificate-authorities-response))
+ (common-lisp:defun make-list-website-certificate-authorities-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     website-certificate-authorities)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-website-certificate-authorities-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2069,16 +2573,26 @@
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-domain-access-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-domain-access-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:defclass restore-domain-access-request common-lisp:nil
+                       ((domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %restore-domain-access-request-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %restore-domain-access-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'restore-domain-access-request
                     'make-restore-domain-access-request))
+ (common-lisp:defun make-restore-domain-access-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key domain-name fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'restore-domain-access-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2109,12 +2623,18 @@
                           restore-domain-access-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-domain-access-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-domain-access-response-")))
+ (common-lisp:defclass restore-domain-access-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'restore-domain-access-response
                     'make-restore-domain-access-response))
+ (common-lisp:defun make-restore-domain-access-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'restore-domain-access-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2131,16 +2651,25 @@
                           restore-domain-access-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (revoke-domain-access-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-revoke-domain-access-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null)))
+ (common-lisp:defclass revoke-domain-access-request common-lisp:nil
+                       ((domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %revoke-domain-access-request-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %revoke-domain-access-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'revoke-domain-access-request
                     'make-revoke-domain-access-request))
+ (common-lisp:defun make-revoke-domain-access-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key domain-name fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'revoke-domain-access-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2171,12 +2700,18 @@
                           revoke-domain-access-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (revoke-domain-access-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-revoke-domain-access-response-")))
+ (common-lisp:defclass revoke-domain-access-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'revoke-domain-access-response
                     'make-revoke-domain-access-response))
+ (common-lisp:defun make-revoke-domain-access-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'revoke-domain-access-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2203,15 +2738,23 @@
                            (trivial-types:proper-list security-group-id))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sign-out-user-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sign-out-user-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or username common-lisp:null)))
+ (common-lisp:defclass sign-out-user-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or username common-lisp:null) :accessor
+                         %sign-out-user-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %sign-out-user-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'sign-out-user-request 'make-sign-out-user-request))
+ (common-lisp:defun make-sign-out-user-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'sign-out-user-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2242,11 +2785,15 @@
                           sign-out-user-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sign-out-user-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sign-out-user-response-")))
+ (common-lisp:defclass sign-out-user-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'sign-out-user-response 'make-sign-out-user-response))
+ (common-lisp:defun make-sign-out-user-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'sign-out-user-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2286,15 +2833,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -2312,11 +2867,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2349,15 +2908,23 @@
  (common-lisp:export
   (common-lisp:list 'unauthorized-exception 'unauthorized-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %untag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2374,11 +2941,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2395,16 +2966,28 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-audit-stream-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-audit-stream-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (audit-stream-arn common-lisp:nil :type
-    (common-lisp:or audit-stream-arn common-lisp:null)))
+ (common-lisp:defclass update-audit-stream-configuration-request
+                       common-lisp:nil
+                       ((audit-stream-arn :initarg :audit-stream-arn :type
+                         (common-lisp:or audit-stream-arn common-lisp:null)
+                         :accessor
+                         %update-audit-stream-configuration-request-audit-stream-arn
+                         :initform common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %update-audit-stream-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-audit-stream-configuration-request
                     'make-update-audit-stream-configuration-request))
+ (common-lisp:defun make-update-audit-stream-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key audit-stream-arn fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-audit-stream-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2435,12 +3018,18 @@
                           update-audit-stream-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-audit-stream-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-audit-stream-configuration-response-")))
+ (common-lisp:defclass update-audit-stream-configuration-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-audit-stream-configuration-response
                     'make-update-audit-stream-configuration-response))
+ (common-lisp:defun make-update-audit-stream-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-audit-stream-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2457,21 +3046,39 @@
                           update-audit-stream-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-company-network-configuration-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-company-network-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (vpc-id (common-lisp:error ":vpc-id is required") :type
-    (common-lisp:or vpc-id common-lisp:null))
-   (subnet-ids (common-lisp:error ":subnet-ids is required") :type
-    (common-lisp:or subnet-ids common-lisp:null))
-   (security-group-ids (common-lisp:error ":security-group-ids is required")
-    :type (common-lisp:or security-group-ids common-lisp:null)))
+ (common-lisp:defclass update-company-network-configuration-request
+                       common-lisp:nil
+                       ((security-group-ids :initarg :security-group-ids :type
+                         (common-lisp:or security-group-ids common-lisp:null)
+                         :accessor
+                         %update-company-network-configuration-request-security-group-ids
+                         :initform
+                         (common-lisp:error ":security-group-ids is required"))
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or subnet-ids common-lisp:null) :accessor
+                         %update-company-network-configuration-request-subnet-ids
+                         :initform
+                         (common-lisp:error ":subnet-ids is required"))
+                        (vpc-id :initarg :vpc-id :type
+                         (common-lisp:or vpc-id common-lisp:null) :accessor
+                         %update-company-network-configuration-request-vpc-id
+                         :initform (common-lisp:error ":vpc-id is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %update-company-network-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-company-network-configuration-request
                     'make-update-company-network-configuration-request))
+ (common-lisp:defun make-update-company-network-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-group-ids subnet-ids vpc-id
+                     fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-company-network-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2516,13 +3123,18 @@
                           update-company-network-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-company-network-configuration-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-company-network-configuration-response-")))
+ (common-lisp:defclass update-company-network-configuration-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-company-network-configuration-response
                     'make-update-company-network-configuration-response))
+ (common-lisp:defun make-update-company-network-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-company-network-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2539,16 +3151,29 @@
                           update-company-network-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-device-policy-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-device-policy-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (device-ca-certificate common-lisp:nil :type
-    (common-lisp:or certificate-chain common-lisp:null)))
+ (common-lisp:defclass update-device-policy-configuration-request
+                       common-lisp:nil
+                       ((device-ca-certificate :initarg :device-ca-certificate
+                         :type
+                         (common-lisp:or certificate-chain common-lisp:null)
+                         :accessor
+                         %update-device-policy-configuration-request-device-ca-certificate
+                         :initform common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %update-device-policy-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-device-policy-configuration-request
                     'make-update-device-policy-configuration-request))
+ (common-lisp:defun make-update-device-policy-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-ca-certificate fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-device-policy-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2580,13 +3205,18 @@
                           update-device-policy-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-device-policy-configuration-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-device-policy-configuration-response-")))
+ (common-lisp:defclass update-device-policy-configuration-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-device-policy-configuration-response
                     'make-update-device-policy-configuration-response))
+ (common-lisp:defun make-update-device-policy-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-device-policy-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2603,18 +3233,30 @@
                           update-device-policy-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-domain-metadata-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-domain-metadata-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null)))
+ (common-lisp:defclass update-domain-metadata-request common-lisp:nil
+                       ((display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %update-domain-metadata-request-display-name
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor %update-domain-metadata-request-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %update-domain-metadata-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-domain-metadata-request
                     'make-update-domain-metadata-request))
+ (common-lisp:defun make-update-domain-metadata-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key display-name domain-name fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-domain-metadata-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2652,12 +3294,18 @@
                           update-domain-metadata-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-domain-metadata-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-domain-metadata-response-")))
+ (common-lisp:defclass update-domain-metadata-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-domain-metadata-response
                     'make-update-domain-metadata-response))
+ (common-lisp:defun make-update-domain-metadata-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-domain-metadata-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2674,18 +3322,31 @@
                           update-domain-metadata-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-fleet-metadata-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-fleet-metadata-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (optimize-for-end-user-location common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass update-fleet-metadata-request common-lisp:nil
+                       ((optimize-for-end-user-location :initarg
+                         :optimize-for-end-user-location :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %update-fleet-metadata-request-optimize-for-end-user-location
+                         :initform common-lisp:nil)
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %update-fleet-metadata-request-display-name
+                         :initform common-lisp:nil)
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %update-fleet-metadata-request-fleet-arn :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-fleet-metadata-request
                     'make-update-fleet-metadata-request))
+ (common-lisp:defun make-update-fleet-metadata-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key optimize-for-end-user-location
+                     display-name fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-fleet-metadata-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2724,12 +3385,18 @@
                           update-fleet-metadata-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-fleet-metadata-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-fleet-metadata-response-")))
+ (common-lisp:defclass update-fleet-metadata-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-fleet-metadata-response
                     'make-update-fleet-metadata-response))
+ (common-lisp:defun make-update-fleet-metadata-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-fleet-metadata-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2746,20 +3413,39 @@
                           update-fleet-metadata-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-identity-provider-configuration-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-identity-provider-configuration-request-"))
-   (fleet-arn (common-lisp:error ":fleet-arn is required") :type
-    (common-lisp:or fleet-arn common-lisp:null))
-   (identity-provider-type
-    (common-lisp:error ":identity-provider-type is required") :type
-    (common-lisp:or identity-provider-type common-lisp:null))
-   (identity-provider-saml-metadata common-lisp:nil :type
-    (common-lisp:or saml-metadata common-lisp:null)))
+ (common-lisp:defclass update-identity-provider-configuration-request
+                       common-lisp:nil
+                       ((identity-provider-saml-metadata :initarg
+                         :identity-provider-saml-metadata :type
+                         (common-lisp:or saml-metadata common-lisp:null)
+                         :accessor
+                         %update-identity-provider-configuration-request-identity-provider-saml-metadata
+                         :initform common-lisp:nil)
+                        (identity-provider-type :initarg
+                         :identity-provider-type :type
+                         (common-lisp:or identity-provider-type
+                                         common-lisp:null)
+                         :accessor
+                         %update-identity-provider-configuration-request-identity-provider-type
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider-type is required"))
+                        (fleet-arn :initarg :fleet-arn :type
+                         (common-lisp:or fleet-arn common-lisp:null) :accessor
+                         %update-identity-provider-configuration-request-fleet-arn
+                         :initform
+                         (common-lisp:error ":fleet-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-identity-provider-configuration-request
                     'make-update-identity-provider-configuration-request))
+ (common-lisp:defun make-update-identity-provider-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-provider-saml-metadata
+                     identity-provider-type fleet-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-identity-provider-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2799,13 +3485,18 @@
                           update-identity-provider-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-identity-provider-configuration-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-identity-provider-configuration-response-")))
+ (common-lisp:defclass update-identity-provider-configuration-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-identity-provider-configuration-response
                     'make-update-identity-provider-configuration-response))
+ (common-lisp:defun make-update-identity-provider-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-identity-provider-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2824,21 +3515,41 @@
 (common-lisp:deftype username () 'common-lisp:string)
 (common-lisp:deftype vpc-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (website-authorization-provider-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-website-authorization-provider-summary-"))
-   (authorization-provider-id common-lisp:nil :type
-    (common-lisp:or id common-lisp:null))
-   (authorization-provider-type
-    (common-lisp:error ":authorization-provider-type is required") :type
-    (common-lisp:or authorization-provider-type common-lisp:null))
-   (domain-name common-lisp:nil :type
-    (common-lisp:or domain-name common-lisp:null))
-   (created-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:defclass website-authorization-provider-summary common-lisp:nil
+                       ((created-time :initarg :created-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %website-authorization-provider-summary-created-time
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name common-lisp:null)
+                         :accessor
+                         %website-authorization-provider-summary-domain-name
+                         :initform common-lisp:nil)
+                        (authorization-provider-type :initarg
+                         :authorization-provider-type :type
+                         (common-lisp:or authorization-provider-type
+                                         common-lisp:null)
+                         :accessor
+                         %website-authorization-provider-summary-authorization-provider-type
+                         :initform
+                         (common-lisp:error
+                          ":authorization-provider-type is required"))
+                        (authorization-provider-id :initarg
+                         :authorization-provider-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %website-authorization-provider-summary-authorization-provider-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'website-authorization-provider-summary
                     'make-website-authorization-provider-summary))
+ (common-lisp:defun make-website-authorization-provider-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-time domain-name
+                     authorization-provider-type authorization-provider-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'website-authorization-provider-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2894,16 +3605,27 @@
                             website-authorization-provider-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (website-ca-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-website-ca-summary-"))
-   (website-ca-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
-   (created-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null)))
+ (common-lisp:defclass website-ca-summary common-lisp:nil
+                       ((display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %website-ca-summary-display-name :initform
+                         common-lisp:nil)
+                        (created-time :initarg :created-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %website-ca-summary-created-time :initform
+                         common-lisp:nil)
+                        (website-ca-id :initarg :website-ca-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %website-ca-summary-website-ca-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'website-ca-summary 'make-website-ca-summary))
+ (common-lisp:defun make-website-ca-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key display-name created-time website-ca-id)
+   (common-lisp:apply #'common-lisp:make-instance 'website-ca-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input website-ca-summary))
    (common-lisp:append))

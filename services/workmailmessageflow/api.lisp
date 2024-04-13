@@ -25,14 +25,22 @@
     ("MessageFrozen" . message-frozen) ("MessageRejected" . message-rejected)
     ("ResourceNotFoundException" . resource-not-found-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-raw-message-content-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-raw-message-content-request-"))
-   (message-id (common-lisp:error ":messageid is required") :type
-    (common-lisp:or |messageIdType| common-lisp:null)))
+ (common-lisp:defclass get-raw-message-content-request common-lisp:nil
+                       ((message-id :initarg :|messageId| :type
+                         (common-lisp:or |messageIdType| common-lisp:null)
+                         :accessor %get-raw-message-content-request-message-id
+                         :initform
+                         (common-lisp:error ":messageid is required"))))
  (common-lisp:export
   (common-lisp:list 'get-raw-message-content-request
                     'make-get-raw-message-content-request))
+ (common-lisp:defun make-get-raw-message-content-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-raw-message-content-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -49,14 +57,23 @@
                           get-raw-message-content-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-raw-message-content-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-raw-message-content-response-"))
-   (message-content (common-lisp:error ":messagecontent is required") :type
-    (common-lisp:or |messageContentBlob| common-lisp:null)))
+ (common-lisp:defclass get-raw-message-content-response common-lisp:nil
+                       ((message-content :initarg :|messageContent| :type
+                         (common-lisp:or |messageContentBlob| common-lisp:null)
+                         :accessor
+                         %get-raw-message-content-response-message-content
+                         :initform
+                         (common-lisp:error ":messagecontent is required"))))
  (common-lisp:export
   (common-lisp:list 'get-raw-message-content-response
                     'make-get-raw-message-content-response))
+ (common-lisp:defun make-get-raw-message-content-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message-content)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-raw-message-content-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -78,11 +95,12 @@
                         (
                          (aws-sdk/generator/shape::input
                           get-raw-message-content-response))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'message-content)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'message-content))))
 (common-lisp:progn
  (common-lisp:define-condition invalid-content-location
      (workmailmessageflow-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-content-location-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-content-location
@@ -90,28 +108,38 @@
 (common-lisp:progn
  (common-lisp:define-condition message-frozen
      (workmailmessageflow-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        message-frozen-message)))
  (common-lisp:export
   (common-lisp:list 'message-frozen 'message-frozen-message)))
 (common-lisp:progn
  (common-lisp:define-condition message-rejected
      (workmailmessageflow-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        message-rejected-message)))
  (common-lisp:export
   (common-lisp:list 'message-rejected 'message-rejected-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-raw-message-content-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-raw-message-content-request-"))
-   (message-id (common-lisp:error ":messageid is required") :type
-    (common-lisp:or |messageIdType| common-lisp:null))
-   (content (common-lisp:error ":content is required") :type
-    (common-lisp:or raw-message-content common-lisp:null)))
+ (common-lisp:defclass put-raw-message-content-request common-lisp:nil
+                       ((content :initarg :|content| :type
+                         (common-lisp:or raw-message-content common-lisp:null)
+                         :accessor %put-raw-message-content-request-content
+                         :initform (common-lisp:error ":content is required"))
+                        (message-id :initarg :|messageId| :type
+                         (common-lisp:or |messageIdType| common-lisp:null)
+                         :accessor %put-raw-message-content-request-message-id
+                         :initform
+                         (common-lisp:error ":messageid is required"))))
  (common-lisp:export
   (common-lisp:list 'put-raw-message-content-request
                     'make-put-raw-message-content-request))
+ (common-lisp:defun make-put-raw-message-content-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key content message-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-raw-message-content-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -135,12 +163,18 @@
                           put-raw-message-content-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-raw-message-content-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-raw-message-content-response-")))
+ (common-lisp:defclass put-raw-message-content-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'put-raw-message-content-response
                     'make-put-raw-message-content-response))
+ (common-lisp:defun make-put-raw-message-content-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-raw-message-content-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -157,13 +191,19 @@
                           put-raw-message-content-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (raw-message-content (:copier common-lisp:nil)
-      (:conc-name "struct-shape-raw-message-content-"))
-   (s3reference (common-lisp:error ":s3reference is required") :type
-    (common-lisp:or s3reference common-lisp:null)))
+ (common-lisp:defclass raw-message-content common-lisp:nil
+                       ((s3reference :initarg :|s3Reference| :type
+                         (common-lisp:or s3reference common-lisp:null)
+                         :accessor %raw-message-content-s3reference :initform
+                         (common-lisp:error ":s3reference is required"))))
  (common-lisp:export
   (common-lisp:list 'raw-message-content 'make-raw-message-content))
+ (common-lisp:defun make-raw-message-content
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3reference)
+   (common-lisp:apply #'common-lisp:make-instance 'raw-message-content
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input raw-message-content))
    (common-lisp:append))
@@ -183,22 +223,32 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (workmailmessageflow-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3reference (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3reference-"))
-   (bucket (common-lisp:error ":bucket is required") :type
-    (common-lisp:or |s3BucketIdType| common-lisp:null))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or |s3KeyIdType| common-lisp:null))
-   (object-version common-lisp:nil :type
-    (common-lisp:or |s3VersionType| common-lisp:null)))
+ (common-lisp:defclass s3reference common-lisp:nil
+                       ((object-version :initarg :|objectVersion| :type
+                         (common-lisp:or |s3VersionType| common-lisp:null)
+                         :accessor %s3reference-object-version :initform
+                         common-lisp:nil)
+                        (key :initarg :|key| :type
+                         (common-lisp:or |s3KeyIdType| common-lisp:null)
+                         :accessor %s3reference-key :initform
+                         (common-lisp:error ":key is required"))
+                        (bucket :initarg :|bucket| :type
+                         (common-lisp:or |s3BucketIdType| common-lisp:null)
+                         :accessor %s3reference-bucket :initform
+                         (common-lisp:error ":bucket is required"))))
  (common-lisp:export (common-lisp:list 's3reference 'make-s3reference))
+ (common-lisp:defun make-s3reference
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-version key bucket)
+   (common-lisp:apply #'common-lisp:make-instance 's3reference
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3reference))
    (common-lisp:append))

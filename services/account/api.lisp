@@ -30,26 +30,43 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (account-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:deftype account-id () 'common-lisp:string)
 (common-lisp:deftype address-line () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (alternate-contact (:copier common-lisp:nil)
-      (:conc-name "struct-shape-alternate-contact-"))
-   (alternate-contact-type common-lisp:nil :type
-    (common-lisp:or alternate-contact-type common-lisp:null))
-   (email-address common-lisp:nil :type
-    (common-lisp:or email-address common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
-   (phone-number common-lisp:nil :type
-    (common-lisp:or phone-number common-lisp:null))
-   (title common-lisp:nil :type (common-lisp:or title common-lisp:null)))
+ (common-lisp:defclass alternate-contact common-lisp:nil
+                       ((title :initarg :title :type
+                         (common-lisp:or title common-lisp:null) :accessor
+                         %alternate-contact-title :initform common-lisp:nil)
+                        (phone-number :initarg :phone-number :type
+                         (common-lisp:or phone-number common-lisp:null)
+                         :accessor %alternate-contact-phone-number :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %alternate-contact-name :initform common-lisp:nil)
+                        (email-address :initarg :email-address :type
+                         (common-lisp:or email-address common-lisp:null)
+                         :accessor %alternate-contact-email-address :initform
+                         common-lisp:nil)
+                        (alternate-contact-type :initarg
+                         :alternate-contact-type :type
+                         (common-lisp:or alternate-contact-type
+                                         common-lisp:null)
+                         :accessor %alternate-contact-alternate-contact-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'alternate-contact 'make-alternate-contact))
+ (common-lisp:defun make-alternate-contact
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key title phone-number name email-address
+                     alternate-contact-type)
+   (common-lisp:apply #'common-lisp:make-instance 'alternate-contact
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input alternate-contact))
    (common-lisp:append))
@@ -101,40 +118,72 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (account-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (contact-information (:copier common-lisp:nil)
-      (:conc-name "struct-shape-contact-information-"))
-   (address-line1 (common-lisp:error ":address-line1 is required") :type
-    (common-lisp:or address-line common-lisp:null))
-   (address-line2 common-lisp:nil :type
-    (common-lisp:or address-line common-lisp:null))
-   (address-line3 common-lisp:nil :type
-    (common-lisp:or address-line common-lisp:null))
-   (city (common-lisp:error ":city is required") :type
-    (common-lisp:or city common-lisp:null))
-   (company-name common-lisp:nil :type
-    (common-lisp:or company-name common-lisp:null))
-   (country-code (common-lisp:error ":country-code is required") :type
-    (common-lisp:or country-code common-lisp:null))
-   (district-or-county common-lisp:nil :type
-    (common-lisp:or district-or-county common-lisp:null))
-   (full-name (common-lisp:error ":full-name is required") :type
-    (common-lisp:or full-name common-lisp:null))
-   (phone-number (common-lisp:error ":phone-number is required") :type
-    (common-lisp:or contact-information-phone-number common-lisp:null))
-   (postal-code (common-lisp:error ":postal-code is required") :type
-    (common-lisp:or postal-code common-lisp:null))
-   (state-or-region common-lisp:nil :type
-    (common-lisp:or state-or-region common-lisp:null))
-   (website-url common-lisp:nil :type
-    (common-lisp:or website-url common-lisp:null)))
+ (common-lisp:defclass contact-information common-lisp:nil
+                       ((website-url :initarg :website-url :type
+                         (common-lisp:or website-url common-lisp:null)
+                         :accessor %contact-information-website-url :initform
+                         common-lisp:nil)
+                        (state-or-region :initarg :state-or-region :type
+                         (common-lisp:or state-or-region common-lisp:null)
+                         :accessor %contact-information-state-or-region
+                         :initform common-lisp:nil)
+                        (postal-code :initarg :postal-code :type
+                         (common-lisp:or postal-code common-lisp:null)
+                         :accessor %contact-information-postal-code :initform
+                         (common-lisp:error ":postal-code is required"))
+                        (phone-number :initarg :phone-number :type
+                         (common-lisp:or contact-information-phone-number
+                                         common-lisp:null)
+                         :accessor %contact-information-phone-number :initform
+                         (common-lisp:error ":phone-number is required"))
+                        (full-name :initarg :full-name :type
+                         (common-lisp:or full-name common-lisp:null) :accessor
+                         %contact-information-full-name :initform
+                         (common-lisp:error ":full-name is required"))
+                        (district-or-county :initarg :district-or-county :type
+                         (common-lisp:or district-or-county common-lisp:null)
+                         :accessor %contact-information-district-or-county
+                         :initform common-lisp:nil)
+                        (country-code :initarg :country-code :type
+                         (common-lisp:or country-code common-lisp:null)
+                         :accessor %contact-information-country-code :initform
+                         (common-lisp:error ":country-code is required"))
+                        (company-name :initarg :company-name :type
+                         (common-lisp:or company-name common-lisp:null)
+                         :accessor %contact-information-company-name :initform
+                         common-lisp:nil)
+                        (city :initarg :city :type
+                         (common-lisp:or city common-lisp:null) :accessor
+                         %contact-information-city :initform
+                         (common-lisp:error ":city is required"))
+                        (address-line3 :initarg :address-line3 :type
+                         (common-lisp:or address-line common-lisp:null)
+                         :accessor %contact-information-address-line3 :initform
+                         common-lisp:nil)
+                        (address-line2 :initarg :address-line2 :type
+                         (common-lisp:or address-line common-lisp:null)
+                         :accessor %contact-information-address-line2 :initform
+                         common-lisp:nil)
+                        (address-line1 :initarg :address-line1 :type
+                         (common-lisp:or address-line common-lisp:null)
+                         :accessor %contact-information-address-line1 :initform
+                         (common-lisp:error ":address-line1 is required"))))
  (common-lisp:export
   (common-lisp:list 'contact-information 'make-contact-information))
+ (common-lisp:defun make-contact-information
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key website-url state-or-region postal-code
+                     phone-number full-name district-or-county country-code
+                     company-name city address-line3 address-line2
+                     address-line1)
+   (common-lisp:apply #'common-lisp:make-instance 'contact-information
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input contact-information))
    (common-lisp:append))
@@ -231,17 +280,30 @@
 (common-lisp:deftype contact-information-phone-number () 'common-lisp:string)
 (common-lisp:deftype country-code () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-alternate-contact-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-alternate-contact-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (alternate-contact-type
-    (common-lisp:error ":alternate-contact-type is required") :type
-    (common-lisp:or alternate-contact-type common-lisp:null)))
+ (common-lisp:defclass delete-alternate-contact-request common-lisp:nil
+                       ((alternate-contact-type :initarg
+                         :alternate-contact-type :type
+                         (common-lisp:or alternate-contact-type
+                                         common-lisp:null)
+                         :accessor
+                         %delete-alternate-contact-request-alternate-contact-type
+                         :initform
+                         (common-lisp:error
+                          ":alternate-contact-type is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %delete-alternate-contact-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-alternate-contact-request
                     'make-delete-alternate-contact-request))
+ (common-lisp:defun make-delete-alternate-contact-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key alternate-contact-type account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-alternate-contact-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -273,15 +335,24 @@
                           delete-alternate-contact-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disable-region-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disable-region-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (region-name (common-lisp:error ":region-name is required") :type
-    (common-lisp:or region-name common-lisp:null)))
+ (common-lisp:defclass disable-region-request common-lisp:nil
+                       ((region-name :initarg :region-name :type
+                         (common-lisp:or region-name common-lisp:null)
+                         :accessor %disable-region-request-region-name
+                         :initform
+                         (common-lisp:error ":region-name is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %disable-region-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disable-region-request 'make-disable-region-request))
+ (common-lisp:defun make-disable-region-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key region-name account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'disable-region-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -314,15 +385,23 @@
 (common-lisp:deftype district-or-county () 'common-lisp:string)
 (common-lisp:deftype email-address () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (enable-region-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-enable-region-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (region-name (common-lisp:error ":region-name is required") :type
-    (common-lisp:or region-name common-lisp:null)))
+ (common-lisp:defclass enable-region-request common-lisp:nil
+                       ((region-name :initarg :region-name :type
+                         (common-lisp:or region-name common-lisp:null)
+                         :accessor %enable-region-request-region-name :initform
+                         (common-lisp:error ":region-name is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %enable-region-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'enable-region-request 'make-enable-region-request))
+ (common-lisp:defun make-enable-region-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key region-name account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'enable-region-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -354,17 +433,30 @@
    common-lisp:nil))
 (common-lisp:deftype full-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-alternate-contact-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-alternate-contact-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (alternate-contact-type
-    (common-lisp:error ":alternate-contact-type is required") :type
-    (common-lisp:or alternate-contact-type common-lisp:null)))
+ (common-lisp:defclass get-alternate-contact-request common-lisp:nil
+                       ((alternate-contact-type :initarg
+                         :alternate-contact-type :type
+                         (common-lisp:or alternate-contact-type
+                                         common-lisp:null)
+                         :accessor
+                         %get-alternate-contact-request-alternate-contact-type
+                         :initform
+                         (common-lisp:error
+                          ":alternate-contact-type is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %get-alternate-contact-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-alternate-contact-request
                     'make-get-alternate-contact-request))
+ (common-lisp:defun make-get-alternate-contact-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key alternate-contact-type account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-alternate-contact-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -396,14 +488,22 @@
                           get-alternate-contact-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-alternate-contact-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-alternate-contact-response-"))
-   (alternate-contact common-lisp:nil :type
-    (common-lisp:or alternate-contact common-lisp:null)))
+ (common-lisp:defclass get-alternate-contact-response common-lisp:nil
+                       ((alternate-contact :initarg :alternate-contact :type
+                         (common-lisp:or alternate-contact common-lisp:null)
+                         :accessor
+                         %get-alternate-contact-response-alternate-contact
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-alternate-contact-response
                     'make-get-alternate-contact-response))
+ (common-lisp:defun make-get-alternate-contact-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key alternate-contact)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-alternate-contact-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -427,14 +527,21 @@
                           get-alternate-contact-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-contact-information-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-contact-information-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null)))
+ (common-lisp:defclass get-contact-information-request common-lisp:nil
+                       ((account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %get-contact-information-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-contact-information-request
                     'make-get-contact-information-request))
+ (common-lisp:defun make-get-contact-information-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-contact-information-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -458,14 +565,23 @@
                           get-contact-information-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-contact-information-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-contact-information-response-"))
-   (contact-information common-lisp:nil :type
-    (common-lisp:or contact-information common-lisp:null)))
+ (common-lisp:defclass get-contact-information-response common-lisp:nil
+                       ((contact-information :initarg :contact-information
+                         :type
+                         (common-lisp:or contact-information common-lisp:null)
+                         :accessor
+                         %get-contact-information-response-contact-information
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-contact-information-response
                     'make-get-contact-information-response))
+ (common-lisp:defun make-get-contact-information-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key contact-information)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-contact-information-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -489,16 +605,26 @@
                           get-contact-information-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-region-opt-status-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-region-opt-status-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (region-name (common-lisp:error ":region-name is required") :type
-    (common-lisp:or region-name common-lisp:null)))
+ (common-lisp:defclass get-region-opt-status-request common-lisp:nil
+                       ((region-name :initarg :region-name :type
+                         (common-lisp:or region-name common-lisp:null)
+                         :accessor %get-region-opt-status-request-region-name
+                         :initform
+                         (common-lisp:error ":region-name is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %get-region-opt-status-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-region-opt-status-request
                     'make-get-region-opt-status-request))
+ (common-lisp:defun make-get-region-opt-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key region-name account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-region-opt-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -529,16 +655,26 @@
                           get-region-opt-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-region-opt-status-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-region-opt-status-response-"))
-   (region-name common-lisp:nil :type
-    (common-lisp:or region-name common-lisp:null))
-   (region-opt-status common-lisp:nil :type
-    (common-lisp:or region-opt-status common-lisp:null)))
+ (common-lisp:defclass get-region-opt-status-response common-lisp:nil
+                       ((region-opt-status :initarg :region-opt-status :type
+                         (common-lisp:or region-opt-status common-lisp:null)
+                         :accessor
+                         %get-region-opt-status-response-region-opt-status
+                         :initform common-lisp:nil)
+                        (region-name :initarg :region-name :type
+                         (common-lisp:or region-name common-lisp:null)
+                         :accessor %get-region-opt-status-response-region-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-region-opt-status-response
                     'make-get-region-opt-status-response))
+ (common-lisp:defun make-get-region-opt-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key region-opt-status region-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-region-opt-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -571,25 +707,44 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (account-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-regions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-regions-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or list-regions-request-max-results-integer common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or list-regions-request-next-token-string common-lisp:null))
-   (region-opt-status-contains common-lisp:nil :type
-    (common-lisp:or region-opt-status-list common-lisp:null)))
+ (common-lisp:defclass list-regions-request common-lisp:nil
+                       ((region-opt-status-contains :initarg
+                         :region-opt-status-contains :type
+                         (common-lisp:or region-opt-status-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-regions-request-region-opt-status-contains
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or list-regions-request-next-token-string
+                                         common-lisp:null)
+                         :accessor %list-regions-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or
+                          list-regions-request-max-results-integer
+                          common-lisp:null)
+                         :accessor %list-regions-request-max-results :initform
+                         common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %list-regions-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-regions-request 'make-list-regions-request))
+ (common-lisp:defun make-list-regions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key region-opt-status-contains next-token
+                     max-results account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-regions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-regions-request))
    (common-lisp:append))
@@ -633,14 +788,23 @@
 (common-lisp:deftype list-regions-request-next-token-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-regions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-regions-response-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (regions common-lisp:nil :type
-    (common-lisp:or region-opt-list common-lisp:null)))
+ (common-lisp:defclass list-regions-response common-lisp:nil
+                       ((regions :initarg :regions :type
+                         (common-lisp:or region-opt-list common-lisp:null)
+                         :accessor %list-regions-response-regions :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-regions-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-regions-response 'make-list-regions-response))
+ (common-lisp:defun make-list-regions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key regions next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-regions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -674,25 +838,49 @@
 (common-lisp:deftype phone-number () 'common-lisp:string)
 (common-lisp:deftype postal-code () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-alternate-contact-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-alternate-contact-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (alternate-contact-type
-    (common-lisp:error ":alternate-contact-type is required") :type
-    (common-lisp:or alternate-contact-type common-lisp:null))
-   (email-address (common-lisp:error ":email-address is required") :type
-    (common-lisp:or email-address common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (phone-number (common-lisp:error ":phone-number is required") :type
-    (common-lisp:or phone-number common-lisp:null))
-   (title (common-lisp:error ":title is required") :type
-    (common-lisp:or title common-lisp:null)))
+ (common-lisp:defclass put-alternate-contact-request common-lisp:nil
+                       ((title :initarg :title :type
+                         (common-lisp:or title common-lisp:null) :accessor
+                         %put-alternate-contact-request-title :initform
+                         (common-lisp:error ":title is required"))
+                        (phone-number :initarg :phone-number :type
+                         (common-lisp:or phone-number common-lisp:null)
+                         :accessor %put-alternate-contact-request-phone-number
+                         :initform
+                         (common-lisp:error ":phone-number is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %put-alternate-contact-request-name :initform
+                         (common-lisp:error ":name is required"))
+                        (email-address :initarg :email-address :type
+                         (common-lisp:or email-address common-lisp:null)
+                         :accessor %put-alternate-contact-request-email-address
+                         :initform
+                         (common-lisp:error ":email-address is required"))
+                        (alternate-contact-type :initarg
+                         :alternate-contact-type :type
+                         (common-lisp:or alternate-contact-type
+                                         common-lisp:null)
+                         :accessor
+                         %put-alternate-contact-request-alternate-contact-type
+                         :initform
+                         (common-lisp:error
+                          ":alternate-contact-type is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %put-alternate-contact-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-alternate-contact-request
                     'make-put-alternate-contact-request))
+ (common-lisp:defun make-put-alternate-contact-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key title phone-number name email-address
+                     alternate-contact-type account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-alternate-contact-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -752,16 +940,29 @@
                           put-alternate-contact-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-contact-information-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-contact-information-request-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (contact-information (common-lisp:error ":contact-information is required")
-    :type (common-lisp:or contact-information common-lisp:null)))
+ (common-lisp:defclass put-contact-information-request common-lisp:nil
+                       ((contact-information :initarg :contact-information
+                         :type
+                         (common-lisp:or contact-information common-lisp:null)
+                         :accessor
+                         %put-contact-information-request-contact-information
+                         :initform
+                         (common-lisp:error
+                          ":contact-information is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %put-contact-information-request-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-contact-information-request
                     'make-put-contact-information-request))
+ (common-lisp:defun make-put-contact-information-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key contact-information account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-contact-information-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -792,13 +993,22 @@
                           put-contact-information-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (region (:copier common-lisp:nil) (:conc-name "struct-shape-region-"))
-   (region-name common-lisp:nil :type
-    (common-lisp:or region-name common-lisp:null))
-   (region-opt-status common-lisp:nil :type
-    (common-lisp:or region-opt-status common-lisp:null)))
+ (common-lisp:defclass region common-lisp:nil
+                       ((region-opt-status :initarg :region-opt-status :type
+                         (common-lisp:or region-opt-status common-lisp:null)
+                         :accessor %region-region-opt-status :initform
+                         common-lisp:nil)
+                        (region-name :initarg :region-name :type
+                         (common-lisp:or region-name common-lisp:null)
+                         :accessor %region-region-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'region 'make-region))
+ (common-lisp:defun make-region
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key region-opt-status region-name)
+   (common-lisp:apply #'common-lisp:make-instance 'region
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input region))
    (common-lisp:append))
@@ -842,7 +1052,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (account-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -854,7 +1064,7 @@
 (common-lisp:progn
  (common-lisp:define-condition too-many-requests-exception
      (account-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        too-many-requests-exception-message)))
  (common-lisp:export
   (common-lisp:list 'too-many-requests-exception
@@ -862,27 +1072,36 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (account-error)
-     ((field-list :initarg :field-list :initform common-lisp:nil :reader
+     ((field-list :initarg :|fieldList| :initform common-lisp:nil :reader
        validation-exception-field-list)
-      (message :initarg :message :initform common-lisp:nil :reader
+      (message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)
-      (reason :initarg :reason :initform common-lisp:nil :reader
+      (reason :initarg :|reason| :initform common-lisp:nil :reader
        validation-exception-reason)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-field-list
                     'validation-exception-message
                     'validation-exception-reason)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validation-exception-field (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validation-exception-field-"))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or sensitive-string common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass validation-exception-field common-lisp:nil
+                       ((name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-exception-field-name :initform
+                         (common-lisp:error ":name is required"))
+                        (message :initarg :|message| :type
+                         (common-lisp:or sensitive-string common-lisp:null)
+                         :accessor %validation-exception-field-message
+                         :initform
+                         (common-lisp:error ":message is required"))))
  (common-lisp:export
   (common-lisp:list 'validation-exception-field
                     'make-validation-exception-field))
+ (common-lisp:defun make-validation-exception-field
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name message)
+   (common-lisp:apply #'common-lisp:make-instance 'validation-exception-field
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

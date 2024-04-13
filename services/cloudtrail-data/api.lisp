@@ -28,16 +28,26 @@
     ("InvalidChannelARN" . invalid-channel-arn)
     ("UnsupportedOperationException" . unsupported-operation-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (audit-event (:copier common-lisp:nil)
-      (:conc-name "struct-shape-audit-event-"))
-   (event-data (common-lisp:error ":eventdata is required") :type
-    (common-lisp:or string common-lisp:null))
-   (event-data-checksum common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:defclass audit-event common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %audit-event-id :initform
+                         (common-lisp:error ":id is required"))
+                        (event-data-checksum :initarg :|eventDataChecksum|
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor %audit-event-event-data-checksum :initform
+                         common-lisp:nil)
+                        (event-data :initarg :|eventData| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %audit-event-event-data :initform
+                         (common-lisp:error ":eventdata is required"))))
  (common-lisp:export (common-lisp:list 'audit-event 'make-audit-event))
+ (common-lisp:defun make-audit-event
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id event-data-checksum event-data)
+   (common-lisp:apply #'common-lisp:make-instance 'audit-event
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input audit-event))
    (common-lisp:append))
@@ -78,15 +88,23 @@
                             audit-event-result-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (audit-event-result-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-audit-event-result-entry-"))
-   (event-id (common-lisp:error ":eventid is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:defclass audit-event-result-entry common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %audit-event-result-entry-id :initform
+                         (common-lisp:error ":id is required"))
+                        (event-id :initarg :|eventID| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %audit-event-result-entry-event-id :initform
+                         (common-lisp:error ":eventid is required"))))
  (common-lisp:export
   (common-lisp:list 'audit-event-result-entry 'make-audit-event-result-entry))
+ (common-lisp:defun make-audit-event-result-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id event-id)
+   (common-lisp:apply #'common-lisp:make-instance 'audit-event-result-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -127,7 +145,7 @@
 (common-lisp:progn
  (common-lisp:define-condition channel-insufficient-permission
      (cloudtrail-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        channel-insufficient-permission-message)))
  (common-lisp:export
   (common-lisp:list 'channel-insufficient-permission
@@ -135,14 +153,14 @@
 (common-lisp:progn
  (common-lisp:define-condition channel-not-found
      (cloudtrail-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        channel-not-found-message)))
  (common-lisp:export
   (common-lisp:list 'channel-not-found 'channel-not-found-message)))
 (common-lisp:progn
  (common-lisp:define-condition channel-unsupported-schema
      (cloudtrail-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        channel-unsupported-schema-message)))
  (common-lisp:export
   (common-lisp:list 'channel-unsupported-schema
@@ -150,7 +168,7 @@
 (common-lisp:progn
  (common-lisp:define-condition duplicated-audit-event-id
      (cloudtrail-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        duplicated-audit-event-id-message)))
  (common-lisp:export
   (common-lisp:list 'duplicated-audit-event-id
@@ -161,22 +179,34 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-channel-arn
      (cloudtrail-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-channel-arn-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-channel-arn 'invalid-channel-arn-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-audit-events-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-audit-events-request-"))
-   (audit-events (common-lisp:error ":auditevents is required") :type
-    (common-lisp:or audit-events common-lisp:null))
-   (channel-arn (common-lisp:error ":channelarn is required") :type
-    (common-lisp:or channel-arn common-lisp:null))
-   (external-id common-lisp:nil :type
-    (common-lisp:or external-id common-lisp:null)))
+ (common-lisp:defclass put-audit-events-request common-lisp:nil
+                       ((external-id :initarg :|externalId| :type
+                         (common-lisp:or external-id common-lisp:null)
+                         :accessor %put-audit-events-request-external-id
+                         :initform common-lisp:nil)
+                        (channel-arn :initarg :|channelArn| :type
+                         (common-lisp:or channel-arn common-lisp:null)
+                         :accessor %put-audit-events-request-channel-arn
+                         :initform
+                         (common-lisp:error ":channelarn is required"))
+                        (audit-events :initarg :|auditEvents| :type
+                         (common-lisp:or audit-events common-lisp:null)
+                         :accessor %put-audit-events-request-audit-events
+                         :initform
+                         (common-lisp:error ":auditevents is required"))))
  (common-lisp:export
   (common-lisp:list 'put-audit-events-request 'make-put-audit-events-request))
+ (common-lisp:defun make-put-audit-events-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key external-id channel-arn audit-events)
+   (common-lisp:apply #'common-lisp:make-instance 'put-audit-events-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -200,16 +230,26 @@
                           put-audit-events-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-audit-events-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-audit-events-response-"))
-   (failed (common-lisp:error ":failed is required") :type
-    (common-lisp:or result-error-entries common-lisp:null))
-   (successful (common-lisp:error ":successful is required") :type
-    (common-lisp:or audit-event-result-entries common-lisp:null)))
+ (common-lisp:defclass put-audit-events-response common-lisp:nil
+                       ((successful :initarg :|successful| :type
+                         (common-lisp:or audit-event-result-entries
+                                         common-lisp:null)
+                         :accessor %put-audit-events-response-successful
+                         :initform
+                         (common-lisp:error ":successful is required"))
+                        (failed :initarg :|failed| :type
+                         (common-lisp:or result-error-entries common-lisp:null)
+                         :accessor %put-audit-events-response-failed :initform
+                         (common-lisp:error ":failed is required"))))
  (common-lisp:export
   (common-lisp:list 'put-audit-events-response
                     'make-put-audit-events-response))
+ (common-lisp:defun make-put-audit-events-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key successful failed)
+   (common-lisp:apply #'common-lisp:make-instance 'put-audit-events-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -248,17 +288,27 @@
                            (trivial-types:proper-list result-error-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (result-error-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-result-error-entry-"))
-   (error-code (common-lisp:error ":errorcode is required") :type
-    (common-lisp:or error-code common-lisp:null))
-   (error-message (common-lisp:error ":errormessage is required") :type
-    (common-lisp:or error-message common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:defclass result-error-entry common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %result-error-entry-id :initform
+                         (common-lisp:error ":id is required"))
+                        (error-message :initarg :|errorMessage| :type
+                         (common-lisp:or error-message common-lisp:null)
+                         :accessor %result-error-entry-error-message :initform
+                         (common-lisp:error ":errormessage is required"))
+                        (error-code :initarg :|errorCode| :type
+                         (common-lisp:or error-code common-lisp:null) :accessor
+                         %result-error-entry-error-code :initform
+                         (common-lisp:error ":errorcode is required"))))
  (common-lisp:export
   (common-lisp:list 'result-error-entry 'make-result-error-entry))
+ (common-lisp:defun make-result-error-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id error-message error-code)
+   (common-lisp:apply #'common-lisp:make-instance 'result-error-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input result-error-entry))
    (common-lisp:append))
@@ -293,7 +343,7 @@
 (common-lisp:progn
  (common-lisp:define-condition unsupported-operation-exception
      (cloudtrail-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        unsupported-operation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'unsupported-operation-exception

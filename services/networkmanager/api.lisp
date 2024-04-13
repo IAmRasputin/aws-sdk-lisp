@@ -31,14 +31,21 @@
     ("ValidationException" . validation-exception)))
 (common-lisp:deftype awsaccount-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (awslocation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-awslocation-"))
-   (zone common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (subnet-arn common-lisp:nil :type
-    (common-lisp:or subnet-arn common-lisp:null)))
+ (common-lisp:defclass awslocation common-lisp:nil
+                       ((subnet-arn :initarg :subnet-arn :type
+                         (common-lisp:or subnet-arn common-lisp:null) :accessor
+                         %awslocation-subnet-arn :initform common-lisp:nil)
+                        (zone :initarg :zone :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %awslocation-zone :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'awslocation 'make-awslocation))
+ (common-lisp:defun make-awslocation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key subnet-arn zone)
+   (common-lisp:apply #'common-lisp:make-instance 'awslocation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input awslocation))
    (common-lisp:append))
@@ -63,14 +70,21 @@
                         ((aws-sdk/generator/shape::input awslocation))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (accept-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-accept-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null)))
+ (common-lisp:defclass accept-attachment-request common-lisp:nil
+                       ((attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %accept-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'accept-attachment-request
                     'make-accept-attachment-request))
+ (common-lisp:defun make-accept-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'accept-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -87,14 +101,20 @@
                           accept-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (accept-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-accept-attachment-response-"))
-   (attachment common-lisp:nil :type
-    (common-lisp:or attachment common-lisp:null)))
+ (common-lisp:defclass accept-attachment-response common-lisp:nil
+                       ((attachment :initarg :attachment :type
+                         (common-lisp:or attachment common-lisp:null) :accessor
+                         %accept-attachment-response-attachment :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'accept-attachment-response
                     'make-accept-attachment-response))
+ (common-lisp:defun make-accept-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment)
+   (common-lisp:apply #'common-lisp:make-instance 'accept-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -126,14 +146,23 @@
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:deftype account-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (account-status (:copier common-lisp:nil)
-      (:conc-name "struct-shape-account-status-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (slrdeployment-status common-lisp:nil :type
-    (common-lisp:or slrdeployment-status common-lisp:null)))
+ (common-lisp:defclass account-status common-lisp:nil
+                       ((slrdeployment-status :initarg :slrdeployment-status
+                         :type
+                         (common-lisp:or slrdeployment-status common-lisp:null)
+                         :accessor %account-status-slrdeployment-status
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %account-status-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'account-status 'make-account-status))
+ (common-lisp:defun make-account-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key slrdeployment-status account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'account-status
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input account-status))
    (common-lisp:append))
@@ -168,19 +197,39 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype action () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-connect-peer-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-connect-peer-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (connect-peer-id (common-lisp:error ":connect-peer-id is required") :type
-    (common-lisp:or connect-peer-id common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null)))
+ (common-lisp:defclass associate-connect-peer-request common-lisp:nil
+                       ((link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %associate-connect-peer-request-link-id :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %associate-connect-peer-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (connect-peer-id :initarg :connect-peer-id :type
+                         (common-lisp:or connect-peer-id common-lisp:null)
+                         :accessor
+                         %associate-connect-peer-request-connect-peer-id
+                         :initform
+                         (common-lisp:error ":connect-peer-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %associate-connect-peer-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-connect-peer-request
                     'make-associate-connect-peer-request))
+ (common-lisp:defun make-associate-connect-peer-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-id device-id connect-peer-id
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-connect-peer-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -218,14 +267,24 @@
                           associate-connect-peer-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-connect-peer-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-connect-peer-response-"))
-   (connect-peer-association common-lisp:nil :type
-    (common-lisp:or connect-peer-association common-lisp:null)))
+ (common-lisp:defclass associate-connect-peer-response common-lisp:nil
+                       ((connect-peer-association :initarg
+                         :connect-peer-association :type
+                         (common-lisp:or connect-peer-association
+                                         common-lisp:null)
+                         :accessor
+                         %associate-connect-peer-response-connect-peer-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-connect-peer-response
                     'make-associate-connect-peer-response))
+ (common-lisp:defun make-associate-connect-peer-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-connect-peer-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -250,20 +309,41 @@
                           associate-connect-peer-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-customer-gateway-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-customer-gateway-request-"))
-   (customer-gateway-arn
-    (common-lisp:error ":customer-gateway-arn is required") :type
-    (common-lisp:or customer-gateway-arn common-lisp:null))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null)))
+ (common-lisp:defclass associate-customer-gateway-request common-lisp:nil
+                       ((link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %associate-customer-gateway-request-link-id :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %associate-customer-gateway-request-device-id
+                         :initform
+                         (common-lisp:error ":device-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %associate-customer-gateway-request-global-network-id
+                         :initform
+                         (common-lisp:error ":global-network-id is required"))
+                        (customer-gateway-arn :initarg :customer-gateway-arn
+                         :type
+                         (common-lisp:or customer-gateway-arn common-lisp:null)
+                         :accessor
+                         %associate-customer-gateway-request-customer-gateway-arn
+                         :initform
+                         (common-lisp:error
+                          ":customer-gateway-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-customer-gateway-request
                     'make-associate-customer-gateway-request))
+ (common-lisp:defun make-associate-customer-gateway-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-id device-id global-network-id
+                     customer-gateway-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-customer-gateway-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -302,14 +382,24 @@
                           associate-customer-gateway-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-customer-gateway-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-customer-gateway-response-"))
-   (customer-gateway-association common-lisp:nil :type
-    (common-lisp:or customer-gateway-association common-lisp:null)))
+ (common-lisp:defclass associate-customer-gateway-response common-lisp:nil
+                       ((customer-gateway-association :initarg
+                         :customer-gateway-association :type
+                         (common-lisp:or customer-gateway-association
+                                         common-lisp:null)
+                         :accessor
+                         %associate-customer-gateway-response-customer-gateway-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-customer-gateway-response
                     'make-associate-customer-gateway-response))
+ (common-lisp:defun make-associate-customer-gateway-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-gateway-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-customer-gateway-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -334,17 +424,29 @@
                           associate-customer-gateway-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-link-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-link-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id (common-lisp:error ":link-id is required") :type
-    (common-lisp:or link-id common-lisp:null)))
+ (common-lisp:defclass associate-link-request common-lisp:nil
+                       ((link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %associate-link-request-link-id :initform
+                         (common-lisp:error ":link-id is required"))
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %associate-link-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %associate-link-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-link-request 'make-associate-link-request))
+ (common-lisp:defun make-associate-link-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-id device-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'associate-link-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -375,13 +477,19 @@
                           associate-link-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-link-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-link-response-"))
-   (link-association common-lisp:nil :type
-    (common-lisp:or link-association common-lisp:null)))
+ (common-lisp:defclass associate-link-response common-lisp:nil
+                       ((link-association :initarg :link-association :type
+                         (common-lisp:or link-association common-lisp:null)
+                         :accessor %associate-link-response-link-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-link-response 'make-associate-link-response))
+ (common-lisp:defun make-associate-link-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-association)
+   (common-lisp:apply #'common-lisp:make-instance 'associate-link-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -405,21 +513,44 @@
                           associate-link-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-transit-gateway-connect-peer-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-transit-gateway-connect-peer-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (transit-gateway-connect-peer-arn
-    (common-lisp:error ":transit-gateway-connect-peer-arn is required") :type
-    (common-lisp:or transit-gateway-connect-peer-arn common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null)))
+ (common-lisp:defclass associate-transit-gateway-connect-peer-request
+                       common-lisp:nil
+                       ((link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %associate-transit-gateway-connect-peer-request-link-id
+                         :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %associate-transit-gateway-connect-peer-request-device-id
+                         :initform
+                         (common-lisp:error ":device-id is required"))
+                        (transit-gateway-connect-peer-arn :initarg
+                         :transit-gateway-connect-peer-arn :type
+                         (common-lisp:or transit-gateway-connect-peer-arn
+                                         common-lisp:null)
+                         :accessor
+                         %associate-transit-gateway-connect-peer-request-transit-gateway-connect-peer-arn
+                         :initform
+                         (common-lisp:error
+                          ":transit-gateway-connect-peer-arn is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %associate-transit-gateway-connect-peer-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-transit-gateway-connect-peer-request
                     'make-associate-transit-gateway-connect-peer-request))
+ (common-lisp:defun make-associate-transit-gateway-connect-peer-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-id device-id
+                     transit-gateway-connect-peer-arn global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-transit-gateway-connect-peer-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -458,16 +589,26 @@
                           associate-transit-gateway-connect-peer-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-transit-gateway-connect-peer-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-transit-gateway-connect-peer-response-"))
-   (transit-gateway-connect-peer-association common-lisp:nil :type
-    (common-lisp:or transit-gateway-connect-peer-association
-                    common-lisp:null)))
+ (common-lisp:defclass associate-transit-gateway-connect-peer-response
+                       common-lisp:nil
+                       ((transit-gateway-connect-peer-association :initarg
+                         :transit-gateway-connect-peer-association :type
+                         (common-lisp:or
+                          transit-gateway-connect-peer-association
+                          common-lisp:null)
+                         :accessor
+                         %associate-transit-gateway-connect-peer-response-transit-gateway-connect-peer-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-transit-gateway-connect-peer-response
                     'make-associate-transit-gateway-connect-peer-response))
+ (common-lisp:defun make-associate-transit-gateway-connect-peer-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-connect-peer-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-transit-gateway-connect-peer-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -492,37 +633,73 @@
                           associate-transit-gateway-connect-peer-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attachment (:copier common-lisp:nil)
-      (:conc-name "struct-shape-attachment-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (core-network-arn common-lisp:nil :type
-    (common-lisp:or core-network-arn common-lisp:null))
-   (attachment-id common-lisp:nil :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (owner-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (attachment-type common-lisp:nil :type
-    (common-lisp:or attachment-type common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or attachment-state common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (attachment-policy-rule-number common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (segment-name common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (proposed-segment-change common-lisp:nil :type
-    (common-lisp:or proposed-segment-change common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (updated-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:defclass attachment common-lisp:nil
+                       ((updated-at :initarg :updated-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %attachment-updated-at :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %attachment-created-at :initform common-lisp:nil)
+                        (proposed-segment-change :initarg
+                         :proposed-segment-change :type
+                         (common-lisp:or proposed-segment-change
+                                         common-lisp:null)
+                         :accessor %attachment-proposed-segment-change
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %attachment-tags :initform common-lisp:nil)
+                        (segment-name :initarg :segment-name :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %attachment-segment-name :initform
+                         common-lisp:nil)
+                        (attachment-policy-rule-number :initarg
+                         :attachment-policy-rule-number :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %attachment-attachment-policy-rule-number :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %attachment-resource-arn :initform
+                         common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %attachment-edge-location :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or attachment-state common-lisp:null)
+                         :accessor %attachment-state :initform common-lisp:nil)
+                        (attachment-type :initarg :attachment-type :type
+                         (common-lisp:or attachment-type common-lisp:null)
+                         :accessor %attachment-attachment-type :initform
+                         common-lisp:nil)
+                        (owner-account-id :initarg :owner-account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %attachment-owner-account-id :initform
+                         common-lisp:nil)
+                        (attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %attachment-attachment-id :initform
+                         common-lisp:nil)
+                        (core-network-arn :initarg :core-network-arn :type
+                         (common-lisp:or core-network-arn common-lisp:null)
+                         :accessor %attachment-core-network-arn :initform
+                         common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %attachment-core-network-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'attachment 'make-attachment))
+ (common-lisp:defun make-attachment
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-at created-at
+                     proposed-segment-change tags segment-name
+                     attachment-policy-rule-number resource-arn edge-location
+                     state attachment-type owner-account-id attachment-id
+                     core-network-arn core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'attachment
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input attachment))
    (common-lisp:append))
@@ -644,14 +821,20 @@
 (common-lisp:deftype attachment-state () 'common-lisp:string)
 (common-lisp:deftype attachment-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (bandwidth (:copier common-lisp:nil)
-      (:conc-name "struct-shape-bandwidth-"))
-   (upload-speed common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (download-speed common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass bandwidth common-lisp:nil
+                       ((download-speed :initarg :download-speed :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %bandwidth-download-speed :initform common-lisp:nil)
+                        (upload-speed :initarg :upload-speed :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %bandwidth-upload-speed :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'bandwidth 'make-bandwidth))
+ (common-lisp:defun make-bandwidth
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key download-speed upload-speed)
+   (common-lisp:apply #'common-lisp:make-instance 'bandwidth
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input bandwidth))
    (common-lisp:append))
@@ -676,11 +859,17 @@
                         ((aws-sdk/generator/shape::input bandwidth))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (bgp-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-bgp-options-"))
-   (peer-asn common-lisp:nil :type (common-lisp:or long common-lisp:null)))
+ (common-lisp:defclass bgp-options common-lisp:nil
+                       ((peer-asn :initarg :peer-asn :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %bgp-options-peer-asn :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'bgp-options 'make-bgp-options))
+ (common-lisp:defun make-bgp-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key peer-asn)
+   (common-lisp:apply #'common-lisp:make-instance 'bgp-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input bgp-options))
    (common-lisp:append))
@@ -717,17 +906,30 @@
                     'conflict-exception-resource-id
                     'conflict-exception-resource-type)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connect-attachment (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connect-attachment-"))
-   (attachment common-lisp:nil :type
-    (common-lisp:or attachment common-lisp:null))
-   (transport-attachment-id common-lisp:nil :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (options common-lisp:nil :type
-    (common-lisp:or connect-attachment-options common-lisp:null)))
+ (common-lisp:defclass connect-attachment common-lisp:nil
+                       ((options :initarg :options :type
+                         (common-lisp:or connect-attachment-options
+                                         common-lisp:null)
+                         :accessor %connect-attachment-options :initform
+                         common-lisp:nil)
+                        (transport-attachment-id :initarg
+                         :transport-attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %connect-attachment-transport-attachment-id
+                         :initform common-lisp:nil)
+                        (attachment :initarg :attachment :type
+                         (common-lisp:or attachment common-lisp:null) :accessor
+                         %connect-attachment-attachment :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connect-attachment 'make-connect-attachment))
+ (common-lisp:defun make-connect-attachment
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key options transport-attachment-id
+                     attachment)
+   (common-lisp:apply #'common-lisp:make-instance 'connect-attachment
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input connect-attachment))
    (common-lisp:append))
@@ -760,14 +962,20 @@
                         ((aws-sdk/generator/shape::input connect-attachment))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connect-attachment-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connect-attachment-options-"))
-   (protocol common-lisp:nil :type
-    (common-lisp:or tunnel-protocol common-lisp:null)))
+ (common-lisp:defclass connect-attachment-options common-lisp:nil
+                       ((protocol :initarg :protocol :type
+                         (common-lisp:or tunnel-protocol common-lisp:null)
+                         :accessor %connect-attachment-options-protocol
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connect-attachment-options
                     'make-connect-attachment-options))
+ (common-lisp:defun make-connect-attachment-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key protocol)
+   (common-lisp:apply #'common-lisp:make-instance 'connect-attachment-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -791,25 +999,47 @@
                           connect-attachment-options))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connect-peer (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connect-peer-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (connect-attachment-id common-lisp:nil :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (connect-peer-id common-lisp:nil :type
-    (common-lisp:or connect-peer-id common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or connect-peer-state common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (configuration common-lisp:nil :type
-    (common-lisp:or connect-peer-configuration common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass connect-peer common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %connect-peer-tags :initform common-lisp:nil)
+                        (configuration :initarg :configuration :type
+                         (common-lisp:or connect-peer-configuration
+                                         common-lisp:null)
+                         :accessor %connect-peer-configuration :initform
+                         common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %connect-peer-created-at :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or connect-peer-state common-lisp:null)
+                         :accessor %connect-peer-state :initform
+                         common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %connect-peer-edge-location :initform
+                         common-lisp:nil)
+                        (connect-peer-id :initarg :connect-peer-id :type
+                         (common-lisp:or connect-peer-id common-lisp:null)
+                         :accessor %connect-peer-connect-peer-id :initform
+                         common-lisp:nil)
+                        (connect-attachment-id :initarg :connect-attachment-id
+                         :type (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %connect-peer-connect-attachment-id
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %connect-peer-core-network-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'connect-peer 'make-connect-peer))
+ (common-lisp:defun make-connect-peer
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags configuration created-at state
+                     edge-location connect-peer-id connect-attachment-id
+                     core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'connect-peer
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input connect-peer))
    (common-lisp:append))
@@ -877,20 +1107,37 @@
                         ((aws-sdk/generator/shape::input connect-peer))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connect-peer-association (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connect-peer-association-"))
-   (connect-peer-id common-lisp:nil :type
-    (common-lisp:or connect-peer-id common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or connect-peer-association-state common-lisp:null)))
+ (common-lisp:defclass connect-peer-association common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or connect-peer-association-state
+                                         common-lisp:null)
+                         :accessor %connect-peer-association-state :initform
+                         common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %connect-peer-association-link-id :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %connect-peer-association-device-id :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %connect-peer-association-global-network-id
+                         :initform common-lisp:nil)
+                        (connect-peer-id :initarg :connect-peer-id :type
+                         (common-lisp:or connect-peer-id common-lisp:null)
+                         :accessor %connect-peer-association-connect-peer-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connect-peer-association 'make-connect-peer-association))
+ (common-lisp:defun make-connect-peer-association
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state link-id device-id global-network-id
+                     connect-peer-id)
+   (common-lisp:apply #'common-lisp:make-instance 'connect-peer-association
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -952,19 +1199,35 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype connect-peer-association-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (connect-peer-bgp-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connect-peer-bgp-configuration-"))
-   (core-network-asn common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (peer-asn common-lisp:nil :type (common-lisp:or long common-lisp:null))
-   (core-network-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null))
-   (peer-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null)))
+ (common-lisp:defclass connect-peer-bgp-configuration common-lisp:nil
+                       ((peer-address :initarg :peer-address :type
+                         (common-lisp:or ipaddress common-lisp:null) :accessor
+                         %connect-peer-bgp-configuration-peer-address :initform
+                         common-lisp:nil)
+                        (core-network-address :initarg :core-network-address
+                         :type (common-lisp:or ipaddress common-lisp:null)
+                         :accessor
+                         %connect-peer-bgp-configuration-core-network-address
+                         :initform common-lisp:nil)
+                        (peer-asn :initarg :peer-asn :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %connect-peer-bgp-configuration-peer-asn :initform
+                         common-lisp:nil)
+                        (core-network-asn :initarg :core-network-asn :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %connect-peer-bgp-configuration-core-network-asn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connect-peer-bgp-configuration
                     'make-connect-peer-bgp-configuration))
+ (common-lisp:defun make-connect-peer-bgp-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key peer-address core-network-address
+                     peer-asn core-network-asn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'connect-peer-bgp-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1019,22 +1282,42 @@
                             connect-peer-bgp-configuration))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connect-peer-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connect-peer-configuration-"))
-   (core-network-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null))
-   (peer-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null))
-   (inside-cidr-blocks common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null))
-   (protocol common-lisp:nil :type
-    (common-lisp:or tunnel-protocol common-lisp:null))
-   (bgp-configurations common-lisp:nil :type
-    (common-lisp:or connect-peer-bgp-configuration-list common-lisp:null)))
+ (common-lisp:defclass connect-peer-configuration common-lisp:nil
+                       ((bgp-configurations :initarg :bgp-configurations :type
+                         (common-lisp:or connect-peer-bgp-configuration-list
+                                         common-lisp:null)
+                         :accessor
+                         %connect-peer-configuration-bgp-configurations
+                         :initform common-lisp:nil)
+                        (protocol :initarg :protocol :type
+                         (common-lisp:or tunnel-protocol common-lisp:null)
+                         :accessor %connect-peer-configuration-protocol
+                         :initform common-lisp:nil)
+                        (inside-cidr-blocks :initarg :inside-cidr-blocks :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %connect-peer-configuration-inside-cidr-blocks
+                         :initform common-lisp:nil)
+                        (peer-address :initarg :peer-address :type
+                         (common-lisp:or ipaddress common-lisp:null) :accessor
+                         %connect-peer-configuration-peer-address :initform
+                         common-lisp:nil)
+                        (core-network-address :initarg :core-network-address
+                         :type (common-lisp:or ipaddress common-lisp:null)
+                         :accessor
+                         %connect-peer-configuration-core-network-address
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connect-peer-configuration
                     'make-connect-peer-configuration))
+ (common-lisp:defun make-connect-peer-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key bgp-configurations protocol
+                     inside-cidr-blocks peer-address core-network-address)
+   (common-lisp:apply #'common-lisp:make-instance 'connect-peer-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1097,24 +1380,44 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype connect-peer-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (connect-peer-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connect-peer-summary-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (connect-attachment-id common-lisp:nil :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (connect-peer-id common-lisp:nil :type
-    (common-lisp:or connect-peer-id common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (connect-peer-state common-lisp:nil :type
-    (common-lisp:or connect-peer-state common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass connect-peer-summary common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %connect-peer-summary-tags :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %connect-peer-summary-created-at :initform
+                         common-lisp:nil)
+                        (connect-peer-state :initarg :connect-peer-state :type
+                         (common-lisp:or connect-peer-state common-lisp:null)
+                         :accessor %connect-peer-summary-connect-peer-state
+                         :initform common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %connect-peer-summary-edge-location
+                         :initform common-lisp:nil)
+                        (connect-peer-id :initarg :connect-peer-id :type
+                         (common-lisp:or connect-peer-id common-lisp:null)
+                         :accessor %connect-peer-summary-connect-peer-id
+                         :initform common-lisp:nil)
+                        (connect-attachment-id :initarg :connect-attachment-id
+                         :type (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %connect-peer-summary-connect-attachment-id
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %connect-peer-summary-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connect-peer-summary 'make-connect-peer-summary))
+ (common-lisp:defun make-connect-peer-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags created-at connect-peer-state
+                     edge-location connect-peer-id connect-attachment-id
+                     core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'connect-peer-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input connect-peer-summary))
    (common-lisp:append))
@@ -1183,30 +1486,55 @@
                            (trivial-types:proper-list connect-peer-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connection (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connection-"))
-   (connection-id common-lisp:nil :type
-    (common-lisp:or connection-id common-lisp:null))
-   (connection-arn common-lisp:nil :type
-    (common-lisp:or connection-arn common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (connected-device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (connected-link-id common-lisp:nil :type
-    (common-lisp:or link-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or connection-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass connection common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %connection-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or connection-state common-lisp:null)
+                         :accessor %connection-state :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %connection-created-at :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %connection-description :initform
+                         common-lisp:nil)
+                        (connected-link-id :initarg :connected-link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %connection-connected-link-id :initform
+                         common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %connection-link-id :initform common-lisp:nil)
+                        (connected-device-id :initarg :connected-device-id
+                         :type (common-lisp:or device-id common-lisp:null)
+                         :accessor %connection-connected-device-id :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %connection-device-id :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %connection-global-network-id :initform
+                         common-lisp:nil)
+                        (connection-arn :initarg :connection-arn :type
+                         (common-lisp:or connection-arn common-lisp:null)
+                         :accessor %connection-connection-arn :initform
+                         common-lisp:nil)
+                        (connection-id :initarg :connection-id :type
+                         (common-lisp:or connection-id common-lisp:null)
+                         :accessor %connection-connection-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'connection 'make-connection))
+ (common-lisp:defun make-connection
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state created-at description
+                     connected-link-id link-id connected-device-id device-id
+                     global-network-id connection-arn connection-id)
+   (common-lisp:apply #'common-lisp:make-instance 'connection
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input connection))
    (common-lisp:append))
@@ -1295,17 +1623,27 @@
    common-lisp:nil))
 (common-lisp:deftype connection-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (connection-health (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connection-health-"))
-   (type common-lisp:nil :type
-    (common-lisp:or connection-type common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or connection-status common-lisp:null))
-   (timestamp common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:defclass connection-health common-lisp:nil
+                       ((timestamp :initarg :timestamp :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %connection-health-timestamp :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or connection-status common-lisp:null)
+                         :accessor %connection-health-status :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or connection-type common-lisp:null)
+                         :accessor %connection-health-type :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connection-health 'make-connection-health))
+ (common-lisp:defun make-connection-health
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key timestamp status type)
+   (common-lisp:apply #'common-lisp:make-instance 'connection-health
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input connection-health))
    (common-lisp:append))
@@ -1366,27 +1704,52 @@
                            (trivial-types:proper-list constrained-string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-"))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (core-network-arn common-lisp:nil :type
-    (common-lisp:or core-network-arn common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or core-network-state common-lisp:null))
-   (segments common-lisp:nil :type
-    (common-lisp:or core-network-segment-list common-lisp:null))
-   (edges common-lisp:nil :type
-    (common-lisp:or core-network-edge-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass core-network common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %core-network-tags :initform common-lisp:nil)
+                        (edges :initarg :edges :type
+                         (common-lisp:or core-network-edge-list
+                                         common-lisp:null)
+                         :accessor %core-network-edges :initform
+                         common-lisp:nil)
+                        (segments :initarg :segments :type
+                         (common-lisp:or core-network-segment-list
+                                         common-lisp:null)
+                         :accessor %core-network-segments :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or core-network-state common-lisp:null)
+                         :accessor %core-network-state :initform
+                         common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %core-network-created-at :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-description :initform
+                         common-lisp:nil)
+                        (core-network-arn :initarg :core-network-arn :type
+                         (common-lisp:or core-network-arn common-lisp:null)
+                         :accessor %core-network-core-network-arn :initform
+                         common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %core-network-core-network-id :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %core-network-global-network-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'core-network 'make-core-network))
+ (common-lisp:defun make-core-network
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags edges segments state created-at
+                     description core-network-arn core-network-id
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input core-network))
    (common-lisp:append))
@@ -1461,22 +1824,42 @@
    common-lisp:nil))
 (common-lisp:deftype core-network-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-change (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-change-"))
-   (type common-lisp:nil :type (common-lisp:or change-type common-lisp:null))
-   (action common-lisp:nil :type
-    (common-lisp:or change-action common-lisp:null))
-   (identifier common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (previous-values common-lisp:nil :type
-    (common-lisp:or core-network-change-values common-lisp:null))
-   (new-values common-lisp:nil :type
-    (common-lisp:or core-network-change-values common-lisp:null))
-   (identifier-path common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass core-network-change common-lisp:nil
+                       ((identifier-path :initarg :identifier-path :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-change-identifier-path
+                         :initform common-lisp:nil)
+                        (new-values :initarg :new-values :type
+                         (common-lisp:or core-network-change-values
+                                         common-lisp:null)
+                         :accessor %core-network-change-new-values :initform
+                         common-lisp:nil)
+                        (previous-values :initarg :previous-values :type
+                         (common-lisp:or core-network-change-values
+                                         common-lisp:null)
+                         :accessor %core-network-change-previous-values
+                         :initform common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-change-identifier :initform
+                         common-lisp:nil)
+                        (action :initarg :action :type
+                         (common-lisp:or change-action common-lisp:null)
+                         :accessor %core-network-change-action :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or change-type common-lisp:null)
+                         :accessor %core-network-change-type :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-change 'make-core-network-change))
+ (common-lisp:defun make-core-network-change
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identifier-path new-values
+                     previous-values identifier action type)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-change
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input core-network-change))
    (common-lisp:append))
@@ -1529,23 +1912,42 @@
                         ((aws-sdk/generator/shape::input core-network-change))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-change-event (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-change-event-"))
-   (type common-lisp:nil :type (common-lisp:or change-type common-lisp:null))
-   (action common-lisp:nil :type
-    (common-lisp:or change-action common-lisp:null))
-   (identifier-path common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (event-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or change-status common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or core-network-change-event-values common-lisp:null)))
+ (common-lisp:defclass core-network-change-event common-lisp:nil
+                       ((values :initarg :values :type
+                         (common-lisp:or core-network-change-event-values
+                                         common-lisp:null)
+                         :accessor %core-network-change-event-values :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or change-status common-lisp:null)
+                         :accessor %core-network-change-event-status :initform
+                         common-lisp:nil)
+                        (event-time :initarg :event-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %core-network-change-event-event-time :initform
+                         common-lisp:nil)
+                        (identifier-path :initarg :identifier-path :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-change-event-identifier-path
+                         :initform common-lisp:nil)
+                        (action :initarg :action :type
+                         (common-lisp:or change-action common-lisp:null)
+                         :accessor %core-network-change-event-action :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or change-type common-lisp:null)
+                         :accessor %core-network-change-event-type :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-change-event
                     'make-core-network-change-event))
+ (common-lisp:defun make-core-network-change-event
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values status event-time identifier-path
+                     action type)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-change-event
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1613,20 +2015,37 @@
                             core-network-change-event))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-change-event-values (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-change-event-values-"))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (segment-name common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (attachment-id common-lisp:nil :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (cidr common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass core-network-change-event-values common-lisp:nil
+                       ((cidr :initarg :cidr :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-change-event-values-cidr
+                         :initform common-lisp:nil)
+                        (attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %core-network-change-event-values-attachment-id
+                         :initform common-lisp:nil)
+                        (segment-name :initarg :segment-name :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor
+                         %core-network-change-event-values-segment-name
+                         :initform common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor
+                         %core-network-change-event-values-edge-location
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-change-event-values
                     'make-core-network-change-event-values))
+ (common-lisp:defun make-core-network-change-event-values
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cidr attachment-id segment-name
+                     edge-location)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'core-network-change-event-values
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1679,25 +2098,52 @@
                            (trivial-types:proper-list core-network-change))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-change-values (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-change-values-"))
-   (segment-name common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (edge-locations common-lisp:nil :type
-    (common-lisp:or external-region-code-list common-lisp:null))
-   (asn common-lisp:nil :type (common-lisp:or long common-lisp:null))
-   (cidr common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (destination-identifier common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (inside-cidr-blocks common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null))
-   (shared-segments common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null)))
+ (common-lisp:defclass core-network-change-values common-lisp:nil
+                       ((shared-segments :initarg :shared-segments :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor %core-network-change-values-shared-segments
+                         :initform common-lisp:nil)
+                        (inside-cidr-blocks :initarg :inside-cidr-blocks :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %core-network-change-values-inside-cidr-blocks
+                         :initform common-lisp:nil)
+                        (destination-identifier :initarg
+                         :destination-identifier :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor
+                         %core-network-change-values-destination-identifier
+                         :initform common-lisp:nil)
+                        (cidr :initarg :cidr :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-change-values-cidr :initform
+                         common-lisp:nil)
+                        (asn :initarg :asn :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %core-network-change-values-asn :initform
+                         common-lisp:nil)
+                        (edge-locations :initarg :edge-locations :type
+                         (common-lisp:or external-region-code-list
+                                         common-lisp:null)
+                         :accessor %core-network-change-values-edge-locations
+                         :initform common-lisp:nil)
+                        (segment-name :initarg :segment-name :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-change-values-segment-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-change-values
                     'make-core-network-change-values))
+ (common-lisp:defun make-core-network-change-values
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key shared-segments inside-cidr-blocks
+                     destination-identifier cidr asn edge-locations
+                     segment-name)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-change-values
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1764,16 +2210,27 @@
                           core-network-change-values))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-edge (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-edge-"))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (asn common-lisp:nil :type (common-lisp:or long common-lisp:null))
-   (inside-cidr-blocks common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null)))
+ (common-lisp:defclass core-network-edge common-lisp:nil
+                       ((inside-cidr-blocks :initarg :inside-cidr-blocks :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor %core-network-edge-inside-cidr-blocks
+                         :initform common-lisp:nil)
+                        (asn :initarg :asn :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %core-network-edge-asn :initform common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %core-network-edge-edge-location :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-edge 'make-core-network-edge))
+ (common-lisp:defun make-core-network-edge
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key inside-cidr-blocks asn edge-location)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-edge
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input core-network-edge))
    (common-lisp:append))
@@ -1814,27 +2271,52 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype core-network-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-policy (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-policy-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (alias common-lisp:nil :type
-    (common-lisp:or core-network-policy-alias common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (change-set-state common-lisp:nil :type
-    (common-lisp:or change-set-state common-lisp:null))
-   (policy-errors common-lisp:nil :type
-    (common-lisp:or core-network-policy-error-list common-lisp:null))
-   (policy-document common-lisp:nil :type
-    (common-lisp:or core-network-policy-document common-lisp:null)))
+ (common-lisp:defclass core-network-policy common-lisp:nil
+                       ((policy-document :initarg :policy-document :type
+                         (common-lisp:or core-network-policy-document
+                                         common-lisp:null)
+                         :accessor %core-network-policy-policy-document
+                         :initform common-lisp:nil)
+                        (policy-errors :initarg :policy-errors :type
+                         (common-lisp:or core-network-policy-error-list
+                                         common-lisp:null)
+                         :accessor %core-network-policy-policy-errors :initform
+                         common-lisp:nil)
+                        (change-set-state :initarg :change-set-state :type
+                         (common-lisp:or change-set-state common-lisp:null)
+                         :accessor %core-network-policy-change-set-state
+                         :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %core-network-policy-created-at :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-policy-description :initform
+                         common-lisp:nil)
+                        (alias :initarg :alias :type
+                         (common-lisp:or core-network-policy-alias
+                                         common-lisp:null)
+                         :accessor %core-network-policy-alias :initform
+                         common-lisp:nil)
+                        (policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %core-network-policy-policy-version-id :initform
+                         common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %core-network-policy-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-policy 'make-core-network-policy))
+ (common-lisp:defun make-core-network-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-document policy-errors
+                     change-set-state created-at description alias
+                     policy-version-id core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-policy
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input core-network-policy))
    (common-lisp:append))
@@ -1903,18 +2385,29 @@
 (common-lisp:deftype core-network-policy-alias () 'common-lisp:string)
 (common-lisp:deftype core-network-policy-document () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-policy-error (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-policy-error-"))
-   (error-code (common-lisp:error ":error-code is required") :type
-    (common-lisp:or server-side-string common-lisp:null))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or server-side-string common-lisp:null))
-   (path common-lisp:nil :type
-    (common-lisp:or server-side-string common-lisp:null)))
+ (common-lisp:defclass core-network-policy-error common-lisp:nil
+                       ((path :initarg :path :type
+                         (common-lisp:or server-side-string common-lisp:null)
+                         :accessor %core-network-policy-error-path :initform
+                         common-lisp:nil)
+                        (message :initarg :message :type
+                         (common-lisp:or server-side-string common-lisp:null)
+                         :accessor %core-network-policy-error-message :initform
+                         (common-lisp:error ":message is required"))
+                        (error-code :initarg :error-code :type
+                         (common-lisp:or server-side-string common-lisp:null)
+                         :accessor %core-network-policy-error-error-code
+                         :initform
+                         (common-lisp:error ":error-code is required"))))
  (common-lisp:export
   (common-lisp:list 'core-network-policy-error
                     'make-core-network-policy-error))
+ (common-lisp:defun make-core-network-policy-error
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key path message error-code)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-policy-error
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1972,24 +2465,43 @@
                     'core-network-policy-exception-message
                     'core-network-policy-exception-errors)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-policy-version (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-policy-version-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (alias common-lisp:nil :type
-    (common-lisp:or core-network-policy-alias common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (change-set-state common-lisp:nil :type
-    (common-lisp:or change-set-state common-lisp:null)))
+ (common-lisp:defclass core-network-policy-version common-lisp:nil
+                       ((change-set-state :initarg :change-set-state :type
+                         (common-lisp:or change-set-state common-lisp:null)
+                         :accessor
+                         %core-network-policy-version-change-set-state
+                         :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %core-network-policy-version-created-at :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-policy-version-description
+                         :initform common-lisp:nil)
+                        (alias :initarg :alias :type
+                         (common-lisp:or core-network-policy-alias
+                                         common-lisp:null)
+                         :accessor %core-network-policy-version-alias :initform
+                         common-lisp:nil)
+                        (policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %core-network-policy-version-policy-version-id
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %core-network-policy-version-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-policy-version
                     'make-core-network-policy-version))
+ (common-lisp:defun make-core-network-policy-version
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key change-set-state created-at description
+                     alias policy-version-id core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-policy-version
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2057,17 +2569,29 @@
                             core-network-policy-version))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-segment (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-segment-"))
-   (name common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (edge-locations common-lisp:nil :type
-    (common-lisp:or external-region-code-list common-lisp:null))
-   (shared-segments common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null)))
+ (common-lisp:defclass core-network-segment common-lisp:nil
+                       ((shared-segments :initarg :shared-segments :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor %core-network-segment-shared-segments
+                         :initform common-lisp:nil)
+                        (edge-locations :initarg :edge-locations :type
+                         (common-lisp:or external-region-code-list
+                                         common-lisp:null)
+                         :accessor %core-network-segment-edge-locations
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-segment-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-segment 'make-core-network-segment))
+ (common-lisp:defun make-core-network-segment
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key shared-segments edge-locations name)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-segment
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input core-network-segment))
    (common-lisp:append))
@@ -2099,18 +2623,33 @@
                         ((aws-sdk/generator/shape::input core-network-segment))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-segment-edge-identifier (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-segment-edge-identifier-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (segment-name common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null)))
+ (common-lisp:defclass core-network-segment-edge-identifier common-lisp:nil
+                       ((edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor
+                         %core-network-segment-edge-identifier-edge-location
+                         :initform common-lisp:nil)
+                        (segment-name :initarg :segment-name :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor
+                         %core-network-segment-edge-identifier-segment-name
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %core-network-segment-edge-identifier-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-segment-edge-identifier
                     'make-core-network-segment-edge-identifier))
+ (common-lisp:defun make-core-network-segment-edge-identifier
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key edge-location segment-name
+                     core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'core-network-segment-edge-identifier
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2157,24 +2696,43 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype core-network-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (core-network-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-core-network-summary-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (core-network-arn common-lisp:nil :type
-    (common-lisp:or core-network-arn common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (owner-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or core-network-state common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass core-network-summary common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %core-network-summary-tags :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %core-network-summary-description :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or core-network-state common-lisp:null)
+                         :accessor %core-network-summary-state :initform
+                         common-lisp:nil)
+                        (owner-account-id :initarg :owner-account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %core-network-summary-owner-account-id
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %core-network-summary-global-network-id
+                         :initform common-lisp:nil)
+                        (core-network-arn :initarg :core-network-arn :type
+                         (common-lisp:or core-network-arn common-lisp:null)
+                         :accessor %core-network-summary-core-network-arn
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %core-network-summary-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'core-network-summary 'make-core-network-summary))
+ (common-lisp:defun make-core-network-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags description state owner-account-id
+                     global-network-id core-network-arn core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'core-network-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input core-network-summary))
    (common-lisp:append))
@@ -2242,24 +2800,52 @@
                            (trivial-types:proper-list core-network-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-connect-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-connect-attachment-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (edge-location (common-lisp:error ":edge-location is required") :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (transport-attachment-id
-    (common-lisp:error ":transport-attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (options (common-lisp:error ":options is required") :type
-    (common-lisp:or connect-attachment-options common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass create-connect-attachment-request common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor
+                         %create-connect-attachment-request-client-token
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-connect-attachment-request-tags :initform
+                         common-lisp:nil)
+                        (options :initarg :options :type
+                         (common-lisp:or connect-attachment-options
+                                         common-lisp:null)
+                         :accessor %create-connect-attachment-request-options
+                         :initform (common-lisp:error ":options is required"))
+                        (transport-attachment-id :initarg
+                         :transport-attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %create-connect-attachment-request-transport-attachment-id
+                         :initform
+                         (common-lisp:error
+                          ":transport-attachment-id is required"))
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor
+                         %create-connect-attachment-request-edge-location
+                         :initform
+                         (common-lisp:error ":edge-location is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %create-connect-attachment-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-connect-attachment-request
                     'make-create-connect-attachment-request))
+ (common-lisp:defun make-create-connect-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token tags options
+                     transport-attachment-id edge-location core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-connect-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2319,14 +2905,22 @@
                           create-connect-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-connect-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-connect-attachment-response-"))
-   (connect-attachment common-lisp:nil :type
-    (common-lisp:or connect-attachment common-lisp:null)))
+ (common-lisp:defclass create-connect-attachment-response common-lisp:nil
+                       ((connect-attachment :initarg :connect-attachment :type
+                         (common-lisp:or connect-attachment common-lisp:null)
+                         :accessor
+                         %create-connect-attachment-response-connect-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-connect-attachment-response
                     'make-create-connect-attachment-response))
+ (common-lisp:defun make-create-connect-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-connect-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2350,26 +2944,53 @@
                           create-connect-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-connect-peer-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-connect-peer-request-"))
-   (connect-attachment-id
-    (common-lisp:error ":connect-attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (core-network-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null))
-   (peer-address (common-lisp:error ":peer-address is required") :type
-    (common-lisp:or ipaddress common-lisp:null))
-   (bgp-options common-lisp:nil :type
-    (common-lisp:or bgp-options common-lisp:null))
-   (inside-cidr-blocks (common-lisp:error ":inside-cidr-blocks is required")
-    :type (common-lisp:or constrained-string-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass create-connect-peer-request common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %create-connect-peer-request-client-token
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-connect-peer-request-tags :initform
+                         common-lisp:nil)
+                        (inside-cidr-blocks :initarg :inside-cidr-blocks :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %create-connect-peer-request-inside-cidr-blocks
+                         :initform
+                         (common-lisp:error ":inside-cidr-blocks is required"))
+                        (bgp-options :initarg :bgp-options :type
+                         (common-lisp:or bgp-options common-lisp:null)
+                         :accessor %create-connect-peer-request-bgp-options
+                         :initform common-lisp:nil)
+                        (peer-address :initarg :peer-address :type
+                         (common-lisp:or ipaddress common-lisp:null) :accessor
+                         %create-connect-peer-request-peer-address :initform
+                         (common-lisp:error ":peer-address is required"))
+                        (core-network-address :initarg :core-network-address
+                         :type (common-lisp:or ipaddress common-lisp:null)
+                         :accessor
+                         %create-connect-peer-request-core-network-address
+                         :initform common-lisp:nil)
+                        (connect-attachment-id :initarg :connect-attachment-id
+                         :type (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %create-connect-peer-request-connect-attachment-id
+                         :initform
+                         (common-lisp:error
+                          ":connect-attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-connect-peer-request
                     'make-create-connect-peer-request))
+ (common-lisp:defun make-create-connect-peer-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token tags inside-cidr-blocks
+                     bgp-options peer-address core-network-address
+                     connect-attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-connect-peer-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2437,14 +3058,20 @@
                           create-connect-peer-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-connect-peer-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-connect-peer-response-"))
-   (connect-peer common-lisp:nil :type
-    (common-lisp:or connect-peer common-lisp:null)))
+ (common-lisp:defclass create-connect-peer-response common-lisp:nil
+                       ((connect-peer :initarg :connect-peer :type
+                         (common-lisp:or connect-peer common-lisp:null)
+                         :accessor %create-connect-peer-response-connect-peer
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-connect-peer-response
                     'make-create-connect-peer-response))
+ (common-lisp:defun make-create-connect-peer-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer)
+   (common-lisp:apply #'common-lisp:make-instance 'create-connect-peer-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2468,24 +3095,50 @@
                           create-connect-peer-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-connection-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-connection-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null))
-   (connected-device-id (common-lisp:error ":connected-device-id is required")
-    :type (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (connected-link-id common-lisp:nil :type
-    (common-lisp:or link-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-connection-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-connection-request-tags :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-connection-request-description
+                         :initform common-lisp:nil)
+                        (connected-link-id :initarg :connected-link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %create-connection-request-connected-link-id :initform
+                         common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %create-connection-request-link-id :initform
+                         common-lisp:nil)
+                        (connected-device-id :initarg :connected-device-id
+                         :type (common-lisp:or device-id common-lisp:null)
+                         :accessor
+                         %create-connection-request-connected-device-id
+                         :initform
+                         (common-lisp:error
+                          ":connected-device-id is required"))
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %create-connection-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %create-connection-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-connection-request
                     'make-create-connection-request))
+ (common-lisp:defun make-create-connection-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags description connected-link-id
+                     link-id connected-device-id device-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-connection-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2544,14 +3197,20 @@
                           create-connection-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-connection-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-connection-response-"))
-   (connection common-lisp:nil :type
-    (common-lisp:or connection common-lisp:null)))
+ (common-lisp:defclass create-connection-response common-lisp:nil
+                       ((connection :initarg :connection :type
+                         (common-lisp:or connection common-lisp:null) :accessor
+                         %create-connection-response-connection :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-connection-response
                     'make-create-connection-response))
+ (common-lisp:defun make-create-connection-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection)
+   (common-lisp:apply #'common-lisp:make-instance 'create-connection-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2575,21 +3234,41 @@
                           create-connection-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-core-network-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-core-network-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (policy-document common-lisp:nil :type
-    (common-lisp:or core-network-policy-document common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass create-core-network-request common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %create-core-network-request-client-token
+                         :initform common-lisp:nil)
+                        (policy-document :initarg :policy-document :type
+                         (common-lisp:or core-network-policy-document
+                                         common-lisp:null)
+                         :accessor %create-core-network-request-policy-document
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-core-network-request-tags :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-core-network-request-description
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %create-core-network-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-core-network-request
                     'make-create-core-network-request))
+ (common-lisp:defun make-create-core-network-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token policy-document tags
+                     description global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-core-network-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2641,14 +3320,20 @@
                           create-core-network-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-core-network-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-core-network-response-"))
-   (core-network common-lisp:nil :type
-    (common-lisp:or core-network common-lisp:null)))
+ (common-lisp:defclass create-core-network-response common-lisp:nil
+                       ((core-network :initarg :core-network :type
+                         (common-lisp:or core-network common-lisp:null)
+                         :accessor %create-core-network-response-core-network
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-core-network-response
                     'make-create-core-network-response))
+ (common-lisp:defun make-create-core-network-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network)
+   (common-lisp:apply #'common-lisp:make-instance 'create-core-network-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2672,28 +3357,57 @@
                           create-core-network-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-device-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-device-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (awslocation common-lisp:nil :type
-    (common-lisp:or awslocation common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (vendor common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (model common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (serial-number common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (location common-lisp:nil :type (common-lisp:or location common-lisp:null))
-   (site-id common-lisp:nil :type (common-lisp:or site-id common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-device-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-device-request-tags :initform common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %create-device-request-site-id :initform
+                         common-lisp:nil)
+                        (location :initarg :location :type
+                         (common-lisp:or location common-lisp:null) :accessor
+                         %create-device-request-location :initform
+                         common-lisp:nil)
+                        (serial-number :initarg :serial-number :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-device-request-serial-number
+                         :initform common-lisp:nil)
+                        (model :initarg :model :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-device-request-model :initform
+                         common-lisp:nil)
+                        (vendor :initarg :vendor :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-device-request-vendor :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-device-request-type :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-device-request-description :initform
+                         common-lisp:nil)
+                        (awslocation :initarg :awslocation :type
+                         (common-lisp:or awslocation common-lisp:null)
+                         :accessor %create-device-request-awslocation :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %create-device-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-device-request 'make-create-device-request))
+ (common-lisp:defun make-create-device-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags site-id location serial-number model
+                     vendor type description awslocation global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-device-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2773,12 +3487,19 @@
                           create-device-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-device-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-device-response-"))
-   (device common-lisp:nil :type (common-lisp:or device common-lisp:null)))
+ (common-lisp:defclass create-device-response common-lisp:nil
+                       ((device :initarg :device :type
+                         (common-lisp:or device common-lisp:null) :accessor
+                         %create-device-response-device :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-device-response 'make-create-device-response))
+ (common-lisp:defun make-create-device-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device)
+   (common-lisp:apply #'common-lisp:make-instance 'create-device-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2802,15 +3523,25 @@
                           create-device-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-global-network-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-global-network-request-"))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-global-network-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-global-network-request-tags :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-global-network-request-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-global-network-request
                     'make-create-global-network-request))
+ (common-lisp:defun make-create-global-network-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-global-network-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2841,14 +3572,22 @@
                           create-global-network-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-global-network-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-global-network-response-"))
-   (global-network common-lisp:nil :type
-    (common-lisp:or global-network common-lisp:null)))
+ (common-lisp:defclass create-global-network-response common-lisp:nil
+                       ((global-network :initarg :global-network :type
+                         (common-lisp:or global-network common-lisp:null)
+                         :accessor
+                         %create-global-network-response-global-network
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-global-network-response
                     'make-create-global-network-response))
+ (common-lisp:defun make-create-global-network-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key global-network)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-global-network-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2872,24 +3611,45 @@
                           create-global-network-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-link-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-link-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (bandwidth (common-lisp:error ":bandwidth is required") :type
-    (common-lisp:or bandwidth common-lisp:null))
-   (provider common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (site-id (common-lisp:error ":site-id is required") :type
-    (common-lisp:or site-id common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-link-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-link-request-tags :initform common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %create-link-request-site-id :initform
+                         (common-lisp:error ":site-id is required"))
+                        (provider :initarg :provider :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-link-request-provider :initform
+                         common-lisp:nil)
+                        (bandwidth :initarg :bandwidth :type
+                         (common-lisp:or bandwidth common-lisp:null) :accessor
+                         %create-link-request-bandwidth :initform
+                         (common-lisp:error ":bandwidth is required"))
+                        (type :initarg :type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-link-request-type :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-link-request-description :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %create-link-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-link-request 'make-create-link-request))
+ (common-lisp:defun make-create-link-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags site-id provider bandwidth type
+                     description global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-link-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-link-request))
    (common-lisp:append))
@@ -2942,12 +3702,19 @@
                         ((aws-sdk/generator/shape::input create-link-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-link-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-link-response-"))
-   (link common-lisp:nil :type (common-lisp:or link common-lisp:null)))
+ (common-lisp:defclass create-link-response common-lisp:nil
+                       ((link :initarg :link :type
+                         (common-lisp:or link common-lisp:null) :accessor
+                         %create-link-response-link :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-link-response 'make-create-link-response))
+ (common-lisp:defun make-create-link-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link)
+   (common-lisp:apply #'common-lisp:make-instance 'create-link-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-link-response))
    (common-lisp:append))
@@ -2965,17 +3732,33 @@
                         ((aws-sdk/generator/shape::input create-link-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-site-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-site-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (location common-lisp:nil :type (common-lisp:or location common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-site-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-site-request-tags :initform common-lisp:nil)
+                        (location :initarg :location :type
+                         (common-lisp:or location common-lisp:null) :accessor
+                         %create-site-request-location :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %create-site-request-description :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %create-site-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-site-request 'make-create-site-request))
+ (common-lisp:defun make-create-site-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags location description
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-site-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-site-request))
    (common-lisp:append))
@@ -3007,12 +3790,19 @@
                         ((aws-sdk/generator/shape::input create-site-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-site-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-site-response-"))
-   (site common-lisp:nil :type (common-lisp:or site common-lisp:null)))
+ (common-lisp:defclass create-site-response common-lisp:nil
+                       ((site :initarg :site :type
+                         (common-lisp:or site common-lisp:null) :accessor
+                         %create-site-response-site :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-site-response 'make-create-site-response))
+ (common-lisp:defun make-create-site-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site)
+   (common-lisp:apply #'common-lisp:make-instance 'create-site-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-site-response))
    (common-lisp:append))
@@ -3030,19 +3820,40 @@
                         ((aws-sdk/generator/shape::input create-site-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-site-to-site-vpn-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-site-to-site-vpn-attachment-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (vpn-connection-arn (common-lisp:error ":vpn-connection-arn is required")
-    :type (common-lisp:or vpn-connection-arn common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass create-site-to-site-vpn-attachment-request
+                       common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor
+                         %create-site-to-site-vpn-attachment-request-client-token
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-site-to-site-vpn-attachment-request-tags
+                         :initform common-lisp:nil)
+                        (vpn-connection-arn :initarg :vpn-connection-arn :type
+                         (common-lisp:or vpn-connection-arn common-lisp:null)
+                         :accessor
+                         %create-site-to-site-vpn-attachment-request-vpn-connection-arn
+                         :initform
+                         (common-lisp:error ":vpn-connection-arn is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %create-site-to-site-vpn-attachment-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-site-to-site-vpn-attachment-request
                     'make-create-site-to-site-vpn-attachment-request))
+ (common-lisp:defun make-create-site-to-site-vpn-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token tags vpn-connection-arn
+                     core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-site-to-site-vpn-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3087,14 +3898,25 @@
                           create-site-to-site-vpn-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-site-to-site-vpn-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-site-to-site-vpn-attachment-response-"))
-   (site-to-site-vpn-attachment common-lisp:nil :type
-    (common-lisp:or site-to-site-vpn-attachment common-lisp:null)))
+ (common-lisp:defclass create-site-to-site-vpn-attachment-response
+                       common-lisp:nil
+                       ((site-to-site-vpn-attachment :initarg
+                         :site-to-site-vpn-attachment :type
+                         (common-lisp:or site-to-site-vpn-attachment
+                                         common-lisp:null)
+                         :accessor
+                         %create-site-to-site-vpn-attachment-response-site-to-site-vpn-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-site-to-site-vpn-attachment-response
                     'make-create-site-to-site-vpn-attachment-response))
+ (common-lisp:defun make-create-site-to-site-vpn-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site-to-site-vpn-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-site-to-site-vpn-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3119,19 +3941,41 @@
                           create-site-to-site-vpn-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-transit-gateway-peering-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-transit-gateway-peering-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (transit-gateway-arn (common-lisp:error ":transit-gateway-arn is required")
-    :type (common-lisp:or transit-gateway-arn common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass create-transit-gateway-peering-request common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor
+                         %create-transit-gateway-peering-request-client-token
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-transit-gateway-peering-request-tags :initform
+                         common-lisp:nil)
+                        (transit-gateway-arn :initarg :transit-gateway-arn
+                         :type
+                         (common-lisp:or transit-gateway-arn common-lisp:null)
+                         :accessor
+                         %create-transit-gateway-peering-request-transit-gateway-arn
+                         :initform
+                         (common-lisp:error
+                          ":transit-gateway-arn is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %create-transit-gateway-peering-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-transit-gateway-peering-request
                     'make-create-transit-gateway-peering-request))
+ (common-lisp:defun make-create-transit-gateway-peering-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token tags transit-gateway-arn
+                     core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-transit-gateway-peering-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3176,14 +4020,24 @@
                           create-transit-gateway-peering-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-transit-gateway-peering-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-transit-gateway-peering-response-"))
-   (transit-gateway-peering common-lisp:nil :type
-    (common-lisp:or transit-gateway-peering common-lisp:null)))
+ (common-lisp:defclass create-transit-gateway-peering-response common-lisp:nil
+                       ((transit-gateway-peering :initarg
+                         :transit-gateway-peering :type
+                         (common-lisp:or transit-gateway-peering
+                                         common-lisp:null)
+                         :accessor
+                         %create-transit-gateway-peering-response-transit-gateway-peering
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-transit-gateway-peering-response
                     'make-create-transit-gateway-peering-response))
+ (common-lisp:defun make-create-transit-gateway-peering-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-peering)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-transit-gateway-peering-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3208,22 +4062,42 @@
                           create-transit-gateway-peering-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-transit-gateway-route-table-attachment-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-transit-gateway-route-table-attachment-request-"))
-   (peering-id (common-lisp:error ":peering-id is required") :type
-    (common-lisp:or peering-id common-lisp:null))
-   (transit-gateway-route-table-arn
-    (common-lisp:error ":transit-gateway-route-table-arn is required") :type
-    (common-lisp:or transit-gateway-route-table-arn common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass create-transit-gateway-route-table-attachment-request
+                       common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor
+                         %create-transit-gateway-route-table-attachment-request-client-token
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-transit-gateway-route-table-attachment-request-tags
+                         :initform common-lisp:nil)
+                        (transit-gateway-route-table-arn :initarg
+                         :transit-gateway-route-table-arn :type
+                         (common-lisp:or transit-gateway-route-table-arn
+                                         common-lisp:null)
+                         :accessor
+                         %create-transit-gateway-route-table-attachment-request-transit-gateway-route-table-arn
+                         :initform
+                         (common-lisp:error
+                          ":transit-gateway-route-table-arn is required"))
+                        (peering-id :initarg :peering-id :type
+                         (common-lisp:or peering-id common-lisp:null) :accessor
+                         %create-transit-gateway-route-table-attachment-request-peering-id
+                         :initform
+                         (common-lisp:error ":peering-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-transit-gateway-route-table-attachment-request
                     'make-create-transit-gateway-route-table-attachment-request))
+ (common-lisp:defun make-create-transit-gateway-route-table-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token tags
+                     transit-gateway-route-table-arn peering-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-transit-gateway-route-table-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3269,16 +4143,25 @@
                           create-transit-gateway-route-table-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-transit-gateway-route-table-attachment-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-transit-gateway-route-table-attachment-response-"))
-   (transit-gateway-route-table-attachment common-lisp:nil :type
-    (common-lisp:or transit-gateway-route-table-attachment common-lisp:null)))
+ (common-lisp:defclass create-transit-gateway-route-table-attachment-response
+                       common-lisp:nil
+                       ((transit-gateway-route-table-attachment :initarg
+                         :transit-gateway-route-table-attachment :type
+                         (common-lisp:or transit-gateway-route-table-attachment
+                                         common-lisp:null)
+                         :accessor
+                         %create-transit-gateway-route-table-attachment-response-transit-gateway-route-table-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-transit-gateway-route-table-attachment-response
                     'make-create-transit-gateway-route-table-attachment-response))
+ (common-lisp:defun make-create-transit-gateway-route-table-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-route-table-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-transit-gateway-route-table-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3303,23 +4186,45 @@
                           create-transit-gateway-route-table-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-vpc-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-vpc-attachment-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (vpc-arn (common-lisp:error ":vpc-arn is required") :type
-    (common-lisp:or vpc-arn common-lisp:null))
-   (subnet-arns (common-lisp:error ":subnet-arns is required") :type
-    (common-lisp:or subnet-arn-list common-lisp:null))
-   (options common-lisp:nil :type
-    (common-lisp:or vpc-options common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass create-vpc-attachment-request common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %create-vpc-attachment-request-client-token
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-vpc-attachment-request-tags :initform
+                         common-lisp:nil)
+                        (options :initarg :options :type
+                         (common-lisp:or vpc-options common-lisp:null)
+                         :accessor %create-vpc-attachment-request-options
+                         :initform common-lisp:nil)
+                        (subnet-arns :initarg :subnet-arns :type
+                         (common-lisp:or subnet-arn-list common-lisp:null)
+                         :accessor %create-vpc-attachment-request-subnet-arns
+                         :initform
+                         (common-lisp:error ":subnet-arns is required"))
+                        (vpc-arn :initarg :vpc-arn :type
+                         (common-lisp:or vpc-arn common-lisp:null) :accessor
+                         %create-vpc-attachment-request-vpc-arn :initform
+                         (common-lisp:error ":vpc-arn is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %create-vpc-attachment-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-vpc-attachment-request
                     'make-create-vpc-attachment-request))
+ (common-lisp:defun make-create-vpc-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token tags options subnet-arns
+                     vpc-arn core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-vpc-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3378,14 +4283,22 @@
                           create-vpc-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-vpc-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-vpc-attachment-response-"))
-   (vpc-attachment common-lisp:nil :type
-    (common-lisp:or vpc-attachment common-lisp:null)))
+ (common-lisp:defclass create-vpc-attachment-response common-lisp:nil
+                       ((vpc-attachment :initarg :vpc-attachment :type
+                         (common-lisp:or vpc-attachment common-lisp:null)
+                         :accessor
+                         %create-vpc-attachment-response-vpc-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-vpc-attachment-response
                     'make-create-vpc-attachment-response))
+ (common-lisp:defun make-create-vpc-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-vpc-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3418,21 +4331,41 @@
                            (trivial-types:proper-list customer-gateway-arn))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (customer-gateway-association (:copier common-lisp:nil)
-      (:conc-name "struct-shape-customer-gateway-association-"))
-   (customer-gateway-arn common-lisp:nil :type
-    (common-lisp:or customer-gateway-arn common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or customer-gateway-association-state common-lisp:null)))
+ (common-lisp:defclass customer-gateway-association common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or customer-gateway-association-state
+                                         common-lisp:null)
+                         :accessor %customer-gateway-association-state
+                         :initform common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %customer-gateway-association-link-id :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %customer-gateway-association-device-id :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %customer-gateway-association-global-network-id
+                         :initform common-lisp:nil)
+                        (customer-gateway-arn :initarg :customer-gateway-arn
+                         :type
+                         (common-lisp:or customer-gateway-arn common-lisp:null)
+                         :accessor
+                         %customer-gateway-association-customer-gateway-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'customer-gateway-association
                     'make-customer-gateway-association))
+ (common-lisp:defun make-customer-gateway-association
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state link-id device-id global-network-id
+                     customer-gateway-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'customer-gateway-association
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3496,14 +4429,21 @@
 (common-lisp:deftype customer-gateway-association-state () 'common-lisp:string)
 (common-lisp:deftype date-time () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null)))
+ (common-lisp:defclass delete-attachment-request common-lisp:nil
+                       ((attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %delete-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-attachment-request
                     'make-delete-attachment-request))
+ (common-lisp:defun make-delete-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3520,14 +4460,20 @@
                           delete-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-attachment-response-"))
-   (attachment common-lisp:nil :type
-    (common-lisp:or attachment common-lisp:null)))
+ (common-lisp:defclass delete-attachment-response common-lisp:nil
+                       ((attachment :initarg :attachment :type
+                         (common-lisp:or attachment common-lisp:null) :accessor
+                         %delete-attachment-response-attachment :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-attachment-response
                     'make-delete-attachment-response))
+ (common-lisp:defun make-delete-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3551,14 +4497,21 @@
                           delete-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-connect-peer-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-connect-peer-request-"))
-   (connect-peer-id (common-lisp:error ":connect-peer-id is required") :type
-    (common-lisp:or connect-peer-id common-lisp:null)))
+ (common-lisp:defclass delete-connect-peer-request common-lisp:nil
+                       ((connect-peer-id :initarg :connect-peer-id :type
+                         (common-lisp:or connect-peer-id common-lisp:null)
+                         :accessor %delete-connect-peer-request-connect-peer-id
+                         :initform
+                         (common-lisp:error ":connect-peer-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-connect-peer-request
                     'make-delete-connect-peer-request))
+ (common-lisp:defun make-delete-connect-peer-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-connect-peer-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3575,14 +4528,20 @@
                           delete-connect-peer-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-connect-peer-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-connect-peer-response-"))
-   (connect-peer common-lisp:nil :type
-    (common-lisp:or connect-peer common-lisp:null)))
+ (common-lisp:defclass delete-connect-peer-response common-lisp:nil
+                       ((connect-peer :initarg :connect-peer :type
+                         (common-lisp:or connect-peer common-lisp:null)
+                         :accessor %delete-connect-peer-response-connect-peer
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-connect-peer-response
                     'make-delete-connect-peer-response))
+ (common-lisp:defun make-delete-connect-peer-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-connect-peer-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3606,16 +4565,27 @@
                           delete-connect-peer-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-connection-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-connection-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (connection-id (common-lisp:error ":connection-id is required") :type
-    (common-lisp:or connection-id common-lisp:null)))
+ (common-lisp:defclass delete-connection-request common-lisp:nil
+                       ((connection-id :initarg :connection-id :type
+                         (common-lisp:or connection-id common-lisp:null)
+                         :accessor %delete-connection-request-connection-id
+                         :initform
+                         (common-lisp:error ":connection-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %delete-connection-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-connection-request
                     'make-delete-connection-request))
+ (common-lisp:defun make-delete-connection-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-connection-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3632,14 +4602,20 @@
                           delete-connection-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-connection-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-connection-response-"))
-   (connection common-lisp:nil :type
-    (common-lisp:or connection common-lisp:null)))
+ (common-lisp:defclass delete-connection-response common-lisp:nil
+                       ((connection :initarg :connection :type
+                         (common-lisp:or connection common-lisp:null) :accessor
+                         %delete-connection-response-connection :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-connection-response
                     'make-delete-connection-response))
+ (common-lisp:defun make-delete-connection-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-connection-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3663,16 +4639,29 @@
                           delete-connection-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-core-network-policy-version-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-core-network-policy-version-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id (common-lisp:error ":policy-version-id is required")
-    :type (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass delete-core-network-policy-version-request
+                       common-lisp:nil
+                       ((policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %delete-core-network-policy-version-request-policy-version-id
+                         :initform
+                         (common-lisp:error ":policy-version-id is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %delete-core-network-policy-version-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-core-network-policy-version-request
                     'make-delete-core-network-policy-version-request))
+ (common-lisp:defun make-delete-core-network-policy-version-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-version-id core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-core-network-policy-version-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3689,14 +4678,24 @@
                           delete-core-network-policy-version-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-core-network-policy-version-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-core-network-policy-version-response-"))
-   (core-network-policy common-lisp:nil :type
-    (common-lisp:or core-network-policy common-lisp:null)))
+ (common-lisp:defclass delete-core-network-policy-version-response
+                       common-lisp:nil
+                       ((core-network-policy :initarg :core-network-policy
+                         :type
+                         (common-lisp:or core-network-policy common-lisp:null)
+                         :accessor
+                         %delete-core-network-policy-version-response-core-network-policy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-core-network-policy-version-response
                     'make-delete-core-network-policy-version-response))
+ (common-lisp:defun make-delete-core-network-policy-version-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network-policy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-core-network-policy-version-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3720,14 +4719,21 @@
                           delete-core-network-policy-version-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-core-network-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-core-network-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null)))
+ (common-lisp:defclass delete-core-network-request common-lisp:nil
+                       ((core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %delete-core-network-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-core-network-request
                     'make-delete-core-network-request))
+ (common-lisp:defun make-delete-core-network-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-core-network-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3744,14 +4750,20 @@
                           delete-core-network-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-core-network-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-core-network-response-"))
-   (core-network common-lisp:nil :type
-    (common-lisp:or core-network common-lisp:null)))
+ (common-lisp:defclass delete-core-network-response common-lisp:nil
+                       ((core-network :initarg :core-network :type
+                         (common-lisp:or core-network common-lisp:null)
+                         :accessor %delete-core-network-response-core-network
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-core-network-response
                     'make-delete-core-network-response))
+ (common-lisp:defun make-delete-core-network-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-core-network-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3775,15 +4787,25 @@
                           delete-core-network-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-device-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-device-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null)))
+ (common-lisp:defclass delete-device-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %delete-device-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %delete-device-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-device-request 'make-delete-device-request))
+ (common-lisp:defun make-delete-device-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-device-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3800,12 +4822,19 @@
                           delete-device-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-device-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-device-response-"))
-   (device common-lisp:nil :type (common-lisp:or device common-lisp:null)))
+ (common-lisp:defclass delete-device-response common-lisp:nil
+                       ((device :initarg :device :type
+                         (common-lisp:or device common-lisp:null) :accessor
+                         %delete-device-response-device :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-device-response 'make-delete-device-response))
+ (common-lisp:defun make-delete-device-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-device-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3829,14 +4858,24 @@
                           delete-device-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-global-network-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-global-network-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null)))
+ (common-lisp:defclass delete-global-network-request common-lisp:nil
+                       ((global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %delete-global-network-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-global-network-request
                     'make-delete-global-network-request))
+ (common-lisp:defun make-delete-global-network-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-global-network-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3853,14 +4892,22 @@
                           delete-global-network-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-global-network-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-global-network-response-"))
-   (global-network common-lisp:nil :type
-    (common-lisp:or global-network common-lisp:null)))
+ (common-lisp:defclass delete-global-network-response common-lisp:nil
+                       ((global-network :initarg :global-network :type
+                         (common-lisp:or global-network common-lisp:null)
+                         :accessor
+                         %delete-global-network-response-global-network
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-global-network-response
                     'make-delete-global-network-response))
+ (common-lisp:defun make-delete-global-network-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key global-network)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-global-network-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3884,15 +4931,25 @@
                           delete-global-network-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-link-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-link-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (link-id (common-lisp:error ":link-id is required") :type
-    (common-lisp:or link-id common-lisp:null)))
+ (common-lisp:defclass delete-link-request common-lisp:nil
+                       ((link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %delete-link-request-link-id :initform
+                         (common-lisp:error ":link-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %delete-link-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-link-request 'make-delete-link-request))
+ (common-lisp:defun make-delete-link-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-link-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-link-request))
    (common-lisp:append))
@@ -3903,12 +4960,19 @@
                         ((aws-sdk/generator/shape::input delete-link-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-link-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-link-response-"))
-   (link common-lisp:nil :type (common-lisp:or link common-lisp:null)))
+ (common-lisp:defclass delete-link-response common-lisp:nil
+                       ((link :initarg :link :type
+                         (common-lisp:or link common-lisp:null) :accessor
+                         %delete-link-response-link :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-link-response 'make-delete-link-response))
+ (common-lisp:defun make-delete-link-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-link-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-link-response))
    (common-lisp:append))
@@ -3926,13 +4990,19 @@
                         ((aws-sdk/generator/shape::input delete-link-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-peering-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-peering-request-"))
-   (peering-id (common-lisp:error ":peering-id is required") :type
-    (common-lisp:or peering-id common-lisp:null)))
+ (common-lisp:defclass delete-peering-request common-lisp:nil
+                       ((peering-id :initarg :peering-id :type
+                         (common-lisp:or peering-id common-lisp:null) :accessor
+                         %delete-peering-request-peering-id :initform
+                         (common-lisp:error ":peering-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-peering-request 'make-delete-peering-request))
+ (common-lisp:defun make-delete-peering-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key peering-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-peering-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3949,12 +5019,19 @@
                           delete-peering-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-peering-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-peering-response-"))
-   (peering common-lisp:nil :type (common-lisp:or peering common-lisp:null)))
+ (common-lisp:defclass delete-peering-response common-lisp:nil
+                       ((peering :initarg :peering :type
+                         (common-lisp:or peering common-lisp:null) :accessor
+                         %delete-peering-response-peering :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-peering-response 'make-delete-peering-response))
+ (common-lisp:defun make-delete-peering-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key peering)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-peering-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3978,14 +5055,22 @@
                           delete-peering-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-resource-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-resource-policy-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass delete-resource-policy-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %delete-resource-policy-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-resource-policy-request
                     'make-delete-resource-policy-request))
+ (common-lisp:defun make-delete-resource-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-resource-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4002,12 +5087,18 @@
                           delete-resource-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-resource-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-resource-policy-response-")))
+ (common-lisp:defclass delete-resource-policy-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-resource-policy-response
                     'make-delete-resource-policy-response))
+ (common-lisp:defun make-delete-resource-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-resource-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4024,15 +5115,25 @@
                           delete-resource-policy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-site-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-site-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (site-id (common-lisp:error ":site-id is required") :type
-    (common-lisp:or site-id common-lisp:null)))
+ (common-lisp:defclass delete-site-request common-lisp:nil
+                       ((site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %delete-site-request-site-id :initform
+                         (common-lisp:error ":site-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %delete-site-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-site-request 'make-delete-site-request))
+ (common-lisp:defun make-delete-site-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-site-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-site-request))
    (common-lisp:append))
@@ -4043,12 +5144,19 @@
                         ((aws-sdk/generator/shape::input delete-site-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-site-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-site-response-"))
-   (site common-lisp:nil :type (common-lisp:or site common-lisp:null)))
+ (common-lisp:defclass delete-site-response common-lisp:nil
+                       ((site :initarg :site :type
+                         (common-lisp:or site common-lisp:null) :accessor
+                         %delete-site-response-site :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-site-response 'make-delete-site-response))
+ (common-lisp:defun make-delete-site-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-site-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-site-response))
    (common-lisp:append))
@@ -4066,16 +5174,32 @@
                         ((aws-sdk/generator/shape::input delete-site-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (deregister-transit-gateway-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deregister-transit-gateway-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (transit-gateway-arn (common-lisp:error ":transit-gateway-arn is required")
-    :type (common-lisp:or transit-gateway-arn common-lisp:null)))
+ (common-lisp:defclass deregister-transit-gateway-request common-lisp:nil
+                       ((transit-gateway-arn :initarg :transit-gateway-arn
+                         :type
+                         (common-lisp:or transit-gateway-arn common-lisp:null)
+                         :accessor
+                         %deregister-transit-gateway-request-transit-gateway-arn
+                         :initform
+                         (common-lisp:error
+                          ":transit-gateway-arn is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %deregister-transit-gateway-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'deregister-transit-gateway-request
                     'make-deregister-transit-gateway-request))
+ (common-lisp:defun make-deregister-transit-gateway-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-arn global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'deregister-transit-gateway-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4092,14 +5216,24 @@
                           deregister-transit-gateway-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (deregister-transit-gateway-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deregister-transit-gateway-response-"))
-   (transit-gateway-registration common-lisp:nil :type
-    (common-lisp:or transit-gateway-registration common-lisp:null)))
+ (common-lisp:defclass deregister-transit-gateway-response common-lisp:nil
+                       ((transit-gateway-registration :initarg
+                         :transit-gateway-registration :type
+                         (common-lisp:or transit-gateway-registration
+                                         common-lisp:null)
+                         :accessor
+                         %deregister-transit-gateway-response-transit-gateway-registration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'deregister-transit-gateway-response
                     'make-deregister-transit-gateway-response))
+ (common-lisp:defun make-deregister-transit-gateway-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-registration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'deregister-transit-gateway-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4124,18 +5258,33 @@
                           deregister-transit-gateway-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-global-networks-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-global-networks-request-"))
-   (global-network-ids common-lisp:nil :type
-    (common-lisp:or global-network-id-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-global-networks-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-global-networks-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %describe-global-networks-request-max-results
+                         :initform common-lisp:nil)
+                        (global-network-ids :initarg :global-network-ids :type
+                         (common-lisp:or global-network-id-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-global-networks-request-global-network-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-global-networks-request
                     'make-describe-global-networks-request))
+ (common-lisp:defun make-describe-global-networks-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     global-network-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-global-networks-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4152,16 +5301,26 @@
                           describe-global-networks-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-global-networks-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-global-networks-response-"))
-   (global-networks common-lisp:nil :type
-    (common-lisp:or global-network-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-global-networks-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-global-networks-response-next-token
+                         :initform common-lisp:nil)
+                        (global-networks :initarg :global-networks :type
+                         (common-lisp:or global-network-list common-lisp:null)
+                         :accessor
+                         %describe-global-networks-response-global-networks
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-global-networks-response
                     'make-describe-global-networks-response))
+ (common-lisp:defun make-describe-global-networks-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token global-networks)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-global-networks-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4192,33 +5351,62 @@
                           describe-global-networks-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (device (:copier common-lisp:nil) (:conc-name "struct-shape-device-"))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (device-arn common-lisp:nil :type
-    (common-lisp:or device-arn common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (awslocation common-lisp:nil :type
-    (common-lisp:or awslocation common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (vendor common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (model common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (serial-number common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (location common-lisp:nil :type (common-lisp:or location common-lisp:null))
-   (site-id common-lisp:nil :type (common-lisp:or site-id common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or device-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass device common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %device-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or device-state common-lisp:null)
+                         :accessor %device-state :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %device-created-at :initform common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %device-site-id :initform common-lisp:nil)
+                        (location :initarg :location :type
+                         (common-lisp:or location common-lisp:null) :accessor
+                         %device-location :initform common-lisp:nil)
+                        (serial-number :initarg :serial-number :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %device-serial-number :initform
+                         common-lisp:nil)
+                        (model :initarg :model :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %device-model :initform common-lisp:nil)
+                        (vendor :initarg :vendor :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %device-vendor :initform common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %device-type :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %device-description :initform
+                         common-lisp:nil)
+                        (awslocation :initarg :awslocation :type
+                         (common-lisp:or awslocation common-lisp:null)
+                         :accessor %device-awslocation :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %device-global-network-id :initform
+                         common-lisp:nil)
+                        (device-arn :initarg :device-arn :type
+                         (common-lisp:or device-arn common-lisp:null) :accessor
+                         %device-device-arn :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %device-device-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'device 'make-device))
+ (common-lisp:defun make-device
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state created-at site-id location
+                     serial-number model vendor type description awslocation
+                     global-network-id device-arn device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'device
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input device))
    (common-lisp:append))
@@ -4344,16 +5532,30 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype device-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-connect-peer-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-connect-peer-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (connect-peer-id (common-lisp:error ":connect-peer-id is required") :type
-    (common-lisp:or connect-peer-id common-lisp:null)))
+ (common-lisp:defclass disassociate-connect-peer-request common-lisp:nil
+                       ((connect-peer-id :initarg :connect-peer-id :type
+                         (common-lisp:or connect-peer-id common-lisp:null)
+                         :accessor
+                         %disassociate-connect-peer-request-connect-peer-id
+                         :initform
+                         (common-lisp:error ":connect-peer-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %disassociate-connect-peer-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-connect-peer-request
                     'make-disassociate-connect-peer-request))
+ (common-lisp:defun make-disassociate-connect-peer-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-connect-peer-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4370,14 +5572,24 @@
                           disassociate-connect-peer-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-connect-peer-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-connect-peer-response-"))
-   (connect-peer-association common-lisp:nil :type
-    (common-lisp:or connect-peer-association common-lisp:null)))
+ (common-lisp:defclass disassociate-connect-peer-response common-lisp:nil
+                       ((connect-peer-association :initarg
+                         :connect-peer-association :type
+                         (common-lisp:or connect-peer-association
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-connect-peer-response-connect-peer-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-connect-peer-response
                     'make-disassociate-connect-peer-response))
+ (common-lisp:defun make-disassociate-connect-peer-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-connect-peer-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4402,17 +5614,32 @@
                           disassociate-connect-peer-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-customer-gateway-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-customer-gateway-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (customer-gateway-arn
-    (common-lisp:error ":customer-gateway-arn is required") :type
-    (common-lisp:or customer-gateway-arn common-lisp:null)))
+ (common-lisp:defclass disassociate-customer-gateway-request common-lisp:nil
+                       ((customer-gateway-arn :initarg :customer-gateway-arn
+                         :type
+                         (common-lisp:or customer-gateway-arn common-lisp:null)
+                         :accessor
+                         %disassociate-customer-gateway-request-customer-gateway-arn
+                         :initform
+                         (common-lisp:error
+                          ":customer-gateway-arn is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %disassociate-customer-gateway-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-customer-gateway-request
                     'make-disassociate-customer-gateway-request))
+ (common-lisp:defun make-disassociate-customer-gateway-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-gateway-arn global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-customer-gateway-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4429,14 +5656,24 @@
                           disassociate-customer-gateway-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-customer-gateway-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-customer-gateway-response-"))
-   (customer-gateway-association common-lisp:nil :type
-    (common-lisp:or customer-gateway-association common-lisp:null)))
+ (common-lisp:defclass disassociate-customer-gateway-response common-lisp:nil
+                       ((customer-gateway-association :initarg
+                         :customer-gateway-association :type
+                         (common-lisp:or customer-gateway-association
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-customer-gateway-response-customer-gateway-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-customer-gateway-response
                     'make-disassociate-customer-gateway-response))
+ (common-lisp:defun make-disassociate-customer-gateway-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-gateway-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-customer-gateway-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4461,18 +5698,30 @@
                           disassociate-customer-gateway-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-link-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-link-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id (common-lisp:error ":link-id is required") :type
-    (common-lisp:or link-id common-lisp:null)))
+ (common-lisp:defclass disassociate-link-request common-lisp:nil
+                       ((link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %disassociate-link-request-link-id :initform
+                         (common-lisp:error ":link-id is required"))
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %disassociate-link-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %disassociate-link-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-link-request
                     'make-disassociate-link-request))
+ (common-lisp:defun make-disassociate-link-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-id device-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'disassociate-link-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4489,14 +5738,20 @@
                           disassociate-link-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-link-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-link-response-"))
-   (link-association common-lisp:nil :type
-    (common-lisp:or link-association common-lisp:null)))
+ (common-lisp:defclass disassociate-link-response common-lisp:nil
+                       ((link-association :initarg :link-association :type
+                         (common-lisp:or link-association common-lisp:null)
+                         :accessor %disassociate-link-response-link-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-link-response
                     'make-disassociate-link-response))
+ (common-lisp:defun make-disassociate-link-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-association)
+   (common-lisp:apply #'common-lisp:make-instance 'disassociate-link-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4520,19 +5775,35 @@
                           disassociate-link-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-transit-gateway-connect-peer-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-transit-gateway-connect-peer-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (transit-gateway-connect-peer-arn
-    (common-lisp:error ":transit-gateway-connect-peer-arn is required") :type
-    (common-lisp:or transit-gateway-connect-peer-arn common-lisp:null)))
+ (common-lisp:defclass disassociate-transit-gateway-connect-peer-request
+                       common-lisp:nil
+                       ((transit-gateway-connect-peer-arn :initarg
+                         :transit-gateway-connect-peer-arn :type
+                         (common-lisp:or transit-gateway-connect-peer-arn
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-transit-gateway-connect-peer-request-transit-gateway-connect-peer-arn
+                         :initform
+                         (common-lisp:error
+                          ":transit-gateway-connect-peer-arn is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %disassociate-transit-gateway-connect-peer-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-transit-gateway-connect-peer-request
                     'make-disassociate-transit-gateway-connect-peer-request))
+ (common-lisp:defun make-disassociate-transit-gateway-connect-peer-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-connect-peer-arn
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-transit-gateway-connect-peer-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4549,17 +5820,26 @@
                           disassociate-transit-gateway-connect-peer-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-transit-gateway-connect-peer-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-transit-gateway-connect-peer-response-"))
-   (transit-gateway-connect-peer-association common-lisp:nil :type
-    (common-lisp:or transit-gateway-connect-peer-association
-                    common-lisp:null)))
+ (common-lisp:defclass disassociate-transit-gateway-connect-peer-response
+                       common-lisp:nil
+                       ((transit-gateway-connect-peer-association :initarg
+                         :transit-gateway-connect-peer-association :type
+                         (common-lisp:or
+                          transit-gateway-connect-peer-association
+                          common-lisp:null)
+                         :accessor
+                         %disassociate-transit-gateway-connect-peer-response-transit-gateway-connect-peer-association
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-transit-gateway-connect-peer-response
                     'make-disassociate-transit-gateway-connect-peer-response))
+ (common-lisp:defun make-disassociate-transit-gateway-connect-peer-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-connect-peer-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-transit-gateway-connect-peer-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4594,16 +5874,28 @@
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype exception-context-value () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (execute-core-network-change-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-execute-core-network-change-set-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id (common-lisp:error ":policy-version-id is required")
-    :type (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass execute-core-network-change-set-request common-lisp:nil
+                       ((policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %execute-core-network-change-set-request-policy-version-id
+                         :initform
+                         (common-lisp:error ":policy-version-id is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %execute-core-network-change-set-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'execute-core-network-change-set-request
                     'make-execute-core-network-change-set-request))
+ (common-lisp:defun make-execute-core-network-change-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-version-id core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'execute-core-network-change-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4620,12 +5912,18 @@
                           execute-core-network-change-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (execute-core-network-change-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-execute-core-network-change-set-response-")))
+ (common-lisp:defclass execute-core-network-change-set-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'execute-core-network-change-set-response
                     'make-execute-core-network-change-set-response))
+ (common-lisp:defun make-execute-core-network-change-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'execute-core-network-change-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4668,14 +5966,23 @@
                            (trivial-types:proper-list filter-value))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connect-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connect-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null)))
+ (common-lisp:defclass get-connect-attachment-request common-lisp:nil
+                       ((attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %get-connect-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-connect-attachment-request
                     'make-get-connect-attachment-request))
+ (common-lisp:defun make-get-connect-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-connect-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4692,14 +5999,22 @@
                           get-connect-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connect-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connect-attachment-response-"))
-   (connect-attachment common-lisp:nil :type
-    (common-lisp:or connect-attachment common-lisp:null)))
+ (common-lisp:defclass get-connect-attachment-response common-lisp:nil
+                       ((connect-attachment :initarg :connect-attachment :type
+                         (common-lisp:or connect-attachment common-lisp:null)
+                         :accessor
+                         %get-connect-attachment-response-connect-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-connect-attachment-response
                     'make-get-connect-attachment-response))
+ (common-lisp:defun make-get-connect-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-connect-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4723,20 +6038,39 @@
                           get-connect-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connect-peer-associations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connect-peer-associations-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (connect-peer-ids common-lisp:nil :type
-    (common-lisp:or connect-peer-id-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-connect-peer-associations-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-connect-peer-associations-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-connect-peer-associations-request-max-results
+                         :initform common-lisp:nil)
+                        (connect-peer-ids :initarg :connect-peer-ids :type
+                         (common-lisp:or connect-peer-id-list common-lisp:null)
+                         :accessor
+                         %get-connect-peer-associations-request-connect-peer-ids
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-connect-peer-associations-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-connect-peer-associations-request
                     'make-get-connect-peer-associations-request))
+ (common-lisp:defun make-get-connect-peer-associations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results connect-peer-ids
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-connect-peer-associations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4753,16 +6087,28 @@
                           get-connect-peer-associations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connect-peer-associations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connect-peer-associations-response-"))
-   (connect-peer-associations common-lisp:nil :type
-    (common-lisp:or connect-peer-association-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-connect-peer-associations-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-connect-peer-associations-response-next-token
+                         :initform common-lisp:nil)
+                        (connect-peer-associations :initarg
+                         :connect-peer-associations :type
+                         (common-lisp:or connect-peer-association-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-connect-peer-associations-response-connect-peer-associations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-connect-peer-associations-response
                     'make-get-connect-peer-associations-response))
+ (common-lisp:defun make-get-connect-peer-associations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token connect-peer-associations)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-connect-peer-associations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4794,13 +6140,20 @@
                           get-connect-peer-associations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connect-peer-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connect-peer-request-"))
-   (connect-peer-id (common-lisp:error ":connect-peer-id is required") :type
-    (common-lisp:or connect-peer-id common-lisp:null)))
+ (common-lisp:defclass get-connect-peer-request common-lisp:nil
+                       ((connect-peer-id :initarg :connect-peer-id :type
+                         (common-lisp:or connect-peer-id common-lisp:null)
+                         :accessor %get-connect-peer-request-connect-peer-id
+                         :initform
+                         (common-lisp:error ":connect-peer-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-connect-peer-request 'make-get-connect-peer-request))
+ (common-lisp:defun make-get-connect-peer-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-connect-peer-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4817,14 +6170,20 @@
                           get-connect-peer-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connect-peer-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connect-peer-response-"))
-   (connect-peer common-lisp:nil :type
-    (common-lisp:or connect-peer common-lisp:null)))
+ (common-lisp:defclass get-connect-peer-response common-lisp:nil
+                       ((connect-peer :initarg :connect-peer :type
+                         (common-lisp:or connect-peer common-lisp:null)
+                         :accessor %get-connect-peer-response-connect-peer
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-connect-peer-response
                     'make-get-connect-peer-response))
+ (common-lisp:defun make-get-connect-peer-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-peer)
+   (common-lisp:apply #'common-lisp:make-instance 'get-connect-peer-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4848,21 +6207,38 @@
                           get-connect-peer-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connections-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connections-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (connection-ids common-lisp:nil :type
-    (common-lisp:or connection-id-list common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-connections-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-connections-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-connections-request-max-results
+                         :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %get-connections-request-device-id :initform
+                         common-lisp:nil)
+                        (connection-ids :initarg :connection-ids :type
+                         (common-lisp:or connection-id-list common-lisp:null)
+                         :accessor %get-connections-request-connection-ids
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %get-connections-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-connections-request 'make-get-connections-request))
+ (common-lisp:defun make-get-connections-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results device-id
+                     connection-ids global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-connections-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4879,15 +6255,23 @@
                           get-connections-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-connections-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-connections-response-"))
-   (connections common-lisp:nil :type
-    (common-lisp:or connection-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-connections-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-connections-response-next-token :initform
+                         common-lisp:nil)
+                        (connections :initarg :connections :type
+                         (common-lisp:or connection-list common-lisp:null)
+                         :accessor %get-connections-response-connections
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-connections-response 'make-get-connections-response))
+ (common-lisp:defun make-get-connections-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token connections)
+   (common-lisp:apply #'common-lisp:make-instance 'get-connections-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4918,20 +6302,38 @@
                           get-connections-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-change-events-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-change-events-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id (common-lisp:error ":policy-version-id is required")
-    :type (common-lisp:or integer common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-core-network-change-events-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-core-network-change-events-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-core-network-change-events-request-max-results
+                         :initform common-lisp:nil)
+                        (policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-core-network-change-events-request-policy-version-id
+                         :initform
+                         (common-lisp:error ":policy-version-id is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %get-core-network-change-events-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-core-network-change-events-request
                     'make-get-core-network-change-events-request))
+ (common-lisp:defun make-get-core-network-change-events-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results policy-version-id
+                     core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-core-network-change-events-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4948,16 +6350,28 @@
                           get-core-network-change-events-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-change-events-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-change-events-response-"))
-   (core-network-change-events common-lisp:nil :type
-    (common-lisp:or core-network-change-event-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-core-network-change-events-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-core-network-change-events-response-next-token
+                         :initform common-lisp:nil)
+                        (core-network-change-events :initarg
+                         :core-network-change-events :type
+                         (common-lisp:or core-network-change-event-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-core-network-change-events-response-core-network-change-events
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-core-network-change-events-response
                     'make-get-core-network-change-events-response))
+ (common-lisp:defun make-get-core-network-change-events-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token core-network-change-events)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-core-network-change-events-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4989,20 +6403,38 @@
                           get-core-network-change-events-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-change-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-change-set-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id (common-lisp:error ":policy-version-id is required")
-    :type (common-lisp:or integer common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-core-network-change-set-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-core-network-change-set-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-core-network-change-set-request-max-results
+                         :initform common-lisp:nil)
+                        (policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-core-network-change-set-request-policy-version-id
+                         :initform
+                         (common-lisp:error ":policy-version-id is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %get-core-network-change-set-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-core-network-change-set-request
                     'make-get-core-network-change-set-request))
+ (common-lisp:defun make-get-core-network-change-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results policy-version-id
+                     core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-core-network-change-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5019,16 +6451,28 @@
                           get-core-network-change-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-change-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-change-set-response-"))
-   (core-network-changes common-lisp:nil :type
-    (common-lisp:or core-network-change-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-core-network-change-set-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-core-network-change-set-response-next-token
+                         :initform common-lisp:nil)
+                        (core-network-changes :initarg :core-network-changes
+                         :type
+                         (common-lisp:or core-network-change-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-core-network-change-set-response-core-network-changes
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-core-network-change-set-response
                     'make-get-core-network-change-set-response))
+ (common-lisp:defun make-get-core-network-change-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token core-network-changes)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-core-network-change-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5060,18 +6504,32 @@
                           get-core-network-change-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-policy-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (alias common-lisp:nil :type
-    (common-lisp:or core-network-policy-alias common-lisp:null)))
+ (common-lisp:defclass get-core-network-policy-request common-lisp:nil
+                       ((alias :initarg :alias :type
+                         (common-lisp:or core-network-policy-alias
+                                         common-lisp:null)
+                         :accessor %get-core-network-policy-request-alias
+                         :initform common-lisp:nil)
+                        (policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-core-network-policy-request-policy-version-id
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %get-core-network-policy-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-core-network-policy-request
                     'make-get-core-network-policy-request))
+ (common-lisp:defun make-get-core-network-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key alias policy-version-id core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-core-network-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5088,14 +6546,23 @@
                           get-core-network-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-policy-response-"))
-   (core-network-policy common-lisp:nil :type
-    (common-lisp:or core-network-policy common-lisp:null)))
+ (common-lisp:defclass get-core-network-policy-response common-lisp:nil
+                       ((core-network-policy :initarg :core-network-policy
+                         :type
+                         (common-lisp:or core-network-policy common-lisp:null)
+                         :accessor
+                         %get-core-network-policy-response-core-network-policy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-core-network-policy-response
                     'make-get-core-network-policy-response))
+ (common-lisp:defun make-get-core-network-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network-policy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-core-network-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5119,13 +6586,20 @@
                           get-core-network-policy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null)))
+ (common-lisp:defclass get-core-network-request common-lisp:nil
+                       ((core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %get-core-network-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-core-network-request 'make-get-core-network-request))
+ (common-lisp:defun make-get-core-network-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-core-network-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5142,14 +6616,20 @@
                           get-core-network-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-core-network-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-core-network-response-"))
-   (core-network common-lisp:nil :type
-    (common-lisp:or core-network common-lisp:null)))
+ (common-lisp:defclass get-core-network-response common-lisp:nil
+                       ((core-network :initarg :core-network :type
+                         (common-lisp:or core-network common-lisp:null)
+                         :accessor %get-core-network-response-core-network
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-core-network-response
                     'make-get-core-network-response))
+ (common-lisp:defun make-get-core-network-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network)
+   (common-lisp:apply #'common-lisp:make-instance 'get-core-network-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5173,20 +6653,42 @@
                           get-core-network-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-customer-gateway-associations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-customer-gateway-associations-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (customer-gateway-arns common-lisp:nil :type
-    (common-lisp:or customer-gateway-arn-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-customer-gateway-associations-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-customer-gateway-associations-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-customer-gateway-associations-request-max-results
+                         :initform common-lisp:nil)
+                        (customer-gateway-arns :initarg :customer-gateway-arns
+                         :type
+                         (common-lisp:or customer-gateway-arn-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-customer-gateway-associations-request-customer-gateway-arns
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-customer-gateway-associations-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-customer-gateway-associations-request
                     'make-get-customer-gateway-associations-request))
+ (common-lisp:defun make-get-customer-gateway-associations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     customer-gateway-arns global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-customer-gateway-associations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5203,16 +6705,29 @@
                           get-customer-gateway-associations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-customer-gateway-associations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-customer-gateway-associations-response-"))
-   (customer-gateway-associations common-lisp:nil :type
-    (common-lisp:or customer-gateway-association-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-customer-gateway-associations-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-customer-gateway-associations-response-next-token
+                         :initform common-lisp:nil)
+                        (customer-gateway-associations :initarg
+                         :customer-gateway-associations :type
+                         (common-lisp:or customer-gateway-association-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-customer-gateway-associations-response-customer-gateway-associations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-customer-gateway-associations-response
                     'make-get-customer-gateway-associations-response))
+ (common-lisp:defun make-get-customer-gateway-associations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token customer-gateway-associations)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-customer-gateway-associations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5244,20 +6759,38 @@
                           get-customer-gateway-associations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-devices-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-devices-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-ids common-lisp:nil :type
-    (common-lisp:or device-id-list common-lisp:null))
-   (site-id common-lisp:nil :type (common-lisp:or site-id common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-devices-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-devices-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-devices-request-max-results :initform
+                         common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %get-devices-request-site-id :initform
+                         common-lisp:nil)
+                        (device-ids :initarg :device-ids :type
+                         (common-lisp:or device-id-list common-lisp:null)
+                         :accessor %get-devices-request-device-ids :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %get-devices-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-devices-request 'make-get-devices-request))
+ (common-lisp:defun make-get-devices-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results site-id device-ids
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-devices-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-devices-request))
    (common-lisp:append))
@@ -5268,15 +6801,23 @@
                         ((aws-sdk/generator/shape::input get-devices-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-devices-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-devices-response-"))
-   (devices common-lisp:nil :type
-    (common-lisp:or device-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-devices-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-devices-response-next-token :initform
+                         common-lisp:nil)
+                        (devices :initarg :devices :type
+                         (common-lisp:or device-list common-lisp:null)
+                         :accessor %get-devices-response-devices :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-devices-response 'make-get-devices-response))
+ (common-lisp:defun make-get-devices-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token devices)
+   (common-lisp:apply #'common-lisp:make-instance 'get-devices-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-devices-response))
    (common-lisp:append))
@@ -5301,21 +6842,41 @@
                         ((aws-sdk/generator/shape::input get-devices-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-link-associations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-link-associations-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-link-associations-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-link-associations-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-link-associations-request-max-results
+                         :initform common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %get-link-associations-request-link-id :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %get-link-associations-request-device-id :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-link-associations-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-link-associations-request
                     'make-get-link-associations-request))
+ (common-lisp:defun make-get-link-associations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results link-id device-id
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-link-associations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5332,16 +6893,27 @@
                           get-link-associations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-link-associations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-link-associations-response-"))
-   (link-associations common-lisp:nil :type
-    (common-lisp:or link-association-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-link-associations-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-link-associations-response-next-token :initform
+                         common-lisp:nil)
+                        (link-associations :initarg :link-associations :type
+                         (common-lisp:or link-association-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-link-associations-response-link-associations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-link-associations-response
                     'make-get-link-associations-response))
+ (common-lisp:defun make-get-link-associations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token link-associations)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-link-associations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5372,24 +6944,45 @@
                           get-link-associations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-links-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-links-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (link-ids common-lisp:nil :type
-    (common-lisp:or link-id-list common-lisp:null))
-   (site-id common-lisp:nil :type (common-lisp:or site-id common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (provider common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-links-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-links-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-links-request-max-results :initform
+                         common-lisp:nil)
+                        (provider :initarg :provider :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %get-links-request-provider :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %get-links-request-type :initform
+                         common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %get-links-request-site-id :initform common-lisp:nil)
+                        (link-ids :initarg :link-ids :type
+                         (common-lisp:or link-id-list common-lisp:null)
+                         :accessor %get-links-request-link-ids :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %get-links-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-links-request 'make-get-links-request))
+ (common-lisp:defun make-get-links-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results provider type
+                     site-id link-ids global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-links-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-links-request))
    (common-lisp:append))
@@ -5400,14 +6993,22 @@
                         ((aws-sdk/generator/shape::input get-links-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-links-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-links-response-"))
-   (links common-lisp:nil :type (common-lisp:or link-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-links-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-links-response-next-token :initform
+                         common-lisp:nil)
+                        (links :initarg :links :type
+                         (common-lisp:or link-list common-lisp:null) :accessor
+                         %get-links-response-links :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-links-response 'make-get-links-response))
+ (common-lisp:defun make-get-links-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token links)
+   (common-lisp:apply #'common-lisp:make-instance 'get-links-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-links-response))
    (common-lisp:append))
@@ -5432,20 +7033,39 @@
                         ((aws-sdk/generator/shape::input get-links-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-resource-counts-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-resource-counts-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-resource-counts-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-resource-counts-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-network-resource-counts-request-max-results
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor
+                         %get-network-resource-counts-request-resource-type
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-network-resource-counts-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-network-resource-counts-request
                     'make-get-network-resource-counts-request))
+ (common-lisp:defun make-get-network-resource-counts-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results resource-type
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-resource-counts-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5462,16 +7082,28 @@
                           get-network-resource-counts-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-resource-counts-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-resource-counts-response-"))
-   (network-resource-counts common-lisp:nil :type
-    (common-lisp:or network-resource-count-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-resource-counts-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-resource-counts-response-next-token
+                         :initform common-lisp:nil)
+                        (network-resource-counts :initarg
+                         :network-resource-counts :type
+                         (common-lisp:or network-resource-count-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-resource-counts-response-network-resource-counts
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-network-resource-counts-response
                     'make-get-network-resource-counts-response))
+ (common-lisp:defun make-get-network-resource-counts-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token network-resource-counts)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-resource-counts-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5503,30 +7135,67 @@
                           get-network-resource-counts-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-resource-relationships-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-resource-relationships-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (registered-gateway-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (aws-region common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-resource-relationships-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-resource-relationships-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-max-results
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-resource-arn
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-resource-type
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-account-id
+                         :initform common-lisp:nil)
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-aws-region
+                         :initform common-lisp:nil)
+                        (registered-gateway-arn :initarg
+                         :registered-gateway-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-registered-gateway-arn
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-core-network-id
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-network-resource-relationships-request
                     'make-get-network-resource-relationships-request))
+ (common-lisp:defun make-get-network-resource-relationships-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results resource-arn
+                     resource-type account-id aws-region registered-gateway-arn
+                     core-network-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-resource-relationships-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5543,16 +7212,27 @@
                           get-network-resource-relationships-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-resource-relationships-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-resource-relationships-response-"))
-   (relationships common-lisp:nil :type
-    (common-lisp:or relationship-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-resource-relationships-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-resource-relationships-response-next-token
+                         :initform common-lisp:nil)
+                        (relationships :initarg :relationships :type
+                         (common-lisp:or relationship-list common-lisp:null)
+                         :accessor
+                         %get-network-resource-relationships-response-relationships
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-network-resource-relationships-response
                     'make-get-network-resource-relationships-response))
+ (common-lisp:defun make-get-network-resource-relationships-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token relationships)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-resource-relationships-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5583,30 +7263,61 @@
                           get-network-resource-relationships-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-resources-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-resources-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (registered-gateway-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (aws-region common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-resources-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-resources-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-network-resources-request-max-results
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %get-network-resources-request-resource-arn
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %get-network-resources-request-resource-type
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %get-network-resources-request-account-id
+                         :initform common-lisp:nil)
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %get-network-resources-request-aws-region
+                         :initform common-lisp:nil)
+                        (registered-gateway-arn :initarg
+                         :registered-gateway-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %get-network-resources-request-registered-gateway-arn
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %get-network-resources-request-core-network-id
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-network-resources-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-network-resources-request
                     'make-get-network-resources-request))
+ (common-lisp:defun make-get-network-resources-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results resource-arn
+                     resource-type account-id aws-region registered-gateway-arn
+                     core-network-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-resources-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5623,16 +7334,27 @@
                           get-network-resources-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-resources-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-resources-response-"))
-   (network-resources common-lisp:nil :type
-    (common-lisp:or network-resource-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-resources-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-resources-response-next-token :initform
+                         common-lisp:nil)
+                        (network-resources :initarg :network-resources :type
+                         (common-lisp:or network-resource-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-resources-response-network-resources
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-network-resources-response
                     'make-get-network-resources-response))
+ (common-lisp:defun make-get-network-resources-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token network-resources)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-resources-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5663,33 +7385,79 @@
                           get-network-resources-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-routes-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-routes-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (route-table-identifier
-    (common-lisp:error ":route-table-identifier is required") :type
-    (common-lisp:or route-table-identifier common-lisp:null))
-   (exact-cidr-matches common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null))
-   (longest-prefix-matches common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null))
-   (subnet-of-matches common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null))
-   (supernet-of-matches common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null))
-   (prefix-list-ids common-lisp:nil :type
-    (common-lisp:or constrained-string-list common-lisp:null))
-   (states common-lisp:nil :type
-    (common-lisp:or route-state-list common-lisp:null))
-   (types common-lisp:nil :type
-    (common-lisp:or route-type-list common-lisp:null))
-   (destination-filters common-lisp:nil :type
-    (common-lisp:or filter-map common-lisp:null)))
+ (common-lisp:defclass get-network-routes-request common-lisp:nil
+                       ((destination-filters :initarg :destination-filters
+                         :type (common-lisp:or filter-map common-lisp:null)
+                         :accessor
+                         %get-network-routes-request-destination-filters
+                         :initform common-lisp:nil)
+                        (types :initarg :types :type
+                         (common-lisp:or route-type-list common-lisp:null)
+                         :accessor %get-network-routes-request-types :initform
+                         common-lisp:nil)
+                        (states :initarg :states :type
+                         (common-lisp:or route-state-list common-lisp:null)
+                         :accessor %get-network-routes-request-states :initform
+                         common-lisp:nil)
+                        (prefix-list-ids :initarg :prefix-list-ids :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor %get-network-routes-request-prefix-list-ids
+                         :initform common-lisp:nil)
+                        (supernet-of-matches :initarg :supernet-of-matches
+                         :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-routes-request-supernet-of-matches
+                         :initform common-lisp:nil)
+                        (subnet-of-matches :initarg :subnet-of-matches :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-routes-request-subnet-of-matches
+                         :initform common-lisp:nil)
+                        (longest-prefix-matches :initarg
+                         :longest-prefix-matches :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-routes-request-longest-prefix-matches
+                         :initform common-lisp:nil)
+                        (exact-cidr-matches :initarg :exact-cidr-matches :type
+                         (common-lisp:or constrained-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-routes-request-exact-cidr-matches
+                         :initform common-lisp:nil)
+                        (route-table-identifier :initarg
+                         :route-table-identifier :type
+                         (common-lisp:or route-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-routes-request-route-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":route-table-identifier is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-network-routes-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-network-routes-request
                     'make-get-network-routes-request))
+ (common-lisp:defun make-get-network-routes-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destination-filters types states
+                     prefix-list-ids supernet-of-matches subnet-of-matches
+                     longest-prefix-matches exact-cidr-matches
+                     route-table-identifier global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-network-routes-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5771,22 +7539,43 @@
                           get-network-routes-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-routes-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-routes-response-"))
-   (route-table-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (core-network-segment-edge common-lisp:nil :type
-    (common-lisp:or core-network-segment-edge-identifier common-lisp:null))
-   (route-table-type common-lisp:nil :type
-    (common-lisp:or route-table-type common-lisp:null))
-   (route-table-timestamp common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (network-routes common-lisp:nil :type
-    (common-lisp:or network-route-list common-lisp:null)))
+ (common-lisp:defclass get-network-routes-response common-lisp:nil
+                       ((network-routes :initarg :network-routes :type
+                         (common-lisp:or network-route-list common-lisp:null)
+                         :accessor %get-network-routes-response-network-routes
+                         :initform common-lisp:nil)
+                        (route-table-timestamp :initarg :route-table-timestamp
+                         :type (common-lisp:or date-time common-lisp:null)
+                         :accessor
+                         %get-network-routes-response-route-table-timestamp
+                         :initform common-lisp:nil)
+                        (route-table-type :initarg :route-table-type :type
+                         (common-lisp:or route-table-type common-lisp:null)
+                         :accessor
+                         %get-network-routes-response-route-table-type
+                         :initform common-lisp:nil)
+                        (core-network-segment-edge :initarg
+                         :core-network-segment-edge :type
+                         (common-lisp:or core-network-segment-edge-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-routes-response-core-network-segment-edge
+                         :initform common-lisp:nil)
+                        (route-table-arn :initarg :route-table-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %get-network-routes-response-route-table-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-network-routes-response
                     'make-get-network-routes-response))
+ (common-lisp:defun make-get-network-routes-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key network-routes route-table-timestamp
+                     route-table-type core-network-segment-edge
+                     route-table-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-network-routes-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5840,30 +7629,61 @@
                           get-network-routes-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-telemetry-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-telemetry-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (registered-gateway-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (aws-region common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-telemetry-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-telemetry-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-network-telemetry-request-max-results
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %get-network-telemetry-request-resource-arn
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %get-network-telemetry-request-resource-type
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %get-network-telemetry-request-account-id
+                         :initform common-lisp:nil)
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %get-network-telemetry-request-aws-region
+                         :initform common-lisp:nil)
+                        (registered-gateway-arn :initarg
+                         :registered-gateway-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %get-network-telemetry-request-registered-gateway-arn
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %get-network-telemetry-request-core-network-id
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-network-telemetry-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-network-telemetry-request
                     'make-get-network-telemetry-request))
+ (common-lisp:defun make-get-network-telemetry-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results resource-arn
+                     resource-type account-id aws-region registered-gateway-arn
+                     core-network-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-telemetry-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5880,16 +7700,27 @@
                           get-network-telemetry-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-network-telemetry-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-network-telemetry-response-"))
-   (network-telemetry common-lisp:nil :type
-    (common-lisp:or network-telemetry-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-network-telemetry-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-network-telemetry-response-next-token :initform
+                         common-lisp:nil)
+                        (network-telemetry :initarg :network-telemetry :type
+                         (common-lisp:or network-telemetry-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-network-telemetry-response-network-telemetry
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-network-telemetry-response
                     'make-get-network-telemetry-response))
+ (common-lisp:defun make-get-network-telemetry-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token network-telemetry)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-network-telemetry-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5920,14 +7751,21 @@
                           get-network-telemetry-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-resource-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-resource-policy-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass get-resource-policy-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %get-resource-policy-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-resource-policy-request
                     'make-get-resource-policy-request))
+ (common-lisp:defun make-get-resource-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-resource-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5944,14 +7782,22 @@
                           get-resource-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-resource-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-resource-policy-response-"))
-   (policy-document common-lisp:nil :type
-    (common-lisp:or resource-policy-document common-lisp:null)))
+ (common-lisp:defclass get-resource-policy-response common-lisp:nil
+                       ((policy-document :initarg :policy-document :type
+                         (common-lisp:or resource-policy-document
+                                         common-lisp:null)
+                         :accessor
+                         %get-resource-policy-response-policy-document
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-resource-policy-response
                     'make-get-resource-policy-response))
+ (common-lisp:defun make-get-resource-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-document)
+   (common-lisp:apply #'common-lisp:make-instance 'get-resource-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5975,16 +7821,29 @@
                           get-resource-policy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-route-analysis-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-route-analysis-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (route-analysis-id (common-lisp:error ":route-analysis-id is required")
-    :type (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass get-route-analysis-request common-lisp:nil
+                       ((route-analysis-id :initarg :route-analysis-id :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor
+                         %get-route-analysis-request-route-analysis-id
+                         :initform
+                         (common-lisp:error ":route-analysis-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-route-analysis-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-route-analysis-request
                     'make-get-route-analysis-request))
+ (common-lisp:defun make-get-route-analysis-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key route-analysis-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-route-analysis-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6001,14 +7860,20 @@
                           get-route-analysis-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-route-analysis-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-route-analysis-response-"))
-   (route-analysis common-lisp:nil :type
-    (common-lisp:or route-analysis common-lisp:null)))
+ (common-lisp:defclass get-route-analysis-response common-lisp:nil
+                       ((route-analysis :initarg :route-analysis :type
+                         (common-lisp:or route-analysis common-lisp:null)
+                         :accessor %get-route-analysis-response-route-analysis
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-route-analysis-response
                     'make-get-route-analysis-response))
+ (common-lisp:defun make-get-route-analysis-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key route-analysis)
+   (common-lisp:apply #'common-lisp:make-instance 'get-route-analysis-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6032,14 +7897,23 @@
                           get-route-analysis-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-site-to-site-vpn-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-site-to-site-vpn-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null)))
+ (common-lisp:defclass get-site-to-site-vpn-attachment-request common-lisp:nil
+                       ((attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %get-site-to-site-vpn-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-site-to-site-vpn-attachment-request
                     'make-get-site-to-site-vpn-attachment-request))
+ (common-lisp:defun make-get-site-to-site-vpn-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-site-to-site-vpn-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6056,14 +7930,24 @@
                           get-site-to-site-vpn-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-site-to-site-vpn-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-site-to-site-vpn-attachment-response-"))
-   (site-to-site-vpn-attachment common-lisp:nil :type
-    (common-lisp:or site-to-site-vpn-attachment common-lisp:null)))
+ (common-lisp:defclass get-site-to-site-vpn-attachment-response common-lisp:nil
+                       ((site-to-site-vpn-attachment :initarg
+                         :site-to-site-vpn-attachment :type
+                         (common-lisp:or site-to-site-vpn-attachment
+                                         common-lisp:null)
+                         :accessor
+                         %get-site-to-site-vpn-attachment-response-site-to-site-vpn-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-site-to-site-vpn-attachment-response
                     'make-get-site-to-site-vpn-attachment-response))
+ (common-lisp:defun make-get-site-to-site-vpn-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site-to-site-vpn-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-site-to-site-vpn-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6088,19 +7972,34 @@
                           get-site-to-site-vpn-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sites-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-sites-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (site-ids common-lisp:nil :type
-    (common-lisp:or site-id-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-sites-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-sites-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-sites-request-max-results :initform
+                         common-lisp:nil)
+                        (site-ids :initarg :site-ids :type
+                         (common-lisp:or site-id-list common-lisp:null)
+                         :accessor %get-sites-request-site-ids :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %get-sites-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-sites-request 'make-get-sites-request))
+ (common-lisp:defun make-get-sites-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results site-ids
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-sites-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-sites-request))
    (common-lisp:append))
@@ -6111,14 +8010,22 @@
                         ((aws-sdk/generator/shape::input get-sites-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sites-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-sites-response-"))
-   (sites common-lisp:nil :type (common-lisp:or site-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-sites-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-sites-response-next-token :initform
+                         common-lisp:nil)
+                        (sites :initarg :sites :type
+                         (common-lisp:or site-list common-lisp:null) :accessor
+                         %get-sites-response-sites :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-sites-response 'make-get-sites-response))
+ (common-lisp:defun make-get-sites-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token sites)
+   (common-lisp:apply #'common-lisp:make-instance 'get-sites-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-sites-response))
    (common-lisp:append))
@@ -6143,22 +8050,42 @@
                         ((aws-sdk/generator/shape::input get-sites-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-connect-peer-associations-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-transit-gateway-connect-peer-associations-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (transit-gateway-connect-peer-arns common-lisp:nil :type
-    (common-lisp:or transit-gateway-connect-peer-arn-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-connect-peer-associations-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-transit-gateway-connect-peer-associations-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-connect-peer-associations-request-max-results
+                         :initform common-lisp:nil)
+                        (transit-gateway-connect-peer-arns :initarg
+                         :transit-gateway-connect-peer-arns :type
+                         (common-lisp:or transit-gateway-connect-peer-arn-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-connect-peer-associations-request-transit-gateway-connect-peer-arns
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-connect-peer-associations-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-connect-peer-associations-request
                     'make-get-transit-gateway-connect-peer-associations-request))
+ (common-lisp:defun make-get-transit-gateway-connect-peer-associations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     transit-gateway-connect-peer-arns global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-connect-peer-associations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6175,19 +8102,31 @@
                           get-transit-gateway-connect-peer-associations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-connect-peer-associations-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-transit-gateway-connect-peer-associations-response-"))
-   (transit-gateway-connect-peer-associations common-lisp:nil :type
-    (common-lisp:or transit-gateway-connect-peer-association-list
-                    common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-connect-peer-associations-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-transit-gateway-connect-peer-associations-response-next-token
+                         :initform common-lisp:nil)
+                        (transit-gateway-connect-peer-associations :initarg
+                         :transit-gateway-connect-peer-associations :type
+                         (common-lisp:or
+                          transit-gateway-connect-peer-association-list
+                          common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-connect-peer-associations-response-transit-gateway-connect-peer-associations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-connect-peer-associations-response
                     'make-get-transit-gateway-connect-peer-associations-response))
+ (common-lisp:defun make-get-transit-gateway-connect-peer-associations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     transit-gateway-connect-peer-associations)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-connect-peer-associations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6219,14 +8158,22 @@
                           get-transit-gateway-connect-peer-associations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-peering-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-transit-gateway-peering-request-"))
-   (peering-id (common-lisp:error ":peering-id is required") :type
-    (common-lisp:or peering-id common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-peering-request common-lisp:nil
+                       ((peering-id :initarg :peering-id :type
+                         (common-lisp:or peering-id common-lisp:null) :accessor
+                         %get-transit-gateway-peering-request-peering-id
+                         :initform
+                         (common-lisp:error ":peering-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-peering-request
                     'make-get-transit-gateway-peering-request))
+ (common-lisp:defun make-get-transit-gateway-peering-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key peering-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-peering-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6243,14 +8190,24 @@
                           get-transit-gateway-peering-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-peering-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-transit-gateway-peering-response-"))
-   (transit-gateway-peering common-lisp:nil :type
-    (common-lisp:or transit-gateway-peering common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-peering-response common-lisp:nil
+                       ((transit-gateway-peering :initarg
+                         :transit-gateway-peering :type
+                         (common-lisp:or transit-gateway-peering
+                                         common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-peering-response-transit-gateway-peering
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-peering-response
                     'make-get-transit-gateway-peering-response))
+ (common-lisp:defun make-get-transit-gateway-peering-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-peering)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-peering-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6275,20 +8232,42 @@
                           get-transit-gateway-peering-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-registrations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-transit-gateway-registrations-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (transit-gateway-arns common-lisp:nil :type
-    (common-lisp:or transit-gateway-arn-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-registrations-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-transit-gateway-registrations-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-registrations-request-max-results
+                         :initform common-lisp:nil)
+                        (transit-gateway-arns :initarg :transit-gateway-arns
+                         :type
+                         (common-lisp:or transit-gateway-arn-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-registrations-request-transit-gateway-arns
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-registrations-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-registrations-request
                     'make-get-transit-gateway-registrations-request))
+ (common-lisp:defun make-get-transit-gateway-registrations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     transit-gateway-arns global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-registrations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6305,16 +8284,29 @@
                           get-transit-gateway-registrations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-registrations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-transit-gateway-registrations-response-"))
-   (transit-gateway-registrations common-lisp:nil :type
-    (common-lisp:or transit-gateway-registration-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-registrations-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-transit-gateway-registrations-response-next-token
+                         :initform common-lisp:nil)
+                        (transit-gateway-registrations :initarg
+                         :transit-gateway-registrations :type
+                         (common-lisp:or transit-gateway-registration-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-registrations-response-transit-gateway-registrations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-registrations-response
                     'make-get-transit-gateway-registrations-response))
+ (common-lisp:defun make-get-transit-gateway-registrations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token transit-gateway-registrations)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-registrations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6346,16 +8338,24 @@
                           get-transit-gateway-registrations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-route-table-attachment-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-transit-gateway-route-table-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-route-table-attachment-request
+                       common-lisp:nil
+                       ((attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-route-table-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-route-table-attachment-request
                     'make-get-transit-gateway-route-table-attachment-request))
+ (common-lisp:defun make-get-transit-gateway-route-table-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-route-table-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6372,16 +8372,25 @@
                           get-transit-gateway-route-table-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transit-gateway-route-table-attachment-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-transit-gateway-route-table-attachment-response-"))
-   (transit-gateway-route-table-attachment common-lisp:nil :type
-    (common-lisp:or transit-gateway-route-table-attachment common-lisp:null)))
+ (common-lisp:defclass get-transit-gateway-route-table-attachment-response
+                       common-lisp:nil
+                       ((transit-gateway-route-table-attachment :initarg
+                         :transit-gateway-route-table-attachment :type
+                         (common-lisp:or transit-gateway-route-table-attachment
+                                         common-lisp:null)
+                         :accessor
+                         %get-transit-gateway-route-table-attachment-response-transit-gateway-route-table-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-transit-gateway-route-table-attachment-response
                     'make-get-transit-gateway-route-table-attachment-response))
+ (common-lisp:defun make-get-transit-gateway-route-table-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-route-table-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-transit-gateway-route-table-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6406,14 +8415,21 @@
                           get-transit-gateway-route-table-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-vpc-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-vpc-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null)))
+ (common-lisp:defclass get-vpc-attachment-request common-lisp:nil
+                       ((attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %get-vpc-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-vpc-attachment-request
                     'make-get-vpc-attachment-request))
+ (common-lisp:defun make-get-vpc-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-vpc-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6430,14 +8446,20 @@
                           get-vpc-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-vpc-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-vpc-attachment-response-"))
-   (vpc-attachment common-lisp:nil :type
-    (common-lisp:or vpc-attachment common-lisp:null)))
+ (common-lisp:defclass get-vpc-attachment-response common-lisp:nil
+                       ((vpc-attachment :initarg :vpc-attachment :type
+                         (common-lisp:or vpc-attachment common-lisp:null)
+                         :accessor %get-vpc-attachment-response-vpc-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-vpc-attachment-response
                     'make-get-vpc-attachment-response))
+ (common-lisp:defun make-get-vpc-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-attachment)
+   (common-lisp:apply #'common-lisp:make-instance 'get-vpc-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6461,21 +8483,37 @@
                           get-vpc-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (global-network (:copier common-lisp:nil)
-      (:conc-name "struct-shape-global-network-"))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (global-network-arn common-lisp:nil :type
-    (common-lisp:or global-network-arn common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or global-network-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass global-network common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %global-network-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or global-network-state common-lisp:null)
+                         :accessor %global-network-state :initform
+                         common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %global-network-created-at :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %global-network-description :initform
+                         common-lisp:nil)
+                        (global-network-arn :initarg :global-network-arn :type
+                         (common-lisp:or global-network-arn common-lisp:null)
+                         :accessor %global-network-global-network-arn :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %global-network-global-network-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'global-network 'make-global-network))
+ (common-lisp:defun make-global-network
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state created-at description
+                     global-network-arn global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'global-network
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input global-network))
    (common-lisp:append))
@@ -6560,26 +8598,50 @@
                     'internal-server-exception-message
                     'internal-server-exception-retry-after-seconds)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (link (:copier common-lisp:nil) (:conc-name "struct-shape-link-"))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (link-arn common-lisp:nil :type (common-lisp:or link-arn common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (site-id common-lisp:nil :type (common-lisp:or site-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (bandwidth common-lisp:nil :type
-    (common-lisp:or bandwidth common-lisp:null))
-   (provider common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or link-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass link common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %link-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or link-state common-lisp:null) :accessor
+                         %link-state :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %link-created-at :initform common-lisp:nil)
+                        (provider :initarg :provider :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %link-provider :initform common-lisp:nil)
+                        (bandwidth :initarg :bandwidth :type
+                         (common-lisp:or bandwidth common-lisp:null) :accessor
+                         %link-bandwidth :initform common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %link-type :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %link-description :initform common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %link-site-id :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %link-global-network-id :initform
+                         common-lisp:nil)
+                        (link-arn :initarg :link-arn :type
+                         (common-lisp:or link-arn common-lisp:null) :accessor
+                         %link-link-arn :initform common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %link-link-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'link 'make-link))
+ (common-lisp:defun make-link
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state created-at provider bandwidth
+                     type description site-id global-network-id link-arn
+                     link-id)
+   (common-lisp:apply #'common-lisp:make-instance 'link
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input link))
    (common-lisp:append))
@@ -6668,18 +8730,32 @@
    common-lisp:nil))
 (common-lisp:deftype link-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (link-association (:copier common-lisp:nil)
-      (:conc-name "struct-shape-link-association-"))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (link-association-state common-lisp:nil :type
-    (common-lisp:or link-association-state common-lisp:null)))
+ (common-lisp:defclass link-association common-lisp:nil
+                       ((link-association-state :initarg
+                         :link-association-state :type
+                         (common-lisp:or link-association-state
+                                         common-lisp:null)
+                         :accessor %link-association-link-association-state
+                         :initform common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %link-association-link-id :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %link-association-device-id :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %link-association-global-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'link-association 'make-link-association))
+ (common-lisp:defun make-link-association
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link-association-state link-id device-id
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'link-association
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input link-association))
    (common-lisp:append))
@@ -6744,23 +8820,40 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype link-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-attachments-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-attachments-request-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (attachment-type common-lisp:nil :type
-    (common-lisp:or attachment-type common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or attachment-state common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-attachments-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-attachments-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-attachments-request-max-results
+                         :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or attachment-state common-lisp:null)
+                         :accessor %list-attachments-request-state :initform
+                         common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %list-attachments-request-edge-location
+                         :initform common-lisp:nil)
+                        (attachment-type :initarg :attachment-type :type
+                         (common-lisp:or attachment-type common-lisp:null)
+                         :accessor %list-attachments-request-attachment-type
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %list-attachments-request-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-attachments-request 'make-list-attachments-request))
+ (common-lisp:defun make-list-attachments-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results state
+                     edge-location attachment-type core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-attachments-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6777,16 +8870,24 @@
                           list-attachments-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-attachments-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-attachments-response-"))
-   (attachments common-lisp:nil :type
-    (common-lisp:or attachment-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-attachments-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-attachments-response-next-token :initform
+                         common-lisp:nil)
+                        (attachments :initarg :attachments :type
+                         (common-lisp:or attachment-list common-lisp:null)
+                         :accessor %list-attachments-response-attachments
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-attachments-response
                     'make-list-attachments-response))
+ (common-lisp:defun make-list-attachments-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token attachments)
+   (common-lisp:apply #'common-lisp:make-instance 'list-attachments-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6817,20 +8918,34 @@
                           list-attachments-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-connect-peers-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-connect-peers-request-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (connect-attachment-id common-lisp:nil :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-connect-peers-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-connect-peers-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-connect-peers-request-max-results
+                         :initform common-lisp:nil)
+                        (connect-attachment-id :initarg :connect-attachment-id
+                         :type (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %list-connect-peers-request-connect-attachment-id
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %list-connect-peers-request-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-connect-peers-request
                     'make-list-connect-peers-request))
+ (common-lisp:defun make-list-connect-peers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     connect-attachment-id core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-connect-peers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6847,16 +8962,25 @@
                           list-connect-peers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-connect-peers-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-connect-peers-response-"))
-   (connect-peers common-lisp:nil :type
-    (common-lisp:or connect-peer-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-connect-peers-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-connect-peers-response-next-token :initform
+                         common-lisp:nil)
+                        (connect-peers :initarg :connect-peers :type
+                         (common-lisp:or connect-peer-summary-list
+                                         common-lisp:null)
+                         :accessor %list-connect-peers-response-connect-peers
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-connect-peers-response
                     'make-list-connect-peers-response))
+ (common-lisp:defun make-list-connect-peers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token connect-peers)
+   (common-lisp:apply #'common-lisp:make-instance 'list-connect-peers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6887,18 +9011,33 @@
                           list-connect-peers-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-core-network-policy-versions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-core-network-policy-versions-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-core-network-policy-versions-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-core-network-policy-versions-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-core-network-policy-versions-request-max-results
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %list-core-network-policy-versions-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-core-network-policy-versions-request
                     'make-list-core-network-policy-versions-request))
+ (common-lisp:defun make-list-core-network-policy-versions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-core-network-policy-versions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6915,16 +9054,29 @@
                           list-core-network-policy-versions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-core-network-policy-versions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-core-network-policy-versions-response-"))
-   (core-network-policy-versions common-lisp:nil :type
-    (common-lisp:or core-network-policy-version-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-core-network-policy-versions-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-core-network-policy-versions-response-next-token
+                         :initform common-lisp:nil)
+                        (core-network-policy-versions :initarg
+                         :core-network-policy-versions :type
+                         (common-lisp:or core-network-policy-version-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-core-network-policy-versions-response-core-network-policy-versions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-core-network-policy-versions-response
                     'make-list-core-network-policy-versions-response))
+ (common-lisp:defun make-list-core-network-policy-versions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token core-network-policy-versions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-core-network-policy-versions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6956,16 +9108,24 @@
                           list-core-network-policy-versions-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-core-networks-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-core-networks-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-core-networks-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-core-networks-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-core-networks-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-core-networks-request
                     'make-list-core-networks-request))
+ (common-lisp:defun make-list-core-networks-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-core-networks-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6982,16 +9142,25 @@
                           list-core-networks-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-core-networks-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-core-networks-response-"))
-   (core-networks common-lisp:nil :type
-    (common-lisp:or core-network-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-core-networks-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-core-networks-response-next-token :initform
+                         common-lisp:nil)
+                        (core-networks :initarg :core-networks :type
+                         (common-lisp:or core-network-summary-list
+                                         common-lisp:null)
+                         :accessor %list-core-networks-response-core-networks
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-core-networks-response
                     'make-list-core-networks-response))
+ (common-lisp:defun make-list-core-networks-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token core-networks)
+   (common-lisp:apply #'common-lisp:make-instance 'list-core-networks-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7022,17 +9191,27 @@
                           list-core-networks-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-organization-service-access-status-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-organization-service-access-status-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-organization-service-access-status-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-organization-service-access-status-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-organization-service-access-status-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-organization-service-access-status-request
                     'make-list-organization-service-access-status-request))
+ (common-lisp:defun make-list-organization-service-access-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-organization-service-access-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7049,18 +9228,28 @@
                           list-organization-service-access-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-organization-service-access-status-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-organization-service-access-status-response-"))
-   (organization-status common-lisp:nil :type
-    (common-lisp:or organization-status common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-organization-service-access-status-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-organization-service-access-status-response-next-token
+                         :initform common-lisp:nil)
+                        (organization-status :initarg :organization-status
+                         :type
+                         (common-lisp:or organization-status common-lisp:null)
+                         :accessor
+                         %list-organization-service-access-status-response-organization-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-organization-service-access-status-response
                     'make-list-organization-service-access-status-response))
+ (common-lisp:defun make-list-organization-service-access-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token organization-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-organization-service-access-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7091,23 +9280,40 @@
                           list-organization-service-access-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-peerings-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-peerings-request-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (peering-type common-lisp:nil :type
-    (common-lisp:or peering-type common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or peering-state common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-peerings-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-peerings-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-peerings-request-max-results :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or peering-state common-lisp:null)
+                         :accessor %list-peerings-request-state :initform
+                         common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %list-peerings-request-edge-location
+                         :initform common-lisp:nil)
+                        (peering-type :initarg :peering-type :type
+                         (common-lisp:or peering-type common-lisp:null)
+                         :accessor %list-peerings-request-peering-type
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %list-peerings-request-core-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-peerings-request 'make-list-peerings-request))
+ (common-lisp:defun make-list-peerings-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results state
+                     edge-location peering-type core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-peerings-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7124,15 +9330,23 @@
                           list-peerings-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-peerings-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-peerings-response-"))
-   (peerings common-lisp:nil :type
-    (common-lisp:or peering-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-peerings-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-peerings-response-next-token :initform
+                         common-lisp:nil)
+                        (peerings :initarg :peerings :type
+                         (common-lisp:or peering-list common-lisp:null)
+                         :accessor %list-peerings-response-peerings :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-peerings-response 'make-list-peerings-response))
+ (common-lisp:defun make-list-peerings-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token peerings)
+   (common-lisp:apply #'common-lisp:make-instance 'list-peerings-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7163,14 +9377,22 @@
                           list-peerings-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7187,13 +9409,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tag-list common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tag-list :initarg :tag-list :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tag-list :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-list)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7217,15 +9447,26 @@
                           list-tags-for-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (location (:copier common-lisp:nil) (:conc-name "struct-shape-location-"))
-   (address common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (latitude common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (longitude common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass location common-lisp:nil
+                       ((longitude :initarg :longitude :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %location-longitude :initform
+                         common-lisp:nil)
+                        (latitude :initarg :latitude :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %location-latitude :initform
+                         common-lisp:nil)
+                        (address :initarg :address :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %location-address :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'location 'make-location))
+ (common-lisp:defun make-location
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key longitude latitude address)
+   (common-lisp:apply #'common-lisp:make-instance 'location
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input location))
    (common-lisp:append))
@@ -7259,32 +9500,63 @@
 (common-lisp:deftype long () 'common-lisp:integer)
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (network-resource (:copier common-lisp:nil)
-      (:conc-name "struct-shape-network-resource-"))
-   (registered-gateway-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (aws-region common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-id common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (definition common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (definition-timestamp common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (metadata common-lisp:nil :type
-    (common-lisp:or network-resource-metadata-map common-lisp:null)))
+ (common-lisp:defclass network-resource common-lisp:nil
+                       ((metadata :initarg :metadata :type
+                         (common-lisp:or network-resource-metadata-map
+                                         common-lisp:null)
+                         :accessor %network-resource-metadata :initform
+                         common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %network-resource-tags :initform common-lisp:nil)
+                        (definition-timestamp :initarg :definition-timestamp
+                         :type (common-lisp:or date-time common-lisp:null)
+                         :accessor %network-resource-definition-timestamp
+                         :initform common-lisp:nil)
+                        (definition :initarg :definition :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-resource-definition :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %network-resource-resource-arn :initform
+                         common-lisp:nil)
+                        (resource-id :initarg :resource-id :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-resource-resource-id :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-resource-resource-type :initform
+                         common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %network-resource-account-id :initform
+                         common-lisp:nil)
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %network-resource-aws-region :initform
+                         common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %network-resource-core-network-id :initform
+                         common-lisp:nil)
+                        (registered-gateway-arn :initarg
+                         :registered-gateway-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %network-resource-registered-gateway-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'network-resource 'make-network-resource))
+ (common-lisp:defun make-network-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key metadata tags definition-timestamp
+                     definition resource-arn resource-id resource-type
+                     account-id aws-region core-network-id
+                     registered-gateway-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'network-resource
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input network-resource))
    (common-lisp:append))
@@ -7374,14 +9646,23 @@
                         ((aws-sdk/generator/shape::input network-resource))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (network-resource-count (:copier common-lisp:nil)
-      (:conc-name "struct-shape-network-resource-count-"))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (count common-lisp:nil :type (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass network-resource-count common-lisp:nil
+                       ((count :initarg :count :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %network-resource-count-count :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-resource-count-resource-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'network-resource-count 'make-network-resource-count))
+ (common-lisp:defun make-network-resource-count
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key count resource-type)
+   (common-lisp:apply #'common-lisp:make-instance 'network-resource-count
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7436,23 +9717,42 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (network-resource-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-network-resource-summary-"))
-   (registered-gateway-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (definition common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (name-tag common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (is-middlebox common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass network-resource-summary common-lisp:nil
+                       ((is-middlebox :initarg :is-middlebox :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %network-resource-summary-is-middlebox :initform
+                         common-lisp:nil)
+                        (name-tag :initarg :name-tag :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-resource-summary-name-tag :initform
+                         common-lisp:nil)
+                        (definition :initarg :definition :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-resource-summary-definition
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-resource-summary-resource-type
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %network-resource-summary-resource-arn
+                         :initform common-lisp:nil)
+                        (registered-gateway-arn :initarg
+                         :registered-gateway-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %network-resource-summary-registered-gateway-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'network-resource-summary 'make-network-resource-summary))
+ (common-lisp:defun make-network-resource-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key is-middlebox name-tag definition
+                     resource-type resource-arn registered-gateway-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'network-resource-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7512,18 +9812,36 @@
                           network-resource-summary))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (network-route (:copier common-lisp:nil)
-      (:conc-name "struct-shape-network-route-"))
-   (destination-cidr-block common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (destinations common-lisp:nil :type
-    (common-lisp:or network-route-destination-list common-lisp:null))
-   (prefix-list-id common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or route-state common-lisp:null))
-   (type common-lisp:nil :type (common-lisp:or route-type common-lisp:null)))
+ (common-lisp:defclass network-route common-lisp:nil
+                       ((type :initarg :type :type
+                         (common-lisp:or route-type common-lisp:null) :accessor
+                         %network-route-type :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or route-state common-lisp:null)
+                         :accessor %network-route-state :initform
+                         common-lisp:nil)
+                        (prefix-list-id :initarg :prefix-list-id :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-route-prefix-list-id :initform
+                         common-lisp:nil)
+                        (destinations :initarg :destinations :type
+                         (common-lisp:or network-route-destination-list
+                                         common-lisp:null)
+                         :accessor %network-route-destinations :initform
+                         common-lisp:nil)
+                        (destination-cidr-block :initarg
+                         :destination-cidr-block :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-route-destination-cidr-block
+                         :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'network-route 'make-network-route))
+ (common-lisp:defun make-network-route
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key type state prefix-list-id destinations
+                     destination-cidr-block)
+   (common-lisp:apply #'common-lisp:make-instance 'network-route
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input network-route))
    (common-lisp:append))
@@ -7570,24 +9888,47 @@
                         ((aws-sdk/generator/shape::input network-route))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (network-route-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-network-route-destination-"))
-   (core-network-attachment-id common-lisp:nil :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (transit-gateway-attachment-id common-lisp:nil :type
-    (common-lisp:or transit-gateway-attachment-id common-lisp:null))
-   (segment-name common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-id common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass network-route-destination common-lisp:nil
+                       ((resource-id :initarg :resource-id :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-route-destination-resource-id
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-route-destination-resource-type
+                         :initform common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %network-route-destination-edge-location
+                         :initform common-lisp:nil)
+                        (segment-name :initarg :segment-name :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-route-destination-segment-name
+                         :initform common-lisp:nil)
+                        (transit-gateway-attachment-id :initarg
+                         :transit-gateway-attachment-id :type
+                         (common-lisp:or transit-gateway-attachment-id
+                                         common-lisp:null)
+                         :accessor
+                         %network-route-destination-transit-gateway-attachment-id
+                         :initform common-lisp:nil)
+                        (core-network-attachment-id :initarg
+                         :core-network-attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor
+                         %network-route-destination-core-network-attachment-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'network-route-destination
                     'make-network-route-destination))
+ (common-lisp:defun make-network-route-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-id resource-type edge-location
+                     segment-name transit-gateway-attachment-id
+                     core-network-attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'network-route-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7665,29 +10006,54 @@
                            (trivial-types:proper-list network-route))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (network-telemetry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-network-telemetry-"))
-   (registered-gateway-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (aws-region common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-id common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (address common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (health common-lisp:nil :type
-    (common-lisp:or connection-health common-lisp:null)))
+ (common-lisp:defclass network-telemetry common-lisp:nil
+                       ((health :initarg :health :type
+                         (common-lisp:or connection-health common-lisp:null)
+                         :accessor %network-telemetry-health :initform
+                         common-lisp:nil)
+                        (address :initarg :address :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-telemetry-address :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %network-telemetry-resource-arn :initform
+                         common-lisp:nil)
+                        (resource-id :initarg :resource-id :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-telemetry-resource-id :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %network-telemetry-resource-type :initform
+                         common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %network-telemetry-account-id :initform
+                         common-lisp:nil)
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %network-telemetry-aws-region :initform
+                         common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %network-telemetry-core-network-id :initform
+                         common-lisp:nil)
+                        (registered-gateway-arn :initarg
+                         :registered-gateway-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %network-telemetry-registered-gateway-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'network-telemetry 'make-network-telemetry))
+ (common-lisp:defun make-network-telemetry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key health address resource-arn resource-id
+                     resource-type account-id aws-region core-network-id
+                     registered-gateway-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'network-telemetry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input network-telemetry))
    (common-lisp:append))
@@ -7774,19 +10140,37 @@
   'common-lisp:string)
 (common-lisp:deftype organization-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (organization-status (:copier common-lisp:nil)
-      (:conc-name "struct-shape-organization-status-"))
-   (organization-id common-lisp:nil :type
-    (common-lisp:or organization-id common-lisp:null))
-   (organization-aws-service-access-status common-lisp:nil :type
-    (common-lisp:or organization-aws-service-access-status common-lisp:null))
-   (slrdeployment-status common-lisp:nil :type
-    (common-lisp:or slrdeployment-status common-lisp:null))
-   (account-status-list common-lisp:nil :type
-    (common-lisp:or account-status-list common-lisp:null)))
+ (common-lisp:defclass organization-status common-lisp:nil
+                       ((account-status-list :initarg :account-status-list
+                         :type
+                         (common-lisp:or account-status-list common-lisp:null)
+                         :accessor %organization-status-account-status-list
+                         :initform common-lisp:nil)
+                        (slrdeployment-status :initarg :slrdeployment-status
+                         :type
+                         (common-lisp:or slrdeployment-status common-lisp:null)
+                         :accessor %organization-status-slrdeployment-status
+                         :initform common-lisp:nil)
+                        (organization-aws-service-access-status :initarg
+                         :organization-aws-service-access-status :type
+                         (common-lisp:or organization-aws-service-access-status
+                                         common-lisp:null)
+                         :accessor
+                         %organization-status-organization-aws-service-access-status
+                         :initform common-lisp:nil)
+                        (organization-id :initarg :organization-id :type
+                         (common-lisp:or organization-id common-lisp:null)
+                         :accessor %organization-status-organization-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'organization-status 'make-organization-status))
+ (common-lisp:defun make-organization-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-status-list slrdeployment-status
+                     organization-aws-service-access-status organization-id)
+   (common-lisp:apply #'common-lisp:make-instance 'organization-status
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input organization-status))
    (common-lisp:append))
@@ -7827,15 +10211,27 @@
                         ((aws-sdk/generator/shape::input organization-status))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (path-component (:copier common-lisp:nil)
-      (:conc-name "struct-shape-path-component-"))
-   (sequence common-lisp:nil :type (common-lisp:or integer common-lisp:null))
-   (resource common-lisp:nil :type
-    (common-lisp:or network-resource-summary common-lisp:null))
-   (destination-cidr-block common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass path-component common-lisp:nil
+                       ((destination-cidr-block :initarg
+                         :destination-cidr-block :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %path-component-destination-cidr-block
+                         :initform common-lisp:nil)
+                        (resource :initarg :resource :type
+                         (common-lisp:or network-resource-summary
+                                         common-lisp:null)
+                         :accessor %path-component-resource :initform
+                         common-lisp:nil)
+                        (sequence :initarg :sequence :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %path-component-sequence :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'path-component 'make-path-component))
+ (common-lisp:defun make-path-component
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destination-cidr-block resource sequence)
+   (common-lisp:apply #'common-lisp:make-instance 'path-component
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input path-component))
    (common-lisp:append))
@@ -7876,28 +10272,52 @@
                            (trivial-types:proper-list path-component))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (peering (:copier common-lisp:nil) (:conc-name "struct-shape-peering-"))
-   (core-network-id common-lisp:nil :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (core-network-arn common-lisp:nil :type
-    (common-lisp:or core-network-arn common-lisp:null))
-   (peering-id common-lisp:nil :type
-    (common-lisp:or peering-id common-lisp:null))
-   (owner-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (peering-type common-lisp:nil :type
-    (common-lisp:or peering-type common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or peering-state common-lisp:null))
-   (edge-location common-lisp:nil :type
-    (common-lisp:or external-region-code common-lisp:null))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:defclass peering common-lisp:nil
+                       ((created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %peering-created-at :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %peering-tags :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %peering-resource-arn :initform
+                         common-lisp:nil)
+                        (edge-location :initarg :edge-location :type
+                         (common-lisp:or external-region-code common-lisp:null)
+                         :accessor %peering-edge-location :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or peering-state common-lisp:null)
+                         :accessor %peering-state :initform common-lisp:nil)
+                        (peering-type :initarg :peering-type :type
+                         (common-lisp:or peering-type common-lisp:null)
+                         :accessor %peering-peering-type :initform
+                         common-lisp:nil)
+                        (owner-account-id :initarg :owner-account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %peering-owner-account-id :initform
+                         common-lisp:nil)
+                        (peering-id :initarg :peering-id :type
+                         (common-lisp:or peering-id common-lisp:null) :accessor
+                         %peering-peering-id :initform common-lisp:nil)
+                        (core-network-arn :initarg :core-network-arn :type
+                         (common-lisp:or core-network-arn common-lisp:null)
+                         :accessor %peering-core-network-arn :initform
+                         common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %peering-core-network-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'peering 'make-peering))
+ (common-lisp:defun make-peering
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-at tags resource-arn
+                     edge-location state peering-type owner-account-id
+                     peering-id core-network-arn core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'peering
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input peering))
    (common-lisp:append))
@@ -7988,16 +10408,29 @@
 (common-lisp:deftype peering-state () 'common-lisp:string)
 (common-lisp:deftype peering-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (proposed-segment-change (:copier common-lisp:nil)
-      (:conc-name "struct-shape-proposed-segment-change-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (attachment-policy-rule-number common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (segment-name common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass proposed-segment-change common-lisp:nil
+                       ((segment-name :initarg :segment-name :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %proposed-segment-change-segment-name
+                         :initform common-lisp:nil)
+                        (attachment-policy-rule-number :initarg
+                         :attachment-policy-rule-number :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %proposed-segment-change-attachment-policy-rule-number
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %proposed-segment-change-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'proposed-segment-change 'make-proposed-segment-change))
+ (common-lisp:defun make-proposed-segment-change
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key segment-name
+                     attachment-policy-rule-number tags)
+   (common-lisp:apply #'common-lisp:make-instance 'proposed-segment-change
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8036,22 +10469,44 @@
                           proposed-segment-change))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-core-network-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-core-network-policy-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-document (common-lisp:error ":policy-document is required") :type
-    (common-lisp:or core-network-policy-document common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (latest-version-id common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null)))
+ (common-lisp:defclass put-core-network-policy-request common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor
+                         %put-core-network-policy-request-client-token
+                         :initform common-lisp:nil)
+                        (latest-version-id :initarg :latest-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %put-core-network-policy-request-latest-version-id
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %put-core-network-policy-request-description
+                         :initform common-lisp:nil)
+                        (policy-document :initarg :policy-document :type
+                         (common-lisp:or core-network-policy-document
+                                         common-lisp:null)
+                         :accessor
+                         %put-core-network-policy-request-policy-document
+                         :initform
+                         (common-lisp:error ":policy-document is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %put-core-network-policy-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-core-network-policy-request
                     'make-put-core-network-policy-request))
+ (common-lisp:defun make-put-core-network-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token latest-version-id
+                     description policy-document core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-core-network-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8096,14 +10551,23 @@
                           put-core-network-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-core-network-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-core-network-policy-response-"))
-   (core-network-policy common-lisp:nil :type
-    (common-lisp:or core-network-policy common-lisp:null)))
+ (common-lisp:defclass put-core-network-policy-response common-lisp:nil
+                       ((core-network-policy :initarg :core-network-policy
+                         :type
+                         (common-lisp:or core-network-policy common-lisp:null)
+                         :accessor
+                         %put-core-network-policy-response-core-network-policy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-core-network-policy-response
                     'make-put-core-network-policy-response))
+ (common-lisp:defun make-put-core-network-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network-policy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-core-network-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8127,16 +10591,27 @@
                           put-core-network-policy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-resource-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-resource-policy-request-"))
-   (policy-document (common-lisp:error ":policy-document is required") :type
-    (common-lisp:or resource-policy-document common-lisp:null))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass put-resource-policy-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %put-resource-policy-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))
+                        (policy-document :initarg :policy-document :type
+                         (common-lisp:or resource-policy-document
+                                         common-lisp:null)
+                         :accessor %put-resource-policy-request-policy-document
+                         :initform
+                         (common-lisp:error ":policy-document is required"))))
  (common-lisp:export
   (common-lisp:list 'put-resource-policy-request
                     'make-put-resource-policy-request))
+ (common-lisp:defun make-put-resource-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn policy-document)
+   (common-lisp:apply #'common-lisp:make-instance 'put-resource-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8160,12 +10635,17 @@
                           put-resource-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-resource-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-resource-policy-response-")))
+ (common-lisp:defclass put-resource-policy-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'put-resource-policy-response
                     'make-put-resource-policy-response))
+ (common-lisp:defun make-put-resource-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'put-resource-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8192,16 +10672,32 @@
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype reason-context-value () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-transit-gateway-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-transit-gateway-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (transit-gateway-arn (common-lisp:error ":transit-gateway-arn is required")
-    :type (common-lisp:or transit-gateway-arn common-lisp:null)))
+ (common-lisp:defclass register-transit-gateway-request common-lisp:nil
+                       ((transit-gateway-arn :initarg :transit-gateway-arn
+                         :type
+                         (common-lisp:or transit-gateway-arn common-lisp:null)
+                         :accessor
+                         %register-transit-gateway-request-transit-gateway-arn
+                         :initform
+                         (common-lisp:error
+                          ":transit-gateway-arn is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %register-transit-gateway-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'register-transit-gateway-request
                     'make-register-transit-gateway-request))
+ (common-lisp:defun make-register-transit-gateway-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-arn global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'register-transit-gateway-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8225,14 +10721,24 @@
                           register-transit-gateway-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-transit-gateway-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-transit-gateway-response-"))
-   (transit-gateway-registration common-lisp:nil :type
-    (common-lisp:or transit-gateway-registration common-lisp:null)))
+ (common-lisp:defclass register-transit-gateway-response common-lisp:nil
+                       ((transit-gateway-registration :initarg
+                         :transit-gateway-registration :type
+                         (common-lisp:or transit-gateway-registration
+                                         common-lisp:null)
+                         :accessor
+                         %register-transit-gateway-response-transit-gateway-registration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'register-transit-gateway-response
                     'make-register-transit-gateway-response))
+ (common-lisp:defun make-register-transit-gateway-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-registration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'register-transit-gateway-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8257,14 +10763,21 @@
                           register-transit-gateway-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (reject-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reject-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null)))
+ (common-lisp:defclass reject-attachment-request common-lisp:nil
+                       ((attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %reject-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'reject-attachment-request
                     'make-reject-attachment-request))
+ (common-lisp:defun make-reject-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'reject-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8281,14 +10794,20 @@
                           reject-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (reject-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reject-attachment-response-"))
-   (attachment common-lisp:nil :type
-    (common-lisp:or attachment common-lisp:null)))
+ (common-lisp:defclass reject-attachment-response common-lisp:nil
+                       ((attachment :initarg :attachment :type
+                         (common-lisp:or attachment common-lisp:null) :accessor
+                         %reject-attachment-response-attachment :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'reject-attachment-response
                     'make-reject-attachment-response))
+ (common-lisp:defun make-reject-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attachment)
+   (common-lisp:apply #'common-lisp:make-instance 'reject-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8312,14 +10831,21 @@
                           reject-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (relationship (:copier common-lisp:nil)
-      (:conc-name "struct-shape-relationship-"))
-   (from common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (to common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass relationship common-lisp:nil
+                       ((to :initarg :to :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %relationship-to :initform common-lisp:nil)
+                        (from :initarg :from :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %relationship-from :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'relationship 'make-relationship))
+ (common-lisp:defun make-relationship
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key to from)
+   (common-lisp:apply #'common-lisp:make-instance 'relationship
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input relationship))
    (common-lisp:append))
@@ -8371,16 +10897,29 @@
                     'resource-not-found-exception-context)))
 (common-lisp:deftype resource-policy-document () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-core-network-policy-version-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-core-network-policy-version-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (policy-version-id (common-lisp:error ":policy-version-id is required")
-    :type (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass restore-core-network-policy-version-request
+                       common-lisp:nil
+                       ((policy-version-id :initarg :policy-version-id :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %restore-core-network-policy-version-request-policy-version-id
+                         :initform
+                         (common-lisp:error ":policy-version-id is required"))
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor
+                         %restore-core-network-policy-version-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'restore-core-network-policy-version-request
                     'make-restore-core-network-policy-version-request))
+ (common-lisp:defun make-restore-core-network-policy-version-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-version-id core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'restore-core-network-policy-version-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8397,15 +10936,24 @@
                           restore-core-network-policy-version-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-core-network-policy-version-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-restore-core-network-policy-version-response-"))
-   (core-network-policy common-lisp:nil :type
-    (common-lisp:or core-network-policy common-lisp:null)))
+ (common-lisp:defclass restore-core-network-policy-version-response
+                       common-lisp:nil
+                       ((core-network-policy :initarg :core-network-policy
+                         :type
+                         (common-lisp:or core-network-policy common-lisp:null)
+                         :accessor
+                         %restore-core-network-policy-version-response-core-network-policy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'restore-core-network-policy-version-response
                     'make-restore-core-network-policy-version-response))
+ (common-lisp:defun make-restore-core-network-policy-version-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network-policy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'restore-core-network-policy-version-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8430,32 +10978,64 @@
    common-lisp:nil))
 (common-lisp:deftype retry-after-seconds () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (route-analysis (:copier common-lisp:nil)
-      (:conc-name "struct-shape-route-analysis-"))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (owner-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (route-analysis-id common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (start-timestamp common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or route-analysis-status common-lisp:null))
-   (source common-lisp:nil :type
-    (common-lisp:or route-analysis-endpoint-options common-lisp:null))
-   (destination common-lisp:nil :type
-    (common-lisp:or route-analysis-endpoint-options common-lisp:null))
-   (include-return-path common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (use-middleboxes common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (forward-path common-lisp:nil :type
-    (common-lisp:or route-analysis-path common-lisp:null))
-   (return-path common-lisp:nil :type
-    (common-lisp:or route-analysis-path common-lisp:null)))
+ (common-lisp:defclass route-analysis common-lisp:nil
+                       ((return-path :initarg :return-path :type
+                         (common-lisp:or route-analysis-path common-lisp:null)
+                         :accessor %route-analysis-return-path :initform
+                         common-lisp:nil)
+                        (forward-path :initarg :forward-path :type
+                         (common-lisp:or route-analysis-path common-lisp:null)
+                         :accessor %route-analysis-forward-path :initform
+                         common-lisp:nil)
+                        (use-middleboxes :initarg :use-middleboxes :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %route-analysis-use-middleboxes :initform
+                         common-lisp:nil)
+                        (include-return-path :initarg :include-return-path
+                         :type (common-lisp:or boolean common-lisp:null)
+                         :accessor %route-analysis-include-return-path
+                         :initform common-lisp:nil)
+                        (destination :initarg :destination :type
+                         (common-lisp:or route-analysis-endpoint-options
+                                         common-lisp:null)
+                         :accessor %route-analysis-destination :initform
+                         common-lisp:nil)
+                        (source :initarg :source :type
+                         (common-lisp:or route-analysis-endpoint-options
+                                         common-lisp:null)
+                         :accessor %route-analysis-source :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or route-analysis-status
+                                         common-lisp:null)
+                         :accessor %route-analysis-status :initform
+                         common-lisp:nil)
+                        (start-timestamp :initarg :start-timestamp :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %route-analysis-start-timestamp :initform
+                         common-lisp:nil)
+                        (route-analysis-id :initarg :route-analysis-id :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %route-analysis-route-analysis-id :initform
+                         common-lisp:nil)
+                        (owner-account-id :initarg :owner-account-id :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %route-analysis-owner-account-id :initform
+                         common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %route-analysis-global-network-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'route-analysis 'make-route-analysis))
+ (common-lisp:defun make-route-analysis
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key return-path forward-path use-middleboxes
+                     include-return-path destination source status
+                     start-timestamp route-analysis-id owner-account-id
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'route-analysis
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input route-analysis))
    (common-lisp:append))
@@ -8543,18 +11123,30 @@
                         ((aws-sdk/generator/shape::input route-analysis))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (route-analysis-completion (:copier common-lisp:nil)
-      (:conc-name "struct-shape-route-analysis-completion-"))
-   (result-code common-lisp:nil :type
-    (common-lisp:or route-analysis-completion-result-code common-lisp:null))
-   (reason-code common-lisp:nil :type
-    (common-lisp:or route-analysis-completion-reason-code common-lisp:null))
-   (reason-context common-lisp:nil :type
-    (common-lisp:or reason-context-map common-lisp:null)))
+ (common-lisp:defclass route-analysis-completion common-lisp:nil
+                       ((reason-context :initarg :reason-context :type
+                         (common-lisp:or reason-context-map common-lisp:null)
+                         :accessor %route-analysis-completion-reason-context
+                         :initform common-lisp:nil)
+                        (reason-code :initarg :reason-code :type
+                         (common-lisp:or route-analysis-completion-reason-code
+                                         common-lisp:null)
+                         :accessor %route-analysis-completion-reason-code
+                         :initform common-lisp:nil)
+                        (result-code :initarg :result-code :type
+                         (common-lisp:or route-analysis-completion-result-code
+                                         common-lisp:null)
+                         :accessor %route-analysis-completion-result-code
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'route-analysis-completion
                     'make-route-analysis-completion))
+ (common-lisp:defun make-route-analysis-completion
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reason-context reason-code result-code)
+   (common-lisp:apply #'common-lisp:make-instance 'route-analysis-completion
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8596,18 +11188,35 @@
 (common-lisp:deftype route-analysis-completion-result-code ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (route-analysis-endpoint-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-route-analysis-endpoint-options-"))
-   (transit-gateway-attachment-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-attachment-arn common-lisp:null))
-   (transit-gateway-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-arn common-lisp:null))
-   (ip-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null)))
+ (common-lisp:defclass route-analysis-endpoint-options common-lisp:nil
+                       ((ip-address :initarg :ip-address :type
+                         (common-lisp:or ipaddress common-lisp:null) :accessor
+                         %route-analysis-endpoint-options-ip-address :initform
+                         common-lisp:nil)
+                        (transit-gateway-arn :initarg :transit-gateway-arn
+                         :type
+                         (common-lisp:or transit-gateway-arn common-lisp:null)
+                         :accessor
+                         %route-analysis-endpoint-options-transit-gateway-arn
+                         :initform common-lisp:nil)
+                        (transit-gateway-attachment-arn :initarg
+                         :transit-gateway-attachment-arn :type
+                         (common-lisp:or transit-gateway-attachment-arn
+                                         common-lisp:null)
+                         :accessor
+                         %route-analysis-endpoint-options-transit-gateway-attachment-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'route-analysis-endpoint-options
                     'make-route-analysis-endpoint-options))
+ (common-lisp:defun make-route-analysis-endpoint-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ip-address transit-gateway-arn
+                     transit-gateway-attachment-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'route-analysis-endpoint-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8646,17 +11255,30 @@
                           route-analysis-endpoint-options))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (route-analysis-endpoint-options-specification (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-route-analysis-endpoint-options-specification-"))
-   (transit-gateway-attachment-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-attachment-arn common-lisp:null))
-   (ip-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null)))
+ (common-lisp:defclass route-analysis-endpoint-options-specification
+                       common-lisp:nil
+                       ((ip-address :initarg :ip-address :type
+                         (common-lisp:or ipaddress common-lisp:null) :accessor
+                         %route-analysis-endpoint-options-specification-ip-address
+                         :initform common-lisp:nil)
+                        (transit-gateway-attachment-arn :initarg
+                         :transit-gateway-attachment-arn :type
+                         (common-lisp:or transit-gateway-attachment-arn
+                                         common-lisp:null)
+                         :accessor
+                         %route-analysis-endpoint-options-specification-transit-gateway-attachment-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'route-analysis-endpoint-options-specification
                     'make-route-analysis-endpoint-options-specification))
+ (common-lisp:defun make-route-analysis-endpoint-options-specification
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ip-address
+                     transit-gateway-attachment-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'route-analysis-endpoint-options-specification
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8688,15 +11310,24 @@
                           route-analysis-endpoint-options-specification))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (route-analysis-path (:copier common-lisp:nil)
-      (:conc-name "struct-shape-route-analysis-path-"))
-   (completion-status common-lisp:nil :type
-    (common-lisp:or route-analysis-completion common-lisp:null))
-   (path common-lisp:nil :type
-    (common-lisp:or path-component-list common-lisp:null)))
+ (common-lisp:defclass route-analysis-path common-lisp:nil
+                       ((path :initarg :path :type
+                         (common-lisp:or path-component-list common-lisp:null)
+                         :accessor %route-analysis-path-path :initform
+                         common-lisp:nil)
+                        (completion-status :initarg :completion-status :type
+                         (common-lisp:or route-analysis-completion
+                                         common-lisp:null)
+                         :accessor %route-analysis-path-completion-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'route-analysis-path 'make-route-analysis-path))
+ (common-lisp:defun make-route-analysis-path
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key path completion-status)
+   (common-lisp:apply #'common-lisp:make-instance 'route-analysis-path
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input route-analysis-path))
    (common-lisp:append))
@@ -8731,15 +11362,30 @@
                            (trivial-types:proper-list route-state))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (route-table-identifier (:copier common-lisp:nil)
-      (:conc-name "struct-shape-route-table-identifier-"))
-   (transit-gateway-route-table-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-route-table-arn common-lisp:null))
-   (core-network-segment-edge common-lisp:nil :type
-    (common-lisp:or core-network-segment-edge-identifier common-lisp:null)))
+ (common-lisp:defclass route-table-identifier common-lisp:nil
+                       ((core-network-segment-edge :initarg
+                         :core-network-segment-edge :type
+                         (common-lisp:or core-network-segment-edge-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %route-table-identifier-core-network-segment-edge
+                         :initform common-lisp:nil)
+                        (transit-gateway-route-table-arn :initarg
+                         :transit-gateway-route-table-arn :type
+                         (common-lisp:or transit-gateway-route-table-arn
+                                         common-lisp:null)
+                         :accessor
+                         %route-table-identifier-transit-gateway-route-table-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'route-table-identifier 'make-route-table-identifier))
+ (common-lisp:defun make-route-table-identifier
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network-segment-edge
+                     transit-gateway-route-table-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'route-table-identifier
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8804,20 +11450,40 @@
                     'service-quota-exceeded-exception-limit-code
                     'service-quota-exceeded-exception-service-code)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (site (:copier common-lisp:nil) (:conc-name "struct-shape-site-"))
-   (site-id common-lisp:nil :type (common-lisp:or site-id common-lisp:null))
-   (site-arn common-lisp:nil :type (common-lisp:or site-arn common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (location common-lisp:nil :type (common-lisp:or location common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or site-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass site common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %site-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or site-state common-lisp:null) :accessor
+                         %site-state :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %site-created-at :initform common-lisp:nil)
+                        (location :initarg :location :type
+                         (common-lisp:or location common-lisp:null) :accessor
+                         %site-location :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %site-description :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %site-global-network-id :initform
+                         common-lisp:nil)
+                        (site-arn :initarg :site-arn :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %site-site-arn :initform common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %site-site-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'site 'make-site))
+ (common-lisp:defun make-site
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state created-at location
+                     description global-network-id site-arn site-id)
+   (common-lisp:apply #'common-lisp:make-instance 'site
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input site))
    (common-lisp:append))
@@ -8901,16 +11567,25 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype site-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (site-to-site-vpn-attachment (:copier common-lisp:nil)
-      (:conc-name "struct-shape-site-to-site-vpn-attachment-"))
-   (attachment common-lisp:nil :type
-    (common-lisp:or attachment common-lisp:null))
-   (vpn-connection-arn common-lisp:nil :type
-    (common-lisp:or vpn-connection-arn common-lisp:null)))
+ (common-lisp:defclass site-to-site-vpn-attachment common-lisp:nil
+                       ((vpn-connection-arn :initarg :vpn-connection-arn :type
+                         (common-lisp:or vpn-connection-arn common-lisp:null)
+                         :accessor
+                         %site-to-site-vpn-attachment-vpn-connection-arn
+                         :initform common-lisp:nil)
+                        (attachment :initarg :attachment :type
+                         (common-lisp:or attachment common-lisp:null) :accessor
+                         %site-to-site-vpn-attachment-attachment :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'site-to-site-vpn-attachment
                     'make-site-to-site-vpn-attachment))
+ (common-lisp:defun make-site-to-site-vpn-attachment
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpn-connection-arn attachment)
+   (common-lisp:apply #'common-lisp:make-instance 'site-to-site-vpn-attachment
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8941,16 +11616,22 @@
                           site-to-site-vpn-attachment))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-organization-service-access-update-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-start-organization-service-access-update-request-"))
-   (action (common-lisp:error ":action is required") :type
-    (common-lisp:or action common-lisp:null)))
+ (common-lisp:defclass start-organization-service-access-update-request
+                       common-lisp:nil
+                       ((action :initarg :action :type
+                         (common-lisp:or action common-lisp:null) :accessor
+                         %start-organization-service-access-update-request-action
+                         :initform (common-lisp:error ":action is required"))))
  (common-lisp:export
   (common-lisp:list 'start-organization-service-access-update-request
                     'make-start-organization-service-access-update-request))
+ (common-lisp:defun make-start-organization-service-access-update-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key action)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-organization-service-access-update-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8974,16 +11655,24 @@
                           start-organization-service-access-update-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-organization-service-access-update-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-start-organization-service-access-update-response-"))
-   (organization-status common-lisp:nil :type
-    (common-lisp:or organization-status common-lisp:null)))
+ (common-lisp:defclass start-organization-service-access-update-response
+                       common-lisp:nil
+                       ((organization-status :initarg :organization-status
+                         :type
+                         (common-lisp:or organization-status common-lisp:null)
+                         :accessor
+                         %start-organization-service-access-update-response-organization-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-organization-service-access-update-response
                     'make-start-organization-service-access-update-response))
+ (common-lisp:defun make-start-organization-service-access-update-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key organization-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-organization-service-access-update-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9007,24 +11696,46 @@
                           start-organization-service-access-update-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-route-analysis-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-route-analysis-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (source (common-lisp:error ":source is required") :type
-    (common-lisp:or route-analysis-endpoint-options-specification
-                    common-lisp:null))
-   (destination (common-lisp:error ":destination is required") :type
-    (common-lisp:or route-analysis-endpoint-options-specification
-                    common-lisp:null))
-   (include-return-path common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (use-middleboxes common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass start-route-analysis-request common-lisp:nil
+                       ((use-middleboxes :initarg :use-middleboxes :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %start-route-analysis-request-use-middleboxes
+                         :initform common-lisp:nil)
+                        (include-return-path :initarg :include-return-path
+                         :type (common-lisp:or boolean common-lisp:null)
+                         :accessor
+                         %start-route-analysis-request-include-return-path
+                         :initform common-lisp:nil)
+                        (destination :initarg :destination :type
+                         (common-lisp:or
+                          route-analysis-endpoint-options-specification
+                          common-lisp:null)
+                         :accessor %start-route-analysis-request-destination
+                         :initform
+                         (common-lisp:error ":destination is required"))
+                        (source :initarg :source :type
+                         (common-lisp:or
+                          route-analysis-endpoint-options-specification
+                          common-lisp:null)
+                         :accessor %start-route-analysis-request-source
+                         :initform (common-lisp:error ":source is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %start-route-analysis-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'start-route-analysis-request
                     'make-start-route-analysis-request))
+ (common-lisp:defun make-start-route-analysis-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key use-middleboxes include-return-path
+                     destination source global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-route-analysis-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9069,14 +11780,22 @@
                           start-route-analysis-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-route-analysis-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-route-analysis-response-"))
-   (route-analysis common-lisp:nil :type
-    (common-lisp:or route-analysis common-lisp:null)))
+ (common-lisp:defclass start-route-analysis-response common-lisp:nil
+                       ((route-analysis :initarg :route-analysis :type
+                         (common-lisp:or route-analysis common-lisp:null)
+                         :accessor
+                         %start-route-analysis-response-route-analysis
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-route-analysis-response
                     'make-start-route-analysis-response))
+ (common-lisp:defun make-start-route-analysis-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key route-analysis)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-route-analysis-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9109,11 +11828,20 @@
                            (trivial-types:proper-list subnet-arn))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key common-lisp:nil :type (common-lisp:or tag-key common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform common-lisp:nil)
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -9153,15 +11881,23 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -9179,11 +11915,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9232,22 +11972,45 @@
                             transit-gateway-connect-peer-arn))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (transit-gateway-connect-peer-association (:copier common-lisp:nil)
-      (:conc-name "struct-shape-transit-gateway-connect-peer-association-"))
-   (transit-gateway-connect-peer-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-connect-peer-arn common-lisp:null))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or transit-gateway-connect-peer-association-state
-                    common-lisp:null)))
+ (common-lisp:defclass transit-gateway-connect-peer-association common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or
+                          transit-gateway-connect-peer-association-state
+                          common-lisp:null)
+                         :accessor
+                         %transit-gateway-connect-peer-association-state
+                         :initform common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %transit-gateway-connect-peer-association-link-id
+                         :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %transit-gateway-connect-peer-association-device-id
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %transit-gateway-connect-peer-association-global-network-id
+                         :initform common-lisp:nil)
+                        (transit-gateway-connect-peer-arn :initarg
+                         :transit-gateway-connect-peer-arn :type
+                         (common-lisp:or transit-gateway-connect-peer-arn
+                                         common-lisp:null)
+                         :accessor
+                         %transit-gateway-connect-peer-association-transit-gateway-connect-peer-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'transit-gateway-connect-peer-association
                     'make-transit-gateway-connect-peer-association))
+ (common-lisp:defun make-transit-gateway-connect-peer-association
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state link-id device-id global-network-id
+                     transit-gateway-connect-peer-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'transit-gateway-connect-peer-association
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9311,16 +12074,32 @@
 (common-lisp:deftype transit-gateway-connect-peer-association-state ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (transit-gateway-peering (:copier common-lisp:nil)
-      (:conc-name "struct-shape-transit-gateway-peering-"))
-   (peering common-lisp:nil :type (common-lisp:or peering common-lisp:null))
-   (transit-gateway-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-arn common-lisp:null))
-   (transit-gateway-peering-attachment-id common-lisp:nil :type
-    (common-lisp:or transit-gateway-peering-attachment-id common-lisp:null)))
+ (common-lisp:defclass transit-gateway-peering common-lisp:nil
+                       ((transit-gateway-peering-attachment-id :initarg
+                         :transit-gateway-peering-attachment-id :type
+                         (common-lisp:or transit-gateway-peering-attachment-id
+                                         common-lisp:null)
+                         :accessor
+                         %transit-gateway-peering-transit-gateway-peering-attachment-id
+                         :initform common-lisp:nil)
+                        (transit-gateway-arn :initarg :transit-gateway-arn
+                         :type
+                         (common-lisp:or transit-gateway-arn common-lisp:null)
+                         :accessor %transit-gateway-peering-transit-gateway-arn
+                         :initform common-lisp:nil)
+                        (peering :initarg :peering :type
+                         (common-lisp:or peering common-lisp:null) :accessor
+                         %transit-gateway-peering-peering :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'transit-gateway-peering 'make-transit-gateway-peering))
+ (common-lisp:defun make-transit-gateway-peering
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-peering-attachment-id
+                     transit-gateway-arn peering)
+   (common-lisp:apply #'common-lisp:make-instance 'transit-gateway-peering
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9361,19 +12140,34 @@
 (common-lisp:deftype transit-gateway-peering-attachment-id ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (transit-gateway-registration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-transit-gateway-registration-"))
-   (global-network-id common-lisp:nil :type
-    (common-lisp:or global-network-id common-lisp:null))
-   (transit-gateway-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-arn common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or transit-gateway-registration-state-reason
-                    common-lisp:null)))
+ (common-lisp:defclass transit-gateway-registration common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or
+                          transit-gateway-registration-state-reason
+                          common-lisp:null)
+                         :accessor %transit-gateway-registration-state
+                         :initform common-lisp:nil)
+                        (transit-gateway-arn :initarg :transit-gateway-arn
+                         :type
+                         (common-lisp:or transit-gateway-arn common-lisp:null)
+                         :accessor
+                         %transit-gateway-registration-transit-gateway-arn
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %transit-gateway-registration-global-network-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'transit-gateway-registration
                     'make-transit-gateway-registration))
+ (common-lisp:defun make-transit-gateway-registration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state transit-gateway-arn
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'transit-gateway-registration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9421,16 +12215,29 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype transit-gateway-registration-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (transit-gateway-registration-state-reason (:copier common-lisp:nil)
-      (:conc-name "struct-shape-transit-gateway-registration-state-reason-"))
-   (code common-lisp:nil :type
-    (common-lisp:or transit-gateway-registration-state common-lisp:null))
-   (message common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass transit-gateway-registration-state-reason
+                       common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor
+                         %transit-gateway-registration-state-reason-message
+                         :initform common-lisp:nil)
+                        (code :initarg :code :type
+                         (common-lisp:or transit-gateway-registration-state
+                                         common-lisp:null)
+                         :accessor
+                         %transit-gateway-registration-state-reason-code
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'transit-gateway-registration-state-reason
                     'make-transit-gateway-registration-state-reason))
+ (common-lisp:defun make-transit-gateway-registration-state-reason
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message code)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'transit-gateway-registration-state-reason
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9462,18 +12269,33 @@
    common-lisp:nil))
 (common-lisp:deftype transit-gateway-route-table-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (transit-gateway-route-table-attachment (:copier common-lisp:nil)
-      (:conc-name "struct-shape-transit-gateway-route-table-attachment-"))
-   (attachment common-lisp:nil :type
-    (common-lisp:or attachment common-lisp:null))
-   (peering-id common-lisp:nil :type
-    (common-lisp:or peering-id common-lisp:null))
-   (transit-gateway-route-table-arn common-lisp:nil :type
-    (common-lisp:or transit-gateway-route-table-arn common-lisp:null)))
+ (common-lisp:defclass transit-gateway-route-table-attachment common-lisp:nil
+                       ((transit-gateway-route-table-arn :initarg
+                         :transit-gateway-route-table-arn :type
+                         (common-lisp:or transit-gateway-route-table-arn
+                                         common-lisp:null)
+                         :accessor
+                         %transit-gateway-route-table-attachment-transit-gateway-route-table-arn
+                         :initform common-lisp:nil)
+                        (peering-id :initarg :peering-id :type
+                         (common-lisp:or peering-id common-lisp:null) :accessor
+                         %transit-gateway-route-table-attachment-peering-id
+                         :initform common-lisp:nil)
+                        (attachment :initarg :attachment :type
+                         (common-lisp:or attachment common-lisp:null) :accessor
+                         %transit-gateway-route-table-attachment-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'transit-gateway-route-table-attachment
                     'make-transit-gateway-route-table-attachment))
+ (common-lisp:defun make-transit-gateway-route-table-attachment
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transit-gateway-route-table-arn
+                     peering-id attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'transit-gateway-route-table-attachment
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9513,15 +12335,24 @@
    common-lisp:nil))
 (common-lisp:deftype tunnel-protocol () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9538,11 +12369,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9559,21 +12394,40 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-connection-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-connection-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (connection-id (common-lisp:error ":connection-id is required") :type
-    (common-lisp:or connection-id common-lisp:null))
-   (link-id common-lisp:nil :type (common-lisp:or link-id common-lisp:null))
-   (connected-link-id common-lisp:nil :type
-    (common-lisp:or link-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass update-connection-request common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-connection-request-description
+                         :initform common-lisp:nil)
+                        (connected-link-id :initarg :connected-link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %update-connection-request-connected-link-id :initform
+                         common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %update-connection-request-link-id :initform
+                         common-lisp:nil)
+                        (connection-id :initarg :connection-id :type
+                         (common-lisp:or connection-id common-lisp:null)
+                         :accessor %update-connection-request-connection-id
+                         :initform
+                         (common-lisp:error ":connection-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %update-connection-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-connection-request
                     'make-update-connection-request))
+ (common-lisp:defun make-update-connection-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description connected-link-id link-id
+                     connection-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-connection-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9611,14 +12465,20 @@
                           update-connection-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-connection-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-connection-response-"))
-   (connection common-lisp:nil :type
-    (common-lisp:or connection common-lisp:null)))
+ (common-lisp:defclass update-connection-response common-lisp:nil
+                       ((connection :initarg :connection :type
+                         (common-lisp:or connection common-lisp:null) :accessor
+                         %update-connection-response-connection :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-connection-response
                     'make-update-connection-response))
+ (common-lisp:defun make-update-connection-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection)
+   (common-lisp:apply #'common-lisp:make-instance 'update-connection-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9642,16 +12502,25 @@
                           update-connection-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-core-network-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-core-network-request-"))
-   (core-network-id (common-lisp:error ":core-network-id is required") :type
-    (common-lisp:or core-network-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass update-core-network-request common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-core-network-request-description
+                         :initform common-lisp:nil)
+                        (core-network-id :initarg :core-network-id :type
+                         (common-lisp:or core-network-id common-lisp:null)
+                         :accessor %update-core-network-request-core-network-id
+                         :initform
+                         (common-lisp:error ":core-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-core-network-request
                     'make-update-core-network-request))
+ (common-lisp:defun make-update-core-network-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description core-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-core-network-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9675,14 +12544,20 @@
                           update-core-network-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-core-network-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-core-network-response-"))
-   (core-network common-lisp:nil :type
-    (common-lisp:or core-network common-lisp:null)))
+ (common-lisp:defclass update-core-network-response common-lisp:nil
+                       ((core-network :initarg :core-network :type
+                         (common-lisp:or core-network common-lisp:null)
+                         :accessor %update-core-network-response-core-network
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-core-network-response
                     'make-update-core-network-response))
+ (common-lisp:defun make-update-core-network-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key core-network)
+   (common-lisp:apply #'common-lisp:make-instance 'update-core-network-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9706,29 +12581,59 @@
                           update-core-network-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-device-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-device-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null))
-   (awslocation common-lisp:nil :type
-    (common-lisp:or awslocation common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (vendor common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (model common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (serial-number common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (location common-lisp:nil :type (common-lisp:or location common-lisp:null))
-   (site-id common-lisp:nil :type (common-lisp:or site-id common-lisp:null)))
+ (common-lisp:defclass update-device-request common-lisp:nil
+                       ((site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %update-device-request-site-id :initform
+                         common-lisp:nil)
+                        (location :initarg :location :type
+                         (common-lisp:or location common-lisp:null) :accessor
+                         %update-device-request-location :initform
+                         common-lisp:nil)
+                        (serial-number :initarg :serial-number :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-device-request-serial-number
+                         :initform common-lisp:nil)
+                        (model :initarg :model :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-device-request-model :initform
+                         common-lisp:nil)
+                        (vendor :initarg :vendor :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-device-request-vendor :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-device-request-type :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-device-request-description :initform
+                         common-lisp:nil)
+                        (awslocation :initarg :awslocation :type
+                         (common-lisp:or awslocation common-lisp:null)
+                         :accessor %update-device-request-awslocation :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %update-device-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %update-device-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-device-request 'make-update-device-request))
+ (common-lisp:defun make-update-device-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site-id location serial-number model
+                     vendor type description awslocation device-id
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-device-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9801,12 +12706,19 @@
                           update-device-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-device-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-device-response-"))
-   (device common-lisp:nil :type (common-lisp:or device common-lisp:null)))
+ (common-lisp:defclass update-device-response common-lisp:nil
+                       ((device :initarg :device :type
+                         (common-lisp:or device common-lisp:null) :accessor
+                         %update-device-response-device :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-device-response 'make-update-device-response))
+ (common-lisp:defun make-update-device-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device)
+   (common-lisp:apply #'common-lisp:make-instance 'update-device-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9830,16 +12742,28 @@
                           update-device-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-global-network-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-global-network-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass update-global-network-request common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-global-network-request-description
+                         :initform common-lisp:nil)
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %update-global-network-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-global-network-request
                     'make-update-global-network-request))
+ (common-lisp:defun make-update-global-network-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-global-network-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9863,14 +12787,22 @@
                           update-global-network-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-global-network-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-global-network-response-"))
-   (global-network common-lisp:nil :type
-    (common-lisp:or global-network common-lisp:null)))
+ (common-lisp:defclass update-global-network-response common-lisp:nil
+                       ((global-network :initarg :global-network :type
+                         (common-lisp:or global-network common-lisp:null)
+                         :accessor
+                         %update-global-network-response-global-network
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-global-network-response
                     'make-update-global-network-response))
+ (common-lisp:defun make-update-global-network-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key global-network)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-global-network-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -9894,23 +12826,42 @@
                           update-global-network-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-link-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-link-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (link-id (common-lisp:error ":link-id is required") :type
-    (common-lisp:or link-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (bandwidth common-lisp:nil :type
-    (common-lisp:or bandwidth common-lisp:null))
-   (provider common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null)))
+ (common-lisp:defclass update-link-request common-lisp:nil
+                       ((provider :initarg :provider :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-link-request-provider :initform
+                         common-lisp:nil)
+                        (bandwidth :initarg :bandwidth :type
+                         (common-lisp:or bandwidth common-lisp:null) :accessor
+                         %update-link-request-bandwidth :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-link-request-type :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-link-request-description :initform
+                         common-lisp:nil)
+                        (link-id :initarg :link-id :type
+                         (common-lisp:or link-id common-lisp:null) :accessor
+                         %update-link-request-link-id :initform
+                         (common-lisp:error ":link-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %update-link-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-link-request 'make-update-link-request))
+ (common-lisp:defun make-update-link-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key provider bandwidth type description
+                     link-id global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-link-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-link-request))
    (common-lisp:append))
@@ -9949,12 +12900,19 @@
                         ((aws-sdk/generator/shape::input update-link-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-link-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-link-response-"))
-   (link common-lisp:nil :type (common-lisp:or link common-lisp:null)))
+ (common-lisp:defclass update-link-response common-lisp:nil
+                       ((link :initarg :link :type
+                         (common-lisp:or link common-lisp:null) :accessor
+                         %update-link-response-link :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-link-response 'make-update-link-response))
+ (common-lisp:defun make-update-link-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key link)
+   (common-lisp:apply #'common-lisp:make-instance 'update-link-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-link-response))
    (common-lisp:append))
@@ -9972,18 +12930,36 @@
                         ((aws-sdk/generator/shape::input update-link-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-network-resource-metadata-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-network-resource-metadata-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (metadata (common-lisp:error ":metadata is required") :type
-    (common-lisp:or network-resource-metadata-map common-lisp:null)))
+ (common-lisp:defclass update-network-resource-metadata-request common-lisp:nil
+                       ((metadata :initarg :metadata :type
+                         (common-lisp:or network-resource-metadata-map
+                                         common-lisp:null)
+                         :accessor
+                         %update-network-resource-metadata-request-metadata
+                         :initform (common-lisp:error ":metadata is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %update-network-resource-metadata-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor
+                         %update-network-resource-metadata-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-network-resource-metadata-request
                     'make-update-network-resource-metadata-request))
+ (common-lisp:defun make-update-network-resource-metadata-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key metadata resource-arn global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-network-resource-metadata-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -10007,16 +12983,29 @@
                           update-network-resource-metadata-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-network-resource-metadata-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-network-resource-metadata-response-"))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (metadata common-lisp:nil :type
-    (common-lisp:or network-resource-metadata-map common-lisp:null)))
+ (common-lisp:defclass update-network-resource-metadata-response
+                       common-lisp:nil
+                       ((metadata :initarg :metadata :type
+                         (common-lisp:or network-resource-metadata-map
+                                         common-lisp:null)
+                         :accessor
+                         %update-network-resource-metadata-response-metadata
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %update-network-resource-metadata-response-resource-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-network-resource-metadata-response
                     'make-update-network-resource-metadata-response))
+ (common-lisp:defun make-update-network-resource-metadata-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key metadata resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-network-resource-metadata-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -10047,18 +13036,34 @@
                           update-network-resource-metadata-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-site-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-site-request-"))
-   (global-network-id (common-lisp:error ":global-network-id is required")
-    :type (common-lisp:or global-network-id common-lisp:null))
-   (site-id (common-lisp:error ":site-id is required") :type
-    (common-lisp:or site-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or constrained-string common-lisp:null))
-   (location common-lisp:nil :type (common-lisp:or location common-lisp:null)))
+ (common-lisp:defclass update-site-request common-lisp:nil
+                       ((location :initarg :location :type
+                         (common-lisp:or location common-lisp:null) :accessor
+                         %update-site-request-location :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or constrained-string common-lisp:null)
+                         :accessor %update-site-request-description :initform
+                         common-lisp:nil)
+                        (site-id :initarg :site-id :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %update-site-request-site-id :initform
+                         (common-lisp:error ":site-id is required"))
+                        (global-network-id :initarg :global-network-id :type
+                         (common-lisp:or global-network-id common-lisp:null)
+                         :accessor %update-site-request-global-network-id
+                         :initform
+                         (common-lisp:error
+                          ":global-network-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-site-request 'make-update-site-request))
+ (common-lisp:defun make-update-site-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key location description site-id
+                     global-network-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-site-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-site-request))
    (common-lisp:append))
@@ -10083,12 +13088,19 @@
                         ((aws-sdk/generator/shape::input update-site-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-site-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-site-response-"))
-   (site common-lisp:nil :type (common-lisp:or site common-lisp:null)))
+ (common-lisp:defclass update-site-response common-lisp:nil
+                       ((site :initarg :site :type
+                         (common-lisp:or site common-lisp:null) :accessor
+                         %update-site-response-site :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-site-response 'make-update-site-response))
+ (common-lisp:defun make-update-site-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site)
+   (common-lisp:apply #'common-lisp:make-instance 'update-site-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-site-response))
    (common-lisp:append))
@@ -10106,20 +13118,37 @@
                         ((aws-sdk/generator/shape::input update-site-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-vpc-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-vpc-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or attachment-id common-lisp:null))
-   (add-subnet-arns common-lisp:nil :type
-    (common-lisp:or subnet-arn-list common-lisp:null))
-   (remove-subnet-arns common-lisp:nil :type
-    (common-lisp:or subnet-arn-list common-lisp:null))
-   (options common-lisp:nil :type
-    (common-lisp:or vpc-options common-lisp:null)))
+ (common-lisp:defclass update-vpc-attachment-request common-lisp:nil
+                       ((options :initarg :options :type
+                         (common-lisp:or vpc-options common-lisp:null)
+                         :accessor %update-vpc-attachment-request-options
+                         :initform common-lisp:nil)
+                        (remove-subnet-arns :initarg :remove-subnet-arns :type
+                         (common-lisp:or subnet-arn-list common-lisp:null)
+                         :accessor
+                         %update-vpc-attachment-request-remove-subnet-arns
+                         :initform common-lisp:nil)
+                        (add-subnet-arns :initarg :add-subnet-arns :type
+                         (common-lisp:or subnet-arn-list common-lisp:null)
+                         :accessor
+                         %update-vpc-attachment-request-add-subnet-arns
+                         :initform common-lisp:nil)
+                        (attachment-id :initarg :attachment-id :type
+                         (common-lisp:or attachment-id common-lisp:null)
+                         :accessor %update-vpc-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-vpc-attachment-request
                     'make-update-vpc-attachment-request))
+ (common-lisp:defun make-update-vpc-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key options remove-subnet-arns
+                     add-subnet-arns attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-vpc-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -10157,14 +13186,22 @@
                           update-vpc-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-vpc-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-vpc-attachment-response-"))
-   (vpc-attachment common-lisp:nil :type
-    (common-lisp:or vpc-attachment common-lisp:null)))
+ (common-lisp:defclass update-vpc-attachment-response common-lisp:nil
+                       ((vpc-attachment :initarg :vpc-attachment :type
+                         (common-lisp:or vpc-attachment common-lisp:null)
+                         :accessor
+                         %update-vpc-attachment-response-vpc-attachment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-vpc-attachment-response
                     'make-update-vpc-attachment-response))
+ (common-lisp:defun make-update-vpc-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-attachment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-vpc-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -10200,16 +13237,24 @@
   (common-lisp:list 'validation-exception 'validation-exception-message
                     'validation-exception-reason 'validation-exception-fields)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validation-exception-field (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validation-exception-field-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or server-side-string common-lisp:null))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or server-side-string common-lisp:null)))
+ (common-lisp:defclass validation-exception-field common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or server-side-string common-lisp:null)
+                         :accessor %validation-exception-field-message
+                         :initform (common-lisp:error ":message is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or server-side-string common-lisp:null)
+                         :accessor %validation-exception-field-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'validation-exception-field
                     'make-validation-exception-field))
+ (common-lisp:defun make-validation-exception-field
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message name)
+   (common-lisp:apply #'common-lisp:make-instance 'validation-exception-field
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -10251,16 +13296,26 @@
 (common-lisp:deftype validation-exception-reason () 'common-lisp:string)
 (common-lisp:deftype vpc-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (vpc-attachment (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vpc-attachment-"))
-   (attachment common-lisp:nil :type
-    (common-lisp:or attachment common-lisp:null))
-   (subnet-arns common-lisp:nil :type
-    (common-lisp:or subnet-arn-list common-lisp:null))
-   (options common-lisp:nil :type
-    (common-lisp:or vpc-options common-lisp:null)))
+ (common-lisp:defclass vpc-attachment common-lisp:nil
+                       ((options :initarg :options :type
+                         (common-lisp:or vpc-options common-lisp:null)
+                         :accessor %vpc-attachment-options :initform
+                         common-lisp:nil)
+                        (subnet-arns :initarg :subnet-arns :type
+                         (common-lisp:or subnet-arn-list common-lisp:null)
+                         :accessor %vpc-attachment-subnet-arns :initform
+                         common-lisp:nil)
+                        (attachment :initarg :attachment :type
+                         (common-lisp:or attachment common-lisp:null) :accessor
+                         %vpc-attachment-attachment :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'vpc-attachment 'make-vpc-attachment))
+ (common-lisp:defun make-vpc-attachment
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key options subnet-arns attachment)
+   (common-lisp:apply #'common-lisp:make-instance 'vpc-attachment
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input vpc-attachment))
    (common-lisp:append))
@@ -10292,14 +13347,22 @@
                         ((aws-sdk/generator/shape::input vpc-attachment))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (vpc-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vpc-options-"))
-   (ipv6support common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (appliance-mode-support common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass vpc-options common-lisp:nil
+                       ((appliance-mode-support :initarg
+                         :appliance-mode-support :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %vpc-options-appliance-mode-support :initform
+                         common-lisp:nil)
+                        (ipv6support :initarg :ipv6support :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %vpc-options-ipv6support :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'vpc-options 'make-vpc-options))
+ (common-lisp:defun make-vpc-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key appliance-mode-support ipv6support)
+   (common-lisp:apply #'common-lisp:make-instance 'vpc-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input vpc-options))
    (common-lisp:append))

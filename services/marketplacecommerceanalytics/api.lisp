@@ -39,28 +39,64 @@
 (common-lisp:deftype exception-message () 'common-lisp:string)
 (common-lisp:deftype from-date () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (generate-data-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-generate-data-set-request-"))
-   (data-set-type (common-lisp:error ":datasettype is required") :type
-    (common-lisp:or data-set-type common-lisp:null))
-   (data-set-publication-date
-    (common-lisp:error ":datasetpublicationdate is required") :type
-    (common-lisp:or data-set-publication-date common-lisp:null))
-   (role-name-arn (common-lisp:error ":rolenamearn is required") :type
-    (common-lisp:or role-name-arn common-lisp:null))
-   (destination-s3bucket-name
-    (common-lisp:error ":destinations3bucketname is required") :type
-    (common-lisp:or destination-s3bucket-name common-lisp:null))
-   (destination-s3prefix common-lisp:nil :type
-    (common-lisp:or destination-s3prefix common-lisp:null))
-   (sns-topic-arn (common-lisp:error ":snstopicarn is required") :type
-    (common-lisp:or sns-topic-arn common-lisp:null))
-   (customer-defined-values common-lisp:nil :type
-    (common-lisp:or customer-defined-values common-lisp:null)))
+ (common-lisp:defclass generate-data-set-request common-lisp:nil
+                       ((customer-defined-values :initarg
+                         :|customerDefinedValues| :type
+                         (common-lisp:or customer-defined-values
+                                         common-lisp:null)
+                         :accessor
+                         %generate-data-set-request-customer-defined-values
+                         :initform common-lisp:nil)
+                        (sns-topic-arn :initarg :|snsTopicArn| :type
+                         (common-lisp:or sns-topic-arn common-lisp:null)
+                         :accessor %generate-data-set-request-sns-topic-arn
+                         :initform
+                         (common-lisp:error ":snstopicarn is required"))
+                        (destination-s3prefix :initarg :|destinationS3Prefix|
+                         :type
+                         (common-lisp:or destination-s3prefix common-lisp:null)
+                         :accessor
+                         %generate-data-set-request-destination-s3prefix
+                         :initform common-lisp:nil)
+                        (destination-s3bucket-name :initarg
+                         :|destinationS3BucketName| :type
+                         (common-lisp:or destination-s3bucket-name
+                                         common-lisp:null)
+                         :accessor
+                         %generate-data-set-request-destination-s3bucket-name
+                         :initform
+                         (common-lisp:error
+                          ":destinations3bucketname is required"))
+                        (role-name-arn :initarg :|roleNameArn| :type
+                         (common-lisp:or role-name-arn common-lisp:null)
+                         :accessor %generate-data-set-request-role-name-arn
+                         :initform
+                         (common-lisp:error ":rolenamearn is required"))
+                        (data-set-publication-date :initarg
+                         :|dataSetPublicationDate| :type
+                         (common-lisp:or data-set-publication-date
+                                         common-lisp:null)
+                         :accessor
+                         %generate-data-set-request-data-set-publication-date
+                         :initform
+                         (common-lisp:error
+                          ":datasetpublicationdate is required"))
+                        (data-set-type :initarg :|dataSetType| :type
+                         (common-lisp:or data-set-type common-lisp:null)
+                         :accessor %generate-data-set-request-data-set-type
+                         :initform
+                         (common-lisp:error ":datasettype is required"))))
  (common-lisp:export
   (common-lisp:list 'generate-data-set-request
                     'make-generate-data-set-request))
+ (common-lisp:defun make-generate-data-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-defined-values sns-topic-arn
+                     destination-s3prefix destination-s3bucket-name
+                     role-name-arn data-set-publication-date data-set-type)
+   (common-lisp:apply #'common-lisp:make-instance 'generate-data-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -130,13 +166,20 @@
                           generate-data-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (generate-data-set-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-generate-data-set-result-"))
-   (data-set-request-id common-lisp:nil :type
-    (common-lisp:or data-set-request-id common-lisp:null)))
+ (common-lisp:defclass generate-data-set-result common-lisp:nil
+                       ((data-set-request-id :initarg :|dataSetRequestId| :type
+                         (common-lisp:or data-set-request-id common-lisp:null)
+                         :accessor
+                         %generate-data-set-result-data-set-request-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'generate-data-set-result 'make-generate-data-set-result))
+ (common-lisp:defun make-generate-data-set-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key data-set-request-id)
+   (common-lisp:apply #'common-lisp:make-instance 'generate-data-set-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -162,7 +205,7 @@
 (common-lisp:progn
  (common-lisp:define-condition marketplace-commerce-analytics-exception
      (marketplacecommerceanalytics-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        marketplace-commerce-analytics-exception-message)))
  (common-lisp:export
   (common-lisp:list 'marketplace-commerce-analytics-exception
@@ -172,27 +215,64 @@
 (common-lisp:deftype role-name-arn () 'common-lisp:string)
 (common-lisp:deftype sns-topic-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-support-data-export-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-support-data-export-request-"))
-   (data-set-type (common-lisp:error ":datasettype is required") :type
-    (common-lisp:or support-data-set-type common-lisp:null))
-   (from-date (common-lisp:error ":fromdate is required") :type
-    (common-lisp:or from-date common-lisp:null))
-   (role-name-arn (common-lisp:error ":rolenamearn is required") :type
-    (common-lisp:or role-name-arn common-lisp:null))
-   (destination-s3bucket-name
-    (common-lisp:error ":destinations3bucketname is required") :type
-    (common-lisp:or destination-s3bucket-name common-lisp:null))
-   (destination-s3prefix common-lisp:nil :type
-    (common-lisp:or destination-s3prefix common-lisp:null))
-   (sns-topic-arn (common-lisp:error ":snstopicarn is required") :type
-    (common-lisp:or sns-topic-arn common-lisp:null))
-   (customer-defined-values common-lisp:nil :type
-    (common-lisp:or customer-defined-values common-lisp:null)))
+ (common-lisp:defclass start-support-data-export-request common-lisp:nil
+                       ((customer-defined-values :initarg
+                         :|customerDefinedValues| :type
+                         (common-lisp:or customer-defined-values
+                                         common-lisp:null)
+                         :accessor
+                         %start-support-data-export-request-customer-defined-values
+                         :initform common-lisp:nil)
+                        (sns-topic-arn :initarg :|snsTopicArn| :type
+                         (common-lisp:or sns-topic-arn common-lisp:null)
+                         :accessor
+                         %start-support-data-export-request-sns-topic-arn
+                         :initform
+                         (common-lisp:error ":snstopicarn is required"))
+                        (destination-s3prefix :initarg :|destinationS3Prefix|
+                         :type
+                         (common-lisp:or destination-s3prefix common-lisp:null)
+                         :accessor
+                         %start-support-data-export-request-destination-s3prefix
+                         :initform common-lisp:nil)
+                        (destination-s3bucket-name :initarg
+                         :|destinationS3BucketName| :type
+                         (common-lisp:or destination-s3bucket-name
+                                         common-lisp:null)
+                         :accessor
+                         %start-support-data-export-request-destination-s3bucket-name
+                         :initform
+                         (common-lisp:error
+                          ":destinations3bucketname is required"))
+                        (role-name-arn :initarg :|roleNameArn| :type
+                         (common-lisp:or role-name-arn common-lisp:null)
+                         :accessor
+                         %start-support-data-export-request-role-name-arn
+                         :initform
+                         (common-lisp:error ":rolenamearn is required"))
+                        (from-date :initarg :|fromDate| :type
+                         (common-lisp:or from-date common-lisp:null) :accessor
+                         %start-support-data-export-request-from-date :initform
+                         (common-lisp:error ":fromdate is required"))
+                        (data-set-type :initarg :|dataSetType| :type
+                         (common-lisp:or support-data-set-type
+                                         common-lisp:null)
+                         :accessor
+                         %start-support-data-export-request-data-set-type
+                         :initform
+                         (common-lisp:error ":datasettype is required"))))
  (common-lisp:export
   (common-lisp:list 'start-support-data-export-request
                     'make-start-support-data-export-request))
+ (common-lisp:defun make-start-support-data-export-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-defined-values sns-topic-arn
+                     destination-s3prefix destination-s3bucket-name
+                     role-name-arn from-date data-set-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-support-data-export-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -261,14 +341,22 @@
                           start-support-data-export-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-support-data-export-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-support-data-export-result-"))
-   (data-set-request-id common-lisp:nil :type
-    (common-lisp:or data-set-request-id common-lisp:null)))
+ (common-lisp:defclass start-support-data-export-result common-lisp:nil
+                       ((data-set-request-id :initarg :|dataSetRequestId| :type
+                         (common-lisp:or data-set-request-id common-lisp:null)
+                         :accessor
+                         %start-support-data-export-result-data-set-request-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-support-data-export-result
                     'make-start-support-data-export-result))
+ (common-lisp:defun make-start-support-data-export-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key data-set-request-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-support-data-export-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

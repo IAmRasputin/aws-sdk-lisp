@@ -31,21 +31,31 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (iot-roborunner-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cartesian-coordinates (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cartesian-coordinates-"))
-   (x (common-lisp:error ":x is required") :type
-    (common-lisp:or double common-lisp:null))
-   (y (common-lisp:error ":y is required") :type
-    (common-lisp:or double common-lisp:null))
-   (z common-lisp:nil :type (common-lisp:or double common-lisp:null)))
+ (common-lisp:defclass cartesian-coordinates common-lisp:nil
+                       ((z :initarg :|z| :type
+                         (common-lisp:or double common-lisp:null) :accessor
+                         %cartesian-coordinates-z :initform common-lisp:nil)
+                        (y :initarg :|y| :type
+                         (common-lisp:or double common-lisp:null) :accessor
+                         %cartesian-coordinates-y :initform
+                         (common-lisp:error ":y is required"))
+                        (x :initarg :|x| :type
+                         (common-lisp:or double common-lisp:null) :accessor
+                         %cartesian-coordinates-x :initform
+                         (common-lisp:error ":x is required"))))
  (common-lisp:export
   (common-lisp:list 'cartesian-coordinates 'make-cartesian-coordinates))
+ (common-lisp:defun make-cartesian-coordinates
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key z y x)
+   (common-lisp:apply #'common-lisp:make-instance 'cartesian-coordinates
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -85,27 +95,47 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (iot-roborunner-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-destination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-destination-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or idempotency-token common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or destination-state common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or destination-additional-fixed-properties common-lisp:null)))
+ (common-lisp:defclass create-destination-request common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          destination-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %create-destination-request-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or destination-state common-lisp:null)
+                         :accessor %create-destination-request-state :initform
+                         common-lisp:nil)
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %create-destination-request-site :initform
+                         (common-lisp:error ":site is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %create-destination-request-name :initform
+                         (common-lisp:error ":name is required"))
+                        (client-token :initarg :|clientToken| :type
+                         (common-lisp:or idempotency-token common-lisp:null)
+                         :accessor %create-destination-request-client-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-destination-request
                     'make-create-destination-request))
+ (common-lisp:defun make-create-destination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties state site
+                     name client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-destination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -158,22 +188,38 @@
                           create-destination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-destination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-destination-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or destination-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or destination-id common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (state (common-lisp:error ":state is required") :type
-    (common-lisp:or destination-state common-lisp:null)))
+ (common-lisp:defclass create-destination-response common-lisp:nil
+                       ((state :initarg :|state| :type
+                         (common-lisp:or destination-state common-lisp:null)
+                         :accessor %create-destination-response-state :initform
+                         (common-lisp:error ":state is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %create-destination-response-updated-at
+                         :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %create-destination-response-created-at
+                         :initform
+                         (common-lisp:error ":createdat is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or destination-id common-lisp:null)
+                         :accessor %create-destination-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or destination-arn common-lisp:null)
+                         :accessor %create-destination-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-destination-response
                     'make-create-destination-response))
+ (common-lisp:defun make-create-destination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state updated-at created-at id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-destination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -225,19 +271,32 @@
                           create-destination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-site-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-site-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or idempotency-token common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (country-code (common-lisp:error ":countrycode is required") :type
-    (common-lisp:or site-country-code common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or site-description common-lisp:null)))
+ (common-lisp:defclass create-site-request common-lisp:nil
+                       ((description :initarg :|description| :type
+                         (common-lisp:or site-description common-lisp:null)
+                         :accessor %create-site-request-description :initform
+                         common-lisp:nil)
+                        (country-code :initarg :|countryCode| :type
+                         (common-lisp:or site-country-code common-lisp:null)
+                         :accessor %create-site-request-country-code :initform
+                         (common-lisp:error ":countrycode is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %create-site-request-name :initform
+                         (common-lisp:error ":name is required"))
+                        (client-token :initarg :|clientToken| :type
+                         (common-lisp:or idempotency-token common-lisp:null)
+                         :accessor %create-site-request-client-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-site-request 'make-create-site-request))
+ (common-lisp:defun make-create-site-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description country-code name
+                     client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-site-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-site-request))
    (common-lisp:append))
@@ -276,19 +335,31 @@
                         ((aws-sdk/generator/shape::input create-site-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-site-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-site-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or site-id common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null)))
+ (common-lisp:defclass create-site-response common-lisp:nil
+                       ((updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %create-site-response-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %create-site-response-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %create-site-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %create-site-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-site-response 'make-create-site-response))
+ (common-lisp:defun make-create-site-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-at created-at id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-site-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-site-response))
    (common-lisp:append))
@@ -327,21 +398,38 @@
                         ((aws-sdk/generator/shape::input create-site-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-worker-fleet-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-worker-fleet-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or idempotency-token common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-fleet-additional-fixed-properties
-                    common-lisp:null)))
+ (common-lisp:defclass create-worker-fleet-request common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-fleet-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %create-worker-fleet-request-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %create-worker-fleet-request-site :initform
+                         (common-lisp:error ":site is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %create-worker-fleet-request-name :initform
+                         (common-lisp:error ":name is required"))
+                        (client-token :initarg :|clientToken| :type
+                         (common-lisp:or idempotency-token common-lisp:null)
+                         :accessor %create-worker-fleet-request-client-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-worker-fleet-request
                     'make-create-worker-fleet-request))
+ (common-lisp:defun make-create-worker-fleet-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties site name
+                     client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-worker-fleet-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -387,20 +475,34 @@
                           create-worker-fleet-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-worker-fleet-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-worker-fleet-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-fleet-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-fleet-id common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null)))
+ (common-lisp:defclass create-worker-fleet-response common-lisp:nil
+                       ((updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %create-worker-fleet-response-updated-at
+                         :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %create-worker-fleet-response-created-at
+                         :initform
+                         (common-lisp:error ":createdat is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-fleet-id common-lisp:null)
+                         :accessor %create-worker-fleet-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-fleet-arn common-lisp:null)
+                         :accessor %create-worker-fleet-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-worker-fleet-response
                     'make-create-worker-fleet-response))
+ (common-lisp:defun make-create-worker-fleet-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-at created-at id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-worker-fleet-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -445,28 +547,58 @@
                           create-worker-fleet-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-worker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-worker-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or idempotency-token common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (fleet (common-lisp:error ":fleet is required") :type
-    (common-lisp:or worker-fleet-generic-identifier common-lisp:null))
-   (additional-transient-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-transient-properties-json
-                    common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-fixed-properties-json common-lisp:null))
-   (vendor-properties common-lisp:nil :type
-    (common-lisp:or vendor-properties common-lisp:null))
-   (position common-lisp:nil :type
-    (common-lisp:or position-coordinates common-lisp:null))
-   (orientation common-lisp:nil :type
-    (common-lisp:or orientation common-lisp:null)))
+ (common-lisp:defclass create-worker-request common-lisp:nil
+                       ((orientation :initarg :|orientation| :type
+                         (common-lisp:or orientation common-lisp:null)
+                         :accessor %create-worker-request-orientation :initform
+                         common-lisp:nil)
+                        (position :initarg :|position| :type
+                         (common-lisp:or position-coordinates common-lisp:null)
+                         :accessor %create-worker-request-position :initform
+                         common-lisp:nil)
+                        (vendor-properties :initarg :|vendorProperties| :type
+                         (common-lisp:or vendor-properties common-lisp:null)
+                         :accessor %create-worker-request-vendor-properties
+                         :initform common-lisp:nil)
+                        (additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-additional-fixed-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %create-worker-request-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (additional-transient-properties :initarg
+                         :|additionalTransientProperties| :type
+                         (common-lisp:or
+                          worker-additional-transient-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %create-worker-request-additional-transient-properties
+                         :initform common-lisp:nil)
+                        (fleet :initarg :|fleet| :type
+                         (common-lisp:or worker-fleet-generic-identifier
+                                         common-lisp:null)
+                         :accessor %create-worker-request-fleet :initform
+                         (common-lisp:error ":fleet is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %create-worker-request-name :initform
+                         (common-lisp:error ":name is required"))
+                        (client-token :initarg :|clientToken| :type
+                         (common-lisp:or idempotency-token common-lisp:null)
+                         :accessor %create-worker-request-client-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-worker-request 'make-create-worker-request))
+ (common-lisp:defun make-create-worker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key orientation position vendor-properties
+                     additional-fixed-properties
+                     additional-transient-properties fleet name client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-worker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -541,21 +673,35 @@
                           create-worker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-worker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-worker-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-id common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-arn common-lisp:null)))
+ (common-lisp:defclass create-worker-response common-lisp:nil
+                       ((site :initarg :|site| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %create-worker-response-site :initform
+                         (common-lisp:error ":site is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %create-worker-response-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %create-worker-response-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-id common-lisp:null) :accessor
+                         %create-worker-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-arn common-lisp:null) :accessor
+                         %create-worker-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-worker-response 'make-create-worker-response))
+ (common-lisp:defun make-create-worker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key site updated-at created-at id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-worker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -608,14 +754,21 @@
    common-lisp:nil))
 (common-lisp:deftype created-at-timestamp () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-destination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-destination-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or destination-generic-identifier common-lisp:null)))
+ (common-lisp:defclass delete-destination-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or destination-generic-identifier
+                                         common-lisp:null)
+                         :accessor %delete-destination-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-destination-request
                     'make-delete-destination-request))
+ (common-lisp:defun make-delete-destination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-destination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -639,12 +792,17 @@
                           delete-destination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-destination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-destination-response-")))
+ (common-lisp:defclass delete-destination-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-destination-response
                     'make-delete-destination-response))
+ (common-lisp:defun make-delete-destination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-destination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -661,13 +819,20 @@
                           delete-destination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-site-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-site-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null)))
+ (common-lisp:defclass delete-site-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %delete-site-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-site-request 'make-delete-site-request))
+ (common-lisp:defun make-delete-site-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-site-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-site-request))
    (common-lisp:append))
@@ -685,11 +850,15 @@
                         ((aws-sdk/generator/shape::input delete-site-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-site-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-site-response-")))
+ (common-lisp:defclass delete-site-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-site-response 'make-delete-site-response))
+ (common-lisp:defun make-delete-site-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-site-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-site-response))
    (common-lisp:append))
@@ -700,14 +869,21 @@
                         ((aws-sdk/generator/shape::input delete-site-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-worker-fleet-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-worker-fleet-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-fleet-generic-identifier common-lisp:null)))
+ (common-lisp:defclass delete-worker-fleet-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or worker-fleet-generic-identifier
+                                         common-lisp:null)
+                         :accessor %delete-worker-fleet-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-worker-fleet-request
                     'make-delete-worker-fleet-request))
+ (common-lisp:defun make-delete-worker-fleet-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-worker-fleet-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -731,12 +907,17 @@
                           delete-worker-fleet-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-worker-fleet-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-worker-fleet-response-")))
+ (common-lisp:defclass delete-worker-fleet-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-worker-fleet-response
                     'make-delete-worker-fleet-response))
+ (common-lisp:defun make-delete-worker-fleet-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-worker-fleet-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -753,13 +934,20 @@
                           delete-worker-fleet-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-worker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-worker-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-generic-identifier common-lisp:null)))
+ (common-lisp:defclass delete-worker-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or worker-generic-identifier
+                                         common-lisp:null)
+                         :accessor %delete-worker-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-worker-request 'make-delete-worker-request))
+ (common-lisp:defun make-delete-worker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-worker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -783,11 +971,15 @@
                           delete-worker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-worker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-worker-response-")))
+ (common-lisp:defclass delete-worker-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-worker-response 'make-delete-worker-response))
+ (common-lisp:defun make-delete-worker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-worker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -804,26 +996,50 @@
                           delete-worker-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-destination-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or destination-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or destination-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (state (common-lisp:error ":state is required") :type
-    (common-lisp:or destination-state common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or destination-additional-fixed-properties common-lisp:null)))
+ (common-lisp:defclass destination common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          destination-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor %destination-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or destination-state common-lisp:null)
+                         :accessor %destination-state :initform
+                         (common-lisp:error ":state is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %destination-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %destination-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %destination-site :initform
+                         (common-lisp:error ":site is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %destination-name :initform
+                         (common-lisp:error ":name is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or destination-id common-lisp:null)
+                         :accessor %destination-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or destination-arn common-lisp:null)
+                         :accessor %destination-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export (common-lisp:list 'destination 'make-destination))
+ (common-lisp:defun make-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties state
+                     updated-at created-at site name id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input destination))
    (common-lisp:append))
@@ -905,13 +1121,20 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype double () 'common-lisp:double-float)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-destination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-destination-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or destination-generic-identifier common-lisp:null)))
+ (common-lisp:defclass get-destination-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or destination-generic-identifier
+                                         common-lisp:null)
+                         :accessor %get-destination-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-destination-request 'make-get-destination-request))
+ (common-lisp:defun make-get-destination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-destination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -928,27 +1151,54 @@
                           get-destination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-destination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-destination-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or destination-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or destination-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (state (common-lisp:error ":state is required") :type
-    (common-lisp:or destination-state common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or destination-additional-fixed-properties common-lisp:null)))
+ (common-lisp:defclass get-destination-response common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          destination-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %get-destination-response-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or destination-state common-lisp:null)
+                         :accessor %get-destination-response-state :initform
+                         (common-lisp:error ":state is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %get-destination-response-updated-at
+                         :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %get-destination-response-created-at
+                         :initform
+                         (common-lisp:error ":createdat is required"))
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %get-destination-response-site :initform
+                         (common-lisp:error ":site is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %get-destination-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or destination-id common-lisp:null)
+                         :accessor %get-destination-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or destination-arn common-lisp:null)
+                         :accessor %get-destination-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-destination-response 'make-get-destination-response))
+ (common-lisp:defun make-get-destination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties state
+                     updated-at created-at site name id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-destination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1022,13 +1272,20 @@
                           get-destination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-site-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-site-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null)))
+ (common-lisp:defclass get-site-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %get-site-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-site-request 'make-get-site-request))
+ (common-lisp:defun make-get-site-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-site-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-site-request))
    (common-lisp:append))
@@ -1039,25 +1296,44 @@
                         ((aws-sdk/generator/shape::input get-site-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-site-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-site-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or site-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (country-code (common-lisp:error ":countrycode is required") :type
-    (common-lisp:or site-country-code common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or site-description common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null)))
+ (common-lisp:defclass get-site-response common-lisp:nil
+                       ((updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %get-site-response-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %get-site-response-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or site-description common-lisp:null)
+                         :accessor %get-site-response-description :initform
+                         common-lisp:nil)
+                        (country-code :initarg :|countryCode| :type
+                         (common-lisp:or site-country-code common-lisp:null)
+                         :accessor %get-site-response-country-code :initform
+                         (common-lisp:error ":countrycode is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %get-site-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %get-site-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %get-site-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-site-response 'make-get-site-response))
+ (common-lisp:defun make-get-site-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-at created-at description
+                     country-code name id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-site-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-site-response))
    (common-lisp:append))
@@ -1117,13 +1393,20 @@
                         ((aws-sdk/generator/shape::input get-site-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-worker-fleet-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-worker-fleet-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-fleet-generic-identifier common-lisp:null)))
+ (common-lisp:defclass get-worker-fleet-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or worker-fleet-generic-identifier
+                                         common-lisp:null)
+                         :accessor %get-worker-fleet-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-worker-fleet-request 'make-get-worker-fleet-request))
+ (common-lisp:defun make-get-worker-fleet-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-worker-fleet-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1140,27 +1423,51 @@
                           get-worker-fleet-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-worker-fleet-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-worker-fleet-response-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-fleet-id common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-fleet-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-fleet-additional-fixed-properties
-                    common-lisp:null)))
+ (common-lisp:defclass get-worker-fleet-response common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-fleet-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %get-worker-fleet-response-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %get-worker-fleet-response-updated-at
+                         :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %get-worker-fleet-response-created-at
+                         :initform
+                         (common-lisp:error ":createdat is required"))
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %get-worker-fleet-response-site :initform
+                         (common-lisp:error ":site is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %get-worker-fleet-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-fleet-arn common-lisp:null)
+                         :accessor %get-worker-fleet-response-arn :initform
+                         (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-fleet-id common-lisp:null)
+                         :accessor %get-worker-fleet-response-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-worker-fleet-response
                     'make-get-worker-fleet-response))
+ (common-lisp:defun make-get-worker-fleet-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties updated-at
+                     created-at site name arn id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-worker-fleet-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1227,13 +1534,20 @@
                           get-worker-fleet-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-worker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-worker-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-generic-identifier common-lisp:null)))
+ (common-lisp:defclass get-worker-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or worker-generic-identifier
+                                         common-lisp:null)
+                         :accessor %get-worker-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-worker-request 'make-get-worker-request))
+ (common-lisp:defun make-get-worker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-worker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-worker-request))
    (common-lisp:append))
@@ -1244,36 +1558,74 @@
                         ((aws-sdk/generator/shape::input get-worker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-worker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-worker-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-id common-lisp:null))
-   (fleet (common-lisp:error ":fleet is required") :type
-    (common-lisp:or worker-fleet-arn common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (additional-transient-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-transient-properties-json
-                    common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-fixed-properties-json common-lisp:null))
-   (vendor-properties common-lisp:nil :type
-    (common-lisp:or vendor-properties common-lisp:null))
-   (position common-lisp:nil :type
-    (common-lisp:or position-coordinates common-lisp:null))
-   (orientation common-lisp:nil :type
-    (common-lisp:or orientation common-lisp:null)))
+ (common-lisp:defclass get-worker-response common-lisp:nil
+                       ((orientation :initarg :|orientation| :type
+                         (common-lisp:or orientation common-lisp:null)
+                         :accessor %get-worker-response-orientation :initform
+                         common-lisp:nil)
+                        (position :initarg :|position| :type
+                         (common-lisp:or position-coordinates common-lisp:null)
+                         :accessor %get-worker-response-position :initform
+                         common-lisp:nil)
+                        (vendor-properties :initarg :|vendorProperties| :type
+                         (common-lisp:or vendor-properties common-lisp:null)
+                         :accessor %get-worker-response-vendor-properties
+                         :initform common-lisp:nil)
+                        (additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-additional-fixed-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %get-worker-response-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (additional-transient-properties :initarg
+                         :|additionalTransientProperties| :type
+                         (common-lisp:or
+                          worker-additional-transient-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %get-worker-response-additional-transient-properties
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %get-worker-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %get-worker-response-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %get-worker-response-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %get-worker-response-site :initform
+                         (common-lisp:error ":site is required"))
+                        (fleet :initarg :|fleet| :type
+                         (common-lisp:or worker-fleet-arn common-lisp:null)
+                         :accessor %get-worker-response-fleet :initform
+                         (common-lisp:error ":fleet is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-id common-lisp:null) :accessor
+                         %get-worker-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-arn common-lisp:null) :accessor
+                         %get-worker-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-worker-response 'make-get-worker-response))
+ (common-lisp:defun make-get-worker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key orientation position vendor-properties
+                     additional-fixed-properties
+                     additional-transient-properties name updated-at created-at
+                     site fleet id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-worker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-worker-response))
    (common-lisp:append))
@@ -1373,26 +1725,39 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (iot-roborunner-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-destinations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-destinations-request-"))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or page-size common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or destination-state common-lisp:null)))
+ (common-lisp:defclass list-destinations-request common-lisp:nil
+                       ((state :initarg :|state| :type
+                         (common-lisp:or destination-state common-lisp:null)
+                         :accessor %list-destinations-request-state :initform
+                         common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-destinations-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or page-size common-lisp:null) :accessor
+                         %list-destinations-request-max-results :initform
+                         common-lisp:nil)
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %list-destinations-request-site :initform
+                         (common-lisp:error ":site is required"))))
  (common-lisp:export
   (common-lisp:list 'list-destinations-request
                     'make-list-destinations-request))
+ (common-lisp:defun make-list-destinations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state next-token max-results site)
+   (common-lisp:apply #'common-lisp:make-instance 'list-destinations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1409,16 +1774,24 @@
                           list-destinations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-destinations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-destinations-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (destinations common-lisp:nil :type
-    (common-lisp:or destinations common-lisp:null)))
+ (common-lisp:defclass list-destinations-response common-lisp:nil
+                       ((destinations :initarg :|destinations| :type
+                         (common-lisp:or destinations common-lisp:null)
+                         :accessor %list-destinations-response-destinations
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-destinations-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-destinations-response
                     'make-list-destinations-response))
+ (common-lisp:defun make-list-destinations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destinations next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-destinations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1450,15 +1823,23 @@
    common-lisp:nil))
 (common-lisp:deftype list-sites-page-size () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-sites-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-sites-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or list-sites-page-size common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-sites-request common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-sites-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or list-sites-page-size common-lisp:null)
+                         :accessor %list-sites-request-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-sites-request 'make-list-sites-request))
+ (common-lisp:defun make-list-sites-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-sites-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-sites-request))
    (common-lisp:append))
@@ -1469,14 +1850,22 @@
                         ((aws-sdk/generator/shape::input list-sites-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-sites-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-sites-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (sites common-lisp:nil :type (common-lisp:or sites common-lisp:null)))
+ (common-lisp:defclass list-sites-response common-lisp:nil
+                       ((sites :initarg :|sites| :type
+                         (common-lisp:or sites common-lisp:null) :accessor
+                         %list-sites-response-sites :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-sites-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-sites-response 'make-list-sites-response))
+ (common-lisp:defun make-list-sites-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sites next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-sites-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-sites-response))
    (common-lisp:append))
@@ -1502,18 +1891,30 @@
    common-lisp:nil))
 (common-lisp:deftype list-worker-fleets-page-size () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-worker-fleets-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-worker-fleets-request-"))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or list-worker-fleets-page-size common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-worker-fleets-request common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-worker-fleets-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or list-worker-fleets-page-size
+                                         common-lisp:null)
+                         :accessor %list-worker-fleets-request-max-results
+                         :initform common-lisp:nil)
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %list-worker-fleets-request-site :initform
+                         (common-lisp:error ":site is required"))))
  (common-lisp:export
   (common-lisp:list 'list-worker-fleets-request
                     'make-list-worker-fleets-request))
+ (common-lisp:defun make-list-worker-fleets-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results site)
+   (common-lisp:apply #'common-lisp:make-instance 'list-worker-fleets-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1530,16 +1931,24 @@
                           list-worker-fleets-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-worker-fleets-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-worker-fleets-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (worker-fleets common-lisp:nil :type
-    (common-lisp:or worker-fleets common-lisp:null)))
+ (common-lisp:defclass list-worker-fleets-response common-lisp:nil
+                       ((worker-fleets :initarg :|workerFleets| :type
+                         (common-lisp:or worker-fleets common-lisp:null)
+                         :accessor %list-worker-fleets-response-worker-fleets
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-worker-fleets-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-worker-fleets-response
                     'make-list-worker-fleets-response))
+ (common-lisp:defun make-list-worker-fleets-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key worker-fleets next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-worker-fleets-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1571,19 +1980,34 @@
    common-lisp:nil))
 (common-lisp:deftype list-workers-page-size () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-workers-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-workers-request-"))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or list-workers-page-size common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (fleet common-lisp:nil :type
-    (common-lisp:or worker-fleet-generic-identifier common-lisp:null)))
+ (common-lisp:defclass list-workers-request common-lisp:nil
+                       ((fleet :initarg :|fleet| :type
+                         (common-lisp:or worker-fleet-generic-identifier
+                                         common-lisp:null)
+                         :accessor %list-workers-request-fleet :initform
+                         common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-workers-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or list-workers-page-size
+                                         common-lisp:null)
+                         :accessor %list-workers-request-max-results :initform
+                         common-lisp:nil)
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %list-workers-request-site :initform
+                         (common-lisp:error ":site is required"))))
  (common-lisp:export
   (common-lisp:list 'list-workers-request 'make-list-workers-request))
+ (common-lisp:defun make-list-workers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key fleet next-token max-results site)
+   (common-lisp:apply #'common-lisp:make-instance 'list-workers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-workers-request))
    (common-lisp:append))
@@ -1594,14 +2018,23 @@
                         ((aws-sdk/generator/shape::input list-workers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-workers-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-workers-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (workers common-lisp:nil :type (common-lisp:or workers common-lisp:null)))
+ (common-lisp:defclass list-workers-response common-lisp:nil
+                       ((workers :initarg :|workers| :type
+                         (common-lisp:or workers common-lisp:null) :accessor
+                         %list-workers-response-workers :initform
+                         common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-workers-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-workers-response 'make-list-workers-response))
+ (common-lisp:defun make-list-workers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key workers next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-workers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1633,12 +2066,19 @@
    common-lisp:nil))
 (common-lisp:deftype name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (orientation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-orientation-"))
-   (degrees common-lisp:nil :type
-    (common-lisp:or orientation-degrees-double common-lisp:null)))
+ (common-lisp:defclass orientation common-lisp:nil
+                       ((degrees :initarg :|degrees| :type
+                         (common-lisp:or orientation-degrees-double
+                                         common-lisp:null)
+                         :accessor %orientation-degrees :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'orientation 'make-orientation))
+ (common-lisp:defun make-orientation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key degrees)
+   (common-lisp:apply #'common-lisp:make-instance 'orientation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input orientation))
    (common-lisp:append))
@@ -1659,13 +2099,21 @@
 (common-lisp:deftype page-size () 'common-lisp:integer)
 (common-lisp:deftype pagination-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (position-coordinates (:copier common-lisp:nil)
-      (:conc-name "struct-shape-position-coordinates-"))
-   (cartesian-coordinates common-lisp:nil :type
-    (common-lisp:or cartesian-coordinates common-lisp:null)))
+ (common-lisp:defclass position-coordinates common-lisp:nil
+                       ((cartesian-coordinates :initarg :|cartesianCoordinates|
+                         :type
+                         (common-lisp:or cartesian-coordinates
+                                         common-lisp:null)
+                         :accessor %position-coordinates-cartesian-coordinates
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'position-coordinates 'make-position-coordinates))
+ (common-lisp:defun make-position-coordinates
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cartesian-coordinates)
+   (common-lisp:apply #'common-lisp:make-instance 'position-coordinates
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input position-coordinates))
    (common-lisp:append))
@@ -1686,7 +2134,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (iot-roborunner-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -1694,23 +2142,36 @@
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (iot-roborunner-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-quota-exceeded-exception
                     'service-quota-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (site (:copier common-lisp:nil) (:conc-name "struct-shape-site-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (country-code (common-lisp:error ":countrycode is required") :type
-    (common-lisp:or site-country-code common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null)))
+ (common-lisp:defclass site common-lisp:nil
+                       ((created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %site-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (country-code :initarg :|countryCode| :type
+                         (common-lisp:or site-country-code common-lisp:null)
+                         :accessor %site-country-code :initform
+                         (common-lisp:error ":countrycode is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %site-name :initform
+                         (common-lisp:error ":name is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %site-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export (common-lisp:list 'site 'make-site))
+ (common-lisp:defun make-site
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-at country-code name arn)
+   (common-lisp:apply #'common-lisp:make-instance 'site
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input site))
    (common-lisp:append))
@@ -1764,24 +2225,43 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (iot-roborunner-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-destination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-destination-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or destination-generic-identifier common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or destination-state common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or destination-additional-fixed-properties common-lisp:null)))
+ (common-lisp:defclass update-destination-request common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          destination-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %update-destination-request-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or destination-state common-lisp:null)
+                         :accessor %update-destination-request-state :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-destination-request-name :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or destination-generic-identifier
+                                         common-lisp:null)
+                         :accessor %update-destination-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-destination-request
                     'make-update-destination-request))
+ (common-lisp:defun make-update-destination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties state name
+                     id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-destination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1827,24 +2307,46 @@
                           update-destination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-destination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-destination-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or destination-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or destination-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (state (common-lisp:error ":state is required") :type
-    (common-lisp:or destination-state common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or destination-additional-fixed-properties common-lisp:null)))
+ (common-lisp:defclass update-destination-response common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          destination-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %update-destination-response-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or destination-state common-lisp:null)
+                         :accessor %update-destination-response-state :initform
+                         (common-lisp:error ":state is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %update-destination-response-updated-at
+                         :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-destination-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or destination-id common-lisp:null)
+                         :accessor %update-destination-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or destination-arn common-lisp:null)
+                         :accessor %update-destination-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-destination-response
                     'make-update-destination-response))
+ (common-lisp:defun make-update-destination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties state
+                     updated-at name id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'update-destination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1904,18 +2406,31 @@
                           update-destination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-site-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-site-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or site-generic-identifier common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
-   (country-code common-lisp:nil :type
-    (common-lisp:or site-country-code common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or site-description common-lisp:null)))
+ (common-lisp:defclass update-site-request common-lisp:nil
+                       ((description :initarg :|description| :type
+                         (common-lisp:or site-description common-lisp:null)
+                         :accessor %update-site-request-description :initform
+                         common-lisp:nil)
+                        (country-code :initarg :|countryCode| :type
+                         (common-lisp:or site-country-code common-lisp:null)
+                         :accessor %update-site-request-country-code :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-site-request-name :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or site-generic-identifier
+                                         common-lisp:null)
+                         :accessor %update-site-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-site-request 'make-update-site-request))
+ (common-lisp:defun make-update-site-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description country-code name id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-site-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-site-request))
    (common-lisp:append))
@@ -1954,23 +2469,40 @@
                         ((aws-sdk/generator/shape::input update-site-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-site-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-site-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or site-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (country-code common-lisp:nil :type
-    (common-lisp:or site-country-code common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or site-description common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null)))
+ (common-lisp:defclass update-site-response common-lisp:nil
+                       ((updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %update-site-response-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or site-description common-lisp:null)
+                         :accessor %update-site-response-description :initform
+                         common-lisp:nil)
+                        (country-code :initarg :|countryCode| :type
+                         (common-lisp:or site-country-code common-lisp:null)
+                         :accessor %update-site-response-country-code :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-site-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or site-id common-lisp:null) :accessor
+                         %update-site-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %update-site-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-site-response 'make-update-site-response))
+ (common-lisp:defun make-update-site-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-at description country-code name
+                     id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'update-site-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-site-response))
    (common-lisp:append))
@@ -2023,18 +2555,33 @@
                         ((aws-sdk/generator/shape::input update-site-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-worker-fleet-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-worker-fleet-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-fleet-generic-identifier common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-fleet-additional-fixed-properties
-                    common-lisp:null)))
+ (common-lisp:defclass update-worker-fleet-request common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-fleet-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %update-worker-fleet-request-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-worker-fleet-request-name :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-fleet-generic-identifier
+                                         common-lisp:null)
+                         :accessor %update-worker-fleet-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-worker-fleet-request
                     'make-update-worker-fleet-request))
+ (common-lisp:defun make-update-worker-fleet-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties name id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-worker-fleet-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2073,23 +2620,42 @@
                           update-worker-fleet-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-worker-fleet-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-worker-fleet-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-fleet-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-fleet-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-fleet-additional-fixed-properties
-                    common-lisp:null)))
+ (common-lisp:defclass update-worker-fleet-response common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-fleet-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor
+                         %update-worker-fleet-response-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %update-worker-fleet-response-updated-at
+                         :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-worker-fleet-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-fleet-id common-lisp:null)
+                         :accessor %update-worker-fleet-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-fleet-arn common-lisp:null)
+                         :accessor %update-worker-fleet-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-worker-fleet-response
                     'make-update-worker-fleet-response))
+ (common-lisp:defun make-update-worker-fleet-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties updated-at
+                     name id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'update-worker-fleet-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2142,25 +2708,53 @@
                           update-worker-fleet-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-worker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-worker-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-generic-identifier common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
-   (additional-transient-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-transient-properties-json
-                    common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-fixed-properties-json common-lisp:null))
-   (vendor-properties common-lisp:nil :type
-    (common-lisp:or vendor-properties common-lisp:null))
-   (position common-lisp:nil :type
-    (common-lisp:or position-coordinates common-lisp:null))
-   (orientation common-lisp:nil :type
-    (common-lisp:or orientation common-lisp:null)))
+ (common-lisp:defclass update-worker-request common-lisp:nil
+                       ((orientation :initarg :|orientation| :type
+                         (common-lisp:or orientation common-lisp:null)
+                         :accessor %update-worker-request-orientation :initform
+                         common-lisp:nil)
+                        (position :initarg :|position| :type
+                         (common-lisp:or position-coordinates common-lisp:null)
+                         :accessor %update-worker-request-position :initform
+                         common-lisp:nil)
+                        (vendor-properties :initarg :|vendorProperties| :type
+                         (common-lisp:or vendor-properties common-lisp:null)
+                         :accessor %update-worker-request-vendor-properties
+                         :initform common-lisp:nil)
+                        (additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-additional-fixed-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %update-worker-request-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (additional-transient-properties :initarg
+                         :|additionalTransientProperties| :type
+                         (common-lisp:or
+                          worker-additional-transient-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %update-worker-request-additional-transient-properties
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-worker-request-name :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-generic-identifier
+                                         common-lisp:null)
+                         :accessor %update-worker-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-worker-request 'make-update-worker-request))
+ (common-lisp:defun make-update-worker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key orientation position vendor-properties
+                     additional-fixed-properties
+                     additional-transient-properties name id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-worker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2228,32 +2822,66 @@
                           update-worker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-worker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-worker-response-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-id common-lisp:null))
-   (fleet (common-lisp:error ":fleet is required") :type
-    (common-lisp:or worker-fleet-arn common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (additional-transient-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-transient-properties-json
-                    common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-fixed-properties-json common-lisp:null))
-   (orientation common-lisp:nil :type
-    (common-lisp:or orientation common-lisp:null))
-   (vendor-properties common-lisp:nil :type
-    (common-lisp:or vendor-properties common-lisp:null))
-   (position common-lisp:nil :type
-    (common-lisp:or position-coordinates common-lisp:null)))
+ (common-lisp:defclass update-worker-response common-lisp:nil
+                       ((position :initarg :|position| :type
+                         (common-lisp:or position-coordinates common-lisp:null)
+                         :accessor %update-worker-response-position :initform
+                         common-lisp:nil)
+                        (vendor-properties :initarg :|vendorProperties| :type
+                         (common-lisp:or vendor-properties common-lisp:null)
+                         :accessor %update-worker-response-vendor-properties
+                         :initform common-lisp:nil)
+                        (orientation :initarg :|orientation| :type
+                         (common-lisp:or orientation common-lisp:null)
+                         :accessor %update-worker-response-orientation
+                         :initform common-lisp:nil)
+                        (additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-additional-fixed-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %update-worker-response-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (additional-transient-properties :initarg
+                         :|additionalTransientProperties| :type
+                         (common-lisp:or
+                          worker-additional-transient-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %update-worker-response-additional-transient-properties
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %update-worker-response-name :initform
+                         (common-lisp:error ":name is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %update-worker-response-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (fleet :initarg :|fleet| :type
+                         (common-lisp:or worker-fleet-arn common-lisp:null)
+                         :accessor %update-worker-response-fleet :initform
+                         (common-lisp:error ":fleet is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-id common-lisp:null) :accessor
+                         %update-worker-response-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-arn common-lisp:null) :accessor
+                         %update-worker-response-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-worker-response 'make-update-worker-response))
+ (common-lisp:defun make-update-worker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key position vendor-properties orientation
+                     additional-fixed-properties
+                     additional-transient-properties name updated-at fleet id
+                     arn)
+   (common-lisp:apply #'common-lisp:make-instance 'update-worker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2345,7 +2973,7 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (iot-roborunner-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))
@@ -2354,20 +2982,44 @@
 (common-lisp:deftype vendor-additional-transient-properties-json ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (vendor-properties (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vendor-properties-"))
-   (vendor-worker-id (common-lisp:error ":vendorworkerid is required") :type
-    (common-lisp:or vendor-worker-id common-lisp:null))
-   (vendor-worker-ip-address common-lisp:nil :type
-    (common-lisp:or vendor-worker-ip-address common-lisp:null))
-   (vendor-additional-transient-properties common-lisp:nil :type
-    (common-lisp:or vendor-additional-transient-properties-json
-                    common-lisp:null))
-   (vendor-additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or vendor-additional-fixed-properties-json common-lisp:null)))
+ (common-lisp:defclass vendor-properties common-lisp:nil
+                       ((vendor-additional-fixed-properties :initarg
+                         :|vendorAdditionalFixedProperties| :type
+                         (common-lisp:or
+                          vendor-additional-fixed-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %vendor-properties-vendor-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (vendor-additional-transient-properties :initarg
+                         :|vendorAdditionalTransientProperties| :type
+                         (common-lisp:or
+                          vendor-additional-transient-properties-json
+                          common-lisp:null)
+                         :accessor
+                         %vendor-properties-vendor-additional-transient-properties
+                         :initform common-lisp:nil)
+                        (vendor-worker-ip-address :initarg
+                         :|vendorWorkerIpAddress| :type
+                         (common-lisp:or vendor-worker-ip-address
+                                         common-lisp:null)
+                         :accessor %vendor-properties-vendor-worker-ip-address
+                         :initform common-lisp:nil)
+                        (vendor-worker-id :initarg :|vendorWorkerId| :type
+                         (common-lisp:or vendor-worker-id common-lisp:null)
+                         :accessor %vendor-properties-vendor-worker-id
+                         :initform
+                         (common-lisp:error ":vendorworkerid is required"))))
  (common-lisp:export
   (common-lisp:list 'vendor-properties 'make-vendor-properties))
+ (common-lisp:defun make-vendor-properties
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vendor-additional-fixed-properties
+                     vendor-additional-transient-properties
+                     vendor-worker-ip-address vendor-worker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'vendor-properties
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input vendor-properties))
    (common-lisp:append))
@@ -2411,34 +3063,70 @@
 (common-lisp:deftype vendor-worker-id () 'common-lisp:string)
 (common-lisp:deftype vendor-worker-ip-address () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (worker (:copier common-lisp:nil) (:conc-name "struct-shape-worker-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-id common-lisp:null))
-   (fleet (common-lisp:error ":fleet is required") :type
-    (common-lisp:or worker-fleet-arn common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (additional-transient-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-transient-properties-json
-                    common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-additional-fixed-properties-json common-lisp:null))
-   (vendor-properties common-lisp:nil :type
-    (common-lisp:or vendor-properties common-lisp:null))
-   (position common-lisp:nil :type
-    (common-lisp:or position-coordinates common-lisp:null))
-   (orientation common-lisp:nil :type
-    (common-lisp:or orientation common-lisp:null)))
+ (common-lisp:defclass worker common-lisp:nil
+                       ((orientation :initarg :|orientation| :type
+                         (common-lisp:or orientation common-lisp:null)
+                         :accessor %worker-orientation :initform
+                         common-lisp:nil)
+                        (position :initarg :|position| :type
+                         (common-lisp:or position-coordinates common-lisp:null)
+                         :accessor %worker-position :initform common-lisp:nil)
+                        (vendor-properties :initarg :|vendorProperties| :type
+                         (common-lisp:or vendor-properties common-lisp:null)
+                         :accessor %worker-vendor-properties :initform
+                         common-lisp:nil)
+                        (additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-additional-fixed-properties-json
+                          common-lisp:null)
+                         :accessor %worker-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (additional-transient-properties :initarg
+                         :|additionalTransientProperties| :type
+                         (common-lisp:or
+                          worker-additional-transient-properties-json
+                          common-lisp:null)
+                         :accessor %worker-additional-transient-properties
+                         :initform common-lisp:nil)
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %worker-site :initform
+                         (common-lisp:error ":site is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %worker-name :initform
+                         (common-lisp:error ":name is required"))
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %worker-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %worker-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (fleet :initarg :|fleet| :type
+                         (common-lisp:or worker-fleet-arn common-lisp:null)
+                         :accessor %worker-fleet :initform
+                         (common-lisp:error ":fleet is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-id common-lisp:null) :accessor
+                         %worker-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-arn common-lisp:null) :accessor
+                         %worker-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export (common-lisp:list 'worker 'make-worker))
+ (common-lisp:defun make-worker
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key orientation position vendor-properties
+                     additional-fixed-properties
+                     additional-transient-properties site name updated-at
+                     created-at fleet id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'worker
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input worker))
    (common-lisp:append))
@@ -2540,25 +3228,46 @@
   'common-lisp:string)
 (common-lisp:deftype worker-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (worker-fleet (:copier common-lisp:nil)
-      (:conc-name "struct-shape-worker-fleet-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or worker-fleet-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or worker-fleet-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or name common-lisp:null))
-   (site (common-lisp:error ":site is required") :type
-    (common-lisp:or site-arn common-lisp:null))
-   (created-at (common-lisp:error ":createdat is required") :type
-    (common-lisp:or created-at-timestamp common-lisp:null))
-   (updated-at (common-lisp:error ":updatedat is required") :type
-    (common-lisp:or updated-at-timestamp common-lisp:null))
-   (additional-fixed-properties common-lisp:nil :type
-    (common-lisp:or worker-fleet-additional-fixed-properties
-                    common-lisp:null)))
+ (common-lisp:defclass worker-fleet common-lisp:nil
+                       ((additional-fixed-properties :initarg
+                         :|additionalFixedProperties| :type
+                         (common-lisp:or
+                          worker-fleet-additional-fixed-properties
+                          common-lisp:null)
+                         :accessor %worker-fleet-additional-fixed-properties
+                         :initform common-lisp:nil)
+                        (updated-at :initarg :|updatedAt| :type
+                         (common-lisp:or updated-at-timestamp common-lisp:null)
+                         :accessor %worker-fleet-updated-at :initform
+                         (common-lisp:error ":updatedat is required"))
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or created-at-timestamp common-lisp:null)
+                         :accessor %worker-fleet-created-at :initform
+                         (common-lisp:error ":createdat is required"))
+                        (site :initarg :|site| :type
+                         (common-lisp:or site-arn common-lisp:null) :accessor
+                         %worker-fleet-site :initform
+                         (common-lisp:error ":site is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %worker-fleet-name :initform
+                         (common-lisp:error ":name is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or worker-fleet-id common-lisp:null)
+                         :accessor %worker-fleet-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or worker-fleet-arn common-lisp:null)
+                         :accessor %worker-fleet-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export (common-lisp:list 'worker-fleet 'make-worker-fleet))
+ (common-lisp:defun make-worker-fleet
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key additional-fixed-properties updated-at
+                     created-at site name id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'worker-fleet
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input worker-fleet))
    (common-lisp:append))

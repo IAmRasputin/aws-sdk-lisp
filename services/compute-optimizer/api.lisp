@@ -33,24 +33,41 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (account-enrollment-status (:copier common-lisp:nil)
-      (:conc-name "struct-shape-account-enrollment-status-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
-   (status-reason common-lisp:nil :type
-    (common-lisp:or status-reason common-lisp:null))
-   (last-updated-timestamp common-lisp:nil :type
-    (common-lisp:or last-updated-timestamp common-lisp:null)))
+ (common-lisp:defclass account-enrollment-status common-lisp:nil
+                       ((last-updated-timestamp :initarg
+                         :|lastUpdatedTimestamp| :type
+                         (common-lisp:or last-updated-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %account-enrollment-status-last-updated-timestamp
+                         :initform common-lisp:nil)
+                        (status-reason :initarg :|statusReason| :type
+                         (common-lisp:or status-reason common-lisp:null)
+                         :accessor %account-enrollment-status-status-reason
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %account-enrollment-status-status :initform
+                         common-lisp:nil)
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %account-enrollment-status-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'account-enrollment-status
                     'make-account-enrollment-status))
+ (common-lisp:defun make-account-enrollment-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-updated-timestamp status-reason
+                     status account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'account-enrollment-status
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -123,18 +140,36 @@
                            (trivial-types:proper-list auto-scaling-group-arn))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (auto-scaling-group-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-auto-scaling-group-configuration-"))
-   (desired-capacity common-lisp:nil :type
-    (common-lisp:or desired-capacity common-lisp:null))
-   (min-size common-lisp:nil :type (common-lisp:or min-size common-lisp:null))
-   (max-size common-lisp:nil :type (common-lisp:or max-size common-lisp:null))
-   (instance-type common-lisp:nil :type
-    (common-lisp:or instance-type common-lisp:null)))
+ (common-lisp:defclass auto-scaling-group-configuration common-lisp:nil
+                       ((instance-type :initarg :|instanceType| :type
+                         (common-lisp:or instance-type common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-configuration-instance-type
+                         :initform common-lisp:nil)
+                        (max-size :initarg :|maxSize| :type
+                         (common-lisp:or max-size common-lisp:null) :accessor
+                         %auto-scaling-group-configuration-max-size :initform
+                         common-lisp:nil)
+                        (min-size :initarg :|minSize| :type
+                         (common-lisp:or min-size common-lisp:null) :accessor
+                         %auto-scaling-group-configuration-min-size :initform
+                         common-lisp:nil)
+                        (desired-capacity :initarg :|desiredCapacity| :type
+                         (common-lisp:or desired-capacity common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-configuration-desired-capacity
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'auto-scaling-group-configuration
                     'make-auto-scaling-group-configuration))
+ (common-lisp:defun make-auto-scaling-group-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key instance-type max-size min-size
+                     desired-capacity)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'auto-scaling-group-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -180,36 +215,100 @@
    common-lisp:nil))
 (common-lisp:deftype auto-scaling-group-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (auto-scaling-group-recommendation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-auto-scaling-group-recommendation-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (auto-scaling-group-arn common-lisp:nil :type
-    (common-lisp:or auto-scaling-group-arn common-lisp:null))
-   (auto-scaling-group-name common-lisp:nil :type
-    (common-lisp:or auto-scaling-group-name common-lisp:null))
-   (finding common-lisp:nil :type (common-lisp:or finding common-lisp:null))
-   (utilization-metrics common-lisp:nil :type
-    (common-lisp:or utilization-metrics common-lisp:null))
-   (look-back-period-in-days common-lisp:nil :type
-    (common-lisp:or look-back-period-in-days common-lisp:null))
-   (current-configuration common-lisp:nil :type
-    (common-lisp:or auto-scaling-group-configuration common-lisp:null))
-   (recommendation-options common-lisp:nil :type
-    (common-lisp:or auto-scaling-group-recommendation-options
-                    common-lisp:null))
-   (last-refresh-timestamp common-lisp:nil :type
-    (common-lisp:or last-refresh-timestamp common-lisp:null))
-   (current-performance-risk common-lisp:nil :type
-    (common-lisp:or current-performance-risk common-lisp:null))
-   (effective-recommendation-preferences common-lisp:nil :type
-    (common-lisp:or effective-recommendation-preferences common-lisp:null))
-   (inferred-workload-types common-lisp:nil :type
-    (common-lisp:or inferred-workload-types common-lisp:null)))
+ (common-lisp:defclass auto-scaling-group-recommendation common-lisp:nil
+                       ((inferred-workload-types :initarg
+                         :|inferredWorkloadTypes| :type
+                         (common-lisp:or inferred-workload-types
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-inferred-workload-types
+                         :initform common-lisp:nil)
+                        (effective-recommendation-preferences :initarg
+                         :|effectiveRecommendationPreferences| :type
+                         (common-lisp:or effective-recommendation-preferences
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-effective-recommendation-preferences
+                         :initform common-lisp:nil)
+                        (current-performance-risk :initarg
+                         :|currentPerformanceRisk| :type
+                         (common-lisp:or current-performance-risk
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-current-performance-risk
+                         :initform common-lisp:nil)
+                        (last-refresh-timestamp :initarg
+                         :|lastRefreshTimestamp| :type
+                         (common-lisp:or last-refresh-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-last-refresh-timestamp
+                         :initform common-lisp:nil)
+                        (recommendation-options :initarg
+                         :|recommendationOptions| :type
+                         (common-lisp:or
+                          auto-scaling-group-recommendation-options
+                          common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-recommendation-options
+                         :initform common-lisp:nil)
+                        (current-configuration :initarg :|currentConfiguration|
+                         :type
+                         (common-lisp:or auto-scaling-group-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-current-configuration
+                         :initform common-lisp:nil)
+                        (look-back-period-in-days :initarg
+                         :|lookBackPeriodInDays| :type
+                         (common-lisp:or look-back-period-in-days
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-look-back-period-in-days
+                         :initform common-lisp:nil)
+                        (utilization-metrics :initarg :|utilizationMetrics|
+                         :type
+                         (common-lisp:or utilization-metrics common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-utilization-metrics
+                         :initform common-lisp:nil)
+                        (finding :initarg :|finding| :type
+                         (common-lisp:or finding common-lisp:null) :accessor
+                         %auto-scaling-group-recommendation-finding :initform
+                         common-lisp:nil)
+                        (auto-scaling-group-name :initarg
+                         :|autoScalingGroupName| :type
+                         (common-lisp:or auto-scaling-group-name
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-auto-scaling-group-name
+                         :initform common-lisp:nil)
+                        (auto-scaling-group-arn :initarg :|autoScalingGroupArn|
+                         :type
+                         (common-lisp:or auto-scaling-group-arn
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-auto-scaling-group-arn
+                         :initform common-lisp:nil)
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %auto-scaling-group-recommendation-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'auto-scaling-group-recommendation
                     'make-auto-scaling-group-recommendation))
+ (common-lisp:defun make-auto-scaling-group-recommendation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key inferred-workload-types
+                     effective-recommendation-preferences
+                     current-performance-risk last-refresh-timestamp
+                     recommendation-options current-configuration
+                     look-back-period-in-days utilization-metrics finding
+                     auto-scaling-group-name auto-scaling-group-arn account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'auto-scaling-group-recommendation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -319,23 +418,52 @@
                           auto-scaling-group-recommendation))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (auto-scaling-group-recommendation-option (:copier common-lisp:nil)
-      (:conc-name "struct-shape-auto-scaling-group-recommendation-option-"))
-   (configuration common-lisp:nil :type
-    (common-lisp:or auto-scaling-group-configuration common-lisp:null))
-   (projected-utilization-metrics common-lisp:nil :type
-    (common-lisp:or projected-utilization-metrics common-lisp:null))
-   (performance-risk common-lisp:nil :type
-    (common-lisp:or performance-risk common-lisp:null))
-   (rank common-lisp:nil :type (common-lisp:or rank common-lisp:null))
-   (savings-opportunity common-lisp:nil :type
-    (common-lisp:or savings-opportunity common-lisp:null))
-   (migration-effort common-lisp:nil :type
-    (common-lisp:or migration-effort common-lisp:null)))
+ (common-lisp:defclass auto-scaling-group-recommendation-option common-lisp:nil
+                       ((migration-effort :initarg :|migrationEffort| :type
+                         (common-lisp:or migration-effort common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-option-migration-effort
+                         :initform common-lisp:nil)
+                        (savings-opportunity :initarg :|savingsOpportunity|
+                         :type
+                         (common-lisp:or savings-opportunity common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-option-savings-opportunity
+                         :initform common-lisp:nil)
+                        (rank :initarg :|rank| :type
+                         (common-lisp:or rank common-lisp:null) :accessor
+                         %auto-scaling-group-recommendation-option-rank
+                         :initform common-lisp:nil)
+                        (performance-risk :initarg :|performanceRisk| :type
+                         (common-lisp:or performance-risk common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-option-performance-risk
+                         :initform common-lisp:nil)
+                        (projected-utilization-metrics :initarg
+                         :|projectedUtilizationMetrics| :type
+                         (common-lisp:or projected-utilization-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-option-projected-utilization-metrics
+                         :initform common-lisp:nil)
+                        (configuration :initarg :|configuration| :type
+                         (common-lisp:or auto-scaling-group-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %auto-scaling-group-recommendation-option-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'auto-scaling-group-recommendation-option
                     'make-auto-scaling-group-recommendation-option))
+ (common-lisp:defun make-auto-scaling-group-recommendation-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key migration-effort savings-opportunity rank
+                     performance-risk projected-utilization-metrics
+                     configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'auto-scaling-group-recommendation-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -414,16 +542,31 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype code () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (container-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-container-configuration-"))
-   (container-name common-lisp:nil :type
-    (common-lisp:or container-name common-lisp:null))
-   (memory-size-configuration common-lisp:nil :type
-    (common-lisp:or memory-size-configuration common-lisp:null))
-   (cpu common-lisp:nil :type (common-lisp:or nullable-cpu common-lisp:null)))
+ (common-lisp:defclass container-configuration common-lisp:nil
+                       ((cpu :initarg :|cpu| :type
+                         (common-lisp:or nullable-cpu common-lisp:null)
+                         :accessor %container-configuration-cpu :initform
+                         common-lisp:nil)
+                        (memory-size-configuration :initarg
+                         :|memorySizeConfiguration| :type
+                         (common-lisp:or memory-size-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %container-configuration-memory-size-configuration
+                         :initform common-lisp:nil)
+                        (container-name :initarg :|containerName| :type
+                         (common-lisp:or container-name common-lisp:null)
+                         :accessor %container-configuration-container-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'container-configuration 'make-container-configuration))
+ (common-lisp:defun make-container-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cpu memory-size-configuration
+                     container-name)
+   (common-lisp:apply #'common-lisp:make-instance 'container-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -471,16 +614,31 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype container-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (container-recommendation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-container-recommendation-"))
-   (container-name common-lisp:nil :type
-    (common-lisp:or container-name common-lisp:null))
-   (memory-size-configuration common-lisp:nil :type
-    (common-lisp:or memory-size-configuration common-lisp:null))
-   (cpu common-lisp:nil :type (common-lisp:or nullable-cpu common-lisp:null)))
+ (common-lisp:defclass container-recommendation common-lisp:nil
+                       ((cpu :initarg :|cpu| :type
+                         (common-lisp:or nullable-cpu common-lisp:null)
+                         :accessor %container-recommendation-cpu :initform
+                         common-lisp:nil)
+                        (memory-size-configuration :initarg
+                         :|memorySizeConfiguration| :type
+                         (common-lisp:or memory-size-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %container-recommendation-memory-size-configuration
+                         :initform common-lisp:nil)
+                        (container-name :initarg :|containerName| :type
+                         (common-lisp:or container-name common-lisp:null)
+                         :accessor %container-recommendation-container-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'container-recommendation 'make-container-recommendation))
+ (common-lisp:defun make-container-recommendation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cpu memory-size-configuration
+                     container-name)
+   (common-lisp:apply #'common-lisp:make-instance 'container-recommendation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -542,16 +700,33 @@
 (common-lisp:deftype current-instance-type () 'common-lisp:string)
 (common-lisp:deftype current-performance-risk () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (current-performance-risk-ratings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-current-performance-risk-ratings-"))
-   (high common-lisp:nil :type (common-lisp:or high common-lisp:null))
-   (medium common-lisp:nil :type (common-lisp:or medium common-lisp:null))
-   (low common-lisp:nil :type (common-lisp:or low common-lisp:null))
-   (very-low common-lisp:nil :type (common-lisp:or very-low common-lisp:null)))
+ (common-lisp:defclass current-performance-risk-ratings common-lisp:nil
+                       ((very-low :initarg :|veryLow| :type
+                         (common-lisp:or very-low common-lisp:null) :accessor
+                         %current-performance-risk-ratings-very-low :initform
+                         common-lisp:nil)
+                        (low :initarg :|low| :type
+                         (common-lisp:or low common-lisp:null) :accessor
+                         %current-performance-risk-ratings-low :initform
+                         common-lisp:nil)
+                        (medium :initarg :|medium| :type
+                         (common-lisp:or medium common-lisp:null) :accessor
+                         %current-performance-risk-ratings-medium :initform
+                         common-lisp:nil)
+                        (high :initarg :|high| :type
+                         (common-lisp:or high common-lisp:null) :accessor
+                         %current-performance-risk-ratings-high :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'current-performance-risk-ratings
                     'make-current-performance-risk-ratings))
+ (common-lisp:defun make-current-performance-risk-ratings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key very-low low medium high)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'current-performance-risk-ratings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -596,18 +771,38 @@
                           current-performance-risk-ratings))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-recommendation-preferences-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-recommendation-preferences-request-"))
-   (resource-type (common-lisp:error ":resourcetype is required") :type
-    (common-lisp:or resource-type common-lisp:null))
-   (scope common-lisp:nil :type (common-lisp:or scope common-lisp:null))
-   (recommendation-preference-names
-    (common-lisp:error ":recommendationpreferencenames is required") :type
-    (common-lisp:or recommendation-preference-names common-lisp:null)))
+ (common-lisp:defclass delete-recommendation-preferences-request
+                       common-lisp:nil
+                       ((recommendation-preference-names :initarg
+                         :|recommendationPreferenceNames| :type
+                         (common-lisp:or recommendation-preference-names
+                                         common-lisp:null)
+                         :accessor
+                         %delete-recommendation-preferences-request-recommendation-preference-names
+                         :initform
+                         (common-lisp:error
+                          ":recommendationpreferencenames is required"))
+                        (scope :initarg :|scope| :type
+                         (common-lisp:or scope common-lisp:null) :accessor
+                         %delete-recommendation-preferences-request-scope
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :|resourceType| :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %delete-recommendation-preferences-request-resource-type
+                         :initform
+                         (common-lisp:error ":resourcetype is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-recommendation-preferences-request
                     'make-delete-recommendation-preferences-request))
+ (common-lisp:defun make-delete-recommendation-preferences-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-preference-names scope
+                     resource-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-recommendation-preferences-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -646,12 +841,18 @@
                           delete-recommendation-preferences-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-recommendation-preferences-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-recommendation-preferences-response-")))
+ (common-lisp:defclass delete-recommendation-preferences-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-recommendation-preferences-response
                     'make-delete-recommendation-preferences-response))
+ (common-lisp:defun make-delete-recommendation-preferences-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-recommendation-preferences-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -668,19 +869,36 @@
                           delete-recommendation-preferences-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-recommendation-export-jobs-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-recommendation-export-jobs-request-"))
-   (job-ids common-lisp:nil :type (common-lisp:or job-ids common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or job-filters common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass describe-recommendation-export-jobs-request
+                       common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %describe-recommendation-export-jobs-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-recommendation-export-jobs-request-next-token
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or job-filters common-lisp:null)
+                         :accessor
+                         %describe-recommendation-export-jobs-request-filters
+                         :initform common-lisp:nil)
+                        (job-ids :initarg :|jobIds| :type
+                         (common-lisp:or job-ids common-lisp:null) :accessor
+                         %describe-recommendation-export-jobs-request-job-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-recommendation-export-jobs-request
                     'make-describe-recommendation-export-jobs-request))
+ (common-lisp:defun make-describe-recommendation-export-jobs-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token filters job-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-recommendation-export-jobs-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -725,17 +943,29 @@
                           describe-recommendation-export-jobs-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-recommendation-export-jobs-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-recommendation-export-jobs-response-"))
-   (recommendation-export-jobs common-lisp:nil :type
-    (common-lisp:or recommendation-export-jobs common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-recommendation-export-jobs-response
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-recommendation-export-jobs-response-next-token
+                         :initform common-lisp:nil)
+                        (recommendation-export-jobs :initarg
+                         :|recommendationExportJobs| :type
+                         (common-lisp:or recommendation-export-jobs
+                                         common-lisp:null)
+                         :accessor
+                         %describe-recommendation-export-jobs-response-recommendation-export-jobs
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-recommendation-export-jobs-response
                     'make-describe-recommendation-export-jobs-response))
+ (common-lisp:defun make-describe-recommendation-export-jobs-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token recommendation-export-jobs)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-recommendation-export-jobs-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -771,14 +1001,20 @@
 (common-lisp:deftype destination-key () 'common-lisp:string)
 (common-lisp:deftype destination-key-prefix () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (ebsfilter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ebsfilter-"))
-   (name common-lisp:nil :type
-    (common-lisp:or ebsfilter-name common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass ebsfilter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor %ebsfilter-values :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or ebsfilter-name common-lisp:null)
+                         :accessor %ebsfilter-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'ebsfilter 'make-ebsfilter))
+ (common-lisp:defun make-ebsfilter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance 'ebsfilter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input ebsfilter))
    (common-lisp:append))
@@ -813,17 +1049,27 @@
 (common-lisp:deftype ebsfinding () 'common-lisp:string)
 (common-lisp:deftype ebsmetric-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (ebsutilization-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ebsutilization-metric-"))
-   (name common-lisp:nil :type
-    (common-lisp:or ebsmetric-name common-lisp:null))
-   (statistic common-lisp:nil :type
-    (common-lisp:or metric-statistic common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or metric-value common-lisp:null)))
+ (common-lisp:defclass ebsutilization-metric common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or metric-value common-lisp:null)
+                         :accessor %ebsutilization-metric-value :initform
+                         common-lisp:nil)
+                        (statistic :initarg :|statistic| :type
+                         (common-lisp:or metric-statistic common-lisp:null)
+                         :accessor %ebsutilization-metric-statistic :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or ebsmetric-name common-lisp:null)
+                         :accessor %ebsutilization-metric-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ebsutilization-metric 'make-ebsutilization-metric))
+ (common-lisp:defun make-ebsutilization-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value statistic name)
+   (common-lisp:apply #'common-lisp:make-instance 'ebsutilization-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -872,20 +1118,36 @@
 (common-lisp:deftype ecsservice-metric-name () 'common-lisp:string)
 (common-lisp:deftype ecsservice-metric-statistic () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (ecsservice-projected-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ecsservice-projected-metric-"))
-   (name common-lisp:nil :type
-    (common-lisp:or ecsservice-metric-name common-lisp:null))
-   (timestamps common-lisp:nil :type
-    (common-lisp:or timestamps common-lisp:null))
-   (upper-bound-values common-lisp:nil :type
-    (common-lisp:or metric-values common-lisp:null))
-   (lower-bound-values common-lisp:nil :type
-    (common-lisp:or metric-values common-lisp:null)))
+ (common-lisp:defclass ecsservice-projected-metric common-lisp:nil
+                       ((lower-bound-values :initarg :|lowerBoundValues| :type
+                         (common-lisp:or metric-values common-lisp:null)
+                         :accessor
+                         %ecsservice-projected-metric-lower-bound-values
+                         :initform common-lisp:nil)
+                        (upper-bound-values :initarg :|upperBoundValues| :type
+                         (common-lisp:or metric-values common-lisp:null)
+                         :accessor
+                         %ecsservice-projected-metric-upper-bound-values
+                         :initform common-lisp:nil)
+                        (timestamps :initarg :|timestamps| :type
+                         (common-lisp:or timestamps common-lisp:null) :accessor
+                         %ecsservice-projected-metric-timestamps :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or ecsservice-metric-name
+                                         common-lisp:null)
+                         :accessor %ecsservice-projected-metric-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ecsservice-projected-metric
                     'make-ecsservice-projected-metric))
+ (common-lisp:defun make-ecsservice-projected-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lower-bound-values upper-bound-values
+                     timestamps name)
+   (common-lisp:apply #'common-lisp:make-instance 'ecsservice-projected-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -939,20 +1201,40 @@
                             ecsservice-projected-metric))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ecsservice-projected-utilization-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ecsservice-projected-utilization-metric-"))
-   (name common-lisp:nil :type
-    (common-lisp:or ecsservice-metric-name common-lisp:null))
-   (statistic common-lisp:nil :type
-    (common-lisp:or ecsservice-metric-statistic common-lisp:null))
-   (lower-bound-value common-lisp:nil :type
-    (common-lisp:or lower-bound-value common-lisp:null))
-   (upper-bound-value common-lisp:nil :type
-    (common-lisp:or upper-bound-value common-lisp:null)))
+ (common-lisp:defclass ecsservice-projected-utilization-metric common-lisp:nil
+                       ((upper-bound-value :initarg :|upperBoundValue| :type
+                         (common-lisp:or upper-bound-value common-lisp:null)
+                         :accessor
+                         %ecsservice-projected-utilization-metric-upper-bound-value
+                         :initform common-lisp:nil)
+                        (lower-bound-value :initarg :|lowerBoundValue| :type
+                         (common-lisp:or lower-bound-value common-lisp:null)
+                         :accessor
+                         %ecsservice-projected-utilization-metric-lower-bound-value
+                         :initform common-lisp:nil)
+                        (statistic :initarg :|statistic| :type
+                         (common-lisp:or ecsservice-metric-statistic
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-projected-utilization-metric-statistic
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or ecsservice-metric-name
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-projected-utilization-metric-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ecsservice-projected-utilization-metric
                     'make-ecsservice-projected-utilization-metric))
+ (common-lisp:defun make-ecsservice-projected-utilization-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key upper-bound-value lower-bound-value
+                     statistic name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'ecsservice-projected-utilization-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1006,35 +1288,88 @@
                             ecsservice-projected-utilization-metric))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ecsservice-recommendation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ecsservice-recommendation-"))
-   (service-arn common-lisp:nil :type
-    (common-lisp:or service-arn common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (current-service-configuration common-lisp:nil :type
-    (common-lisp:or service-configuration common-lisp:null))
-   (utilization-metrics common-lisp:nil :type
-    (common-lisp:or ecsservice-utilization-metrics common-lisp:null))
-   (lookback-period-in-days common-lisp:nil :type
-    (common-lisp:or look-back-period-in-days common-lisp:null))
-   (launch-type common-lisp:nil :type
-    (common-lisp:or ecsservice-launch-type common-lisp:null))
-   (last-refresh-timestamp common-lisp:nil :type
-    (common-lisp:or last-refresh-timestamp common-lisp:null))
-   (finding common-lisp:nil :type
-    (common-lisp:or ecsservice-recommendation-finding common-lisp:null))
-   (finding-reason-codes common-lisp:nil :type
-    (common-lisp:or ecsservice-recommendation-finding-reason-codes
-                    common-lisp:null))
-   (service-recommendation-options common-lisp:nil :type
-    (common-lisp:or ecsservice-recommendation-options common-lisp:null))
-   (current-performance-risk common-lisp:nil :type
-    (common-lisp:or current-performance-risk common-lisp:null)))
+ (common-lisp:defclass ecsservice-recommendation common-lisp:nil
+                       ((current-performance-risk :initarg
+                         :|currentPerformanceRisk| :type
+                         (common-lisp:or current-performance-risk
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-current-performance-risk
+                         :initform common-lisp:nil)
+                        (service-recommendation-options :initarg
+                         :|serviceRecommendationOptions| :type
+                         (common-lisp:or ecsservice-recommendation-options
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-service-recommendation-options
+                         :initform common-lisp:nil)
+                        (finding-reason-codes :initarg :|findingReasonCodes|
+                         :type
+                         (common-lisp:or
+                          ecsservice-recommendation-finding-reason-codes
+                          common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-finding-reason-codes
+                         :initform common-lisp:nil)
+                        (finding :initarg :|finding| :type
+                         (common-lisp:or ecsservice-recommendation-finding
+                                         common-lisp:null)
+                         :accessor %ecsservice-recommendation-finding :initform
+                         common-lisp:nil)
+                        (last-refresh-timestamp :initarg
+                         :|lastRefreshTimestamp| :type
+                         (common-lisp:or last-refresh-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-last-refresh-timestamp
+                         :initform common-lisp:nil)
+                        (launch-type :initarg :|launchType| :type
+                         (common-lisp:or ecsservice-launch-type
+                                         common-lisp:null)
+                         :accessor %ecsservice-recommendation-launch-type
+                         :initform common-lisp:nil)
+                        (lookback-period-in-days :initarg
+                         :|lookbackPeriodInDays| :type
+                         (common-lisp:or look-back-period-in-days
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-lookback-period-in-days
+                         :initform common-lisp:nil)
+                        (utilization-metrics :initarg :|utilizationMetrics|
+                         :type
+                         (common-lisp:or ecsservice-utilization-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-utilization-metrics
+                         :initform common-lisp:nil)
+                        (current-service-configuration :initarg
+                         :|currentServiceConfiguration| :type
+                         (common-lisp:or service-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-current-service-configuration
+                         :initform common-lisp:nil)
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %ecsservice-recommendation-account-id :initform
+                         common-lisp:nil)
+                        (service-arn :initarg :|serviceArn| :type
+                         (common-lisp:or service-arn common-lisp:null)
+                         :accessor %ecsservice-recommendation-service-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ecsservice-recommendation
                     'make-ecsservice-recommendation))
+ (common-lisp:defun make-ecsservice-recommendation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key current-performance-risk
+                     service-recommendation-options finding-reason-codes
+                     finding last-refresh-timestamp launch-type
+                     lookback-period-in-days utilization-metrics
+                     current-service-configuration account-id service-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'ecsservice-recommendation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1134,16 +1469,26 @@
                           ecsservice-recommendation))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ecsservice-recommendation-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ecsservice-recommendation-filter-"))
-   (name common-lisp:nil :type
-    (common-lisp:or ecsservice-recommendation-filter-name common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass ecsservice-recommendation-filter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor %ecsservice-recommendation-filter-values
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or ecsservice-recommendation-filter-name
+                                         common-lisp:null)
+                         :accessor %ecsservice-recommendation-filter-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ecsservice-recommendation-filter
                     'make-ecsservice-recommendation-filter))
+ (common-lisp:defun make-ecsservice-recommendation-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'ecsservice-recommendation-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1197,21 +1542,48 @@
                             ecsservice-recommendation-finding-reason-code))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ecsservice-recommendation-option (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ecsservice-recommendation-option-"))
-   (memory common-lisp:nil :type
-    (common-lisp:or nullable-memory common-lisp:null))
-   (cpu common-lisp:nil :type (common-lisp:or nullable-cpu common-lisp:null))
-   (savings-opportunity common-lisp:nil :type
-    (common-lisp:or savings-opportunity common-lisp:null))
-   (projected-utilization-metrics common-lisp:nil :type
-    (common-lisp:or ecsservice-projected-utilization-metrics common-lisp:null))
-   (container-recommendations common-lisp:nil :type
-    (common-lisp:or container-recommendations common-lisp:null)))
+ (common-lisp:defclass ecsservice-recommendation-option common-lisp:nil
+                       ((container-recommendations :initarg
+                         :|containerRecommendations| :type
+                         (common-lisp:or container-recommendations
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-option-container-recommendations
+                         :initform common-lisp:nil)
+                        (projected-utilization-metrics :initarg
+                         :|projectedUtilizationMetrics| :type
+                         (common-lisp:or
+                          ecsservice-projected-utilization-metrics
+                          common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-option-projected-utilization-metrics
+                         :initform common-lisp:nil)
+                        (savings-opportunity :initarg :|savingsOpportunity|
+                         :type
+                         (common-lisp:or savings-opportunity common-lisp:null)
+                         :accessor
+                         %ecsservice-recommendation-option-savings-opportunity
+                         :initform common-lisp:nil)
+                        (cpu :initarg :|cpu| :type
+                         (common-lisp:or nullable-cpu common-lisp:null)
+                         :accessor %ecsservice-recommendation-option-cpu
+                         :initform common-lisp:nil)
+                        (memory :initarg :|memory| :type
+                         (common-lisp:or nullable-memory common-lisp:null)
+                         :accessor %ecsservice-recommendation-option-memory
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ecsservice-recommendation-option
                     'make-ecsservice-recommendation-option))
+ (common-lisp:defun make-ecsservice-recommendation-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key container-recommendations
+                     projected-utilization-metrics savings-opportunity cpu
+                     memory)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'ecsservice-recommendation-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1283,19 +1655,36 @@
                             ecsservice-recommendation))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ecsservice-recommended-option-projected-metric (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-ecsservice-recommended-option-projected-metric-"))
-   (recommended-cpu-units common-lisp:nil :type
-    (common-lisp:or cpu-size common-lisp:null))
-   (recommended-memory-size common-lisp:nil :type
-    (common-lisp:or memory-size common-lisp:null))
-   (projected-metrics common-lisp:nil :type
-    (common-lisp:or ecsservice-projected-metrics common-lisp:null)))
+ (common-lisp:defclass ecsservice-recommended-option-projected-metric
+                       common-lisp:nil
+                       ((projected-metrics :initarg :|projectedMetrics| :type
+                         (common-lisp:or ecsservice-projected-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %ecsservice-recommended-option-projected-metric-projected-metrics
+                         :initform common-lisp:nil)
+                        (recommended-memory-size :initarg
+                         :|recommendedMemorySize| :type
+                         (common-lisp:or memory-size common-lisp:null)
+                         :accessor
+                         %ecsservice-recommended-option-projected-metric-recommended-memory-size
+                         :initform common-lisp:nil)
+                        (recommended-cpu-units :initarg :|recommendedCpuUnits|
+                         :type (common-lisp:or cpu-size common-lisp:null)
+                         :accessor
+                         %ecsservice-recommended-option-projected-metric-recommended-cpu-units
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ecsservice-recommended-option-projected-metric
                     'make-ecsservice-recommended-option-projected-metric))
+ (common-lisp:defun make-ecsservice-recommended-option-projected-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key projected-metrics recommended-memory-size
+                     recommended-cpu-units)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'ecsservice-recommended-option-projected-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1344,18 +1733,31 @@
                             ecsservice-recommended-option-projected-metric))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ecsservice-utilization-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ecsservice-utilization-metric-"))
-   (name common-lisp:nil :type
-    (common-lisp:or ecsservice-metric-name common-lisp:null))
-   (statistic common-lisp:nil :type
-    (common-lisp:or ecsservice-metric-statistic common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or metric-value common-lisp:null)))
+ (common-lisp:defclass ecsservice-utilization-metric common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or metric-value common-lisp:null)
+                         :accessor %ecsservice-utilization-metric-value
+                         :initform common-lisp:nil)
+                        (statistic :initarg :|statistic| :type
+                         (common-lisp:or ecsservice-metric-statistic
+                                         common-lisp:null)
+                         :accessor %ecsservice-utilization-metric-statistic
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or ecsservice-metric-name
+                                         common-lisp:null)
+                         :accessor %ecsservice-utilization-metric-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ecsservice-utilization-metric
                     'make-ecsservice-utilization-metric))
+ (common-lisp:defun make-ecsservice-utilization-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value statistic name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'ecsservice-utilization-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1402,20 +1804,47 @@
                             ecsservice-utilization-metric))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (effective-recommendation-preferences (:copier common-lisp:nil)
-      (:conc-name "struct-shape-effective-recommendation-preferences-"))
-   (cpu-vendor-architectures common-lisp:nil :type
-    (common-lisp:or cpu-vendor-architectures common-lisp:null))
-   (enhanced-infrastructure-metrics common-lisp:nil :type
-    (common-lisp:or enhanced-infrastructure-metrics common-lisp:null))
-   (inferred-workload-types common-lisp:nil :type
-    (common-lisp:or inferred-workload-types-preference common-lisp:null))
-   (external-metrics-preference common-lisp:nil :type
-    (common-lisp:or external-metrics-preference common-lisp:null)))
+ (common-lisp:defclass effective-recommendation-preferences common-lisp:nil
+                       ((external-metrics-preference :initarg
+                         :|externalMetricsPreference| :type
+                         (common-lisp:or external-metrics-preference
+                                         common-lisp:null)
+                         :accessor
+                         %effective-recommendation-preferences-external-metrics-preference
+                         :initform common-lisp:nil)
+                        (inferred-workload-types :initarg
+                         :|inferredWorkloadTypes| :type
+                         (common-lisp:or inferred-workload-types-preference
+                                         common-lisp:null)
+                         :accessor
+                         %effective-recommendation-preferences-inferred-workload-types
+                         :initform common-lisp:nil)
+                        (enhanced-infrastructure-metrics :initarg
+                         :|enhancedInfrastructureMetrics| :type
+                         (common-lisp:or enhanced-infrastructure-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %effective-recommendation-preferences-enhanced-infrastructure-metrics
+                         :initform common-lisp:nil)
+                        (cpu-vendor-architectures :initarg
+                         :|cpuVendorArchitectures| :type
+                         (common-lisp:or cpu-vendor-architectures
+                                         common-lisp:null)
+                         :accessor
+                         %effective-recommendation-preferences-cpu-vendor-architectures
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'effective-recommendation-preferences
                     'make-effective-recommendation-preferences))
+ (common-lisp:defun make-effective-recommendation-preferences
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key external-metrics-preference
+                     inferred-workload-types enhanced-infrastructure-metrics
+                     cpu-vendor-architectures)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'effective-recommendation-preferences
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1465,15 +1894,24 @@
    common-lisp:nil))
 (common-lisp:deftype enhanced-infrastructure-metrics () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (enrollment-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-enrollment-filter-"))
-   (name common-lisp:nil :type
-    (common-lisp:or enrollment-filter-name common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass enrollment-filter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor %enrollment-filter-values :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or enrollment-filter-name
+                                         common-lisp:null)
+                         :accessor %enrollment-filter-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'enrollment-filter 'make-enrollment-filter))
+ (common-lisp:defun make-enrollment-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance 'enrollment-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input enrollment-filter))
    (common-lisp:append))
@@ -1508,14 +1946,24 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (estimated-monthly-savings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-estimated-monthly-savings-"))
-   (currency common-lisp:nil :type (common-lisp:or currency common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or value common-lisp:null)))
+ (common-lisp:defclass estimated-monthly-savings common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or value common-lisp:null) :accessor
+                         %estimated-monthly-savings-value :initform
+                         common-lisp:nil)
+                        (currency :initarg :|currency| :type
+                         (common-lisp:or currency common-lisp:null) :accessor
+                         %estimated-monthly-savings-currency :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'estimated-monthly-savings
                     'make-estimated-monthly-savings))
+ (common-lisp:defun make-estimated-monthly-savings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value currency)
+   (common-lisp:apply #'common-lisp:make-instance 'estimated-monthly-savings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1546,27 +1994,62 @@
                           estimated-monthly-savings))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-auto-scaling-group-recommendations-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-export-auto-scaling-group-recommendations-request-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (filters common-lisp:nil :type (common-lisp:or filters common-lisp:null))
-   (fields-to-export common-lisp:nil :type
-    (common-lisp:or exportable-auto-scaling-group-fields common-lisp:null))
-   (s3destination-config (common-lisp:error ":s3destinationconfig is required")
-    :type (common-lisp:or s3destination-config common-lisp:null))
-   (file-format common-lisp:nil :type
-    (common-lisp:or file-format common-lisp:null))
-   (include-member-accounts common-lisp:nil :type
-    (common-lisp:or include-member-accounts common-lisp:null))
-   (recommendation-preferences common-lisp:nil :type
-    (common-lisp:or recommendation-preferences common-lisp:null)))
+ (common-lisp:defclass export-auto-scaling-group-recommendations-request
+                       common-lisp:nil
+                       ((recommendation-preferences :initarg
+                         :|recommendationPreferences| :type
+                         (common-lisp:or recommendation-preferences
+                                         common-lisp:null)
+                         :accessor
+                         %export-auto-scaling-group-recommendations-request-recommendation-preferences
+                         :initform common-lisp:nil)
+                        (include-member-accounts :initarg
+                         :|includeMemberAccounts| :type
+                         (common-lisp:or include-member-accounts
+                                         common-lisp:null)
+                         :accessor
+                         %export-auto-scaling-group-recommendations-request-include-member-accounts
+                         :initform common-lisp:nil)
+                        (file-format :initarg :|fileFormat| :type
+                         (common-lisp:or file-format common-lisp:null)
+                         :accessor
+                         %export-auto-scaling-group-recommendations-request-file-format
+                         :initform common-lisp:nil)
+                        (s3destination-config :initarg :|s3DestinationConfig|
+                         :type
+                         (common-lisp:or s3destination-config common-lisp:null)
+                         :accessor
+                         %export-auto-scaling-group-recommendations-request-s3destination-config
+                         :initform
+                         (common-lisp:error
+                          ":s3destinationconfig is required"))
+                        (fields-to-export :initarg :|fieldsToExport| :type
+                         (common-lisp:or exportable-auto-scaling-group-fields
+                                         common-lisp:null)
+                         :accessor
+                         %export-auto-scaling-group-recommendations-request-fields-to-export
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or filters common-lisp:null) :accessor
+                         %export-auto-scaling-group-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %export-auto-scaling-group-recommendations-request-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-auto-scaling-group-recommendations-request
                     'make-export-auto-scaling-group-recommendations-request))
+ (common-lisp:defun make-export-auto-scaling-group-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-preferences
+                     include-member-accounts file-format s3destination-config
+                     fields-to-export filters account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-auto-scaling-group-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1635,17 +2118,27 @@
                           export-auto-scaling-group-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-auto-scaling-group-recommendations-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-export-auto-scaling-group-recommendations-response-"))
-   (job-id common-lisp:nil :type (common-lisp:or job-id common-lisp:null))
-   (s3destination common-lisp:nil :type
-    (common-lisp:or s3destination common-lisp:null)))
+ (common-lisp:defclass export-auto-scaling-group-recommendations-response
+                       common-lisp:nil
+                       ((s3destination :initarg :|s3Destination| :type
+                         (common-lisp:or s3destination common-lisp:null)
+                         :accessor
+                         %export-auto-scaling-group-recommendations-response-s3destination
+                         :initform common-lisp:nil)
+                        (job-id :initarg :|jobId| :type
+                         (common-lisp:or job-id common-lisp:null) :accessor
+                         %export-auto-scaling-group-recommendations-response-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-auto-scaling-group-recommendations-response
                     'make-export-auto-scaling-group-recommendations-response))
+ (common-lisp:defun make-export-auto-scaling-group-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3destination job-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-auto-scaling-group-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1676,12 +2169,19 @@
                           export-auto-scaling-group-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-destination-"))
-   (s3 common-lisp:nil :type (common-lisp:or s3destination common-lisp:null)))
+ (common-lisp:defclass export-destination common-lisp:nil
+                       ((s3 :initarg :|s3| :type
+                         (common-lisp:or s3destination common-lisp:null)
+                         :accessor %export-destination-s3 :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-destination 'make-export-destination))
+ (common-lisp:defun make-export-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3)
+   (common-lisp:apply #'common-lisp:make-instance 'export-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input export-destination))
    (common-lisp:append))
@@ -1699,23 +2199,53 @@
                         ((aws-sdk/generator/shape::input export-destination))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-ebsvolume-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-ebsvolume-recommendations-request-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (filters common-lisp:nil :type (common-lisp:or ebsfilters common-lisp:null))
-   (fields-to-export common-lisp:nil :type
-    (common-lisp:or exportable-volume-fields common-lisp:null))
-   (s3destination-config (common-lisp:error ":s3destinationconfig is required")
-    :type (common-lisp:or s3destination-config common-lisp:null))
-   (file-format common-lisp:nil :type
-    (common-lisp:or file-format common-lisp:null))
-   (include-member-accounts common-lisp:nil :type
-    (common-lisp:or include-member-accounts common-lisp:null)))
+ (common-lisp:defclass export-ebsvolume-recommendations-request common-lisp:nil
+                       ((include-member-accounts :initarg
+                         :|includeMemberAccounts| :type
+                         (common-lisp:or include-member-accounts
+                                         common-lisp:null)
+                         :accessor
+                         %export-ebsvolume-recommendations-request-include-member-accounts
+                         :initform common-lisp:nil)
+                        (file-format :initarg :|fileFormat| :type
+                         (common-lisp:or file-format common-lisp:null)
+                         :accessor
+                         %export-ebsvolume-recommendations-request-file-format
+                         :initform common-lisp:nil)
+                        (s3destination-config :initarg :|s3DestinationConfig|
+                         :type
+                         (common-lisp:or s3destination-config common-lisp:null)
+                         :accessor
+                         %export-ebsvolume-recommendations-request-s3destination-config
+                         :initform
+                         (common-lisp:error
+                          ":s3destinationconfig is required"))
+                        (fields-to-export :initarg :|fieldsToExport| :type
+                         (common-lisp:or exportable-volume-fields
+                                         common-lisp:null)
+                         :accessor
+                         %export-ebsvolume-recommendations-request-fields-to-export
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or ebsfilters common-lisp:null) :accessor
+                         %export-ebsvolume-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %export-ebsvolume-recommendations-request-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-ebsvolume-recommendations-request
                     'make-export-ebsvolume-recommendations-request))
+ (common-lisp:defun make-export-ebsvolume-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key include-member-accounts file-format
+                     s3destination-config fields-to-export filters account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-ebsvolume-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1776,15 +2306,27 @@
                           export-ebsvolume-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-ebsvolume-recommendations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-ebsvolume-recommendations-response-"))
-   (job-id common-lisp:nil :type (common-lisp:or job-id common-lisp:null))
-   (s3destination common-lisp:nil :type
-    (common-lisp:or s3destination common-lisp:null)))
+ (common-lisp:defclass export-ebsvolume-recommendations-response
+                       common-lisp:nil
+                       ((s3destination :initarg :|s3Destination| :type
+                         (common-lisp:or s3destination common-lisp:null)
+                         :accessor
+                         %export-ebsvolume-recommendations-response-s3destination
+                         :initform common-lisp:nil)
+                        (job-id :initarg :|jobId| :type
+                         (common-lisp:or job-id common-lisp:null) :accessor
+                         %export-ebsvolume-recommendations-response-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-ebsvolume-recommendations-response
                     'make-export-ebsvolume-recommendations-response))
+ (common-lisp:defun make-export-ebsvolume-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3destination job-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-ebsvolume-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1815,25 +2357,62 @@
                           export-ebsvolume-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-ec2instance-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-ec2instance-recommendations-request-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (filters common-lisp:nil :type (common-lisp:or filters common-lisp:null))
-   (fields-to-export common-lisp:nil :type
-    (common-lisp:or exportable-instance-fields common-lisp:null))
-   (s3destination-config (common-lisp:error ":s3destinationconfig is required")
-    :type (common-lisp:or s3destination-config common-lisp:null))
-   (file-format common-lisp:nil :type
-    (common-lisp:or file-format common-lisp:null))
-   (include-member-accounts common-lisp:nil :type
-    (common-lisp:or include-member-accounts common-lisp:null))
-   (recommendation-preferences common-lisp:nil :type
-    (common-lisp:or recommendation-preferences common-lisp:null)))
+ (common-lisp:defclass export-ec2instance-recommendations-request
+                       common-lisp:nil
+                       ((recommendation-preferences :initarg
+                         :|recommendationPreferences| :type
+                         (common-lisp:or recommendation-preferences
+                                         common-lisp:null)
+                         :accessor
+                         %export-ec2instance-recommendations-request-recommendation-preferences
+                         :initform common-lisp:nil)
+                        (include-member-accounts :initarg
+                         :|includeMemberAccounts| :type
+                         (common-lisp:or include-member-accounts
+                                         common-lisp:null)
+                         :accessor
+                         %export-ec2instance-recommendations-request-include-member-accounts
+                         :initform common-lisp:nil)
+                        (file-format :initarg :|fileFormat| :type
+                         (common-lisp:or file-format common-lisp:null)
+                         :accessor
+                         %export-ec2instance-recommendations-request-file-format
+                         :initform common-lisp:nil)
+                        (s3destination-config :initarg :|s3DestinationConfig|
+                         :type
+                         (common-lisp:or s3destination-config common-lisp:null)
+                         :accessor
+                         %export-ec2instance-recommendations-request-s3destination-config
+                         :initform
+                         (common-lisp:error
+                          ":s3destinationconfig is required"))
+                        (fields-to-export :initarg :|fieldsToExport| :type
+                         (common-lisp:or exportable-instance-fields
+                                         common-lisp:null)
+                         :accessor
+                         %export-ec2instance-recommendations-request-fields-to-export
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or filters common-lisp:null) :accessor
+                         %export-ec2instance-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %export-ec2instance-recommendations-request-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-ec2instance-recommendations-request
                     'make-export-ec2instance-recommendations-request))
+ (common-lisp:defun make-export-ec2instance-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-preferences
+                     include-member-accounts file-format s3destination-config
+                     fields-to-export filters account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-ec2instance-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1902,15 +2481,27 @@
                           export-ec2instance-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-ec2instance-recommendations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-ec2instance-recommendations-response-"))
-   (job-id common-lisp:nil :type (common-lisp:or job-id common-lisp:null))
-   (s3destination common-lisp:nil :type
-    (common-lisp:or s3destination common-lisp:null)))
+ (common-lisp:defclass export-ec2instance-recommendations-response
+                       common-lisp:nil
+                       ((s3destination :initarg :|s3Destination| :type
+                         (common-lisp:or s3destination common-lisp:null)
+                         :accessor
+                         %export-ec2instance-recommendations-response-s3destination
+                         :initform common-lisp:nil)
+                        (job-id :initarg :|jobId| :type
+                         (common-lisp:or job-id common-lisp:null) :accessor
+                         %export-ec2instance-recommendations-response-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-ec2instance-recommendations-response
                     'make-export-ec2instance-recommendations-response))
+ (common-lisp:defun make-export-ec2instance-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3destination job-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-ec2instance-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1941,24 +2532,56 @@
                           export-ec2instance-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-ecsservice-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-ecsservice-recommendations-request-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or ecsservice-recommendation-filters common-lisp:null))
-   (fields-to-export common-lisp:nil :type
-    (common-lisp:or exportable-ecsservice-fields common-lisp:null))
-   (s3destination-config (common-lisp:error ":s3destinationconfig is required")
-    :type (common-lisp:or s3destination-config common-lisp:null))
-   (file-format common-lisp:nil :type
-    (common-lisp:or file-format common-lisp:null))
-   (include-member-accounts common-lisp:nil :type
-    (common-lisp:or include-member-accounts common-lisp:null)))
+ (common-lisp:defclass export-ecsservice-recommendations-request
+                       common-lisp:nil
+                       ((include-member-accounts :initarg
+                         :|includeMemberAccounts| :type
+                         (common-lisp:or include-member-accounts
+                                         common-lisp:null)
+                         :accessor
+                         %export-ecsservice-recommendations-request-include-member-accounts
+                         :initform common-lisp:nil)
+                        (file-format :initarg :|fileFormat| :type
+                         (common-lisp:or file-format common-lisp:null)
+                         :accessor
+                         %export-ecsservice-recommendations-request-file-format
+                         :initform common-lisp:nil)
+                        (s3destination-config :initarg :|s3DestinationConfig|
+                         :type
+                         (common-lisp:or s3destination-config common-lisp:null)
+                         :accessor
+                         %export-ecsservice-recommendations-request-s3destination-config
+                         :initform
+                         (common-lisp:error
+                          ":s3destinationconfig is required"))
+                        (fields-to-export :initarg :|fieldsToExport| :type
+                         (common-lisp:or exportable-ecsservice-fields
+                                         common-lisp:null)
+                         :accessor
+                         %export-ecsservice-recommendations-request-fields-to-export
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or ecsservice-recommendation-filters
+                                         common-lisp:null)
+                         :accessor
+                         %export-ecsservice-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %export-ecsservice-recommendations-request-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-ecsservice-recommendations-request
                     'make-export-ecsservice-recommendations-request))
+ (common-lisp:defun make-export-ecsservice-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key include-member-accounts file-format
+                     s3destination-config fields-to-export filters account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-ecsservice-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2019,15 +2642,27 @@
                           export-ecsservice-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-ecsservice-recommendations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-ecsservice-recommendations-response-"))
-   (job-id common-lisp:nil :type (common-lisp:or job-id common-lisp:null))
-   (s3destination common-lisp:nil :type
-    (common-lisp:or s3destination common-lisp:null)))
+ (common-lisp:defclass export-ecsservice-recommendations-response
+                       common-lisp:nil
+                       ((s3destination :initarg :|s3Destination| :type
+                         (common-lisp:or s3destination common-lisp:null)
+                         :accessor
+                         %export-ecsservice-recommendations-response-s3destination
+                         :initform common-lisp:nil)
+                        (job-id :initarg :|jobId| :type
+                         (common-lisp:or job-id common-lisp:null) :accessor
+                         %export-ecsservice-recommendations-response-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-ecsservice-recommendations-response
                     'make-export-ecsservice-recommendations-response))
+ (common-lisp:defun make-export-ecsservice-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3destination job-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-ecsservice-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2058,25 +2693,56 @@
                           export-ecsservice-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-lambda-function-recommendations-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-export-lambda-function-recommendations-request-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or lambda-function-recommendation-filters common-lisp:null))
-   (fields-to-export common-lisp:nil :type
-    (common-lisp:or exportable-lambda-function-fields common-lisp:null))
-   (s3destination-config (common-lisp:error ":s3destinationconfig is required")
-    :type (common-lisp:or s3destination-config common-lisp:null))
-   (file-format common-lisp:nil :type
-    (common-lisp:or file-format common-lisp:null))
-   (include-member-accounts common-lisp:nil :type
-    (common-lisp:or include-member-accounts common-lisp:null)))
+ (common-lisp:defclass export-lambda-function-recommendations-request
+                       common-lisp:nil
+                       ((include-member-accounts :initarg
+                         :|includeMemberAccounts| :type
+                         (common-lisp:or include-member-accounts
+                                         common-lisp:null)
+                         :accessor
+                         %export-lambda-function-recommendations-request-include-member-accounts
+                         :initform common-lisp:nil)
+                        (file-format :initarg :|fileFormat| :type
+                         (common-lisp:or file-format common-lisp:null)
+                         :accessor
+                         %export-lambda-function-recommendations-request-file-format
+                         :initform common-lisp:nil)
+                        (s3destination-config :initarg :|s3DestinationConfig|
+                         :type
+                         (common-lisp:or s3destination-config common-lisp:null)
+                         :accessor
+                         %export-lambda-function-recommendations-request-s3destination-config
+                         :initform
+                         (common-lisp:error
+                          ":s3destinationconfig is required"))
+                        (fields-to-export :initarg :|fieldsToExport| :type
+                         (common-lisp:or exportable-lambda-function-fields
+                                         common-lisp:null)
+                         :accessor
+                         %export-lambda-function-recommendations-request-fields-to-export
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or lambda-function-recommendation-filters
+                                         common-lisp:null)
+                         :accessor
+                         %export-lambda-function-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %export-lambda-function-recommendations-request-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-lambda-function-recommendations-request
                     'make-export-lambda-function-recommendations-request))
+ (common-lisp:defun make-export-lambda-function-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key include-member-accounts file-format
+                     s3destination-config fields-to-export filters account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-lambda-function-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2137,16 +2803,27 @@
                           export-lambda-function-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-lambda-function-recommendations-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-export-lambda-function-recommendations-response-"))
-   (job-id common-lisp:nil :type (common-lisp:or job-id common-lisp:null))
-   (s3destination common-lisp:nil :type
-    (common-lisp:or s3destination common-lisp:null)))
+ (common-lisp:defclass export-lambda-function-recommendations-response
+                       common-lisp:nil
+                       ((s3destination :initarg :|s3Destination| :type
+                         (common-lisp:or s3destination common-lisp:null)
+                         :accessor
+                         %export-lambda-function-recommendations-response-s3destination
+                         :initform common-lisp:nil)
+                        (job-id :initarg :|jobId| :type
+                         (common-lisp:or job-id common-lisp:null) :accessor
+                         %export-lambda-function-recommendations-response-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-lambda-function-recommendations-response
                     'make-export-lambda-function-recommendations-response))
+ (common-lisp:defun make-export-lambda-function-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3destination job-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-lambda-function-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2226,14 +2903,21 @@
                            (trivial-types:proper-list exportable-volume-field))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (external-metrics-preference (:copier common-lisp:nil)
-      (:conc-name "struct-shape-external-metrics-preference-"))
-   (source common-lisp:nil :type
-    (common-lisp:or external-metrics-source common-lisp:null)))
+ (common-lisp:defclass external-metrics-preference common-lisp:nil
+                       ((source :initarg :|source| :type
+                         (common-lisp:or external-metrics-source
+                                         common-lisp:null)
+                         :accessor %external-metrics-preference-source
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'external-metrics-preference
                     'make-external-metrics-preference))
+ (common-lisp:defun make-external-metrics-preference
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key source)
+   (common-lisp:apply #'common-lisp:make-instance 'external-metrics-preference
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2260,12 +2944,20 @@
 (common-lisp:deftype failure-reason () 'common-lisp:string)
 (common-lisp:deftype file-format () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (filter (:copier common-lisp:nil) (:conc-name "struct-shape-filter-"))
-   (name common-lisp:nil :type (common-lisp:or filter-name common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass filter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor %filter-values :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or filter-name common-lisp:null)
+                         :accessor %filter-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'filter 'make-filter))
+ (common-lisp:defun make-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance 'filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input filter))
    (common-lisp:append))
@@ -2319,24 +3011,52 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype function-version () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-auto-scaling-group-recommendations-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-auto-scaling-group-recommendations-request-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (auto-scaling-group-arns common-lisp:nil :type
-    (common-lisp:or auto-scaling-group-arns common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (filters common-lisp:nil :type (common-lisp:or filters common-lisp:null))
-   (recommendation-preferences common-lisp:nil :type
-    (common-lisp:or recommendation-preferences common-lisp:null)))
+ (common-lisp:defclass get-auto-scaling-group-recommendations-request
+                       common-lisp:nil
+                       ((recommendation-preferences :initarg
+                         :|recommendationPreferences| :type
+                         (common-lisp:or recommendation-preferences
+                                         common-lisp:null)
+                         :accessor
+                         %get-auto-scaling-group-recommendations-request-recommendation-preferences
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or filters common-lisp:null) :accessor
+                         %get-auto-scaling-group-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-auto-scaling-group-recommendations-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-auto-scaling-group-recommendations-request-next-token
+                         :initform common-lisp:nil)
+                        (auto-scaling-group-arns :initarg
+                         :|autoScalingGroupArns| :type
+                         (common-lisp:or auto-scaling-group-arns
+                                         common-lisp:null)
+                         :accessor
+                         %get-auto-scaling-group-recommendations-request-auto-scaling-group-arns
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %get-auto-scaling-group-recommendations-request-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-auto-scaling-group-recommendations-request
                     'make-get-auto-scaling-group-recommendations-request))
+ (common-lisp:defun make-get-auto-scaling-group-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-preferences filters
+                     max-results next-token auto-scaling-group-arns
+                     account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-auto-scaling-group-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2397,19 +3117,36 @@
                           get-auto-scaling-group-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-auto-scaling-group-recommendations-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-auto-scaling-group-recommendations-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (auto-scaling-group-recommendations common-lisp:nil :type
-    (common-lisp:or auto-scaling-group-recommendations common-lisp:null))
-   (errors common-lisp:nil :type
-    (common-lisp:or get-recommendation-errors common-lisp:null)))
+ (common-lisp:defclass get-auto-scaling-group-recommendations-response
+                       common-lisp:nil
+                       ((errors :initarg :|errors| :type
+                         (common-lisp:or get-recommendation-errors
+                                         common-lisp:null)
+                         :accessor
+                         %get-auto-scaling-group-recommendations-response-errors
+                         :initform common-lisp:nil)
+                        (auto-scaling-group-recommendations :initarg
+                         :|autoScalingGroupRecommendations| :type
+                         (common-lisp:or auto-scaling-group-recommendations
+                                         common-lisp:null)
+                         :accessor
+                         %get-auto-scaling-group-recommendations-response-auto-scaling-group-recommendations
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-auto-scaling-group-recommendations-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-auto-scaling-group-recommendations-response
                     'make-get-auto-scaling-group-recommendations-response))
+ (common-lisp:defun make-get-auto-scaling-group-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors auto-scaling-group-recommendations
+                     next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-auto-scaling-group-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2448,21 +3185,41 @@
                           get-auto-scaling-group-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ebsvolume-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-ebsvolume-recommendations-request-"))
-   (volume-arns common-lisp:nil :type
-    (common-lisp:or volume-arns common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (filters common-lisp:nil :type (common-lisp:or ebsfilters common-lisp:null))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null)))
+ (common-lisp:defclass get-ebsvolume-recommendations-request common-lisp:nil
+                       ((account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %get-ebsvolume-recommendations-request-account-ids
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or ebsfilters common-lisp:null) :accessor
+                         %get-ebsvolume-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-ebsvolume-recommendations-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-ebsvolume-recommendations-request-next-token
+                         :initform common-lisp:nil)
+                        (volume-arns :initarg :|volumeArns| :type
+                         (common-lisp:or volume-arns common-lisp:null)
+                         :accessor
+                         %get-ebsvolume-recommendations-request-volume-arns
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ebsvolume-recommendations-request
                     'make-get-ebsvolume-recommendations-request))
+ (common-lisp:defun make-get-ebsvolume-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-ids filters max-results
+                     next-token volume-arns)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ebsvolume-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2514,18 +3271,34 @@
                           get-ebsvolume-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ebsvolume-recommendations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-ebsvolume-recommendations-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (volume-recommendations common-lisp:nil :type
-    (common-lisp:or volume-recommendations common-lisp:null))
-   (errors common-lisp:nil :type
-    (common-lisp:or get-recommendation-errors common-lisp:null)))
+ (common-lisp:defclass get-ebsvolume-recommendations-response common-lisp:nil
+                       ((errors :initarg :|errors| :type
+                         (common-lisp:or get-recommendation-errors
+                                         common-lisp:null)
+                         :accessor
+                         %get-ebsvolume-recommendations-response-errors
+                         :initform common-lisp:nil)
+                        (volume-recommendations :initarg
+                         :|volumeRecommendations| :type
+                         (common-lisp:or volume-recommendations
+                                         common-lisp:null)
+                         :accessor
+                         %get-ebsvolume-recommendations-response-volume-recommendations
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-ebsvolume-recommendations-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ebsvolume-recommendations-response
                     'make-get-ebsvolume-recommendations-response))
+ (common-lisp:defun make-get-ebsvolume-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors volume-recommendations next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ebsvolume-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2564,23 +3337,48 @@
                           get-ebsvolume-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ec2instance-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-ec2instance-recommendations-request-"))
-   (instance-arns common-lisp:nil :type
-    (common-lisp:or instance-arns common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (filters common-lisp:nil :type (common-lisp:or filters common-lisp:null))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (recommendation-preferences common-lisp:nil :type
-    (common-lisp:or recommendation-preferences common-lisp:null)))
+ (common-lisp:defclass get-ec2instance-recommendations-request common-lisp:nil
+                       ((recommendation-preferences :initarg
+                         :|recommendationPreferences| :type
+                         (common-lisp:or recommendation-preferences
+                                         common-lisp:null)
+                         :accessor
+                         %get-ec2instance-recommendations-request-recommendation-preferences
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %get-ec2instance-recommendations-request-account-ids
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or filters common-lisp:null) :accessor
+                         %get-ec2instance-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-ec2instance-recommendations-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-ec2instance-recommendations-request-next-token
+                         :initform common-lisp:nil)
+                        (instance-arns :initarg :|instanceArns| :type
+                         (common-lisp:or instance-arns common-lisp:null)
+                         :accessor
+                         %get-ec2instance-recommendations-request-instance-arns
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ec2instance-recommendations-request
                     'make-get-ec2instance-recommendations-request))
+ (common-lisp:defun make-get-ec2instance-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-preferences account-ids
+                     filters max-results next-token instance-arns)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ec2instance-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2640,18 +3438,35 @@
                           get-ec2instance-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ec2instance-recommendations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-ec2instance-recommendations-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (instance-recommendations common-lisp:nil :type
-    (common-lisp:or instance-recommendations common-lisp:null))
-   (errors common-lisp:nil :type
-    (common-lisp:or get-recommendation-errors common-lisp:null)))
+ (common-lisp:defclass get-ec2instance-recommendations-response common-lisp:nil
+                       ((errors :initarg :|errors| :type
+                         (common-lisp:or get-recommendation-errors
+                                         common-lisp:null)
+                         :accessor
+                         %get-ec2instance-recommendations-response-errors
+                         :initform common-lisp:nil)
+                        (instance-recommendations :initarg
+                         :|instanceRecommendations| :type
+                         (common-lisp:or instance-recommendations
+                                         common-lisp:null)
+                         :accessor
+                         %get-ec2instance-recommendations-response-instance-recommendations
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-ec2instance-recommendations-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ec2instance-recommendations-response
                     'make-get-ec2instance-recommendations-response))
+ (common-lisp:defun make-get-ec2instance-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors instance-recommendations
+                     next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ec2instance-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2690,25 +3505,50 @@
                           get-ec2instance-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ec2recommendation-projected-metrics-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-ec2recommendation-projected-metrics-request-"))
-   (instance-arn (common-lisp:error ":instancearn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (stat (common-lisp:error ":stat is required") :type
-    (common-lisp:or metric-statistic common-lisp:null))
-   (period (common-lisp:error ":period is required") :type
-    (common-lisp:or period common-lisp:null))
-   (start-time (common-lisp:error ":starttime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (end-time (common-lisp:error ":endtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (recommendation-preferences common-lisp:nil :type
-    (common-lisp:or recommendation-preferences common-lisp:null)))
+ (common-lisp:defclass get-ec2recommendation-projected-metrics-request
+                       common-lisp:nil
+                       ((recommendation-preferences :initarg
+                         :|recommendationPreferences| :type
+                         (common-lisp:or recommendation-preferences
+                                         common-lisp:null)
+                         :accessor
+                         %get-ec2recommendation-projected-metrics-request-recommendation-preferences
+                         :initform common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-ec2recommendation-projected-metrics-request-end-time
+                         :initform (common-lisp:error ":endtime is required"))
+                        (start-time :initarg :|startTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-ec2recommendation-projected-metrics-request-start-time
+                         :initform
+                         (common-lisp:error ":starttime is required"))
+                        (period :initarg :|period| :type
+                         (common-lisp:or period common-lisp:null) :accessor
+                         %get-ec2recommendation-projected-metrics-request-period
+                         :initform (common-lisp:error ":period is required"))
+                        (stat :initarg :|stat| :type
+                         (common-lisp:or metric-statistic common-lisp:null)
+                         :accessor
+                         %get-ec2recommendation-projected-metrics-request-stat
+                         :initform (common-lisp:error ":stat is required"))
+                        (instance-arn :initarg :|instanceArn| :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %get-ec2recommendation-projected-metrics-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instancearn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-ec2recommendation-projected-metrics-request
                     'make-get-ec2recommendation-projected-metrics-request))
+ (common-lisp:defun make-get-ec2recommendation-projected-metrics-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-preferences end-time
+                     start-time period stat instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ec2recommendation-projected-metrics-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2768,16 +3608,25 @@
                           get-ec2recommendation-projected-metrics-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ec2recommendation-projected-metrics-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-ec2recommendation-projected-metrics-response-"))
-   (recommended-option-projected-metrics common-lisp:nil :type
-    (common-lisp:or recommended-option-projected-metrics common-lisp:null)))
+ (common-lisp:defclass get-ec2recommendation-projected-metrics-response
+                       common-lisp:nil
+                       ((recommended-option-projected-metrics :initarg
+                         :|recommendedOptionProjectedMetrics| :type
+                         (common-lisp:or recommended-option-projected-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %get-ec2recommendation-projected-metrics-response-recommended-option-projected-metrics
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ec2recommendation-projected-metrics-response
                     'make-get-ec2recommendation-projected-metrics-response))
+ (common-lisp:defun make-get-ec2recommendation-projected-metrics-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommended-option-projected-metrics)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ec2recommendation-projected-metrics-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2802,24 +3651,43 @@
                           get-ec2recommendation-projected-metrics-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ecsservice-recommendation-projected-metrics-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-ecsservice-recommendation-projected-metrics-request-"))
-   (service-arn (common-lisp:error ":servicearn is required") :type
-    (common-lisp:or service-arn common-lisp:null))
-   (stat (common-lisp:error ":stat is required") :type
-    (common-lisp:or metric-statistic common-lisp:null))
-   (period (common-lisp:error ":period is required") :type
-    (common-lisp:or period common-lisp:null))
-   (start-time (common-lisp:error ":starttime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (end-time (common-lisp:error ":endtime is required") :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass get-ecsservice-recommendation-projected-metrics-request
+                       common-lisp:nil
+                       ((end-time :initarg :|endTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-ecsservice-recommendation-projected-metrics-request-end-time
+                         :initform (common-lisp:error ":endtime is required"))
+                        (start-time :initarg :|startTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-ecsservice-recommendation-projected-metrics-request-start-time
+                         :initform
+                         (common-lisp:error ":starttime is required"))
+                        (period :initarg :|period| :type
+                         (common-lisp:or period common-lisp:null) :accessor
+                         %get-ecsservice-recommendation-projected-metrics-request-period
+                         :initform (common-lisp:error ":period is required"))
+                        (stat :initarg :|stat| :type
+                         (common-lisp:or metric-statistic common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendation-projected-metrics-request-stat
+                         :initform (common-lisp:error ":stat is required"))
+                        (service-arn :initarg :|serviceArn| :type
+                         (common-lisp:or service-arn common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendation-projected-metrics-request-service-arn
+                         :initform
+                         (common-lisp:error ":servicearn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-ecsservice-recommendation-projected-metrics-request
                     'make-get-ecsservice-recommendation-projected-metrics-request))
+ (common-lisp:defun make-get-ecsservice-recommendation-projected-metrics-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key end-time start-time period stat
+                     service-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ecsservice-recommendation-projected-metrics-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2871,17 +3739,26 @@
                           get-ecsservice-recommendation-projected-metrics-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ecsservice-recommendation-projected-metrics-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-ecsservice-recommendation-projected-metrics-response-"))
-   (recommended-option-projected-metrics common-lisp:nil :type
-    (common-lisp:or ecsservice-recommended-option-projected-metrics
-                    common-lisp:null)))
+ (common-lisp:defclass get-ecsservice-recommendation-projected-metrics-response
+                       common-lisp:nil
+                       ((recommended-option-projected-metrics :initarg
+                         :|recommendedOptionProjectedMetrics| :type
+                         (common-lisp:or
+                          ecsservice-recommended-option-projected-metrics
+                          common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendation-projected-metrics-response-recommended-option-projected-metrics
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ecsservice-recommendation-projected-metrics-response
                     'make-get-ecsservice-recommendation-projected-metrics-response))
+ (common-lisp:defun make-get-ecsservice-recommendation-projected-metrics-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommended-option-projected-metrics)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ecsservice-recommendation-projected-metrics-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2906,22 +3783,43 @@
                           get-ecsservice-recommendation-projected-metrics-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ecsservice-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-ecsservice-recommendations-request-"))
-   (service-arns common-lisp:nil :type
-    (common-lisp:or service-arns common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or ecsservice-recommendation-filters common-lisp:null))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null)))
+ (common-lisp:defclass get-ecsservice-recommendations-request common-lisp:nil
+                       ((account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendations-request-account-ids
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or ecsservice-recommendation-filters
+                                         common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendations-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-ecsservice-recommendations-request-next-token
+                         :initform common-lisp:nil)
+                        (service-arns :initarg :|serviceArns| :type
+                         (common-lisp:or service-arns common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendations-request-service-arns
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ecsservice-recommendations-request
                     'make-get-ecsservice-recommendations-request))
+ (common-lisp:defun make-get-ecsservice-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-ids filters max-results
+                     next-token service-arns)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ecsservice-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2973,18 +3871,35 @@
                           get-ecsservice-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-ecsservice-recommendations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-ecsservice-recommendations-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (ecs-service-recommendations common-lisp:nil :type
-    (common-lisp:or ecsservice-recommendations common-lisp:null))
-   (errors common-lisp:nil :type
-    (common-lisp:or get-recommendation-errors common-lisp:null)))
+ (common-lisp:defclass get-ecsservice-recommendations-response common-lisp:nil
+                       ((errors :initarg :|errors| :type
+                         (common-lisp:or get-recommendation-errors
+                                         common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendations-response-errors
+                         :initform common-lisp:nil)
+                        (ecs-service-recommendations :initarg
+                         :|ecsServiceRecommendations| :type
+                         (common-lisp:or ecsservice-recommendations
+                                         common-lisp:null)
+                         :accessor
+                         %get-ecsservice-recommendations-response-ecs-service-recommendations
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-ecsservice-recommendations-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-ecsservice-recommendations-response
                     'make-get-ecsservice-recommendations-response))
+ (common-lisp:defun make-get-ecsservice-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors ecs-service-recommendations
+                     next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-ecsservice-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3023,16 +3938,24 @@
                           get-ecsservice-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-effective-recommendation-preferences-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-effective-recommendation-preferences-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass get-effective-recommendation-preferences-request
+                       common-lisp:nil
+                       ((resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %get-effective-recommendation-preferences-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-effective-recommendation-preferences-request
                     'make-get-effective-recommendation-preferences-request))
+ (common-lisp:defun make-get-effective-recommendation-preferences-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-effective-recommendation-preferences-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3056,18 +3979,33 @@
                           get-effective-recommendation-preferences-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-effective-recommendation-preferences-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-effective-recommendation-preferences-response-"))
-   (enhanced-infrastructure-metrics common-lisp:nil :type
-    (common-lisp:or enhanced-infrastructure-metrics common-lisp:null))
-   (external-metrics-preference common-lisp:nil :type
-    (common-lisp:or external-metrics-preference common-lisp:null)))
+ (common-lisp:defclass get-effective-recommendation-preferences-response
+                       common-lisp:nil
+                       ((external-metrics-preference :initarg
+                         :|externalMetricsPreference| :type
+                         (common-lisp:or external-metrics-preference
+                                         common-lisp:null)
+                         :accessor
+                         %get-effective-recommendation-preferences-response-external-metrics-preference
+                         :initform common-lisp:nil)
+                        (enhanced-infrastructure-metrics :initarg
+                         :|enhancedInfrastructureMetrics| :type
+                         (common-lisp:or enhanced-infrastructure-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %get-effective-recommendation-preferences-response-enhanced-infrastructure-metrics
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-effective-recommendation-preferences-response
                     'make-get-effective-recommendation-preferences-response))
+ (common-lisp:defun make-get-effective-recommendation-preferences-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key external-metrics-preference
+                     enhanced-infrastructure-metrics)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-effective-recommendation-preferences-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3100,12 +4038,18 @@
                           get-effective-recommendation-preferences-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-enrollment-status-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-enrollment-status-request-")))
+ (common-lisp:defclass get-enrollment-status-request common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'get-enrollment-status-request
                     'make-get-enrollment-status-request))
+ (common-lisp:defun make-get-enrollment-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-enrollment-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3122,21 +4066,49 @@
                           get-enrollment-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-enrollment-status-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-enrollment-status-response-"))
-   (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
-   (status-reason common-lisp:nil :type
-    (common-lisp:or status-reason common-lisp:null))
-   (member-accounts-enrolled common-lisp:nil :type
-    (common-lisp:or member-accounts-enrolled common-lisp:null))
-   (last-updated-timestamp common-lisp:nil :type
-    (common-lisp:or last-updated-timestamp common-lisp:null))
-   (number-of-member-accounts-opted-in common-lisp:nil :type
-    (common-lisp:or number-of-member-accounts-opted-in common-lisp:null)))
+ (common-lisp:defclass get-enrollment-status-response common-lisp:nil
+                       ((number-of-member-accounts-opted-in :initarg
+                         :|numberOfMemberAccountsOptedIn| :type
+                         (common-lisp:or number-of-member-accounts-opted-in
+                                         common-lisp:null)
+                         :accessor
+                         %get-enrollment-status-response-number-of-member-accounts-opted-in
+                         :initform common-lisp:nil)
+                        (last-updated-timestamp :initarg
+                         :|lastUpdatedTimestamp| :type
+                         (common-lisp:or last-updated-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %get-enrollment-status-response-last-updated-timestamp
+                         :initform common-lisp:nil)
+                        (member-accounts-enrolled :initarg
+                         :|memberAccountsEnrolled| :type
+                         (common-lisp:or member-accounts-enrolled
+                                         common-lisp:null)
+                         :accessor
+                         %get-enrollment-status-response-member-accounts-enrolled
+                         :initform common-lisp:nil)
+                        (status-reason :initarg :|statusReason| :type
+                         (common-lisp:or status-reason common-lisp:null)
+                         :accessor
+                         %get-enrollment-status-response-status-reason
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %get-enrollment-status-response-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-enrollment-status-response
                     'make-get-enrollment-status-response))
+ (common-lisp:defun make-get-enrollment-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key number-of-member-accounts-opted-in
+                     last-updated-timestamp member-accounts-enrolled
+                     status-reason status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-enrollment-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3191,20 +4163,32 @@
                           get-enrollment-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-enrollment-statuses-for-organization-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-enrollment-statuses-for-organization-request-"))
-   (filters common-lisp:nil :type
-    (common-lisp:or enrollment-filters common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass get-enrollment-statuses-for-organization-request
+                       common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-enrollment-statuses-for-organization-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-enrollment-statuses-for-organization-request-next-token
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or enrollment-filters common-lisp:null)
+                         :accessor
+                         %get-enrollment-statuses-for-organization-request-filters
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-enrollment-statuses-for-organization-request
                     'make-get-enrollment-statuses-for-organization-request))
+ (common-lisp:defun make-get-enrollment-statuses-for-organization-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token filters)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-enrollment-statuses-for-organization-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3242,18 +4226,29 @@
                           get-enrollment-statuses-for-organization-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-enrollment-statuses-for-organization-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-enrollment-statuses-for-organization-response-"))
-   (account-enrollment-statuses common-lisp:nil :type
-    (common-lisp:or account-enrollment-statuses common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-enrollment-statuses-for-organization-response
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-enrollment-statuses-for-organization-response-next-token
+                         :initform common-lisp:nil)
+                        (account-enrollment-statuses :initarg
+                         :|accountEnrollmentStatuses| :type
+                         (common-lisp:or account-enrollment-statuses
+                                         common-lisp:null)
+                         :accessor
+                         %get-enrollment-statuses-for-organization-response-account-enrollment-statuses
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-enrollment-statuses-for-organization-response
                     'make-get-enrollment-statuses-for-organization-response))
+ (common-lisp:defun make-get-enrollment-statuses-for-organization-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token account-enrollment-statuses)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-enrollment-statuses-for-organization-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3285,22 +4280,44 @@
                           get-enrollment-statuses-for-organization-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-lambda-function-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-lambda-function-recommendations-request-"))
-   (function-arns common-lisp:nil :type
-    (common-lisp:or function-arns common-lisp:null))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or lambda-function-recommendation-filters common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass get-lambda-function-recommendations-request
+                       common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-lambda-function-recommendations-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-lambda-function-recommendations-request-next-token
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or lambda-function-recommendation-filters
+                                         common-lisp:null)
+                         :accessor
+                         %get-lambda-function-recommendations-request-filters
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %get-lambda-function-recommendations-request-account-ids
+                         :initform common-lisp:nil)
+                        (function-arns :initarg :|functionArns| :type
+                         (common-lisp:or function-arns common-lisp:null)
+                         :accessor
+                         %get-lambda-function-recommendations-request-function-arns
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-lambda-function-recommendations-request
                     'make-get-lambda-function-recommendations-request))
+ (common-lisp:defun make-get-lambda-function-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token filters
+                     account-ids function-arns)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-lambda-function-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3352,17 +4369,30 @@
                           get-lambda-function-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-lambda-function-recommendations-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-lambda-function-recommendations-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (lambda-function-recommendations common-lisp:nil :type
-    (common-lisp:or lambda-function-recommendations common-lisp:null)))
+ (common-lisp:defclass get-lambda-function-recommendations-response
+                       common-lisp:nil
+                       ((lambda-function-recommendations :initarg
+                         :|lambdaFunctionRecommendations| :type
+                         (common-lisp:or lambda-function-recommendations
+                                         common-lisp:null)
+                         :accessor
+                         %get-lambda-function-recommendations-response-lambda-function-recommendations
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-lambda-function-recommendations-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-lambda-function-recommendations-response
                     'make-get-lambda-function-recommendations-response))
+ (common-lisp:defun make-get-lambda-function-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lambda-function-recommendations
+                     next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-lambda-function-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3394,15 +4424,27 @@
                           get-lambda-function-recommendations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recommendation-error (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recommendation-error-"))
-   (identifier common-lisp:nil :type
-    (common-lisp:or identifier common-lisp:null))
-   (code common-lisp:nil :type (common-lisp:or code common-lisp:null))
-   (message common-lisp:nil :type (common-lisp:or message common-lisp:null)))
+ (common-lisp:defclass get-recommendation-error common-lisp:nil
+                       ((message :initarg :|message| :type
+                         (common-lisp:or message common-lisp:null) :accessor
+                         %get-recommendation-error-message :initform
+                         common-lisp:nil)
+                        (code :initarg :|code| :type
+                         (common-lisp:or code common-lisp:null) :accessor
+                         %get-recommendation-error-code :initform
+                         common-lisp:nil)
+                        (identifier :initarg :|identifier| :type
+                         (common-lisp:or identifier common-lisp:null) :accessor
+                         %get-recommendation-error-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-recommendation-error 'make-get-recommendation-error))
+ (common-lisp:defun make-get-recommendation-error
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message code identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-recommendation-error
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3449,19 +4491,37 @@
                             get-recommendation-error))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recommendation-preferences-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recommendation-preferences-request-"))
-   (resource-type (common-lisp:error ":resourcetype is required") :type
-    (common-lisp:or resource-type common-lisp:null))
-   (scope common-lisp:nil :type (common-lisp:or scope common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass get-recommendation-preferences-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-recommendation-preferences-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-recommendation-preferences-request-next-token
+                         :initform common-lisp:nil)
+                        (scope :initarg :|scope| :type
+                         (common-lisp:or scope common-lisp:null) :accessor
+                         %get-recommendation-preferences-request-scope
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :|resourceType| :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %get-recommendation-preferences-request-resource-type
+                         :initform
+                         (common-lisp:error ":resourcetype is required"))))
  (common-lisp:export
   (common-lisp:list 'get-recommendation-preferences-request
                     'make-get-recommendation-preferences-request))
+ (common-lisp:defun make-get-recommendation-preferences-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token scope
+                     resource-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-recommendation-preferences-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3506,16 +4566,29 @@
                           get-recommendation-preferences-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recommendation-preferences-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recommendation-preferences-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (recommendation-preferences-details common-lisp:nil :type
-    (common-lisp:or recommendation-preferences-details common-lisp:null)))
+ (common-lisp:defclass get-recommendation-preferences-response common-lisp:nil
+                       ((recommendation-preferences-details :initarg
+                         :|recommendationPreferencesDetails| :type
+                         (common-lisp:or recommendation-preferences-details
+                                         common-lisp:null)
+                         :accessor
+                         %get-recommendation-preferences-response-recommendation-preferences-details
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-recommendation-preferences-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-recommendation-preferences-response
                     'make-get-recommendation-preferences-response))
+ (common-lisp:defun make-get-recommendation-preferences-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-preferences-details
+                     next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-recommendation-preferences-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3547,18 +4620,31 @@
                           get-recommendation-preferences-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recommendation-summaries-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recommendation-summaries-request-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-ids common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass get-recommendation-summaries-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %get-recommendation-summaries-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-recommendation-summaries-request-next-token
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :|accountIds| :type
+                         (common-lisp:or account-ids common-lisp:null)
+                         :accessor
+                         %get-recommendation-summaries-request-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-recommendation-summaries-request
                     'make-get-recommendation-summaries-request))
+ (common-lisp:defun make-get-recommendation-summaries-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-recommendation-summaries-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3596,16 +4682,28 @@
                           get-recommendation-summaries-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recommendation-summaries-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recommendation-summaries-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (recommendation-summaries common-lisp:nil :type
-    (common-lisp:or recommendation-summaries common-lisp:null)))
+ (common-lisp:defclass get-recommendation-summaries-response common-lisp:nil
+                       ((recommendation-summaries :initarg
+                         :|recommendationSummaries| :type
+                         (common-lisp:or recommendation-summaries
+                                         common-lisp:null)
+                         :accessor
+                         %get-recommendation-summaries-response-recommendation-summaries
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-recommendation-summaries-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-recommendation-summaries-response
                     'make-get-recommendation-summaries-response))
+ (common-lisp:defun make-get-recommendation-summaries-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-summaries next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-recommendation-summaries-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3660,41 +4758,110 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype instance-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (instance-recommendation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-instance-recommendation-"))
-   (instance-arn common-lisp:nil :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (instance-name common-lisp:nil :type
-    (common-lisp:or instance-name common-lisp:null))
-   (current-instance-type common-lisp:nil :type
-    (common-lisp:or current-instance-type common-lisp:null))
-   (finding common-lisp:nil :type (common-lisp:or finding common-lisp:null))
-   (finding-reason-codes common-lisp:nil :type
-    (common-lisp:or instance-recommendation-finding-reason-codes
-                    common-lisp:null))
-   (utilization-metrics common-lisp:nil :type
-    (common-lisp:or utilization-metrics common-lisp:null))
-   (look-back-period-in-days common-lisp:nil :type
-    (common-lisp:or look-back-period-in-days common-lisp:null))
-   (recommendation-options common-lisp:nil :type
-    (common-lisp:or recommendation-options common-lisp:null))
-   (recommendation-sources common-lisp:nil :type
-    (common-lisp:or recommendation-sources common-lisp:null))
-   (last-refresh-timestamp common-lisp:nil :type
-    (common-lisp:or last-refresh-timestamp common-lisp:null))
-   (current-performance-risk common-lisp:nil :type
-    (common-lisp:or current-performance-risk common-lisp:null))
-   (effective-recommendation-preferences common-lisp:nil :type
-    (common-lisp:or effective-recommendation-preferences common-lisp:null))
-   (inferred-workload-types common-lisp:nil :type
-    (common-lisp:or inferred-workload-types common-lisp:null))
-   (instance-state common-lisp:nil :type
-    (common-lisp:or instance-state common-lisp:null)))
+ (common-lisp:defclass instance-recommendation common-lisp:nil
+                       ((instance-state :initarg :|instanceState| :type
+                         (common-lisp:or instance-state common-lisp:null)
+                         :accessor %instance-recommendation-instance-state
+                         :initform common-lisp:nil)
+                        (inferred-workload-types :initarg
+                         :|inferredWorkloadTypes| :type
+                         (common-lisp:or inferred-workload-types
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-inferred-workload-types
+                         :initform common-lisp:nil)
+                        (effective-recommendation-preferences :initarg
+                         :|effectiveRecommendationPreferences| :type
+                         (common-lisp:or effective-recommendation-preferences
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-effective-recommendation-preferences
+                         :initform common-lisp:nil)
+                        (current-performance-risk :initarg
+                         :|currentPerformanceRisk| :type
+                         (common-lisp:or current-performance-risk
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-current-performance-risk
+                         :initform common-lisp:nil)
+                        (last-refresh-timestamp :initarg
+                         :|lastRefreshTimestamp| :type
+                         (common-lisp:or last-refresh-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-last-refresh-timestamp
+                         :initform common-lisp:nil)
+                        (recommendation-sources :initarg
+                         :|recommendationSources| :type
+                         (common-lisp:or recommendation-sources
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-recommendation-sources
+                         :initform common-lisp:nil)
+                        (recommendation-options :initarg
+                         :|recommendationOptions| :type
+                         (common-lisp:or recommendation-options
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-recommendation-options
+                         :initform common-lisp:nil)
+                        (look-back-period-in-days :initarg
+                         :|lookBackPeriodInDays| :type
+                         (common-lisp:or look-back-period-in-days
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-look-back-period-in-days
+                         :initform common-lisp:nil)
+                        (utilization-metrics :initarg :|utilizationMetrics|
+                         :type
+                         (common-lisp:or utilization-metrics common-lisp:null)
+                         :accessor %instance-recommendation-utilization-metrics
+                         :initform common-lisp:nil)
+                        (finding-reason-codes :initarg :|findingReasonCodes|
+                         :type
+                         (common-lisp:or
+                          instance-recommendation-finding-reason-codes
+                          common-lisp:null)
+                         :accessor
+                         %instance-recommendation-finding-reason-codes
+                         :initform common-lisp:nil)
+                        (finding :initarg :|finding| :type
+                         (common-lisp:or finding common-lisp:null) :accessor
+                         %instance-recommendation-finding :initform
+                         common-lisp:nil)
+                        (current-instance-type :initarg :|currentInstanceType|
+                         :type
+                         (common-lisp:or current-instance-type
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-current-instance-type
+                         :initform common-lisp:nil)
+                        (instance-name :initarg :|instanceName| :type
+                         (common-lisp:or instance-name common-lisp:null)
+                         :accessor %instance-recommendation-instance-name
+                         :initform common-lisp:nil)
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %instance-recommendation-account-id :initform
+                         common-lisp:nil)
+                        (instance-arn :initarg :|instanceArn| :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %instance-recommendation-instance-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'instance-recommendation 'make-instance-recommendation))
+ (common-lisp:defun make-instance-recommendation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key instance-state inferred-workload-types
+                     effective-recommendation-preferences
+                     current-performance-risk last-refresh-timestamp
+                     recommendation-sources recommendation-options
+                     look-back-period-in-days utilization-metrics
+                     finding-reason-codes finding current-instance-type
+                     instance-name account-id instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'instance-recommendation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3836,25 +5003,57 @@
                             instance-recommendation-finding-reason-code))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (instance-recommendation-option (:copier common-lisp:nil)
-      (:conc-name "struct-shape-instance-recommendation-option-"))
-   (instance-type common-lisp:nil :type
-    (common-lisp:or instance-type common-lisp:null))
-   (projected-utilization-metrics common-lisp:nil :type
-    (common-lisp:or projected-utilization-metrics common-lisp:null))
-   (platform-differences common-lisp:nil :type
-    (common-lisp:or platform-differences common-lisp:null))
-   (performance-risk common-lisp:nil :type
-    (common-lisp:or performance-risk common-lisp:null))
-   (rank common-lisp:nil :type (common-lisp:or rank common-lisp:null))
-   (savings-opportunity common-lisp:nil :type
-    (common-lisp:or savings-opportunity common-lisp:null))
-   (migration-effort common-lisp:nil :type
-    (common-lisp:or migration-effort common-lisp:null)))
+ (common-lisp:defclass instance-recommendation-option common-lisp:nil
+                       ((migration-effort :initarg :|migrationEffort| :type
+                         (common-lisp:or migration-effort common-lisp:null)
+                         :accessor
+                         %instance-recommendation-option-migration-effort
+                         :initform common-lisp:nil)
+                        (savings-opportunity :initarg :|savingsOpportunity|
+                         :type
+                         (common-lisp:or savings-opportunity common-lisp:null)
+                         :accessor
+                         %instance-recommendation-option-savings-opportunity
+                         :initform common-lisp:nil)
+                        (rank :initarg :|rank| :type
+                         (common-lisp:or rank common-lisp:null) :accessor
+                         %instance-recommendation-option-rank :initform
+                         common-lisp:nil)
+                        (performance-risk :initarg :|performanceRisk| :type
+                         (common-lisp:or performance-risk common-lisp:null)
+                         :accessor
+                         %instance-recommendation-option-performance-risk
+                         :initform common-lisp:nil)
+                        (platform-differences :initarg :|platformDifferences|
+                         :type
+                         (common-lisp:or platform-differences common-lisp:null)
+                         :accessor
+                         %instance-recommendation-option-platform-differences
+                         :initform common-lisp:nil)
+                        (projected-utilization-metrics :initarg
+                         :|projectedUtilizationMetrics| :type
+                         (common-lisp:or projected-utilization-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %instance-recommendation-option-projected-utilization-metrics
+                         :initform common-lisp:nil)
+                        (instance-type :initarg :|instanceType| :type
+                         (common-lisp:or instance-type common-lisp:null)
+                         :accessor
+                         %instance-recommendation-option-instance-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'instance-recommendation-option
                     'make-instance-recommendation-option))
+ (common-lisp:defun make-instance-recommendation-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key migration-effort savings-opportunity rank
+                     performance-risk platform-differences
+                     projected-utilization-metrics instance-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'instance-recommendation-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3934,7 +5133,7 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
@@ -3942,20 +5141,28 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-parameter-value-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-parameter-value-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-parameter-value-exception
                     'invalid-parameter-value-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (job-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-job-filter-"))
-   (name common-lisp:nil :type
-    (common-lisp:or job-filter-name common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass job-filter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor %job-filter-values :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or job-filter-name common-lisp:null)
+                         :accessor %job-filter-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'job-filter 'make-job-filter))
+ (common-lisp:defun make-job-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance 'job-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input job-filter))
    (common-lisp:append))
@@ -4000,18 +5207,35 @@
 (common-lisp:deftype lambda-function-memory-metric-statistic ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-function-memory-projected-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lambda-function-memory-projected-metric-"))
-   (name common-lisp:nil :type
-    (common-lisp:or lambda-function-memory-metric-name common-lisp:null))
-   (statistic common-lisp:nil :type
-    (common-lisp:or lambda-function-memory-metric-statistic common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or metric-value common-lisp:null)))
+ (common-lisp:defclass lambda-function-memory-projected-metric common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or metric-value common-lisp:null)
+                         :accessor
+                         %lambda-function-memory-projected-metric-value
+                         :initform common-lisp:nil)
+                        (statistic :initarg :|statistic| :type
+                         (common-lisp:or
+                          lambda-function-memory-metric-statistic
+                          common-lisp:null)
+                         :accessor
+                         %lambda-function-memory-projected-metric-statistic
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or lambda-function-memory-metric-name
+                                         common-lisp:null)
+                         :accessor
+                         %lambda-function-memory-projected-metric-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lambda-function-memory-projected-metric
                     'make-lambda-function-memory-projected-metric))
+ (common-lisp:defun make-lambda-function-memory-projected-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value statistic name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'lambda-function-memory-projected-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4058,20 +5282,42 @@
                             lambda-function-memory-projected-metric))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-function-memory-recommendation-option (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-lambda-function-memory-recommendation-option-"))
-   (rank common-lisp:nil :type (common-lisp:or rank common-lisp:null))
-   (memory-size common-lisp:nil :type
-    (common-lisp:or memory-size common-lisp:null))
-   (projected-utilization-metrics common-lisp:nil :type
-    (common-lisp:or lambda-function-memory-projected-metrics common-lisp:null))
-   (savings-opportunity common-lisp:nil :type
-    (common-lisp:or savings-opportunity common-lisp:null)))
+ (common-lisp:defclass lambda-function-memory-recommendation-option
+                       common-lisp:nil
+                       ((savings-opportunity :initarg :|savingsOpportunity|
+                         :type
+                         (common-lisp:or savings-opportunity common-lisp:null)
+                         :accessor
+                         %lambda-function-memory-recommendation-option-savings-opportunity
+                         :initform common-lisp:nil)
+                        (projected-utilization-metrics :initarg
+                         :|projectedUtilizationMetrics| :type
+                         (common-lisp:or
+                          lambda-function-memory-projected-metrics
+                          common-lisp:null)
+                         :accessor
+                         %lambda-function-memory-recommendation-option-projected-utilization-metrics
+                         :initform common-lisp:nil)
+                        (memory-size :initarg :|memorySize| :type
+                         (common-lisp:or memory-size common-lisp:null)
+                         :accessor
+                         %lambda-function-memory-recommendation-option-memory-size
+                         :initform common-lisp:nil)
+                        (rank :initarg :|rank| :type
+                         (common-lisp:or rank common-lisp:null) :accessor
+                         %lambda-function-memory-recommendation-option-rank
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lambda-function-memory-recommendation-option
                     'make-lambda-function-memory-recommendation-option))
+ (common-lisp:defun make-lambda-function-memory-recommendation-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key savings-opportunity
+                     projected-utilization-metrics memory-size rank)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'lambda-function-memory-recommendation-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4128,38 +5374,96 @@
 (common-lisp:deftype lambda-function-metric-name () 'common-lisp:string)
 (common-lisp:deftype lambda-function-metric-statistic () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-function-recommendation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lambda-function-recommendation-"))
-   (function-arn common-lisp:nil :type
-    (common-lisp:or function-arn common-lisp:null))
-   (function-version common-lisp:nil :type
-    (common-lisp:or function-version common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (current-memory-size common-lisp:nil :type
-    (common-lisp:or memory-size common-lisp:null))
-   (number-of-invocations common-lisp:nil :type
-    (common-lisp:or number-of-invocations common-lisp:null))
-   (utilization-metrics common-lisp:nil :type
-    (common-lisp:or lambda-function-utilization-metrics common-lisp:null))
-   (lookback-period-in-days common-lisp:nil :type
-    (common-lisp:or look-back-period-in-days common-lisp:null))
-   (last-refresh-timestamp common-lisp:nil :type
-    (common-lisp:or last-refresh-timestamp common-lisp:null))
-   (finding common-lisp:nil :type
-    (common-lisp:or lambda-function-recommendation-finding common-lisp:null))
-   (finding-reason-codes common-lisp:nil :type
-    (common-lisp:or lambda-function-recommendation-finding-reason-codes
-                    common-lisp:null))
-   (memory-size-recommendation-options common-lisp:nil :type
-    (common-lisp:or lambda-function-memory-recommendation-options
-                    common-lisp:null))
-   (current-performance-risk common-lisp:nil :type
-    (common-lisp:or current-performance-risk common-lisp:null)))
+ (common-lisp:defclass lambda-function-recommendation common-lisp:nil
+                       ((current-performance-risk :initarg
+                         :|currentPerformanceRisk| :type
+                         (common-lisp:or current-performance-risk
+                                         common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-current-performance-risk
+                         :initform common-lisp:nil)
+                        (memory-size-recommendation-options :initarg
+                         :|memorySizeRecommendationOptions| :type
+                         (common-lisp:or
+                          lambda-function-memory-recommendation-options
+                          common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-memory-size-recommendation-options
+                         :initform common-lisp:nil)
+                        (finding-reason-codes :initarg :|findingReasonCodes|
+                         :type
+                         (common-lisp:or
+                          lambda-function-recommendation-finding-reason-codes
+                          common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-finding-reason-codes
+                         :initform common-lisp:nil)
+                        (finding :initarg :|finding| :type
+                         (common-lisp:or lambda-function-recommendation-finding
+                                         common-lisp:null)
+                         :accessor %lambda-function-recommendation-finding
+                         :initform common-lisp:nil)
+                        (last-refresh-timestamp :initarg
+                         :|lastRefreshTimestamp| :type
+                         (common-lisp:or last-refresh-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-last-refresh-timestamp
+                         :initform common-lisp:nil)
+                        (lookback-period-in-days :initarg
+                         :|lookbackPeriodInDays| :type
+                         (common-lisp:or look-back-period-in-days
+                                         common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-lookback-period-in-days
+                         :initform common-lisp:nil)
+                        (utilization-metrics :initarg :|utilizationMetrics|
+                         :type
+                         (common-lisp:or lambda-function-utilization-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-utilization-metrics
+                         :initform common-lisp:nil)
+                        (number-of-invocations :initarg :|numberOfInvocations|
+                         :type
+                         (common-lisp:or number-of-invocations
+                                         common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-number-of-invocations
+                         :initform common-lisp:nil)
+                        (current-memory-size :initarg :|currentMemorySize|
+                         :type (common-lisp:or memory-size common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-current-memory-size
+                         :initform common-lisp:nil)
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %lambda-function-recommendation-account-id :initform
+                         common-lisp:nil)
+                        (function-version :initarg :|functionVersion| :type
+                         (common-lisp:or function-version common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-function-version
+                         :initform common-lisp:nil)
+                        (function-arn :initarg :|functionArn| :type
+                         (common-lisp:or function-arn common-lisp:null)
+                         :accessor %lambda-function-recommendation-function-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lambda-function-recommendation
                     'make-lambda-function-recommendation))
+ (common-lisp:defun make-lambda-function-recommendation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key current-performance-risk
+                     memory-size-recommendation-options finding-reason-codes
+                     finding last-refresh-timestamp lookback-period-in-days
+                     utilization-metrics number-of-invocations
+                     current-memory-size account-id function-version
+                     function-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'lambda-function-recommendation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4266,17 +5570,28 @@
                           lambda-function-recommendation))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-function-recommendation-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lambda-function-recommendation-filter-"))
-   (name common-lisp:nil :type
-    (common-lisp:or lambda-function-recommendation-filter-name
-                    common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass lambda-function-recommendation-filter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor
+                         %lambda-function-recommendation-filter-values
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or
+                          lambda-function-recommendation-filter-name
+                          common-lisp:null)
+                         :accessor %lambda-function-recommendation-filter-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lambda-function-recommendation-filter
                     'make-lambda-function-recommendation-filter))
+ (common-lisp:defun make-lambda-function-recommendation-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'lambda-function-recommendation-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4341,18 +5656,32 @@
                             lambda-function-recommendation))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-function-utilization-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lambda-function-utilization-metric-"))
-   (name common-lisp:nil :type
-    (common-lisp:or lambda-function-metric-name common-lisp:null))
-   (statistic common-lisp:nil :type
-    (common-lisp:or lambda-function-metric-statistic common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or metric-value common-lisp:null)))
+ (common-lisp:defclass lambda-function-utilization-metric common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or metric-value common-lisp:null)
+                         :accessor %lambda-function-utilization-metric-value
+                         :initform common-lisp:nil)
+                        (statistic :initarg :|statistic| :type
+                         (common-lisp:or lambda-function-metric-statistic
+                                         common-lisp:null)
+                         :accessor
+                         %lambda-function-utilization-metric-statistic
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or lambda-function-metric-name
+                                         common-lisp:null)
+                         :accessor %lambda-function-utilization-metric-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lambda-function-utilization-metric
                     'make-lambda-function-utilization-metric))
+ (common-lisp:defun make-lambda-function-utilization-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value statistic name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'lambda-function-utilization-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4403,7 +5732,7 @@
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        limit-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception
@@ -4417,16 +5746,26 @@
 (common-lisp:deftype member-accounts-enrolled () 'common-lisp:boolean)
 (common-lisp:deftype memory-size () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (memory-size-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-memory-size-configuration-"))
-   (memory common-lisp:nil :type
-    (common-lisp:or nullable-memory common-lisp:null))
-   (memory-reservation common-lisp:nil :type
-    (common-lisp:or nullable-memory-reservation common-lisp:null)))
+ (common-lisp:defclass memory-size-configuration common-lisp:nil
+                       ((memory-reservation :initarg :|memoryReservation| :type
+                         (common-lisp:or nullable-memory-reservation
+                                         common-lisp:null)
+                         :accessor
+                         %memory-size-configuration-memory-reservation
+                         :initform common-lisp:nil)
+                        (memory :initarg :|memory| :type
+                         (common-lisp:or nullable-memory common-lisp:null)
+                         :accessor %memory-size-configuration-memory :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'memory-size-configuration
                     'make-memory-size-configuration))
+ (common-lisp:defun make-memory-size-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key memory-reservation memory)
+   (common-lisp:apply #'common-lisp:make-instance 'memory-size-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4474,7 +5813,7 @@
 (common-lisp:progn
  (common-lisp:define-condition missing-authentication-token
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        missing-authentication-token-message)))
  (common-lisp:export
   (common-lisp:list 'missing-authentication-token
@@ -4488,7 +5827,7 @@
 (common-lisp:progn
  (common-lisp:define-condition opt-in-required-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        opt-in-required-exception-message)))
  (common-lisp:export
   (common-lisp:list 'opt-in-required-exception
@@ -4505,16 +5844,27 @@
                            (trivial-types:proper-list platform-difference))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (projected-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-projected-metric-"))
-   (name common-lisp:nil :type (common-lisp:or metric-name common-lisp:null))
-   (timestamps common-lisp:nil :type
-    (common-lisp:or timestamps common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or metric-values common-lisp:null)))
+ (common-lisp:defclass projected-metric common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or metric-values common-lisp:null)
+                         :accessor %projected-metric-values :initform
+                         common-lisp:nil)
+                        (timestamps :initarg :|timestamps| :type
+                         (common-lisp:or timestamps common-lisp:null) :accessor
+                         %projected-metric-timestamps :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or metric-name common-lisp:null)
+                         :accessor %projected-metric-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'projected-metric 'make-projected-metric))
+ (common-lisp:defun make-projected-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values timestamps name)
+   (common-lisp:apply #'common-lisp:make-instance 'projected-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input projected-metric))
    (common-lisp:append))
@@ -4562,21 +5912,50 @@
                            (trivial-types:proper-list utilization-metric))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-recommendation-preferences-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-recommendation-preferences-request-"))
-   (resource-type (common-lisp:error ":resourcetype is required") :type
-    (common-lisp:or resource-type common-lisp:null))
-   (scope common-lisp:nil :type (common-lisp:or scope common-lisp:null))
-   (enhanced-infrastructure-metrics common-lisp:nil :type
-    (common-lisp:or enhanced-infrastructure-metrics common-lisp:null))
-   (inferred-workload-types common-lisp:nil :type
-    (common-lisp:or inferred-workload-types-preference common-lisp:null))
-   (external-metrics-preference common-lisp:nil :type
-    (common-lisp:or external-metrics-preference common-lisp:null)))
+ (common-lisp:defclass put-recommendation-preferences-request common-lisp:nil
+                       ((external-metrics-preference :initarg
+                         :|externalMetricsPreference| :type
+                         (common-lisp:or external-metrics-preference
+                                         common-lisp:null)
+                         :accessor
+                         %put-recommendation-preferences-request-external-metrics-preference
+                         :initform common-lisp:nil)
+                        (inferred-workload-types :initarg
+                         :|inferredWorkloadTypes| :type
+                         (common-lisp:or inferred-workload-types-preference
+                                         common-lisp:null)
+                         :accessor
+                         %put-recommendation-preferences-request-inferred-workload-types
+                         :initform common-lisp:nil)
+                        (enhanced-infrastructure-metrics :initarg
+                         :|enhancedInfrastructureMetrics| :type
+                         (common-lisp:or enhanced-infrastructure-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %put-recommendation-preferences-request-enhanced-infrastructure-metrics
+                         :initform common-lisp:nil)
+                        (scope :initarg :|scope| :type
+                         (common-lisp:or scope common-lisp:null) :accessor
+                         %put-recommendation-preferences-request-scope
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :|resourceType| :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %put-recommendation-preferences-request-resource-type
+                         :initform
+                         (common-lisp:error ":resourcetype is required"))))
  (common-lisp:export
   (common-lisp:list 'put-recommendation-preferences-request
                     'make-put-recommendation-preferences-request))
+ (common-lisp:defun make-put-recommendation-preferences-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key external-metrics-preference
+                     inferred-workload-types enhanced-infrastructure-metrics
+                     scope resource-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-recommendation-preferences-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4631,12 +6010,18 @@
                           put-recommendation-preferences-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-recommendation-preferences-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-recommendation-preferences-response-")))
+ (common-lisp:defclass put-recommendation-preferences-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'put-recommendation-preferences-response
                     'make-put-recommendation-preferences-response))
+ (common-lisp:defun make-put-recommendation-preferences-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-recommendation-preferences-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4662,15 +6047,23 @@
                            (trivial-types:proper-list reason-code-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (reason-code-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reason-code-summary-"))
-   (name common-lisp:nil :type
-    (common-lisp:or finding-reason-code common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or summary-value common-lisp:null)))
+ (common-lisp:defclass reason-code-summary common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or summary-value common-lisp:null)
+                         :accessor %reason-code-summary-value :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or finding-reason-code common-lisp:null)
+                         :accessor %reason-code-summary-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'reason-code-summary 'make-reason-code-summary))
+ (common-lisp:defun make-reason-code-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value name)
+   (common-lisp:apply #'common-lisp:make-instance 'reason-code-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input reason-code-summary))
    (common-lisp:append))
@@ -4695,24 +6088,50 @@
                         ((aws-sdk/generator/shape::input reason-code-summary))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recommendation-export-job (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recommendation-export-job-"))
-   (job-id common-lisp:nil :type (common-lisp:or job-id common-lisp:null))
-   (destination common-lisp:nil :type
-    (common-lisp:or export-destination common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or job-status common-lisp:null))
-   (creation-timestamp common-lisp:nil :type
-    (common-lisp:or creation-timestamp common-lisp:null))
-   (last-updated-timestamp common-lisp:nil :type
-    (common-lisp:or last-updated-timestamp common-lisp:null))
-   (failure-reason common-lisp:nil :type
-    (common-lisp:or failure-reason common-lisp:null)))
+ (common-lisp:defclass recommendation-export-job common-lisp:nil
+                       ((failure-reason :initarg :|failureReason| :type
+                         (common-lisp:or failure-reason common-lisp:null)
+                         :accessor %recommendation-export-job-failure-reason
+                         :initform common-lisp:nil)
+                        (last-updated-timestamp :initarg
+                         :|lastUpdatedTimestamp| :type
+                         (common-lisp:or last-updated-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-export-job-last-updated-timestamp
+                         :initform common-lisp:nil)
+                        (creation-timestamp :initarg :|creationTimestamp| :type
+                         (common-lisp:or creation-timestamp common-lisp:null)
+                         :accessor
+                         %recommendation-export-job-creation-timestamp
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or job-status common-lisp:null) :accessor
+                         %recommendation-export-job-status :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :|resourceType| :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %recommendation-export-job-resource-type
+                         :initform common-lisp:nil)
+                        (destination :initarg :|destination| :type
+                         (common-lisp:or export-destination common-lisp:null)
+                         :accessor %recommendation-export-job-destination
+                         :initform common-lisp:nil)
+                        (job-id :initarg :|jobId| :type
+                         (common-lisp:or job-id common-lisp:null) :accessor
+                         %recommendation-export-job-job-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recommendation-export-job
                     'make-recommendation-export-job))
+ (common-lisp:defun make-recommendation-export-job
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failure-reason last-updated-timestamp
+                     creation-timestamp status resource-type destination
+                     job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'recommendation-export-job
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4807,14 +6226,23 @@
                             recommendation-preference-name))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recommendation-preferences (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recommendation-preferences-"))
-   (cpu-vendor-architectures common-lisp:nil :type
-    (common-lisp:or cpu-vendor-architectures common-lisp:null)))
+ (common-lisp:defclass recommendation-preferences common-lisp:nil
+                       ((cpu-vendor-architectures :initarg
+                         :|cpuVendorArchitectures| :type
+                         (common-lisp:or cpu-vendor-architectures
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-preferences-cpu-vendor-architectures
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recommendation-preferences
                     'make-recommendation-preferences))
+ (common-lisp:defun make-recommendation-preferences
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cpu-vendor-architectures)
+   (common-lisp:apply #'common-lisp:make-instance 'recommendation-preferences
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4839,21 +6267,49 @@
                           recommendation-preferences))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recommendation-preferences-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recommendation-preferences-detail-"))
-   (scope common-lisp:nil :type (common-lisp:or scope common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (enhanced-infrastructure-metrics common-lisp:nil :type
-    (common-lisp:or enhanced-infrastructure-metrics common-lisp:null))
-   (inferred-workload-types common-lisp:nil :type
-    (common-lisp:or inferred-workload-types-preference common-lisp:null))
-   (external-metrics-preference common-lisp:nil :type
-    (common-lisp:or external-metrics-preference common-lisp:null)))
+ (common-lisp:defclass recommendation-preferences-detail common-lisp:nil
+                       ((external-metrics-preference :initarg
+                         :|externalMetricsPreference| :type
+                         (common-lisp:or external-metrics-preference
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-preferences-detail-external-metrics-preference
+                         :initform common-lisp:nil)
+                        (inferred-workload-types :initarg
+                         :|inferredWorkloadTypes| :type
+                         (common-lisp:or inferred-workload-types-preference
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-preferences-detail-inferred-workload-types
+                         :initform common-lisp:nil)
+                        (enhanced-infrastructure-metrics :initarg
+                         :|enhancedInfrastructureMetrics| :type
+                         (common-lisp:or enhanced-infrastructure-metrics
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-preferences-detail-enhanced-infrastructure-metrics
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :|resourceType| :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %recommendation-preferences-detail-resource-type
+                         :initform common-lisp:nil)
+                        (scope :initarg :|scope| :type
+                         (common-lisp:or scope common-lisp:null) :accessor
+                         %recommendation-preferences-detail-scope :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recommendation-preferences-detail
                     'make-recommendation-preferences-detail))
+ (common-lisp:defun make-recommendation-preferences-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key external-metrics-preference
+                     inferred-workload-types enhanced-infrastructure-metrics
+                     resource-type scope)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'recommendation-preferences-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4917,15 +6373,30 @@
                             recommendation-preferences-detail))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recommendation-source (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recommendation-source-"))
-   (recommendation-source-arn common-lisp:nil :type
-    (common-lisp:or recommendation-source-arn common-lisp:null))
-   (recommendation-source-type common-lisp:nil :type
-    (common-lisp:or recommendation-source-type common-lisp:null)))
+ (common-lisp:defclass recommendation-source common-lisp:nil
+                       ((recommendation-source-type :initarg
+                         :|recommendationSourceType| :type
+                         (common-lisp:or recommendation-source-type
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-source-recommendation-source-type
+                         :initform common-lisp:nil)
+                        (recommendation-source-arn :initarg
+                         :|recommendationSourceArn| :type
+                         (common-lisp:or recommendation-source-arn
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-source-recommendation-source-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recommendation-source 'make-recommendation-source))
+ (common-lisp:defun make-recommendation-source
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-source-type
+                     recommendation-source-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'recommendation-source
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4976,21 +6447,44 @@
                            (trivial-types:proper-list recommendation-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recommendation-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recommendation-summary-"))
-   (summaries common-lisp:nil :type
-    (common-lisp:or summaries common-lisp:null))
-   (recommendation-resource-type common-lisp:nil :type
-    (common-lisp:or recommendation-source-type common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (savings-opportunity common-lisp:nil :type
-    (common-lisp:or savings-opportunity common-lisp:null))
-   (current-performance-risk-ratings common-lisp:nil :type
-    (common-lisp:or current-performance-risk-ratings common-lisp:null)))
+ (common-lisp:defclass recommendation-summary common-lisp:nil
+                       ((current-performance-risk-ratings :initarg
+                         :|currentPerformanceRiskRatings| :type
+                         (common-lisp:or current-performance-risk-ratings
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-summary-current-performance-risk-ratings
+                         :initform common-lisp:nil)
+                        (savings-opportunity :initarg :|savingsOpportunity|
+                         :type
+                         (common-lisp:or savings-opportunity common-lisp:null)
+                         :accessor %recommendation-summary-savings-opportunity
+                         :initform common-lisp:nil)
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %recommendation-summary-account-id :initform
+                         common-lisp:nil)
+                        (recommendation-resource-type :initarg
+                         :|recommendationResourceType| :type
+                         (common-lisp:or recommendation-source-type
+                                         common-lisp:null)
+                         :accessor
+                         %recommendation-summary-recommendation-resource-type
+                         :initform common-lisp:nil)
+                        (summaries :initarg :|summaries| :type
+                         (common-lisp:or summaries common-lisp:null) :accessor
+                         %recommendation-summary-summaries :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recommendation-summary 'make-recommendation-summary))
+ (common-lisp:defun make-recommendation-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key current-performance-risk-ratings
+                     savings-opportunity account-id
+                     recommendation-resource-type summaries)
+   (common-lisp:apply #'common-lisp:make-instance 'recommendation-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5045,17 +6539,34 @@
    common-lisp:nil))
 (common-lisp:deftype recommended-instance-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (recommended-option-projected-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recommended-option-projected-metric-"))
-   (recommended-instance-type common-lisp:nil :type
-    (common-lisp:or recommended-instance-type common-lisp:null))
-   (rank common-lisp:nil :type (common-lisp:or rank common-lisp:null))
-   (projected-metrics common-lisp:nil :type
-    (common-lisp:or projected-metrics common-lisp:null)))
+ (common-lisp:defclass recommended-option-projected-metric common-lisp:nil
+                       ((projected-metrics :initarg :|projectedMetrics| :type
+                         (common-lisp:or projected-metrics common-lisp:null)
+                         :accessor
+                         %recommended-option-projected-metric-projected-metrics
+                         :initform common-lisp:nil)
+                        (rank :initarg :|rank| :type
+                         (common-lisp:or rank common-lisp:null) :accessor
+                         %recommended-option-projected-metric-rank :initform
+                         common-lisp:nil)
+                        (recommended-instance-type :initarg
+                         :|recommendedInstanceType| :type
+                         (common-lisp:or recommended-instance-type
+                                         common-lisp:null)
+                         :accessor
+                         %recommended-option-projected-metric-recommended-instance-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recommended-option-projected-metric
                     'make-recommended-option-projected-metric))
+ (common-lisp:defun make-recommended-option-projected-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key projected-metrics rank
+                     recommended-instance-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'recommended-option-projected-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5106,7 +6617,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -5114,16 +6625,26 @@
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:deftype root-volume () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3destination-"))
-   (bucket common-lisp:nil :type
-    (common-lisp:or destination-bucket common-lisp:null))
-   (key common-lisp:nil :type
-    (common-lisp:or destination-key common-lisp:null))
-   (metadata-key common-lisp:nil :type
-    (common-lisp:or metadata-key common-lisp:null)))
+ (common-lisp:defclass s3destination common-lisp:nil
+                       ((metadata-key :initarg :|metadataKey| :type
+                         (common-lisp:or metadata-key common-lisp:null)
+                         :accessor %s3destination-metadata-key :initform
+                         common-lisp:nil)
+                        (key :initarg :|key| :type
+                         (common-lisp:or destination-key common-lisp:null)
+                         :accessor %s3destination-key :initform
+                         common-lisp:nil)
+                        (bucket :initarg :|bucket| :type
+                         (common-lisp:or destination-bucket common-lisp:null)
+                         :accessor %s3destination-bucket :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 's3destination 'make-s3destination))
+ (common-lisp:defun make-s3destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key metadata-key key bucket)
+   (common-lisp:apply #'common-lisp:make-instance 's3destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3destination))
    (common-lisp:append))
@@ -5155,15 +6676,24 @@
                         ((aws-sdk/generator/shape::input s3destination))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3destination-config (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3destination-config-"))
-   (bucket common-lisp:nil :type
-    (common-lisp:or destination-bucket common-lisp:null))
-   (key-prefix common-lisp:nil :type
-    (common-lisp:or destination-key-prefix common-lisp:null)))
+ (common-lisp:defclass s3destination-config common-lisp:nil
+                       ((key-prefix :initarg :|keyPrefix| :type
+                         (common-lisp:or destination-key-prefix
+                                         common-lisp:null)
+                         :accessor %s3destination-config-key-prefix :initform
+                         common-lisp:nil)
+                        (bucket :initarg :|bucket| :type
+                         (common-lisp:or destination-bucket common-lisp:null)
+                         :accessor %s3destination-config-bucket :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 's3destination-config 'make-s3destination-config))
+ (common-lisp:defun make-s3destination-config
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key key-prefix bucket)
+   (common-lisp:apply #'common-lisp:make-instance 's3destination-config
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3destination-config))
    (common-lisp:append))
@@ -5188,15 +6718,30 @@
                         ((aws-sdk/generator/shape::input s3destination-config))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-opportunity (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-opportunity-"))
-   (savings-opportunity-percentage common-lisp:nil :type
-    (common-lisp:or savings-opportunity-percentage common-lisp:null))
-   (estimated-monthly-savings common-lisp:nil :type
-    (common-lisp:or estimated-monthly-savings common-lisp:null)))
+ (common-lisp:defclass savings-opportunity common-lisp:nil
+                       ((estimated-monthly-savings :initarg
+                         :|estimatedMonthlySavings| :type
+                         (common-lisp:or estimated-monthly-savings
+                                         common-lisp:null)
+                         :accessor
+                         %savings-opportunity-estimated-monthly-savings
+                         :initform common-lisp:nil)
+                        (savings-opportunity-percentage :initarg
+                         :|savingsOpportunityPercentage| :type
+                         (common-lisp:or savings-opportunity-percentage
+                                         common-lisp:null)
+                         :accessor
+                         %savings-opportunity-savings-opportunity-percentage
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-opportunity 'make-savings-opportunity))
+ (common-lisp:defun make-savings-opportunity
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key estimated-monthly-savings
+                     savings-opportunity-percentage)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-opportunity
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input savings-opportunity))
    (common-lisp:append))
@@ -5225,11 +6770,20 @@
 (common-lisp:deftype savings-opportunity-percentage ()
   'common-lisp:double-float)
 (common-lisp:progn
- (common-lisp:defstruct
-     (scope (:copier common-lisp:nil) (:conc-name "struct-shape-scope-"))
-   (name common-lisp:nil :type (common-lisp:or scope-name common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or scope-value common-lisp:null)))
+ (common-lisp:defclass scope common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or scope-value common-lisp:null)
+                         :accessor %scope-value :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or scope-name common-lisp:null) :accessor
+                         %scope-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'scope 'make-scope))
+ (common-lisp:defun make-scope
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value name)
+   (common-lisp:apply #'common-lisp:make-instance 'scope
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input scope))
    (common-lisp:append))
@@ -5264,20 +6818,44 @@
                            (trivial-types:proper-list service-arn))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (service-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-service-configuration-"))
-   (memory common-lisp:nil :type
-    (common-lisp:or nullable-memory common-lisp:null))
-   (cpu common-lisp:nil :type (common-lisp:or nullable-cpu common-lisp:null))
-   (container-configurations common-lisp:nil :type
-    (common-lisp:or container-configurations common-lisp:null))
-   (auto-scaling-configuration common-lisp:nil :type
-    (common-lisp:or auto-scaling-configuration common-lisp:null))
-   (task-definition-arn common-lisp:nil :type
-    (common-lisp:or task-definition-arn common-lisp:null)))
+ (common-lisp:defclass service-configuration common-lisp:nil
+                       ((task-definition-arn :initarg :|taskDefinitionArn|
+                         :type
+                         (common-lisp:or task-definition-arn common-lisp:null)
+                         :accessor %service-configuration-task-definition-arn
+                         :initform common-lisp:nil)
+                        (auto-scaling-configuration :initarg
+                         :|autoScalingConfiguration| :type
+                         (common-lisp:or auto-scaling-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %service-configuration-auto-scaling-configuration
+                         :initform common-lisp:nil)
+                        (container-configurations :initarg
+                         :|containerConfigurations| :type
+                         (common-lisp:or container-configurations
+                                         common-lisp:null)
+                         :accessor
+                         %service-configuration-container-configurations
+                         :initform common-lisp:nil)
+                        (cpu :initarg :|cpu| :type
+                         (common-lisp:or nullable-cpu common-lisp:null)
+                         :accessor %service-configuration-cpu :initform
+                         common-lisp:nil)
+                        (memory :initarg :|memory| :type
+                         (common-lisp:or nullable-memory common-lisp:null)
+                         :accessor %service-configuration-memory :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'service-configuration 'make-service-configuration))
+ (common-lisp:defun make-service-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key task-definition-arn
+                     auto-scaling-configuration container-configurations cpu
+                     memory)
+   (common-lisp:apply #'common-lisp:make-instance 'service-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5333,7 +6911,7 @@
 (common-lisp:progn
  (common-lisp:define-condition service-unavailable-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-unavailable-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-unavailable-exception
@@ -5348,14 +6926,26 @@
                            (trivial-types:proper-list summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (summary (:copier common-lisp:nil) (:conc-name "struct-shape-summary-"))
-   (name common-lisp:nil :type (common-lisp:or finding common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or summary-value common-lisp:null))
-   (reason-code-summaries common-lisp:nil :type
-    (common-lisp:or reason-code-summaries common-lisp:null)))
+ (common-lisp:defclass summary common-lisp:nil
+                       ((reason-code-summaries :initarg :|reasonCodeSummaries|
+                         :type
+                         (common-lisp:or reason-code-summaries
+                                         common-lisp:null)
+                         :accessor %summary-reason-code-summaries :initform
+                         common-lisp:nil)
+                        (value :initarg :|value| :type
+                         (common-lisp:or summary-value common-lisp:null)
+                         :accessor %summary-value :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or finding common-lisp:null) :accessor
+                         %summary-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'summary 'make-summary))
+ (common-lisp:defun make-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reason-code-summaries value name)
+   (common-lisp:apply #'common-lisp:make-instance 'summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input summary))
    (common-lisp:append))
@@ -5392,7 +6982,7 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (compute-optimizer-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
@@ -5405,16 +6995,28 @@
                            (trivial-types:proper-list timestamp))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-enrollment-status-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-enrollment-status-request-"))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or status common-lisp:null))
-   (include-member-accounts common-lisp:nil :type
-    (common-lisp:or include-member-accounts common-lisp:null)))
+ (common-lisp:defclass update-enrollment-status-request common-lisp:nil
+                       ((include-member-accounts :initarg
+                         :|includeMemberAccounts| :type
+                         (common-lisp:or include-member-accounts
+                                         common-lisp:null)
+                         :accessor
+                         %update-enrollment-status-request-include-member-accounts
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %update-enrollment-status-request-status :initform
+                         (common-lisp:error ":status is required"))))
  (common-lisp:export
   (common-lisp:list 'update-enrollment-status-request
                     'make-update-enrollment-status-request))
+ (common-lisp:defun make-update-enrollment-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key include-member-accounts status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-enrollment-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5446,15 +7048,26 @@
                           update-enrollment-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-enrollment-status-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-enrollment-status-response-"))
-   (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
-   (status-reason common-lisp:nil :type
-    (common-lisp:or status-reason common-lisp:null)))
+ (common-lisp:defclass update-enrollment-status-response common-lisp:nil
+                       ((status-reason :initarg :|statusReason| :type
+                         (common-lisp:or status-reason common-lisp:null)
+                         :accessor
+                         %update-enrollment-status-response-status-reason
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %update-enrollment-status-response-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-enrollment-status-response
                     'make-update-enrollment-status-response))
+ (common-lisp:defun make-update-enrollment-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-reason status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-enrollment-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5486,16 +7099,27 @@
    common-lisp:nil))
 (common-lisp:deftype upper-bound-value () 'common-lisp:double-float)
 (common-lisp:progn
- (common-lisp:defstruct
-     (utilization-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-utilization-metric-"))
-   (name common-lisp:nil :type (common-lisp:or metric-name common-lisp:null))
-   (statistic common-lisp:nil :type
-    (common-lisp:or metric-statistic common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or metric-value common-lisp:null)))
+ (common-lisp:defclass utilization-metric common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or metric-value common-lisp:null)
+                         :accessor %utilization-metric-value :initform
+                         common-lisp:nil)
+                        (statistic :initarg :|statistic| :type
+                         (common-lisp:or metric-statistic common-lisp:null)
+                         :accessor %utilization-metric-statistic :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or metric-name common-lisp:null)
+                         :accessor %utilization-metric-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'utilization-metric 'make-utilization-metric))
+ (common-lisp:defun make-utilization-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value statistic name)
+   (common-lisp:apply #'common-lisp:make-instance 'utilization-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input utilization-metric))
    (common-lisp:append))
@@ -5549,25 +7173,52 @@
 (common-lisp:deftype volume-burst-iops () 'common-lisp:integer)
 (common-lisp:deftype volume-burst-throughput () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (volume-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-volume-configuration-"))
-   (volume-type common-lisp:nil :type
-    (common-lisp:or volume-type common-lisp:null))
-   (volume-size common-lisp:nil :type
-    (common-lisp:or volume-size common-lisp:null))
-   (volume-baseline-iops common-lisp:nil :type
-    (common-lisp:or volume-baseline-iops common-lisp:null))
-   (volume-burst-iops common-lisp:nil :type
-    (common-lisp:or volume-burst-iops common-lisp:null))
-   (volume-baseline-throughput common-lisp:nil :type
-    (common-lisp:or volume-baseline-throughput common-lisp:null))
-   (volume-burst-throughput common-lisp:nil :type
-    (common-lisp:or volume-burst-throughput common-lisp:null))
-   (root-volume common-lisp:nil :type
-    (common-lisp:or root-volume common-lisp:null)))
+ (common-lisp:defclass volume-configuration common-lisp:nil
+                       ((root-volume :initarg :|rootVolume| :type
+                         (common-lisp:or root-volume common-lisp:null)
+                         :accessor %volume-configuration-root-volume :initform
+                         common-lisp:nil)
+                        (volume-burst-throughput :initarg
+                         :|volumeBurstThroughput| :type
+                         (common-lisp:or volume-burst-throughput
+                                         common-lisp:null)
+                         :accessor
+                         %volume-configuration-volume-burst-throughput
+                         :initform common-lisp:nil)
+                        (volume-baseline-throughput :initarg
+                         :|volumeBaselineThroughput| :type
+                         (common-lisp:or volume-baseline-throughput
+                                         common-lisp:null)
+                         :accessor
+                         %volume-configuration-volume-baseline-throughput
+                         :initform common-lisp:nil)
+                        (volume-burst-iops :initarg :|volumeBurstIOPS| :type
+                         (common-lisp:or volume-burst-iops common-lisp:null)
+                         :accessor %volume-configuration-volume-burst-iops
+                         :initform common-lisp:nil)
+                        (volume-baseline-iops :initarg :|volumeBaselineIOPS|
+                         :type
+                         (common-lisp:or volume-baseline-iops common-lisp:null)
+                         :accessor %volume-configuration-volume-baseline-iops
+                         :initform common-lisp:nil)
+                        (volume-size :initarg :|volumeSize| :type
+                         (common-lisp:or volume-size common-lisp:null)
+                         :accessor %volume-configuration-volume-size :initform
+                         common-lisp:nil)
+                        (volume-type :initarg :|volumeType| :type
+                         (common-lisp:or volume-type common-lisp:null)
+                         :accessor %volume-configuration-volume-type :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'volume-configuration 'make-volume-configuration))
+ (common-lisp:defun make-volume-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key root-volume volume-burst-throughput
+                     volume-baseline-throughput volume-burst-iops
+                     volume-baseline-iops volume-size volume-type)
+   (common-lisp:apply #'common-lisp:make-instance 'volume-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input volume-configuration))
    (common-lisp:append))
@@ -5630,28 +7281,69 @@
                         ((aws-sdk/generator/shape::input volume-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (volume-recommendation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-volume-recommendation-"))
-   (volume-arn common-lisp:nil :type
-    (common-lisp:or volume-arn common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (current-configuration common-lisp:nil :type
-    (common-lisp:or volume-configuration common-lisp:null))
-   (finding common-lisp:nil :type (common-lisp:or ebsfinding common-lisp:null))
-   (utilization-metrics common-lisp:nil :type
-    (common-lisp:or ebsutilization-metrics common-lisp:null))
-   (look-back-period-in-days common-lisp:nil :type
-    (common-lisp:or look-back-period-in-days common-lisp:null))
-   (volume-recommendation-options common-lisp:nil :type
-    (common-lisp:or volume-recommendation-options common-lisp:null))
-   (last-refresh-timestamp common-lisp:nil :type
-    (common-lisp:or last-refresh-timestamp common-lisp:null))
-   (current-performance-risk common-lisp:nil :type
-    (common-lisp:or current-performance-risk common-lisp:null)))
+ (common-lisp:defclass volume-recommendation common-lisp:nil
+                       ((current-performance-risk :initarg
+                         :|currentPerformanceRisk| :type
+                         (common-lisp:or current-performance-risk
+                                         common-lisp:null)
+                         :accessor
+                         %volume-recommendation-current-performance-risk
+                         :initform common-lisp:nil)
+                        (last-refresh-timestamp :initarg
+                         :|lastRefreshTimestamp| :type
+                         (common-lisp:or last-refresh-timestamp
+                                         common-lisp:null)
+                         :accessor
+                         %volume-recommendation-last-refresh-timestamp
+                         :initform common-lisp:nil)
+                        (volume-recommendation-options :initarg
+                         :|volumeRecommendationOptions| :type
+                         (common-lisp:or volume-recommendation-options
+                                         common-lisp:null)
+                         :accessor
+                         %volume-recommendation-volume-recommendation-options
+                         :initform common-lisp:nil)
+                        (look-back-period-in-days :initarg
+                         :|lookBackPeriodInDays| :type
+                         (common-lisp:or look-back-period-in-days
+                                         common-lisp:null)
+                         :accessor
+                         %volume-recommendation-look-back-period-in-days
+                         :initform common-lisp:nil)
+                        (utilization-metrics :initarg :|utilizationMetrics|
+                         :type
+                         (common-lisp:or ebsutilization-metrics
+                                         common-lisp:null)
+                         :accessor %volume-recommendation-utilization-metrics
+                         :initform common-lisp:nil)
+                        (finding :initarg :|finding| :type
+                         (common-lisp:or ebsfinding common-lisp:null) :accessor
+                         %volume-recommendation-finding :initform
+                         common-lisp:nil)
+                        (current-configuration :initarg :|currentConfiguration|
+                         :type
+                         (common-lisp:or volume-configuration common-lisp:null)
+                         :accessor %volume-recommendation-current-configuration
+                         :initform common-lisp:nil)
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %volume-recommendation-account-id :initform
+                         common-lisp:nil)
+                        (volume-arn :initarg :|volumeArn| :type
+                         (common-lisp:or volume-arn common-lisp:null) :accessor
+                         %volume-recommendation-volume-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'volume-recommendation 'make-volume-recommendation))
+ (common-lisp:defun make-volume-recommendation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key current-performance-risk
+                     last-refresh-timestamp volume-recommendation-options
+                     look-back-period-in-days utilization-metrics finding
+                     current-configuration account-id volume-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'volume-recommendation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5736,19 +7428,36 @@
                           volume-recommendation))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (volume-recommendation-option (:copier common-lisp:nil)
-      (:conc-name "struct-shape-volume-recommendation-option-"))
-   (configuration common-lisp:nil :type
-    (common-lisp:or volume-configuration common-lisp:null))
-   (performance-risk common-lisp:nil :type
-    (common-lisp:or performance-risk common-lisp:null))
-   (rank common-lisp:nil :type (common-lisp:or rank common-lisp:null))
-   (savings-opportunity common-lisp:nil :type
-    (common-lisp:or savings-opportunity common-lisp:null)))
+ (common-lisp:defclass volume-recommendation-option common-lisp:nil
+                       ((savings-opportunity :initarg :|savingsOpportunity|
+                         :type
+                         (common-lisp:or savings-opportunity common-lisp:null)
+                         :accessor
+                         %volume-recommendation-option-savings-opportunity
+                         :initform common-lisp:nil)
+                        (rank :initarg :|rank| :type
+                         (common-lisp:or rank common-lisp:null) :accessor
+                         %volume-recommendation-option-rank :initform
+                         common-lisp:nil)
+                        (performance-risk :initarg :|performanceRisk| :type
+                         (common-lisp:or performance-risk common-lisp:null)
+                         :accessor
+                         %volume-recommendation-option-performance-risk
+                         :initform common-lisp:nil)
+                        (configuration :initarg :|configuration| :type
+                         (common-lisp:or volume-configuration common-lisp:null)
+                         :accessor %volume-recommendation-option-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'volume-recommendation-option
                     'make-volume-recommendation-option))
+ (common-lisp:defun make-volume-recommendation-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key savings-opportunity rank performance-risk
+                     configuration)
+   (common-lisp:apply #'common-lisp:make-instance 'volume-recommendation-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

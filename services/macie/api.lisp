@@ -27,22 +27,31 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (macie-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        access-denied-exception-resource-type)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message
                     'access-denied-exception-resource-type)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-member-account-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-member-account-request-"))
-   (member-account-id (common-lisp:error ":memberaccountid is required") :type
-    (common-lisp:or awsaccount-id common-lisp:null)))
+ (common-lisp:defclass associate-member-account-request common-lisp:nil
+                       ((member-account-id :initarg :|memberAccountId| :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor
+                         %associate-member-account-request-member-account-id
+                         :initform
+                         (common-lisp:error ":memberaccountid is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-member-account-request
                     'make-associate-member-account-request))
+ (common-lisp:defun make-associate-member-account-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key member-account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-member-account-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -66,16 +75,28 @@
                           associate-member-account-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-s3resources-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-s3resources-request-"))
-   (member-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (s3resources (common-lisp:error ":s3resources is required") :type
-    (common-lisp:or s3resources-classification common-lisp:null)))
+ (common-lisp:defclass associate-s3resources-request common-lisp:nil
+                       ((s3resources :initarg :|s3Resources| :type
+                         (common-lisp:or s3resources-classification
+                                         common-lisp:null)
+                         :accessor %associate-s3resources-request-s3resources
+                         :initform
+                         (common-lisp:error ":s3resources is required"))
+                        (member-account-id :initarg :|memberAccountId| :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor
+                         %associate-s3resources-request-member-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-s3resources-request
                     'make-associate-s3resources-request))
+ (common-lisp:defun make-associate-s3resources-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3resources member-account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-s3resources-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -106,14 +127,21 @@
                           associate-s3resources-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-s3resources-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-s3resources-result-"))
-   (failed-s3resources common-lisp:nil :type
-    (common-lisp:or failed-s3resources common-lisp:null)))
+ (common-lisp:defclass associate-s3resources-result common-lisp:nil
+                       ((failed-s3resources :initarg :|failedS3Resources| :type
+                         (common-lisp:or failed-s3resources common-lisp:null)
+                         :accessor
+                         %associate-s3resources-result-failed-s3resources
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-s3resources-result
                     'make-associate-s3resources-result))
+ (common-lisp:defun make-associate-s3resources-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed-s3resources)
+   (common-lisp:apply #'common-lisp:make-instance 'associate-s3resources-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -138,15 +166,25 @@
    common-lisp:nil))
 (common-lisp:deftype bucket-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (classification-type (:copier common-lisp:nil)
-      (:conc-name "struct-shape-classification-type-"))
-   (one-time (common-lisp:error ":onetime is required") :type
-    (common-lisp:or s3one-time-classification-type common-lisp:null))
-   (continuous (common-lisp:error ":continuous is required") :type
-    (common-lisp:or s3continuous-classification-type common-lisp:null)))
+ (common-lisp:defclass classification-type common-lisp:nil
+                       ((continuous :initarg :|continuous| :type
+                         (common-lisp:or s3continuous-classification-type
+                                         common-lisp:null)
+                         :accessor %classification-type-continuous :initform
+                         (common-lisp:error ":continuous is required"))
+                        (one-time :initarg :|oneTime| :type
+                         (common-lisp:or s3one-time-classification-type
+                                         common-lisp:null)
+                         :accessor %classification-type-one-time :initform
+                         (common-lisp:error ":onetime is required"))))
  (common-lisp:export
   (common-lisp:list 'classification-type 'make-classification-type))
+ (common-lisp:defun make-classification-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key continuous one-time)
+   (common-lisp:apply #'common-lisp:make-instance 'classification-type
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input classification-type))
    (common-lisp:append))
@@ -171,16 +209,26 @@
                         ((aws-sdk/generator/shape::input classification-type))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (classification-type-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-classification-type-update-"))
-   (one-time common-lisp:nil :type
-    (common-lisp:or s3one-time-classification-type common-lisp:null))
-   (continuous common-lisp:nil :type
-    (common-lisp:or s3continuous-classification-type common-lisp:null)))
+ (common-lisp:defclass classification-type-update common-lisp:nil
+                       ((continuous :initarg :|continuous| :type
+                         (common-lisp:or s3continuous-classification-type
+                                         common-lisp:null)
+                         :accessor %classification-type-update-continuous
+                         :initform common-lisp:nil)
+                        (one-time :initarg :|oneTime| :type
+                         (common-lisp:or s3one-time-classification-type
+                                         common-lisp:null)
+                         :accessor %classification-type-update-one-time
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'classification-type-update
                     'make-classification-type-update))
+ (common-lisp:defun make-classification-type-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key continuous one-time)
+   (common-lisp:apply #'common-lisp:make-instance 'classification-type-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -211,14 +259,23 @@
                           classification-type-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-member-account-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-member-account-request-"))
-   (member-account-id (common-lisp:error ":memberaccountid is required") :type
-    (common-lisp:or awsaccount-id common-lisp:null)))
+ (common-lisp:defclass disassociate-member-account-request common-lisp:nil
+                       ((member-account-id :initarg :|memberAccountId| :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor
+                         %disassociate-member-account-request-member-account-id
+                         :initform
+                         (common-lisp:error ":memberaccountid is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-member-account-request
                     'make-disassociate-member-account-request))
+ (common-lisp:defun make-disassociate-member-account-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key member-account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-member-account-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -242,17 +299,30 @@
                           disassociate-member-account-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-s3resources-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-s3resources-request-"))
-   (member-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (associated-s3resources
-    (common-lisp:error ":associateds3resources is required") :type
-    (common-lisp:or s3resources common-lisp:null)))
+ (common-lisp:defclass disassociate-s3resources-request common-lisp:nil
+                       ((associated-s3resources :initarg
+                         :|associatedS3Resources| :type
+                         (common-lisp:or s3resources common-lisp:null)
+                         :accessor
+                         %disassociate-s3resources-request-associated-s3resources
+                         :initform
+                         (common-lisp:error
+                          ":associateds3resources is required"))
+                        (member-account-id :initarg :|memberAccountId| :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor
+                         %disassociate-s3resources-request-member-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-s3resources-request
                     'make-disassociate-s3resources-request))
+ (common-lisp:defun make-disassociate-s3resources-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key associated-s3resources member-account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-s3resources-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -284,14 +354,22 @@
                           disassociate-s3resources-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-s3resources-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-s3resources-result-"))
-   (failed-s3resources common-lisp:nil :type
-    (common-lisp:or failed-s3resources common-lisp:null)))
+ (common-lisp:defclass disassociate-s3resources-result common-lisp:nil
+                       ((failed-s3resources :initarg :|failedS3Resources| :type
+                         (common-lisp:or failed-s3resources common-lisp:null)
+                         :accessor
+                         %disassociate-s3resources-result-failed-s3resources
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-s3resources-result
                     'make-disassociate-s3resources-result))
+ (common-lisp:defun make-disassociate-s3resources-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed-s3resources)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-s3resources-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -317,17 +395,27 @@
 (common-lisp:deftype error-code () 'common-lisp:string)
 (common-lisp:deftype exception-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (failed-s3resource (:copier common-lisp:nil)
-      (:conc-name "struct-shape-failed-s3resource-"))
-   (failed-item common-lisp:nil :type
-    (common-lisp:or s3resource common-lisp:null))
-   (error-code common-lisp:nil :type
-    (common-lisp:or error-code common-lisp:null))
-   (error-message common-lisp:nil :type
-    (common-lisp:or exception-message common-lisp:null)))
+ (common-lisp:defclass failed-s3resource common-lisp:nil
+                       ((error-message :initarg :|errorMessage| :type
+                         (common-lisp:or exception-message common-lisp:null)
+                         :accessor %failed-s3resource-error-message :initform
+                         common-lisp:nil)
+                        (error-code :initarg :|errorCode| :type
+                         (common-lisp:or error-code common-lisp:null) :accessor
+                         %failed-s3resource-error-code :initform
+                         common-lisp:nil)
+                        (failed-item :initarg :|failedItem| :type
+                         (common-lisp:or s3resource common-lisp:null) :accessor
+                         %failed-s3resource-failed-item :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'failed-s3resource 'make-failed-s3resource))
+ (common-lisp:defun make-failed-s3resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error-message error-code failed-item)
+   (common-lisp:apply #'common-lisp:make-instance 'failed-s3resource
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input failed-s3resource))
    (common-lisp:append))
@@ -370,9 +458,9 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-exception
      (macie-error)
-     ((error-code :initarg :error-code :initform common-lisp:nil :reader
+     ((error-code :initarg :|errorCode| :initform common-lisp:nil :reader
        internal-exception-error-code)
-      (message :initarg :message :initform common-lisp:nil :reader
+      (message :initarg :|message| :initform common-lisp:nil :reader
        internal-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-exception 'internal-exception-error-code
@@ -380,11 +468,11 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-input-exception
      (macie-error)
-     ((error-code :initarg :error-code :initform common-lisp:nil :reader
+     ((error-code :initarg :|errorCode| :initform common-lisp:nil :reader
        invalid-input-exception-error-code)
-      (message :initarg :message :initform common-lisp:nil :reader
+      (message :initarg :|message| :initform common-lisp:nil :reader
        invalid-input-exception-message)
-      (field-name :initarg :field-name :initform common-lisp:nil :reader
+      (field-name :initarg :|fieldName| :initform common-lisp:nil :reader
        invalid-input-exception-field-name)))
  (common-lisp:export
   (common-lisp:list 'invalid-input-exception
@@ -394,11 +482,11 @@
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (macie-error)
-     ((error-code :initarg :error-code :initform common-lisp:nil :reader
+     ((error-code :initarg :|errorCode| :initform common-lisp:nil :reader
        limit-exceeded-exception-error-code)
-      (message :initarg :message :initform common-lisp:nil :reader
+      (message :initarg :|message| :initform common-lisp:nil :reader
        limit-exceeded-exception-message)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        limit-exceeded-exception-resource-type)))
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception
@@ -406,16 +494,24 @@
                     'limit-exceeded-exception-message
                     'limit-exceeded-exception-resource-type)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-member-accounts-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-member-accounts-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-member-accounts-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-member-accounts-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-member-accounts-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-member-accounts-request
                     'make-list-member-accounts-request))
+ (common-lisp:defun make-list-member-accounts-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-member-accounts-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -446,16 +542,24 @@
                           list-member-accounts-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-member-accounts-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-member-accounts-result-"))
-   (member-accounts common-lisp:nil :type
-    (common-lisp:or member-accounts common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-member-accounts-result common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-member-accounts-result-next-token :initform
+                         common-lisp:nil)
+                        (member-accounts :initarg :|memberAccounts| :type
+                         (common-lisp:or member-accounts common-lisp:null)
+                         :accessor %list-member-accounts-result-member-accounts
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-member-accounts-result
                     'make-list-member-accounts-result))
+ (common-lisp:defun make-list-member-accounts-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token member-accounts)
+   (common-lisp:apply #'common-lisp:make-instance 'list-member-accounts-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -486,17 +590,27 @@
                           list-member-accounts-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-s3resources-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-s3resources-request-"))
-   (member-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-s3resources-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-s3resources-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-s3resources-request-next-token :initform
+                         common-lisp:nil)
+                        (member-account-id :initarg :|memberAccountId| :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %list-s3resources-request-member-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-s3resources-request 'make-list-s3resources-request))
+ (common-lisp:defun make-list-s3resources-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token member-account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-s3resources-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -534,15 +648,24 @@
                           list-s3resources-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-s3resources-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-s3resources-result-"))
-   (s3resources common-lisp:nil :type
-    (common-lisp:or s3resources-classification common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-s3resources-result common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-s3resources-result-next-token :initform
+                         common-lisp:nil)
+                        (s3resources :initarg :|s3Resources| :type
+                         (common-lisp:or s3resources-classification
+                                         common-lisp:null)
+                         :accessor %list-s3resources-result-s3resources
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-s3resources-result 'make-list-s3resources-result))
+ (common-lisp:defun make-list-s3resources-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token s3resources)
+   (common-lisp:apply #'common-lisp:make-instance 'list-s3resources-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -574,12 +697,18 @@
    common-lisp:nil))
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (member-account (:copier common-lisp:nil)
-      (:conc-name "struct-shape-member-account-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null)))
+ (common-lisp:defclass member-account common-lisp:nil
+                       ((account-id :initarg :|accountId| :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor %member-account-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'member-account 'make-member-account))
+ (common-lisp:defun make-member-account
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'member-account
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input member-account))
    (common-lisp:append))
@@ -610,13 +739,21 @@
 (common-lisp:deftype s3continuous-classification-type () 'common-lisp:string)
 (common-lisp:deftype s3one-time-classification-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3resource (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3resource-"))
-   (bucket-name (common-lisp:error ":bucketname is required") :type
-    (common-lisp:or bucket-name common-lisp:null))
-   (prefix common-lisp:nil :type (common-lisp:or prefix common-lisp:null)))
+ (common-lisp:defclass s3resource common-lisp:nil
+                       ((prefix :initarg :|prefix| :type
+                         (common-lisp:or prefix common-lisp:null) :accessor
+                         %s3resource-prefix :initform common-lisp:nil)
+                        (bucket-name :initarg :|bucketName| :type
+                         (common-lisp:or bucket-name common-lisp:null)
+                         :accessor %s3resource-bucket-name :initform
+                         (common-lisp:error ":bucketname is required"))))
  (common-lisp:export (common-lisp:list 's3resource 'make-s3resource))
+ (common-lisp:defun make-s3resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key prefix bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance 's3resource
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3resource))
    (common-lisp:append))
@@ -641,17 +778,32 @@
                         ((aws-sdk/generator/shape::input s3resource))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3resource-classification (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3resource-classification-"))
-   (bucket-name (common-lisp:error ":bucketname is required") :type
-    (common-lisp:or bucket-name common-lisp:null))
-   (prefix common-lisp:nil :type (common-lisp:or prefix common-lisp:null))
-   (classification-type (common-lisp:error ":classificationtype is required")
-    :type (common-lisp:or classification-type common-lisp:null)))
+ (common-lisp:defclass s3resource-classification common-lisp:nil
+                       ((classification-type :initarg :|classificationType|
+                         :type
+                         (common-lisp:or classification-type common-lisp:null)
+                         :accessor
+                         %s3resource-classification-classification-type
+                         :initform
+                         (common-lisp:error ":classificationtype is required"))
+                        (prefix :initarg :|prefix| :type
+                         (common-lisp:or prefix common-lisp:null) :accessor
+                         %s3resource-classification-prefix :initform
+                         common-lisp:nil)
+                        (bucket-name :initarg :|bucketName| :type
+                         (common-lisp:or bucket-name common-lisp:null)
+                         :accessor %s3resource-classification-bucket-name
+                         :initform
+                         (common-lisp:error ":bucketname is required"))))
  (common-lisp:export
   (common-lisp:list 's3resource-classification
                     'make-s3resource-classification))
+ (common-lisp:defun make-s3resource-classification
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key classification-type prefix bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance 's3resource-classification
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -689,18 +841,37 @@
                           s3resource-classification))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3resource-classification-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3resource-classification-update-"))
-   (bucket-name (common-lisp:error ":bucketname is required") :type
-    (common-lisp:or bucket-name common-lisp:null))
-   (prefix common-lisp:nil :type (common-lisp:or prefix common-lisp:null))
-   (classification-type-update
-    (common-lisp:error ":classificationtypeupdate is required") :type
-    (common-lisp:or classification-type-update common-lisp:null)))
+ (common-lisp:defclass s3resource-classification-update common-lisp:nil
+                       ((classification-type-update :initarg
+                         :|classificationTypeUpdate| :type
+                         (common-lisp:or classification-type-update
+                                         common-lisp:null)
+                         :accessor
+                         %s3resource-classification-update-classification-type-update
+                         :initform
+                         (common-lisp:error
+                          ":classificationtypeupdate is required"))
+                        (prefix :initarg :|prefix| :type
+                         (common-lisp:or prefix common-lisp:null) :accessor
+                         %s3resource-classification-update-prefix :initform
+                         common-lisp:nil)
+                        (bucket-name :initarg :|bucketName| :type
+                         (common-lisp:or bucket-name common-lisp:null)
+                         :accessor
+                         %s3resource-classification-update-bucket-name
+                         :initform
+                         (common-lisp:error ":bucketname is required"))))
  (common-lisp:export
   (common-lisp:list 's3resource-classification-update
                     'make-s3resource-classification-update))
+ (common-lisp:defun make-s3resource-classification-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key classification-type-update prefix
+                     bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      's3resource-classification-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -764,16 +935,28 @@
                             s3resource-classification-update))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-s3resources-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-s3resources-request-"))
-   (member-account-id common-lisp:nil :type
-    (common-lisp:or awsaccount-id common-lisp:null))
-   (s3resources-update (common-lisp:error ":s3resourcesupdate is required")
-    :type (common-lisp:or s3resources-classification-update common-lisp:null)))
+ (common-lisp:defclass update-s3resources-request common-lisp:nil
+                       ((s3resources-update :initarg :|s3ResourcesUpdate| :type
+                         (common-lisp:or s3resources-classification-update
+                                         common-lisp:null)
+                         :accessor
+                         %update-s3resources-request-s3resources-update
+                         :initform
+                         (common-lisp:error ":s3resourcesupdate is required"))
+                        (member-account-id :initarg :|memberAccountId| :type
+                         (common-lisp:or awsaccount-id common-lisp:null)
+                         :accessor
+                         %update-s3resources-request-member-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-s3resources-request
                     'make-update-s3resources-request))
+ (common-lisp:defun make-update-s3resources-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3resources-update member-account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-s3resources-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -804,14 +987,21 @@
                           update-s3resources-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-s3resources-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-s3resources-result-"))
-   (failed-s3resources common-lisp:nil :type
-    (common-lisp:or failed-s3resources common-lisp:null)))
+ (common-lisp:defclass update-s3resources-result common-lisp:nil
+                       ((failed-s3resources :initarg :|failedS3Resources| :type
+                         (common-lisp:or failed-s3resources common-lisp:null)
+                         :accessor
+                         %update-s3resources-result-failed-s3resources
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-s3resources-result
                     'make-update-s3resources-result))
+ (common-lisp:defun make-update-s3resources-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed-s3resources)
+   (common-lisp:apply #'common-lisp:make-instance 'update-s3resources-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

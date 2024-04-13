@@ -36,17 +36,32 @@
 (common-lisp:deftype amazon-resource-name () 'common-lisp:string)
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (attendee (:copier common-lisp:nil) (:conc-name "struct-shape-attendee-"))
-   (external-user-id common-lisp:nil :type
-    (common-lisp:or external-user-id common-lisp:null))
-   (attendee-id common-lisp:nil :type
-    (common-lisp:or guid-string common-lisp:null))
-   (join-token common-lisp:nil :type
-    (common-lisp:or join-token-string common-lisp:null))
-   (capabilities common-lisp:nil :type
-    (common-lisp:or attendee-capabilities common-lisp:null)))
+ (common-lisp:defclass attendee common-lisp:nil
+                       ((capabilities :initarg :capabilities :type
+                         (common-lisp:or attendee-capabilities
+                                         common-lisp:null)
+                         :accessor %attendee-capabilities :initform
+                         common-lisp:nil)
+                        (join-token :initarg :join-token :type
+                         (common-lisp:or join-token-string common-lisp:null)
+                         :accessor %attendee-join-token :initform
+                         common-lisp:nil)
+                        (attendee-id :initarg :attendee-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %attendee-attendee-id :initform
+                         common-lisp:nil)
+                        (external-user-id :initarg :external-user-id :type
+                         (common-lisp:or external-user-id common-lisp:null)
+                         :accessor %attendee-external-user-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'attendee 'make-attendee))
+ (common-lisp:defun make-attendee
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key capabilities join-token attendee-id
+                     external-user-id)
+   (common-lisp:apply #'common-lisp:make-instance 'attendee
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input attendee))
    (common-lisp:append))
@@ -85,17 +100,27 @@
                         ((aws-sdk/generator/shape::input attendee))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attendee-capabilities (:copier common-lisp:nil)
-      (:conc-name "struct-shape-attendee-capabilities-"))
-   (audio (common-lisp:error ":audio is required") :type
-    (common-lisp:or media-capabilities common-lisp:null))
-   (video (common-lisp:error ":video is required") :type
-    (common-lisp:or media-capabilities common-lisp:null))
-   (content (common-lisp:error ":content is required") :type
-    (common-lisp:or media-capabilities common-lisp:null)))
+ (common-lisp:defclass attendee-capabilities common-lisp:nil
+                       ((content :initarg :content :type
+                         (common-lisp:or media-capabilities common-lisp:null)
+                         :accessor %attendee-capabilities-content :initform
+                         (common-lisp:error ":content is required"))
+                        (video :initarg :video :type
+                         (common-lisp:or media-capabilities common-lisp:null)
+                         :accessor %attendee-capabilities-video :initform
+                         (common-lisp:error ":video is required"))
+                        (audio :initarg :audio :type
+                         (common-lisp:or media-capabilities common-lisp:null)
+                         :accessor %attendee-capabilities-audio :initform
+                         (common-lisp:error ":audio is required"))))
  (common-lisp:export
   (common-lisp:list 'attendee-capabilities 'make-attendee-capabilities))
+ (common-lisp:defun make-attendee-capabilities
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key content video audio)
+   (common-lisp:apply #'common-lisp:make-instance 'attendee-capabilities
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -133,13 +158,19 @@
                           attendee-capabilities))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attendee-id-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-attendee-id-item-"))
-   (attendee-id (common-lisp:error ":attendee-id is required") :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass attendee-id-item common-lisp:nil
+                       ((attendee-id :initarg :attendee-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %attendee-id-item-attendee-id :initform
+                         (common-lisp:error ":attendee-id is required"))))
  (common-lisp:export
   (common-lisp:list 'attendee-id-item 'make-attendee-id-item))
+ (common-lisp:defun make-attendee-id-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attendee-id)
+   (common-lisp:apply #'common-lisp:make-instance 'attendee-id-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input attendee-id-item))
    (common-lisp:append))
@@ -172,12 +203,19 @@
                            (trivial-types:proper-list attendee))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (audio-features (:copier common-lisp:nil)
-      (:conc-name "struct-shape-audio-features-"))
-   (echo-reduction common-lisp:nil :type
-    (common-lisp:or meeting-feature-status common-lisp:null)))
+ (common-lisp:defclass audio-features common-lisp:nil
+                       ((echo-reduction :initarg :echo-reduction :type
+                         (common-lisp:or meeting-feature-status
+                                         common-lisp:null)
+                         :accessor %audio-features-echo-reduction :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'audio-features 'make-audio-features))
+ (common-lisp:defun make-audio-features
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key echo-reduction)
+   (common-lisp:apply #'common-lisp:make-instance 'audio-features
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input audio-features))
    (common-lisp:append))
@@ -216,16 +254,28 @@
                            (trivial-types:proper-list create-attendee-error))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-create-attendee-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-create-attendee-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (attendees (common-lisp:error ":attendees is required") :type
-    (common-lisp:or create-attendee-request-item-list common-lisp:null)))
+ (common-lisp:defclass batch-create-attendee-request common-lisp:nil
+                       ((attendees :initarg :attendees :type
+                         (common-lisp:or create-attendee-request-item-list
+                                         common-lisp:null)
+                         :accessor %batch-create-attendee-request-attendees
+                         :initform
+                         (common-lisp:error ":attendees is required"))
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %batch-create-attendee-request-meeting-id
+                         :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-create-attendee-request
                     'make-batch-create-attendee-request))
+ (common-lisp:defun make-batch-create-attendee-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attendees meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-create-attendee-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -249,16 +299,26 @@
                           batch-create-attendee-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-create-attendee-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-create-attendee-response-"))
-   (attendees common-lisp:nil :type
-    (common-lisp:or attendee-list common-lisp:null))
-   (errors common-lisp:nil :type
-    (common-lisp:or batch-create-attendee-error-list common-lisp:null)))
+ (common-lisp:defclass batch-create-attendee-response common-lisp:nil
+                       ((errors :initarg :errors :type
+                         (common-lisp:or batch-create-attendee-error-list
+                                         common-lisp:null)
+                         :accessor %batch-create-attendee-response-errors
+                         :initform common-lisp:nil)
+                        (attendees :initarg :attendees :type
+                         (common-lisp:or attendee-list common-lisp:null)
+                         :accessor %batch-create-attendee-response-attendees
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'batch-create-attendee-response
                     'make-batch-create-attendee-response))
+ (common-lisp:defun make-batch-create-attendee-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors attendees)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-create-attendee-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -289,21 +349,40 @@
                           batch-create-attendee-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-update-attendee-capabilities-except-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-batch-update-attendee-capabilities-except-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (excluded-attendee-ids
-    (common-lisp:error ":excluded-attendee-ids is required") :type
-    (common-lisp:or attendee-ids-list common-lisp:null))
-   (capabilities (common-lisp:error ":capabilities is required") :type
-    (common-lisp:or attendee-capabilities common-lisp:null)))
+ (common-lisp:defclass batch-update-attendee-capabilities-except-request
+                       common-lisp:nil
+                       ((capabilities :initarg :capabilities :type
+                         (common-lisp:or attendee-capabilities
+                                         common-lisp:null)
+                         :accessor
+                         %batch-update-attendee-capabilities-except-request-capabilities
+                         :initform
+                         (common-lisp:error ":capabilities is required"))
+                        (excluded-attendee-ids :initarg :excluded-attendee-ids
+                         :type
+                         (common-lisp:or attendee-ids-list common-lisp:null)
+                         :accessor
+                         %batch-update-attendee-capabilities-except-request-excluded-attendee-ids
+                         :initform
+                         (common-lisp:error
+                          ":excluded-attendee-ids is required"))
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor
+                         %batch-update-attendee-capabilities-except-request-meeting-id
+                         :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-update-attendee-capabilities-except-request
                     'make-batch-update-attendee-capabilities-except-request))
+ (common-lisp:defun make-batch-update-attendee-capabilities-except-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key capabilities excluded-attendee-ids
+                     meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-update-attendee-capabilities-except-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -350,16 +429,28 @@
                     'conflict-exception-message
                     'conflict-exception-request-id)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-attendee-error (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-attendee-error-"))
-   (external-user-id common-lisp:nil :type
-    (common-lisp:or external-user-id common-lisp:null))
-   (error-code common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (error-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass create-attendee-error common-lisp:nil
+                       ((error-message :initarg :error-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-attendee-error-error-message :initform
+                         common-lisp:nil)
+                        (error-code :initarg :error-code :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-attendee-error-error-code :initform
+                         common-lisp:nil)
+                        (external-user-id :initarg :external-user-id :type
+                         (common-lisp:or external-user-id common-lisp:null)
+                         :accessor %create-attendee-error-external-user-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-attendee-error 'make-create-attendee-error))
+ (common-lisp:defun make-create-attendee-error
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error-message error-code
+                     external-user-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-attendee-error
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -397,17 +488,30 @@
                           create-attendee-error))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-attendee-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-attendee-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (external-user-id (common-lisp:error ":external-user-id is required") :type
-    (common-lisp:or external-user-id common-lisp:null))
-   (capabilities common-lisp:nil :type
-    (common-lisp:or attendee-capabilities common-lisp:null)))
+ (common-lisp:defclass create-attendee-request common-lisp:nil
+                       ((capabilities :initarg :capabilities :type
+                         (common-lisp:or attendee-capabilities
+                                         common-lisp:null)
+                         :accessor %create-attendee-request-capabilities
+                         :initform common-lisp:nil)
+                        (external-user-id :initarg :external-user-id :type
+                         (common-lisp:or external-user-id common-lisp:null)
+                         :accessor %create-attendee-request-external-user-id
+                         :initform
+                         (common-lisp:error ":external-user-id is required"))
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %create-attendee-request-meeting-id
+                         :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-attendee-request 'make-create-attendee-request))
+ (common-lisp:defun make-create-attendee-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key capabilities external-user-id meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-attendee-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -438,16 +542,27 @@
                           create-attendee-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-attendee-request-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-attendee-request-item-"))
-   (external-user-id (common-lisp:error ":external-user-id is required") :type
-    (common-lisp:or external-user-id common-lisp:null))
-   (capabilities common-lisp:nil :type
-    (common-lisp:or attendee-capabilities common-lisp:null)))
+ (common-lisp:defclass create-attendee-request-item common-lisp:nil
+                       ((capabilities :initarg :capabilities :type
+                         (common-lisp:or attendee-capabilities
+                                         common-lisp:null)
+                         :accessor %create-attendee-request-item-capabilities
+                         :initform common-lisp:nil)
+                        (external-user-id :initarg :external-user-id :type
+                         (common-lisp:or external-user-id common-lisp:null)
+                         :accessor
+                         %create-attendee-request-item-external-user-id
+                         :initform
+                         (common-lisp:error ":external-user-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-attendee-request-item
                     'make-create-attendee-request-item))
+ (common-lisp:defun make-create-attendee-request-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key capabilities external-user-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-attendee-request-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -487,12 +602,19 @@
                             create-attendee-request-item))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-attendee-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-attendee-response-"))
-   (attendee common-lisp:nil :type (common-lisp:or attendee common-lisp:null)))
+ (common-lisp:defclass create-attendee-response common-lisp:nil
+                       ((attendee :initarg :attendee :type
+                         (common-lisp:or attendee common-lisp:null) :accessor
+                         %create-attendee-response-attendee :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-attendee-response 'make-create-attendee-response))
+ (common-lisp:defun make-create-attendee-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attendee)
+   (common-lisp:apply #'common-lisp:make-instance 'create-attendee-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -516,29 +638,65 @@
                           create-attendee-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-meeting-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-meeting-request-"))
-   (client-request-token
-    (common-lisp:error ":client-request-token is required") :type
-    (common-lisp:or client-request-token common-lisp:null))
-   (media-region (common-lisp:error ":media-region is required") :type
-    (common-lisp:or media-region common-lisp:null))
-   (meeting-host-id common-lisp:nil :type
-    (common-lisp:or external-user-id common-lisp:null))
-   (external-meeting-id (common-lisp:error ":external-meeting-id is required")
-    :type (common-lisp:or external-meeting-id common-lisp:null))
-   (notifications-configuration common-lisp:nil :type
-    (common-lisp:or notifications-configuration common-lisp:null))
-   (meeting-features common-lisp:nil :type
-    (common-lisp:or meeting-features-configuration common-lisp:null))
-   (primary-meeting-id common-lisp:nil :type
-    (common-lisp:or primary-meeting-id common-lisp:null))
-   (tenant-ids common-lisp:nil :type
-    (common-lisp:or tenant-id-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-meeting-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-meeting-request-tags :initform
+                         common-lisp:nil)
+                        (tenant-ids :initarg :tenant-ids :type
+                         (common-lisp:or tenant-id-list common-lisp:null)
+                         :accessor %create-meeting-request-tenant-ids :initform
+                         common-lisp:nil)
+                        (primary-meeting-id :initarg :primary-meeting-id :type
+                         (common-lisp:or primary-meeting-id common-lisp:null)
+                         :accessor %create-meeting-request-primary-meeting-id
+                         :initform common-lisp:nil)
+                        (meeting-features :initarg :meeting-features :type
+                         (common-lisp:or meeting-features-configuration
+                                         common-lisp:null)
+                         :accessor %create-meeting-request-meeting-features
+                         :initform common-lisp:nil)
+                        (notifications-configuration :initarg
+                         :notifications-configuration :type
+                         (common-lisp:or notifications-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %create-meeting-request-notifications-configuration
+                         :initform common-lisp:nil)
+                        (external-meeting-id :initarg :external-meeting-id
+                         :type
+                         (common-lisp:or external-meeting-id common-lisp:null)
+                         :accessor %create-meeting-request-external-meeting-id
+                         :initform
+                         (common-lisp:error
+                          ":external-meeting-id is required"))
+                        (meeting-host-id :initarg :meeting-host-id :type
+                         (common-lisp:or external-user-id common-lisp:null)
+                         :accessor %create-meeting-request-meeting-host-id
+                         :initform common-lisp:nil)
+                        (media-region :initarg :media-region :type
+                         (common-lisp:or media-region common-lisp:null)
+                         :accessor %create-meeting-request-media-region
+                         :initform
+                         (common-lisp:error ":media-region is required"))
+                        (client-request-token :initarg :client-request-token
+                         :type
+                         (common-lisp:or client-request-token common-lisp:null)
+                         :accessor %create-meeting-request-client-request-token
+                         :initform
+                         (common-lisp:error
+                          ":client-request-token is required"))))
  (common-lisp:export
   (common-lisp:list 'create-meeting-request 'make-create-meeting-request))
+ (common-lisp:defun make-create-meeting-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags tenant-ids primary-meeting-id
+                     meeting-features notifications-configuration
+                     external-meeting-id meeting-host-id media-region
+                     client-request-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-meeting-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -620,12 +778,19 @@
                           create-meeting-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-meeting-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-meeting-response-"))
-   (meeting common-lisp:nil :type (common-lisp:or meeting common-lisp:null)))
+ (common-lisp:defclass create-meeting-response common-lisp:nil
+                       ((meeting :initarg :meeting :type
+                         (common-lisp:or meeting common-lisp:null) :accessor
+                         %create-meeting-response-meeting :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-meeting-response 'make-create-meeting-response))
+ (common-lisp:defun make-create-meeting-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key meeting)
+   (common-lisp:apply #'common-lisp:make-instance 'create-meeting-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -649,33 +814,82 @@
                           create-meeting-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-meeting-with-attendees-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-meeting-with-attendees-request-"))
-   (client-request-token
-    (common-lisp:error ":client-request-token is required") :type
-    (common-lisp:or client-request-token common-lisp:null))
-   (media-region (common-lisp:error ":media-region is required") :type
-    (common-lisp:or media-region common-lisp:null))
-   (meeting-host-id common-lisp:nil :type
-    (common-lisp:or external-user-id common-lisp:null))
-   (external-meeting-id (common-lisp:error ":external-meeting-id is required")
-    :type (common-lisp:or external-meeting-id common-lisp:null))
-   (meeting-features common-lisp:nil :type
-    (common-lisp:or meeting-features-configuration common-lisp:null))
-   (notifications-configuration common-lisp:nil :type
-    (common-lisp:or notifications-configuration common-lisp:null))
-   (attendees (common-lisp:error ":attendees is required") :type
-    (common-lisp:or create-meeting-with-attendees-request-item-list
-                    common-lisp:null))
-   (primary-meeting-id common-lisp:nil :type
-    (common-lisp:or primary-meeting-id common-lisp:null))
-   (tenant-ids common-lisp:nil :type
-    (common-lisp:or tenant-id-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-meeting-with-attendees-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-meeting-with-attendees-request-tags :initform
+                         common-lisp:nil)
+                        (tenant-ids :initarg :tenant-ids :type
+                         (common-lisp:or tenant-id-list common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-tenant-ids
+                         :initform common-lisp:nil)
+                        (primary-meeting-id :initarg :primary-meeting-id :type
+                         (common-lisp:or primary-meeting-id common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-primary-meeting-id
+                         :initform common-lisp:nil)
+                        (attendees :initarg :attendees :type
+                         (common-lisp:or
+                          create-meeting-with-attendees-request-item-list
+                          common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-attendees
+                         :initform
+                         (common-lisp:error ":attendees is required"))
+                        (notifications-configuration :initarg
+                         :notifications-configuration :type
+                         (common-lisp:or notifications-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-notifications-configuration
+                         :initform common-lisp:nil)
+                        (meeting-features :initarg :meeting-features :type
+                         (common-lisp:or meeting-features-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-meeting-features
+                         :initform common-lisp:nil)
+                        (external-meeting-id :initarg :external-meeting-id
+                         :type
+                         (common-lisp:or external-meeting-id common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-external-meeting-id
+                         :initform
+                         (common-lisp:error
+                          ":external-meeting-id is required"))
+                        (meeting-host-id :initarg :meeting-host-id :type
+                         (common-lisp:or external-user-id common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-meeting-host-id
+                         :initform common-lisp:nil)
+                        (media-region :initarg :media-region :type
+                         (common-lisp:or media-region common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-media-region
+                         :initform
+                         (common-lisp:error ":media-region is required"))
+                        (client-request-token :initarg :client-request-token
+                         :type
+                         (common-lisp:or client-request-token common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-request-client-request-token
+                         :initform
+                         (common-lisp:error
+                          ":client-request-token is required"))))
  (common-lisp:export
   (common-lisp:list 'create-meeting-with-attendees-request
                     'make-create-meeting-with-attendees-request))
+ (common-lisp:defun make-create-meeting-with-attendees-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags tenant-ids primary-meeting-id
+                     attendees notifications-configuration meeting-features
+                     external-meeting-id meeting-host-id media-region
+                     client-request-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-meeting-with-attendees-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -773,17 +987,32 @@
                             create-attendee-request-item))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-meeting-with-attendees-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-meeting-with-attendees-response-"))
-   (meeting common-lisp:nil :type (common-lisp:or meeting common-lisp:null))
-   (attendees common-lisp:nil :type
-    (common-lisp:or attendee-list common-lisp:null))
-   (errors common-lisp:nil :type
-    (common-lisp:or batch-create-attendee-error-list common-lisp:null)))
+ (common-lisp:defclass create-meeting-with-attendees-response common-lisp:nil
+                       ((errors :initarg :errors :type
+                         (common-lisp:or batch-create-attendee-error-list
+                                         common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-response-errors
+                         :initform common-lisp:nil)
+                        (attendees :initarg :attendees :type
+                         (common-lisp:or attendee-list common-lisp:null)
+                         :accessor
+                         %create-meeting-with-attendees-response-attendees
+                         :initform common-lisp:nil)
+                        (meeting :initarg :meeting :type
+                         (common-lisp:or meeting common-lisp:null) :accessor
+                         %create-meeting-with-attendees-response-meeting
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-meeting-with-attendees-response
                     'make-create-meeting-with-attendees-response))
+ (common-lisp:defun make-create-meeting-with-attendees-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors attendees meeting)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-meeting-with-attendees-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -821,15 +1050,25 @@
                           create-meeting-with-attendees-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-attendee-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-attendee-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (attendee-id (common-lisp:error ":attendee-id is required") :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass delete-attendee-request common-lisp:nil
+                       ((attendee-id :initarg :attendee-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %delete-attendee-request-attendee-id
+                         :initform
+                         (common-lisp:error ":attendee-id is required"))
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %delete-attendee-request-meeting-id
+                         :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-attendee-request 'make-delete-attendee-request))
+ (common-lisp:defun make-delete-attendee-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attendee-id meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-attendee-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -846,13 +1085,19 @@
                           delete-attendee-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-meeting-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-meeting-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass delete-meeting-request common-lisp:nil
+                       ((meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %delete-meeting-request-meeting-id :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-meeting-request 'make-delete-meeting-request))
+ (common-lisp:defun make-delete-meeting-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-meeting-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -869,25 +1114,54 @@
                           delete-meeting-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (engine-transcribe-medical-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-engine-transcribe-medical-settings-"))
-   (language-code (common-lisp:error ":language-code is required") :type
-    (common-lisp:or transcribe-medical-language-code common-lisp:null))
-   (specialty (common-lisp:error ":specialty is required") :type
-    (common-lisp:or transcribe-medical-specialty common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or transcribe-medical-type common-lisp:null))
-   (vocabulary-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (region common-lisp:nil :type
-    (common-lisp:or transcribe-medical-region common-lisp:null))
-   (content-identification-type common-lisp:nil :type
-    (common-lisp:or transcribe-medical-content-identification-type
-                    common-lisp:null)))
+ (common-lisp:defclass engine-transcribe-medical-settings common-lisp:nil
+                       ((content-identification-type :initarg
+                         :content-identification-type :type
+                         (common-lisp:or
+                          transcribe-medical-content-identification-type
+                          common-lisp:null)
+                         :accessor
+                         %engine-transcribe-medical-settings-content-identification-type
+                         :initform common-lisp:nil)
+                        (region :initarg :region :type
+                         (common-lisp:or transcribe-medical-region
+                                         common-lisp:null)
+                         :accessor %engine-transcribe-medical-settings-region
+                         :initform common-lisp:nil)
+                        (vocabulary-name :initarg :vocabulary-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %engine-transcribe-medical-settings-vocabulary-name
+                         :initform common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or transcribe-medical-type
+                                         common-lisp:null)
+                         :accessor %engine-transcribe-medical-settings-type
+                         :initform (common-lisp:error ":type is required"))
+                        (specialty :initarg :specialty :type
+                         (common-lisp:or transcribe-medical-specialty
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-medical-settings-specialty
+                         :initform
+                         (common-lisp:error ":specialty is required"))
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or transcribe-medical-language-code
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-medical-settings-language-code
+                         :initform
+                         (common-lisp:error ":language-code is required"))))
  (common-lisp:export
   (common-lisp:list 'engine-transcribe-medical-settings
                     'make-engine-transcribe-medical-settings))
+ (common-lisp:defun make-engine-transcribe-medical-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key content-identification-type region
+                     vocabulary-name type specialty language-code)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'engine-transcribe-medical-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -947,46 +1221,115 @@
                           engine-transcribe-medical-settings))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (engine-transcribe-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-engine-transcribe-settings-"))
-   (language-code common-lisp:nil :type
-    (common-lisp:or transcribe-language-code common-lisp:null))
-   (vocabulary-filter-method common-lisp:nil :type
-    (common-lisp:or transcribe-vocabulary-filter-method common-lisp:null))
-   (vocabulary-filter-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (vocabulary-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (region common-lisp:nil :type
-    (common-lisp:or transcribe-region common-lisp:null))
-   (enable-partial-results-stabilization common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (partial-results-stability common-lisp:nil :type
-    (common-lisp:or transcribe-partial-results-stability common-lisp:null))
-   (content-identification-type common-lisp:nil :type
-    (common-lisp:or transcribe-content-identification-type common-lisp:null))
-   (content-redaction-type common-lisp:nil :type
-    (common-lisp:or transcribe-content-redaction-type common-lisp:null))
-   (pii-entity-types common-lisp:nil :type
-    (common-lisp:or transcribe-pii-entity-types common-lisp:null))
-   (language-model-name common-lisp:nil :type
-    (common-lisp:or transcribe-language-model-name common-lisp:null))
-   (identify-language common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (language-options common-lisp:nil :type
-    (common-lisp:or transcribe-language-options common-lisp:null))
-   (preferred-language common-lisp:nil :type
-    (common-lisp:or transcribe-language-code common-lisp:null))
-   (vocabulary-names common-lisp:nil :type
-    (common-lisp:or transcribe-vocabulary-names-or-filter-names-string
-                    common-lisp:null))
-   (vocabulary-filter-names common-lisp:nil :type
-    (common-lisp:or transcribe-vocabulary-names-or-filter-names-string
-                    common-lisp:null)))
+ (common-lisp:defclass engine-transcribe-settings common-lisp:nil
+                       ((vocabulary-filter-names :initarg
+                         :vocabulary-filter-names :type
+                         (common-lisp:or
+                          transcribe-vocabulary-names-or-filter-names-string
+                          common-lisp:null)
+                         :accessor
+                         %engine-transcribe-settings-vocabulary-filter-names
+                         :initform common-lisp:nil)
+                        (vocabulary-names :initarg :vocabulary-names :type
+                         (common-lisp:or
+                          transcribe-vocabulary-names-or-filter-names-string
+                          common-lisp:null)
+                         :accessor %engine-transcribe-settings-vocabulary-names
+                         :initform common-lisp:nil)
+                        (preferred-language :initarg :preferred-language :type
+                         (common-lisp:or transcribe-language-code
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-settings-preferred-language
+                         :initform common-lisp:nil)
+                        (language-options :initarg :language-options :type
+                         (common-lisp:or transcribe-language-options
+                                         common-lisp:null)
+                         :accessor %engine-transcribe-settings-language-options
+                         :initform common-lisp:nil)
+                        (identify-language :initarg :identify-language :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %engine-transcribe-settings-identify-language
+                         :initform common-lisp:nil)
+                        (language-model-name :initarg :language-model-name
+                         :type
+                         (common-lisp:or transcribe-language-model-name
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-settings-language-model-name
+                         :initform common-lisp:nil)
+                        (pii-entity-types :initarg :pii-entity-types :type
+                         (common-lisp:or transcribe-pii-entity-types
+                                         common-lisp:null)
+                         :accessor %engine-transcribe-settings-pii-entity-types
+                         :initform common-lisp:nil)
+                        (content-redaction-type :initarg
+                         :content-redaction-type :type
+                         (common-lisp:or transcribe-content-redaction-type
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-settings-content-redaction-type
+                         :initform common-lisp:nil)
+                        (content-identification-type :initarg
+                         :content-identification-type :type
+                         (common-lisp:or transcribe-content-identification-type
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-settings-content-identification-type
+                         :initform common-lisp:nil)
+                        (partial-results-stability :initarg
+                         :partial-results-stability :type
+                         (common-lisp:or transcribe-partial-results-stability
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-settings-partial-results-stability
+                         :initform common-lisp:nil)
+                        (enable-partial-results-stabilization :initarg
+                         :enable-partial-results-stabilization :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %engine-transcribe-settings-enable-partial-results-stabilization
+                         :initform common-lisp:nil)
+                        (region :initarg :region :type
+                         (common-lisp:or transcribe-region common-lisp:null)
+                         :accessor %engine-transcribe-settings-region :initform
+                         common-lisp:nil)
+                        (vocabulary-name :initarg :vocabulary-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %engine-transcribe-settings-vocabulary-name :initform
+                         common-lisp:nil)
+                        (vocabulary-filter-name :initarg
+                         :vocabulary-filter-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %engine-transcribe-settings-vocabulary-filter-name
+                         :initform common-lisp:nil)
+                        (vocabulary-filter-method :initarg
+                         :vocabulary-filter-method :type
+                         (common-lisp:or transcribe-vocabulary-filter-method
+                                         common-lisp:null)
+                         :accessor
+                         %engine-transcribe-settings-vocabulary-filter-method
+                         :initform common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or transcribe-language-code
+                                         common-lisp:null)
+                         :accessor %engine-transcribe-settings-language-code
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'engine-transcribe-settings
                     'make-engine-transcribe-settings))
+ (common-lisp:defun make-engine-transcribe-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vocabulary-filter-names vocabulary-names
+                     preferred-language language-options identify-language
+                     language-model-name pii-entity-types
+                     content-redaction-type content-identification-type
+                     partial-results-stability
+                     enable-partial-results-stabilization region
+                     vocabulary-name vocabulary-filter-name
+                     vocabulary-filter-method language-code)
+   (common-lisp:apply #'common-lisp:make-instance 'engine-transcribe-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1137,15 +1480,23 @@
                     'forbidden-exception-message
                     'forbidden-exception-request-id)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-attendee-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-attendee-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (attendee-id (common-lisp:error ":attendee-id is required") :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass get-attendee-request common-lisp:nil
+                       ((attendee-id :initarg :attendee-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %get-attendee-request-attendee-id :initform
+                         (common-lisp:error ":attendee-id is required"))
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %get-attendee-request-meeting-id :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-attendee-request 'make-get-attendee-request))
+ (common-lisp:defun make-get-attendee-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attendee-id meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-attendee-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-attendee-request))
    (common-lisp:append))
@@ -1156,12 +1507,19 @@
                         ((aws-sdk/generator/shape::input get-attendee-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-attendee-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-attendee-response-"))
-   (attendee common-lisp:nil :type (common-lisp:or attendee common-lisp:null)))
+ (common-lisp:defclass get-attendee-response common-lisp:nil
+                       ((attendee :initarg :attendee :type
+                         (common-lisp:or attendee common-lisp:null) :accessor
+                         %get-attendee-response-attendee :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-attendee-response 'make-get-attendee-response))
+ (common-lisp:defun make-get-attendee-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attendee)
+   (common-lisp:apply #'common-lisp:make-instance 'get-attendee-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1185,13 +1543,19 @@
                           get-attendee-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-meeting-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-meeting-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass get-meeting-request common-lisp:nil
+                       ((meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %get-meeting-request-meeting-id :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-meeting-request 'make-get-meeting-request))
+ (common-lisp:defun make-get-meeting-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-meeting-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-meeting-request))
    (common-lisp:append))
@@ -1202,12 +1566,19 @@
                         ((aws-sdk/generator/shape::input get-meeting-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-meeting-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-meeting-response-"))
-   (meeting common-lisp:nil :type (common-lisp:or meeting common-lisp:null)))
+ (common-lisp:defclass get-meeting-response common-lisp:nil
+                       ((meeting :initarg :meeting :type
+                         (common-lisp:or meeting common-lisp:null) :accessor
+                         %get-meeting-response-meeting :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-meeting-response 'make-get-meeting-response))
+ (common-lisp:defun make-get-meeting-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key meeting)
+   (common-lisp:apply #'common-lisp:make-instance 'get-meeting-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-meeting-response))
    (common-lisp:append))
@@ -1240,16 +1611,27 @@
                     'limit-exceeded-exception-message
                     'limit-exceeded-exception-request-id)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-attendees-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-attendees-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:defclass list-attendees-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-attendees-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-attendees-request-next-token :initform
+                         common-lisp:nil)
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %list-attendees-request-meeting-id :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-attendees-request 'make-list-attendees-request))
+ (common-lisp:defun make-list-attendees-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-attendees-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1266,14 +1648,23 @@
                           list-attendees-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-attendees-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-attendees-response-"))
-   (attendees common-lisp:nil :type
-    (common-lisp:or attendee-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-attendees-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-attendees-response-next-token :initform
+                         common-lisp:nil)
+                        (attendees :initarg :attendees :type
+                         (common-lisp:or attendee-list common-lisp:null)
+                         :accessor %list-attendees-response-attendees :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-attendees-response 'make-list-attendees-response))
+ (common-lisp:defun make-list-attendees-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token attendees)
+   (common-lisp:apply #'common-lisp:make-instance 'list-attendees-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1304,14 +1695,22 @@
                           list-attendees-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or amazon-resource-name common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or amazon-resource-name common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1328,13 +1727,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1359,26 +1766,48 @@
    common-lisp:nil))
 (common-lisp:deftype media-capabilities () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (media-placement (:copier common-lisp:nil)
-      (:conc-name "struct-shape-media-placement-"))
-   (audio-host-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (audio-fallback-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (signaling-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (turn-control-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (screen-data-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (screen-viewing-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (screen-sharing-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (event-ingestion-url common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass media-placement common-lisp:nil
+                       ((event-ingestion-url :initarg :event-ingestion-url
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor %media-placement-event-ingestion-url
+                         :initform common-lisp:nil)
+                        (screen-sharing-url :initarg :screen-sharing-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %media-placement-screen-sharing-url :initform
+                         common-lisp:nil)
+                        (screen-viewing-url :initarg :screen-viewing-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %media-placement-screen-viewing-url :initform
+                         common-lisp:nil)
+                        (screen-data-url :initarg :screen-data-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %media-placement-screen-data-url :initform
+                         common-lisp:nil)
+                        (turn-control-url :initarg :turn-control-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %media-placement-turn-control-url :initform
+                         common-lisp:nil)
+                        (signaling-url :initarg :signaling-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %media-placement-signaling-url :initform
+                         common-lisp:nil)
+                        (audio-fallback-url :initarg :audio-fallback-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %media-placement-audio-fallback-url :initform
+                         common-lisp:nil)
+                        (audio-host-url :initarg :audio-host-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %media-placement-audio-host-url :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'media-placement 'make-media-placement))
+ (common-lisp:defun make-media-placement
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-ingestion-url screen-sharing-url
+                     screen-viewing-url screen-data-url turn-control-url
+                     signaling-url audio-fallback-url audio-host-url)
+   (common-lisp:apply #'common-lisp:make-instance 'media-placement
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input media-placement))
    (common-lisp:append))
@@ -1446,27 +1875,54 @@
    common-lisp:nil))
 (common-lisp:deftype media-region () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (meeting (:copier common-lisp:nil) (:conc-name "struct-shape-meeting-"))
-   (meeting-id common-lisp:nil :type
-    (common-lisp:or guid-string common-lisp:null))
-   (meeting-host-id common-lisp:nil :type
-    (common-lisp:or external-user-id common-lisp:null))
-   (external-meeting-id common-lisp:nil :type
-    (common-lisp:or external-meeting-id common-lisp:null))
-   (media-region common-lisp:nil :type
-    (common-lisp:or media-region common-lisp:null))
-   (media-placement common-lisp:nil :type
-    (common-lisp:or media-placement common-lisp:null))
-   (meeting-features common-lisp:nil :type
-    (common-lisp:or meeting-features-configuration common-lisp:null))
-   (primary-meeting-id common-lisp:nil :type
-    (common-lisp:or primary-meeting-id common-lisp:null))
-   (tenant-ids common-lisp:nil :type
-    (common-lisp:or tenant-id-list common-lisp:null))
-   (meeting-arn common-lisp:nil :type
-    (common-lisp:or amazon-resource-name common-lisp:null)))
+ (common-lisp:defclass meeting common-lisp:nil
+                       ((meeting-arn :initarg :meeting-arn :type
+                         (common-lisp:or amazon-resource-name common-lisp:null)
+                         :accessor %meeting-meeting-arn :initform
+                         common-lisp:nil)
+                        (tenant-ids :initarg :tenant-ids :type
+                         (common-lisp:or tenant-id-list common-lisp:null)
+                         :accessor %meeting-tenant-ids :initform
+                         common-lisp:nil)
+                        (primary-meeting-id :initarg :primary-meeting-id :type
+                         (common-lisp:or primary-meeting-id common-lisp:null)
+                         :accessor %meeting-primary-meeting-id :initform
+                         common-lisp:nil)
+                        (meeting-features :initarg :meeting-features :type
+                         (common-lisp:or meeting-features-configuration
+                                         common-lisp:null)
+                         :accessor %meeting-meeting-features :initform
+                         common-lisp:nil)
+                        (media-placement :initarg :media-placement :type
+                         (common-lisp:or media-placement common-lisp:null)
+                         :accessor %meeting-media-placement :initform
+                         common-lisp:nil)
+                        (media-region :initarg :media-region :type
+                         (common-lisp:or media-region common-lisp:null)
+                         :accessor %meeting-media-region :initform
+                         common-lisp:nil)
+                        (external-meeting-id :initarg :external-meeting-id
+                         :type
+                         (common-lisp:or external-meeting-id common-lisp:null)
+                         :accessor %meeting-external-meeting-id :initform
+                         common-lisp:nil)
+                        (meeting-host-id :initarg :meeting-host-id :type
+                         (common-lisp:or external-user-id common-lisp:null)
+                         :accessor %meeting-meeting-host-id :initform
+                         common-lisp:nil)
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %meeting-meeting-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'meeting 'make-meeting))
+ (common-lisp:defun make-meeting
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key meeting-arn tenant-ids primary-meeting-id
+                     meeting-features media-placement media-region
+                     external-meeting-id meeting-host-id meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance 'meeting
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input meeting))
    (common-lisp:append))
@@ -1541,14 +1997,21 @@
    common-lisp:nil))
 (common-lisp:deftype meeting-feature-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (meeting-features-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-meeting-features-configuration-"))
-   (audio common-lisp:nil :type
-    (common-lisp:or audio-features common-lisp:null)))
+ (common-lisp:defclass meeting-features-configuration common-lisp:nil
+                       ((audio :initarg :audio :type
+                         (common-lisp:or audio-features common-lisp:null)
+                         :accessor %meeting-features-configuration-audio
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'meeting-features-configuration
                     'make-meeting-features-configuration))
+ (common-lisp:defun make-meeting-features-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key audio)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'meeting-features-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1585,16 +2048,29 @@
                     'not-found-exception-message
                     'not-found-exception-request-id)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (notifications-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-notifications-configuration-"))
-   (lambda-function-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (sns-topic-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (sqs-queue-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass notifications-configuration common-lisp:nil
+                       ((sqs-queue-arn :initarg :sqs-queue-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %notifications-configuration-sqs-queue-arn :initform
+                         common-lisp:nil)
+                        (sns-topic-arn :initarg :sns-topic-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %notifications-configuration-sns-topic-arn :initform
+                         common-lisp:nil)
+                        (lambda-function-arn :initarg :lambda-function-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %notifications-configuration-lambda-function-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'notifications-configuration
                     'make-notifications-configuration))
+ (common-lisp:defun make-notifications-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sqs-queue-arn sns-topic-arn
+                     lambda-function-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'notifications-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1683,17 +2159,32 @@
                     'service-unavailable-exception-request-id
                     'service-unavailable-exception-retry-after-seconds)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-meeting-transcription-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-meeting-transcription-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (transcription-configuration
-    (common-lisp:error ":transcription-configuration is required") :type
-    (common-lisp:or transcription-configuration common-lisp:null)))
+ (common-lisp:defclass start-meeting-transcription-request common-lisp:nil
+                       ((transcription-configuration :initarg
+                         :transcription-configuration :type
+                         (common-lisp:or transcription-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %start-meeting-transcription-request-transcription-configuration
+                         :initform
+                         (common-lisp:error
+                          ":transcription-configuration is required"))
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor
+                         %start-meeting-transcription-request-meeting-id
+                         :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'start-meeting-transcription-request
                     'make-start-meeting-transcription-request))
+ (common-lisp:defun make-start-meeting-transcription-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transcription-configuration meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-meeting-transcription-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1718,14 +2209,23 @@
                           start-meeting-transcription-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-meeting-transcription-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-meeting-transcription-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass stop-meeting-transcription-request common-lisp:nil
+                       ((meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor
+                         %stop-meeting-transcription-request-meeting-id
+                         :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-meeting-transcription-request
                     'make-stop-meeting-transcription-request))
+ (common-lisp:defun make-stop-meeting-transcription-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stop-meeting-transcription-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1743,13 +2243,22 @@
    common-lisp:nil))
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform
+                         (common-lisp:error ":value is required"))
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -1789,15 +2298,23 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or amazon-resource-name common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or amazon-resource-name common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -1822,11 +2339,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1900,16 +2421,31 @@
 (common-lisp:deftype transcribe-vocabulary-names-or-filter-names-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (transcription-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-transcription-configuration-"))
-   (engine-transcribe-settings common-lisp:nil :type
-    (common-lisp:or engine-transcribe-settings common-lisp:null))
-   (engine-transcribe-medical-settings common-lisp:nil :type
-    (common-lisp:or engine-transcribe-medical-settings common-lisp:null)))
+ (common-lisp:defclass transcription-configuration common-lisp:nil
+                       ((engine-transcribe-medical-settings :initarg
+                         :engine-transcribe-medical-settings :type
+                         (common-lisp:or engine-transcribe-medical-settings
+                                         common-lisp:null)
+                         :accessor
+                         %transcription-configuration-engine-transcribe-medical-settings
+                         :initform common-lisp:nil)
+                        (engine-transcribe-settings :initarg
+                         :engine-transcribe-settings :type
+                         (common-lisp:or engine-transcribe-settings
+                                         common-lisp:null)
+                         :accessor
+                         %transcription-configuration-engine-transcribe-settings
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'transcription-configuration
                     'make-transcription-configuration))
+ (common-lisp:defun make-transcription-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key engine-transcribe-medical-settings
+                     engine-transcribe-settings)
+   (common-lisp:apply #'common-lisp:make-instance 'transcription-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1969,15 +2505,24 @@
                     'unprocessable-entity-exception-message
                     'unprocessable-entity-exception-request-id)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or amazon-resource-name common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or amazon-resource-name common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2008,11 +2553,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2029,18 +2578,36 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-attendee-capabilities-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-attendee-capabilities-request-"))
-   (meeting-id (common-lisp:error ":meeting-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (attendee-id (common-lisp:error ":attendee-id is required") :type
-    (common-lisp:or guid-string common-lisp:null))
-   (capabilities (common-lisp:error ":capabilities is required") :type
-    (common-lisp:or attendee-capabilities common-lisp:null)))
+ (common-lisp:defclass update-attendee-capabilities-request common-lisp:nil
+                       ((capabilities :initarg :capabilities :type
+                         (common-lisp:or attendee-capabilities
+                                         common-lisp:null)
+                         :accessor
+                         %update-attendee-capabilities-request-capabilities
+                         :initform
+                         (common-lisp:error ":capabilities is required"))
+                        (attendee-id :initarg :attendee-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor
+                         %update-attendee-capabilities-request-attendee-id
+                         :initform
+                         (common-lisp:error ":attendee-id is required"))
+                        (meeting-id :initarg :meeting-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor
+                         %update-attendee-capabilities-request-meeting-id
+                         :initform
+                         (common-lisp:error ":meeting-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-attendee-capabilities-request
                     'make-update-attendee-capabilities-request))
+ (common-lisp:defun make-update-attendee-capabilities-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key capabilities attendee-id meeting-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-attendee-capabilities-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2064,13 +2631,21 @@
                           update-attendee-capabilities-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-attendee-capabilities-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-attendee-capabilities-response-"))
-   (attendee common-lisp:nil :type (common-lisp:or attendee common-lisp:null)))
+ (common-lisp:defclass update-attendee-capabilities-response common-lisp:nil
+                       ((attendee :initarg :attendee :type
+                         (common-lisp:or attendee common-lisp:null) :accessor
+                         %update-attendee-capabilities-response-attendee
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-attendee-capabilities-response
                     'make-update-attendee-capabilities-response))
+ (common-lisp:defun make-update-attendee-capabilities-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attendee)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-attendee-capabilities-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

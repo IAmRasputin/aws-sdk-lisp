@@ -51,27 +51,60 @@
   (common-lisp:list 'internal-failure 'internal-failure-message)))
 (common-lisp:deftype invocation-timeout-seconds-header () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (invoke-endpoint-async-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-invoke-endpoint-async-input-"))
-   (endpoint-name (common-lisp:error ":endpoint-name is required") :type
-    (common-lisp:or endpoint-name common-lisp:null))
-   (content-type common-lisp:nil :type
-    (common-lisp:or header common-lisp:null))
-   (accept common-lisp:nil :type (common-lisp:or header common-lisp:null))
-   (custom-attributes common-lisp:nil :type
-    (common-lisp:or custom-attributes-header common-lisp:null))
-   (inference-id common-lisp:nil :type
-    (common-lisp:or inference-id common-lisp:null))
-   (input-location (common-lisp:error ":input-location is required") :type
-    (common-lisp:or input-location-header common-lisp:null))
-   (request-ttlseconds common-lisp:nil :type
-    (common-lisp:or request-ttlseconds-header common-lisp:null))
-   (invocation-timeout-seconds common-lisp:nil :type
-    (common-lisp:or invocation-timeout-seconds-header common-lisp:null)))
+ (common-lisp:defclass invoke-endpoint-async-input common-lisp:nil
+                       ((invocation-timeout-seconds :initarg
+                         :invocation-timeout-seconds :type
+                         (common-lisp:or invocation-timeout-seconds-header
+                                         common-lisp:null)
+                         :accessor
+                         %invoke-endpoint-async-input-invocation-timeout-seconds
+                         :initform common-lisp:nil)
+                        (request-ttlseconds :initarg :request-ttlseconds :type
+                         (common-lisp:or request-ttlseconds-header
+                                         common-lisp:null)
+                         :accessor
+                         %invoke-endpoint-async-input-request-ttlseconds
+                         :initform common-lisp:nil)
+                        (input-location :initarg :input-location :type
+                         (common-lisp:or input-location-header
+                                         common-lisp:null)
+                         :accessor %invoke-endpoint-async-input-input-location
+                         :initform
+                         (common-lisp:error ":input-location is required"))
+                        (inference-id :initarg :inference-id :type
+                         (common-lisp:or inference-id common-lisp:null)
+                         :accessor %invoke-endpoint-async-input-inference-id
+                         :initform common-lisp:nil)
+                        (custom-attributes :initarg :custom-attributes :type
+                         (common-lisp:or custom-attributes-header
+                                         common-lisp:null)
+                         :accessor
+                         %invoke-endpoint-async-input-custom-attributes
+                         :initform common-lisp:nil)
+                        (accept :initarg :accept :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-async-input-accept :initform
+                         common-lisp:nil)
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-async-input-content-type :initform
+                         common-lisp:nil)
+                        (endpoint-name :initarg :endpoint-name :type
+                         (common-lisp:or endpoint-name common-lisp:null)
+                         :accessor %invoke-endpoint-async-input-endpoint-name
+                         :initform
+                         (common-lisp:error ":endpoint-name is required"))))
  (common-lisp:export
   (common-lisp:list 'invoke-endpoint-async-input
                     'make-invoke-endpoint-async-input))
+ (common-lisp:defun make-invoke-endpoint-async-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key invocation-timeout-seconds
+                     request-ttlseconds input-location inference-id
+                     custom-attributes accept content-type endpoint-name)
+   (common-lisp:apply #'common-lisp:make-instance 'invoke-endpoint-async-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -124,18 +157,29 @@
                           invoke-endpoint-async-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (invoke-endpoint-async-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-invoke-endpoint-async-output-"))
-   (inference-id common-lisp:nil :type
-    (common-lisp:or header common-lisp:null))
-   (output-location common-lisp:nil :type
-    (common-lisp:or header common-lisp:null))
-   (failure-location common-lisp:nil :type
-    (common-lisp:or header common-lisp:null)))
+ (common-lisp:defclass invoke-endpoint-async-output common-lisp:nil
+                       ((failure-location :initarg :failure-location :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-async-output-failure-location
+                         :initform common-lisp:nil)
+                        (output-location :initarg :output-location :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-async-output-output-location
+                         :initform common-lisp:nil)
+                        (inference-id :initarg :inference-id :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-async-output-inference-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'invoke-endpoint-async-output
                     'make-invoke-endpoint-async-output))
+ (common-lisp:defun make-invoke-endpoint-async-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failure-location output-location
+                     inference-id)
+   (common-lisp:apply #'common-lisp:make-instance 'invoke-endpoint-async-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -169,30 +213,65 @@
                           invoke-endpoint-async-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (invoke-endpoint-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-invoke-endpoint-input-"))
-   (endpoint-name (common-lisp:error ":endpoint-name is required") :type
-    (common-lisp:or endpoint-name common-lisp:null))
-   (body (common-lisp:error ":body is required") :type
-    (common-lisp:or body-blob common-lisp:null))
-   (content-type common-lisp:nil :type
-    (common-lisp:or header common-lisp:null))
-   (accept common-lisp:nil :type (common-lisp:or header common-lisp:null))
-   (custom-attributes common-lisp:nil :type
-    (common-lisp:or custom-attributes-header common-lisp:null))
-   (target-model common-lisp:nil :type
-    (common-lisp:or target-model-header common-lisp:null))
-   (target-variant common-lisp:nil :type
-    (common-lisp:or target-variant-header common-lisp:null))
-   (target-container-hostname common-lisp:nil :type
-    (common-lisp:or target-container-hostname-header common-lisp:null))
-   (inference-id common-lisp:nil :type
-    (common-lisp:or inference-id common-lisp:null))
-   (enable-explanations common-lisp:nil :type
-    (common-lisp:or enable-explanations-header common-lisp:null)))
+ (common-lisp:defclass invoke-endpoint-input common-lisp:nil
+                       ((enable-explanations :initarg :enable-explanations
+                         :type
+                         (common-lisp:or enable-explanations-header
+                                         common-lisp:null)
+                         :accessor %invoke-endpoint-input-enable-explanations
+                         :initform common-lisp:nil)
+                        (inference-id :initarg :inference-id :type
+                         (common-lisp:or inference-id common-lisp:null)
+                         :accessor %invoke-endpoint-input-inference-id
+                         :initform common-lisp:nil)
+                        (target-container-hostname :initarg
+                         :target-container-hostname :type
+                         (common-lisp:or target-container-hostname-header
+                                         common-lisp:null)
+                         :accessor
+                         %invoke-endpoint-input-target-container-hostname
+                         :initform common-lisp:nil)
+                        (target-variant :initarg :target-variant :type
+                         (common-lisp:or target-variant-header
+                                         common-lisp:null)
+                         :accessor %invoke-endpoint-input-target-variant
+                         :initform common-lisp:nil)
+                        (target-model :initarg :target-model :type
+                         (common-lisp:or target-model-header common-lisp:null)
+                         :accessor %invoke-endpoint-input-target-model
+                         :initform common-lisp:nil)
+                        (custom-attributes :initarg :custom-attributes :type
+                         (common-lisp:or custom-attributes-header
+                                         common-lisp:null)
+                         :accessor %invoke-endpoint-input-custom-attributes
+                         :initform common-lisp:nil)
+                        (accept :initarg :accept :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-input-accept :initform
+                         common-lisp:nil)
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-input-content-type :initform
+                         common-lisp:nil)
+                        (body :initarg :body :type
+                         (common-lisp:or body-blob common-lisp:null) :accessor
+                         %invoke-endpoint-input-body :initform
+                         (common-lisp:error ":body is required"))
+                        (endpoint-name :initarg :endpoint-name :type
+                         (common-lisp:or endpoint-name common-lisp:null)
+                         :accessor %invoke-endpoint-input-endpoint-name
+                         :initform
+                         (common-lisp:error ":endpoint-name is required"))))
  (common-lisp:export
   (common-lisp:list 'invoke-endpoint-input 'make-invoke-endpoint-input))
+ (common-lisp:defun make-invoke-endpoint-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key enable-explanations inference-id
+                     target-container-hostname target-variant target-model
+                     custom-attributes accept content-type body endpoint-name)
+   (common-lisp:apply #'common-lisp:make-instance 'invoke-endpoint-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -253,21 +332,37 @@
                         (
                          (aws-sdk/generator/shape::input
                           invoke-endpoint-input))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'body)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'body))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (invoke-endpoint-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-invoke-endpoint-output-"))
-   (body (common-lisp:error ":body is required") :type
-    (common-lisp:or body-blob common-lisp:null))
-   (content-type common-lisp:nil :type
-    (common-lisp:or header common-lisp:null))
-   (invoked-production-variant common-lisp:nil :type
-    (common-lisp:or header common-lisp:null))
-   (custom-attributes common-lisp:nil :type
-    (common-lisp:or custom-attributes-header common-lisp:null)))
+ (common-lisp:defclass invoke-endpoint-output common-lisp:nil
+                       ((custom-attributes :initarg :custom-attributes :type
+                         (common-lisp:or custom-attributes-header
+                                         common-lisp:null)
+                         :accessor %invoke-endpoint-output-custom-attributes
+                         :initform common-lisp:nil)
+                        (invoked-production-variant :initarg
+                         :invoked-production-variant :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-output-invoked-production-variant
+                         :initform common-lisp:nil)
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or header common-lisp:null) :accessor
+                         %invoke-endpoint-output-content-type :initform
+                         common-lisp:nil)
+                        (body :initarg :body :type
+                         (common-lisp:or body-blob common-lisp:null) :accessor
+                         %invoke-endpoint-output-body :initform
+                         (common-lisp:error ":body is required"))))
  (common-lisp:export
   (common-lisp:list 'invoke-endpoint-output 'make-invoke-endpoint-output))
+ (common-lisp:defun make-invoke-endpoint-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key custom-attributes
+                     invoked-production-variant content-type body)
+   (common-lisp:apply #'common-lisp:make-instance 'invoke-endpoint-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -304,7 +399,8 @@
                         (
                          (aws-sdk/generator/shape::input
                           invoke-endpoint-output))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'body)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'body))))
 (common-lisp:deftype log-stream-arn () 'common-lisp:string)
 (common-lisp:deftype message () 'common-lisp:string)
 (common-lisp:progn

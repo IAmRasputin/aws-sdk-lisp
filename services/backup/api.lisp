@@ -33,15 +33,23 @@
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:deftype account-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (advanced-backup-setting (:copier common-lisp:nil)
-      (:conc-name "struct-shape-advanced-backup-setting-"))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (backup-options common-lisp:nil :type
-    (common-lisp:or backup-options common-lisp:null)))
+ (common-lisp:defclass advanced-backup-setting common-lisp:nil
+                       ((backup-options :initarg :backup-options :type
+                         (common-lisp:or backup-options common-lisp:null)
+                         :accessor %advanced-backup-setting-backup-options
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %advanced-backup-setting-resource-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'advanced-backup-setting 'make-advanced-backup-setting))
+ (common-lisp:defun make-advanced-backup-setting
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-options resource-type)
+   (common-lisp:apply #'common-lisp:make-instance 'advanced-backup-setting
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -102,55 +110,111 @@
                     'already-exists-exception-type
                     'already-exists-exception-context)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-job (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-job-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (backup-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or backup-job-state common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (percent-done common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-size-in-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (created-by common-lisp:nil :type
-    (common-lisp:or recovery-point-creator common-lisp:null))
-   (expected-completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (start-by common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (bytes-transferred common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (backup-options common-lisp:nil :type
-    (common-lisp:or backup-options common-lisp:null))
-   (backup-type common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (parent-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass backup-job common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-resource-name :initform
+                         common-lisp:nil)
+                        (is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %backup-job-is-parent :initform
+                         common-lisp:nil)
+                        (parent-job-id :initarg :parent-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-parent-job-id :initform
+                         common-lisp:nil)
+                        (backup-type :initarg :backup-type :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-backup-type :initform
+                         common-lisp:nil)
+                        (backup-options :initarg :backup-options :type
+                         (common-lisp:or backup-options common-lisp:null)
+                         :accessor %backup-job-backup-options :initform
+                         common-lisp:nil)
+                        (bytes-transferred :initarg :bytes-transferred :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %backup-job-bytes-transferred :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %backup-job-resource-type :initform
+                         common-lisp:nil)
+                        (start-by :initarg :start-by :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-start-by :initform
+                         common-lisp:nil)
+                        (expected-completion-date :initarg
+                         :expected-completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-expected-completion-date
+                         :initform common-lisp:nil)
+                        (created-by :initarg :created-by :type
+                         (common-lisp:or recovery-point-creator
+                                         common-lisp:null)
+                         :accessor %backup-job-created-by :initform
+                         common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %backup-job-iam-role-arn :initform
+                         common-lisp:nil)
+                        (backup-size-in-bytes :initarg :backup-size-in-bytes
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %backup-job-backup-size-in-bytes :initform
+                         common-lisp:nil)
+                        (percent-done :initarg :percent-done :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-percent-done :initform
+                         common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-status-message :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or backup-job-state common-lisp:null)
+                         :accessor %backup-job-state :initform common-lisp:nil)
+                        (completion-date :initarg :completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-completion-date :initform
+                         common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-creation-date :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %backup-job-resource-arn :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %backup-job-recovery-point-arn :initform
+                         common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %backup-job-backup-vault-arn :initform
+                         common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor %backup-job-backup-vault-name :initform
+                         common-lisp:nil)
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-job-backup-job-id :initform
+                         common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %backup-job-account-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'backup-job 'make-backup-job))
+ (common-lisp:defun make-backup-job
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name is-parent parent-job-id
+                     backup-type backup-options bytes-transferred resource-type
+                     start-by expected-completion-date created-by iam-role-arn
+                     backup-size-in-bytes percent-done status-message state
+                     completion-date creation-date resource-arn
+                     recovery-point-arn backup-vault-arn backup-vault-name
+                     backup-job-id account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-job
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backup-job))
    (common-lisp:append))
@@ -351,16 +415,29 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-plan (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-plan-"))
-   (backup-plan-name (common-lisp:error ":backup-plan-name is required") :type
-    (common-lisp:or backup-plan-name common-lisp:null))
-   (rules (common-lisp:error ":rules is required") :type
-    (common-lisp:or backup-rules common-lisp:null))
-   (advanced-backup-settings common-lisp:nil :type
-    (common-lisp:or advanced-backup-settings common-lisp:null)))
+ (common-lisp:defclass backup-plan common-lisp:nil
+                       ((advanced-backup-settings :initarg
+                         :advanced-backup-settings :type
+                         (common-lisp:or advanced-backup-settings
+                                         common-lisp:null)
+                         :accessor %backup-plan-advanced-backup-settings
+                         :initform common-lisp:nil)
+                        (rules :initarg :rules :type
+                         (common-lisp:or backup-rules common-lisp:null)
+                         :accessor %backup-plan-rules :initform
+                         (common-lisp:error ":rules is required"))
+                        (backup-plan-name :initarg :backup-plan-name :type
+                         (common-lisp:or backup-plan-name common-lisp:null)
+                         :accessor %backup-plan-backup-plan-name :initform
+                         (common-lisp:error ":backup-plan-name is required"))))
  (common-lisp:export (common-lisp:list 'backup-plan 'make-backup-plan))
+ (common-lisp:defun make-backup-plan
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key advanced-backup-settings rules
+                     backup-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-plan
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backup-plan))
    (common-lisp:append))
@@ -393,17 +470,31 @@
                         ((aws-sdk/generator/shape::input backup-plan))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-plan-input-"))
-   (backup-plan-name (common-lisp:error ":backup-plan-name is required") :type
-    (common-lisp:or backup-plan-name common-lisp:null))
-   (rules (common-lisp:error ":rules is required") :type
-    (common-lisp:or backup-rules-input common-lisp:null))
-   (advanced-backup-settings common-lisp:nil :type
-    (common-lisp:or advanced-backup-settings common-lisp:null)))
+ (common-lisp:defclass backup-plan-input common-lisp:nil
+                       ((advanced-backup-settings :initarg
+                         :advanced-backup-settings :type
+                         (common-lisp:or advanced-backup-settings
+                                         common-lisp:null)
+                         :accessor %backup-plan-input-advanced-backup-settings
+                         :initform common-lisp:nil)
+                        (rules :initarg :rules :type
+                         (common-lisp:or backup-rules-input common-lisp:null)
+                         :accessor %backup-plan-input-rules :initform
+                         (common-lisp:error ":rules is required"))
+                        (backup-plan-name :initarg :backup-plan-name :type
+                         (common-lisp:or backup-plan-name common-lisp:null)
+                         :accessor %backup-plan-input-backup-plan-name
+                         :initform
+                         (common-lisp:error ":backup-plan-name is required"))))
  (common-lisp:export
   (common-lisp:list 'backup-plan-input 'make-backup-plan-input))
+ (common-lisp:defun make-backup-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key advanced-backup-settings rules
+                     backup-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backup-plan-input))
    (common-lisp:append))
@@ -446,16 +537,30 @@
                             backup-plan-templates-list-member))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-plan-templates-list-member (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-plan-templates-list-member-"))
-   (backup-plan-template-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-template-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass backup-plan-templates-list-member common-lisp:nil
+                       ((backup-plan-template-name :initarg
+                         :backup-plan-template-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %backup-plan-templates-list-member-backup-plan-template-name
+                         :initform common-lisp:nil)
+                        (backup-plan-template-id :initarg
+                         :backup-plan-template-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %backup-plan-templates-list-member-backup-plan-template-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backup-plan-templates-list-member
                     'make-backup-plan-templates-list-member))
+ (common-lisp:defun make-backup-plan-templates-list-member
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-template-name
+                     backup-plan-template-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'backup-plan-templates-list-member
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -506,29 +611,59 @@
                             backup-plans-list-member))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-plans-list-member (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-plans-list-member-"))
-   (backup-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (deletion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (version-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-name common-lisp:nil :type
-    (common-lisp:or backup-plan-name common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (last-execution-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (advanced-backup-settings common-lisp:nil :type
-    (common-lisp:or advanced-backup-settings common-lisp:null)))
+ (common-lisp:defclass backup-plans-list-member common-lisp:nil
+                       ((advanced-backup-settings :initarg
+                         :advanced-backup-settings :type
+                         (common-lisp:or advanced-backup-settings
+                                         common-lisp:null)
+                         :accessor
+                         %backup-plans-list-member-advanced-backup-settings
+                         :initform common-lisp:nil)
+                        (last-execution-date :initarg :last-execution-date
+                         :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %backup-plans-list-member-last-execution-date
+                         :initform common-lisp:nil)
+                        (creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-plans-list-member-creator-request-id
+                         :initform common-lisp:nil)
+                        (backup-plan-name :initarg :backup-plan-name :type
+                         (common-lisp:or backup-plan-name common-lisp:null)
+                         :accessor %backup-plans-list-member-backup-plan-name
+                         :initform common-lisp:nil)
+                        (version-id :initarg :version-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-plans-list-member-version-id
+                         :initform common-lisp:nil)
+                        (deletion-date :initarg :deletion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-plans-list-member-deletion-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-plans-list-member-creation-date
+                         :initform common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-plans-list-member-backup-plan-id
+                         :initform common-lisp:nil)
+                        (backup-plan-arn :initarg :backup-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %backup-plans-list-member-backup-plan-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backup-plans-list-member 'make-backup-plans-list-member))
+ (common-lisp:defun make-backup-plans-list-member
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key advanced-backup-settings
+                     last-execution-date creator-request-id backup-plan-name
+                     version-id deletion-date creation-date backup-plan-id
+                     backup-plan-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-plans-list-member
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -609,31 +744,62 @@
                           backup-plans-list-member))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-rule (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-rule-"))
-   (rule-name (common-lisp:error ":rule-name is required") :type
-    (common-lisp:or backup-rule-name common-lisp:null))
-   (target-backup-vault-name
-    (common-lisp:error ":target-backup-vault-name is required") :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (schedule-expression common-lisp:nil :type
-    (common-lisp:or cron-expression common-lisp:null))
-   (start-window-minutes common-lisp:nil :type
-    (common-lisp:or window-minutes common-lisp:null))
-   (completion-window-minutes common-lisp:nil :type
-    (common-lisp:or window-minutes common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null))
-   (recovery-point-tags common-lisp:nil :type
-    (common-lisp:or tags common-lisp:null))
-   (rule-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (copy-actions common-lisp:nil :type
-    (common-lisp:or copy-actions common-lisp:null))
-   (enable-continuous-backup common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass backup-rule common-lisp:nil
+                       ((enable-continuous-backup :initarg
+                         :enable-continuous-backup :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %backup-rule-enable-continuous-backup :initform
+                         common-lisp:nil)
+                        (copy-actions :initarg :copy-actions :type
+                         (common-lisp:or copy-actions common-lisp:null)
+                         :accessor %backup-rule-copy-actions :initform
+                         common-lisp:nil)
+                        (rule-id :initarg :rule-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-rule-rule-id :initform
+                         common-lisp:nil)
+                        (recovery-point-tags :initarg :recovery-point-tags
+                         :type (common-lisp:or tags common-lisp:null) :accessor
+                         %backup-rule-recovery-point-tags :initform
+                         common-lisp:nil)
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %backup-rule-lifecycle :initform common-lisp:nil)
+                        (completion-window-minutes :initarg
+                         :completion-window-minutes :type
+                         (common-lisp:or window-minutes common-lisp:null)
+                         :accessor %backup-rule-completion-window-minutes
+                         :initform common-lisp:nil)
+                        (start-window-minutes :initarg :start-window-minutes
+                         :type (common-lisp:or window-minutes common-lisp:null)
+                         :accessor %backup-rule-start-window-minutes :initform
+                         common-lisp:nil)
+                        (schedule-expression :initarg :schedule-expression
+                         :type
+                         (common-lisp:or cron-expression common-lisp:null)
+                         :accessor %backup-rule-schedule-expression :initform
+                         common-lisp:nil)
+                        (target-backup-vault-name :initarg
+                         :target-backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor %backup-rule-target-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":target-backup-vault-name is required"))
+                        (rule-name :initarg :rule-name :type
+                         (common-lisp:or backup-rule-name common-lisp:null)
+                         :accessor %backup-rule-rule-name :initform
+                         (common-lisp:error ":rule-name is required"))))
  (common-lisp:export (common-lisp:list 'backup-rule 'make-backup-rule))
+ (common-lisp:defun make-backup-rule
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key enable-continuous-backup copy-actions
+                     rule-id recovery-point-tags lifecycle
+                     completion-window-minutes start-window-minutes
+                     schedule-expression target-backup-vault-name rule-name)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-rule
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backup-rule))
    (common-lisp:append))
@@ -718,30 +884,60 @@
                         ((aws-sdk/generator/shape::input backup-rule))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-rule-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-rule-input-"))
-   (rule-name (common-lisp:error ":rule-name is required") :type
-    (common-lisp:or backup-rule-name common-lisp:null))
-   (target-backup-vault-name
-    (common-lisp:error ":target-backup-vault-name is required") :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (schedule-expression common-lisp:nil :type
-    (common-lisp:or cron-expression common-lisp:null))
-   (start-window-minutes common-lisp:nil :type
-    (common-lisp:or window-minutes common-lisp:null))
-   (completion-window-minutes common-lisp:nil :type
-    (common-lisp:or window-minutes common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null))
-   (recovery-point-tags common-lisp:nil :type
-    (common-lisp:or tags common-lisp:null))
-   (copy-actions common-lisp:nil :type
-    (common-lisp:or copy-actions common-lisp:null))
-   (enable-continuous-backup common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass backup-rule-input common-lisp:nil
+                       ((enable-continuous-backup :initarg
+                         :enable-continuous-backup :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %backup-rule-input-enable-continuous-backup :initform
+                         common-lisp:nil)
+                        (copy-actions :initarg :copy-actions :type
+                         (common-lisp:or copy-actions common-lisp:null)
+                         :accessor %backup-rule-input-copy-actions :initform
+                         common-lisp:nil)
+                        (recovery-point-tags :initarg :recovery-point-tags
+                         :type (common-lisp:or tags common-lisp:null) :accessor
+                         %backup-rule-input-recovery-point-tags :initform
+                         common-lisp:nil)
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %backup-rule-input-lifecycle :initform
+                         common-lisp:nil)
+                        (completion-window-minutes :initarg
+                         :completion-window-minutes :type
+                         (common-lisp:or window-minutes common-lisp:null)
+                         :accessor %backup-rule-input-completion-window-minutes
+                         :initform common-lisp:nil)
+                        (start-window-minutes :initarg :start-window-minutes
+                         :type (common-lisp:or window-minutes common-lisp:null)
+                         :accessor %backup-rule-input-start-window-minutes
+                         :initform common-lisp:nil)
+                        (schedule-expression :initarg :schedule-expression
+                         :type
+                         (common-lisp:or cron-expression common-lisp:null)
+                         :accessor %backup-rule-input-schedule-expression
+                         :initform common-lisp:nil)
+                        (target-backup-vault-name :initarg
+                         :target-backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor %backup-rule-input-target-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":target-backup-vault-name is required"))
+                        (rule-name :initarg :rule-name :type
+                         (common-lisp:or backup-rule-name common-lisp:null)
+                         :accessor %backup-rule-input-rule-name :initform
+                         (common-lisp:error ":rule-name is required"))))
  (common-lisp:export
   (common-lisp:list 'backup-rule-input 'make-backup-rule-input))
+ (common-lisp:defun make-backup-rule-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key enable-continuous-backup copy-actions
+                     recovery-point-tags lifecycle completion-window-minutes
+                     start-window-minutes schedule-expression
+                     target-backup-vault-name rule-name)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-rule-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backup-rule-input))
    (common-lisp:append))
@@ -835,23 +1031,41 @@
                            (trivial-types:proper-list backup-rule-input))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-selection (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-selection-"))
-   (selection-name (common-lisp:error ":selection-name is required") :type
-    (common-lisp:or backup-selection-name common-lisp:null))
-   (iam-role-arn (common-lisp:error ":iam-role-arn is required") :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (resources common-lisp:nil :type
-    (common-lisp:or resource-arns common-lisp:null))
-   (list-of-tags common-lisp:nil :type
-    (common-lisp:or list-of-tags common-lisp:null))
-   (not-resources common-lisp:nil :type
-    (common-lisp:or resource-arns common-lisp:null))
-   (conditions common-lisp:nil :type
-    (common-lisp:or conditions common-lisp:null)))
+ (common-lisp:defclass backup-selection common-lisp:nil
+                       ((conditions :initarg :conditions :type
+                         (common-lisp:or conditions common-lisp:null) :accessor
+                         %backup-selection-conditions :initform
+                         common-lisp:nil)
+                        (not-resources :initarg :not-resources :type
+                         (common-lisp:or resource-arns common-lisp:null)
+                         :accessor %backup-selection-not-resources :initform
+                         common-lisp:nil)
+                        (list-of-tags :initarg :list-of-tags :type
+                         (common-lisp:or list-of-tags common-lisp:null)
+                         :accessor %backup-selection-list-of-tags :initform
+                         common-lisp:nil)
+                        (resources :initarg :resources :type
+                         (common-lisp:or resource-arns common-lisp:null)
+                         :accessor %backup-selection-resources :initform
+                         common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %backup-selection-iam-role-arn :initform
+                         (common-lisp:error ":iam-role-arn is required"))
+                        (selection-name :initarg :selection-name :type
+                         (common-lisp:or backup-selection-name
+                                         common-lisp:null)
+                         :accessor %backup-selection-selection-name :initform
+                         (common-lisp:error ":selection-name is required"))))
  (common-lisp:export
   (common-lisp:list 'backup-selection 'make-backup-selection))
+ (common-lisp:defun make-backup-selection
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key conditions not-resources list-of-tags
+                     resources iam-role-arn selection-name)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-selection
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backup-selection))
    (common-lisp:append))
@@ -914,24 +1128,46 @@
                             backup-selections-list-member))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-selections-list-member (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-selections-list-member-"))
-   (selection-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (selection-name common-lisp:nil :type
-    (common-lisp:or backup-selection-name common-lisp:null))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null)))
+ (common-lisp:defclass backup-selections-list-member common-lisp:nil
+                       ((iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %backup-selections-list-member-iam-role-arn
+                         :initform common-lisp:nil)
+                        (creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %backup-selections-list-member-creator-request-id
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-selections-list-member-creation-date
+                         :initform common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %backup-selections-list-member-backup-plan-id
+                         :initform common-lisp:nil)
+                        (selection-name :initarg :selection-name :type
+                         (common-lisp:or backup-selection-name
+                                         common-lisp:null)
+                         :accessor
+                         %backup-selections-list-member-selection-name
+                         :initform common-lisp:nil)
+                        (selection-id :initarg :selection-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-selections-list-member-selection-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backup-selections-list-member
                     'make-backup-selections-list-member))
+ (common-lisp:defun make-backup-selections-list-member
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key iam-role-arn creator-request-id
+                     creation-date backup-plan-id selection-name selection-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'backup-selections-list-member
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1008,30 +1244,60 @@
                             backup-vault-list-member))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-vault-list-member (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-vault-list-member-"))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (encryption-key-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (number-of-recovery-points common-lisp:nil :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (locked common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (min-retention-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (max-retention-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (lock-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass backup-vault-list-member common-lisp:nil
+                       ((lock-date :initarg :lock-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-vault-list-member-lock-date
+                         :initform common-lisp:nil)
+                        (max-retention-days :initarg :max-retention-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %backup-vault-list-member-max-retention-days :initform
+                         common-lisp:nil)
+                        (min-retention-days :initarg :min-retention-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %backup-vault-list-member-min-retention-days :initform
+                         common-lisp:nil)
+                        (locked :initarg :locked :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %backup-vault-list-member-locked :initform
+                         common-lisp:nil)
+                        (number-of-recovery-points :initarg
+                         :number-of-recovery-points :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor
+                         %backup-vault-list-member-number-of-recovery-points
+                         :initform common-lisp:nil)
+                        (creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-vault-list-member-creator-request-id
+                         :initform common-lisp:nil)
+                        (encryption-key-arn :initarg :encryption-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %backup-vault-list-member-encryption-key-arn :initform
+                         common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-vault-list-member-creation-date
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %backup-vault-list-member-backup-vault-arn :initform
+                         common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor %backup-vault-list-member-backup-vault-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'backup-vault-list-member 'make-backup-vault-list-member))
+ (common-lisp:defun make-backup-vault-list-member
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-date max-retention-days
+                     min-retention-days locked number-of-recovery-points
+                     creator-request-id encryption-key-arn creation-date
+                     backup-vault-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-vault-list-member
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1121,15 +1387,25 @@
 (common-lisp:deftype backup-vault-name () 'common-lisp:string)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (calculated-lifecycle (:copier common-lisp:nil)
-      (:conc-name "struct-shape-calculated-lifecycle-"))
-   (move-to-cold-storage-at common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (delete-at common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass calculated-lifecycle common-lisp:nil
+                       ((delete-at :initarg :delete-at :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %calculated-lifecycle-delete-at :initform
+                         common-lisp:nil)
+                        (move-to-cold-storage-at :initarg
+                         :move-to-cold-storage-at :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %calculated-lifecycle-move-to-cold-storage-at
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'calculated-lifecycle 'make-calculated-lifecycle))
+ (common-lisp:defun make-calculated-lifecycle
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key delete-at move-to-cold-storage-at)
+   (common-lisp:apply #'common-lisp:make-instance 'calculated-lifecycle
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input calculated-lifecycle))
    (common-lisp:append))
@@ -1155,17 +1431,30 @@
                         ((aws-sdk/generator/shape::input calculated-lifecycle))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cancel-legal-hold-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cancel-legal-hold-input-"))
-   (legal-hold-id (common-lisp:error ":legal-hold-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (cancel-description (common-lisp:error ":cancel-description is required")
-    :type (common-lisp:or common-lisp:string common-lisp:null))
-   (retain-record-in-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null)))
+ (common-lisp:defclass cancel-legal-hold-input common-lisp:nil
+                       ((retain-record-in-days :initarg :retain-record-in-days
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %cancel-legal-hold-input-retain-record-in-days
+                         :initform common-lisp:nil)
+                        (cancel-description :initarg :cancel-description :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %cancel-legal-hold-input-cancel-description
+                         :initform
+                         (common-lisp:error ":cancel-description is required"))
+                        (legal-hold-id :initarg :legal-hold-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %cancel-legal-hold-input-legal-hold-id
+                         :initform
+                         (common-lisp:error ":legal-hold-id is required"))))
  (common-lisp:export
   (common-lisp:list 'cancel-legal-hold-input 'make-cancel-legal-hold-input))
+ (common-lisp:defun make-cancel-legal-hold-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key retain-record-in-days cancel-description
+                     legal-hold-id)
+   (common-lisp:apply #'common-lisp:make-instance 'cancel-legal-hold-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1182,11 +1471,16 @@
                           cancel-legal-hold-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cancel-legal-hold-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cancel-legal-hold-output-")))
+ (common-lisp:defclass cancel-legal-hold-output common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'cancel-legal-hold-output 'make-cancel-legal-hold-output))
+ (common-lisp:defun make-cancel-legal-hold-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'cancel-legal-hold-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1211,16 +1505,27 @@
                            (trivial-types:proper-list common-lisp:string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (condition (:copier common-lisp:nil)
-      (:conc-name "struct-shape-condition-"))
-   (condition-type (common-lisp:error ":condition-type is required") :type
-    (common-lisp:or condition-type common-lisp:null))
-   (condition-key (common-lisp:error ":condition-key is required") :type
-    (common-lisp:or condition-key common-lisp:null))
-   (condition-value (common-lisp:error ":condition-value is required") :type
-    (common-lisp:or condition-value common-lisp:null)))
+ (common-lisp:defclass condition common-lisp:nil
+                       ((condition-value :initarg :condition-value :type
+                         (common-lisp:or condition-value common-lisp:null)
+                         :accessor %condition-condition-value :initform
+                         (common-lisp:error ":condition-value is required"))
+                        (condition-key :initarg :condition-key :type
+                         (common-lisp:or condition-key common-lisp:null)
+                         :accessor %condition-condition-key :initform
+                         (common-lisp:error ":condition-key is required"))
+                        (condition-type :initarg :condition-type :type
+                         (common-lisp:or condition-type common-lisp:null)
+                         :accessor %condition-condition-type :initform
+                         (common-lisp:error ":condition-type is required"))))
  (common-lisp:export (common-lisp:list 'condition 'make-condition))
+ (common-lisp:defun make-condition
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key condition-value condition-key
+                     condition-type)
+   (common-lisp:apply #'common-lisp:make-instance 'condition
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input condition))
    (common-lisp:append))
@@ -1253,15 +1558,23 @@
    common-lisp:nil))
 (common-lisp:deftype condition-key () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (condition-parameter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-condition-parameter-"))
-   (condition-key common-lisp:nil :type
-    (common-lisp:or condition-key common-lisp:null))
-   (condition-value common-lisp:nil :type
-    (common-lisp:or condition-value common-lisp:null)))
+ (common-lisp:defclass condition-parameter common-lisp:nil
+                       ((condition-value :initarg :condition-value :type
+                         (common-lisp:or condition-value common-lisp:null)
+                         :accessor %condition-parameter-condition-value
+                         :initform common-lisp:nil)
+                        (condition-key :initarg :condition-key :type
+                         (common-lisp:or condition-key common-lisp:null)
+                         :accessor %condition-parameter-condition-key :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'condition-parameter 'make-condition-parameter))
+ (common-lisp:defun make-condition-parameter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key condition-value condition-key)
+   (common-lisp:apply #'common-lisp:make-instance 'condition-parameter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input condition-parameter))
    (common-lisp:append))
@@ -1296,18 +1609,31 @@
 (common-lisp:deftype condition-type () 'common-lisp:string)
 (common-lisp:deftype condition-value () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (conditions (:copier common-lisp:nil)
-      (:conc-name "struct-shape-conditions-"))
-   (string-equals common-lisp:nil :type
-    (common-lisp:or condition-parameters common-lisp:null))
-   (string-not-equals common-lisp:nil :type
-    (common-lisp:or condition-parameters common-lisp:null))
-   (string-like common-lisp:nil :type
-    (common-lisp:or condition-parameters common-lisp:null))
-   (string-not-like common-lisp:nil :type
-    (common-lisp:or condition-parameters common-lisp:null)))
+ (common-lisp:defclass conditions common-lisp:nil
+                       ((string-not-like :initarg :string-not-like :type
+                         (common-lisp:or condition-parameters common-lisp:null)
+                         :accessor %conditions-string-not-like :initform
+                         common-lisp:nil)
+                        (string-like :initarg :string-like :type
+                         (common-lisp:or condition-parameters common-lisp:null)
+                         :accessor %conditions-string-like :initform
+                         common-lisp:nil)
+                        (string-not-equals :initarg :string-not-equals :type
+                         (common-lisp:or condition-parameters common-lisp:null)
+                         :accessor %conditions-string-not-equals :initform
+                         common-lisp:nil)
+                        (string-equals :initarg :string-equals :type
+                         (common-lisp:or condition-parameters common-lisp:null)
+                         :accessor %conditions-string-equals :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'conditions 'make-conditions))
+ (common-lisp:defun make-conditions
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key string-not-like string-like
+                     string-not-equals string-equals)
+   (common-lisp:apply #'common-lisp:make-instance 'conditions
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input conditions))
    (common-lisp:append))
@@ -1361,15 +1687,23 @@
                     'conflict-exception-message 'conflict-exception-type
                     'conflict-exception-context)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (control-input-parameter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-control-input-parameter-"))
-   (parameter-name common-lisp:nil :type
-    (common-lisp:or parameter-name common-lisp:null))
-   (parameter-value common-lisp:nil :type
-    (common-lisp:or parameter-value common-lisp:null)))
+ (common-lisp:defclass control-input-parameter common-lisp:nil
+                       ((parameter-value :initarg :parameter-value :type
+                         (common-lisp:or parameter-value common-lisp:null)
+                         :accessor %control-input-parameter-parameter-value
+                         :initform common-lisp:nil)
+                        (parameter-name :initarg :parameter-name :type
+                         (common-lisp:or parameter-name common-lisp:null)
+                         :accessor %control-input-parameter-parameter-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'control-input-parameter 'make-control-input-parameter))
+ (common-lisp:defun make-control-input-parameter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key parameter-value parameter-name)
+   (common-lisp:apply #'common-lisp:make-instance 'control-input-parameter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1409,15 +1743,30 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype control-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (control-scope (:copier common-lisp:nil)
-      (:conc-name "struct-shape-control-scope-"))
-   (compliance-resource-ids common-lisp:nil :type
-    (common-lisp:or compliance-resource-id-list common-lisp:null))
-   (compliance-resource-types common-lisp:nil :type
-    (common-lisp:or resource-type-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or |stringMap| common-lisp:null)))
+ (common-lisp:defclass control-scope common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |stringMap| common-lisp:null)
+                         :accessor %control-scope-tags :initform
+                         common-lisp:nil)
+                        (compliance-resource-types :initarg
+                         :compliance-resource-types :type
+                         (common-lisp:or resource-type-list common-lisp:null)
+                         :accessor %control-scope-compliance-resource-types
+                         :initform common-lisp:nil)
+                        (compliance-resource-ids :initarg
+                         :compliance-resource-ids :type
+                         (common-lisp:or compliance-resource-id-list
+                                         common-lisp:null)
+                         :accessor %control-scope-compliance-resource-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'control-scope 'make-control-scope))
+ (common-lisp:defun make-control-scope
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags compliance-resource-types
+                     compliance-resource-ids)
+   (common-lisp:apply #'common-lisp:make-instance 'control-scope
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input control-scope))
    (common-lisp:append))
@@ -1451,15 +1800,23 @@
                         ((aws-sdk/generator/shape::input control-scope))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (copy-action (:copier common-lisp:nil)
-      (:conc-name "struct-shape-copy-action-"))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null))
-   (destination-backup-vault-arn
-    (common-lisp:error ":destination-backup-vault-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass copy-action common-lisp:nil
+                       ((destination-backup-vault-arn :initarg
+                         :destination-backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %copy-action-destination-backup-vault-arn :initform
+                         (common-lisp:error
+                          ":destination-backup-vault-arn is required"))
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %copy-action-lifecycle :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'copy-action 'make-copy-action))
+ (common-lisp:defun make-copy-action
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destination-backup-vault-arn lifecycle)
+   (common-lisp:apply #'common-lisp:make-instance 'copy-action
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input copy-action))
    (common-lisp:append))
@@ -1492,50 +1849,109 @@
                            (trivial-types:proper-list copy-action))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (copy-job (:copier common-lisp:nil) (:conc-name "struct-shape-copy-job-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (copy-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (source-backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (source-recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (destination-backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (destination-recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or copy-job-state common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-size-in-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (created-by common-lisp:nil :type
-    (common-lisp:or recovery-point-creator common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (parent-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (composite-member-identifier common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (number-of-child-jobs common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (child-jobs-in-state common-lisp:nil :type
-    (common-lisp:or copy-job-child-jobs-in-state common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass copy-job common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %copy-job-resource-name :initform
+                         common-lisp:nil)
+                        (child-jobs-in-state :initarg :child-jobs-in-state
+                         :type
+                         (common-lisp:or copy-job-child-jobs-in-state
+                                         common-lisp:null)
+                         :accessor %copy-job-child-jobs-in-state :initform
+                         common-lisp:nil)
+                        (number-of-child-jobs :initarg :number-of-child-jobs
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %copy-job-number-of-child-jobs :initform
+                         common-lisp:nil)
+                        (composite-member-identifier :initarg
+                         :composite-member-identifier :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %copy-job-composite-member-identifier
+                         :initform common-lisp:nil)
+                        (is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %copy-job-is-parent :initform
+                         common-lisp:nil)
+                        (parent-job-id :initarg :parent-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %copy-job-parent-job-id :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %copy-job-resource-type :initform
+                         common-lisp:nil)
+                        (created-by :initarg :created-by :type
+                         (common-lisp:or recovery-point-creator
+                                         common-lisp:null)
+                         :accessor %copy-job-created-by :initform
+                         common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %copy-job-iam-role-arn :initform
+                         common-lisp:nil)
+                        (backup-size-in-bytes :initarg :backup-size-in-bytes
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %copy-job-backup-size-in-bytes :initform
+                         common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %copy-job-status-message :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or copy-job-state common-lisp:null)
+                         :accessor %copy-job-state :initform common-lisp:nil)
+                        (completion-date :initarg :completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %copy-job-completion-date :initform
+                         common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %copy-job-creation-date :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %copy-job-resource-arn :initform common-lisp:nil)
+                        (destination-recovery-point-arn :initarg
+                         :destination-recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %copy-job-destination-recovery-point-arn :initform
+                         common-lisp:nil)
+                        (destination-backup-vault-arn :initarg
+                         :destination-backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %copy-job-destination-backup-vault-arn :initform
+                         common-lisp:nil)
+                        (source-recovery-point-arn :initarg
+                         :source-recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %copy-job-source-recovery-point-arn :initform
+                         common-lisp:nil)
+                        (source-backup-vault-arn :initarg
+                         :source-backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %copy-job-source-backup-vault-arn :initform
+                         common-lisp:nil)
+                        (copy-job-id :initarg :copy-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %copy-job-copy-job-id :initform
+                         common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %copy-job-account-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'copy-job 'make-copy-job))
+ (common-lisp:defun make-copy-job
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name child-jobs-in-state
+                     number-of-child-jobs composite-member-identifier is-parent
+                     parent-job-id resource-type created-by iam-role-arn
+                     backup-size-in-bytes status-message state completion-date
+                     creation-date resource-arn destination-recovery-point-arn
+                     destination-backup-vault-arn source-recovery-point-arn
+                     source-backup-vault-arn copy-job-id account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'copy-job
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input copy-job))
    (common-lisp:append))
@@ -1716,17 +2132,29 @@
                            (trivial-types:proper-list copy-job))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backup-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backup-plan-input-"))
-   (backup-plan (common-lisp:error ":backup-plan is required") :type
-    (common-lisp:or backup-plan-input common-lisp:null))
-   (backup-plan-tags common-lisp:nil :type
-    (common-lisp:or tags common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass create-backup-plan-input common-lisp:nil
+                       ((creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-backup-plan-input-creator-request-id
+                         :initform common-lisp:nil)
+                        (backup-plan-tags :initarg :backup-plan-tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %create-backup-plan-input-backup-plan-tags :initform
+                         common-lisp:nil)
+                        (backup-plan :initarg :backup-plan :type
+                         (common-lisp:or backup-plan-input common-lisp:null)
+                         :accessor %create-backup-plan-input-backup-plan
+                         :initform
+                         (common-lisp:error ":backup-plan is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backup-plan-input 'make-create-backup-plan-input))
+ (common-lisp:defun make-create-backup-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creator-request-id backup-plan-tags
+                     backup-plan)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backup-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1764,22 +2192,40 @@
                           create-backup-plan-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backup-plan-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backup-plan-output-"))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (version-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (advanced-backup-settings common-lisp:nil :type
-    (common-lisp:or advanced-backup-settings common-lisp:null)))
+ (common-lisp:defclass create-backup-plan-output common-lisp:nil
+                       ((advanced-backup-settings :initarg
+                         :advanced-backup-settings :type
+                         (common-lisp:or advanced-backup-settings
+                                         common-lisp:null)
+                         :accessor
+                         %create-backup-plan-output-advanced-backup-settings
+                         :initform common-lisp:nil)
+                        (version-id :initarg :version-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-backup-plan-output-version-id
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-backup-plan-output-creation-date
+                         :initform common-lisp:nil)
+                        (backup-plan-arn :initarg :backup-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-backup-plan-output-backup-plan-arn :initform
+                         common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-backup-plan-output-backup-plan-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backup-plan-output
                     'make-create-backup-plan-output))
+ (common-lisp:defun make-create-backup-plan-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key advanced-backup-settings version-id
+                     creation-date backup-plan-arn backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backup-plan-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1832,18 +2278,35 @@
                           create-backup-plan-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backup-selection-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backup-selection-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-selection (common-lisp:error ":backup-selection is required") :type
-    (common-lisp:or backup-selection common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass create-backup-selection-input common-lisp:nil
+                       ((creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %create-backup-selection-input-creator-request-id
+                         :initform common-lisp:nil)
+                        (backup-selection :initarg :backup-selection :type
+                         (common-lisp:or backup-selection common-lisp:null)
+                         :accessor
+                         %create-backup-selection-input-backup-selection
+                         :initform
+                         (common-lisp:error ":backup-selection is required"))
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %create-backup-selection-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backup-selection-input
                     'make-create-backup-selection-input))
+ (common-lisp:defun make-create-backup-selection-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creator-request-id backup-selection
+                     backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backup-selection-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1874,18 +2337,32 @@
                           create-backup-selection-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backup-selection-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backup-selection-output-"))
-   (selection-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass create-backup-selection-output common-lisp:nil
+                       ((creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %create-backup-selection-output-creation-date
+                         :initform common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %create-backup-selection-output-backup-plan-id
+                         :initform common-lisp:nil)
+                        (selection-id :initarg :selection-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-backup-selection-output-selection-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backup-selection-output
                     'make-create-backup-selection-output))
+ (common-lisp:defun make-create-backup-selection-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-date backup-plan-id
+                     selection-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-backup-selection-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1923,20 +2400,36 @@
                           create-backup-selection-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backup-vault-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backup-vault-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-tags common-lisp:nil :type
-    (common-lisp:or tags common-lisp:null))
-   (encryption-key-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass create-backup-vault-input common-lisp:nil
+                       ((creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %create-backup-vault-input-creator-request-id
+                         :initform common-lisp:nil)
+                        (encryption-key-arn :initarg :encryption-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-backup-vault-input-encryption-key-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-tags :initarg :backup-vault-tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %create-backup-vault-input-backup-vault-tags :initform
+                         common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor %create-backup-vault-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-backup-vault-input
                     'make-create-backup-vault-input))
+ (common-lisp:defun make-create-backup-vault-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creator-request-id encryption-key-arn
+                     backup-vault-tags backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backup-vault-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1974,18 +2467,30 @@
                           create-backup-vault-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-backup-vault-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-backup-vault-output-"))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass create-backup-vault-output common-lisp:nil
+                       ((creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-backup-vault-output-creation-date
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-backup-vault-output-backup-vault-arn :initform
+                         common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %create-backup-vault-output-backup-vault-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-backup-vault-output
                     'make-create-backup-vault-output))
+ (common-lisp:defun make-create-backup-vault-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-date backup-vault-arn
+                     backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-backup-vault-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2023,21 +2528,41 @@
                           create-backup-vault-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-framework-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-framework-input-"))
-   (framework-name (common-lisp:error ":framework-name is required") :type
-    (common-lisp:or framework-name common-lisp:null))
-   (framework-description common-lisp:nil :type
-    (common-lisp:or framework-description common-lisp:null))
-   (framework-controls (common-lisp:error ":framework-controls is required")
-    :type (common-lisp:or framework-controls common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (framework-tags common-lisp:nil :type
-    (common-lisp:or |stringMap| common-lisp:null)))
+ (common-lisp:defclass create-framework-input common-lisp:nil
+                       ((framework-tags :initarg :framework-tags :type
+                         (common-lisp:or |stringMap| common-lisp:null)
+                         :accessor %create-framework-input-framework-tags
+                         :initform common-lisp:nil)
+                        (idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-framework-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (framework-controls :initarg :framework-controls :type
+                         (common-lisp:or framework-controls common-lisp:null)
+                         :accessor %create-framework-input-framework-controls
+                         :initform
+                         (common-lisp:error ":framework-controls is required"))
+                        (framework-description :initarg :framework-description
+                         :type
+                         (common-lisp:or framework-description
+                                         common-lisp:null)
+                         :accessor
+                         %create-framework-input-framework-description
+                         :initform common-lisp:nil)
+                        (framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %create-framework-input-framework-name
+                         :initform
+                         (common-lisp:error ":framework-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-framework-input 'make-create-framework-input))
+ (common-lisp:defun make-create-framework-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key framework-tags idempotency-token
+                     framework-controls framework-description framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-framework-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2090,14 +2615,23 @@
                           create-framework-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-framework-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-framework-output-"))
-   (framework-name common-lisp:nil :type
-    (common-lisp:or framework-name common-lisp:null))
-   (framework-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass create-framework-output common-lisp:nil
+                       ((framework-arn :initarg :framework-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-framework-output-framework-arn :initform
+                         common-lisp:nil)
+                        (framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %create-framework-output-framework-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-framework-output 'make-create-framework-output))
+ (common-lisp:defun make-create-framework-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key framework-arn framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-framework-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2128,20 +2662,40 @@
                           create-framework-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-legal-hold-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-legal-hold-input-"))
-   (title (common-lisp:error ":title is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (description (common-lisp:error ":description is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-point-selection common-lisp:nil :type
-    (common-lisp:or recovery-point-selection common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
+ (common-lisp:defclass create-legal-hold-input common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %create-legal-hold-input-tags :initform
+                         common-lisp:nil)
+                        (recovery-point-selection :initarg
+                         :recovery-point-selection :type
+                         (common-lisp:or recovery-point-selection
+                                         common-lisp:null)
+                         :accessor
+                         %create-legal-hold-input-recovery-point-selection
+                         :initform common-lisp:nil)
+                        (idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-legal-hold-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-legal-hold-input-description
+                         :initform
+                         (common-lisp:error ":description is required"))
+                        (title :initarg :title :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-legal-hold-input-title :initform
+                         (common-lisp:error ":title is required"))))
  (common-lisp:export
   (common-lisp:list 'create-legal-hold-input 'make-create-legal-hold-input))
+ (common-lisp:defun make-create-legal-hold-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags recovery-point-selection
+                     idempotency-token description title)
+   (common-lisp:apply #'common-lisp:make-instance 'create-legal-hold-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2194,24 +2748,47 @@
                           create-legal-hold-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-legal-hold-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-legal-hold-output-"))
-   (title common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or legal-hold-status common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (legal-hold-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (legal-hold-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-point-selection common-lisp:nil :type
-    (common-lisp:or recovery-point-selection common-lisp:null)))
+ (common-lisp:defclass create-legal-hold-output common-lisp:nil
+                       ((recovery-point-selection :initarg
+                         :recovery-point-selection :type
+                         (common-lisp:or recovery-point-selection
+                                         common-lisp:null)
+                         :accessor
+                         %create-legal-hold-output-recovery-point-selection
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-legal-hold-output-creation-date
+                         :initform common-lisp:nil)
+                        (legal-hold-arn :initarg :legal-hold-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-legal-hold-output-legal-hold-arn :initform
+                         common-lisp:nil)
+                        (legal-hold-id :initarg :legal-hold-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-legal-hold-output-legal-hold-id
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-legal-hold-output-description
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or legal-hold-status common-lisp:null)
+                         :accessor %create-legal-hold-output-status :initform
+                         common-lisp:nil)
+                        (title :initarg :title :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-legal-hold-output-title :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-legal-hold-output 'make-create-legal-hold-output))
+ (common-lisp:defun make-create-legal-hold-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-selection creation-date
+                     legal-hold-arn legal-hold-id description status title)
+   (common-lisp:apply #'common-lisp:make-instance 'create-legal-hold-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2278,24 +2855,51 @@
                           create-legal-hold-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-report-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-report-plan-input-"))
-   (report-plan-name (common-lisp:error ":report-plan-name is required") :type
-    (common-lisp:or report-plan-name common-lisp:null))
-   (report-plan-description common-lisp:nil :type
-    (common-lisp:or report-plan-description common-lisp:null))
-   (report-delivery-channel
-    (common-lisp:error ":report-delivery-channel is required") :type
-    (common-lisp:or report-delivery-channel common-lisp:null))
-   (report-setting (common-lisp:error ":report-setting is required") :type
-    (common-lisp:or report-setting common-lisp:null))
-   (report-plan-tags common-lisp:nil :type
-    (common-lisp:or |stringMap| common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass create-report-plan-input common-lisp:nil
+                       ((idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-report-plan-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (report-plan-tags :initarg :report-plan-tags :type
+                         (common-lisp:or |stringMap| common-lisp:null)
+                         :accessor %create-report-plan-input-report-plan-tags
+                         :initform common-lisp:nil)
+                        (report-setting :initarg :report-setting :type
+                         (common-lisp:or report-setting common-lisp:null)
+                         :accessor %create-report-plan-input-report-setting
+                         :initform
+                         (common-lisp:error ":report-setting is required"))
+                        (report-delivery-channel :initarg
+                         :report-delivery-channel :type
+                         (common-lisp:or report-delivery-channel
+                                         common-lisp:null)
+                         :accessor
+                         %create-report-plan-input-report-delivery-channel
+                         :initform
+                         (common-lisp:error
+                          ":report-delivery-channel is required"))
+                        (report-plan-description :initarg
+                         :report-plan-description :type
+                         (common-lisp:or report-plan-description
+                                         common-lisp:null)
+                         :accessor
+                         %create-report-plan-input-report-plan-description
+                         :initform common-lisp:nil)
+                        (report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %create-report-plan-input-report-plan-name
+                         :initform
+                         (common-lisp:error ":report-plan-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-report-plan-input 'make-create-report-plan-input))
+ (common-lisp:defun make-create-report-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key idempotency-token report-plan-tags
+                     report-setting report-delivery-channel
+                     report-plan-description report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-report-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2356,18 +2960,29 @@
                           create-report-plan-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-report-plan-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-report-plan-output-"))
-   (report-plan-name common-lisp:nil :type
-    (common-lisp:or report-plan-name common-lisp:null))
-   (report-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass create-report-plan-output common-lisp:nil
+                       ((creation-time :initarg :creation-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %create-report-plan-output-creation-time
+                         :initform common-lisp:nil)
+                        (report-plan-arn :initarg :report-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-report-plan-output-report-plan-arn :initform
+                         common-lisp:nil)
+                        (report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %create-report-plan-output-report-plan-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-report-plan-output
                     'make-create-report-plan-output))
+ (common-lisp:defun make-create-report-plan-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-time report-plan-arn
+                     report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-report-plan-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2406,14 +3021,22 @@
    common-lisp:nil))
 (common-lisp:deftype cron-expression () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (date-range (:copier common-lisp:nil)
-      (:conc-name "struct-shape-date-range-"))
-   (from-date (common-lisp:error ":from-date is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (to-date (common-lisp:error ":to-date is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass date-range common-lisp:nil
+                       ((to-date :initarg :to-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %date-range-to-date :initform
+                         (common-lisp:error ":to-date is required"))
+                        (from-date :initarg :from-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %date-range-from-date :initform
+                         (common-lisp:error ":from-date is required"))))
  (common-lisp:export (common-lisp:list 'date-range 'make-date-range))
+ (common-lisp:defun make-date-range
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key to-date from-date)
+   (common-lisp:apply #'common-lisp:make-instance 'date-range
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input date-range))
    (common-lisp:append))
@@ -2438,13 +3061,20 @@
                         ((aws-sdk/generator/shape::input date-range))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backup-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backup-plan-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass delete-backup-plan-input common-lisp:nil
+                       ((backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-backup-plan-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backup-plan-input 'make-delete-backup-plan-input))
+ (common-lisp:defun make-delete-backup-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backup-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2461,20 +3091,33 @@
                           delete-backup-plan-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backup-plan-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backup-plan-output-"))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (deletion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (version-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass delete-backup-plan-output common-lisp:nil
+                       ((version-id :initarg :version-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-backup-plan-output-version-id
+                         :initform common-lisp:nil)
+                        (deletion-date :initarg :deletion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-backup-plan-output-deletion-date
+                         :initform common-lisp:nil)
+                        (backup-plan-arn :initarg :backup-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %delete-backup-plan-output-backup-plan-arn :initform
+                         common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-backup-plan-output-backup-plan-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-backup-plan-output
                     'make-delete-backup-plan-output))
+ (common-lisp:defun make-delete-backup-plan-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key version-id deletion-date backup-plan-arn
+                     backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backup-plan-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2519,16 +3162,28 @@
                           delete-backup-plan-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backup-selection-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backup-selection-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (selection-id (common-lisp:error ":selection-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass delete-backup-selection-input common-lisp:nil
+                       ((selection-id :initarg :selection-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-backup-selection-input-selection-id
+                         :initform
+                         (common-lisp:error ":selection-id is required"))
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %delete-backup-selection-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backup-selection-input
                     'make-delete-backup-selection-input))
+ (common-lisp:defun make-delete-backup-selection-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key selection-id backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-backup-selection-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2545,14 +3200,24 @@
                           delete-backup-selection-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backup-vault-access-policy-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backup-vault-access-policy-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null)))
+ (common-lisp:defclass delete-backup-vault-access-policy-input common-lisp:nil
+                       ((backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %delete-backup-vault-access-policy-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backup-vault-access-policy-input
                     'make-delete-backup-vault-access-policy-input))
+ (common-lisp:defun make-delete-backup-vault-access-policy-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-backup-vault-access-policy-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2569,14 +3234,22 @@
                           delete-backup-vault-access-policy-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backup-vault-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backup-vault-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass delete-backup-vault-input common-lisp:nil
+                       ((backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-backup-vault-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backup-vault-input
                     'make-delete-backup-vault-input))
+ (common-lisp:defun make-delete-backup-vault-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-backup-vault-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2593,15 +3266,25 @@
                           delete-backup-vault-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backup-vault-lock-configuration-input (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-backup-vault-lock-configuration-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null)))
+ (common-lisp:defclass delete-backup-vault-lock-configuration-input
+                       common-lisp:nil
+                       ((backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %delete-backup-vault-lock-configuration-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backup-vault-lock-configuration-input
                     'make-delete-backup-vault-lock-configuration-input))
+ (common-lisp:defun make-delete-backup-vault-lock-configuration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-backup-vault-lock-configuration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2618,14 +3301,24 @@
                           delete-backup-vault-lock-configuration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-backup-vault-notifications-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-backup-vault-notifications-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null)))
+ (common-lisp:defclass delete-backup-vault-notifications-input common-lisp:nil
+                       ((backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %delete-backup-vault-notifications-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-backup-vault-notifications-input
                     'make-delete-backup-vault-notifications-input))
+ (common-lisp:defun make-delete-backup-vault-notifications-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-backup-vault-notifications-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2642,13 +3335,20 @@
                           delete-backup-vault-notifications-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-framework-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-framework-input-"))
-   (framework-name (common-lisp:error ":framework-name is required") :type
-    (common-lisp:or framework-name common-lisp:null)))
+ (common-lisp:defclass delete-framework-input common-lisp:nil
+                       ((framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %delete-framework-input-framework-name
+                         :initform
+                         (common-lisp:error ":framework-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-framework-input 'make-delete-framework-input))
+ (common-lisp:defun make-delete-framework-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-framework-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2665,16 +3365,28 @@
                           delete-framework-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-recovery-point-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-recovery-point-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass delete-recovery-point-input common-lisp:nil
+                       ((recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %delete-recovery-point-input-recovery-point-arn
+                         :initform
+                         (common-lisp:error ":recovery-point-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %delete-recovery-point-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-recovery-point-input
                     'make-delete-recovery-point-input))
+ (common-lisp:defun make-delete-recovery-point-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-recovery-point-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2691,13 +3403,20 @@
                           delete-recovery-point-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-report-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-report-plan-input-"))
-   (report-plan-name (common-lisp:error ":report-plan-name is required") :type
-    (common-lisp:or report-plan-name common-lisp:null)))
+ (common-lisp:defclass delete-report-plan-input common-lisp:nil
+                       ((report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %delete-report-plan-input-report-plan-name
+                         :initform
+                         (common-lisp:error ":report-plan-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-report-plan-input 'make-delete-report-plan-input))
+ (common-lisp:defun make-delete-report-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-report-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2731,14 +3450,21 @@
                     'dependency-failure-exception-type
                     'dependency-failure-exception-context)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-backup-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-backup-job-input-"))
-   (backup-job-id (common-lisp:error ":backup-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-backup-job-input common-lisp:nil
+                       ((backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-input-backup-job-id
+                         :initform
+                         (common-lisp:error ":backup-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-backup-job-input
                     'make-describe-backup-job-input))
+ (common-lisp:defun make-describe-backup-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-backup-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2755,61 +3481,130 @@
                           describe-backup-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-backup-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-backup-job-output-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (backup-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or backup-job-state common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (percent-done common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-size-in-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (created-by common-lisp:nil :type
-    (common-lisp:or recovery-point-creator common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (bytes-transferred common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (expected-completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (start-by common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-options common-lisp:nil :type
-    (common-lisp:or backup-options common-lisp:null))
-   (backup-type common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (parent-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (number-of-child-jobs common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (child-jobs-in-state common-lisp:nil :type
-    (common-lisp:or backup-job-child-jobs-in-state common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-backup-job-output common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-resource-name
+                         :initform common-lisp:nil)
+                        (child-jobs-in-state :initarg :child-jobs-in-state
+                         :type
+                         (common-lisp:or backup-job-child-jobs-in-state
+                                         common-lisp:null)
+                         :accessor
+                         %describe-backup-job-output-child-jobs-in-state
+                         :initform common-lisp:nil)
+                        (number-of-child-jobs :initarg :number-of-child-jobs
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %describe-backup-job-output-number-of-child-jobs
+                         :initform common-lisp:nil)
+                        (is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %describe-backup-job-output-is-parent
+                         :initform common-lisp:nil)
+                        (parent-job-id :initarg :parent-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-parent-job-id
+                         :initform common-lisp:nil)
+                        (backup-type :initarg :backup-type :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-backup-type
+                         :initform common-lisp:nil)
+                        (backup-options :initarg :backup-options :type
+                         (common-lisp:or backup-options common-lisp:null)
+                         :accessor %describe-backup-job-output-backup-options
+                         :initform common-lisp:nil)
+                        (start-by :initarg :start-by :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-start-by
+                         :initform common-lisp:nil)
+                        (expected-completion-date :initarg
+                         :expected-completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-backup-job-output-expected-completion-date
+                         :initform common-lisp:nil)
+                        (bytes-transferred :initarg :bytes-transferred :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %describe-backup-job-output-bytes-transferred
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %describe-backup-job-output-resource-type
+                         :initform common-lisp:nil)
+                        (created-by :initarg :created-by :type
+                         (common-lisp:or recovery-point-creator
+                                         common-lisp:null)
+                         :accessor %describe-backup-job-output-created-by
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %describe-backup-job-output-iam-role-arn
+                         :initform common-lisp:nil)
+                        (backup-size-in-bytes :initarg :backup-size-in-bytes
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %describe-backup-job-output-backup-size-in-bytes
+                         :initform common-lisp:nil)
+                        (percent-done :initarg :percent-done :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-percent-done
+                         :initform common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-status-message
+                         :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or backup-job-state common-lisp:null)
+                         :accessor %describe-backup-job-output-state :initform
+                         common-lisp:nil)
+                        (completion-date :initarg :completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-completion-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-creation-date
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-backup-job-output-resource-arn :initform
+                         common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-backup-job-output-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-backup-job-output-backup-vault-arn :initform
+                         common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %describe-backup-job-output-backup-vault-name
+                         :initform common-lisp:nil)
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-job-output-backup-job-id
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %describe-backup-job-output-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-backup-job-output
                     'make-describe-backup-job-output))
+ (common-lisp:defun make-describe-backup-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name child-jobs-in-state
+                     number-of-child-jobs is-parent parent-job-id backup-type
+                     backup-options start-by expected-completion-date
+                     bytes-transferred resource-type created-by iam-role-arn
+                     backup-size-in-bytes percent-done status-message state
+                     completion-date creation-date resource-arn
+                     recovery-point-arn backup-vault-arn backup-vault-name
+                     backup-job-id account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-backup-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3004,14 +3799,23 @@
                           describe-backup-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-backup-vault-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-backup-vault-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-backup-vault-input common-lisp:nil
+                       ((backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-backup-vault-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-backup-vault-input
                     'make-describe-backup-vault-input))
+ (common-lisp:defun make-describe-backup-vault-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-backup-vault-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3028,31 +3832,63 @@
                           describe-backup-vault-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-backup-vault-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-backup-vault-output-"))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (encryption-key-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (number-of-recovery-points common-lisp:nil :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (locked common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (min-retention-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (max-retention-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (lock-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-backup-vault-output common-lisp:nil
+                       ((lock-date :initarg :lock-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-vault-output-lock-date
+                         :initform common-lisp:nil)
+                        (max-retention-days :initarg :max-retention-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %describe-backup-vault-output-max-retention-days
+                         :initform common-lisp:nil)
+                        (min-retention-days :initarg :min-retention-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %describe-backup-vault-output-min-retention-days
+                         :initform common-lisp:nil)
+                        (locked :initarg :locked :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %describe-backup-vault-output-locked :initform
+                         common-lisp:nil)
+                        (number-of-recovery-points :initarg
+                         :number-of-recovery-points :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor
+                         %describe-backup-vault-output-number-of-recovery-points
+                         :initform common-lisp:nil)
+                        (creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-backup-vault-output-creator-request-id
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-backup-vault-output-creation-date
+                         :initform common-lisp:nil)
+                        (encryption-key-arn :initarg :encryption-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-backup-vault-output-encryption-key-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-backup-vault-output-backup-vault-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-backup-vault-output-backup-vault-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-backup-vault-output
                     'make-describe-backup-vault-output))
+ (common-lisp:defun make-describe-backup-vault-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-date max-retention-days
+                     min-retention-days locked number-of-recovery-points
+                     creator-request-id creation-date encryption-key-arn
+                     backup-vault-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-backup-vault-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3140,13 +3976,20 @@
                           describe-backup-vault-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-copy-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-copy-job-input-"))
-   (copy-job-id (common-lisp:error ":copy-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-copy-job-input common-lisp:nil
+                       ((copy-job-id :initarg :copy-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-copy-job-input-copy-job-id
+                         :initform
+                         (common-lisp:error ":copy-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-copy-job-input 'make-describe-copy-job-input))
+ (common-lisp:defun make-describe-copy-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key copy-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-copy-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3163,12 +4006,19 @@
                           describe-copy-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-copy-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-copy-job-output-"))
-   (copy-job common-lisp:nil :type (common-lisp:or copy-job common-lisp:null)))
+ (common-lisp:defclass describe-copy-job-output common-lisp:nil
+                       ((copy-job :initarg :copy-job :type
+                         (common-lisp:or copy-job common-lisp:null) :accessor
+                         %describe-copy-job-output-copy-job :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-copy-job-output 'make-describe-copy-job-output))
+ (common-lisp:defun make-describe-copy-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key copy-job)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-copy-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3192,13 +4042,20 @@
                           describe-copy-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-framework-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-framework-input-"))
-   (framework-name (common-lisp:error ":framework-name is required") :type
-    (common-lisp:or framework-name common-lisp:null)))
+ (common-lisp:defclass describe-framework-input common-lisp:nil
+                       ((framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %describe-framework-input-framework-name
+                         :initform
+                         (common-lisp:error ":framework-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-framework-input 'make-describe-framework-input))
+ (common-lisp:defun make-describe-framework-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-framework-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3215,27 +4072,54 @@
                           describe-framework-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-framework-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-framework-output-"))
-   (framework-name common-lisp:nil :type
-    (common-lisp:or framework-name common-lisp:null))
-   (framework-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (framework-description common-lisp:nil :type
-    (common-lisp:or framework-description common-lisp:null))
-   (framework-controls common-lisp:nil :type
-    (common-lisp:or framework-controls common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (deployment-status common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (framework-status common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-framework-output common-lisp:nil
+                       ((idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-framework-output-idempotency-token
+                         :initform common-lisp:nil)
+                        (framework-status :initarg :framework-status :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-framework-output-framework-status
+                         :initform common-lisp:nil)
+                        (deployment-status :initarg :deployment-status :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-framework-output-deployment-status
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-framework-output-creation-time
+                         :initform common-lisp:nil)
+                        (framework-controls :initarg :framework-controls :type
+                         (common-lisp:or framework-controls common-lisp:null)
+                         :accessor
+                         %describe-framework-output-framework-controls
+                         :initform common-lisp:nil)
+                        (framework-description :initarg :framework-description
+                         :type
+                         (common-lisp:or framework-description
+                                         common-lisp:null)
+                         :accessor
+                         %describe-framework-output-framework-description
+                         :initform common-lisp:nil)
+                        (framework-arn :initarg :framework-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-framework-output-framework-arn :initform
+                         common-lisp:nil)
+                        (framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %describe-framework-output-framework-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-framework-output
                     'make-describe-framework-output))
+ (common-lisp:defun make-describe-framework-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key idempotency-token framework-status
+                     deployment-status creation-time framework-controls
+                     framework-description framework-arn framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-framework-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3309,12 +4193,18 @@
                           describe-framework-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-global-settings-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-global-settings-input-")))
+ (common-lisp:defclass describe-global-settings-input common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'describe-global-settings-input
                     'make-describe-global-settings-input))
+ (common-lisp:defun make-describe-global-settings-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-global-settings-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3331,16 +4221,27 @@
                           describe-global-settings-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-global-settings-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-global-settings-output-"))
-   (global-settings common-lisp:nil :type
-    (common-lisp:or global-settings common-lisp:null))
-   (last-update-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-global-settings-output common-lisp:nil
+                       ((last-update-time :initarg :last-update-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-global-settings-output-last-update-time
+                         :initform common-lisp:nil)
+                        (global-settings :initarg :global-settings :type
+                         (common-lisp:or global-settings common-lisp:null)
+                         :accessor
+                         %describe-global-settings-output-global-settings
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-global-settings-output
                     'make-describe-global-settings-output))
+ (common-lisp:defun make-describe-global-settings-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-update-time global-settings)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-global-settings-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3371,14 +4272,22 @@
                           describe-global-settings-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-protected-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-protected-resource-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass describe-protected-resource-input common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-protected-resource-input-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-protected-resource-input
                     'make-describe-protected-resource-input))
+ (common-lisp:defun make-describe-protected-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-protected-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3395,19 +4304,37 @@
                           describe-protected-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-protected-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-protected-resource-output-"))
-   (resource-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (last-backup-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-protected-resource-output common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-protected-resource-output-resource-name
+                         :initform common-lisp:nil)
+                        (last-backup-time :initarg :last-backup-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-protected-resource-output-last-backup-time
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %describe-protected-resource-output-resource-type
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-protected-resource-output-resource-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-protected-resource-output
                     'make-describe-protected-resource-output))
+ (common-lisp:defun make-describe-protected-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name last-backup-time
+                     resource-type resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-protected-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3452,16 +4379,29 @@
                           describe-protected-resource-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-recovery-point-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-recovery-point-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass describe-recovery-point-input common-lisp:nil
+                       ((recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-recovery-point-input-recovery-point-arn
+                         :initform
+                         (common-lisp:error ":recovery-point-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-recovery-point-input
                     'make-describe-recovery-point-input))
+ (common-lisp:defun make-describe-recovery-point-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-recovery-point-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3478,57 +4418,132 @@
                           describe-recovery-point-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-recovery-point-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-recovery-point-output-"))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (source-backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (created-by common-lisp:nil :type
-    (common-lisp:or recovery-point-creator common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or recovery-point-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-size-in-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (calculated-lifecycle common-lisp:nil :type
-    (common-lisp:or calculated-lifecycle common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null))
-   (encryption-key-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (is-encrypted common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (storage-class common-lisp:nil :type
-    (common-lisp:or storage-class common-lisp:null))
-   (last-restore-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (parent-recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (composite-member-identifier common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass describe-recovery-point-output common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-resource-name
+                         :initform common-lisp:nil)
+                        (is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %describe-recovery-point-output-is-parent
+                         :initform common-lisp:nil)
+                        (composite-member-identifier :initarg
+                         :composite-member-identifier :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-composite-member-identifier
+                         :initform common-lisp:nil)
+                        (parent-recovery-point-arn :initarg
+                         :parent-recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-recovery-point-output-parent-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (last-restore-time :initarg :last-restore-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-last-restore-time
+                         :initform common-lisp:nil)
+                        (storage-class :initarg :storage-class :type
+                         (common-lisp:or storage-class common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-storage-class
+                         :initform common-lisp:nil)
+                        (is-encrypted :initarg :is-encrypted :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %describe-recovery-point-output-is-encrypted
+                         :initform common-lisp:nil)
+                        (encryption-key-arn :initarg :encryption-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-recovery-point-output-encryption-key-arn
+                         :initform common-lisp:nil)
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %describe-recovery-point-output-lifecycle :initform
+                         common-lisp:nil)
+                        (calculated-lifecycle :initarg :calculated-lifecycle
+                         :type
+                         (common-lisp:or calculated-lifecycle common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-calculated-lifecycle
+                         :initform common-lisp:nil)
+                        (backup-size-in-bytes :initarg :backup-size-in-bytes
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %describe-recovery-point-output-backup-size-in-bytes
+                         :initform common-lisp:nil)
+                        (completion-date :initarg :completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-completion-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-creation-date
+                         :initform common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or recovery-point-status
+                                         common-lisp:null)
+                         :accessor %describe-recovery-point-output-status
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %describe-recovery-point-output-iam-role-arn
+                         :initform common-lisp:nil)
+                        (created-by :initarg :created-by :type
+                         (common-lisp:or recovery-point-creator
+                                         common-lisp:null)
+                         :accessor %describe-recovery-point-output-created-by
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-resource-type
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-recovery-point-output-resource-arn :initform
+                         common-lisp:nil)
+                        (source-backup-vault-arn :initarg
+                         :source-backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-recovery-point-output-source-backup-vault-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-recovery-point-output-backup-vault-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %describe-recovery-point-output-backup-vault-name
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-recovery-point-output-recovery-point-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-recovery-point-output
                     'make-describe-recovery-point-output))
+ (common-lisp:defun make-describe-recovery-point-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name is-parent
+                     composite-member-identifier parent-recovery-point-arn
+                     last-restore-time storage-class is-encrypted
+                     encryption-key-arn lifecycle calculated-lifecycle
+                     backup-size-in-bytes completion-date creation-date
+                     status-message status iam-role-arn created-by
+                     resource-type resource-arn source-backup-vault-arn
+                     backup-vault-arn backup-vault-name recovery-point-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-recovery-point-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3711,12 +4726,18 @@
                           describe-recovery-point-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-region-settings-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-region-settings-input-")))
+ (common-lisp:defclass describe-region-settings-input common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'describe-region-settings-input
                     'make-describe-region-settings-input))
+ (common-lisp:defun make-describe-region-settings-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-region-settings-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3733,16 +4754,32 @@
                           describe-region-settings-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-region-settings-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-region-settings-output-"))
-   (resource-type-opt-in-preference common-lisp:nil :type
-    (common-lisp:or resource-type-opt-in-preference common-lisp:null))
-   (resource-type-management-preference common-lisp:nil :type
-    (common-lisp:or resource-type-management-preference common-lisp:null)))
+ (common-lisp:defclass describe-region-settings-output common-lisp:nil
+                       ((resource-type-management-preference :initarg
+                         :resource-type-management-preference :type
+                         (common-lisp:or resource-type-management-preference
+                                         common-lisp:null)
+                         :accessor
+                         %describe-region-settings-output-resource-type-management-preference
+                         :initform common-lisp:nil)
+                        (resource-type-opt-in-preference :initarg
+                         :resource-type-opt-in-preference :type
+                         (common-lisp:or resource-type-opt-in-preference
+                                         common-lisp:null)
+                         :accessor
+                         %describe-region-settings-output-resource-type-opt-in-preference
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-region-settings-output
                     'make-describe-region-settings-output))
+ (common-lisp:defun make-describe-region-settings-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-type-management-preference
+                     resource-type-opt-in-preference)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-region-settings-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3775,14 +4812,21 @@
                           describe-region-settings-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-report-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-report-job-input-"))
-   (report-job-id (common-lisp:error ":report-job-id is required") :type
-    (common-lisp:or report-job-id common-lisp:null)))
+ (common-lisp:defclass describe-report-job-input common-lisp:nil
+                       ((report-job-id :initarg :report-job-id :type
+                         (common-lisp:or report-job-id common-lisp:null)
+                         :accessor %describe-report-job-input-report-job-id
+                         :initform
+                         (common-lisp:error ":report-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-report-job-input
                     'make-describe-report-job-input))
+ (common-lisp:defun make-describe-report-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key report-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-report-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3799,14 +4843,20 @@
                           describe-report-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-report-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-report-job-output-"))
-   (report-job common-lisp:nil :type
-    (common-lisp:or report-job common-lisp:null)))
+ (common-lisp:defclass describe-report-job-output common-lisp:nil
+                       ((report-job :initarg :report-job :type
+                         (common-lisp:or report-job common-lisp:null) :accessor
+                         %describe-report-job-output-report-job :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-report-job-output
                     'make-describe-report-job-output))
+ (common-lisp:defun make-describe-report-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key report-job)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-report-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3830,14 +4880,21 @@
                           describe-report-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-report-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-report-plan-input-"))
-   (report-plan-name (common-lisp:error ":report-plan-name is required") :type
-    (common-lisp:or report-plan-name common-lisp:null)))
+ (common-lisp:defclass describe-report-plan-input common-lisp:nil
+                       ((report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %describe-report-plan-input-report-plan-name
+                         :initform
+                         (common-lisp:error ":report-plan-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-report-plan-input
                     'make-describe-report-plan-input))
+ (common-lisp:defun make-describe-report-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-report-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3854,14 +4911,20 @@
                           describe-report-plan-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-report-plan-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-report-plan-output-"))
-   (report-plan common-lisp:nil :type
-    (common-lisp:or report-plan common-lisp:null)))
+ (common-lisp:defclass describe-report-plan-output common-lisp:nil
+                       ((report-plan :initarg :report-plan :type
+                         (common-lisp:or report-plan common-lisp:null)
+                         :accessor %describe-report-plan-output-report-plan
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-report-plan-output
                     'make-describe-report-plan-output))
+ (common-lisp:defun make-describe-report-plan-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key report-plan)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-report-plan-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3885,14 +4948,21 @@
                           describe-report-plan-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-restore-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-restore-job-input-"))
-   (restore-job-id (common-lisp:error ":restore-job-id is required") :type
-    (common-lisp:or restore-job-id common-lisp:null)))
+ (common-lisp:defclass describe-restore-job-input common-lisp:nil
+                       ((restore-job-id :initarg :restore-job-id :type
+                         (common-lisp:or restore-job-id common-lisp:null)
+                         :accessor %describe-restore-job-input-restore-job-id
+                         :initform
+                         (common-lisp:error ":restore-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-restore-job-input
                     'make-describe-restore-job-input))
+ (common-lisp:defun make-describe-restore-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key restore-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-restore-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3909,38 +4979,73 @@
                           describe-restore-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-restore-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-restore-job-output-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (restore-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or restore-job-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (percent-done common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-size-in-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (expected-completion-time-minutes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (created-resource-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null)))
+ (common-lisp:defclass describe-restore-job-output common-lisp:nil
+                       ((resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %describe-restore-job-output-resource-type
+                         :initform common-lisp:nil)
+                        (created-resource-arn :initarg :created-resource-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-restore-job-output-created-resource-arn
+                         :initform common-lisp:nil)
+                        (expected-completion-time-minutes :initarg
+                         :expected-completion-time-minutes :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %describe-restore-job-output-expected-completion-time-minutes
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %describe-restore-job-output-iam-role-arn
+                         :initform common-lisp:nil)
+                        (backup-size-in-bytes :initarg :backup-size-in-bytes
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %describe-restore-job-output-backup-size-in-bytes
+                         :initform common-lisp:nil)
+                        (percent-done :initarg :percent-done :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-restore-job-output-percent-done
+                         :initform common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-restore-job-output-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or restore-job-status common-lisp:null)
+                         :accessor %describe-restore-job-output-status
+                         :initform common-lisp:nil)
+                        (completion-date :initarg :completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-restore-job-output-completion-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-restore-job-output-creation-date
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-restore-job-output-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (restore-job-id :initarg :restore-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %describe-restore-job-output-restore-job-id
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %describe-restore-job-output-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-restore-job-output
                     'make-describe-restore-job-output))
+ (common-lisp:defun make-describe-restore-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-type created-resource-arn
+                     expected-completion-time-minutes iam-role-arn
+                     backup-size-in-bytes percent-done status-message status
+                     completion-date creation-date recovery-point-arn
+                     restore-job-id account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-restore-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4051,17 +5156,30 @@
                           describe-restore-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-recovery-point-from-parent-input (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-recovery-point-from-parent-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass disassociate-recovery-point-from-parent-input
+                       common-lisp:nil
+                       ((recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %disassociate-recovery-point-from-parent-input-recovery-point-arn
+                         :initform
+                         (common-lisp:error ":recovery-point-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %disassociate-recovery-point-from-parent-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-recovery-point-from-parent-input
                     'make-disassociate-recovery-point-from-parent-input))
+ (common-lisp:defun make-disassociate-recovery-point-from-parent-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-recovery-point-from-parent-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4078,16 +5196,29 @@
                           disassociate-recovery-point-from-parent-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-recovery-point-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-recovery-point-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass disassociate-recovery-point-input common-lisp:nil
+                       ((recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %disassociate-recovery-point-input-recovery-point-arn
+                         :initform
+                         (common-lisp:error ":recovery-point-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %disassociate-recovery-point-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-recovery-point-input
                     'make-disassociate-recovery-point-input))
+ (common-lisp:defun make-disassociate-recovery-point-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-recovery-point-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4104,14 +5235,23 @@
                           disassociate-recovery-point-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-backup-plan-template-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-backup-plan-template-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass export-backup-plan-template-input common-lisp:nil
+                       ((backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %export-backup-plan-template-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'export-backup-plan-template-input
                     'make-export-backup-plan-template-input))
+ (common-lisp:defun make-export-backup-plan-template-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-backup-plan-template-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4128,14 +5268,23 @@
                           export-backup-plan-template-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-backup-plan-template-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-backup-plan-template-output-"))
-   (backup-plan-template-json common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass export-backup-plan-template-output common-lisp:nil
+                       ((backup-plan-template-json :initarg
+                         :backup-plan-template-json :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %export-backup-plan-template-output-backup-plan-template-json
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-backup-plan-template-output
                     'make-export-backup-plan-template-output))
+ (common-lisp:defun make-export-backup-plan-template-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-template-json)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'export-backup-plan-template-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4168,21 +5317,41 @@
                            (trivial-types:proper-list common-lisp:string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (framework (:copier common-lisp:nil)
-      (:conc-name "struct-shape-framework-"))
-   (framework-name common-lisp:nil :type
-    (common-lisp:or framework-name common-lisp:null))
-   (framework-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (framework-description common-lisp:nil :type
-    (common-lisp:or framework-description common-lisp:null))
-   (number-of-controls common-lisp:nil :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (deployment-status common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass framework common-lisp:nil
+                       ((deployment-status :initarg :deployment-status :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %framework-deployment-status :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %framework-creation-time :initform
+                         common-lisp:nil)
+                        (number-of-controls :initarg :number-of-controls :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %framework-number-of-controls :initform
+                         common-lisp:nil)
+                        (framework-description :initarg :framework-description
+                         :type
+                         (common-lisp:or framework-description
+                                         common-lisp:null)
+                         :accessor %framework-framework-description :initform
+                         common-lisp:nil)
+                        (framework-arn :initarg :framework-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %framework-framework-arn :initform common-lisp:nil)
+                        (framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %framework-framework-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'framework 'make-framework))
+ (common-lisp:defun make-framework
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key deployment-status creation-time
+                     number-of-controls framework-description framework-arn
+                     framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'framework
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input framework))
    (common-lisp:append))
@@ -4236,17 +5405,30 @@
                         ((aws-sdk/generator/shape::input framework))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (framework-control (:copier common-lisp:nil)
-      (:conc-name "struct-shape-framework-control-"))
-   (control-name (common-lisp:error ":control-name is required") :type
-    (common-lisp:or control-name common-lisp:null))
-   (control-input-parameters common-lisp:nil :type
-    (common-lisp:or control-input-parameters common-lisp:null))
-   (control-scope common-lisp:nil :type
-    (common-lisp:or control-scope common-lisp:null)))
+ (common-lisp:defclass framework-control common-lisp:nil
+                       ((control-scope :initarg :control-scope :type
+                         (common-lisp:or control-scope common-lisp:null)
+                         :accessor %framework-control-control-scope :initform
+                         common-lisp:nil)
+                        (control-input-parameters :initarg
+                         :control-input-parameters :type
+                         (common-lisp:or control-input-parameters
+                                         common-lisp:null)
+                         :accessor %framework-control-control-input-parameters
+                         :initform common-lisp:nil)
+                        (control-name :initarg :control-name :type
+                         (common-lisp:or control-name common-lisp:null)
+                         :accessor %framework-control-control-name :initform
+                         (common-lisp:error ":control-name is required"))))
  (common-lisp:export
   (common-lisp:list 'framework-control 'make-framework-control))
+ (common-lisp:defun make-framework-control
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key control-scope control-input-parameters
+                     control-name)
+   (common-lisp:apply #'common-lisp:make-instance 'framework-control
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input framework-control))
    (common-lisp:append))
@@ -4296,15 +5478,25 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype framework-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-plan-from-jsoninput (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-plan-from-jsoninput-"))
-   (backup-plan-template-json
-    (common-lisp:error ":backup-plan-template-json is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-backup-plan-from-jsoninput common-lisp:nil
+                       ((backup-plan-template-json :initarg
+                         :backup-plan-template-json :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %get-backup-plan-from-jsoninput-backup-plan-template-json
+                         :initform
+                         (common-lisp:error
+                          ":backup-plan-template-json is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backup-plan-from-jsoninput
                     'make-get-backup-plan-from-jsoninput))
+ (common-lisp:defun make-get-backup-plan-from-jsoninput
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-template-json)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-plan-from-jsoninput
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4329,14 +5521,21 @@
                           get-backup-plan-from-jsoninput))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-plan-from-jsonoutput (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-plan-from-jsonoutput-"))
-   (backup-plan common-lisp:nil :type
-    (common-lisp:or backup-plan common-lisp:null)))
+ (common-lisp:defclass get-backup-plan-from-jsonoutput common-lisp:nil
+                       ((backup-plan :initarg :backup-plan :type
+                         (common-lisp:or backup-plan common-lisp:null)
+                         :accessor %get-backup-plan-from-jsonoutput-backup-plan
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backup-plan-from-jsonoutput
                     'make-get-backup-plan-from-jsonoutput))
+ (common-lisp:defun make-get-backup-plan-from-jsonoutput
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-plan-from-jsonoutput
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4360,15 +5559,25 @@
                           get-backup-plan-from-jsonoutput))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-plan-from-template-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-plan-from-template-input-"))
-   (backup-plan-template-id
-    (common-lisp:error ":backup-plan-template-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-backup-plan-from-template-input common-lisp:nil
+                       ((backup-plan-template-id :initarg
+                         :backup-plan-template-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %get-backup-plan-from-template-input-backup-plan-template-id
+                         :initform
+                         (common-lisp:error
+                          ":backup-plan-template-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backup-plan-from-template-input
                     'make-get-backup-plan-from-template-input))
+ (common-lisp:defun make-get-backup-plan-from-template-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-template-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-plan-from-template-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4385,14 +5594,22 @@
                           get-backup-plan-from-template-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-plan-from-template-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-plan-from-template-output-"))
-   (backup-plan-document common-lisp:nil :type
-    (common-lisp:or backup-plan common-lisp:null)))
+ (common-lisp:defclass get-backup-plan-from-template-output common-lisp:nil
+                       ((backup-plan-document :initarg :backup-plan-document
+                         :type (common-lisp:or backup-plan common-lisp:null)
+                         :accessor
+                         %get-backup-plan-from-template-output-backup-plan-document
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backup-plan-from-template-output
                     'make-get-backup-plan-from-template-output))
+ (common-lisp:defun make-get-backup-plan-from-template-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-document)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-plan-from-template-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4417,15 +5634,24 @@
                           get-backup-plan-from-template-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-plan-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (version-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-backup-plan-input common-lisp:nil
+                       ((version-id :initarg :version-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-input-version-id :initform
+                         common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backup-plan-input 'make-get-backup-plan-input))
+ (common-lisp:defun make-get-backup-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key version-id backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backup-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4442,29 +5668,58 @@
                           get-backup-plan-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-plan-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-plan-output-"))
-   (backup-plan common-lisp:nil :type
-    (common-lisp:or backup-plan common-lisp:null))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (version-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (deletion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (last-execution-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (advanced-backup-settings common-lisp:nil :type
-    (common-lisp:or advanced-backup-settings common-lisp:null)))
+ (common-lisp:defclass get-backup-plan-output common-lisp:nil
+                       ((advanced-backup-settings :initarg
+                         :advanced-backup-settings :type
+                         (common-lisp:or advanced-backup-settings
+                                         common-lisp:null)
+                         :accessor
+                         %get-backup-plan-output-advanced-backup-settings
+                         :initform common-lisp:nil)
+                        (last-execution-date :initarg :last-execution-date
+                         :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-output-last-execution-date
+                         :initform common-lisp:nil)
+                        (deletion-date :initarg :deletion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-output-deletion-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-output-creation-date
+                         :initform common-lisp:nil)
+                        (creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-output-creator-request-id
+                         :initform common-lisp:nil)
+                        (version-id :initarg :version-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-output-version-id :initform
+                         common-lisp:nil)
+                        (backup-plan-arn :initarg :backup-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-backup-plan-output-backup-plan-arn :initform
+                         common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-plan-output-backup-plan-id
+                         :initform common-lisp:nil)
+                        (backup-plan :initarg :backup-plan :type
+                         (common-lisp:or backup-plan common-lisp:null)
+                         :accessor %get-backup-plan-output-backup-plan
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backup-plan-output 'make-get-backup-plan-output))
+ (common-lisp:defun make-get-backup-plan-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key advanced-backup-settings
+                     last-execution-date deletion-date creation-date
+                     creator-request-id version-id backup-plan-arn
+                     backup-plan-id backup-plan)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backup-plan-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4545,16 +5800,26 @@
                           get-backup-plan-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-selection-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-selection-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (selection-id (common-lisp:error ":selection-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-backup-selection-input common-lisp:nil
+                       ((selection-id :initarg :selection-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-selection-input-selection-id
+                         :initform
+                         (common-lisp:error ":selection-id is required"))
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-selection-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backup-selection-input
                     'make-get-backup-selection-input))
+ (common-lisp:defun make-get-backup-selection-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key selection-id backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backup-selection-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4571,22 +5836,39 @@
                           get-backup-selection-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-selection-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-selection-output-"))
-   (backup-selection common-lisp:nil :type
-    (common-lisp:or backup-selection common-lisp:null))
-   (selection-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-backup-selection-output common-lisp:nil
+                       ((creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %get-backup-selection-output-creator-request-id
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-selection-output-creation-date
+                         :initform common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-selection-output-backup-plan-id
+                         :initform common-lisp:nil)
+                        (selection-id :initarg :selection-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-backup-selection-output-selection-id
+                         :initform common-lisp:nil)
+                        (backup-selection :initarg :backup-selection :type
+                         (common-lisp:or backup-selection common-lisp:null)
+                         :accessor
+                         %get-backup-selection-output-backup-selection
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backup-selection-output
                     'make-get-backup-selection-output))
+ (common-lisp:defun make-get-backup-selection-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creator-request-id creation-date
+                     backup-plan-id selection-id backup-selection)
+   (common-lisp:apply #'common-lisp:make-instance 'get-backup-selection-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4638,14 +5920,24 @@
                           get-backup-selection-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-vault-access-policy-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-vault-access-policy-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null)))
+ (common-lisp:defclass get-backup-vault-access-policy-input common-lisp:nil
+                       ((backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %get-backup-vault-access-policy-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backup-vault-access-policy-input
                     'make-get-backup-vault-access-policy-input))
+ (common-lisp:defun make-get-backup-vault-access-policy-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-vault-access-policy-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4662,17 +5954,31 @@
                           get-backup-vault-access-policy-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-vault-access-policy-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-vault-access-policy-output-"))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (policy common-lisp:nil :type (common-lisp:or iampolicy common-lisp:null)))
+ (common-lisp:defclass get-backup-vault-access-policy-output common-lisp:nil
+                       ((policy :initarg :policy :type
+                         (common-lisp:or iampolicy common-lisp:null) :accessor
+                         %get-backup-vault-access-policy-output-policy
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-backup-vault-access-policy-output-backup-vault-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %get-backup-vault-access-policy-output-backup-vault-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backup-vault-access-policy-output
                     'make-get-backup-vault-access-policy-output))
+ (common-lisp:defun make-get-backup-vault-access-policy-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy backup-vault-arn
+                     backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-vault-access-policy-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4710,14 +6016,24 @@
                           get-backup-vault-access-policy-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-vault-notifications-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-vault-notifications-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null)))
+ (common-lisp:defclass get-backup-vault-notifications-input common-lisp:nil
+                       ((backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %get-backup-vault-notifications-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-backup-vault-notifications-input
                     'make-get-backup-vault-notifications-input))
+ (common-lisp:defun make-get-backup-vault-notifications-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-vault-notifications-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4734,19 +6050,37 @@
                           get-backup-vault-notifications-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-backup-vault-notifications-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-backup-vault-notifications-output-"))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (snstopic-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (backup-vault-events common-lisp:nil :type
-    (common-lisp:or backup-vault-events common-lisp:null)))
+ (common-lisp:defclass get-backup-vault-notifications-output common-lisp:nil
+                       ((backup-vault-events :initarg :backup-vault-events
+                         :type
+                         (common-lisp:or backup-vault-events common-lisp:null)
+                         :accessor
+                         %get-backup-vault-notifications-output-backup-vault-events
+                         :initform common-lisp:nil)
+                        (snstopic-arn :initarg :snstopic-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-backup-vault-notifications-output-snstopic-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-backup-vault-notifications-output-backup-vault-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %get-backup-vault-notifications-output-backup-vault-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-backup-vault-notifications-output
                     'make-get-backup-vault-notifications-output))
+ (common-lisp:defun make-get-backup-vault-notifications-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-events snstopic-arn
+                     backup-vault-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-backup-vault-notifications-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4791,13 +6125,20 @@
                           get-backup-vault-notifications-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-legal-hold-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-legal-hold-input-"))
-   (legal-hold-id (common-lisp:error ":legal-hold-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-legal-hold-input common-lisp:nil
+                       ((legal-hold-id :initarg :legal-hold-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-input-legal-hold-id
+                         :initform
+                         (common-lisp:error ":legal-hold-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-legal-hold-input 'make-get-legal-hold-input))
+ (common-lisp:defun make-get-legal-hold-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key legal-hold-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-legal-hold-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-legal-hold-input))
    (common-lisp:append))
@@ -4808,30 +6149,62 @@
                         ((aws-sdk/generator/shape::input get-legal-hold-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-legal-hold-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-legal-hold-output-"))
-   (title common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or legal-hold-status common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (cancel-description common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (legal-hold-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (legal-hold-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (cancellation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (retain-record-until common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-point-selection common-lisp:nil :type
-    (common-lisp:or recovery-point-selection common-lisp:null)))
+ (common-lisp:defclass get-legal-hold-output common-lisp:nil
+                       ((recovery-point-selection :initarg
+                         :recovery-point-selection :type
+                         (common-lisp:or recovery-point-selection
+                                         common-lisp:null)
+                         :accessor
+                         %get-legal-hold-output-recovery-point-selection
+                         :initform common-lisp:nil)
+                        (retain-record-until :initarg :retain-record-until
+                         :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-output-retain-record-until
+                         :initform common-lisp:nil)
+                        (cancellation-date :initarg :cancellation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-output-cancellation-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-output-creation-date
+                         :initform common-lisp:nil)
+                        (legal-hold-arn :initarg :legal-hold-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-legal-hold-output-legal-hold-arn :initform
+                         common-lisp:nil)
+                        (legal-hold-id :initarg :legal-hold-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-output-legal-hold-id
+                         :initform common-lisp:nil)
+                        (cancel-description :initarg :cancel-description :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-output-cancel-description
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-output-description :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or legal-hold-status common-lisp:null)
+                         :accessor %get-legal-hold-output-status :initform
+                         common-lisp:nil)
+                        (title :initarg :title :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-legal-hold-output-title :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-legal-hold-output 'make-get-legal-hold-output))
+ (common-lisp:defun make-get-legal-hold-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-selection
+                     retain-record-until cancellation-date creation-date
+                     legal-hold-arn legal-hold-id cancel-description
+                     description status title)
+   (common-lisp:apply #'common-lisp:make-instance 'get-legal-hold-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4919,16 +6292,30 @@
                           get-legal-hold-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recovery-point-restore-metadata-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recovery-point-restore-metadata-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass get-recovery-point-restore-metadata-input
+                       common-lisp:nil
+                       ((recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-recovery-point-restore-metadata-input-recovery-point-arn
+                         :initform
+                         (common-lisp:error ":recovery-point-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %get-recovery-point-restore-metadata-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-recovery-point-restore-metadata-input
                     'make-get-recovery-point-restore-metadata-input))
+ (common-lisp:defun make-get-recovery-point-restore-metadata-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-arn backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-recovery-point-restore-metadata-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4945,18 +6332,31 @@
                           get-recovery-point-restore-metadata-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recovery-point-restore-metadata-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recovery-point-restore-metadata-output-"))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (restore-metadata common-lisp:nil :type
-    (common-lisp:or metadata common-lisp:null)))
+ (common-lisp:defclass get-recovery-point-restore-metadata-output
+                       common-lisp:nil
+                       ((restore-metadata :initarg :restore-metadata :type
+                         (common-lisp:or metadata common-lisp:null) :accessor
+                         %get-recovery-point-restore-metadata-output-restore-metadata
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-recovery-point-restore-metadata-output-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-recovery-point-restore-metadata-output-backup-vault-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-recovery-point-restore-metadata-output
                     'make-get-recovery-point-restore-metadata-output))
+ (common-lisp:defun make-get-recovery-point-restore-metadata-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key restore-metadata recovery-point-arn
+                     backup-vault-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-recovery-point-restore-metadata-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4994,14 +6394,22 @@
                           get-recovery-point-restore-metadata-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-supported-resource-types-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-supported-resource-types-output-"))
-   (resource-types common-lisp:nil :type
-    (common-lisp:or resource-types common-lisp:null)))
+ (common-lisp:defclass get-supported-resource-types-output common-lisp:nil
+                       ((resource-types :initarg :resource-types :type
+                         (common-lisp:or resource-types common-lisp:null)
+                         :accessor
+                         %get-supported-resource-types-output-resource-types
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-supported-resource-types-output
                     'make-get-supported-resource-types-output))
+ (common-lisp:defun make-get-supported-resource-types-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-types)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-supported-resource-types-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5088,23 +6496,42 @@
                     'invalid-resource-state-exception-context)))
 (common-lisp:deftype is-enabled () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (legal-hold (:copier common-lisp:nil)
-      (:conc-name "struct-shape-legal-hold-"))
-   (title common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or legal-hold-status common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (legal-hold-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (legal-hold-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (cancellation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass legal-hold common-lisp:nil
+                       ((cancellation-date :initarg :cancellation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %legal-hold-cancellation-date :initform
+                         common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %legal-hold-creation-date :initform
+                         common-lisp:nil)
+                        (legal-hold-arn :initarg :legal-hold-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %legal-hold-legal-hold-arn :initform common-lisp:nil)
+                        (legal-hold-id :initarg :legal-hold-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %legal-hold-legal-hold-id :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %legal-hold-description :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or legal-hold-status common-lisp:null)
+                         :accessor %legal-hold-status :initform
+                         common-lisp:nil)
+                        (title :initarg :title :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %legal-hold-title :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'legal-hold 'make-legal-hold))
+ (common-lisp:defun make-legal-hold
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cancellation-date creation-date
+                     legal-hold-arn legal-hold-id description status title)
+   (common-lisp:apply #'common-lisp:make-instance 'legal-hold
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input legal-hold))
    (common-lisp:append))
@@ -5173,14 +6600,24 @@
                            (trivial-types:proper-list legal-hold))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lifecycle (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lifecycle-"))
-   (move-to-cold-storage-after-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (delete-after-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null)))
+ (common-lisp:defclass lifecycle common-lisp:nil
+                       ((delete-after-days :initarg :delete-after-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %lifecycle-delete-after-days :initform
+                         common-lisp:nil)
+                        (move-to-cold-storage-after-days :initarg
+                         :move-to-cold-storage-after-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %lifecycle-move-to-cold-storage-after-days :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'lifecycle 'make-lifecycle))
+ (common-lisp:defun make-lifecycle
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key delete-after-days
+                     move-to-cold-storage-after-days)
+   (common-lisp:apply #'common-lisp:make-instance 'lifecycle
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lifecycle))
    (common-lisp:append))
@@ -5222,35 +6659,67 @@
                     'limit-exceeded-exception-type
                     'limit-exceeded-exception-context)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-jobs-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-jobs-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (by-resource-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (by-state common-lisp:nil :type
-    (common-lisp:or backup-job-state common-lisp:null))
-   (by-backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (by-created-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-created-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (by-account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (by-complete-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-complete-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-parent-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-backup-jobs-input common-lisp:nil
+                       ((by-parent-job-id :initarg :by-parent-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-parent-job-id
+                         :initform common-lisp:nil)
+                        (by-complete-before :initarg :by-complete-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-complete-before
+                         :initform common-lisp:nil)
+                        (by-complete-after :initarg :by-complete-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-complete-after
+                         :initform common-lisp:nil)
+                        (by-account-id :initarg :by-account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %list-backup-jobs-input-by-account-id :initform
+                         common-lisp:nil)
+                        (by-resource-type :initarg :by-resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-resource-type
+                         :initform common-lisp:nil)
+                        (by-created-after :initarg :by-created-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-created-after
+                         :initform common-lisp:nil)
+                        (by-created-before :initarg :by-created-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-created-before
+                         :initform common-lisp:nil)
+                        (by-backup-vault-name :initarg :by-backup-vault-name
+                         :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-backup-vault-name
+                         :initform common-lisp:nil)
+                        (by-state :initarg :by-state :type
+                         (common-lisp:or backup-job-state common-lisp:null)
+                         :accessor %list-backup-jobs-input-by-state :initform
+                         common-lisp:nil)
+                        (by-resource-arn :initarg :by-resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-backup-jobs-input-by-resource-arn :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-backup-jobs-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-jobs-input-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-jobs-input 'make-list-backup-jobs-input))
+ (common-lisp:defun make-list-backup-jobs-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key by-parent-job-id by-complete-before
+                     by-complete-after by-account-id by-resource-type
+                     by-created-after by-created-before by-backup-vault-name
+                     by-state by-resource-arn max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backup-jobs-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5267,15 +6736,23 @@
                           list-backup-jobs-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-jobs-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-jobs-output-"))
-   (backup-jobs common-lisp:nil :type
-    (common-lisp:or backup-jobs-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-backup-jobs-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-jobs-output-next-token
+                         :initform common-lisp:nil)
+                        (backup-jobs :initarg :backup-jobs :type
+                         (common-lisp:or backup-jobs-list common-lisp:null)
+                         :accessor %list-backup-jobs-output-backup-jobs
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-jobs-output 'make-list-backup-jobs-output))
+ (common-lisp:defun make-list-backup-jobs-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token backup-jobs)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backup-jobs-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5306,16 +6783,26 @@
                           list-backup-jobs-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-plan-templates-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-plan-templates-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-backup-plan-templates-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-backup-plan-templates-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-plan-templates-input-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-plan-templates-input
                     'make-list-backup-plan-templates-input))
+ (common-lisp:defun make-list-backup-plan-templates-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-backup-plan-templates-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5332,16 +6819,29 @@
                           list-backup-plan-templates-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-plan-templates-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-plan-templates-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-templates-list common-lisp:nil :type
-    (common-lisp:or backup-plan-templates-list common-lisp:null)))
+ (common-lisp:defclass list-backup-plan-templates-output common-lisp:nil
+                       ((backup-plan-templates-list :initarg
+                         :backup-plan-templates-list :type
+                         (common-lisp:or backup-plan-templates-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-backup-plan-templates-output-backup-plan-templates-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-backup-plan-templates-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-plan-templates-output
                     'make-list-backup-plan-templates-output))
+ (common-lisp:defun make-list-backup-plan-templates-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-templates-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-backup-plan-templates-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5373,18 +6873,31 @@
                           list-backup-plan-templates-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-plan-versions-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-plan-versions-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-backup-plan-versions-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-backup-plan-versions-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-plan-versions-input-next-token
+                         :initform common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-backup-plan-versions-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-backup-plan-versions-input
                     'make-list-backup-plan-versions-input))
+ (common-lisp:defun make-list-backup-plan-versions-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-backup-plan-versions-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5401,16 +6914,28 @@
                           list-backup-plan-versions-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-plan-versions-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-plan-versions-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-versions-list common-lisp:nil :type
-    (common-lisp:or backup-plan-versions-list common-lisp:null)))
+ (common-lisp:defclass list-backup-plan-versions-output common-lisp:nil
+                       ((backup-plan-versions-list :initarg
+                         :backup-plan-versions-list :type
+                         (common-lisp:or backup-plan-versions-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-backup-plan-versions-output-backup-plan-versions-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-plan-versions-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-plan-versions-output
                     'make-list-backup-plan-versions-output))
+ (common-lisp:defun make-list-backup-plan-versions-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan-versions-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-backup-plan-versions-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5442,17 +6967,27 @@
                           list-backup-plan-versions-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-plans-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-plans-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (include-deleted common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass list-backup-plans-input common-lisp:nil
+                       ((include-deleted :initarg :include-deleted :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %list-backup-plans-input-include-deleted :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-backup-plans-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-plans-input-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-plans-input 'make-list-backup-plans-input))
+ (common-lisp:defun make-list-backup-plans-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key include-deleted max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backup-plans-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5469,15 +7004,23 @@
                           list-backup-plans-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-plans-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-plans-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plans-list common-lisp:nil :type
-    (common-lisp:or backup-plans-list common-lisp:null)))
+ (common-lisp:defclass list-backup-plans-output common-lisp:nil
+                       ((backup-plans-list :initarg :backup-plans-list :type
+                         (common-lisp:or backup-plans-list common-lisp:null)
+                         :accessor %list-backup-plans-output-backup-plans-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-plans-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-plans-output 'make-list-backup-plans-output))
+ (common-lisp:defun make-list-backup-plans-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plans-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backup-plans-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5508,18 +7051,29 @@
                           list-backup-plans-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-selections-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-selections-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-backup-selections-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-backup-selections-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-selections-input-next-token
+                         :initform common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-selections-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-backup-selections-input
                     'make-list-backup-selections-input))
+ (common-lisp:defun make-list-backup-selections-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backup-selections-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5536,16 +7090,28 @@
                           list-backup-selections-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-selections-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-selections-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-selections-list common-lisp:nil :type
-    (common-lisp:or backup-selections-list common-lisp:null)))
+ (common-lisp:defclass list-backup-selections-output common-lisp:nil
+                       ((backup-selections-list :initarg
+                         :backup-selections-list :type
+                         (common-lisp:or backup-selections-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-backup-selections-output-backup-selections-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-selections-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-selections-output
                     'make-list-backup-selections-output))
+ (common-lisp:defun make-list-backup-selections-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-selections-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-backup-selections-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5577,15 +7143,23 @@
                           list-backup-selections-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-vaults-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-vaults-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-backup-vaults-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-backup-vaults-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-vaults-input-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-vaults-input 'make-list-backup-vaults-input))
+ (common-lisp:defun make-list-backup-vaults-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backup-vaults-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5602,16 +7176,24 @@
                           list-backup-vaults-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-backup-vaults-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-backup-vaults-output-"))
-   (backup-vault-list common-lisp:nil :type
-    (common-lisp:or backup-vault-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-backup-vaults-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-backup-vaults-output-next-token
+                         :initform common-lisp:nil)
+                        (backup-vault-list :initarg :backup-vault-list :type
+                         (common-lisp:or backup-vault-list common-lisp:null)
+                         :accessor %list-backup-vaults-output-backup-vault-list
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-backup-vaults-output
                     'make-list-backup-vaults-output))
+ (common-lisp:defun make-list-backup-vaults-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token backup-vault-list)
+   (common-lisp:apply #'common-lisp:make-instance 'list-backup-vaults-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5642,35 +7224,68 @@
                           list-backup-vaults-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-copy-jobs-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-copy-jobs-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (by-resource-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (by-state common-lisp:nil :type
-    (common-lisp:or copy-job-state common-lisp:null))
-   (by-created-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-created-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (by-destination-vault-arn common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (by-complete-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-complete-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-parent-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-copy-jobs-input common-lisp:nil
+                       ((by-parent-job-id :initarg :by-parent-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-copy-jobs-input-by-parent-job-id
+                         :initform common-lisp:nil)
+                        (by-complete-after :initarg :by-complete-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-copy-jobs-input-by-complete-after
+                         :initform common-lisp:nil)
+                        (by-complete-before :initarg :by-complete-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-copy-jobs-input-by-complete-before
+                         :initform common-lisp:nil)
+                        (by-account-id :initarg :by-account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %list-copy-jobs-input-by-account-id :initform
+                         common-lisp:nil)
+                        (by-destination-vault-arn :initarg
+                         :by-destination-vault-arn :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-copy-jobs-input-by-destination-vault-arn
+                         :initform common-lisp:nil)
+                        (by-resource-type :initarg :by-resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %list-copy-jobs-input-by-resource-type
+                         :initform common-lisp:nil)
+                        (by-created-after :initarg :by-created-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-copy-jobs-input-by-created-after
+                         :initform common-lisp:nil)
+                        (by-created-before :initarg :by-created-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-copy-jobs-input-by-created-before
+                         :initform common-lisp:nil)
+                        (by-state :initarg :by-state :type
+                         (common-lisp:or copy-job-state common-lisp:null)
+                         :accessor %list-copy-jobs-input-by-state :initform
+                         common-lisp:nil)
+                        (by-resource-arn :initarg :by-resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-copy-jobs-input-by-resource-arn :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-copy-jobs-input-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-copy-jobs-input-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-copy-jobs-input 'make-list-copy-jobs-input))
+ (common-lisp:defun make-list-copy-jobs-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key by-parent-job-id by-complete-after
+                     by-complete-before by-account-id by-destination-vault-arn
+                     by-resource-type by-created-after by-created-before
+                     by-state by-resource-arn max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-copy-jobs-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-copy-jobs-input))
    (common-lisp:append))
@@ -5681,15 +7296,23 @@
                         ((aws-sdk/generator/shape::input list-copy-jobs-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-copy-jobs-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-copy-jobs-output-"))
-   (copy-jobs common-lisp:nil :type
-    (common-lisp:or copy-jobs-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-copy-jobs-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-copy-jobs-output-next-token :initform
+                         common-lisp:nil)
+                        (copy-jobs :initarg :copy-jobs :type
+                         (common-lisp:or copy-jobs-list common-lisp:null)
+                         :accessor %list-copy-jobs-output-copy-jobs :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-copy-jobs-output 'make-list-copy-jobs-output))
+ (common-lisp:defun make-list-copy-jobs-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token copy-jobs)
+   (common-lisp:apply #'common-lisp:make-instance 'list-copy-jobs-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5720,15 +7343,23 @@
                           list-copy-jobs-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-frameworks-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-frameworks-input-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-framework-inputs common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-frameworks-input common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-frameworks-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-framework-inputs common-lisp:null)
+                         :accessor %list-frameworks-input-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-frameworks-input 'make-list-frameworks-input))
+ (common-lisp:defun make-list-frameworks-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-frameworks-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5745,15 +7376,23 @@
                           list-frameworks-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-frameworks-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-frameworks-output-"))
-   (frameworks common-lisp:nil :type
-    (common-lisp:or framework-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-frameworks-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-frameworks-output-next-token :initform
+                         common-lisp:nil)
+                        (frameworks :initarg :frameworks :type
+                         (common-lisp:or framework-list common-lisp:null)
+                         :accessor %list-frameworks-output-frameworks :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-frameworks-output 'make-list-frameworks-output))
+ (common-lisp:defun make-list-frameworks-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token frameworks)
+   (common-lisp:apply #'common-lisp:make-instance 'list-frameworks-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5784,15 +7423,23 @@
                           list-frameworks-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-legal-holds-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-legal-holds-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-legal-holds-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-legal-holds-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-legal-holds-input-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-legal-holds-input 'make-list-legal-holds-input))
+ (common-lisp:defun make-list-legal-holds-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-legal-holds-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5809,15 +7456,23 @@
                           list-legal-holds-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-legal-holds-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-legal-holds-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (legal-holds common-lisp:nil :type
-    (common-lisp:or legal-holds-list common-lisp:null)))
+ (common-lisp:defclass list-legal-holds-output common-lisp:nil
+                       ((legal-holds :initarg :legal-holds :type
+                         (common-lisp:or legal-holds-list common-lisp:null)
+                         :accessor %list-legal-holds-output-legal-holds
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-legal-holds-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-legal-holds-output 'make-list-legal-holds-output))
+ (common-lisp:defun make-list-legal-holds-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key legal-holds next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-legal-holds-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5855,16 +7510,25 @@
                            (trivial-types:proper-list condition))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-protected-resources-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-protected-resources-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-protected-resources-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-protected-resources-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-protected-resources-input-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-protected-resources-input
                     'make-list-protected-resources-input))
+ (common-lisp:defun make-list-protected-resources-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-protected-resources-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5881,16 +7545,26 @@
                           list-protected-resources-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-protected-resources-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-protected-resources-output-"))
-   (results common-lisp:nil :type
-    (common-lisp:or protected-resources-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-protected-resources-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-protected-resources-output-next-token
+                         :initform common-lisp:nil)
+                        (results :initarg :results :type
+                         (common-lisp:or protected-resources-list
+                                         common-lisp:null)
+                         :accessor %list-protected-resources-output-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-protected-resources-output
                     'make-list-protected-resources-output))
+ (common-lisp:defun make-list-protected-resources-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-protected-resources-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5921,30 +7595,67 @@
                           list-protected-resources-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-recovery-points-by-backup-vault-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-recovery-points-by-backup-vault-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (by-resource-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (by-resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (by-backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-created-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-created-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-parent-recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass list-recovery-points-by-backup-vault-input
+                       common-lisp:nil
+                       ((by-parent-recovery-point-arn :initarg
+                         :by-parent-recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-recovery-points-by-backup-vault-input-by-parent-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (by-created-after :initarg :by-created-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-input-by-created-after
+                         :initform common-lisp:nil)
+                        (by-created-before :initarg :by-created-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-input-by-created-before
+                         :initform common-lisp:nil)
+                        (by-backup-plan-id :initarg :by-backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-input-by-backup-plan-id
+                         :initform common-lisp:nil)
+                        (by-resource-type :initarg :by-resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-input-by-resource-type
+                         :initform common-lisp:nil)
+                        (by-resource-arn :initarg :by-resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-recovery-points-by-backup-vault-input-by-resource-arn
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-input-next-token
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-recovery-points-by-backup-vault-input
                     'make-list-recovery-points-by-backup-vault-input))
+ (common-lisp:defun make-list-recovery-points-by-backup-vault-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key by-parent-recovery-point-arn
+                     by-created-after by-created-before by-backup-plan-id
+                     by-resource-type by-resource-arn max-results next-token
+                     backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-recovery-points-by-backup-vault-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5961,16 +7672,29 @@
                           list-recovery-points-by-backup-vault-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-recovery-points-by-backup-vault-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-recovery-points-by-backup-vault-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-points common-lisp:nil :type
-    (common-lisp:or recovery-point-by-backup-vault-list common-lisp:null)))
+ (common-lisp:defclass list-recovery-points-by-backup-vault-output
+                       common-lisp:nil
+                       ((recovery-points :initarg :recovery-points :type
+                         (common-lisp:or recovery-point-by-backup-vault-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-output-recovery-points
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-backup-vault-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-recovery-points-by-backup-vault-output
                     'make-list-recovery-points-by-backup-vault-output))
+ (common-lisp:defun make-list-recovery-points-by-backup-vault-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-points next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-recovery-points-by-backup-vault-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6001,18 +7725,33 @@
                           list-recovery-points-by-backup-vault-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-recovery-points-by-legal-hold-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-recovery-points-by-legal-hold-input-"))
-   (legal-hold-id (common-lisp:error ":legal-hold-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-recovery-points-by-legal-hold-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-legal-hold-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-legal-hold-input-next-token
+                         :initform common-lisp:nil)
+                        (legal-hold-id :initarg :legal-hold-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-legal-hold-input-legal-hold-id
+                         :initform
+                         (common-lisp:error ":legal-hold-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-recovery-points-by-legal-hold-input
                     'make-list-recovery-points-by-legal-hold-input))
+ (common-lisp:defun make-list-recovery-points-by-legal-hold-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token legal-hold-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-recovery-points-by-legal-hold-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6029,16 +7768,28 @@
                           list-recovery-points-by-legal-hold-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-recovery-points-by-legal-hold-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-recovery-points-by-legal-hold-output-"))
-   (recovery-points common-lisp:nil :type
-    (common-lisp:or recovery-points-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-recovery-points-by-legal-hold-output
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-legal-hold-output-next-token
+                         :initform common-lisp:nil)
+                        (recovery-points :initarg :recovery-points :type
+                         (common-lisp:or recovery-points-list common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-legal-hold-output-recovery-points
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-recovery-points-by-legal-hold-output
                     'make-list-recovery-points-by-legal-hold-output))
+ (common-lisp:defun make-list-recovery-points-by-legal-hold-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token recovery-points)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-recovery-points-by-legal-hold-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6069,18 +7820,32 @@
                           list-recovery-points-by-legal-hold-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-recovery-points-by-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-recovery-points-by-resource-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-recovery-points-by-resource-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-resource-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-resource-input-next-token
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-recovery-points-by-resource-input-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-recovery-points-by-resource-input
                     'make-list-recovery-points-by-resource-input))
+ (common-lisp:defun make-list-recovery-points-by-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-recovery-points-by-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6097,16 +7862,28 @@
                           list-recovery-points-by-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-recovery-points-by-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-recovery-points-by-resource-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-points common-lisp:nil :type
-    (common-lisp:or recovery-point-by-resource-list common-lisp:null)))
+ (common-lisp:defclass list-recovery-points-by-resource-output common-lisp:nil
+                       ((recovery-points :initarg :recovery-points :type
+                         (common-lisp:or recovery-point-by-resource-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-resource-output-recovery-points
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %list-recovery-points-by-resource-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-recovery-points-by-resource-output
                     'make-list-recovery-points-by-resource-output))
+ (common-lisp:defun make-list-recovery-points-by-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-points next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-recovery-points-by-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6137,23 +7914,41 @@
                           list-recovery-points-by-resource-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-report-jobs-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-report-jobs-input-"))
-   (by-report-plan-name common-lisp:nil :type
-    (common-lisp:or report-plan-name common-lisp:null))
-   (by-creation-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-creation-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-status common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-report-jobs-input common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-report-jobs-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-report-jobs-input-max-results
+                         :initform common-lisp:nil)
+                        (by-status :initarg :by-status :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-report-jobs-input-by-status :initform
+                         common-lisp:nil)
+                        (by-creation-after :initarg :by-creation-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-report-jobs-input-by-creation-after
+                         :initform common-lisp:nil)
+                        (by-creation-before :initarg :by-creation-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-report-jobs-input-by-creation-before
+                         :initform common-lisp:nil)
+                        (by-report-plan-name :initarg :by-report-plan-name
+                         :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %list-report-jobs-input-by-report-plan-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-report-jobs-input 'make-list-report-jobs-input))
+ (common-lisp:defun make-list-report-jobs-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results by-status
+                     by-creation-after by-creation-before by-report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'list-report-jobs-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6170,15 +7965,23 @@
                           list-report-jobs-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-report-jobs-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-report-jobs-output-"))
-   (report-jobs common-lisp:nil :type
-    (common-lisp:or report-job-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-report-jobs-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-report-jobs-output-next-token
+                         :initform common-lisp:nil)
+                        (report-jobs :initarg :report-jobs :type
+                         (common-lisp:or report-job-list common-lisp:null)
+                         :accessor %list-report-jobs-output-report-jobs
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-report-jobs-output 'make-list-report-jobs-output))
+ (common-lisp:defun make-list-report-jobs-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token report-jobs)
+   (common-lisp:apply #'common-lisp:make-instance 'list-report-jobs-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6209,15 +8012,23 @@
                           list-report-jobs-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-report-plans-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-report-plans-input-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-report-plans-input common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-report-plans-input-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-report-plans-input-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-report-plans-input 'make-list-report-plans-input))
+ (common-lisp:defun make-list-report-plans-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-report-plans-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6234,15 +8045,23 @@
                           list-report-plans-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-report-plans-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-report-plans-output-"))
-   (report-plans common-lisp:nil :type
-    (common-lisp:or report-plan-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-report-plans-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-report-plans-output-next-token
+                         :initform common-lisp:nil)
+                        (report-plans :initarg :report-plans :type
+                         (common-lisp:or report-plan-list common-lisp:null)
+                         :accessor %list-report-plans-output-report-plans
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-report-plans-output 'make-list-report-plans-output))
+ (common-lisp:defun make-list-report-plans-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token report-plans)
+   (common-lisp:apply #'common-lisp:make-instance 'list-report-plans-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6273,27 +8092,49 @@
                           list-report-plans-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-restore-jobs-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-restore-jobs-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (by-account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (by-created-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-created-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-status common-lisp:nil :type
-    (common-lisp:or restore-job-status common-lisp:null))
-   (by-complete-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (by-complete-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-restore-jobs-input common-lisp:nil
+                       ((by-complete-after :initarg :by-complete-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-restore-jobs-input-by-complete-after
+                         :initform common-lisp:nil)
+                        (by-complete-before :initarg :by-complete-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-restore-jobs-input-by-complete-before
+                         :initform common-lisp:nil)
+                        (by-status :initarg :by-status :type
+                         (common-lisp:or restore-job-status common-lisp:null)
+                         :accessor %list-restore-jobs-input-by-status :initform
+                         common-lisp:nil)
+                        (by-created-after :initarg :by-created-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-restore-jobs-input-by-created-after
+                         :initform common-lisp:nil)
+                        (by-created-before :initarg :by-created-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-restore-jobs-input-by-created-before
+                         :initform common-lisp:nil)
+                        (by-account-id :initarg :by-account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %list-restore-jobs-input-by-account-id :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-restore-jobs-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-restore-jobs-input-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-restore-jobs-input 'make-list-restore-jobs-input))
+ (common-lisp:defun make-list-restore-jobs-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key by-complete-after by-complete-before
+                     by-status by-created-after by-created-before by-account-id
+                     max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-restore-jobs-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6310,15 +8151,23 @@
                           list-restore-jobs-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-restore-jobs-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-restore-jobs-output-"))
-   (restore-jobs common-lisp:nil :type
-    (common-lisp:or restore-jobs-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-restore-jobs-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-restore-jobs-output-next-token
+                         :initform common-lisp:nil)
+                        (restore-jobs :initarg :restore-jobs :type
+                         (common-lisp:or restore-jobs-list common-lisp:null)
+                         :accessor %list-restore-jobs-output-restore-jobs
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-restore-jobs-output 'make-list-restore-jobs-output))
+ (common-lisp:defun make-list-restore-jobs-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token restore-jobs)
+   (common-lisp:apply #'common-lisp:make-instance 'list-restore-jobs-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6349,16 +8198,26 @@
                           list-restore-jobs-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-tags-input common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-tags-input-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-tags-input-next-token :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-tags-input-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export (common-lisp:list 'list-tags-input 'make-list-tags-input))
+ (common-lisp:defun make-list-tags-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-tags-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-tags-input))
    (common-lisp:append))
@@ -6369,14 +8228,22 @@
                         ((aws-sdk/generator/shape::input list-tags-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
+ (common-lisp:defclass list-tags-output common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %list-tags-output-tags :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-tags-output-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-output 'make-list-tags-output))
+ (common-lisp:defun make-list-tags-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-tags-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-tags-output))
    (common-lisp:append))
@@ -6432,18 +8299,32 @@
 (common-lisp:deftype parameter-name () 'common-lisp:string)
 (common-lisp:deftype parameter-value () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-resource (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-resource-"))
-   (resource-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (last-backup-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass protected-resource common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %protected-resource-resource-name :initform
+                         common-lisp:nil)
+                        (last-backup-time :initarg :last-backup-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %protected-resource-last-backup-time
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %protected-resource-resource-type :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %protected-resource-resource-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'protected-resource 'make-protected-resource))
+ (common-lisp:defun make-protected-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name last-backup-time
+                     resource-type resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-resource
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input protected-resource))
    (common-lisp:append))
@@ -6490,15 +8371,28 @@
                            (trivial-types:proper-list protected-resource))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-backup-vault-access-policy-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-backup-vault-access-policy-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (policy common-lisp:nil :type (common-lisp:or iampolicy common-lisp:null)))
+ (common-lisp:defclass put-backup-vault-access-policy-input common-lisp:nil
+                       ((policy :initarg :policy :type
+                         (common-lisp:or iampolicy common-lisp:null) :accessor
+                         %put-backup-vault-access-policy-input-policy :initform
+                         common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %put-backup-vault-access-policy-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'put-backup-vault-access-policy-input
                     'make-put-backup-vault-access-policy-input))
+ (common-lisp:defun make-put-backup-vault-access-policy-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-backup-vault-access-policy-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6522,20 +8416,38 @@
                           put-backup-vault-access-policy-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-backup-vault-lock-configuration-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-backup-vault-lock-configuration-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (min-retention-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (max-retention-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (changeable-for-days common-lisp:nil :type
-    (common-lisp:or long common-lisp:null)))
+ (common-lisp:defclass put-backup-vault-lock-configuration-input
+                       common-lisp:nil
+                       ((changeable-for-days :initarg :changeable-for-days
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %put-backup-vault-lock-configuration-input-changeable-for-days
+                         :initform common-lisp:nil)
+                        (max-retention-days :initarg :max-retention-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %put-backup-vault-lock-configuration-input-max-retention-days
+                         :initform common-lisp:nil)
+                        (min-retention-days :initarg :min-retention-days :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %put-backup-vault-lock-configuration-input-min-retention-days
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %put-backup-vault-lock-configuration-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'put-backup-vault-lock-configuration-input
                     'make-put-backup-vault-lock-configuration-input))
+ (common-lisp:defun make-put-backup-vault-lock-configuration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key changeable-for-days max-retention-days
+                     min-retention-days backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-backup-vault-lock-configuration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6573,18 +8485,38 @@
                           put-backup-vault-lock-configuration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-backup-vault-notifications-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-backup-vault-notifications-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (snstopic-arn (common-lisp:error ":snstopic-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (backup-vault-events (common-lisp:error ":backup-vault-events is required")
-    :type (common-lisp:or backup-vault-events common-lisp:null)))
+ (common-lisp:defclass put-backup-vault-notifications-input common-lisp:nil
+                       ((backup-vault-events :initarg :backup-vault-events
+                         :type
+                         (common-lisp:or backup-vault-events common-lisp:null)
+                         :accessor
+                         %put-backup-vault-notifications-input-backup-vault-events
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-events is required"))
+                        (snstopic-arn :initarg :snstopic-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %put-backup-vault-notifications-input-snstopic-arn
+                         :initform
+                         (common-lisp:error ":snstopic-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %put-backup-vault-notifications-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'put-backup-vault-notifications-input
                     'make-put-backup-vault-notifications-input))
+ (common-lisp:defun make-put-backup-vault-notifications-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-vault-events snstopic-arn
+                     backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-backup-vault-notifications-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6615,55 +8547,127 @@
                           put-backup-vault-notifications-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recovery-point-by-backup-vault (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recovery-point-by-backup-vault-"))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (source-backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (created-by common-lisp:nil :type
-    (common-lisp:or recovery-point-creator common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or recovery-point-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-size-in-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (calculated-lifecycle common-lisp:nil :type
-    (common-lisp:or calculated-lifecycle common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null))
-   (encryption-key-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (is-encrypted common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (last-restore-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (parent-recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (composite-member-identifier common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass recovery-point-by-backup-vault common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-resource-name
+                         :initform common-lisp:nil)
+                        (is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %recovery-point-by-backup-vault-is-parent
+                         :initform common-lisp:nil)
+                        (composite-member-identifier :initarg
+                         :composite-member-identifier :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-composite-member-identifier
+                         :initform common-lisp:nil)
+                        (parent-recovery-point-arn :initarg
+                         :parent-recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-parent-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (last-restore-time :initarg :last-restore-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-last-restore-time
+                         :initform common-lisp:nil)
+                        (is-encrypted :initarg :is-encrypted :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %recovery-point-by-backup-vault-is-encrypted
+                         :initform common-lisp:nil)
+                        (encryption-key-arn :initarg :encryption-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-encryption-key-arn
+                         :initform common-lisp:nil)
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-lifecycle :initform
+                         common-lisp:nil)
+                        (calculated-lifecycle :initarg :calculated-lifecycle
+                         :type
+                         (common-lisp:or calculated-lifecycle common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-calculated-lifecycle
+                         :initform common-lisp:nil)
+                        (backup-size-in-bytes :initarg :backup-size-in-bytes
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-backup-size-in-bytes
+                         :initform common-lisp:nil)
+                        (completion-date :initarg :completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-completion-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-creation-date
+                         :initform common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or recovery-point-status
+                                         common-lisp:null)
+                         :accessor %recovery-point-by-backup-vault-status
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %recovery-point-by-backup-vault-iam-role-arn
+                         :initform common-lisp:nil)
+                        (created-by :initarg :created-by :type
+                         (common-lisp:or recovery-point-creator
+                                         common-lisp:null)
+                         :accessor %recovery-point-by-backup-vault-created-by
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-resource-type
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-resource-arn :initform
+                         common-lisp:nil)
+                        (source-backup-vault-arn :initarg
+                         :source-backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-source-backup-vault-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-backup-vault-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %recovery-point-by-backup-vault-backup-vault-name
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-backup-vault-recovery-point-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recovery-point-by-backup-vault
                     'make-recovery-point-by-backup-vault))
+ (common-lisp:defun make-recovery-point-by-backup-vault
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name is-parent
+                     composite-member-identifier parent-recovery-point-arn
+                     last-restore-time is-encrypted encryption-key-arn
+                     lifecycle calculated-lifecycle backup-size-in-bytes
+                     completion-date creation-date status-message status
+                     iam-role-arn created-by resource-type resource-arn
+                     source-backup-vault-arn backup-vault-arn backup-vault-name
+                     recovery-point-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'recovery-point-by-backup-vault
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6848,32 +8852,62 @@
                             recovery-point-by-backup-vault))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recovery-point-by-resource (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recovery-point-by-resource-"))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or recovery-point-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (encryption-key-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (backup-size-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (backup-vault-name common-lisp:nil :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null))
-   (parent-recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass recovery-point-by-resource common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %recovery-point-by-resource-resource-name
+                         :initform common-lisp:nil)
+                        (parent-recovery-point-arn :initarg
+                         :parent-recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-resource-parent-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %recovery-point-by-resource-is-parent
+                         :initform common-lisp:nil)
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %recovery-point-by-resource-backup-vault-name
+                         :initform common-lisp:nil)
+                        (backup-size-bytes :initarg :backup-size-bytes :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %recovery-point-by-resource-backup-size-bytes
+                         :initform common-lisp:nil)
+                        (encryption-key-arn :initarg :encryption-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-resource-encryption-key-arn
+                         :initform common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %recovery-point-by-resource-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or recovery-point-status
+                                         common-lisp:null)
+                         :accessor %recovery-point-by-resource-status :initform
+                         common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %recovery-point-by-resource-creation-date
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-by-resource-recovery-point-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recovery-point-by-resource
                     'make-recovery-point-by-resource))
+ (common-lisp:defun make-recovery-point-by-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name parent-recovery-point-arn
+                     is-parent backup-vault-name backup-size-bytes
+                     encryption-key-arn status-message status creation-date
+                     recovery-point-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'recovery-point-by-resource
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6970,19 +9004,33 @@
                             recovery-point-by-resource))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recovery-point-creator (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recovery-point-creator-"))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (backup-plan-version common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-rule-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass recovery-point-creator common-lisp:nil
+                       ((backup-rule-id :initarg :backup-rule-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %recovery-point-creator-backup-rule-id
+                         :initform common-lisp:nil)
+                        (backup-plan-version :initarg :backup-plan-version
+                         :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %recovery-point-creator-backup-plan-version
+                         :initform common-lisp:nil)
+                        (backup-plan-arn :initarg :backup-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-creator-backup-plan-arn :initform
+                         common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %recovery-point-creator-backup-plan-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recovery-point-creator 'make-recovery-point-creator))
+ (common-lisp:defun make-recovery-point-creator
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-rule-id backup-plan-version
+                     backup-plan-arn backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'recovery-point-creator
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7027,13 +9075,19 @@
                           recovery-point-creator))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recovery-point-member (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recovery-point-member-"))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass recovery-point-member common-lisp:nil
+                       ((recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %recovery-point-member-recovery-point-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recovery-point-member 'make-recovery-point-member))
+ (common-lisp:defun make-recovery-point-member
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recovery-point-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'recovery-point-member
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7057,17 +9111,30 @@
                           recovery-point-member))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (recovery-point-selection (:copier common-lisp:nil)
-      (:conc-name "struct-shape-recovery-point-selection-"))
-   (vault-names common-lisp:nil :type
-    (common-lisp:or vault-names common-lisp:null))
-   (resource-identifiers common-lisp:nil :type
-    (common-lisp:or resource-identifiers common-lisp:null))
-   (date-range common-lisp:nil :type
-    (common-lisp:or date-range common-lisp:null)))
+ (common-lisp:defclass recovery-point-selection common-lisp:nil
+                       ((date-range :initarg :date-range :type
+                         (common-lisp:or date-range common-lisp:null) :accessor
+                         %recovery-point-selection-date-range :initform
+                         common-lisp:nil)
+                        (resource-identifiers :initarg :resource-identifiers
+                         :type
+                         (common-lisp:or resource-identifiers common-lisp:null)
+                         :accessor
+                         %recovery-point-selection-resource-identifiers
+                         :initform common-lisp:nil)
+                        (vault-names :initarg :vault-names :type
+                         (common-lisp:or vault-names common-lisp:null)
+                         :accessor %recovery-point-selection-vault-names
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'recovery-point-selection 'make-recovery-point-selection))
+ (common-lisp:defun make-recovery-point-selection
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key date-range resource-identifiers
+                     vault-names)
+   (common-lisp:apply #'common-lisp:make-instance 'recovery-point-selection
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7115,17 +9182,28 @@
                            (trivial-types:proper-list recovery-point-member))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (report-delivery-channel (:copier common-lisp:nil)
-      (:conc-name "struct-shape-report-delivery-channel-"))
-   (s3bucket-name (common-lisp:error ":s3bucket-name is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (s3key-prefix common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (formats common-lisp:nil :type
-    (common-lisp:or format-list common-lisp:null)))
+ (common-lisp:defclass report-delivery-channel common-lisp:nil
+                       ((formats :initarg :formats :type
+                         (common-lisp:or format-list common-lisp:null)
+                         :accessor %report-delivery-channel-formats :initform
+                         common-lisp:nil)
+                        (s3key-prefix :initarg :s3key-prefix :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-delivery-channel-s3key-prefix
+                         :initform common-lisp:nil)
+                        (s3bucket-name :initarg :s3bucket-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-delivery-channel-s3bucket-name
+                         :initform
+                         (common-lisp:error ":s3bucket-name is required"))))
  (common-lisp:export
   (common-lisp:list 'report-delivery-channel 'make-report-delivery-channel))
+ (common-lisp:defun make-report-delivery-channel
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key formats s3key-prefix s3bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance 'report-delivery-channel
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7163,15 +9241,23 @@
                           report-delivery-channel))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (report-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-report-destination-"))
-   (s3bucket-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (s3keys common-lisp:nil :type
-    (common-lisp:or |stringList| common-lisp:null)))
+ (common-lisp:defclass report-destination common-lisp:nil
+                       ((s3keys :initarg :s3keys :type
+                         (common-lisp:or |stringList| common-lisp:null)
+                         :accessor %report-destination-s3keys :initform
+                         common-lisp:nil)
+                        (s3bucket-name :initarg :s3bucket-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-destination-s3bucket-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'report-destination 'make-report-destination))
+ (common-lisp:defun make-report-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3keys s3bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance 'report-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input report-destination))
    (common-lisp:append))
@@ -7196,26 +9282,47 @@
                         ((aws-sdk/generator/shape::input report-destination))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (report-job (:copier common-lisp:nil)
-      (:conc-name "struct-shape-report-job-"))
-   (report-job-id common-lisp:nil :type
-    (common-lisp:or report-job-id common-lisp:null))
-   (report-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (report-template common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (report-destination common-lisp:nil :type
-    (common-lisp:or report-destination common-lisp:null)))
+ (common-lisp:defclass report-job common-lisp:nil
+                       ((report-destination :initarg :report-destination :type
+                         (common-lisp:or report-destination common-lisp:null)
+                         :accessor %report-job-report-destination :initform
+                         common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-job-status-message :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-job-status :initform
+                         common-lisp:nil)
+                        (completion-time :initarg :completion-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-job-completion-time :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-job-creation-time :initform
+                         common-lisp:nil)
+                        (report-template :initarg :report-template :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-job-report-template :initform
+                         common-lisp:nil)
+                        (report-plan-arn :initarg :report-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %report-job-report-plan-arn :initform common-lisp:nil)
+                        (report-job-id :initarg :report-job-id :type
+                         (common-lisp:or report-job-id common-lisp:null)
+                         :accessor %report-job-report-job-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'report-job 'make-report-job))
+ (common-lisp:defun make-report-job
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key report-destination status-message status
+                     completion-time creation-time report-template
+                     report-plan-arn report-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'report-job
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input report-job))
    (common-lisp:append))
@@ -7291,28 +9398,59 @@
                            (trivial-types:proper-list report-job))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (report-plan (:copier common-lisp:nil)
-      (:conc-name "struct-shape-report-plan-"))
-   (report-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (report-plan-name common-lisp:nil :type
-    (common-lisp:or report-plan-name common-lisp:null))
-   (report-plan-description common-lisp:nil :type
-    (common-lisp:or report-plan-description common-lisp:null))
-   (report-setting common-lisp:nil :type
-    (common-lisp:or report-setting common-lisp:null))
-   (report-delivery-channel common-lisp:nil :type
-    (common-lisp:or report-delivery-channel common-lisp:null))
-   (deployment-status common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (last-attempted-execution-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (last-successful-execution-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass report-plan common-lisp:nil
+                       ((last-successful-execution-time :initarg
+                         :last-successful-execution-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-plan-last-successful-execution-time
+                         :initform common-lisp:nil)
+                        (last-attempted-execution-time :initarg
+                         :last-attempted-execution-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-plan-last-attempted-execution-time
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-plan-creation-time :initform
+                         common-lisp:nil)
+                        (deployment-status :initarg :deployment-status :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-plan-deployment-status :initform
+                         common-lisp:nil)
+                        (report-delivery-channel :initarg
+                         :report-delivery-channel :type
+                         (common-lisp:or report-delivery-channel
+                                         common-lisp:null)
+                         :accessor %report-plan-report-delivery-channel
+                         :initform common-lisp:nil)
+                        (report-setting :initarg :report-setting :type
+                         (common-lisp:or report-setting common-lisp:null)
+                         :accessor %report-plan-report-setting :initform
+                         common-lisp:nil)
+                        (report-plan-description :initarg
+                         :report-plan-description :type
+                         (common-lisp:or report-plan-description
+                                         common-lisp:null)
+                         :accessor %report-plan-report-plan-description
+                         :initform common-lisp:nil)
+                        (report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %report-plan-report-plan-name :initform
+                         common-lisp:nil)
+                        (report-plan-arn :initarg :report-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %report-plan-report-plan-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'report-plan 'make-report-plan))
+ (common-lisp:defun make-report-plan
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-successful-execution-time
+                     last-attempted-execution-time creation-time
+                     deployment-status report-delivery-channel report-setting
+                     report-plan-description report-plan-name report-plan-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'report-plan
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input report-plan))
    (common-lisp:append))
@@ -7400,22 +9538,40 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype report-plan-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (report-setting (:copier common-lisp:nil)
-      (:conc-name "struct-shape-report-setting-"))
-   (report-template (common-lisp:error ":report-template is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (framework-arns common-lisp:nil :type
-    (common-lisp:or |stringList| common-lisp:null))
-   (number-of-frameworks common-lisp:nil :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (accounts common-lisp:nil :type
-    (common-lisp:or |stringList| common-lisp:null))
-   (organization-units common-lisp:nil :type
-    (common-lisp:or |stringList| common-lisp:null))
-   (regions common-lisp:nil :type
-    (common-lisp:or |stringList| common-lisp:null)))
+ (common-lisp:defclass report-setting common-lisp:nil
+                       ((regions :initarg :regions :type
+                         (common-lisp:or |stringList| common-lisp:null)
+                         :accessor %report-setting-regions :initform
+                         common-lisp:nil)
+                        (organization-units :initarg :organization-units :type
+                         (common-lisp:or |stringList| common-lisp:null)
+                         :accessor %report-setting-organization-units :initform
+                         common-lisp:nil)
+                        (accounts :initarg :accounts :type
+                         (common-lisp:or |stringList| common-lisp:null)
+                         :accessor %report-setting-accounts :initform
+                         common-lisp:nil)
+                        (number-of-frameworks :initarg :number-of-frameworks
+                         :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %report-setting-number-of-frameworks
+                         :initform common-lisp:nil)
+                        (framework-arns :initarg :framework-arns :type
+                         (common-lisp:or |stringList| common-lisp:null)
+                         :accessor %report-setting-framework-arns :initform
+                         common-lisp:nil)
+                        (report-template :initarg :report-template :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %report-setting-report-template :initform
+                         (common-lisp:error ":report-template is required"))))
  (common-lisp:export (common-lisp:list 'report-setting 'make-report-setting))
+ (common-lisp:defun make-report-setting
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key regions organization-units accounts
+                     number-of-frameworks framework-arns report-template)
+   (common-lisp:apply #'common-lisp:make-instance 'report-setting
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input report-setting))
    (common-lisp:append))
@@ -7546,37 +9702,72 @@
                             restore-jobs-list-member))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-jobs-list-member (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-jobs-list-member-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (restore-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (completion-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or restore-job-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (percent-done common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-size-in-bytes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (expected-completion-time-minutes common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (created-resource-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null)))
+ (common-lisp:defclass restore-jobs-list-member common-lisp:nil
+                       ((resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %restore-jobs-list-member-resource-type
+                         :initform common-lisp:nil)
+                        (created-resource-arn :initarg :created-resource-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %restore-jobs-list-member-created-resource-arn
+                         :initform common-lisp:nil)
+                        (expected-completion-time-minutes :initarg
+                         :expected-completion-time-minutes :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %restore-jobs-list-member-expected-completion-time-minutes
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %restore-jobs-list-member-iam-role-arn
+                         :initform common-lisp:nil)
+                        (backup-size-in-bytes :initarg :backup-size-in-bytes
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %restore-jobs-list-member-backup-size-in-bytes
+                         :initform common-lisp:nil)
+                        (percent-done :initarg :percent-done :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %restore-jobs-list-member-percent-done
+                         :initform common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %restore-jobs-list-member-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or restore-job-status common-lisp:null)
+                         :accessor %restore-jobs-list-member-status :initform
+                         common-lisp:nil)
+                        (completion-date :initarg :completion-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %restore-jobs-list-member-completion-date
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %restore-jobs-list-member-creation-date
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %restore-jobs-list-member-recovery-point-arn :initform
+                         common-lisp:nil)
+                        (restore-job-id :initarg :restore-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %restore-jobs-list-member-restore-job-id
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %restore-jobs-list-member-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'restore-jobs-list-member 'make-restore-jobs-list-member))
+ (common-lisp:defun make-restore-jobs-list-member
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-type created-resource-arn
+                     expected-completion-time-minutes iam-role-arn
+                     backup-size-in-bytes percent-done status-message status
+                     completion-date creation-date recovery-point-arn
+                     restore-job-id account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'restore-jobs-list-member
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7704,29 +9895,59 @@
                     'service-unavailable-exception-type
                     'service-unavailable-exception-context)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-backup-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-backup-job-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (iam-role-arn (common-lisp:error ":iam-role-arn is required") :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (start-window-minutes common-lisp:nil :type
-    (common-lisp:or window-minutes common-lisp:null))
-   (complete-window-minutes common-lisp:nil :type
-    (common-lisp:or window-minutes common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null))
-   (recovery-point-tags common-lisp:nil :type
-    (common-lisp:or tags common-lisp:null))
-   (backup-options common-lisp:nil :type
-    (common-lisp:or backup-options common-lisp:null)))
+ (common-lisp:defclass start-backup-job-input common-lisp:nil
+                       ((backup-options :initarg :backup-options :type
+                         (common-lisp:or backup-options common-lisp:null)
+                         :accessor %start-backup-job-input-backup-options
+                         :initform common-lisp:nil)
+                        (recovery-point-tags :initarg :recovery-point-tags
+                         :type (common-lisp:or tags common-lisp:null) :accessor
+                         %start-backup-job-input-recovery-point-tags :initform
+                         common-lisp:nil)
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %start-backup-job-input-lifecycle :initform
+                         common-lisp:nil)
+                        (complete-window-minutes :initarg
+                         :complete-window-minutes :type
+                         (common-lisp:or window-minutes common-lisp:null)
+                         :accessor
+                         %start-backup-job-input-complete-window-minutes
+                         :initform common-lisp:nil)
+                        (start-window-minutes :initarg :start-window-minutes
+                         :type (common-lisp:or window-minutes common-lisp:null)
+                         :accessor %start-backup-job-input-start-window-minutes
+                         :initform common-lisp:nil)
+                        (idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-backup-job-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %start-backup-job-input-iam-role-arn
+                         :initform
+                         (common-lisp:error ":iam-role-arn is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %start-backup-job-input-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor %start-backup-job-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'start-backup-job-input 'make-start-backup-job-input))
+ (common-lisp:defun make-start-backup-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-options recovery-point-tags
+                     lifecycle complete-window-minutes start-window-minutes
+                     idempotency-token iam-role-arn resource-arn
+                     backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance 'start-backup-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7808,19 +10029,32 @@
                           start-backup-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-backup-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-backup-job-output-"))
-   (backup-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null)))
+ (common-lisp:defclass start-backup-job-output common-lisp:nil
+                       ((is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %start-backup-job-output-is-parent :initform
+                         common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-backup-job-output-creation-date
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %start-backup-job-output-recovery-point-arn :initform
+                         common-lisp:nil)
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-backup-job-output-backup-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-backup-job-output 'make-start-backup-job-output))
+ (common-lisp:defun make-start-backup-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key is-parent creation-date
+                     recovery-point-arn backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-backup-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7865,25 +10099,49 @@
                           start-backup-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-copy-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-copy-job-input-"))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null))
-   (source-backup-vault-name
-    (common-lisp:error ":source-backup-vault-name is required") :type
-    (common-lisp:or backup-vault-name common-lisp:null))
-   (destination-backup-vault-arn
-    (common-lisp:error ":destination-backup-vault-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (iam-role-arn (common-lisp:error ":iam-role-arn is required") :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null)))
+ (common-lisp:defclass start-copy-job-input common-lisp:nil
+                       ((lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %start-copy-job-input-lifecycle :initform
+                         common-lisp:nil)
+                        (idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-copy-job-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %start-copy-job-input-iam-role-arn :initform
+                         (common-lisp:error ":iam-role-arn is required"))
+                        (destination-backup-vault-arn :initarg
+                         :destination-backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %start-copy-job-input-destination-backup-vault-arn
+                         :initform
+                         (common-lisp:error
+                          ":destination-backup-vault-arn is required"))
+                        (source-backup-vault-name :initarg
+                         :source-backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %start-copy-job-input-source-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":source-backup-vault-name is required"))
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %start-copy-job-input-recovery-point-arn :initform
+                         (common-lisp:error
+                          ":recovery-point-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'start-copy-job-input 'make-start-copy-job-input))
+ (common-lisp:defun make-start-copy-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lifecycle idempotency-token iam-role-arn
+                     destination-backup-vault-arn source-backup-vault-name
+                     recovery-point-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'start-copy-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-copy-job-input))
    (common-lisp:append))
@@ -7938,17 +10196,27 @@
                         ((aws-sdk/generator/shape::input start-copy-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-copy-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-copy-job-output-"))
-   (copy-job-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (is-parent common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null)))
+ (common-lisp:defclass start-copy-job-output common-lisp:nil
+                       ((is-parent :initarg :is-parent :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %start-copy-job-output-is-parent :initform
+                         common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-copy-job-output-creation-date
+                         :initform common-lisp:nil)
+                        (copy-job-id :initarg :copy-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-copy-job-output-copy-job-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-copy-job-output 'make-start-copy-job-output))
+ (common-lisp:defun make-start-copy-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key is-parent creation-date copy-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-copy-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7986,15 +10254,24 @@
                           start-copy-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-report-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-report-job-input-"))
-   (report-plan-name (common-lisp:error ":report-plan-name is required") :type
-    (common-lisp:or report-plan-name common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass start-report-job-input common-lisp:nil
+                       ((idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-report-job-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %start-report-job-input-report-plan-name
+                         :initform
+                         (common-lisp:error ":report-plan-name is required"))))
  (common-lisp:export
   (common-lisp:list 'start-report-job-input 'make-start-report-job-input))
+ (common-lisp:defun make-start-report-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key idempotency-token report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'start-report-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8018,13 +10295,19 @@
                           start-report-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-report-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-report-job-output-"))
-   (report-job-id common-lisp:nil :type
-    (common-lisp:or report-job-id common-lisp:null)))
+ (common-lisp:defclass start-report-job-output common-lisp:nil
+                       ((report-job-id :initarg :report-job-id :type
+                         (common-lisp:or report-job-id common-lisp:null)
+                         :accessor %start-report-job-output-report-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-report-job-output 'make-start-report-job-output))
+ (common-lisp:defun make-start-report-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key report-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-report-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8048,21 +10331,37 @@
                           start-report-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-restore-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-restore-job-input-"))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null))
-   (metadata (common-lisp:error ":metadata is required") :type
-    (common-lisp:or metadata common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or iamrole-arn common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null)))
+ (common-lisp:defclass start-restore-job-input common-lisp:nil
+                       ((resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %start-restore-job-input-resource-type
+                         :initform common-lisp:nil)
+                        (idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-restore-job-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or iamrole-arn common-lisp:null)
+                         :accessor %start-restore-job-input-iam-role-arn
+                         :initform common-lisp:nil)
+                        (metadata :initarg :metadata :type
+                         (common-lisp:or metadata common-lisp:null) :accessor
+                         %start-restore-job-input-metadata :initform
+                         (common-lisp:error ":metadata is required"))
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %start-restore-job-input-recovery-point-arn :initform
+                         (common-lisp:error
+                          ":recovery-point-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'start-restore-job-input 'make-start-restore-job-input))
+ (common-lisp:defun make-start-restore-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-type idempotency-token
+                     iam-role-arn metadata recovery-point-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'start-restore-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8114,13 +10413,19 @@
                           start-restore-job-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-restore-job-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-restore-job-output-"))
-   (restore-job-id common-lisp:nil :type
-    (common-lisp:or restore-job-id common-lisp:null)))
+ (common-lisp:defclass start-restore-job-output common-lisp:nil
+                       ((restore-job-id :initarg :restore-job-id :type
+                         (common-lisp:or restore-job-id common-lisp:null)
+                         :accessor %start-restore-job-output-restore-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-restore-job-output 'make-start-restore-job-output))
+ (common-lisp:defun make-start-restore-job-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key restore-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-restore-job-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8144,13 +10449,20 @@
                           start-restore-job-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-backup-job-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-backup-job-input-"))
-   (backup-job-id (common-lisp:error ":backup-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass stop-backup-job-input common-lisp:nil
+                       ((backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %stop-backup-job-input-backup-job-id
+                         :initform
+                         (common-lisp:error ":backup-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-backup-job-input 'make-stop-backup-job-input))
+ (common-lisp:defun make-stop-backup-job-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-backup-job-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8177,15 +10489,23 @@
                            (trivial-types:proper-list common-lisp:string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tags common-lisp:null)))
+ (common-lisp:defclass tag-resource-input common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %tag-resource-input-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %tag-resource-input-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-input 'make-tag-resource-input))
+ (common-lisp:defun make-tag-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-input))
    (common-lisp:append))
@@ -8211,15 +10531,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tag-key-list (common-lisp:error ":tag-key-list is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-input common-lisp:nil
+                       ((tag-key-list :initarg :tag-key-list :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-input-tag-key-list :initform
+                         (common-lisp:error ":tag-key-list is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %untag-resource-input-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-input 'make-untag-resource-input))
+ (common-lisp:defun make-untag-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-key-list resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input untag-resource-input))
    (common-lisp:append))
@@ -8237,15 +10565,25 @@
                         ((aws-sdk/generator/shape::input untag-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backup-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backup-plan-input-"))
-   (backup-plan-id (common-lisp:error ":backup-plan-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan (common-lisp:error ":backup-plan is required") :type
-    (common-lisp:or backup-plan-input common-lisp:null)))
+ (common-lisp:defclass update-backup-plan-input common-lisp:nil
+                       ((backup-plan :initarg :backup-plan :type
+                         (common-lisp:or backup-plan-input common-lisp:null)
+                         :accessor %update-backup-plan-input-backup-plan
+                         :initform
+                         (common-lisp:error ":backup-plan is required"))
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-backup-plan-input-backup-plan-id
+                         :initform
+                         (common-lisp:error ":backup-plan-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-backup-plan-input 'make-update-backup-plan-input))
+ (common-lisp:defun make-update-backup-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key backup-plan backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backup-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8269,22 +10607,40 @@
                           update-backup-plan-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-backup-plan-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-backup-plan-output-"))
-   (backup-plan-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (backup-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-date common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (version-id common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (advanced-backup-settings common-lisp:nil :type
-    (common-lisp:or advanced-backup-settings common-lisp:null)))
+ (common-lisp:defclass update-backup-plan-output common-lisp:nil
+                       ((advanced-backup-settings :initarg
+                         :advanced-backup-settings :type
+                         (common-lisp:or advanced-backup-settings
+                                         common-lisp:null)
+                         :accessor
+                         %update-backup-plan-output-advanced-backup-settings
+                         :initform common-lisp:nil)
+                        (version-id :initarg :version-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-backup-plan-output-version-id
+                         :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-backup-plan-output-creation-date
+                         :initform common-lisp:nil)
+                        (backup-plan-arn :initarg :backup-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-backup-plan-output-backup-plan-arn :initform
+                         common-lisp:nil)
+                        (backup-plan-id :initarg :backup-plan-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-backup-plan-output-backup-plan-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-backup-plan-output
                     'make-update-backup-plan-output))
+ (common-lisp:defun make-update-backup-plan-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key advanced-backup-settings version-id
+                     creation-date backup-plan-arn backup-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-backup-plan-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8337,19 +10693,36 @@
                           update-backup-plan-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-framework-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-framework-input-"))
-   (framework-name (common-lisp:error ":framework-name is required") :type
-    (common-lisp:or framework-name common-lisp:null))
-   (framework-description common-lisp:nil :type
-    (common-lisp:or framework-description common-lisp:null))
-   (framework-controls common-lisp:nil :type
-    (common-lisp:or framework-controls common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass update-framework-input common-lisp:nil
+                       ((idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-framework-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (framework-controls :initarg :framework-controls :type
+                         (common-lisp:or framework-controls common-lisp:null)
+                         :accessor %update-framework-input-framework-controls
+                         :initform common-lisp:nil)
+                        (framework-description :initarg :framework-description
+                         :type
+                         (common-lisp:or framework-description
+                                         common-lisp:null)
+                         :accessor
+                         %update-framework-input-framework-description
+                         :initform common-lisp:nil)
+                        (framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %update-framework-input-framework-name
+                         :initform
+                         (common-lisp:error ":framework-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-framework-input 'make-update-framework-input))
+ (common-lisp:defun make-update-framework-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key idempotency-token framework-controls
+                     framework-description framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-framework-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8388,16 +10761,28 @@
                           update-framework-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-framework-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-framework-output-"))
-   (framework-name common-lisp:nil :type
-    (common-lisp:or framework-name common-lisp:null))
-   (framework-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass update-framework-output common-lisp:nil
+                       ((creation-time :initarg :creation-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-framework-output-creation-time
+                         :initform common-lisp:nil)
+                        (framework-arn :initarg :framework-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-framework-output-framework-arn :initform
+                         common-lisp:nil)
+                        (framework-name :initarg :framework-name :type
+                         (common-lisp:or framework-name common-lisp:null)
+                         :accessor %update-framework-output-framework-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-framework-output 'make-update-framework-output))
+ (common-lisp:defun make-update-framework-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-time framework-arn
+                     framework-name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-framework-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8435,14 +10820,21 @@
                           update-framework-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-global-settings-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-global-settings-input-"))
-   (global-settings common-lisp:nil :type
-    (common-lisp:or global-settings common-lisp:null)))
+ (common-lisp:defclass update-global-settings-input common-lisp:nil
+                       ((global-settings :initarg :global-settings :type
+                         (common-lisp:or global-settings common-lisp:null)
+                         :accessor
+                         %update-global-settings-input-global-settings
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-global-settings-input
                     'make-update-global-settings-input))
+ (common-lisp:defun make-update-global-settings-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key global-settings)
+   (common-lisp:apply #'common-lisp:make-instance 'update-global-settings-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8466,18 +10858,34 @@
                           update-global-settings-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-recovery-point-lifecycle-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-recovery-point-lifecycle-input-"))
-   (backup-vault-name (common-lisp:error ":backup-vault-name is required")
-    :type (common-lisp:or backup-vault-name common-lisp:null))
-   (recovery-point-arn (common-lisp:error ":recovery-point-arn is required")
-    :type (common-lisp:or arn common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null)))
+ (common-lisp:defclass update-recovery-point-lifecycle-input common-lisp:nil
+                       ((lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %update-recovery-point-lifecycle-input-lifecycle
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-recovery-point-lifecycle-input-recovery-point-arn
+                         :initform
+                         (common-lisp:error ":recovery-point-arn is required"))
+                        (backup-vault-name :initarg :backup-vault-name :type
+                         (common-lisp:or backup-vault-name common-lisp:null)
+                         :accessor
+                         %update-recovery-point-lifecycle-input-backup-vault-name
+                         :initform
+                         (common-lisp:error
+                          ":backup-vault-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-recovery-point-lifecycle-input
                     'make-update-recovery-point-lifecycle-input))
+ (common-lisp:defun make-update-recovery-point-lifecycle-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lifecycle recovery-point-arn
+                     backup-vault-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-recovery-point-lifecycle-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8501,20 +10909,36 @@
                           update-recovery-point-lifecycle-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-recovery-point-lifecycle-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-recovery-point-lifecycle-output-"))
-   (backup-vault-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (recovery-point-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle common-lisp:null))
-   (calculated-lifecycle common-lisp:nil :type
-    (common-lisp:or calculated-lifecycle common-lisp:null)))
+ (common-lisp:defclass update-recovery-point-lifecycle-output common-lisp:nil
+                       ((calculated-lifecycle :initarg :calculated-lifecycle
+                         :type
+                         (common-lisp:or calculated-lifecycle common-lisp:null)
+                         :accessor
+                         %update-recovery-point-lifecycle-output-calculated-lifecycle
+                         :initform common-lisp:nil)
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle common-lisp:null) :accessor
+                         %update-recovery-point-lifecycle-output-lifecycle
+                         :initform common-lisp:nil)
+                        (recovery-point-arn :initarg :recovery-point-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-recovery-point-lifecycle-output-recovery-point-arn
+                         :initform common-lisp:nil)
+                        (backup-vault-arn :initarg :backup-vault-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-recovery-point-lifecycle-output-backup-vault-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-recovery-point-lifecycle-output
                     'make-update-recovery-point-lifecycle-output))
+ (common-lisp:defun make-update-recovery-point-lifecycle-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key calculated-lifecycle lifecycle
+                     recovery-point-arn backup-vault-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-recovery-point-lifecycle-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8560,16 +10984,31 @@
                           update-recovery-point-lifecycle-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-region-settings-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-region-settings-input-"))
-   (resource-type-opt-in-preference common-lisp:nil :type
-    (common-lisp:or resource-type-opt-in-preference common-lisp:null))
-   (resource-type-management-preference common-lisp:nil :type
-    (common-lisp:or resource-type-management-preference common-lisp:null)))
+ (common-lisp:defclass update-region-settings-input common-lisp:nil
+                       ((resource-type-management-preference :initarg
+                         :resource-type-management-preference :type
+                         (common-lisp:or resource-type-management-preference
+                                         common-lisp:null)
+                         :accessor
+                         %update-region-settings-input-resource-type-management-preference
+                         :initform common-lisp:nil)
+                        (resource-type-opt-in-preference :initarg
+                         :resource-type-opt-in-preference :type
+                         (common-lisp:or resource-type-opt-in-preference
+                                         common-lisp:null)
+                         :accessor
+                         %update-region-settings-input-resource-type-opt-in-preference
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-region-settings-input
                     'make-update-region-settings-input))
+ (common-lisp:defun make-update-region-settings-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-type-management-preference
+                     resource-type-opt-in-preference)
+   (common-lisp:apply #'common-lisp:make-instance 'update-region-settings-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8602,21 +11041,44 @@
                           update-region-settings-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-report-plan-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-report-plan-input-"))
-   (report-plan-name (common-lisp:error ":report-plan-name is required") :type
-    (common-lisp:or report-plan-name common-lisp:null))
-   (report-plan-description common-lisp:nil :type
-    (common-lisp:or report-plan-description common-lisp:null))
-   (report-delivery-channel common-lisp:nil :type
-    (common-lisp:or report-delivery-channel common-lisp:null))
-   (report-setting common-lisp:nil :type
-    (common-lisp:or report-setting common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass update-report-plan-input common-lisp:nil
+                       ((idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-report-plan-input-idempotency-token
+                         :initform common-lisp:nil)
+                        (report-setting :initarg :report-setting :type
+                         (common-lisp:or report-setting common-lisp:null)
+                         :accessor %update-report-plan-input-report-setting
+                         :initform common-lisp:nil)
+                        (report-delivery-channel :initarg
+                         :report-delivery-channel :type
+                         (common-lisp:or report-delivery-channel
+                                         common-lisp:null)
+                         :accessor
+                         %update-report-plan-input-report-delivery-channel
+                         :initform common-lisp:nil)
+                        (report-plan-description :initarg
+                         :report-plan-description :type
+                         (common-lisp:or report-plan-description
+                                         common-lisp:null)
+                         :accessor
+                         %update-report-plan-input-report-plan-description
+                         :initform common-lisp:nil)
+                        (report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %update-report-plan-input-report-plan-name
+                         :initform
+                         (common-lisp:error ":report-plan-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-report-plan-input 'make-update-report-plan-input))
+ (common-lisp:defun make-update-report-plan-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key idempotency-token report-setting
+                     report-delivery-channel report-plan-description
+                     report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-report-plan-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8663,18 +11125,29 @@
                           update-report-plan-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-report-plan-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-report-plan-output-"))
-   (report-plan-name common-lisp:nil :type
-    (common-lisp:or report-plan-name common-lisp:null))
-   (report-plan-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass update-report-plan-output common-lisp:nil
+                       ((creation-time :initarg :creation-time :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %update-report-plan-output-creation-time
+                         :initform common-lisp:nil)
+                        (report-plan-arn :initarg :report-plan-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-report-plan-output-report-plan-arn :initform
+                         common-lisp:nil)
+                        (report-plan-name :initarg :report-plan-name :type
+                         (common-lisp:or report-plan-name common-lisp:null)
+                         :accessor %update-report-plan-output-report-plan-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-report-plan-output
                     'make-update-report-plan-output))
+ (common-lisp:defun make-update-report-plan-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-time report-plan-arn
+                     report-plan-name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-report-plan-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

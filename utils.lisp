@@ -15,7 +15,7 @@
 (in-package #:aws-sdk/utils)
 
 (defun lispify (value &optional (package *package*))
-  (intern (string-upcase (kebab:to-lisp-case value)) package))
+  (intern (string-upcase (kebab:to-lisp-case (ensure-string value))) package))
 
 (defun getenv (var)
   (let ((value (uiop:getenv var)))
@@ -52,7 +52,8 @@
   (etypecase value
     (string value)
     (vector (babel:octets-to-string value))
-    (stream (slurp-string-stream value))))
+    (stream (slurp-string-stream value))
+    (t (format nil "~s" value))))
 
 (defmacro aws-load (service-name)
   `(ql:quickload (format nil "aws-sdk/services/~a" ',service-name)))

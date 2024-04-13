@@ -37,23 +37,47 @@
     ("UnableToDetectSchemaException" . unable-to-detect-schema-exception)
     ("UnsupportedOperationException" . unsupported-operation-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-cloud-watch-logging-option-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-add-application-cloud-watch-logging-option-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (cloud-watch-logging-option
-    (common-lisp:error ":cloud-watch-logging-option is required") :type
-    (common-lisp:or cloud-watch-logging-option common-lisp:null))
-   (conditional-token common-lisp:nil :type
-    (common-lisp:or conditional-token common-lisp:null)))
+ (common-lisp:defclass add-application-cloud-watch-logging-option-request
+                       common-lisp:nil
+                       ((conditional-token :initarg :conditional-token :type
+                         (common-lisp:or conditional-token common-lisp:null)
+                         :accessor
+                         %add-application-cloud-watch-logging-option-request-conditional-token
+                         :initform common-lisp:nil)
+                        (cloud-watch-logging-option :initarg
+                         :cloud-watch-logging-option :type
+                         (common-lisp:or cloud-watch-logging-option
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-cloud-watch-logging-option-request-cloud-watch-logging-option
+                         :initform
+                         (common-lisp:error
+                          ":cloud-watch-logging-option is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-cloud-watch-logging-option-request-current-application-version-id
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %add-application-cloud-watch-logging-option-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'add-application-cloud-watch-logging-option-request
                     'make-add-application-cloud-watch-logging-option-request))
+ (common-lisp:defun make-add-application-cloud-watch-logging-option-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key conditional-token
+                     cloud-watch-logging-option current-application-version-id
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-cloud-watch-logging-option-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -100,20 +124,39 @@
                           add-application-cloud-watch-logging-option-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-cloud-watch-logging-option-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-add-application-cloud-watch-logging-option-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (cloud-watch-logging-option-descriptions common-lisp:nil :type
-    (common-lisp:or cloud-watch-logging-option-descriptions common-lisp:null)))
+ (common-lisp:defclass add-application-cloud-watch-logging-option-response
+                       common-lisp:nil
+                       ((cloud-watch-logging-option-descriptions :initarg
+                         :cloud-watch-logging-option-descriptions :type
+                         (common-lisp:or
+                          cloud-watch-logging-option-descriptions
+                          common-lisp:null)
+                         :accessor
+                         %add-application-cloud-watch-logging-option-response-cloud-watch-logging-option-descriptions
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-cloud-watch-logging-option-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %add-application-cloud-watch-logging-option-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'add-application-cloud-watch-logging-option-response
                     'make-add-application-cloud-watch-logging-option-response))
+ (common-lisp:defun make-add-application-cloud-watch-logging-option-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cloud-watch-logging-option-descriptions
+                     application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-cloud-watch-logging-option-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -153,24 +196,47 @@
                           add-application-cloud-watch-logging-option-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-input-processing-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-add-application-input-processing-configuration-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (input-id (common-lisp:error ":input-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (input-processing-configuration
-    (common-lisp:error ":input-processing-configuration is required") :type
-    (common-lisp:or input-processing-configuration common-lisp:null)))
+ (common-lisp:defclass add-application-input-processing-configuration-request
+                       common-lisp:nil
+                       ((input-processing-configuration :initarg
+                         :input-processing-configuration :type
+                         (common-lisp:or input-processing-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-input-processing-configuration-request-input-processing-configuration
+                         :initform
+                         (common-lisp:error
+                          ":input-processing-configuration is required"))
+                        (input-id :initarg :input-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %add-application-input-processing-configuration-request-input-id
+                         :initform (common-lisp:error ":input-id is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-input-processing-configuration-request-current-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":current-application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %add-application-input-processing-configuration-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'add-application-input-processing-configuration-request
                     'make-add-application-input-processing-configuration-request))
+ (common-lisp:defun make-add-application-input-processing-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-processing-configuration input-id
+                     current-application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-input-processing-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -217,22 +283,44 @@
                           add-application-input-processing-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-input-processing-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-add-application-input-processing-configuration-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (input-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
-   (input-processing-configuration-description common-lisp:nil :type
-    (common-lisp:or input-processing-configuration-description
-                    common-lisp:null)))
+ (common-lisp:defclass add-application-input-processing-configuration-response
+                       common-lisp:nil
+                       ((input-processing-configuration-description :initarg
+                         :input-processing-configuration-description :type
+                         (common-lisp:or
+                          input-processing-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %add-application-input-processing-configuration-response-input-processing-configuration-description
+                         :initform common-lisp:nil)
+                        (input-id :initarg :input-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %add-application-input-processing-configuration-response-input-id
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-input-processing-configuration-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %add-application-input-processing-configuration-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'add-application-input-processing-configuration-response
                     'make-add-application-input-processing-configuration-response))
+ (common-lisp:defun make-add-application-input-processing-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     input-processing-configuration-description input-id
+                     application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-input-processing-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -279,19 +367,37 @@
                           add-application-input-processing-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-input-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-application-input-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (input (common-lisp:error ":input is required") :type
-    (common-lisp:or input common-lisp:null)))
+ (common-lisp:defclass add-application-input-request common-lisp:nil
+                       ((input :initarg :input :type
+                         (common-lisp:or input common-lisp:null) :accessor
+                         %add-application-input-request-input :initform
+                         (common-lisp:error ":input is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-input-request-current-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":current-application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %add-application-input-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'add-application-input-request
                     'make-add-application-input-request))
+ (common-lisp:defun make-add-application-input-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input current-application-version-id
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-input-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -330,18 +436,35 @@
                           add-application-input-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-input-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-application-input-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (input-descriptions common-lisp:nil :type
-    (common-lisp:or input-descriptions common-lisp:null)))
+ (common-lisp:defclass add-application-input-response common-lisp:nil
+                       ((input-descriptions :initarg :input-descriptions :type
+                         (common-lisp:or input-descriptions common-lisp:null)
+                         :accessor
+                         %add-application-input-response-input-descriptions
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-input-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %add-application-input-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'add-application-input-response
                     'make-add-application-input-response))
+ (common-lisp:defun make-add-application-input-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-descriptions application-version-id
+                     application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-input-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -380,19 +503,37 @@
                           add-application-input-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-output-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-application-output-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (output (common-lisp:error ":output is required") :type
-    (common-lisp:or output common-lisp:null)))
+ (common-lisp:defclass add-application-output-request common-lisp:nil
+                       ((output :initarg :output :type
+                         (common-lisp:or output common-lisp:null) :accessor
+                         %add-application-output-request-output :initform
+                         (common-lisp:error ":output is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-output-request-current-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":current-application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %add-application-output-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'add-application-output-request
                     'make-add-application-output-request))
+ (common-lisp:defun make-add-application-output-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output current-application-version-id
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-output-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -431,18 +572,36 @@
                           add-application-output-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-output-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-application-output-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (output-descriptions common-lisp:nil :type
-    (common-lisp:or output-descriptions common-lisp:null)))
+ (common-lisp:defclass add-application-output-response common-lisp:nil
+                       ((output-descriptions :initarg :output-descriptions
+                         :type
+                         (common-lisp:or output-descriptions common-lisp:null)
+                         :accessor
+                         %add-application-output-response-output-descriptions
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-output-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %add-application-output-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'add-application-output-response
                     'make-add-application-output-response))
+ (common-lisp:defun make-add-application-output-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output-descriptions
+                     application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-output-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -481,21 +640,43 @@
                           add-application-output-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-reference-data-source-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-add-application-reference-data-source-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (reference-data-source
-    (common-lisp:error ":reference-data-source is required") :type
-    (common-lisp:or reference-data-source common-lisp:null)))
+ (common-lisp:defclass add-application-reference-data-source-request
+                       common-lisp:nil
+                       ((reference-data-source :initarg :reference-data-source
+                         :type
+                         (common-lisp:or reference-data-source
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-reference-data-source-request-reference-data-source
+                         :initform
+                         (common-lisp:error
+                          ":reference-data-source is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-reference-data-source-request-current-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":current-application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %add-application-reference-data-source-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'add-application-reference-data-source-request
                     'make-add-application-reference-data-source-request))
+ (common-lisp:defun make-add-application-reference-data-source-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-data-source
+                     current-application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-reference-data-source-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -535,19 +716,38 @@
                           add-application-reference-data-source-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-reference-data-source-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-add-application-reference-data-source-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (reference-data-source-descriptions common-lisp:nil :type
-    (common-lisp:or reference-data-source-descriptions common-lisp:null)))
+ (common-lisp:defclass add-application-reference-data-source-response
+                       common-lisp:nil
+                       ((reference-data-source-descriptions :initarg
+                         :reference-data-source-descriptions :type
+                         (common-lisp:or reference-data-source-descriptions
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-reference-data-source-response-reference-data-source-descriptions
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-reference-data-source-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %add-application-reference-data-source-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'add-application-reference-data-source-response
                     'make-add-application-reference-data-source-response))
+ (common-lisp:defun make-add-application-reference-data-source-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-data-source-descriptions
+                     application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-reference-data-source-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -587,20 +787,43 @@
                           add-application-reference-data-source-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-vpc-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-application-vpc-configuration-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (vpc-configuration (common-lisp:error ":vpc-configuration is required")
-    :type (common-lisp:or vpc-configuration common-lisp:null))
-   (conditional-token common-lisp:nil :type
-    (common-lisp:or conditional-token common-lisp:null)))
+ (common-lisp:defclass add-application-vpc-configuration-request
+                       common-lisp:nil
+                       ((conditional-token :initarg :conditional-token :type
+                         (common-lisp:or conditional-token common-lisp:null)
+                         :accessor
+                         %add-application-vpc-configuration-request-conditional-token
+                         :initform common-lisp:nil)
+                        (vpc-configuration :initarg :vpc-configuration :type
+                         (common-lisp:or vpc-configuration common-lisp:null)
+                         :accessor
+                         %add-application-vpc-configuration-request-vpc-configuration
+                         :initform
+                         (common-lisp:error ":vpc-configuration is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-vpc-configuration-request-current-application-version-id
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %add-application-vpc-configuration-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'add-application-vpc-configuration-request
                     'make-add-application-vpc-configuration-request))
+ (common-lisp:defun make-add-application-vpc-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key conditional-token vpc-configuration
+                     current-application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-vpc-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -646,18 +869,38 @@
                           add-application-vpc-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-application-vpc-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-application-vpc-configuration-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (vpc-configuration-description common-lisp:nil :type
-    (common-lisp:or vpc-configuration-description common-lisp:null)))
+ (common-lisp:defclass add-application-vpc-configuration-response
+                       common-lisp:nil
+                       ((vpc-configuration-description :initarg
+                         :vpc-configuration-description :type
+                         (common-lisp:or vpc-configuration-description
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-vpc-configuration-response-vpc-configuration-description
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %add-application-vpc-configuration-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %add-application-vpc-configuration-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'add-application-vpc-configuration-response
                     'make-add-application-vpc-configuration-response))
+ (common-lisp:defun make-add-application-vpc-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-configuration-description
+                     application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-application-vpc-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -697,16 +940,27 @@
                           add-application-vpc-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-code-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-code-configuration-"))
-   (code-content common-lisp:nil :type
-    (common-lisp:or code-content common-lisp:null))
-   (code-content-type (common-lisp:error ":code-content-type is required")
-    :type (common-lisp:or code-content-type common-lisp:null)))
+ (common-lisp:defclass application-code-configuration common-lisp:nil
+                       ((code-content-type :initarg :code-content-type :type
+                         (common-lisp:or code-content-type common-lisp:null)
+                         :accessor
+                         %application-code-configuration-code-content-type
+                         :initform
+                         (common-lisp:error ":code-content-type is required"))
+                        (code-content :initarg :code-content :type
+                         (common-lisp:or code-content common-lisp:null)
+                         :accessor %application-code-configuration-code-content
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'application-code-configuration
                     'make-application-code-configuration))
+ (common-lisp:defun make-application-code-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key code-content-type code-content)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-code-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -737,16 +991,33 @@
                           application-code-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-code-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-code-configuration-description-"))
-   (code-content-type (common-lisp:error ":code-content-type is required")
-    :type (common-lisp:or code-content-type common-lisp:null))
-   (code-content-description common-lisp:nil :type
-    (common-lisp:or code-content-description common-lisp:null)))
+ (common-lisp:defclass application-code-configuration-description
+                       common-lisp:nil
+                       ((code-content-description :initarg
+                         :code-content-description :type
+                         (common-lisp:or code-content-description
+                                         common-lisp:null)
+                         :accessor
+                         %application-code-configuration-description-code-content-description
+                         :initform common-lisp:nil)
+                        (code-content-type :initarg :code-content-type :type
+                         (common-lisp:or code-content-type common-lisp:null)
+                         :accessor
+                         %application-code-configuration-description-code-content-type
+                         :initform
+                         (common-lisp:error
+                          ":code-content-type is required"))))
  (common-lisp:export
   (common-lisp:list 'application-code-configuration-description
                     'make-application-code-configuration-description))
+ (common-lisp:defun make-application-code-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key code-content-description
+                     code-content-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-code-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -778,16 +1049,30 @@
                           application-code-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-code-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-code-configuration-update-"))
-   (code-content-type-update common-lisp:nil :type
-    (common-lisp:or code-content-type common-lisp:null))
-   (code-content-update common-lisp:nil :type
-    (common-lisp:or code-content-update common-lisp:null)))
+ (common-lisp:defclass application-code-configuration-update common-lisp:nil
+                       ((code-content-update :initarg :code-content-update
+                         :type
+                         (common-lisp:or code-content-update common-lisp:null)
+                         :accessor
+                         %application-code-configuration-update-code-content-update
+                         :initform common-lisp:nil)
+                        (code-content-type-update :initarg
+                         :code-content-type-update :type
+                         (common-lisp:or code-content-type common-lisp:null)
+                         :accessor
+                         %application-code-configuration-update-code-content-type-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'application-code-configuration-update
                     'make-application-code-configuration-update))
+ (common-lisp:defun make-application-code-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key code-content-update
+                     code-content-type-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-code-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -819,26 +1104,67 @@
                           application-code-configuration-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-configuration-"))
-   (sql-application-configuration common-lisp:nil :type
-    (common-lisp:or sql-application-configuration common-lisp:null))
-   (flink-application-configuration common-lisp:nil :type
-    (common-lisp:or flink-application-configuration common-lisp:null))
-   (environment-properties common-lisp:nil :type
-    (common-lisp:or environment-properties common-lisp:null))
-   (application-code-configuration common-lisp:nil :type
-    (common-lisp:or application-code-configuration common-lisp:null))
-   (application-snapshot-configuration common-lisp:nil :type
-    (common-lisp:or application-snapshot-configuration common-lisp:null))
-   (vpc-configurations common-lisp:nil :type
-    (common-lisp:or vpc-configurations common-lisp:null))
-   (zeppelin-application-configuration common-lisp:nil :type
-    (common-lisp:or zeppelin-application-configuration common-lisp:null)))
+ (common-lisp:defclass application-configuration common-lisp:nil
+                       ((zeppelin-application-configuration :initarg
+                         :zeppelin-application-configuration :type
+                         (common-lisp:or zeppelin-application-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-zeppelin-application-configuration
+                         :initform common-lisp:nil)
+                        (vpc-configurations :initarg :vpc-configurations :type
+                         (common-lisp:or vpc-configurations common-lisp:null)
+                         :accessor
+                         %application-configuration-vpc-configurations
+                         :initform common-lisp:nil)
+                        (application-snapshot-configuration :initarg
+                         :application-snapshot-configuration :type
+                         (common-lisp:or application-snapshot-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-application-snapshot-configuration
+                         :initform common-lisp:nil)
+                        (application-code-configuration :initarg
+                         :application-code-configuration :type
+                         (common-lisp:or application-code-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-application-code-configuration
+                         :initform common-lisp:nil)
+                        (environment-properties :initarg
+                         :environment-properties :type
+                         (common-lisp:or environment-properties
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-environment-properties
+                         :initform common-lisp:nil)
+                        (flink-application-configuration :initarg
+                         :flink-application-configuration :type
+                         (common-lisp:or flink-application-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-flink-application-configuration
+                         :initform common-lisp:nil)
+                        (sql-application-configuration :initarg
+                         :sql-application-configuration :type
+                         (common-lisp:or sql-application-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-sql-application-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'application-configuration
                     'make-application-configuration))
+ (common-lisp:defun make-application-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key zeppelin-application-configuration
+                     vpc-configurations application-snapshot-configuration
+                     application-code-configuration environment-properties
+                     flink-application-configuration
+                     sql-application-configuration)
+   (common-lisp:apply #'common-lisp:make-instance 'application-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -910,33 +1236,88 @@
                           application-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-configuration-description-"))
-   (sql-application-configuration-description common-lisp:nil :type
-    (common-lisp:or sql-application-configuration-description
-                    common-lisp:null))
-   (application-code-configuration-description common-lisp:nil :type
-    (common-lisp:or application-code-configuration-description
-                    common-lisp:null))
-   (run-configuration-description common-lisp:nil :type
-    (common-lisp:or run-configuration-description common-lisp:null))
-   (flink-application-configuration-description common-lisp:nil :type
-    (common-lisp:or flink-application-configuration-description
-                    common-lisp:null))
-   (environment-property-descriptions common-lisp:nil :type
-    (common-lisp:or environment-property-descriptions common-lisp:null))
-   (application-snapshot-configuration-description common-lisp:nil :type
-    (common-lisp:or application-snapshot-configuration-description
-                    common-lisp:null))
-   (vpc-configuration-descriptions common-lisp:nil :type
-    (common-lisp:or vpc-configuration-descriptions common-lisp:null))
-   (zeppelin-application-configuration-description common-lisp:nil :type
-    (common-lisp:or zeppelin-application-configuration-description
-                    common-lisp:null)))
+ (common-lisp:defclass application-configuration-description common-lisp:nil
+                       ((zeppelin-application-configuration-description
+                         :initarg
+                         :zeppelin-application-configuration-description :type
+                         (common-lisp:or
+                          zeppelin-application-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %application-configuration-description-zeppelin-application-configuration-description
+                         :initform common-lisp:nil)
+                        (vpc-configuration-descriptions :initarg
+                         :vpc-configuration-descriptions :type
+                         (common-lisp:or vpc-configuration-descriptions
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-description-vpc-configuration-descriptions
+                         :initform common-lisp:nil)
+                        (application-snapshot-configuration-description
+                         :initarg
+                         :application-snapshot-configuration-description :type
+                         (common-lisp:or
+                          application-snapshot-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %application-configuration-description-application-snapshot-configuration-description
+                         :initform common-lisp:nil)
+                        (environment-property-descriptions :initarg
+                         :environment-property-descriptions :type
+                         (common-lisp:or environment-property-descriptions
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-description-environment-property-descriptions
+                         :initform common-lisp:nil)
+                        (flink-application-configuration-description :initarg
+                         :flink-application-configuration-description :type
+                         (common-lisp:or
+                          flink-application-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %application-configuration-description-flink-application-configuration-description
+                         :initform common-lisp:nil)
+                        (run-configuration-description :initarg
+                         :run-configuration-description :type
+                         (common-lisp:or run-configuration-description
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-description-run-configuration-description
+                         :initform common-lisp:nil)
+                        (application-code-configuration-description :initarg
+                         :application-code-configuration-description :type
+                         (common-lisp:or
+                          application-code-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %application-configuration-description-application-code-configuration-description
+                         :initform common-lisp:nil)
+                        (sql-application-configuration-description :initarg
+                         :sql-application-configuration-description :type
+                         (common-lisp:or
+                          sql-application-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %application-configuration-description-sql-application-configuration-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'application-configuration-description
                     'make-application-configuration-description))
+ (common-lisp:defun make-application-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     zeppelin-application-configuration-description
+                     vpc-configuration-descriptions
+                     application-snapshot-configuration-description
+                     environment-property-descriptions
+                     flink-application-configuration-description
+                     run-configuration-description
+                     application-code-configuration-description
+                     sql-application-configuration-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1017,28 +1398,74 @@
                           application-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-configuration-update-"))
-   (sql-application-configuration-update common-lisp:nil :type
-    (common-lisp:or sql-application-configuration-update common-lisp:null))
-   (application-code-configuration-update common-lisp:nil :type
-    (common-lisp:or application-code-configuration-update common-lisp:null))
-   (flink-application-configuration-update common-lisp:nil :type
-    (common-lisp:or flink-application-configuration-update common-lisp:null))
-   (environment-property-updates common-lisp:nil :type
-    (common-lisp:or environment-property-updates common-lisp:null))
-   (application-snapshot-configuration-update common-lisp:nil :type
-    (common-lisp:or application-snapshot-configuration-update
-                    common-lisp:null))
-   (vpc-configuration-updates common-lisp:nil :type
-    (common-lisp:or vpc-configuration-updates common-lisp:null))
-   (zeppelin-application-configuration-update common-lisp:nil :type
-    (common-lisp:or zeppelin-application-configuration-update
-                    common-lisp:null)))
+ (common-lisp:defclass application-configuration-update common-lisp:nil
+                       ((zeppelin-application-configuration-update :initarg
+                         :zeppelin-application-configuration-update :type
+                         (common-lisp:or
+                          zeppelin-application-configuration-update
+                          common-lisp:null)
+                         :accessor
+                         %application-configuration-update-zeppelin-application-configuration-update
+                         :initform common-lisp:nil)
+                        (vpc-configuration-updates :initarg
+                         :vpc-configuration-updates :type
+                         (common-lisp:or vpc-configuration-updates
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-update-vpc-configuration-updates
+                         :initform common-lisp:nil)
+                        (application-snapshot-configuration-update :initarg
+                         :application-snapshot-configuration-update :type
+                         (common-lisp:or
+                          application-snapshot-configuration-update
+                          common-lisp:null)
+                         :accessor
+                         %application-configuration-update-application-snapshot-configuration-update
+                         :initform common-lisp:nil)
+                        (environment-property-updates :initarg
+                         :environment-property-updates :type
+                         (common-lisp:or environment-property-updates
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-update-environment-property-updates
+                         :initform common-lisp:nil)
+                        (flink-application-configuration-update :initarg
+                         :flink-application-configuration-update :type
+                         (common-lisp:or flink-application-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-update-flink-application-configuration-update
+                         :initform common-lisp:nil)
+                        (application-code-configuration-update :initarg
+                         :application-code-configuration-update :type
+                         (common-lisp:or application-code-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-update-application-code-configuration-update
+                         :initform common-lisp:nil)
+                        (sql-application-configuration-update :initarg
+                         :sql-application-configuration-update :type
+                         (common-lisp:or sql-application-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %application-configuration-update-sql-application-configuration-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'application-configuration-update
                     'make-application-configuration-update))
+ (common-lisp:defun make-application-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key zeppelin-application-configuration-update
+                     vpc-configuration-updates
+                     application-snapshot-configuration-update
+                     environment-property-updates
+                     flink-application-configuration-update
+                     application-code-configuration-update
+                     sql-application-configuration-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1112,47 +1539,128 @@
    common-lisp:nil))
 (common-lisp:deftype application-description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-detail-"))
-   (application-arn (common-lisp:error ":application-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-description common-lisp:nil :type
-    (common-lisp:or application-description common-lisp:null))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (runtime-environment (common-lisp:error ":runtime-environment is required")
-    :type (common-lisp:or runtime-environment common-lisp:null))
-   (service-execution-role common-lisp:nil :type
-    (common-lisp:or role-arn common-lisp:null))
-   (application-status (common-lisp:error ":application-status is required")
-    :type (common-lisp:or application-status common-lisp:null))
-   (application-version-id
-    (common-lisp:error ":application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (create-timestamp common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-update-timestamp common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (application-configuration-description common-lisp:nil :type
-    (common-lisp:or application-configuration-description common-lisp:null))
-   (cloud-watch-logging-option-descriptions common-lisp:nil :type
-    (common-lisp:or cloud-watch-logging-option-descriptions common-lisp:null))
-   (application-maintenance-configuration-description common-lisp:nil :type
-    (common-lisp:or application-maintenance-configuration-description
-                    common-lisp:null))
-   (application-version-updated-from common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (application-version-rolled-back-from common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (conditional-token common-lisp:nil :type
-    (common-lisp:or conditional-token common-lisp:null))
-   (application-version-rolled-back-to common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (application-mode common-lisp:nil :type
-    (common-lisp:or application-mode common-lisp:null)))
+ (common-lisp:defclass application-detail common-lisp:nil
+                       ((application-mode :initarg :application-mode :type
+                         (common-lisp:or application-mode common-lisp:null)
+                         :accessor %application-detail-application-mode
+                         :initform common-lisp:nil)
+                        (application-version-rolled-back-to :initarg
+                         :application-version-rolled-back-to :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %application-detail-application-version-rolled-back-to
+                         :initform common-lisp:nil)
+                        (conditional-token :initarg :conditional-token :type
+                         (common-lisp:or conditional-token common-lisp:null)
+                         :accessor %application-detail-conditional-token
+                         :initform common-lisp:nil)
+                        (application-version-rolled-back-from :initarg
+                         :application-version-rolled-back-from :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %application-detail-application-version-rolled-back-from
+                         :initform common-lisp:nil)
+                        (application-version-updated-from :initarg
+                         :application-version-updated-from :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %application-detail-application-version-updated-from
+                         :initform common-lisp:nil)
+                        (application-maintenance-configuration-description
+                         :initarg
+                         :application-maintenance-configuration-description
+                         :type
+                         (common-lisp:or
+                          application-maintenance-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %application-detail-application-maintenance-configuration-description
+                         :initform common-lisp:nil)
+                        (cloud-watch-logging-option-descriptions :initarg
+                         :cloud-watch-logging-option-descriptions :type
+                         (common-lisp:or
+                          cloud-watch-logging-option-descriptions
+                          common-lisp:null)
+                         :accessor
+                         %application-detail-cloud-watch-logging-option-descriptions
+                         :initform common-lisp:nil)
+                        (application-configuration-description :initarg
+                         :application-configuration-description :type
+                         (common-lisp:or application-configuration-description
+                                         common-lisp:null)
+                         :accessor
+                         %application-detail-application-configuration-description
+                         :initform common-lisp:nil)
+                        (last-update-timestamp :initarg :last-update-timestamp
+                         :type (common-lisp:or timestamp common-lisp:null)
+                         :accessor %application-detail-last-update-timestamp
+                         :initform common-lisp:nil)
+                        (create-timestamp :initarg :create-timestamp :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %application-detail-create-timestamp :initform
+                         common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor %application-detail-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":application-version-id is required"))
+                        (application-status :initarg :application-status :type
+                         (common-lisp:or application-status common-lisp:null)
+                         :accessor %application-detail-application-status
+                         :initform
+                         (common-lisp:error ":application-status is required"))
+                        (service-execution-role :initarg
+                         :service-execution-role :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %application-detail-service-execution-role :initform
+                         common-lisp:nil)
+                        (runtime-environment :initarg :runtime-environment
+                         :type
+                         (common-lisp:or runtime-environment common-lisp:null)
+                         :accessor %application-detail-runtime-environment
+                         :initform
+                         (common-lisp:error
+                          ":runtime-environment is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %application-detail-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))
+                        (application-description :initarg
+                         :application-description :type
+                         (common-lisp:or application-description
+                                         common-lisp:null)
+                         :accessor %application-detail-application-description
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %application-detail-application-arn
+                         :initform
+                         (common-lisp:error ":application-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'application-detail 'make-application-detail))
+ (common-lisp:defun make-application-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-mode
+                     application-version-rolled-back-to conditional-token
+                     application-version-rolled-back-from
+                     application-version-updated-from
+                     application-maintenance-configuration-description
+                     cloud-watch-logging-option-descriptions
+                     application-configuration-description
+                     last-update-timestamp create-timestamp
+                     application-version-id application-status
+                     service-execution-role runtime-environment
+                     application-name application-description application-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'application-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input application-detail))
    (common-lisp:append))
@@ -1292,24 +1800,39 @@
                         ((aws-sdk/generator/shape::input application-detail))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-maintenance-configuration-description
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-application-maintenance-configuration-description-"))
-   (application-maintenance-window-start-time
-    (common-lisp:error
-     ":application-maintenance-window-start-time is required")
-    :type
-    (common-lisp:or application-maintenance-window-start-time
-                    common-lisp:null))
-   (application-maintenance-window-end-time
-    (common-lisp:error ":application-maintenance-window-end-time is required")
-    :type
-    (common-lisp:or application-maintenance-window-end-time common-lisp:null)))
+ (common-lisp:defclass application-maintenance-configuration-description
+                       common-lisp:nil
+                       ((application-maintenance-window-end-time :initarg
+                         :application-maintenance-window-end-time :type
+                         (common-lisp:or
+                          application-maintenance-window-end-time
+                          common-lisp:null)
+                         :accessor
+                         %application-maintenance-configuration-description-application-maintenance-window-end-time
+                         :initform
+                         (common-lisp:error
+                          ":application-maintenance-window-end-time is required"))
+                        (application-maintenance-window-start-time :initarg
+                         :application-maintenance-window-start-time :type
+                         (common-lisp:or
+                          application-maintenance-window-start-time
+                          common-lisp:null)
+                         :accessor
+                         %application-maintenance-configuration-description-application-maintenance-window-start-time
+                         :initform
+                         (common-lisp:error
+                          ":application-maintenance-window-start-time is required"))))
  (common-lisp:export
   (common-lisp:list 'application-maintenance-configuration-description
                     'make-application-maintenance-configuration-description))
+ (common-lisp:defun make-application-maintenance-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-maintenance-window-end-time
+                     application-maintenance-window-start-time)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-maintenance-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1342,19 +1865,31 @@
                           application-maintenance-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-maintenance-configuration-update (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-application-maintenance-configuration-update-"))
-   (application-maintenance-window-start-time-update
-    (common-lisp:error
-     ":application-maintenance-window-start-time-update is required")
-    :type
-    (common-lisp:or application-maintenance-window-start-time
-                    common-lisp:null)))
+ (common-lisp:defclass application-maintenance-configuration-update
+                       common-lisp:nil
+                       ((application-maintenance-window-start-time-update
+                         :initarg
+                         :application-maintenance-window-start-time-update
+                         :type
+                         (common-lisp:or
+                          application-maintenance-window-start-time
+                          common-lisp:null)
+                         :accessor
+                         %application-maintenance-configuration-update-application-maintenance-window-start-time-update
+                         :initform
+                         (common-lisp:error
+                          ":application-maintenance-window-start-time-update is required"))))
  (common-lisp:export
   (common-lisp:list 'application-maintenance-configuration-update
                     'make-application-maintenance-configuration-update))
+ (common-lisp:defun make-application-maintenance-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     application-maintenance-window-start-time-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-maintenance-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1385,17 +1920,31 @@
 (common-lisp:deftype application-mode () 'common-lisp:string)
 (common-lisp:deftype application-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-restore-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-restore-configuration-"))
-   (application-restore-type
-    (common-lisp:error ":application-restore-type is required") :type
-    (common-lisp:or application-restore-type common-lisp:null))
-   (snapshot-name common-lisp:nil :type
-    (common-lisp:or snapshot-name common-lisp:null)))
+ (common-lisp:defclass application-restore-configuration common-lisp:nil
+                       ((snapshot-name :initarg :snapshot-name :type
+                         (common-lisp:or snapshot-name common-lisp:null)
+                         :accessor
+                         %application-restore-configuration-snapshot-name
+                         :initform common-lisp:nil)
+                        (application-restore-type :initarg
+                         :application-restore-type :type
+                         (common-lisp:or application-restore-type
+                                         common-lisp:null)
+                         :accessor
+                         %application-restore-configuration-application-restore-type
+                         :initform
+                         (common-lisp:error
+                          ":application-restore-type is required"))))
  (common-lisp:export
   (common-lisp:list 'application-restore-configuration
                     'make-application-restore-configuration))
+ (common-lisp:defun make-application-restore-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-name application-restore-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-restore-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1428,14 +1977,24 @@
    common-lisp:nil))
 (common-lisp:deftype application-restore-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-snapshot-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-snapshot-configuration-"))
-   (snapshots-enabled (common-lisp:error ":snapshots-enabled is required")
-    :type (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass application-snapshot-configuration common-lisp:nil
+                       ((snapshots-enabled :initarg :snapshots-enabled :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %application-snapshot-configuration-snapshots-enabled
+                         :initform
+                         (common-lisp:error
+                          ":snapshots-enabled is required"))))
  (common-lisp:export
   (common-lisp:list 'application-snapshot-configuration
                     'make-application-snapshot-configuration))
+ (common-lisp:defun make-application-snapshot-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshots-enabled)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-snapshot-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1459,15 +2018,25 @@
                           application-snapshot-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-snapshot-configuration-description (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-application-snapshot-configuration-description-"))
-   (snapshots-enabled (common-lisp:error ":snapshots-enabled is required")
-    :type (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass application-snapshot-configuration-description
+                       common-lisp:nil
+                       ((snapshots-enabled :initarg :snapshots-enabled :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %application-snapshot-configuration-description-snapshots-enabled
+                         :initform
+                         (common-lisp:error
+                          ":snapshots-enabled is required"))))
  (common-lisp:export
   (common-lisp:list 'application-snapshot-configuration-description
                     'make-application-snapshot-configuration-description))
+ (common-lisp:defun make-application-snapshot-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshots-enabled)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-snapshot-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1491,15 +2060,26 @@
                           application-snapshot-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-snapshot-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-snapshot-configuration-update-"))
-   (snapshots-enabled-update
-    (common-lisp:error ":snapshots-enabled-update is required") :type
-    (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass application-snapshot-configuration-update
+                       common-lisp:nil
+                       ((snapshots-enabled-update :initarg
+                         :snapshots-enabled-update :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %application-snapshot-configuration-update-snapshots-enabled-update
+                         :initform
+                         (common-lisp:error
+                          ":snapshots-enabled-update is required"))))
  (common-lisp:export
   (common-lisp:list 'application-snapshot-configuration-update
                     'make-application-snapshot-configuration-update))
+ (common-lisp:defun make-application-snapshot-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshots-enabled-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'application-snapshot-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1533,24 +2113,51 @@
                            (trivial-types:proper-list application-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-summary-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (application-arn (common-lisp:error ":application-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-status (common-lisp:error ":application-status is required")
-    :type (common-lisp:or application-status common-lisp:null))
-   (application-version-id
-    (common-lisp:error ":application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (runtime-environment (common-lisp:error ":runtime-environment is required")
-    :type (common-lisp:or runtime-environment common-lisp:null))
-   (application-mode common-lisp:nil :type
-    (common-lisp:or application-mode common-lisp:null)))
+ (common-lisp:defclass application-summary common-lisp:nil
+                       ((application-mode :initarg :application-mode :type
+                         (common-lisp:or application-mode common-lisp:null)
+                         :accessor %application-summary-application-mode
+                         :initform common-lisp:nil)
+                        (runtime-environment :initarg :runtime-environment
+                         :type
+                         (common-lisp:or runtime-environment common-lisp:null)
+                         :accessor %application-summary-runtime-environment
+                         :initform
+                         (common-lisp:error
+                          ":runtime-environment is required"))
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor %application-summary-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":application-version-id is required"))
+                        (application-status :initarg :application-status :type
+                         (common-lisp:or application-status common-lisp:null)
+                         :accessor %application-summary-application-status
+                         :initform
+                         (common-lisp:error ":application-status is required"))
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %application-summary-application-arn
+                         :initform
+                         (common-lisp:error ":application-arn is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %application-summary-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'application-summary 'make-application-summary))
+ (common-lisp:defun make-application-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-mode runtime-environment
+                     application-version-id application-status application-arn
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'application-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input application-summary))
    (common-lisp:append))
@@ -1614,17 +2221,32 @@
                             application-version-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-version-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-version-summary-"))
-   (application-version-id
-    (common-lisp:error ":application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (application-status (common-lisp:error ":application-status is required")
-    :type (common-lisp:or application-status common-lisp:null)))
+ (common-lisp:defclass application-version-summary common-lisp:nil
+                       ((application-status :initarg :application-status :type
+                         (common-lisp:or application-status common-lisp:null)
+                         :accessor
+                         %application-version-summary-application-status
+                         :initform
+                         (common-lisp:error ":application-status is required"))
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %application-version-summary-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":application-version-id is required"))))
  (common-lisp:export
   (common-lisp:list 'application-version-summary
                     'make-application-version-summary))
+ (common-lisp:defun make-application-version-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-status
+                     application-version-id)
+   (common-lisp:apply #'common-lisp:make-instance 'application-version-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1661,17 +2283,32 @@
 (common-lisp:deftype boolean-object () 'common-lisp:boolean)
 (common-lisp:deftype bucket-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (csvmapping-parameters (:copier common-lisp:nil)
-      (:conc-name "struct-shape-csvmapping-parameters-"))
-   (record-row-delimiter
-    (common-lisp:error ":record-row-delimiter is required") :type
-    (common-lisp:or record-row-delimiter common-lisp:null))
-   (record-column-delimiter
-    (common-lisp:error ":record-column-delimiter is required") :type
-    (common-lisp:or record-column-delimiter common-lisp:null)))
+ (common-lisp:defclass csvmapping-parameters common-lisp:nil
+                       ((record-column-delimiter :initarg
+                         :record-column-delimiter :type
+                         (common-lisp:or record-column-delimiter
+                                         common-lisp:null)
+                         :accessor
+                         %csvmapping-parameters-record-column-delimiter
+                         :initform
+                         (common-lisp:error
+                          ":record-column-delimiter is required"))
+                        (record-row-delimiter :initarg :record-row-delimiter
+                         :type
+                         (common-lisp:or record-row-delimiter common-lisp:null)
+                         :accessor %csvmapping-parameters-record-row-delimiter
+                         :initform
+                         (common-lisp:error
+                          ":record-row-delimiter is required"))))
  (common-lisp:export
   (common-lisp:list 'csvmapping-parameters 'make-csvmapping-parameters))
+ (common-lisp:defun make-csvmapping-parameters
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key record-column-delimiter
+                     record-row-delimiter)
+   (common-lisp:apply #'common-lisp:make-instance 'csvmapping-parameters
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1704,14 +2341,24 @@
                           csvmapping-parameters))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (catalog-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-catalog-configuration-"))
-   (glue-data-catalog-configuration
-    (common-lisp:error ":glue-data-catalog-configuration is required") :type
-    (common-lisp:or glue-data-catalog-configuration common-lisp:null)))
+ (common-lisp:defclass catalog-configuration common-lisp:nil
+                       ((glue-data-catalog-configuration :initarg
+                         :glue-data-catalog-configuration :type
+                         (common-lisp:or glue-data-catalog-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %catalog-configuration-glue-data-catalog-configuration
+                         :initform
+                         (common-lisp:error
+                          ":glue-data-catalog-configuration is required"))))
  (common-lisp:export
   (common-lisp:list 'catalog-configuration 'make-catalog-configuration))
+ (common-lisp:defun make-catalog-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key glue-data-catalog-configuration)
+   (common-lisp:apply #'common-lisp:make-instance 'catalog-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1736,18 +2383,28 @@
                           catalog-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (catalog-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-catalog-configuration-description-"))
-   (glue-data-catalog-configuration-description
-    (common-lisp:error
-     ":glue-data-catalog-configuration-description is required")
-    :type
-    (common-lisp:or glue-data-catalog-configuration-description
-                    common-lisp:null)))
+ (common-lisp:defclass catalog-configuration-description common-lisp:nil
+                       ((glue-data-catalog-configuration-description :initarg
+                         :glue-data-catalog-configuration-description :type
+                         (common-lisp:or
+                          glue-data-catalog-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %catalog-configuration-description-glue-data-catalog-configuration-description
+                         :initform
+                         (common-lisp:error
+                          ":glue-data-catalog-configuration-description is required"))))
  (common-lisp:export
   (common-lisp:list 'catalog-configuration-description
                     'make-catalog-configuration-description))
+ (common-lisp:defun make-catalog-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     glue-data-catalog-configuration-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'catalog-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1772,16 +2429,25 @@
                           catalog-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (catalog-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-catalog-configuration-update-"))
-   (glue-data-catalog-configuration-update
-    (common-lisp:error ":glue-data-catalog-configuration-update is required")
-    :type
-    (common-lisp:or glue-data-catalog-configuration-update common-lisp:null)))
+ (common-lisp:defclass catalog-configuration-update common-lisp:nil
+                       ((glue-data-catalog-configuration-update :initarg
+                         :glue-data-catalog-configuration-update :type
+                         (common-lisp:or glue-data-catalog-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %catalog-configuration-update-glue-data-catalog-configuration-update
+                         :initform
+                         (common-lisp:error
+                          ":glue-data-catalog-configuration-update is required"))))
  (common-lisp:export
   (common-lisp:list 'catalog-configuration-update
                     'make-catalog-configuration-update))
+ (common-lisp:defun make-catalog-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key glue-data-catalog-configuration-update)
+   (common-lisp:apply #'common-lisp:make-instance 'catalog-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1806,19 +2472,41 @@
                           catalog-configuration-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (checkpoint-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-checkpoint-configuration-"))
-   (configuration-type (common-lisp:error ":configuration-type is required")
-    :type (common-lisp:or configuration-type common-lisp:null))
-   (checkpointing-enabled common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null))
-   (checkpoint-interval common-lisp:nil :type
-    (common-lisp:or checkpoint-interval common-lisp:null))
-   (min-pause-between-checkpoints common-lisp:nil :type
-    (common-lisp:or min-pause-between-checkpoints common-lisp:null)))
+ (common-lisp:defclass checkpoint-configuration common-lisp:nil
+                       ((min-pause-between-checkpoints :initarg
+                         :min-pause-between-checkpoints :type
+                         (common-lisp:or min-pause-between-checkpoints
+                                         common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-min-pause-between-checkpoints
+                         :initform common-lisp:nil)
+                        (checkpoint-interval :initarg :checkpoint-interval
+                         :type
+                         (common-lisp:or checkpoint-interval common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-checkpoint-interval
+                         :initform common-lisp:nil)
+                        (checkpointing-enabled :initarg :checkpointing-enabled
+                         :type (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-checkpointing-enabled
+                         :initform common-lisp:nil)
+                        (configuration-type :initarg :configuration-type :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor %checkpoint-configuration-configuration-type
+                         :initform
+                         (common-lisp:error
+                          ":configuration-type is required"))))
  (common-lisp:export
   (common-lisp:list 'checkpoint-configuration 'make-checkpoint-configuration))
+ (common-lisp:defun make-checkpoint-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key min-pause-between-checkpoints
+                     checkpoint-interval checkpointing-enabled
+                     configuration-type)
+   (common-lisp:apply #'common-lisp:make-instance 'checkpoint-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1865,20 +2553,42 @@
                           checkpoint-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (checkpoint-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-checkpoint-configuration-description-"))
-   (configuration-type common-lisp:nil :type
-    (common-lisp:or configuration-type common-lisp:null))
-   (checkpointing-enabled common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null))
-   (checkpoint-interval common-lisp:nil :type
-    (common-lisp:or checkpoint-interval common-lisp:null))
-   (min-pause-between-checkpoints common-lisp:nil :type
-    (common-lisp:or min-pause-between-checkpoints common-lisp:null)))
+ (common-lisp:defclass checkpoint-configuration-description common-lisp:nil
+                       ((min-pause-between-checkpoints :initarg
+                         :min-pause-between-checkpoints :type
+                         (common-lisp:or min-pause-between-checkpoints
+                                         common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-description-min-pause-between-checkpoints
+                         :initform common-lisp:nil)
+                        (checkpoint-interval :initarg :checkpoint-interval
+                         :type
+                         (common-lisp:or checkpoint-interval common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-description-checkpoint-interval
+                         :initform common-lisp:nil)
+                        (checkpointing-enabled :initarg :checkpointing-enabled
+                         :type (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-description-checkpointing-enabled
+                         :initform common-lisp:nil)
+                        (configuration-type :initarg :configuration-type :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-description-configuration-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'checkpoint-configuration-description
                     'make-checkpoint-configuration-description))
+ (common-lisp:defun make-checkpoint-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key min-pause-between-checkpoints
+                     checkpoint-interval checkpointing-enabled
+                     configuration-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'checkpoint-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1925,20 +2635,44 @@
                           checkpoint-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (checkpoint-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-checkpoint-configuration-update-"))
-   (configuration-type-update common-lisp:nil :type
-    (common-lisp:or configuration-type common-lisp:null))
-   (checkpointing-enabled-update common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null))
-   (checkpoint-interval-update common-lisp:nil :type
-    (common-lisp:or checkpoint-interval common-lisp:null))
-   (min-pause-between-checkpoints-update common-lisp:nil :type
-    (common-lisp:or min-pause-between-checkpoints common-lisp:null)))
+ (common-lisp:defclass checkpoint-configuration-update common-lisp:nil
+                       ((min-pause-between-checkpoints-update :initarg
+                         :min-pause-between-checkpoints-update :type
+                         (common-lisp:or min-pause-between-checkpoints
+                                         common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-update-min-pause-between-checkpoints-update
+                         :initform common-lisp:nil)
+                        (checkpoint-interval-update :initarg
+                         :checkpoint-interval-update :type
+                         (common-lisp:or checkpoint-interval common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-update-checkpoint-interval-update
+                         :initform common-lisp:nil)
+                        (checkpointing-enabled-update :initarg
+                         :checkpointing-enabled-update :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-update-checkpointing-enabled-update
+                         :initform common-lisp:nil)
+                        (configuration-type-update :initarg
+                         :configuration-type-update :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor
+                         %checkpoint-configuration-update-configuration-type-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'checkpoint-configuration-update
                     'make-checkpoint-configuration-update))
+ (common-lisp:defun make-checkpoint-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key min-pause-between-checkpoints-update
+                     checkpoint-interval-update checkpointing-enabled-update
+                     configuration-type-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'checkpoint-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1988,14 +2722,21 @@
    common-lisp:nil))
 (common-lisp:deftype checkpoint-interval () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (cloud-watch-logging-option (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cloud-watch-logging-option-"))
-   (log-stream-arn (common-lisp:error ":log-stream-arn is required") :type
-    (common-lisp:or log-stream-arn common-lisp:null)))
+ (common-lisp:defclass cloud-watch-logging-option common-lisp:nil
+                       ((log-stream-arn :initarg :log-stream-arn :type
+                         (common-lisp:or log-stream-arn common-lisp:null)
+                         :accessor %cloud-watch-logging-option-log-stream-arn
+                         :initform
+                         (common-lisp:error ":log-stream-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'cloud-watch-logging-option
                     'make-cloud-watch-logging-option))
+ (common-lisp:defun make-cloud-watch-logging-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-stream-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'cloud-watch-logging-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2019,17 +2760,33 @@
                           cloud-watch-logging-option))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cloud-watch-logging-option-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cloud-watch-logging-option-description-"))
-   (cloud-watch-logging-option-id common-lisp:nil :type
-    (common-lisp:or id common-lisp:null))
-   (log-stream-arn (common-lisp:error ":log-stream-arn is required") :type
-    (common-lisp:or log-stream-arn common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass cloud-watch-logging-option-description common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %cloud-watch-logging-option-description-role-arn
+                         :initform common-lisp:nil)
+                        (log-stream-arn :initarg :log-stream-arn :type
+                         (common-lisp:or log-stream-arn common-lisp:null)
+                         :accessor
+                         %cloud-watch-logging-option-description-log-stream-arn
+                         :initform
+                         (common-lisp:error ":log-stream-arn is required"))
+                        (cloud-watch-logging-option-id :initarg
+                         :cloud-watch-logging-option-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %cloud-watch-logging-option-description-cloud-watch-logging-option-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'cloud-watch-logging-option-description
                     'make-cloud-watch-logging-option-description))
+ (common-lisp:defun make-cloud-watch-logging-option-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn log-stream-arn
+                     cloud-watch-logging-option-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'cloud-watch-logging-option-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2077,17 +2834,30 @@
                             cloud-watch-logging-option-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cloud-watch-logging-option-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cloud-watch-logging-option-update-"))
-   (cloud-watch-logging-option-id
-    (common-lisp:error ":cloud-watch-logging-option-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (log-stream-arnupdate common-lisp:nil :type
-    (common-lisp:or log-stream-arn common-lisp:null)))
+ (common-lisp:defclass cloud-watch-logging-option-update common-lisp:nil
+                       ((log-stream-arnupdate :initarg :log-stream-arnupdate
+                         :type (common-lisp:or log-stream-arn common-lisp:null)
+                         :accessor
+                         %cloud-watch-logging-option-update-log-stream-arnupdate
+                         :initform common-lisp:nil)
+                        (cloud-watch-logging-option-id :initarg
+                         :cloud-watch-logging-option-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %cloud-watch-logging-option-update-cloud-watch-logging-option-id
+                         :initform
+                         (common-lisp:error
+                          ":cloud-watch-logging-option-id is required"))))
  (common-lisp:export
   (common-lisp:list 'cloud-watch-logging-option-update
                     'make-cloud-watch-logging-option-update))
+ (common-lisp:defun make-cloud-watch-logging-option-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-stream-arnupdate
+                     cloud-watch-logging-option-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'cloud-watch-logging-option-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2138,16 +2908,27 @@
                             cloud-watch-logging-option))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (code-content (:copier common-lisp:nil)
-      (:conc-name "struct-shape-code-content-"))
-   (text-content common-lisp:nil :type
-    (common-lisp:or text-content common-lisp:null))
-   (zip-file-content common-lisp:nil :type
-    (common-lisp:or zip-file-content common-lisp:null))
-   (s3content-location common-lisp:nil :type
-    (common-lisp:or s3content-location common-lisp:null)))
+ (common-lisp:defclass code-content common-lisp:nil
+                       ((s3content-location :initarg :s3content-location :type
+                         (common-lisp:or s3content-location common-lisp:null)
+                         :accessor %code-content-s3content-location :initform
+                         common-lisp:nil)
+                        (zip-file-content :initarg :zip-file-content :type
+                         (common-lisp:or zip-file-content common-lisp:null)
+                         :accessor %code-content-zip-file-content :initform
+                         common-lisp:nil)
+                        (text-content :initarg :text-content :type
+                         (common-lisp:or text-content common-lisp:null)
+                         :accessor %code-content-text-content :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'code-content 'make-code-content))
+ (common-lisp:defun make-code-content
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3content-location zip-file-content
+                     text-content)
+   (common-lisp:apply #'common-lisp:make-instance 'code-content
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input code-content))
    (common-lisp:append))
@@ -2179,18 +2960,36 @@
                         ((aws-sdk/generator/shape::input code-content))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (code-content-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-code-content-description-"))
-   (text-content common-lisp:nil :type
-    (common-lisp:or text-content common-lisp:null))
-   (code-md5 common-lisp:nil :type (common-lisp:or code-md5 common-lisp:null))
-   (code-size common-lisp:nil :type
-    (common-lisp:or code-size common-lisp:null))
-   (s3application-code-location-description common-lisp:nil :type
-    (common-lisp:or s3application-code-location-description common-lisp:null)))
+ (common-lisp:defclass code-content-description common-lisp:nil
+                       ((s3application-code-location-description :initarg
+                         :s3application-code-location-description :type
+                         (common-lisp:or
+                          s3application-code-location-description
+                          common-lisp:null)
+                         :accessor
+                         %code-content-description-s3application-code-location-description
+                         :initform common-lisp:nil)
+                        (code-size :initarg :code-size :type
+                         (common-lisp:or code-size common-lisp:null) :accessor
+                         %code-content-description-code-size :initform
+                         common-lisp:nil)
+                        (code-md5 :initarg :code-md5 :type
+                         (common-lisp:or code-md5 common-lisp:null) :accessor
+                         %code-content-description-code-md5 :initform
+                         common-lisp:nil)
+                        (text-content :initarg :text-content :type
+                         (common-lisp:or text-content common-lisp:null)
+                         :accessor %code-content-description-text-content
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'code-content-description 'make-code-content-description))
+ (common-lisp:defun make-code-content-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3application-code-location-description
+                     code-size code-md5 text-content)
+   (common-lisp:apply #'common-lisp:make-instance 'code-content-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2237,17 +3036,32 @@
    common-lisp:nil))
 (common-lisp:deftype code-content-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (code-content-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-code-content-update-"))
-   (text-content-update common-lisp:nil :type
-    (common-lisp:or text-content common-lisp:null))
-   (zip-file-content-update common-lisp:nil :type
-    (common-lisp:or zip-file-content common-lisp:null))
-   (s3content-location-update common-lisp:nil :type
-    (common-lisp:or s3content-location-update common-lisp:null)))
+ (common-lisp:defclass code-content-update common-lisp:nil
+                       ((s3content-location-update :initarg
+                         :s3content-location-update :type
+                         (common-lisp:or s3content-location-update
+                                         common-lisp:null)
+                         :accessor
+                         %code-content-update-s3content-location-update
+                         :initform common-lisp:nil)
+                        (zip-file-content-update :initarg
+                         :zip-file-content-update :type
+                         (common-lisp:or zip-file-content common-lisp:null)
+                         :accessor %code-content-update-zip-file-content-update
+                         :initform common-lisp:nil)
+                        (text-content-update :initarg :text-content-update
+                         :type (common-lisp:or text-content common-lisp:null)
+                         :accessor %code-content-update-text-content-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'code-content-update 'make-code-content-update))
+ (common-lisp:defun make-code-content-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3content-location-update
+                     zip-file-content-update text-content-update)
+   (common-lisp:apply #'common-lisp:make-instance 'code-content-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input code-content-update))
    (common-lisp:append))
@@ -2301,18 +3115,35 @@
 (common-lisp:deftype conditional-token () 'common-lisp:string)
 (common-lisp:deftype configuration-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-application-presigned-url-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-application-presigned-url-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (url-type (common-lisp:error ":url-type is required") :type
-    (common-lisp:or url-type common-lisp:null))
-   (session-expiration-duration-in-seconds common-lisp:nil :type
-    (common-lisp:or session-expiration-duration-in-seconds common-lisp:null)))
+ (common-lisp:defclass create-application-presigned-url-request common-lisp:nil
+                       ((session-expiration-duration-in-seconds :initarg
+                         :session-expiration-duration-in-seconds :type
+                         (common-lisp:or session-expiration-duration-in-seconds
+                                         common-lisp:null)
+                         :accessor
+                         %create-application-presigned-url-request-session-expiration-duration-in-seconds
+                         :initform common-lisp:nil)
+                        (url-type :initarg :url-type :type
+                         (common-lisp:or url-type common-lisp:null) :accessor
+                         %create-application-presigned-url-request-url-type
+                         :initform (common-lisp:error ":url-type is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %create-application-presigned-url-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-application-presigned-url-request
                     'make-create-application-presigned-url-request))
+ (common-lisp:defun make-create-application-presigned-url-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key session-expiration-duration-in-seconds
+                     url-type application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-application-presigned-url-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2351,14 +3182,23 @@
                           create-application-presigned-url-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-application-presigned-url-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-application-presigned-url-response-"))
-   (authorized-url common-lisp:nil :type
-    (common-lisp:or authorized-url common-lisp:null)))
+ (common-lisp:defclass create-application-presigned-url-response
+                       common-lisp:nil
+                       ((authorized-url :initarg :authorized-url :type
+                         (common-lisp:or authorized-url common-lisp:null)
+                         :accessor
+                         %create-application-presigned-url-response-authorized-url
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-application-presigned-url-response
                     'make-create-application-presigned-url-response))
+ (common-lisp:defun make-create-application-presigned-url-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key authorized-url)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-application-presigned-url-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2382,28 +3222,68 @@
                           create-application-presigned-url-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-application-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (application-description common-lisp:nil :type
-    (common-lisp:or application-description common-lisp:null))
-   (runtime-environment (common-lisp:error ":runtime-environment is required")
-    :type (common-lisp:or runtime-environment common-lisp:null))
-   (service-execution-role
-    (common-lisp:error ":service-execution-role is required") :type
-    (common-lisp:or role-arn common-lisp:null))
-   (application-configuration common-lisp:nil :type
-    (common-lisp:or application-configuration common-lisp:null))
-   (cloud-watch-logging-options common-lisp:nil :type
-    (common-lisp:or cloud-watch-logging-options common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null))
-   (application-mode common-lisp:nil :type
-    (common-lisp:or application-mode common-lisp:null)))
+ (common-lisp:defclass create-application-request common-lisp:nil
+                       ((application-mode :initarg :application-mode :type
+                         (common-lisp:or application-mode common-lisp:null)
+                         :accessor %create-application-request-application-mode
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %create-application-request-tags :initform
+                         common-lisp:nil)
+                        (cloud-watch-logging-options :initarg
+                         :cloud-watch-logging-options :type
+                         (common-lisp:or cloud-watch-logging-options
+                                         common-lisp:null)
+                         :accessor
+                         %create-application-request-cloud-watch-logging-options
+                         :initform common-lisp:nil)
+                        (application-configuration :initarg
+                         :application-configuration :type
+                         (common-lisp:or application-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %create-application-request-application-configuration
+                         :initform common-lisp:nil)
+                        (service-execution-role :initarg
+                         :service-execution-role :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %create-application-request-service-execution-role
+                         :initform
+                         (common-lisp:error
+                          ":service-execution-role is required"))
+                        (runtime-environment :initarg :runtime-environment
+                         :type
+                         (common-lisp:or runtime-environment common-lisp:null)
+                         :accessor
+                         %create-application-request-runtime-environment
+                         :initform
+                         (common-lisp:error
+                          ":runtime-environment is required"))
+                        (application-description :initarg
+                         :application-description :type
+                         (common-lisp:or application-description
+                                         common-lisp:null)
+                         :accessor
+                         %create-application-request-application-description
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %create-application-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-application-request
                     'make-create-application-request))
+ (common-lisp:defun make-create-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-mode tags
+                     cloud-watch-logging-options application-configuration
+                     service-execution-role runtime-environment
+                     application-description application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2480,14 +3360,23 @@
                           create-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-application-response-"))
-   (application-detail (common-lisp:error ":application-detail is required")
-    :type (common-lisp:or application-detail common-lisp:null)))
+ (common-lisp:defclass create-application-response common-lisp:nil
+                       ((application-detail :initarg :application-detail :type
+                         (common-lisp:or application-detail common-lisp:null)
+                         :accessor
+                         %create-application-response-application-detail
+                         :initform
+                         (common-lisp:error
+                          ":application-detail is required"))))
  (common-lisp:export
   (common-lisp:list 'create-application-response
                     'make-create-application-response))
+ (common-lisp:defun make-create-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-detail)
+   (common-lisp:apply #'common-lisp:make-instance 'create-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2511,16 +3400,29 @@
                           create-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-application-snapshot-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-application-snapshot-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (snapshot-name (common-lisp:error ":snapshot-name is required") :type
-    (common-lisp:or snapshot-name common-lisp:null)))
+ (common-lisp:defclass create-application-snapshot-request common-lisp:nil
+                       ((snapshot-name :initarg :snapshot-name :type
+                         (common-lisp:or snapshot-name common-lisp:null)
+                         :accessor
+                         %create-application-snapshot-request-snapshot-name
+                         :initform
+                         (common-lisp:error ":snapshot-name is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %create-application-snapshot-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-application-snapshot-request
                     'make-create-application-snapshot-request))
+ (common-lisp:defun make-create-application-snapshot-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-name application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-application-snapshot-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2551,12 +3453,18 @@
                           create-application-snapshot-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-application-snapshot-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-application-snapshot-response-")))
+ (common-lisp:defclass create-application-snapshot-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'create-application-snapshot-response
                     'make-create-application-snapshot-response))
+ (common-lisp:defun make-create-application-snapshot-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-application-snapshot-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2573,18 +3481,33 @@
                           create-application-snapshot-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (custom-artifact-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-custom-artifact-configuration-"))
-   (artifact-type (common-lisp:error ":artifact-type is required") :type
-    (common-lisp:or artifact-type common-lisp:null))
-   (s3content-location common-lisp:nil :type
-    (common-lisp:or s3content-location common-lisp:null))
-   (maven-reference common-lisp:nil :type
-    (common-lisp:or maven-reference common-lisp:null)))
+ (common-lisp:defclass custom-artifact-configuration common-lisp:nil
+                       ((maven-reference :initarg :maven-reference :type
+                         (common-lisp:or maven-reference common-lisp:null)
+                         :accessor
+                         %custom-artifact-configuration-maven-reference
+                         :initform common-lisp:nil)
+                        (s3content-location :initarg :s3content-location :type
+                         (common-lisp:or s3content-location common-lisp:null)
+                         :accessor
+                         %custom-artifact-configuration-s3content-location
+                         :initform common-lisp:nil)
+                        (artifact-type :initarg :artifact-type :type
+                         (common-lisp:or artifact-type common-lisp:null)
+                         :accessor %custom-artifact-configuration-artifact-type
+                         :initform
+                         (common-lisp:error ":artifact-type is required"))))
  (common-lisp:export
   (common-lisp:list 'custom-artifact-configuration
                     'make-custom-artifact-configuration))
+ (common-lisp:defun make-custom-artifact-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key maven-reference s3content-location
+                     artifact-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'custom-artifact-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2622,18 +3545,36 @@
                           custom-artifact-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (custom-artifact-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-custom-artifact-configuration-description-"))
-   (artifact-type common-lisp:nil :type
-    (common-lisp:or artifact-type common-lisp:null))
-   (s3content-location-description common-lisp:nil :type
-    (common-lisp:or s3content-location common-lisp:null))
-   (maven-reference-description common-lisp:nil :type
-    (common-lisp:or maven-reference common-lisp:null)))
+ (common-lisp:defclass custom-artifact-configuration-description
+                       common-lisp:nil
+                       ((maven-reference-description :initarg
+                         :maven-reference-description :type
+                         (common-lisp:or maven-reference common-lisp:null)
+                         :accessor
+                         %custom-artifact-configuration-description-maven-reference-description
+                         :initform common-lisp:nil)
+                        (s3content-location-description :initarg
+                         :s3content-location-description :type
+                         (common-lisp:or s3content-location common-lisp:null)
+                         :accessor
+                         %custom-artifact-configuration-description-s3content-location-description
+                         :initform common-lisp:nil)
+                        (artifact-type :initarg :artifact-type :type
+                         (common-lisp:or artifact-type common-lisp:null)
+                         :accessor
+                         %custom-artifact-configuration-description-artifact-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'custom-artifact-configuration-description
                     'make-custom-artifact-configuration-description))
+ (common-lisp:defun make-custom-artifact-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key maven-reference-description
+                     s3content-location-description artifact-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'custom-artifact-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2692,23 +3633,45 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype database-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-cloud-watch-logging-option-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-cloud-watch-logging-option-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (cloud-watch-logging-option-id
-    (common-lisp:error ":cloud-watch-logging-option-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (conditional-token common-lisp:nil :type
-    (common-lisp:or conditional-token common-lisp:null)))
+ (common-lisp:defclass delete-application-cloud-watch-logging-option-request
+                       common-lisp:nil
+                       ((conditional-token :initarg :conditional-token :type
+                         (common-lisp:or conditional-token common-lisp:null)
+                         :accessor
+                         %delete-application-cloud-watch-logging-option-request-conditional-token
+                         :initform common-lisp:nil)
+                        (cloud-watch-logging-option-id :initarg
+                         :cloud-watch-logging-option-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %delete-application-cloud-watch-logging-option-request-cloud-watch-logging-option-id
+                         :initform
+                         (common-lisp:error
+                          ":cloud-watch-logging-option-id is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-cloud-watch-logging-option-request-current-application-version-id
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %delete-application-cloud-watch-logging-option-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-application-cloud-watch-logging-option-request
                     'make-delete-application-cloud-watch-logging-option-request))
+ (common-lisp:defun make-delete-application-cloud-watch-logging-option-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key conditional-token
+                     cloud-watch-logging-option-id
+                     current-application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-cloud-watch-logging-option-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2755,20 +3718,39 @@
                           delete-application-cloud-watch-logging-option-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-cloud-watch-logging-option-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-cloud-watch-logging-option-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (cloud-watch-logging-option-descriptions common-lisp:nil :type
-    (common-lisp:or cloud-watch-logging-option-descriptions common-lisp:null)))
+ (common-lisp:defclass delete-application-cloud-watch-logging-option-response
+                       common-lisp:nil
+                       ((cloud-watch-logging-option-descriptions :initarg
+                         :cloud-watch-logging-option-descriptions :type
+                         (common-lisp:or
+                          cloud-watch-logging-option-descriptions
+                          common-lisp:null)
+                         :accessor
+                         %delete-application-cloud-watch-logging-option-response-cloud-watch-logging-option-descriptions
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-cloud-watch-logging-option-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %delete-application-cloud-watch-logging-option-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-application-cloud-watch-logging-option-response
                     'make-delete-application-cloud-watch-logging-option-response))
+ (common-lisp:defun make-delete-application-cloud-watch-logging-option-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cloud-watch-logging-option-descriptions
+                     application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-cloud-watch-logging-option-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2808,21 +3790,32 @@
                           delete-application-cloud-watch-logging-option-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-input-processing-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-input-processing-configuration-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (input-id (common-lisp:error ":input-id is required") :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass
+  delete-application-input-processing-configuration-request common-lisp:nil
+  ((input-id :initarg :input-id :type (common-lisp:or id common-lisp:null)
+    :accessor
+    %delete-application-input-processing-configuration-request-input-id
+    :initform (common-lisp:error ":input-id is required"))
+   (current-application-version-id :initarg :current-application-version-id
+    :type (common-lisp:or application-version-id common-lisp:null) :accessor
+    %delete-application-input-processing-configuration-request-current-application-version-id
+    :initform
+    (common-lisp:error ":current-application-version-id is required"))
+   (application-name :initarg :application-name :type
+    (common-lisp:or application-name common-lisp:null) :accessor
+    %delete-application-input-processing-configuration-request-application-name
+    :initform (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-application-input-processing-configuration-request
                     'make-delete-application-input-processing-configuration-request))
+ (common-lisp:defun make-delete-application-input-processing-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-id current-application-version-id
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-input-processing-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2861,18 +3854,26 @@
                           delete-application-input-processing-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-input-processing-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-input-processing-configuration-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null)))
+ (common-lisp:defclass
+  delete-application-input-processing-configuration-response common-lisp:nil
+  ((application-version-id :initarg :application-version-id :type
+    (common-lisp:or application-version-id common-lisp:null) :accessor
+    %delete-application-input-processing-configuration-response-application-version-id
+    :initform common-lisp:nil)
+   (application-arn :initarg :application-arn :type
+    (common-lisp:or resource-arn common-lisp:null) :accessor
+    %delete-application-input-processing-configuration-response-application-arn
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-application-input-processing-configuration-response
                     'make-delete-application-input-processing-configuration-response))
+ (common-lisp:defun make-delete-application-input-processing-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-input-processing-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2904,19 +3905,37 @@
                           delete-application-input-processing-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-output-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-application-output-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (output-id (common-lisp:error ":output-id is required") :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass delete-application-output-request common-lisp:nil
+                       ((output-id :initarg :output-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %delete-application-output-request-output-id :initform
+                         (common-lisp:error ":output-id is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-output-request-current-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":current-application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %delete-application-output-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-application-output-request
                     'make-delete-application-output-request))
+ (common-lisp:defun make-delete-application-output-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output-id current-application-version-id
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-output-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2955,16 +3974,29 @@
                           delete-application-output-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-output-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-application-output-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null)))
+ (common-lisp:defclass delete-application-output-response common-lisp:nil
+                       ((application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-output-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %delete-application-output-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-application-output-response
                     'make-delete-application-output-response))
+ (common-lisp:defun make-delete-application-output-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-output-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2996,21 +4028,39 @@
                           delete-application-output-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-reference-data-source-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-reference-data-source-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (reference-id (common-lisp:error ":reference-id is required") :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass delete-application-reference-data-source-request
+                       common-lisp:nil
+                       ((reference-id :initarg :reference-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %delete-application-reference-data-source-request-reference-id
+                         :initform
+                         (common-lisp:error ":reference-id is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-reference-data-source-request-current-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":current-application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %delete-application-reference-data-source-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-application-reference-data-source-request
                     'make-delete-application-reference-data-source-request))
+ (common-lisp:defun make-delete-application-reference-data-source-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-id
+                     current-application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-reference-data-source-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3049,18 +4099,30 @@
                           delete-application-reference-data-source-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-reference-data-source-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-reference-data-source-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null)))
+ (common-lisp:defclass delete-application-reference-data-source-response
+                       common-lisp:nil
+                       ((application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-reference-data-source-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %delete-application-reference-data-source-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-application-reference-data-source-response
                     'make-delete-application-reference-data-source-response))
+ (common-lisp:defun make-delete-application-reference-data-source-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-reference-data-source-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3092,16 +4154,25 @@
                           delete-application-reference-data-source-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-application-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (create-timestamp (common-lisp:error ":create-timestamp is required") :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass delete-application-request common-lisp:nil
+                       ((create-timestamp :initarg :create-timestamp :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %delete-application-request-create-timestamp :initform
+                         (common-lisp:error ":create-timestamp is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %delete-application-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-application-request
                     'make-delete-application-request))
+ (common-lisp:defun make-delete-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key create-timestamp application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3132,12 +4203,17 @@
                           delete-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-application-response-")))
+ (common-lisp:defclass delete-application-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-application-response
                     'make-delete-application-response))
+ (common-lisp:defun make-delete-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3154,19 +4230,37 @@
                           delete-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-snapshot-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-application-snapshot-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (snapshot-name (common-lisp:error ":snapshot-name is required") :type
-    (common-lisp:or snapshot-name common-lisp:null))
-   (snapshot-creation-timestamp
-    (common-lisp:error ":snapshot-creation-timestamp is required") :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass delete-application-snapshot-request common-lisp:nil
+                       ((snapshot-creation-timestamp :initarg
+                         :snapshot-creation-timestamp :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %delete-application-snapshot-request-snapshot-creation-timestamp
+                         :initform
+                         (common-lisp:error
+                          ":snapshot-creation-timestamp is required"))
+                        (snapshot-name :initarg :snapshot-name :type
+                         (common-lisp:or snapshot-name common-lisp:null)
+                         :accessor
+                         %delete-application-snapshot-request-snapshot-name
+                         :initform
+                         (common-lisp:error ":snapshot-name is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %delete-application-snapshot-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-application-snapshot-request
                     'make-delete-application-snapshot-request))
+ (common-lisp:defun make-delete-application-snapshot-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-creation-timestamp snapshot-name
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-snapshot-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3205,12 +4299,18 @@
                           delete-application-snapshot-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-snapshot-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-application-snapshot-response-")))
+ (common-lisp:defclass delete-application-snapshot-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-application-snapshot-response
                     'make-delete-application-snapshot-response))
+ (common-lisp:defun make-delete-application-snapshot-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-snapshot-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3227,22 +4327,43 @@
                           delete-application-snapshot-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-vpc-configuration-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-vpc-configuration-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (vpc-configuration-id
-    (common-lisp:error ":vpc-configuration-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (conditional-token common-lisp:nil :type
-    (common-lisp:or conditional-token common-lisp:null)))
+ (common-lisp:defclass delete-application-vpc-configuration-request
+                       common-lisp:nil
+                       ((conditional-token :initarg :conditional-token :type
+                         (common-lisp:or conditional-token common-lisp:null)
+                         :accessor
+                         %delete-application-vpc-configuration-request-conditional-token
+                         :initform common-lisp:nil)
+                        (vpc-configuration-id :initarg :vpc-configuration-id
+                         :type (common-lisp:or id common-lisp:null) :accessor
+                         %delete-application-vpc-configuration-request-vpc-configuration-id
+                         :initform
+                         (common-lisp:error
+                          ":vpc-configuration-id is required"))
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-vpc-configuration-request-current-application-version-id
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %delete-application-vpc-configuration-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-application-vpc-configuration-request
                     'make-delete-application-vpc-configuration-request))
+ (common-lisp:defun make-delete-application-vpc-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key conditional-token vpc-configuration-id
+                     current-application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-vpc-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3289,17 +4410,30 @@
                           delete-application-vpc-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-application-vpc-configuration-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-application-vpc-configuration-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null)))
+ (common-lisp:defclass delete-application-vpc-configuration-response
+                       common-lisp:nil
+                       ((application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-application-vpc-configuration-response-application-version-id
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %delete-application-vpc-configuration-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-application-vpc-configuration-response
                     'make-delete-application-vpc-configuration-response))
+ (common-lisp:defun make-delete-application-vpc-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-version-id application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-application-vpc-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3331,14 +4465,25 @@
                           delete-application-vpc-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (deploy-as-application-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deploy-as-application-configuration-"))
-   (s3content-location (common-lisp:error ":s3content-location is required")
-    :type (common-lisp:or s3content-base-location common-lisp:null)))
+ (common-lisp:defclass deploy-as-application-configuration common-lisp:nil
+                       ((s3content-location :initarg :s3content-location :type
+                         (common-lisp:or s3content-base-location
+                                         common-lisp:null)
+                         :accessor
+                         %deploy-as-application-configuration-s3content-location
+                         :initform
+                         (common-lisp:error
+                          ":s3content-location is required"))))
  (common-lisp:export
   (common-lisp:list 'deploy-as-application-configuration
                     'make-deploy-as-application-configuration))
+ (common-lisp:defun make-deploy-as-application-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3content-location)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'deploy-as-application-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3362,16 +4507,27 @@
                           deploy-as-application-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (deploy-as-application-configuration-description (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-deploy-as-application-configuration-description-"))
-   (s3content-location-description
-    (common-lisp:error ":s3content-location-description is required") :type
-    (common-lisp:or s3content-base-location-description common-lisp:null)))
+ (common-lisp:defclass deploy-as-application-configuration-description
+                       common-lisp:nil
+                       ((s3content-location-description :initarg
+                         :s3content-location-description :type
+                         (common-lisp:or s3content-base-location-description
+                                         common-lisp:null)
+                         :accessor
+                         %deploy-as-application-configuration-description-s3content-location-description
+                         :initform
+                         (common-lisp:error
+                          ":s3content-location-description is required"))))
  (common-lisp:export
   (common-lisp:list 'deploy-as-application-configuration-description
                     'make-deploy-as-application-configuration-description))
+ (common-lisp:defun make-deploy-as-application-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3content-location-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'deploy-as-application-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3396,14 +4552,25 @@
                           deploy-as-application-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (deploy-as-application-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deploy-as-application-configuration-update-"))
-   (s3content-location-update common-lisp:nil :type
-    (common-lisp:or s3content-base-location-update common-lisp:null)))
+ (common-lisp:defclass deploy-as-application-configuration-update
+                       common-lisp:nil
+                       ((s3content-location-update :initarg
+                         :s3content-location-update :type
+                         (common-lisp:or s3content-base-location-update
+                                         common-lisp:null)
+                         :accessor
+                         %deploy-as-application-configuration-update-s3content-location-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'deploy-as-application-configuration-update
                     'make-deploy-as-application-configuration-update))
+ (common-lisp:defun make-deploy-as-application-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3content-location-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'deploy-as-application-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3428,16 +4595,29 @@
                           deploy-as-application-configuration-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (include-additional-details common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass describe-application-request common-lisp:nil
+                       ((include-additional-details :initarg
+                         :include-additional-details :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %describe-application-request-include-additional-details
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %describe-application-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-application-request
                     'make-describe-application-request))
+ (common-lisp:defun make-describe-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key include-additional-details
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3469,14 +4649,24 @@
                           describe-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-response-"))
-   (application-detail (common-lisp:error ":application-detail is required")
-    :type (common-lisp:or application-detail common-lisp:null)))
+ (common-lisp:defclass describe-application-response common-lisp:nil
+                       ((application-detail :initarg :application-detail :type
+                         (common-lisp:or application-detail common-lisp:null)
+                         :accessor
+                         %describe-application-response-application-detail
+                         :initform
+                         (common-lisp:error
+                          ":application-detail is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-application-response
                     'make-describe-application-response))
+ (common-lisp:defun make-describe-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-detail)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3500,16 +4690,29 @@
                           describe-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-snapshot-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-snapshot-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (snapshot-name (common-lisp:error ":snapshot-name is required") :type
-    (common-lisp:or snapshot-name common-lisp:null)))
+ (common-lisp:defclass describe-application-snapshot-request common-lisp:nil
+                       ((snapshot-name :initarg :snapshot-name :type
+                         (common-lisp:or snapshot-name common-lisp:null)
+                         :accessor
+                         %describe-application-snapshot-request-snapshot-name
+                         :initform
+                         (common-lisp:error ":snapshot-name is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %describe-application-snapshot-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-application-snapshot-request
                     'make-describe-application-snapshot-request))
+ (common-lisp:defun make-describe-application-snapshot-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-name application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-application-snapshot-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3540,14 +4743,23 @@
                           describe-application-snapshot-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-snapshot-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-snapshot-response-"))
-   (snapshot-details (common-lisp:error ":snapshot-details is required") :type
-    (common-lisp:or snapshot-details common-lisp:null)))
+ (common-lisp:defclass describe-application-snapshot-response common-lisp:nil
+                       ((snapshot-details :initarg :snapshot-details :type
+                         (common-lisp:or snapshot-details common-lisp:null)
+                         :accessor
+                         %describe-application-snapshot-response-snapshot-details
+                         :initform
+                         (common-lisp:error ":snapshot-details is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-application-snapshot-response
                     'make-describe-application-snapshot-response))
+ (common-lisp:defun make-describe-application-snapshot-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-details)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-application-snapshot-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3571,17 +4783,32 @@
                           describe-application-snapshot-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-version-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-version-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (application-version-id
-    (common-lisp:error ":application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null)))
+ (common-lisp:defclass describe-application-version-request common-lisp:nil
+                       ((application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %describe-application-version-request-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %describe-application-version-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-application-version-request
                     'make-describe-application-version-request))
+ (common-lisp:defun make-describe-application-version-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-application-version-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3613,14 +4840,23 @@
                           describe-application-version-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-version-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-version-response-"))
-   (application-version-detail common-lisp:nil :type
-    (common-lisp:or application-detail common-lisp:null)))
+ (common-lisp:defclass describe-application-version-response common-lisp:nil
+                       ((application-version-detail :initarg
+                         :application-version-detail :type
+                         (common-lisp:or application-detail common-lisp:null)
+                         :accessor
+                         %describe-application-version-response-application-version-detail
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-application-version-response
                     'make-describe-application-version-response))
+ (common-lisp:defun make-describe-application-version-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-version-detail)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-application-version-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3645,13 +4881,21 @@
                           describe-application-version-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (destination-schema (:copier common-lisp:nil)
-      (:conc-name "struct-shape-destination-schema-"))
-   (record-format-type (common-lisp:error ":record-format-type is required")
-    :type (common-lisp:or record-format-type common-lisp:null)))
+ (common-lisp:defclass destination-schema common-lisp:nil
+                       ((record-format-type :initarg :record-format-type :type
+                         (common-lisp:or record-format-type common-lisp:null)
+                         :accessor %destination-schema-record-format-type
+                         :initform
+                         (common-lisp:error
+                          ":record-format-type is required"))))
  (common-lisp:export
   (common-lisp:list 'destination-schema 'make-destination-schema))
+ (common-lisp:defun make-destination-schema
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key record-format-type)
+   (common-lisp:apply #'common-lisp:make-instance 'destination-schema
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input destination-schema))
    (common-lisp:append))
@@ -3669,23 +4913,49 @@
                         ((aws-sdk/generator/shape::input destination-schema))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (discover-input-schema-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-discover-input-schema-request-"))
-   (resource-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (service-execution-role
-    (common-lisp:error ":service-execution-role is required") :type
-    (common-lisp:or role-arn common-lisp:null))
-   (input-starting-position-configuration common-lisp:nil :type
-    (common-lisp:or input-starting-position-configuration common-lisp:null))
-   (s3configuration common-lisp:nil :type
-    (common-lisp:or s3configuration common-lisp:null))
-   (input-processing-configuration common-lisp:nil :type
-    (common-lisp:or input-processing-configuration common-lisp:null)))
+ (common-lisp:defclass discover-input-schema-request common-lisp:nil
+                       ((input-processing-configuration :initarg
+                         :input-processing-configuration :type
+                         (common-lisp:or input-processing-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %discover-input-schema-request-input-processing-configuration
+                         :initform common-lisp:nil)
+                        (s3configuration :initarg :s3configuration :type
+                         (common-lisp:or s3configuration common-lisp:null)
+                         :accessor
+                         %discover-input-schema-request-s3configuration
+                         :initform common-lisp:nil)
+                        (input-starting-position-configuration :initarg
+                         :input-starting-position-configuration :type
+                         (common-lisp:or input-starting-position-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %discover-input-schema-request-input-starting-position-configuration
+                         :initform common-lisp:nil)
+                        (service-execution-role :initarg
+                         :service-execution-role :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %discover-input-schema-request-service-execution-role
+                         :initform
+                         (common-lisp:error
+                          ":service-execution-role is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %discover-input-schema-request-resource-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'discover-input-schema-request
                     'make-discover-input-schema-request))
+ (common-lisp:defun make-discover-input-schema-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-processing-configuration
+                     s3configuration input-starting-position-configuration
+                     service-execution-role resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'discover-input-schema-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3740,20 +5010,40 @@
                           discover-input-schema-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (discover-input-schema-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-discover-input-schema-response-"))
-   (input-schema common-lisp:nil :type
-    (common-lisp:or source-schema common-lisp:null))
-   (parsed-input-records common-lisp:nil :type
-    (common-lisp:or parsed-input-records common-lisp:null))
-   (processed-input-records common-lisp:nil :type
-    (common-lisp:or processed-input-records common-lisp:null))
-   (raw-input-records common-lisp:nil :type
-    (common-lisp:or raw-input-records common-lisp:null)))
+ (common-lisp:defclass discover-input-schema-response common-lisp:nil
+                       ((raw-input-records :initarg :raw-input-records :type
+                         (common-lisp:or raw-input-records common-lisp:null)
+                         :accessor
+                         %discover-input-schema-response-raw-input-records
+                         :initform common-lisp:nil)
+                        (processed-input-records :initarg
+                         :processed-input-records :type
+                         (common-lisp:or processed-input-records
+                                         common-lisp:null)
+                         :accessor
+                         %discover-input-schema-response-processed-input-records
+                         :initform common-lisp:nil)
+                        (parsed-input-records :initarg :parsed-input-records
+                         :type
+                         (common-lisp:or parsed-input-records common-lisp:null)
+                         :accessor
+                         %discover-input-schema-response-parsed-input-records
+                         :initform common-lisp:nil)
+                        (input-schema :initarg :input-schema :type
+                         (common-lisp:or source-schema common-lisp:null)
+                         :accessor %discover-input-schema-response-input-schema
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'discover-input-schema-response
                     'make-discover-input-schema-response))
+ (common-lisp:defun make-discover-input-schema-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key raw-input-records processed-input-records
+                     parsed-input-records input-schema)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'discover-input-schema-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3800,13 +5090,20 @@
                           discover-input-schema-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (environment-properties (:copier common-lisp:nil)
-      (:conc-name "struct-shape-environment-properties-"))
-   (property-groups (common-lisp:error ":property-groups is required") :type
-    (common-lisp:or property-groups common-lisp:null)))
+ (common-lisp:defclass environment-properties common-lisp:nil
+                       ((property-groups :initarg :property-groups :type
+                         (common-lisp:or property-groups common-lisp:null)
+                         :accessor %environment-properties-property-groups
+                         :initform
+                         (common-lisp:error ":property-groups is required"))))
  (common-lisp:export
   (common-lisp:list 'environment-properties 'make-environment-properties))
+ (common-lisp:defun make-environment-properties
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key property-groups)
+   (common-lisp:apply #'common-lisp:make-instance 'environment-properties
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3830,14 +5127,23 @@
                           environment-properties))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (environment-property-descriptions (:copier common-lisp:nil)
-      (:conc-name "struct-shape-environment-property-descriptions-"))
-   (property-group-descriptions common-lisp:nil :type
-    (common-lisp:or property-groups common-lisp:null)))
+ (common-lisp:defclass environment-property-descriptions common-lisp:nil
+                       ((property-group-descriptions :initarg
+                         :property-group-descriptions :type
+                         (common-lisp:or property-groups common-lisp:null)
+                         :accessor
+                         %environment-property-descriptions-property-group-descriptions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'environment-property-descriptions
                     'make-environment-property-descriptions))
+ (common-lisp:defun make-environment-property-descriptions
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key property-group-descriptions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'environment-property-descriptions
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3862,14 +5168,22 @@
                           environment-property-descriptions))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (environment-property-updates (:copier common-lisp:nil)
-      (:conc-name "struct-shape-environment-property-updates-"))
-   (property-groups (common-lisp:error ":property-groups is required") :type
-    (common-lisp:or property-groups common-lisp:null)))
+ (common-lisp:defclass environment-property-updates common-lisp:nil
+                       ((property-groups :initarg :property-groups :type
+                         (common-lisp:or property-groups common-lisp:null)
+                         :accessor
+                         %environment-property-updates-property-groups
+                         :initform
+                         (common-lisp:error ":property-groups is required"))))
  (common-lisp:export
   (common-lisp:list 'environment-property-updates
                     'make-environment-property-updates))
+ (common-lisp:defun make-environment-property-updates
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key property-groups)
+   (common-lisp:apply #'common-lisp:make-instance 'environment-property-updates
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3895,18 +5209,39 @@
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:deftype file-key () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (flink-application-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-flink-application-configuration-"))
-   (checkpoint-configuration common-lisp:nil :type
-    (common-lisp:or checkpoint-configuration common-lisp:null))
-   (monitoring-configuration common-lisp:nil :type
-    (common-lisp:or monitoring-configuration common-lisp:null))
-   (parallelism-configuration common-lisp:nil :type
-    (common-lisp:or parallelism-configuration common-lisp:null)))
+ (common-lisp:defclass flink-application-configuration common-lisp:nil
+                       ((parallelism-configuration :initarg
+                         :parallelism-configuration :type
+                         (common-lisp:or parallelism-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-parallelism-configuration
+                         :initform common-lisp:nil)
+                        (monitoring-configuration :initarg
+                         :monitoring-configuration :type
+                         (common-lisp:or monitoring-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-monitoring-configuration
+                         :initform common-lisp:nil)
+                        (checkpoint-configuration :initarg
+                         :checkpoint-configuration :type
+                         (common-lisp:or checkpoint-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-checkpoint-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'flink-application-configuration
                     'make-flink-application-configuration))
+ (common-lisp:defun make-flink-application-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key parallelism-configuration
+                     monitoring-configuration checkpoint-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'flink-application-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3947,20 +5282,48 @@
                           flink-application-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (flink-application-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-flink-application-configuration-description-"))
-   (checkpoint-configuration-description common-lisp:nil :type
-    (common-lisp:or checkpoint-configuration-description common-lisp:null))
-   (monitoring-configuration-description common-lisp:nil :type
-    (common-lisp:or monitoring-configuration-description common-lisp:null))
-   (parallelism-configuration-description common-lisp:nil :type
-    (common-lisp:or parallelism-configuration-description common-lisp:null))
-   (job-plan-description common-lisp:nil :type
-    (common-lisp:or job-plan-description common-lisp:null)))
+ (common-lisp:defclass flink-application-configuration-description
+                       common-lisp:nil
+                       ((job-plan-description :initarg :job-plan-description
+                         :type
+                         (common-lisp:or job-plan-description common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-description-job-plan-description
+                         :initform common-lisp:nil)
+                        (parallelism-configuration-description :initarg
+                         :parallelism-configuration-description :type
+                         (common-lisp:or parallelism-configuration-description
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-description-parallelism-configuration-description
+                         :initform common-lisp:nil)
+                        (monitoring-configuration-description :initarg
+                         :monitoring-configuration-description :type
+                         (common-lisp:or monitoring-configuration-description
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-description-monitoring-configuration-description
+                         :initform common-lisp:nil)
+                        (checkpoint-configuration-description :initarg
+                         :checkpoint-configuration-description :type
+                         (common-lisp:or checkpoint-configuration-description
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-description-checkpoint-configuration-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'flink-application-configuration-description
                     'make-flink-application-configuration-description))
+ (common-lisp:defun make-flink-application-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key job-plan-description
+                     parallelism-configuration-description
+                     monitoring-configuration-description
+                     checkpoint-configuration-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'flink-application-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4009,18 +5372,40 @@
                           flink-application-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (flink-application-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-flink-application-configuration-update-"))
-   (checkpoint-configuration-update common-lisp:nil :type
-    (common-lisp:or checkpoint-configuration-update common-lisp:null))
-   (monitoring-configuration-update common-lisp:nil :type
-    (common-lisp:or monitoring-configuration-update common-lisp:null))
-   (parallelism-configuration-update common-lisp:nil :type
-    (common-lisp:or parallelism-configuration-update common-lisp:null)))
+ (common-lisp:defclass flink-application-configuration-update common-lisp:nil
+                       ((parallelism-configuration-update :initarg
+                         :parallelism-configuration-update :type
+                         (common-lisp:or parallelism-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-update-parallelism-configuration-update
+                         :initform common-lisp:nil)
+                        (monitoring-configuration-update :initarg
+                         :monitoring-configuration-update :type
+                         (common-lisp:or monitoring-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-update-monitoring-configuration-update
+                         :initform common-lisp:nil)
+                        (checkpoint-configuration-update :initarg
+                         :checkpoint-configuration-update :type
+                         (common-lisp:or checkpoint-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %flink-application-configuration-update-checkpoint-configuration-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'flink-application-configuration-update
                     'make-flink-application-configuration-update))
+ (common-lisp:defun make-flink-application-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key parallelism-configuration-update
+                     monitoring-configuration-update
+                     checkpoint-configuration-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'flink-application-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4061,13 +5446,21 @@
                           flink-application-configuration-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (flink-run-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-flink-run-configuration-"))
-   (allow-non-restored-state common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass flink-run-configuration common-lisp:nil
+                       ((allow-non-restored-state :initarg
+                         :allow-non-restored-state :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %flink-run-configuration-allow-non-restored-state
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'flink-run-configuration 'make-flink-run-configuration))
+ (common-lisp:defun make-flink-run-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key allow-non-restored-state)
+   (common-lisp:apply #'common-lisp:make-instance 'flink-run-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4092,14 +5485,23 @@
                           flink-run-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (glue-data-catalog-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-glue-data-catalog-configuration-"))
-   (database-arn (common-lisp:error ":database-arn is required") :type
-    (common-lisp:or database-arn common-lisp:null)))
+ (common-lisp:defclass glue-data-catalog-configuration common-lisp:nil
+                       ((database-arn :initarg :database-arn :type
+                         (common-lisp:or database-arn common-lisp:null)
+                         :accessor
+                         %glue-data-catalog-configuration-database-arn
+                         :initform
+                         (common-lisp:error ":database-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'glue-data-catalog-configuration
                     'make-glue-data-catalog-configuration))
+ (common-lisp:defun make-glue-data-catalog-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key database-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'glue-data-catalog-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4123,14 +5525,24 @@
                           glue-data-catalog-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (glue-data-catalog-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-glue-data-catalog-configuration-description-"))
-   (database-arn (common-lisp:error ":database-arn is required") :type
-    (common-lisp:or database-arn common-lisp:null)))
+ (common-lisp:defclass glue-data-catalog-configuration-description
+                       common-lisp:nil
+                       ((database-arn :initarg :database-arn :type
+                         (common-lisp:or database-arn common-lisp:null)
+                         :accessor
+                         %glue-data-catalog-configuration-description-database-arn
+                         :initform
+                         (common-lisp:error ":database-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'glue-data-catalog-configuration-description
                     'make-glue-data-catalog-configuration-description))
+ (common-lisp:defun make-glue-data-catalog-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key database-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'glue-data-catalog-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4154,14 +5566,24 @@
                           glue-data-catalog-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (glue-data-catalog-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-glue-data-catalog-configuration-update-"))
-   (database-arnupdate (common-lisp:error ":database-arnupdate is required")
-    :type (common-lisp:or database-arn common-lisp:null)))
+ (common-lisp:defclass glue-data-catalog-configuration-update common-lisp:nil
+                       ((database-arnupdate :initarg :database-arnupdate :type
+                         (common-lisp:or database-arn common-lisp:null)
+                         :accessor
+                         %glue-data-catalog-configuration-update-database-arnupdate
+                         :initform
+                         (common-lisp:error
+                          ":database-arnupdate is required"))))
  (common-lisp:export
   (common-lisp:list 'glue-data-catalog-configuration-update
                     'make-glue-data-catalog-configuration-update))
+ (common-lisp:defun make-glue-data-catalog-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key database-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'glue-data-catalog-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4196,21 +5618,46 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype in-app-table-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (input (:copier common-lisp:nil) (:conc-name "struct-shape-input-"))
-   (name-prefix (common-lisp:error ":name-prefix is required") :type
-    (common-lisp:or in-app-stream-name common-lisp:null))
-   (input-processing-configuration common-lisp:nil :type
-    (common-lisp:or input-processing-configuration common-lisp:null))
-   (kinesis-streams-input common-lisp:nil :type
-    (common-lisp:or kinesis-streams-input common-lisp:null))
-   (kinesis-firehose-input common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-input common-lisp:null))
-   (input-parallelism common-lisp:nil :type
-    (common-lisp:or input-parallelism common-lisp:null))
-   (input-schema (common-lisp:error ":input-schema is required") :type
-    (common-lisp:or source-schema common-lisp:null)))
+ (common-lisp:defclass input common-lisp:nil
+                       ((input-schema :initarg :input-schema :type
+                         (common-lisp:or source-schema common-lisp:null)
+                         :accessor %input-input-schema :initform
+                         (common-lisp:error ":input-schema is required"))
+                        (input-parallelism :initarg :input-parallelism :type
+                         (common-lisp:or input-parallelism common-lisp:null)
+                         :accessor %input-input-parallelism :initform
+                         common-lisp:nil)
+                        (kinesis-firehose-input :initarg
+                         :kinesis-firehose-input :type
+                         (common-lisp:or kinesis-firehose-input
+                                         common-lisp:null)
+                         :accessor %input-kinesis-firehose-input :initform
+                         common-lisp:nil)
+                        (kinesis-streams-input :initarg :kinesis-streams-input
+                         :type
+                         (common-lisp:or kinesis-streams-input
+                                         common-lisp:null)
+                         :accessor %input-kinesis-streams-input :initform
+                         common-lisp:nil)
+                        (input-processing-configuration :initarg
+                         :input-processing-configuration :type
+                         (common-lisp:or input-processing-configuration
+                                         common-lisp:null)
+                         :accessor %input-input-processing-configuration
+                         :initform common-lisp:nil)
+                        (name-prefix :initarg :name-prefix :type
+                         (common-lisp:or in-app-stream-name common-lisp:null)
+                         :accessor %input-name-prefix :initform
+                         (common-lisp:error ":name-prefix is required"))))
  (common-lisp:export (common-lisp:list 'input 'make-input))
+ (common-lisp:defun make-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-schema input-parallelism
+                     kinesis-firehose-input kinesis-streams-input
+                     input-processing-configuration name-prefix)
+   (common-lisp:apply #'common-lisp:make-instance 'input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input input))
    (common-lisp:append))
@@ -4266,29 +5713,70 @@
                         ((aws-sdk/generator/shape::input input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-description-"))
-   (input-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
-   (name-prefix common-lisp:nil :type
-    (common-lisp:or in-app-stream-name common-lisp:null))
-   (in-app-stream-names common-lisp:nil :type
-    (common-lisp:or in-app-stream-names common-lisp:null))
-   (input-processing-configuration-description common-lisp:nil :type
-    (common-lisp:or input-processing-configuration-description
-                    common-lisp:null))
-   (kinesis-streams-input-description common-lisp:nil :type
-    (common-lisp:or kinesis-streams-input-description common-lisp:null))
-   (kinesis-firehose-input-description common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-input-description common-lisp:null))
-   (input-schema common-lisp:nil :type
-    (common-lisp:or source-schema common-lisp:null))
-   (input-parallelism common-lisp:nil :type
-    (common-lisp:or input-parallelism common-lisp:null))
-   (input-starting-position-configuration common-lisp:nil :type
-    (common-lisp:or input-starting-position-configuration common-lisp:null)))
+ (common-lisp:defclass input-description common-lisp:nil
+                       ((input-starting-position-configuration :initarg
+                         :input-starting-position-configuration :type
+                         (common-lisp:or input-starting-position-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %input-description-input-starting-position-configuration
+                         :initform common-lisp:nil)
+                        (input-parallelism :initarg :input-parallelism :type
+                         (common-lisp:or input-parallelism common-lisp:null)
+                         :accessor %input-description-input-parallelism
+                         :initform common-lisp:nil)
+                        (input-schema :initarg :input-schema :type
+                         (common-lisp:or source-schema common-lisp:null)
+                         :accessor %input-description-input-schema :initform
+                         common-lisp:nil)
+                        (kinesis-firehose-input-description :initarg
+                         :kinesis-firehose-input-description :type
+                         (common-lisp:or kinesis-firehose-input-description
+                                         common-lisp:null)
+                         :accessor
+                         %input-description-kinesis-firehose-input-description
+                         :initform common-lisp:nil)
+                        (kinesis-streams-input-description :initarg
+                         :kinesis-streams-input-description :type
+                         (common-lisp:or kinesis-streams-input-description
+                                         common-lisp:null)
+                         :accessor
+                         %input-description-kinesis-streams-input-description
+                         :initform common-lisp:nil)
+                        (input-processing-configuration-description :initarg
+                         :input-processing-configuration-description :type
+                         (common-lisp:or
+                          input-processing-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %input-description-input-processing-configuration-description
+                         :initform common-lisp:nil)
+                        (in-app-stream-names :initarg :in-app-stream-names
+                         :type
+                         (common-lisp:or in-app-stream-names common-lisp:null)
+                         :accessor %input-description-in-app-stream-names
+                         :initform common-lisp:nil)
+                        (name-prefix :initarg :name-prefix :type
+                         (common-lisp:or in-app-stream-name common-lisp:null)
+                         :accessor %input-description-name-prefix :initform
+                         common-lisp:nil)
+                        (input-id :initarg :input-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %input-description-input-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'input-description 'make-input-description))
+ (common-lisp:defun make-input-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-starting-position-configuration
+                     input-parallelism input-schema
+                     kinesis-firehose-input-description
+                     kinesis-streams-input-description
+                     input-processing-configuration-description
+                     in-app-stream-names name-prefix input-id)
+   (common-lisp:apply #'common-lisp:make-instance 'input-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input input-description))
    (common-lisp:append))
@@ -4374,13 +5862,20 @@
                            (trivial-types:proper-list input-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-lambda-processor (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-lambda-processor-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass input-lambda-processor common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %input-lambda-processor-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'input-lambda-processor 'make-input-lambda-processor))
+ (common-lisp:defun make-input-lambda-processor
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'input-lambda-processor
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4404,15 +5899,27 @@
                           input-lambda-processor))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-lambda-processor-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-lambda-processor-description-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass input-lambda-processor-description common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %input-lambda-processor-description-role-arn :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %input-lambda-processor-description-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'input-lambda-processor-description
                     'make-input-lambda-processor-description))
+ (common-lisp:defun make-input-lambda-processor-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'input-lambda-processor-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4443,14 +5950,24 @@
                           input-lambda-processor-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-lambda-processor-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-lambda-processor-update-"))
-   (resource-arnupdate (common-lisp:error ":resource-arnupdate is required")
-    :type (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass input-lambda-processor-update common-lisp:nil
+                       ((resource-arnupdate :initarg :resource-arnupdate :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %input-lambda-processor-update-resource-arnupdate
+                         :initform
+                         (common-lisp:error
+                          ":resource-arnupdate is required"))))
  (common-lisp:export
   (common-lisp:list 'input-lambda-processor-update
                     'make-input-lambda-processor-update))
+ (common-lisp:defun make-input-lambda-processor-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'input-lambda-processor-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4474,13 +5991,20 @@
                           input-lambda-processor-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-parallelism (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-parallelism-"))
-   (count common-lisp:nil :type
-    (common-lisp:or input-parallelism-count common-lisp:null)))
+ (common-lisp:defclass input-parallelism common-lisp:nil
+                       ((count :initarg :count :type
+                         (common-lisp:or input-parallelism-count
+                                         common-lisp:null)
+                         :accessor %input-parallelism-count :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'input-parallelism 'make-input-parallelism))
+ (common-lisp:defun make-input-parallelism
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key count)
+   (common-lisp:apply #'common-lisp:make-instance 'input-parallelism
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input input-parallelism))
    (common-lisp:append))
@@ -4499,13 +6023,21 @@
    common-lisp:nil))
 (common-lisp:deftype input-parallelism-count () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-parallelism-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-parallelism-update-"))
-   (count-update (common-lisp:error ":count-update is required") :type
-    (common-lisp:or input-parallelism-count common-lisp:null)))
+ (common-lisp:defclass input-parallelism-update common-lisp:nil
+                       ((count-update :initarg :count-update :type
+                         (common-lisp:or input-parallelism-count
+                                         common-lisp:null)
+                         :accessor %input-parallelism-update-count-update
+                         :initform
+                         (common-lisp:error ":count-update is required"))))
  (common-lisp:export
   (common-lisp:list 'input-parallelism-update 'make-input-parallelism-update))
+ (common-lisp:defun make-input-parallelism-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key count-update)
+   (common-lisp:apply #'common-lisp:make-instance 'input-parallelism-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4529,15 +6061,26 @@
                           input-parallelism-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-processing-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-processing-configuration-"))
-   (input-lambda-processor
-    (common-lisp:error ":input-lambda-processor is required") :type
-    (common-lisp:or input-lambda-processor common-lisp:null)))
+ (common-lisp:defclass input-processing-configuration common-lisp:nil
+                       ((input-lambda-processor :initarg
+                         :input-lambda-processor :type
+                         (common-lisp:or input-lambda-processor
+                                         common-lisp:null)
+                         :accessor
+                         %input-processing-configuration-input-lambda-processor
+                         :initform
+                         (common-lisp:error
+                          ":input-lambda-processor is required"))))
  (common-lisp:export
   (common-lisp:list 'input-processing-configuration
                     'make-input-processing-configuration))
+ (common-lisp:defun make-input-processing-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-lambda-processor)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'input-processing-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4562,14 +6105,25 @@
                           input-processing-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-processing-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-processing-configuration-description-"))
-   (input-lambda-processor-description common-lisp:nil :type
-    (common-lisp:or input-lambda-processor-description common-lisp:null)))
+ (common-lisp:defclass input-processing-configuration-description
+                       common-lisp:nil
+                       ((input-lambda-processor-description :initarg
+                         :input-lambda-processor-description :type
+                         (common-lisp:or input-lambda-processor-description
+                                         common-lisp:null)
+                         :accessor
+                         %input-processing-configuration-description-input-lambda-processor-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'input-processing-configuration-description
                     'make-input-processing-configuration-description))
+ (common-lisp:defun make-input-processing-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-lambda-processor-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'input-processing-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4594,15 +6148,26 @@
                           input-processing-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-processing-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-processing-configuration-update-"))
-   (input-lambda-processor-update
-    (common-lisp:error ":input-lambda-processor-update is required") :type
-    (common-lisp:or input-lambda-processor-update common-lisp:null)))
+ (common-lisp:defclass input-processing-configuration-update common-lisp:nil
+                       ((input-lambda-processor-update :initarg
+                         :input-lambda-processor-update :type
+                         (common-lisp:or input-lambda-processor-update
+                                         common-lisp:null)
+                         :accessor
+                         %input-processing-configuration-update-input-lambda-processor-update
+                         :initform
+                         (common-lisp:error
+                          ":input-lambda-processor-update is required"))))
  (common-lisp:export
   (common-lisp:list 'input-processing-configuration-update
                     'make-input-processing-configuration-update))
+ (common-lisp:defun make-input-processing-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-lambda-processor-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'input-processing-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4627,17 +6192,29 @@
                           input-processing-configuration-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-schema-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-schema-update-"))
-   (record-format-update common-lisp:nil :type
-    (common-lisp:or record-format common-lisp:null))
-   (record-encoding-update common-lisp:nil :type
-    (common-lisp:or record-encoding common-lisp:null))
-   (record-column-updates common-lisp:nil :type
-    (common-lisp:or record-columns common-lisp:null)))
+ (common-lisp:defclass input-schema-update common-lisp:nil
+                       ((record-column-updates :initarg :record-column-updates
+                         :type (common-lisp:or record-columns common-lisp:null)
+                         :accessor %input-schema-update-record-column-updates
+                         :initform common-lisp:nil)
+                        (record-encoding-update :initarg
+                         :record-encoding-update :type
+                         (common-lisp:or record-encoding common-lisp:null)
+                         :accessor %input-schema-update-record-encoding-update
+                         :initform common-lisp:nil)
+                        (record-format-update :initarg :record-format-update
+                         :type (common-lisp:or record-format common-lisp:null)
+                         :accessor %input-schema-update-record-format-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'input-schema-update 'make-input-schema-update))
+ (common-lisp:defun make-input-schema-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key record-column-updates
+                     record-encoding-update record-format-update)
+   (common-lisp:apply #'common-lisp:make-instance 'input-schema-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input input-schema-update))
    (common-lisp:append))
@@ -4673,14 +6250,24 @@
    common-lisp:nil))
 (common-lisp:deftype input-starting-position () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-starting-position-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-starting-position-configuration-"))
-   (input-starting-position common-lisp:nil :type
-    (common-lisp:or input-starting-position common-lisp:null)))
+ (common-lisp:defclass input-starting-position-configuration common-lisp:nil
+                       ((input-starting-position :initarg
+                         :input-starting-position :type
+                         (common-lisp:or input-starting-position
+                                         common-lisp:null)
+                         :accessor
+                         %input-starting-position-configuration-input-starting-position
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'input-starting-position-configuration
                     'make-input-starting-position-configuration))
+ (common-lisp:defun make-input-starting-position-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-starting-position)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'input-starting-position-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4705,24 +6292,56 @@
                           input-starting-position-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (input-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-input-update-"))
-   (input-id (common-lisp:error ":input-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (name-prefix-update common-lisp:nil :type
-    (common-lisp:or in-app-stream-name common-lisp:null))
-   (input-processing-configuration-update common-lisp:nil :type
-    (common-lisp:or input-processing-configuration-update common-lisp:null))
-   (kinesis-streams-input-update common-lisp:nil :type
-    (common-lisp:or kinesis-streams-input-update common-lisp:null))
-   (kinesis-firehose-input-update common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-input-update common-lisp:null))
-   (input-schema-update common-lisp:nil :type
-    (common-lisp:or input-schema-update common-lisp:null))
-   (input-parallelism-update common-lisp:nil :type
-    (common-lisp:or input-parallelism-update common-lisp:null)))
+ (common-lisp:defclass input-update common-lisp:nil
+                       ((input-parallelism-update :initarg
+                         :input-parallelism-update :type
+                         (common-lisp:or input-parallelism-update
+                                         common-lisp:null)
+                         :accessor %input-update-input-parallelism-update
+                         :initform common-lisp:nil)
+                        (input-schema-update :initarg :input-schema-update
+                         :type
+                         (common-lisp:or input-schema-update common-lisp:null)
+                         :accessor %input-update-input-schema-update :initform
+                         common-lisp:nil)
+                        (kinesis-firehose-input-update :initarg
+                         :kinesis-firehose-input-update :type
+                         (common-lisp:or kinesis-firehose-input-update
+                                         common-lisp:null)
+                         :accessor %input-update-kinesis-firehose-input-update
+                         :initform common-lisp:nil)
+                        (kinesis-streams-input-update :initarg
+                         :kinesis-streams-input-update :type
+                         (common-lisp:or kinesis-streams-input-update
+                                         common-lisp:null)
+                         :accessor %input-update-kinesis-streams-input-update
+                         :initform common-lisp:nil)
+                        (input-processing-configuration-update :initarg
+                         :input-processing-configuration-update :type
+                         (common-lisp:or input-processing-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %input-update-input-processing-configuration-update
+                         :initform common-lisp:nil)
+                        (name-prefix-update :initarg :name-prefix-update :type
+                         (common-lisp:or in-app-stream-name common-lisp:null)
+                         :accessor %input-update-name-prefix-update :initform
+                         common-lisp:nil)
+                        (input-id :initarg :input-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %input-update-input-id :initform
+                         (common-lisp:error ":input-id is required"))))
  (common-lisp:export (common-lisp:list 'input-update 'make-input-update))
+ (common-lisp:defun make-input-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-parallelism-update
+                     input-schema-update kinesis-firehose-input-update
+                     kinesis-streams-input-update
+                     input-processing-configuration-update name-prefix-update
+                     input-id)
+   (common-lisp:apply #'common-lisp:make-instance 'input-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input input-update))
    (common-lisp:append))
@@ -4825,13 +6444,20 @@
   (common-lisp:list 'invalid-request-exception
                     'invalid-request-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (jsonmapping-parameters (:copier common-lisp:nil)
-      (:conc-name "struct-shape-jsonmapping-parameters-"))
-   (record-row-path (common-lisp:error ":record-row-path is required") :type
-    (common-lisp:or record-row-path common-lisp:null)))
+ (common-lisp:defclass jsonmapping-parameters common-lisp:nil
+                       ((record-row-path :initarg :record-row-path :type
+                         (common-lisp:or record-row-path common-lisp:null)
+                         :accessor %jsonmapping-parameters-record-row-path
+                         :initform
+                         (common-lisp:error ":record-row-path is required"))))
  (common-lisp:export
   (common-lisp:list 'jsonmapping-parameters 'make-jsonmapping-parameters))
+ (common-lisp:defun make-jsonmapping-parameters
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key record-row-path)
+   (common-lisp:apply #'common-lisp:make-instance 'jsonmapping-parameters
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4857,13 +6483,20 @@
 (common-lisp:deftype job-plan-description () 'common-lisp:string)
 (common-lisp:deftype kinesis-analytics-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-firehose-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-firehose-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-firehose-input common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %kinesis-firehose-input-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-firehose-input 'make-kinesis-firehose-input))
+ (common-lisp:defun make-kinesis-firehose-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'kinesis-firehose-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4887,15 +6520,27 @@
                           kinesis-firehose-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-firehose-input-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-firehose-input-description-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-firehose-input-description common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %kinesis-firehose-input-description-role-arn :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-firehose-input-description-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-firehose-input-description
                     'make-kinesis-firehose-input-description))
+ (common-lisp:defun make-kinesis-firehose-input-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'kinesis-firehose-input-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4926,14 +6571,24 @@
                           kinesis-firehose-input-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-firehose-input-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-firehose-input-update-"))
-   (resource-arnupdate (common-lisp:error ":resource-arnupdate is required")
-    :type (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-firehose-input-update common-lisp:nil
+                       ((resource-arnupdate :initarg :resource-arnupdate :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-firehose-input-update-resource-arnupdate
+                         :initform
+                         (common-lisp:error
+                          ":resource-arnupdate is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-firehose-input-update
                     'make-kinesis-firehose-input-update))
+ (common-lisp:defun make-kinesis-firehose-input-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'kinesis-firehose-input-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4957,13 +6612,20 @@
                           kinesis-firehose-input-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-firehose-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-firehose-output-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-firehose-output common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %kinesis-firehose-output-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-firehose-output 'make-kinesis-firehose-output))
+ (common-lisp:defun make-kinesis-firehose-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'kinesis-firehose-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4987,15 +6649,27 @@
                           kinesis-firehose-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-firehose-output-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-firehose-output-description-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-firehose-output-description common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %kinesis-firehose-output-description-role-arn
+                         :initform common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-firehose-output-description-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-firehose-output-description
                     'make-kinesis-firehose-output-description))
+ (common-lisp:defun make-kinesis-firehose-output-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'kinesis-firehose-output-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5026,14 +6700,24 @@
                           kinesis-firehose-output-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-firehose-output-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-firehose-output-update-"))
-   (resource-arnupdate (common-lisp:error ":resource-arnupdate is required")
-    :type (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-firehose-output-update common-lisp:nil
+                       ((resource-arnupdate :initarg :resource-arnupdate :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-firehose-output-update-resource-arnupdate
+                         :initform
+                         (common-lisp:error
+                          ":resource-arnupdate is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-firehose-output-update
                     'make-kinesis-firehose-output-update))
+ (common-lisp:defun make-kinesis-firehose-output-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'kinesis-firehose-output-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5057,13 +6741,20 @@
                           kinesis-firehose-output-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-streams-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-streams-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-streams-input common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %kinesis-streams-input-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-streams-input 'make-kinesis-streams-input))
+ (common-lisp:defun make-kinesis-streams-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'kinesis-streams-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5087,15 +6778,27 @@
                           kinesis-streams-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-streams-input-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-streams-input-description-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-streams-input-description common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %kinesis-streams-input-description-role-arn :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-streams-input-description-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-streams-input-description
                     'make-kinesis-streams-input-description))
+ (common-lisp:defun make-kinesis-streams-input-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'kinesis-streams-input-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5126,14 +6829,23 @@
                           kinesis-streams-input-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-streams-input-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-streams-input-update-"))
-   (resource-arnupdate (common-lisp:error ":resource-arnupdate is required")
-    :type (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-streams-input-update common-lisp:nil
+                       ((resource-arnupdate :initarg :resource-arnupdate :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-streams-input-update-resource-arnupdate
+                         :initform
+                         (common-lisp:error
+                          ":resource-arnupdate is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-streams-input-update
                     'make-kinesis-streams-input-update))
+ (common-lisp:defun make-kinesis-streams-input-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance 'kinesis-streams-input-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5157,13 +6869,20 @@
                           kinesis-streams-input-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-streams-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-streams-output-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-streams-output common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %kinesis-streams-output-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-streams-output 'make-kinesis-streams-output))
+ (common-lisp:defun make-kinesis-streams-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'kinesis-streams-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5187,15 +6906,27 @@
                           kinesis-streams-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-streams-output-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-streams-output-description-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-streams-output-description common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %kinesis-streams-output-description-role-arn :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-streams-output-description-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-streams-output-description
                     'make-kinesis-streams-output-description))
+ (common-lisp:defun make-kinesis-streams-output-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'kinesis-streams-output-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5226,14 +6957,24 @@
                           kinesis-streams-output-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-streams-output-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-streams-output-update-"))
-   (resource-arnupdate (common-lisp:error ":resource-arnupdate is required")
-    :type (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass kinesis-streams-output-update common-lisp:nil
+                       ((resource-arnupdate :initarg :resource-arnupdate :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %kinesis-streams-output-update-resource-arnupdate
+                         :initform
+                         (common-lisp:error
+                          ":resource-arnupdate is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-streams-output-update
                     'make-kinesis-streams-output-update))
+ (common-lisp:defun make-kinesis-streams-output-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'kinesis-streams-output-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5257,12 +6998,18 @@
                           kinesis-streams-output-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lambda-output-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass lambda-output common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %lambda-output-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export (common-lisp:list 'lambda-output 'make-lambda-output))
+ (common-lisp:defun make-lambda-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'lambda-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lambda-output))
    (common-lisp:append))
@@ -5280,15 +7027,25 @@
                         ((aws-sdk/generator/shape::input lambda-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-output-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lambda-output-description-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass lambda-output-description common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %lambda-output-description-role-arn :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %lambda-output-description-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'lambda-output-description
                     'make-lambda-output-description))
+ (common-lisp:defun make-lambda-output-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'lambda-output-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5319,13 +7076,21 @@
                           lambda-output-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lambda-output-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lambda-output-update-"))
-   (resource-arnupdate (common-lisp:error ":resource-arnupdate is required")
-    :type (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass lambda-output-update common-lisp:nil
+                       ((resource-arnupdate :initarg :resource-arnupdate :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %lambda-output-update-resource-arnupdate
+                         :initform
+                         (common-lisp:error
+                          ":resource-arnupdate is required"))))
  (common-lisp:export
   (common-lisp:list 'lambda-output-update 'make-lambda-output-update))
+ (common-lisp:defun make-lambda-output-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance 'lambda-output-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lambda-output-update))
    (common-lisp:append))
@@ -5351,18 +7116,32 @@
   (common-lisp:list 'limit-exceeded-exception
                     'limit-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-application-snapshots-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-application-snapshots-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (limit common-lisp:nil :type
-    (common-lisp:or list-snapshots-input-limit common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-application-snapshots-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-application-snapshots-request-next-token
+                         :initform common-lisp:nil)
+                        (limit :initarg :limit :type
+                         (common-lisp:or list-snapshots-input-limit
+                                         common-lisp:null)
+                         :accessor %list-application-snapshots-request-limit
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %list-application-snapshots-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-application-snapshots-request
                     'make-list-application-snapshots-request))
+ (common-lisp:defun make-list-application-snapshots-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token limit application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-application-snapshots-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5400,16 +7179,26 @@
                           list-application-snapshots-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-application-snapshots-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-application-snapshots-response-"))
-   (snapshot-summaries common-lisp:nil :type
-    (common-lisp:or snapshot-summaries common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-application-snapshots-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-application-snapshots-response-next-token
+                         :initform common-lisp:nil)
+                        (snapshot-summaries :initarg :snapshot-summaries :type
+                         (common-lisp:or snapshot-summaries common-lisp:null)
+                         :accessor
+                         %list-application-snapshots-response-snapshot-summaries
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-application-snapshots-response
                     'make-list-application-snapshots-response))
+ (common-lisp:defun make-list-application-snapshots-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token snapshot-summaries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-application-snapshots-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5442,18 +7231,32 @@
 (common-lisp:deftype list-application-versions-input-limit ()
   'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-application-versions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-application-versions-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (limit common-lisp:nil :type
-    (common-lisp:or list-application-versions-input-limit common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-application-versions-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-application-versions-request-next-token
+                         :initform common-lisp:nil)
+                        (limit :initarg :limit :type
+                         (common-lisp:or list-application-versions-input-limit
+                                         common-lisp:null)
+                         :accessor %list-application-versions-request-limit
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %list-application-versions-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-application-versions-request
                     'make-list-application-versions-request))
+ (common-lisp:defun make-list-application-versions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token limit application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-application-versions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5491,16 +7294,28 @@
                           list-application-versions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-application-versions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-application-versions-response-"))
-   (application-version-summaries common-lisp:nil :type
-    (common-lisp:or application-version-summaries common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-application-versions-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-application-versions-response-next-token
+                         :initform common-lisp:nil)
+                        (application-version-summaries :initarg
+                         :application-version-summaries :type
+                         (common-lisp:or application-version-summaries
+                                         common-lisp:null)
+                         :accessor
+                         %list-application-versions-response-application-version-summaries
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-application-versions-response
                     'make-list-application-versions-response))
+ (common-lisp:defun make-list-application-versions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token application-version-summaries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-application-versions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5533,16 +7348,25 @@
    common-lisp:nil))
 (common-lisp:deftype list-applications-input-limit () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-applications-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-applications-request-"))
-   (limit common-lisp:nil :type
-    (common-lisp:or list-applications-input-limit common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or application-name common-lisp:null)))
+ (common-lisp:defclass list-applications-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %list-applications-request-next-token
+                         :initform common-lisp:nil)
+                        (limit :initarg :limit :type
+                         (common-lisp:or list-applications-input-limit
+                                         common-lisp:null)
+                         :accessor %list-applications-request-limit :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-applications-request
                     'make-list-applications-request))
+ (common-lisp:defun make-list-applications-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token limit)
+   (common-lisp:apply #'common-lisp:make-instance 'list-applications-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5573,17 +7397,29 @@
                           list-applications-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-applications-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-applications-response-"))
-   (application-summaries
-    (common-lisp:error ":application-summaries is required") :type
-    (common-lisp:or application-summaries common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or application-name common-lisp:null)))
+ (common-lisp:defclass list-applications-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %list-applications-response-next-token
+                         :initform common-lisp:nil)
+                        (application-summaries :initarg :application-summaries
+                         :type
+                         (common-lisp:or application-summaries
+                                         common-lisp:null)
+                         :accessor
+                         %list-applications-response-application-summaries
+                         :initform
+                         (common-lisp:error
+                          ":application-summaries is required"))))
  (common-lisp:export
   (common-lisp:list 'list-applications-response
                     'make-list-applications-response))
+ (common-lisp:defun make-list-applications-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token application-summaries)
+   (common-lisp:apply #'common-lisp:make-instance 'list-applications-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5616,14 +7452,23 @@
    common-lisp:nil))
 (common-lisp:deftype list-snapshots-input-limit () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or kinesis-analytics-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or kinesis-analytics-arn
+                                         common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5647,13 +7492,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5679,15 +7532,28 @@
 (common-lisp:deftype log-level () 'common-lisp:string)
 (common-lisp:deftype log-stream-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (mapping-parameters (:copier common-lisp:nil)
-      (:conc-name "struct-shape-mapping-parameters-"))
-   (jsonmapping-parameters common-lisp:nil :type
-    (common-lisp:or jsonmapping-parameters common-lisp:null))
-   (csvmapping-parameters common-lisp:nil :type
-    (common-lisp:or csvmapping-parameters common-lisp:null)))
+ (common-lisp:defclass mapping-parameters common-lisp:nil
+                       ((csvmapping-parameters :initarg :csvmapping-parameters
+                         :type
+                         (common-lisp:or csvmapping-parameters
+                                         common-lisp:null)
+                         :accessor %mapping-parameters-csvmapping-parameters
+                         :initform common-lisp:nil)
+                        (jsonmapping-parameters :initarg
+                         :jsonmapping-parameters :type
+                         (common-lisp:or jsonmapping-parameters
+                                         common-lisp:null)
+                         :accessor %mapping-parameters-jsonmapping-parameters
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'mapping-parameters 'make-mapping-parameters))
+ (common-lisp:defun make-mapping-parameters
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key csvmapping-parameters
+                     jsonmapping-parameters)
+   (common-lisp:apply #'common-lisp:make-instance 'mapping-parameters
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input mapping-parameters))
    (common-lisp:append))
@@ -5716,16 +7582,26 @@
 (common-lisp:deftype maven-artifact-id () 'common-lisp:string)
 (common-lisp:deftype maven-group-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (maven-reference (:copier common-lisp:nil)
-      (:conc-name "struct-shape-maven-reference-"))
-   (group-id (common-lisp:error ":group-id is required") :type
-    (common-lisp:or maven-group-id common-lisp:null))
-   (artifact-id (common-lisp:error ":artifact-id is required") :type
-    (common-lisp:or maven-artifact-id common-lisp:null))
-   (version (common-lisp:error ":version is required") :type
-    (common-lisp:or maven-version common-lisp:null)))
+ (common-lisp:defclass maven-reference common-lisp:nil
+                       ((version :initarg :version :type
+                         (common-lisp:or maven-version common-lisp:null)
+                         :accessor %maven-reference-version :initform
+                         (common-lisp:error ":version is required"))
+                        (artifact-id :initarg :artifact-id :type
+                         (common-lisp:or maven-artifact-id common-lisp:null)
+                         :accessor %maven-reference-artifact-id :initform
+                         (common-lisp:error ":artifact-id is required"))
+                        (group-id :initarg :group-id :type
+                         (common-lisp:or maven-group-id common-lisp:null)
+                         :accessor %maven-reference-group-id :initform
+                         (common-lisp:error ":group-id is required"))))
  (common-lisp:export (common-lisp:list 'maven-reference 'make-maven-reference))
+ (common-lisp:defun make-maven-reference
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key version artifact-id group-id)
+   (common-lisp:apply #'common-lisp:make-instance 'maven-reference
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input maven-reference))
    (common-lisp:append))
@@ -5760,17 +7636,30 @@
 (common-lisp:deftype metrics-level () 'common-lisp:string)
 (common-lisp:deftype min-pause-between-checkpoints () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (monitoring-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-monitoring-configuration-"))
-   (configuration-type (common-lisp:error ":configuration-type is required")
-    :type (common-lisp:or configuration-type common-lisp:null))
-   (metrics-level common-lisp:nil :type
-    (common-lisp:or metrics-level common-lisp:null))
-   (log-level common-lisp:nil :type
-    (common-lisp:or log-level common-lisp:null)))
+ (common-lisp:defclass monitoring-configuration common-lisp:nil
+                       ((log-level :initarg :log-level :type
+                         (common-lisp:or log-level common-lisp:null) :accessor
+                         %monitoring-configuration-log-level :initform
+                         common-lisp:nil)
+                        (metrics-level :initarg :metrics-level :type
+                         (common-lisp:or metrics-level common-lisp:null)
+                         :accessor %monitoring-configuration-metrics-level
+                         :initform common-lisp:nil)
+                        (configuration-type :initarg :configuration-type :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor %monitoring-configuration-configuration-type
+                         :initform
+                         (common-lisp:error
+                          ":configuration-type is required"))))
  (common-lisp:export
   (common-lisp:list 'monitoring-configuration 'make-monitoring-configuration))
+ (common-lisp:defun make-monitoring-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-level metrics-level
+                     configuration-type)
+   (common-lisp:apply #'common-lisp:make-instance 'monitoring-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5808,18 +7697,32 @@
                           monitoring-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (monitoring-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-monitoring-configuration-description-"))
-   (configuration-type common-lisp:nil :type
-    (common-lisp:or configuration-type common-lisp:null))
-   (metrics-level common-lisp:nil :type
-    (common-lisp:or metrics-level common-lisp:null))
-   (log-level common-lisp:nil :type
-    (common-lisp:or log-level common-lisp:null)))
+ (common-lisp:defclass monitoring-configuration-description common-lisp:nil
+                       ((log-level :initarg :log-level :type
+                         (common-lisp:or log-level common-lisp:null) :accessor
+                         %monitoring-configuration-description-log-level
+                         :initform common-lisp:nil)
+                        (metrics-level :initarg :metrics-level :type
+                         (common-lisp:or metrics-level common-lisp:null)
+                         :accessor
+                         %monitoring-configuration-description-metrics-level
+                         :initform common-lisp:nil)
+                        (configuration-type :initarg :configuration-type :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor
+                         %monitoring-configuration-description-configuration-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'monitoring-configuration-description
                     'make-monitoring-configuration-description))
+ (common-lisp:defun make-monitoring-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-level metrics-level
+                     configuration-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'monitoring-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5857,18 +7760,33 @@
                           monitoring-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (monitoring-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-monitoring-configuration-update-"))
-   (configuration-type-update common-lisp:nil :type
-    (common-lisp:or configuration-type common-lisp:null))
-   (metrics-level-update common-lisp:nil :type
-    (common-lisp:or metrics-level common-lisp:null))
-   (log-level-update common-lisp:nil :type
-    (common-lisp:or log-level common-lisp:null)))
+ (common-lisp:defclass monitoring-configuration-update common-lisp:nil
+                       ((log-level-update :initarg :log-level-update :type
+                         (common-lisp:or log-level common-lisp:null) :accessor
+                         %monitoring-configuration-update-log-level-update
+                         :initform common-lisp:nil)
+                        (metrics-level-update :initarg :metrics-level-update
+                         :type (common-lisp:or metrics-level common-lisp:null)
+                         :accessor
+                         %monitoring-configuration-update-metrics-level-update
+                         :initform common-lisp:nil)
+                        (configuration-type-update :initarg
+                         :configuration-type-update :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor
+                         %monitoring-configuration-update-configuration-type-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'monitoring-configuration-update
                     'make-monitoring-configuration-update))
+ (common-lisp:defun make-monitoring-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-level-update metrics-level-update
+                     configuration-type-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'monitoring-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5910,19 +7828,39 @@
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:deftype object-version () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (output (:copier common-lisp:nil) (:conc-name "struct-shape-output-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or in-app-stream-name common-lisp:null))
-   (kinesis-streams-output common-lisp:nil :type
-    (common-lisp:or kinesis-streams-output common-lisp:null))
-   (kinesis-firehose-output common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-output common-lisp:null))
-   (lambda-output common-lisp:nil :type
-    (common-lisp:or lambda-output common-lisp:null))
-   (destination-schema (common-lisp:error ":destination-schema is required")
-    :type (common-lisp:or destination-schema common-lisp:null)))
+ (common-lisp:defclass output common-lisp:nil
+                       ((destination-schema :initarg :destination-schema :type
+                         (common-lisp:or destination-schema common-lisp:null)
+                         :accessor %output-destination-schema :initform
+                         (common-lisp:error ":destination-schema is required"))
+                        (lambda-output :initarg :lambda-output :type
+                         (common-lisp:or lambda-output common-lisp:null)
+                         :accessor %output-lambda-output :initform
+                         common-lisp:nil)
+                        (kinesis-firehose-output :initarg
+                         :kinesis-firehose-output :type
+                         (common-lisp:or kinesis-firehose-output
+                                         common-lisp:null)
+                         :accessor %output-kinesis-firehose-output :initform
+                         common-lisp:nil)
+                        (kinesis-streams-output :initarg
+                         :kinesis-streams-output :type
+                         (common-lisp:or kinesis-streams-output
+                                         common-lisp:null)
+                         :accessor %output-kinesis-streams-output :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or in-app-stream-name common-lisp:null)
+                         :accessor %output-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export (common-lisp:list 'output 'make-output))
+ (common-lisp:defun make-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destination-schema lambda-output
+                     kinesis-firehose-output kinesis-streams-output name)
+   (common-lisp:apply #'common-lisp:make-instance 'output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input output))
    (common-lisp:append))
@@ -5970,22 +7908,51 @@
                         ((aws-sdk/generator/shape::input output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (output-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-output-description-"))
-   (output-id common-lisp:nil :type (common-lisp:or id common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or in-app-stream-name common-lisp:null))
-   (kinesis-streams-output-description common-lisp:nil :type
-    (common-lisp:or kinesis-streams-output-description common-lisp:null))
-   (kinesis-firehose-output-description common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-output-description common-lisp:null))
-   (lambda-output-description common-lisp:nil :type
-    (common-lisp:or lambda-output-description common-lisp:null))
-   (destination-schema common-lisp:nil :type
-    (common-lisp:or destination-schema common-lisp:null)))
+ (common-lisp:defclass output-description common-lisp:nil
+                       ((destination-schema :initarg :destination-schema :type
+                         (common-lisp:or destination-schema common-lisp:null)
+                         :accessor %output-description-destination-schema
+                         :initform common-lisp:nil)
+                        (lambda-output-description :initarg
+                         :lambda-output-description :type
+                         (common-lisp:or lambda-output-description
+                                         common-lisp:null)
+                         :accessor
+                         %output-description-lambda-output-description
+                         :initform common-lisp:nil)
+                        (kinesis-firehose-output-description :initarg
+                         :kinesis-firehose-output-description :type
+                         (common-lisp:or kinesis-firehose-output-description
+                                         common-lisp:null)
+                         :accessor
+                         %output-description-kinesis-firehose-output-description
+                         :initform common-lisp:nil)
+                        (kinesis-streams-output-description :initarg
+                         :kinesis-streams-output-description :type
+                         (common-lisp:or kinesis-streams-output-description
+                                         common-lisp:null)
+                         :accessor
+                         %output-description-kinesis-streams-output-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or in-app-stream-name common-lisp:null)
+                         :accessor %output-description-name :initform
+                         common-lisp:nil)
+                        (output-id :initarg :output-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %output-description-output-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'output-description 'make-output-description))
+ (common-lisp:defun make-output-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destination-schema
+                     lambda-output-description
+                     kinesis-firehose-output-description
+                     kinesis-streams-output-description name output-id)
+   (common-lisp:apply #'common-lisp:make-instance 'output-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input output-description))
    (common-lisp:append))
@@ -6049,22 +8016,47 @@
                            (trivial-types:proper-list output-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (output-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-output-update-"))
-   (output-id (common-lisp:error ":output-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (name-update common-lisp:nil :type
-    (common-lisp:or in-app-stream-name common-lisp:null))
-   (kinesis-streams-output-update common-lisp:nil :type
-    (common-lisp:or kinesis-streams-output-update common-lisp:null))
-   (kinesis-firehose-output-update common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-output-update common-lisp:null))
-   (lambda-output-update common-lisp:nil :type
-    (common-lisp:or lambda-output-update common-lisp:null))
-   (destination-schema-update common-lisp:nil :type
-    (common-lisp:or destination-schema common-lisp:null)))
+ (common-lisp:defclass output-update common-lisp:nil
+                       ((destination-schema-update :initarg
+                         :destination-schema-update :type
+                         (common-lisp:or destination-schema common-lisp:null)
+                         :accessor %output-update-destination-schema-update
+                         :initform common-lisp:nil)
+                        (lambda-output-update :initarg :lambda-output-update
+                         :type
+                         (common-lisp:or lambda-output-update common-lisp:null)
+                         :accessor %output-update-lambda-output-update
+                         :initform common-lisp:nil)
+                        (kinesis-firehose-output-update :initarg
+                         :kinesis-firehose-output-update :type
+                         (common-lisp:or kinesis-firehose-output-update
+                                         common-lisp:null)
+                         :accessor
+                         %output-update-kinesis-firehose-output-update
+                         :initform common-lisp:nil)
+                        (kinesis-streams-output-update :initarg
+                         :kinesis-streams-output-update :type
+                         (common-lisp:or kinesis-streams-output-update
+                                         common-lisp:null)
+                         :accessor %output-update-kinesis-streams-output-update
+                         :initform common-lisp:nil)
+                        (name-update :initarg :name-update :type
+                         (common-lisp:or in-app-stream-name common-lisp:null)
+                         :accessor %output-update-name-update :initform
+                         common-lisp:nil)
+                        (output-id :initarg :output-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %output-update-output-id :initform
+                         (common-lisp:error ":output-id is required"))))
  (common-lisp:export (common-lisp:list 'output-update 'make-output-update))
+ (common-lisp:defun make-output-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destination-schema-update
+                     lambda-output-update kinesis-firehose-output-update
+                     kinesis-streams-output-update name-update output-id)
+   (common-lisp:apply #'common-lisp:make-instance 'output-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input output-update))
    (common-lisp:append))
@@ -6137,20 +8129,39 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype parallelism () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (parallelism-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-parallelism-configuration-"))
-   (configuration-type (common-lisp:error ":configuration-type is required")
-    :type (common-lisp:or configuration-type common-lisp:null))
-   (parallelism common-lisp:nil :type
-    (common-lisp:or parallelism common-lisp:null))
-   (parallelism-per-kpu common-lisp:nil :type
-    (common-lisp:or parallelism-per-kpu common-lisp:null))
-   (auto-scaling-enabled common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass parallelism-configuration common-lisp:nil
+                       ((auto-scaling-enabled :initarg :auto-scaling-enabled
+                         :type (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-auto-scaling-enabled
+                         :initform common-lisp:nil)
+                        (parallelism-per-kpu :initarg :parallelism-per-kpu
+                         :type
+                         (common-lisp:or parallelism-per-kpu common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-parallelism-per-kpu
+                         :initform common-lisp:nil)
+                        (parallelism :initarg :parallelism :type
+                         (common-lisp:or parallelism common-lisp:null)
+                         :accessor %parallelism-configuration-parallelism
+                         :initform common-lisp:nil)
+                        (configuration-type :initarg :configuration-type :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-configuration-type
+                         :initform
+                         (common-lisp:error
+                          ":configuration-type is required"))))
  (common-lisp:export
   (common-lisp:list 'parallelism-configuration
                     'make-parallelism-configuration))
+ (common-lisp:defun make-parallelism-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key auto-scaling-enabled parallelism-per-kpu
+                     parallelism configuration-type)
+   (common-lisp:apply #'common-lisp:make-instance 'parallelism-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6196,22 +8207,44 @@
                           parallelism-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (parallelism-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-parallelism-configuration-description-"))
-   (configuration-type common-lisp:nil :type
-    (common-lisp:or configuration-type common-lisp:null))
-   (parallelism common-lisp:nil :type
-    (common-lisp:or parallelism common-lisp:null))
-   (parallelism-per-kpu common-lisp:nil :type
-    (common-lisp:or parallelism-per-kpu common-lisp:null))
-   (current-parallelism common-lisp:nil :type
-    (common-lisp:or parallelism common-lisp:null))
-   (auto-scaling-enabled common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass parallelism-configuration-description common-lisp:nil
+                       ((auto-scaling-enabled :initarg :auto-scaling-enabled
+                         :type (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-description-auto-scaling-enabled
+                         :initform common-lisp:nil)
+                        (current-parallelism :initarg :current-parallelism
+                         :type (common-lisp:or parallelism common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-description-current-parallelism
+                         :initform common-lisp:nil)
+                        (parallelism-per-kpu :initarg :parallelism-per-kpu
+                         :type
+                         (common-lisp:or parallelism-per-kpu common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-description-parallelism-per-kpu
+                         :initform common-lisp:nil)
+                        (parallelism :initarg :parallelism :type
+                         (common-lisp:or parallelism common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-description-parallelism
+                         :initform common-lisp:nil)
+                        (configuration-type :initarg :configuration-type :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-description-configuration-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'parallelism-configuration-description
                     'make-parallelism-configuration-description))
+ (common-lisp:defun make-parallelism-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key auto-scaling-enabled current-parallelism
+                     parallelism-per-kpu parallelism configuration-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'parallelism-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6264,20 +8297,42 @@
                           parallelism-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (parallelism-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-parallelism-configuration-update-"))
-   (configuration-type-update common-lisp:nil :type
-    (common-lisp:or configuration-type common-lisp:null))
-   (parallelism-update common-lisp:nil :type
-    (common-lisp:or parallelism common-lisp:null))
-   (parallelism-per-kpuupdate common-lisp:nil :type
-    (common-lisp:or parallelism-per-kpu common-lisp:null))
-   (auto-scaling-enabled-update common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass parallelism-configuration-update common-lisp:nil
+                       ((auto-scaling-enabled-update :initarg
+                         :auto-scaling-enabled-update :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-update-auto-scaling-enabled-update
+                         :initform common-lisp:nil)
+                        (parallelism-per-kpuupdate :initarg
+                         :parallelism-per-kpuupdate :type
+                         (common-lisp:or parallelism-per-kpu common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-update-parallelism-per-kpuupdate
+                         :initform common-lisp:nil)
+                        (parallelism-update :initarg :parallelism-update :type
+                         (common-lisp:or parallelism common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-update-parallelism-update
+                         :initform common-lisp:nil)
+                        (configuration-type-update :initarg
+                         :configuration-type-update :type
+                         (common-lisp:or configuration-type common-lisp:null)
+                         :accessor
+                         %parallelism-configuration-update-configuration-type-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'parallelism-configuration-update
                     'make-parallelism-configuration-update))
+ (common-lisp:defun make-parallelism-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key auto-scaling-enabled-update
+                     parallelism-per-kpuupdate parallelism-update
+                     configuration-type-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'parallelism-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6353,14 +8408,23 @@
                            (trivial-types:proper-list processed-input-record))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (property-group (:copier common-lisp:nil)
-      (:conc-name "struct-shape-property-group-"))
-   (property-group-id (common-lisp:error ":property-group-id is required")
-    :type (common-lisp:or id common-lisp:null))
-   (property-map (common-lisp:error ":property-map is required") :type
-    (common-lisp:or property-map common-lisp:null)))
+ (common-lisp:defclass property-group common-lisp:nil
+                       ((property-map :initarg :property-map :type
+                         (common-lisp:or property-map common-lisp:null)
+                         :accessor %property-group-property-map :initform
+                         (common-lisp:error ":property-map is required"))
+                        (property-group-id :initarg :property-group-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %property-group-property-group-id :initform
+                         (common-lisp:error
+                          ":property-group-id is required"))))
  (common-lisp:export (common-lisp:list 'property-group 'make-property-group))
+ (common-lisp:defun make-property-group
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key property-map property-group-id)
+   (common-lisp:apply #'common-lisp:make-instance 'property-group
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input property-group))
    (common-lisp:append))
@@ -6411,16 +8475,28 @@
                            (trivial-types:proper-list raw-input-record))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (record-column (:copier common-lisp:nil)
-      (:conc-name "struct-shape-record-column-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or record-column-name common-lisp:null))
-   (mapping common-lisp:nil :type
-    (common-lisp:or record-column-mapping common-lisp:null))
-   (sql-type (common-lisp:error ":sql-type is required") :type
-    (common-lisp:or record-column-sql-type common-lisp:null)))
+ (common-lisp:defclass record-column common-lisp:nil
+                       ((sql-type :initarg :sql-type :type
+                         (common-lisp:or record-column-sql-type
+                                         common-lisp:null)
+                         :accessor %record-column-sql-type :initform
+                         (common-lisp:error ":sql-type is required"))
+                        (mapping :initarg :mapping :type
+                         (common-lisp:or record-column-mapping
+                                         common-lisp:null)
+                         :accessor %record-column-mapping :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or record-column-name common-lisp:null)
+                         :accessor %record-column-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export (common-lisp:list 'record-column 'make-record-column))
+ (common-lisp:defun make-record-column
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sql-type mapping name)
+   (common-lisp:apply #'common-lisp:make-instance 'record-column
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input record-column))
    (common-lisp:append))
@@ -6465,14 +8541,23 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype record-encoding () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (record-format (:copier common-lisp:nil)
-      (:conc-name "struct-shape-record-format-"))
-   (record-format-type (common-lisp:error ":record-format-type is required")
-    :type (common-lisp:or record-format-type common-lisp:null))
-   (mapping-parameters common-lisp:nil :type
-    (common-lisp:or mapping-parameters common-lisp:null)))
+ (common-lisp:defclass record-format common-lisp:nil
+                       ((mapping-parameters :initarg :mapping-parameters :type
+                         (common-lisp:or mapping-parameters common-lisp:null)
+                         :accessor %record-format-mapping-parameters :initform
+                         common-lisp:nil)
+                        (record-format-type :initarg :record-format-type :type
+                         (common-lisp:or record-format-type common-lisp:null)
+                         :accessor %record-format-record-format-type :initform
+                         (common-lisp:error
+                          ":record-format-type is required"))))
  (common-lisp:export (common-lisp:list 'record-format 'make-record-format))
+ (common-lisp:defun make-record-format
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key mapping-parameters record-format-type)
+   (common-lisp:apply #'common-lisp:make-instance 'record-format
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input record-format))
    (common-lisp:append))
@@ -6500,17 +8585,32 @@
 (common-lisp:deftype record-row-delimiter () 'common-lisp:string)
 (common-lisp:deftype record-row-path () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (reference-data-source (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reference-data-source-"))
-   (table-name (common-lisp:error ":table-name is required") :type
-    (common-lisp:or in-app-table-name common-lisp:null))
-   (s3reference-data-source common-lisp:nil :type
-    (common-lisp:or s3reference-data-source common-lisp:null))
-   (reference-schema (common-lisp:error ":reference-schema is required") :type
-    (common-lisp:or source-schema common-lisp:null)))
+ (common-lisp:defclass reference-data-source common-lisp:nil
+                       ((reference-schema :initarg :reference-schema :type
+                         (common-lisp:or source-schema common-lisp:null)
+                         :accessor %reference-data-source-reference-schema
+                         :initform
+                         (common-lisp:error ":reference-schema is required"))
+                        (s3reference-data-source :initarg
+                         :s3reference-data-source :type
+                         (common-lisp:or s3reference-data-source
+                                         common-lisp:null)
+                         :accessor
+                         %reference-data-source-s3reference-data-source
+                         :initform common-lisp:nil)
+                        (table-name :initarg :table-name :type
+                         (common-lisp:or in-app-table-name common-lisp:null)
+                         :accessor %reference-data-source-table-name :initform
+                         (common-lisp:error ":table-name is required"))))
  (common-lisp:export
   (common-lisp:list 'reference-data-source 'make-reference-data-source))
+ (common-lisp:defun make-reference-data-source
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-schema s3reference-data-source
+                     table-name)
+   (common-lisp:apply #'common-lisp:make-instance 'reference-data-source
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6549,22 +8649,44 @@
                           reference-data-source))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (reference-data-source-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reference-data-source-description-"))
-   (reference-id (common-lisp:error ":reference-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (table-name (common-lisp:error ":table-name is required") :type
-    (common-lisp:or in-app-table-name common-lisp:null))
-   (s3reference-data-source-description
-    (common-lisp:error ":s3reference-data-source-description is required")
-    :type
-    (common-lisp:or s3reference-data-source-description common-lisp:null))
-   (reference-schema common-lisp:nil :type
-    (common-lisp:or source-schema common-lisp:null)))
+ (common-lisp:defclass reference-data-source-description common-lisp:nil
+                       ((reference-schema :initarg :reference-schema :type
+                         (common-lisp:or source-schema common-lisp:null)
+                         :accessor
+                         %reference-data-source-description-reference-schema
+                         :initform common-lisp:nil)
+                        (s3reference-data-source-description :initarg
+                         :s3reference-data-source-description :type
+                         (common-lisp:or s3reference-data-source-description
+                                         common-lisp:null)
+                         :accessor
+                         %reference-data-source-description-s3reference-data-source-description
+                         :initform
+                         (common-lisp:error
+                          ":s3reference-data-source-description is required"))
+                        (table-name :initarg :table-name :type
+                         (common-lisp:or in-app-table-name common-lisp:null)
+                         :accessor
+                         %reference-data-source-description-table-name
+                         :initform
+                         (common-lisp:error ":table-name is required"))
+                        (reference-id :initarg :reference-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %reference-data-source-description-reference-id
+                         :initform
+                         (common-lisp:error ":reference-id is required"))))
  (common-lisp:export
   (common-lisp:list 'reference-data-source-description
                     'make-reference-data-source-description))
+ (common-lisp:defun make-reference-data-source-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-schema
+                     s3reference-data-source-description table-name
+                     reference-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'reference-data-source-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6619,20 +8741,40 @@
                             reference-data-source-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (reference-data-source-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reference-data-source-update-"))
-   (reference-id (common-lisp:error ":reference-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (table-name-update common-lisp:nil :type
-    (common-lisp:or in-app-table-name common-lisp:null))
-   (s3reference-data-source-update common-lisp:nil :type
-    (common-lisp:or s3reference-data-source-update common-lisp:null))
-   (reference-schema-update common-lisp:nil :type
-    (common-lisp:or source-schema common-lisp:null)))
+ (common-lisp:defclass reference-data-source-update common-lisp:nil
+                       ((reference-schema-update :initarg
+                         :reference-schema-update :type
+                         (common-lisp:or source-schema common-lisp:null)
+                         :accessor
+                         %reference-data-source-update-reference-schema-update
+                         :initform common-lisp:nil)
+                        (s3reference-data-source-update :initarg
+                         :s3reference-data-source-update :type
+                         (common-lisp:or s3reference-data-source-update
+                                         common-lisp:null)
+                         :accessor
+                         %reference-data-source-update-s3reference-data-source-update
+                         :initform common-lisp:nil)
+                        (table-name-update :initarg :table-name-update :type
+                         (common-lisp:or in-app-table-name common-lisp:null)
+                         :accessor
+                         %reference-data-source-update-table-name-update
+                         :initform common-lisp:nil)
+                        (reference-id :initarg :reference-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %reference-data-source-update-reference-id :initform
+                         (common-lisp:error ":reference-id is required"))))
  (common-lisp:export
   (common-lisp:list 'reference-data-source-update
                     'make-reference-data-source-update))
+ (common-lisp:defun make-reference-data-source-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-schema-update
+                     s3reference-data-source-update table-name-update
+                     reference-id)
+   (common-lisp:apply #'common-lisp:make-instance 'reference-data-source-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6722,17 +8864,32 @@
                     'resource-provisioned-throughput-exceeded-exception-message)))
 (common-lisp:deftype role-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (rollback-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-rollback-application-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id
-    (common-lisp:error ":current-application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null)))
+ (common-lisp:defclass rollback-application-request common-lisp:nil
+                       ((current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %rollback-application-request-current-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":current-application-version-id is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %rollback-application-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'rollback-application-request
                     'make-rollback-application-request))
+ (common-lisp:defun make-rollback-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key current-application-version-id
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'rollback-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6764,14 +8921,24 @@
                           rollback-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (rollback-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-rollback-application-response-"))
-   (application-detail (common-lisp:error ":application-detail is required")
-    :type (common-lisp:or application-detail common-lisp:null)))
+ (common-lisp:defclass rollback-application-response common-lisp:nil
+                       ((application-detail :initarg :application-detail :type
+                         (common-lisp:or application-detail common-lisp:null)
+                         :accessor
+                         %rollback-application-response-application-detail
+                         :initform
+                         (common-lisp:error
+                          ":application-detail is required"))))
  (common-lisp:export
   (common-lisp:list 'rollback-application-response
                     'make-rollback-application-response))
+ (common-lisp:defun make-rollback-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-detail)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'rollback-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6795,17 +8962,35 @@
                           rollback-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (run-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-run-configuration-"))
-   (flink-run-configuration common-lisp:nil :type
-    (common-lisp:or flink-run-configuration common-lisp:null))
-   (sql-run-configurations common-lisp:nil :type
-    (common-lisp:or sql-run-configurations common-lisp:null))
-   (application-restore-configuration common-lisp:nil :type
-    (common-lisp:or application-restore-configuration common-lisp:null)))
+ (common-lisp:defclass run-configuration common-lisp:nil
+                       ((application-restore-configuration :initarg
+                         :application-restore-configuration :type
+                         (common-lisp:or application-restore-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %run-configuration-application-restore-configuration
+                         :initform common-lisp:nil)
+                        (sql-run-configurations :initarg
+                         :sql-run-configurations :type
+                         (common-lisp:or sql-run-configurations
+                                         common-lisp:null)
+                         :accessor %run-configuration-sql-run-configurations
+                         :initform common-lisp:nil)
+                        (flink-run-configuration :initarg
+                         :flink-run-configuration :type
+                         (common-lisp:or flink-run-configuration
+                                         common-lisp:null)
+                         :accessor %run-configuration-flink-run-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'run-configuration 'make-run-configuration))
+ (common-lisp:defun make-run-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-restore-configuration
+                     sql-run-configurations flink-run-configuration)
+   (common-lisp:apply #'common-lisp:make-instance 'run-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input run-configuration))
    (common-lisp:append))
@@ -6840,16 +9025,32 @@
                         ((aws-sdk/generator/shape::input run-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (run-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-run-configuration-description-"))
-   (application-restore-configuration-description common-lisp:nil :type
-    (common-lisp:or application-restore-configuration common-lisp:null))
-   (flink-run-configuration-description common-lisp:nil :type
-    (common-lisp:or flink-run-configuration common-lisp:null)))
+ (common-lisp:defclass run-configuration-description common-lisp:nil
+                       ((flink-run-configuration-description :initarg
+                         :flink-run-configuration-description :type
+                         (common-lisp:or flink-run-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %run-configuration-description-flink-run-configuration-description
+                         :initform common-lisp:nil)
+                        (application-restore-configuration-description :initarg
+                         :application-restore-configuration-description :type
+                         (common-lisp:or application-restore-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %run-configuration-description-application-restore-configuration-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'run-configuration-description
                     'make-run-configuration-description))
+ (common-lisp:defun make-run-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key flink-run-configuration-description
+                     application-restore-configuration-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'run-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6882,15 +9083,30 @@
                           run-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (run-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-run-configuration-update-"))
-   (flink-run-configuration common-lisp:nil :type
-    (common-lisp:or flink-run-configuration common-lisp:null))
-   (application-restore-configuration common-lisp:nil :type
-    (common-lisp:or application-restore-configuration common-lisp:null)))
+ (common-lisp:defclass run-configuration-update common-lisp:nil
+                       ((application-restore-configuration :initarg
+                         :application-restore-configuration :type
+                         (common-lisp:or application-restore-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %run-configuration-update-application-restore-configuration
+                         :initform common-lisp:nil)
+                        (flink-run-configuration :initarg
+                         :flink-run-configuration :type
+                         (common-lisp:or flink-run-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %run-configuration-update-flink-run-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'run-configuration-update 'make-run-configuration-update))
+ (common-lisp:defun make-run-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-restore-configuration
+                     flink-run-configuration)
+   (common-lisp:apply #'common-lisp:make-instance 'run-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6924,18 +9140,31 @@
    common-lisp:nil))
 (common-lisp:deftype runtime-environment () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3application-code-location-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3application-code-location-description-"))
-   (bucket-arn (common-lisp:error ":bucket-arn is required") :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (file-key (common-lisp:error ":file-key is required") :type
-    (common-lisp:or file-key common-lisp:null))
-   (object-version common-lisp:nil :type
-    (common-lisp:or object-version common-lisp:null)))
+ (common-lisp:defclass s3application-code-location-description common-lisp:nil
+                       ((object-version :initarg :object-version :type
+                         (common-lisp:or object-version common-lisp:null)
+                         :accessor
+                         %s3application-code-location-description-object-version
+                         :initform common-lisp:nil)
+                        (file-key :initarg :file-key :type
+                         (common-lisp:or file-key common-lisp:null) :accessor
+                         %s3application-code-location-description-file-key
+                         :initform (common-lisp:error ":file-key is required"))
+                        (bucket-arn :initarg :bucket-arn :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3application-code-location-description-bucket-arn
+                         :initform
+                         (common-lisp:error ":bucket-arn is required"))))
  (common-lisp:export
   (common-lisp:list 's3application-code-location-description
                     'make-s3application-code-location-description))
+ (common-lisp:defun make-s3application-code-location-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-version file-key bucket-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      's3application-code-location-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6973,14 +9202,22 @@
                           s3application-code-location-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3configuration-"))
-   (bucket-arn (common-lisp:error ":bucket-arn is required") :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (file-key (common-lisp:error ":file-key is required") :type
-    (common-lisp:or file-key common-lisp:null)))
+ (common-lisp:defclass s3configuration common-lisp:nil
+                       ((file-key :initarg :file-key :type
+                         (common-lisp:or file-key common-lisp:null) :accessor
+                         %s3configuration-file-key :initform
+                         (common-lisp:error ":file-key is required"))
+                        (bucket-arn :initarg :bucket-arn :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3configuration-bucket-arn :initform
+                         (common-lisp:error ":bucket-arn is required"))))
  (common-lisp:export (common-lisp:list 's3configuration 'make-s3configuration))
+ (common-lisp:defun make-s3configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key file-key bucket-arn)
+   (common-lisp:apply #'common-lisp:make-instance 's3configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3configuration))
    (common-lisp:append))
@@ -7005,15 +9242,23 @@
                         ((aws-sdk/generator/shape::input s3configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3content-base-location (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3content-base-location-"))
-   (bucket-arn (common-lisp:error ":bucket-arn is required") :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (base-path common-lisp:nil :type
-    (common-lisp:or base-path common-lisp:null)))
+ (common-lisp:defclass s3content-base-location common-lisp:nil
+                       ((base-path :initarg :base-path :type
+                         (common-lisp:or base-path common-lisp:null) :accessor
+                         %s3content-base-location-base-path :initform
+                         common-lisp:nil)
+                        (bucket-arn :initarg :bucket-arn :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3content-base-location-bucket-arn :initform
+                         (common-lisp:error ":bucket-arn is required"))))
  (common-lisp:export
   (common-lisp:list 's3content-base-location 'make-s3content-base-location))
+ (common-lisp:defun make-s3content-base-location
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key base-path bucket-arn)
+   (common-lisp:apply #'common-lisp:make-instance 's3content-base-location
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7044,16 +9289,26 @@
                           s3content-base-location))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3content-base-location-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3content-base-location-description-"))
-   (bucket-arn (common-lisp:error ":bucket-arn is required") :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (base-path common-lisp:nil :type
-    (common-lisp:or base-path common-lisp:null)))
+ (common-lisp:defclass s3content-base-location-description common-lisp:nil
+                       ((base-path :initarg :base-path :type
+                         (common-lisp:or base-path common-lisp:null) :accessor
+                         %s3content-base-location-description-base-path
+                         :initform common-lisp:nil)
+                        (bucket-arn :initarg :bucket-arn :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3content-base-location-description-bucket-arn
+                         :initform
+                         (common-lisp:error ":bucket-arn is required"))))
  (common-lisp:export
   (common-lisp:list 's3content-base-location-description
                     'make-s3content-base-location-description))
+ (common-lisp:defun make-s3content-base-location-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key base-path bucket-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      's3content-base-location-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7084,16 +9339,25 @@
                           s3content-base-location-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3content-base-location-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3content-base-location-update-"))
-   (bucket-arnupdate common-lisp:nil :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (base-path-update common-lisp:nil :type
-    (common-lisp:or base-path common-lisp:null)))
+ (common-lisp:defclass s3content-base-location-update common-lisp:nil
+                       ((base-path-update :initarg :base-path-update :type
+                         (common-lisp:or base-path common-lisp:null) :accessor
+                         %s3content-base-location-update-base-path-update
+                         :initform common-lisp:nil)
+                        (bucket-arnupdate :initarg :bucket-arnupdate :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3content-base-location-update-bucket-arnupdate
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 's3content-base-location-update
                     'make-s3content-base-location-update))
+ (common-lisp:defun make-s3content-base-location-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key base-path-update bucket-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      's3content-base-location-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7124,17 +9388,27 @@
                           s3content-base-location-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3content-location (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3content-location-"))
-   (bucket-arn (common-lisp:error ":bucket-arn is required") :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (file-key (common-lisp:error ":file-key is required") :type
-    (common-lisp:or file-key common-lisp:null))
-   (object-version common-lisp:nil :type
-    (common-lisp:or object-version common-lisp:null)))
+ (common-lisp:defclass s3content-location common-lisp:nil
+                       ((object-version :initarg :object-version :type
+                         (common-lisp:or object-version common-lisp:null)
+                         :accessor %s3content-location-object-version :initform
+                         common-lisp:nil)
+                        (file-key :initarg :file-key :type
+                         (common-lisp:or file-key common-lisp:null) :accessor
+                         %s3content-location-file-key :initform
+                         (common-lisp:error ":file-key is required"))
+                        (bucket-arn :initarg :bucket-arn :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3content-location-bucket-arn :initform
+                         (common-lisp:error ":bucket-arn is required"))))
  (common-lisp:export
   (common-lisp:list 's3content-location 'make-s3content-location))
+ (common-lisp:defun make-s3content-location
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-version file-key bucket-arn)
+   (common-lisp:apply #'common-lisp:make-instance 's3content-location
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3content-location))
    (common-lisp:append))
@@ -7166,18 +9440,30 @@
                         ((aws-sdk/generator/shape::input s3content-location))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3content-location-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3content-location-update-"))
-   (bucket-arnupdate common-lisp:nil :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (file-key-update common-lisp:nil :type
-    (common-lisp:or file-key common-lisp:null))
-   (object-version-update common-lisp:nil :type
-    (common-lisp:or object-version common-lisp:null)))
+ (common-lisp:defclass s3content-location-update common-lisp:nil
+                       ((object-version-update :initarg :object-version-update
+                         :type (common-lisp:or object-version common-lisp:null)
+                         :accessor
+                         %s3content-location-update-object-version-update
+                         :initform common-lisp:nil)
+                        (file-key-update :initarg :file-key-update :type
+                         (common-lisp:or file-key common-lisp:null) :accessor
+                         %s3content-location-update-file-key-update :initform
+                         common-lisp:nil)
+                        (bucket-arnupdate :initarg :bucket-arnupdate :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3content-location-update-bucket-arnupdate :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 's3content-location-update
                     'make-s3content-location-update))
+ (common-lisp:defun make-s3content-location-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-version-update file-key-update
+                     bucket-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance 's3content-location-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7216,14 +9502,23 @@
                           s3content-location-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3reference-data-source (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3reference-data-source-"))
-   (bucket-arn common-lisp:nil :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (file-key common-lisp:nil :type (common-lisp:or file-key common-lisp:null)))
+ (common-lisp:defclass s3reference-data-source common-lisp:nil
+                       ((file-key :initarg :file-key :type
+                         (common-lisp:or file-key common-lisp:null) :accessor
+                         %s3reference-data-source-file-key :initform
+                         common-lisp:nil)
+                        (bucket-arn :initarg :bucket-arn :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3reference-data-source-bucket-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 's3reference-data-source 'make-s3reference-data-source))
+ (common-lisp:defun make-s3reference-data-source
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key file-key bucket-arn)
+   (common-lisp:apply #'common-lisp:make-instance 's3reference-data-source
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7254,18 +9549,30 @@
                           s3reference-data-source))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3reference-data-source-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3reference-data-source-description-"))
-   (bucket-arn (common-lisp:error ":bucket-arn is required") :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (file-key (common-lisp:error ":file-key is required") :type
-    (common-lisp:or file-key common-lisp:null))
-   (reference-role-arn common-lisp:nil :type
-    (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass s3reference-data-source-description common-lisp:nil
+                       ((reference-role-arn :initarg :reference-role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %s3reference-data-source-description-reference-role-arn
+                         :initform common-lisp:nil)
+                        (file-key :initarg :file-key :type
+                         (common-lisp:or file-key common-lisp:null) :accessor
+                         %s3reference-data-source-description-file-key
+                         :initform (common-lisp:error ":file-key is required"))
+                        (bucket-arn :initarg :bucket-arn :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3reference-data-source-description-bucket-arn
+                         :initform
+                         (common-lisp:error ":bucket-arn is required"))))
  (common-lisp:export
   (common-lisp:list 's3reference-data-source-description
                     'make-s3reference-data-source-description))
+ (common-lisp:defun make-s3reference-data-source-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-role-arn file-key bucket-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      's3reference-data-source-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7303,16 +9610,25 @@
                           s3reference-data-source-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3reference-data-source-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3reference-data-source-update-"))
-   (bucket-arnupdate common-lisp:nil :type
-    (common-lisp:or bucket-arn common-lisp:null))
-   (file-key-update common-lisp:nil :type
-    (common-lisp:or file-key common-lisp:null)))
+ (common-lisp:defclass s3reference-data-source-update common-lisp:nil
+                       ((file-key-update :initarg :file-key-update :type
+                         (common-lisp:or file-key common-lisp:null) :accessor
+                         %s3reference-data-source-update-file-key-update
+                         :initform common-lisp:nil)
+                        (bucket-arnupdate :initarg :bucket-arnupdate :type
+                         (common-lisp:or bucket-arn common-lisp:null) :accessor
+                         %s3reference-data-source-update-bucket-arnupdate
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 's3reference-data-source-update
                     'make-s3reference-data-source-update))
+ (common-lisp:defun make-s3reference-data-source-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key file-key-update bucket-arnupdate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      's3reference-data-source-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7362,20 +9678,37 @@
 (common-lisp:deftype session-expiration-duration-in-seconds ()
   'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (snapshot-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-snapshot-details-"))
-   (snapshot-name (common-lisp:error ":snapshot-name is required") :type
-    (common-lisp:or snapshot-name common-lisp:null))
-   (snapshot-status (common-lisp:error ":snapshot-status is required") :type
-    (common-lisp:or snapshot-status common-lisp:null))
-   (application-version-id
-    (common-lisp:error ":application-version-id is required") :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (snapshot-creation-timestamp common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass snapshot-details common-lisp:nil
+                       ((snapshot-creation-timestamp :initarg
+                         :snapshot-creation-timestamp :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %snapshot-details-snapshot-creation-timestamp
+                         :initform common-lisp:nil)
+                        (application-version-id :initarg
+                         :application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor %snapshot-details-application-version-id
+                         :initform
+                         (common-lisp:error
+                          ":application-version-id is required"))
+                        (snapshot-status :initarg :snapshot-status :type
+                         (common-lisp:or snapshot-status common-lisp:null)
+                         :accessor %snapshot-details-snapshot-status :initform
+                         (common-lisp:error ":snapshot-status is required"))
+                        (snapshot-name :initarg :snapshot-name :type
+                         (common-lisp:or snapshot-name common-lisp:null)
+                         :accessor %snapshot-details-snapshot-name :initform
+                         (common-lisp:error ":snapshot-name is required"))))
  (common-lisp:export
   (common-lisp:list 'snapshot-details 'make-snapshot-details))
+ (common-lisp:defun make-snapshot-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-creation-timestamp
+                     application-version-id snapshot-status snapshot-name)
+   (common-lisp:apply #'common-lisp:make-instance 'snapshot-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input snapshot-details))
    (common-lisp:append))
@@ -7426,16 +9759,27 @@
                            (trivial-types:proper-list snapshot-details))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (source-schema (:copier common-lisp:nil)
-      (:conc-name "struct-shape-source-schema-"))
-   (record-format (common-lisp:error ":record-format is required") :type
-    (common-lisp:or record-format common-lisp:null))
-   (record-encoding common-lisp:nil :type
-    (common-lisp:or record-encoding common-lisp:null))
-   (record-columns (common-lisp:error ":record-columns is required") :type
-    (common-lisp:or record-columns common-lisp:null)))
+ (common-lisp:defclass source-schema common-lisp:nil
+                       ((record-columns :initarg :record-columns :type
+                         (common-lisp:or record-columns common-lisp:null)
+                         :accessor %source-schema-record-columns :initform
+                         (common-lisp:error ":record-columns is required"))
+                        (record-encoding :initarg :record-encoding :type
+                         (common-lisp:or record-encoding common-lisp:null)
+                         :accessor %source-schema-record-encoding :initform
+                         common-lisp:nil)
+                        (record-format :initarg :record-format :type
+                         (common-lisp:or record-format common-lisp:null)
+                         :accessor %source-schema-record-format :initform
+                         (common-lisp:error ":record-format is required"))))
  (common-lisp:export (common-lisp:list 'source-schema 'make-source-schema))
+ (common-lisp:defun make-source-schema
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key record-columns record-encoding
+                     record-format)
+   (common-lisp:apply #'common-lisp:make-instance 'source-schema
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input source-schema))
    (common-lisp:append))
@@ -7467,16 +9811,32 @@
                         ((aws-sdk/generator/shape::input source-schema))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sql-application-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sql-application-configuration-"))
-   (inputs common-lisp:nil :type (common-lisp:or inputs common-lisp:null))
-   (outputs common-lisp:nil :type (common-lisp:or outputs common-lisp:null))
-   (reference-data-sources common-lisp:nil :type
-    (common-lisp:or reference-data-sources common-lisp:null)))
+ (common-lisp:defclass sql-application-configuration common-lisp:nil
+                       ((reference-data-sources :initarg
+                         :reference-data-sources :type
+                         (common-lisp:or reference-data-sources
+                                         common-lisp:null)
+                         :accessor
+                         %sql-application-configuration-reference-data-sources
+                         :initform common-lisp:nil)
+                        (outputs :initarg :outputs :type
+                         (common-lisp:or outputs common-lisp:null) :accessor
+                         %sql-application-configuration-outputs :initform
+                         common-lisp:nil)
+                        (inputs :initarg :inputs :type
+                         (common-lisp:or inputs common-lisp:null) :accessor
+                         %sql-application-configuration-inputs :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sql-application-configuration
                     'make-sql-application-configuration))
+ (common-lisp:defun make-sql-application-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-data-sources outputs inputs)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'sql-application-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7515,18 +9875,37 @@
                           sql-application-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sql-application-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sql-application-configuration-description-"))
-   (input-descriptions common-lisp:nil :type
-    (common-lisp:or input-descriptions common-lisp:null))
-   (output-descriptions common-lisp:nil :type
-    (common-lisp:or output-descriptions common-lisp:null))
-   (reference-data-source-descriptions common-lisp:nil :type
-    (common-lisp:or reference-data-source-descriptions common-lisp:null)))
+ (common-lisp:defclass sql-application-configuration-description
+                       common-lisp:nil
+                       ((reference-data-source-descriptions :initarg
+                         :reference-data-source-descriptions :type
+                         (common-lisp:or reference-data-source-descriptions
+                                         common-lisp:null)
+                         :accessor
+                         %sql-application-configuration-description-reference-data-source-descriptions
+                         :initform common-lisp:nil)
+                        (output-descriptions :initarg :output-descriptions
+                         :type
+                         (common-lisp:or output-descriptions common-lisp:null)
+                         :accessor
+                         %sql-application-configuration-description-output-descriptions
+                         :initform common-lisp:nil)
+                        (input-descriptions :initarg :input-descriptions :type
+                         (common-lisp:or input-descriptions common-lisp:null)
+                         :accessor
+                         %sql-application-configuration-description-input-descriptions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sql-application-configuration-description
                     'make-sql-application-configuration-description))
+ (common-lisp:defun make-sql-application-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-data-source-descriptions
+                     output-descriptions input-descriptions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'sql-application-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7565,18 +9944,35 @@
                           sql-application-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sql-application-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sql-application-configuration-update-"))
-   (input-updates common-lisp:nil :type
-    (common-lisp:or input-updates common-lisp:null))
-   (output-updates common-lisp:nil :type
-    (common-lisp:or output-updates common-lisp:null))
-   (reference-data-source-updates common-lisp:nil :type
-    (common-lisp:or reference-data-source-updates common-lisp:null)))
+ (common-lisp:defclass sql-application-configuration-update common-lisp:nil
+                       ((reference-data-source-updates :initarg
+                         :reference-data-source-updates :type
+                         (common-lisp:or reference-data-source-updates
+                                         common-lisp:null)
+                         :accessor
+                         %sql-application-configuration-update-reference-data-source-updates
+                         :initform common-lisp:nil)
+                        (output-updates :initarg :output-updates :type
+                         (common-lisp:or output-updates common-lisp:null)
+                         :accessor
+                         %sql-application-configuration-update-output-updates
+                         :initform common-lisp:nil)
+                        (input-updates :initarg :input-updates :type
+                         (common-lisp:or input-updates common-lisp:null)
+                         :accessor
+                         %sql-application-configuration-update-input-updates
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sql-application-configuration-update
                     'make-sql-application-configuration-update))
+ (common-lisp:defun make-sql-application-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reference-data-source-updates
+                     output-updates input-updates)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'sql-application-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7615,17 +10011,29 @@
                           sql-application-configuration-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sql-run-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sql-run-configuration-"))
-   (input-id (common-lisp:error ":input-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (input-starting-position-configuration
-    (common-lisp:error ":input-starting-position-configuration is required")
-    :type
-    (common-lisp:or input-starting-position-configuration common-lisp:null)))
+ (common-lisp:defclass sql-run-configuration common-lisp:nil
+                       ((input-starting-position-configuration :initarg
+                         :input-starting-position-configuration :type
+                         (common-lisp:or input-starting-position-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %sql-run-configuration-input-starting-position-configuration
+                         :initform
+                         (common-lisp:error
+                          ":input-starting-position-configuration is required"))
+                        (input-id :initarg :input-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %sql-run-configuration-input-id :initform
+                         (common-lisp:error ":input-id is required"))))
  (common-lisp:export
   (common-lisp:list 'sql-run-configuration 'make-sql-run-configuration))
+ (common-lisp:defun make-sql-run-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key input-starting-position-configuration
+                     input-id)
+   (common-lisp:apply #'common-lisp:make-instance 'sql-run-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7665,16 +10073,25 @@
                            (trivial-types:proper-list sql-run-configuration))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-application-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (run-configuration common-lisp:nil :type
-    (common-lisp:or run-configuration common-lisp:null)))
+ (common-lisp:defclass start-application-request common-lisp:nil
+                       ((run-configuration :initarg :run-configuration :type
+                         (common-lisp:or run-configuration common-lisp:null)
+                         :accessor %start-application-request-run-configuration
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %start-application-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'start-application-request
                     'make-start-application-request))
+ (common-lisp:defun make-start-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key run-configuration application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'start-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7705,12 +10122,17 @@
                           start-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-application-response-")))
+ (common-lisp:defclass start-application-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'start-application-response
                     'make-start-application-response))
+ (common-lisp:defun make-start-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'start-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7727,15 +10149,24 @@
                           start-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-application-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (force common-lisp:nil :type
-    (common-lisp:or boolean-object common-lisp:null)))
+ (common-lisp:defclass stop-application-request common-lisp:nil
+                       ((force :initarg :force :type
+                         (common-lisp:or boolean-object common-lisp:null)
+                         :accessor %stop-application-request-force :initform
+                         common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %stop-application-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-application-request 'make-stop-application-request))
+ (common-lisp:defun make-stop-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key force application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7766,12 +10197,17 @@
                           stop-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-application-response-")))
+ (common-lisp:defclass stop-application-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'stop-application-response
                     'make-stop-application-response))
+ (common-lisp:defun make-stop-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7796,12 +10232,21 @@
                            (trivial-types:proper-list subnet-id))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform common-lisp:nil)
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -7834,15 +10279,24 @@
                            (trivial-types:proper-list tag-key))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or kinesis-analytics-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tags common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or kinesis-analytics-arn
+                                         common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -7867,11 +10321,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7900,7 +10358,7 @@
 (common-lisp:progn
  (common-lisp:define-condition too-many-tags-exception
      (kinesisanalyticsv2-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        too-many-tags-exception-message)))
  (common-lisp:export
   (common-lisp:list 'too-many-tags-exception 'too-many-tags-exception-message)))
@@ -7928,15 +10386,25 @@
   (common-lisp:list 'unsupported-operation-exception
                     'unsupported-operation-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or kinesis-analytics-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-keys common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-keys common-lisp:null) :accessor
+                         %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or kinesis-analytics-arn
+                                         common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7967,11 +10435,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7988,22 +10460,36 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-application-maintenance-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-application-maintenance-configuration-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (application-maintenance-configuration-update
-    (common-lisp:error
-     ":application-maintenance-configuration-update is required")
-    :type
-    (common-lisp:or application-maintenance-configuration-update
-                    common-lisp:null)))
+ (common-lisp:defclass update-application-maintenance-configuration-request
+                       common-lisp:nil
+                       ((application-maintenance-configuration-update :initarg
+                         :application-maintenance-configuration-update :type
+                         (common-lisp:or
+                          application-maintenance-configuration-update
+                          common-lisp:null)
+                         :accessor
+                         %update-application-maintenance-configuration-request-application-maintenance-configuration-update
+                         :initform
+                         (common-lisp:error
+                          ":application-maintenance-configuration-update is required"))
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor
+                         %update-application-maintenance-configuration-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-application-maintenance-configuration-request
                     'make-update-application-maintenance-configuration-request))
+ (common-lisp:defun make-update-application-maintenance-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     application-maintenance-configuration-update
+                     application-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-application-maintenance-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8035,19 +10521,35 @@
                           update-application-maintenance-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-application-maintenance-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-application-maintenance-configuration-response-"))
-   (application-arn common-lisp:nil :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (application-maintenance-configuration-description common-lisp:nil :type
-    (common-lisp:or application-maintenance-configuration-description
-                    common-lisp:null)))
+ (common-lisp:defclass update-application-maintenance-configuration-response
+                       common-lisp:nil
+                       ((application-maintenance-configuration-description
+                         :initarg
+                         :application-maintenance-configuration-description
+                         :type
+                         (common-lisp:or
+                          application-maintenance-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %update-application-maintenance-configuration-response-application-maintenance-configuration-description
+                         :initform common-lisp:nil)
+                        (application-arn :initarg :application-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor
+                         %update-application-maintenance-configuration-response-application-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-application-maintenance-configuration-response
                     'make-update-application-maintenance-configuration-response))
+ (common-lisp:defun make-update-application-maintenance-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     application-maintenance-configuration-description
+                     application-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-application-maintenance-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8079,26 +10581,63 @@
                           update-application-maintenance-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-application-request-"))
-   (application-name (common-lisp:error ":application-name is required") :type
-    (common-lisp:or application-name common-lisp:null))
-   (current-application-version-id common-lisp:nil :type
-    (common-lisp:or application-version-id common-lisp:null))
-   (application-configuration-update common-lisp:nil :type
-    (common-lisp:or application-configuration-update common-lisp:null))
-   (service-execution-role-update common-lisp:nil :type
-    (common-lisp:or role-arn common-lisp:null))
-   (run-configuration-update common-lisp:nil :type
-    (common-lisp:or run-configuration-update common-lisp:null))
-   (cloud-watch-logging-option-updates common-lisp:nil :type
-    (common-lisp:or cloud-watch-logging-option-updates common-lisp:null))
-   (conditional-token common-lisp:nil :type
-    (common-lisp:or conditional-token common-lisp:null)))
+ (common-lisp:defclass update-application-request common-lisp:nil
+                       ((conditional-token :initarg :conditional-token :type
+                         (common-lisp:or conditional-token common-lisp:null)
+                         :accessor
+                         %update-application-request-conditional-token
+                         :initform common-lisp:nil)
+                        (cloud-watch-logging-option-updates :initarg
+                         :cloud-watch-logging-option-updates :type
+                         (common-lisp:or cloud-watch-logging-option-updates
+                                         common-lisp:null)
+                         :accessor
+                         %update-application-request-cloud-watch-logging-option-updates
+                         :initform common-lisp:nil)
+                        (run-configuration-update :initarg
+                         :run-configuration-update :type
+                         (common-lisp:or run-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %update-application-request-run-configuration-update
+                         :initform common-lisp:nil)
+                        (service-execution-role-update :initarg
+                         :service-execution-role-update :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %update-application-request-service-execution-role-update
+                         :initform common-lisp:nil)
+                        (application-configuration-update :initarg
+                         :application-configuration-update :type
+                         (common-lisp:or application-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %update-application-request-application-configuration-update
+                         :initform common-lisp:nil)
+                        (current-application-version-id :initarg
+                         :current-application-version-id :type
+                         (common-lisp:or application-version-id
+                                         common-lisp:null)
+                         :accessor
+                         %update-application-request-current-application-version-id
+                         :initform common-lisp:nil)
+                        (application-name :initarg :application-name :type
+                         (common-lisp:or application-name common-lisp:null)
+                         :accessor %update-application-request-application-name
+                         :initform
+                         (common-lisp:error ":application-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-application-request
                     'make-update-application-request))
+ (common-lisp:defun make-update-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key conditional-token
+                     cloud-watch-logging-option-updates
+                     run-configuration-update service-execution-role-update
+                     application-configuration-update
+                     current-application-version-id application-name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8169,14 +10708,23 @@
                           update-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-application-response-"))
-   (application-detail (common-lisp:error ":application-detail is required")
-    :type (common-lisp:or application-detail common-lisp:null)))
+ (common-lisp:defclass update-application-response common-lisp:nil
+                       ((application-detail :initarg :application-detail :type
+                         (common-lisp:or application-detail common-lisp:null)
+                         :accessor
+                         %update-application-response-application-detail
+                         :initform
+                         (common-lisp:error
+                          ":application-detail is required"))))
  (common-lisp:export
   (common-lisp:list 'update-application-response
                     'make-update-application-response))
+ (common-lisp:defun make-update-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-detail)
+   (common-lisp:apply #'common-lisp:make-instance 'update-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8201,15 +10749,24 @@
    common-lisp:nil))
 (common-lisp:deftype url-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (vpc-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vpc-configuration-"))
-   (subnet-ids (common-lisp:error ":subnet-ids is required") :type
-    (common-lisp:or subnet-ids common-lisp:null))
-   (security-group-ids (common-lisp:error ":security-group-ids is required")
-    :type (common-lisp:or security-group-ids common-lisp:null)))
+ (common-lisp:defclass vpc-configuration common-lisp:nil
+                       ((security-group-ids :initarg :security-group-ids :type
+                         (common-lisp:or security-group-ids common-lisp:null)
+                         :accessor %vpc-configuration-security-group-ids
+                         :initform
+                         (common-lisp:error ":security-group-ids is required"))
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or subnet-ids common-lisp:null) :accessor
+                         %vpc-configuration-subnet-ids :initform
+                         (common-lisp:error ":subnet-ids is required"))))
  (common-lisp:export
   (common-lisp:list 'vpc-configuration 'make-vpc-configuration))
+ (common-lisp:defun make-vpc-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-group-ids subnet-ids)
+   (common-lisp:apply #'common-lisp:make-instance 'vpc-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input vpc-configuration))
    (common-lisp:append))
@@ -8234,21 +10791,38 @@
                         ((aws-sdk/generator/shape::input vpc-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (vpc-configuration-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vpc-configuration-description-"))
-   (vpc-configuration-id
-    (common-lisp:error ":vpc-configuration-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (vpc-id (common-lisp:error ":vpc-id is required") :type
-    (common-lisp:or vpc-id common-lisp:null))
-   (subnet-ids (common-lisp:error ":subnet-ids is required") :type
-    (common-lisp:or subnet-ids common-lisp:null))
-   (security-group-ids (common-lisp:error ":security-group-ids is required")
-    :type (common-lisp:or security-group-ids common-lisp:null)))
+ (common-lisp:defclass vpc-configuration-description common-lisp:nil
+                       ((security-group-ids :initarg :security-group-ids :type
+                         (common-lisp:or security-group-ids common-lisp:null)
+                         :accessor
+                         %vpc-configuration-description-security-group-ids
+                         :initform
+                         (common-lisp:error ":security-group-ids is required"))
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or subnet-ids common-lisp:null) :accessor
+                         %vpc-configuration-description-subnet-ids :initform
+                         (common-lisp:error ":subnet-ids is required"))
+                        (vpc-id :initarg :vpc-id :type
+                         (common-lisp:or vpc-id common-lisp:null) :accessor
+                         %vpc-configuration-description-vpc-id :initform
+                         (common-lisp:error ":vpc-id is required"))
+                        (vpc-configuration-id :initarg :vpc-configuration-id
+                         :type (common-lisp:or id common-lisp:null) :accessor
+                         %vpc-configuration-description-vpc-configuration-id
+                         :initform
+                         (common-lisp:error
+                          ":vpc-configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'vpc-configuration-description
                     'make-vpc-configuration-description))
+ (common-lisp:defun make-vpc-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-group-ids subnet-ids vpc-id
+                     vpc-configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'vpc-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8303,18 +10877,32 @@
                             vpc-configuration-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (vpc-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vpc-configuration-update-"))
-   (vpc-configuration-id
-    (common-lisp:error ":vpc-configuration-id is required") :type
-    (common-lisp:or id common-lisp:null))
-   (subnet-id-updates common-lisp:nil :type
-    (common-lisp:or subnet-ids common-lisp:null))
-   (security-group-id-updates common-lisp:nil :type
-    (common-lisp:or security-group-ids common-lisp:null)))
+ (common-lisp:defclass vpc-configuration-update common-lisp:nil
+                       ((security-group-id-updates :initarg
+                         :security-group-id-updates :type
+                         (common-lisp:or security-group-ids common-lisp:null)
+                         :accessor
+                         %vpc-configuration-update-security-group-id-updates
+                         :initform common-lisp:nil)
+                        (subnet-id-updates :initarg :subnet-id-updates :type
+                         (common-lisp:or subnet-ids common-lisp:null) :accessor
+                         %vpc-configuration-update-subnet-id-updates :initform
+                         common-lisp:nil)
+                        (vpc-configuration-id :initarg :vpc-configuration-id
+                         :type (common-lisp:or id common-lisp:null) :accessor
+                         %vpc-configuration-update-vpc-configuration-id
+                         :initform
+                         (common-lisp:error
+                          ":vpc-configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'vpc-configuration-update 'make-vpc-configuration-update))
+ (common-lisp:defun make-vpc-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-group-id-updates
+                     subnet-id-updates vpc-configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance 'vpc-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8372,20 +10960,47 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype vpc-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (zeppelin-application-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-zeppelin-application-configuration-"))
-   (monitoring-configuration common-lisp:nil :type
-    (common-lisp:or zeppelin-monitoring-configuration common-lisp:null))
-   (catalog-configuration common-lisp:nil :type
-    (common-lisp:or catalog-configuration common-lisp:null))
-   (deploy-as-application-configuration common-lisp:nil :type
-    (common-lisp:or deploy-as-application-configuration common-lisp:null))
-   (custom-artifacts-configuration common-lisp:nil :type
-    (common-lisp:or custom-artifacts-configuration-list common-lisp:null)))
+ (common-lisp:defclass zeppelin-application-configuration common-lisp:nil
+                       ((custom-artifacts-configuration :initarg
+                         :custom-artifacts-configuration :type
+                         (common-lisp:or custom-artifacts-configuration-list
+                                         common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-custom-artifacts-configuration
+                         :initform common-lisp:nil)
+                        (deploy-as-application-configuration :initarg
+                         :deploy-as-application-configuration :type
+                         (common-lisp:or deploy-as-application-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-deploy-as-application-configuration
+                         :initform common-lisp:nil)
+                        (catalog-configuration :initarg :catalog-configuration
+                         :type
+                         (common-lisp:or catalog-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-catalog-configuration
+                         :initform common-lisp:nil)
+                        (monitoring-configuration :initarg
+                         :monitoring-configuration :type
+                         (common-lisp:or zeppelin-monitoring-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-monitoring-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'zeppelin-application-configuration
                     'make-zeppelin-application-configuration))
+ (common-lisp:defun make-zeppelin-application-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key custom-artifacts-configuration
+                     deploy-as-application-configuration catalog-configuration
+                     monitoring-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'zeppelin-application-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8434,26 +11049,56 @@
                           zeppelin-application-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (zeppelin-application-configuration-description (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-zeppelin-application-configuration-description-"))
-   (monitoring-configuration-description
-    (common-lisp:error ":monitoring-configuration-description is required")
-    :type
-    (common-lisp:or zeppelin-monitoring-configuration-description
-                    common-lisp:null))
-   (catalog-configuration-description common-lisp:nil :type
-    (common-lisp:or catalog-configuration-description common-lisp:null))
-   (deploy-as-application-configuration-description common-lisp:nil :type
-    (common-lisp:or deploy-as-application-configuration-description
-                    common-lisp:null))
-   (custom-artifacts-configuration-description common-lisp:nil :type
-    (common-lisp:or custom-artifacts-configuration-description-list
-                    common-lisp:null)))
+ (common-lisp:defclass zeppelin-application-configuration-description
+                       common-lisp:nil
+                       ((custom-artifacts-configuration-description :initarg
+                         :custom-artifacts-configuration-description :type
+                         (common-lisp:or
+                          custom-artifacts-configuration-description-list
+                          common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-description-custom-artifacts-configuration-description
+                         :initform common-lisp:nil)
+                        (deploy-as-application-configuration-description
+                         :initarg
+                         :deploy-as-application-configuration-description :type
+                         (common-lisp:or
+                          deploy-as-application-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-description-deploy-as-application-configuration-description
+                         :initform common-lisp:nil)
+                        (catalog-configuration-description :initarg
+                         :catalog-configuration-description :type
+                         (common-lisp:or catalog-configuration-description
+                                         common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-description-catalog-configuration-description
+                         :initform common-lisp:nil)
+                        (monitoring-configuration-description :initarg
+                         :monitoring-configuration-description :type
+                         (common-lisp:or
+                          zeppelin-monitoring-configuration-description
+                          common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-description-monitoring-configuration-description
+                         :initform
+                         (common-lisp:error
+                          ":monitoring-configuration-description is required"))))
  (common-lisp:export
   (common-lisp:list 'zeppelin-application-configuration-description
                     'make-zeppelin-application-configuration-description))
+ (common-lisp:defun make-zeppelin-application-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     custom-artifacts-configuration-description
+                     deploy-as-application-configuration-description
+                     catalog-configuration-description
+                     monitoring-configuration-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'zeppelin-application-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8502,21 +11147,51 @@
                           zeppelin-application-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (zeppelin-application-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-zeppelin-application-configuration-update-"))
-   (monitoring-configuration-update common-lisp:nil :type
-    (common-lisp:or zeppelin-monitoring-configuration-update common-lisp:null))
-   (catalog-configuration-update common-lisp:nil :type
-    (common-lisp:or catalog-configuration-update common-lisp:null))
-   (deploy-as-application-configuration-update common-lisp:nil :type
-    (common-lisp:or deploy-as-application-configuration-update
-                    common-lisp:null))
-   (custom-artifacts-configuration-update common-lisp:nil :type
-    (common-lisp:or custom-artifacts-configuration-list common-lisp:null)))
+ (common-lisp:defclass zeppelin-application-configuration-update
+                       common-lisp:nil
+                       ((custom-artifacts-configuration-update :initarg
+                         :custom-artifacts-configuration-update :type
+                         (common-lisp:or custom-artifacts-configuration-list
+                                         common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-update-custom-artifacts-configuration-update
+                         :initform common-lisp:nil)
+                        (deploy-as-application-configuration-update :initarg
+                         :deploy-as-application-configuration-update :type
+                         (common-lisp:or
+                          deploy-as-application-configuration-update
+                          common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-update-deploy-as-application-configuration-update
+                         :initform common-lisp:nil)
+                        (catalog-configuration-update :initarg
+                         :catalog-configuration-update :type
+                         (common-lisp:or catalog-configuration-update
+                                         common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-update-catalog-configuration-update
+                         :initform common-lisp:nil)
+                        (monitoring-configuration-update :initarg
+                         :monitoring-configuration-update :type
+                         (common-lisp:or
+                          zeppelin-monitoring-configuration-update
+                          common-lisp:null)
+                         :accessor
+                         %zeppelin-application-configuration-update-monitoring-configuration-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'zeppelin-application-configuration-update
                     'make-zeppelin-application-configuration-update))
+ (common-lisp:defun make-zeppelin-application-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key custom-artifacts-configuration-update
+                     deploy-as-application-configuration-update
+                     catalog-configuration-update
+                     monitoring-configuration-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'zeppelin-application-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8565,14 +11240,21 @@
                           zeppelin-application-configuration-update))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (zeppelin-monitoring-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-zeppelin-monitoring-configuration-"))
-   (log-level (common-lisp:error ":log-level is required") :type
-    (common-lisp:or log-level common-lisp:null)))
+ (common-lisp:defclass zeppelin-monitoring-configuration common-lisp:nil
+                       ((log-level :initarg :log-level :type
+                         (common-lisp:or log-level common-lisp:null) :accessor
+                         %zeppelin-monitoring-configuration-log-level :initform
+                         (common-lisp:error ":log-level is required"))))
  (common-lisp:export
   (common-lisp:list 'zeppelin-monitoring-configuration
                     'make-zeppelin-monitoring-configuration))
+ (common-lisp:defun make-zeppelin-monitoring-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-level)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'zeppelin-monitoring-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8596,15 +11278,22 @@
                           zeppelin-monitoring-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (zeppelin-monitoring-configuration-description (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-zeppelin-monitoring-configuration-description-"))
-   (log-level common-lisp:nil :type
-    (common-lisp:or log-level common-lisp:null)))
+ (common-lisp:defclass zeppelin-monitoring-configuration-description
+                       common-lisp:nil
+                       ((log-level :initarg :log-level :type
+                         (common-lisp:or log-level common-lisp:null) :accessor
+                         %zeppelin-monitoring-configuration-description-log-level
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'zeppelin-monitoring-configuration-description
                     'make-zeppelin-monitoring-configuration-description))
+ (common-lisp:defun make-zeppelin-monitoring-configuration-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-level)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'zeppelin-monitoring-configuration-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8628,14 +11317,22 @@
                           zeppelin-monitoring-configuration-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (zeppelin-monitoring-configuration-update (:copier common-lisp:nil)
-      (:conc-name "struct-shape-zeppelin-monitoring-configuration-update-"))
-   (log-level-update (common-lisp:error ":log-level-update is required") :type
-    (common-lisp:or log-level common-lisp:null)))
+ (common-lisp:defclass zeppelin-monitoring-configuration-update common-lisp:nil
+                       ((log-level-update :initarg :log-level-update :type
+                         (common-lisp:or log-level common-lisp:null) :accessor
+                         %zeppelin-monitoring-configuration-update-log-level-update
+                         :initform
+                         (common-lisp:error ":log-level-update is required"))))
  (common-lisp:export
   (common-lisp:list 'zeppelin-monitoring-configuration-update
                     'make-zeppelin-monitoring-configuration-update))
+ (common-lisp:defun make-zeppelin-monitoring-configuration-update
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-level-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'zeppelin-monitoring-configuration-update
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

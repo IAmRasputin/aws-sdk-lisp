@@ -46,12 +46,20 @@
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connection (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connection-"))
-   (created common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or connection-id common-lisp:null)))
+ (common-lisp:defclass connection common-lisp:nil
+                       ((id :initarg :id :type
+                         (common-lisp:or connection-id common-lisp:null)
+                         :accessor %connection-id :initform common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %connection-created :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'connection 'make-connection))
+ (common-lisp:defun make-connection
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id created)
+   (common-lisp:apply #'common-lisp:make-instance 'connection
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input connection))
    (common-lisp:append))
@@ -93,18 +101,30 @@
                            (trivial-types:proper-list connection))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-game-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-game-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or game-description common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-game-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-game-request-tags :initform common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %create-game-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or game-description common-lisp:null)
+                         :accessor %create-game-request-description :initform
+                         common-lisp:nil)
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %create-game-request-client-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-game-request 'make-create-game-request))
+ (common-lisp:defun make-create-game-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags game-name description client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-game-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-game-request))
    (common-lisp:append))
@@ -143,12 +163,19 @@
                         ((aws-sdk/generator/shape::input create-game-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-game-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-game-result-"))
-   (game common-lisp:nil :type (common-lisp:or game-details common-lisp:null)))
+ (common-lisp:defclass create-game-result common-lisp:nil
+                       ((game :initarg :game :type
+                         (common-lisp:or game-details common-lisp:null)
+                         :accessor %create-game-result-game :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-game-result 'make-create-game-result))
+ (common-lisp:defun make-create-game-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game)
+   (common-lisp:apply #'common-lisp:make-instance 'create-game-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-game-result))
    (common-lisp:append))
@@ -166,15 +193,23 @@
                         ((aws-sdk/generator/shape::input create-game-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-snapshot-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-snapshot-request-"))
-   (description common-lisp:nil :type
-    (common-lisp:or snapshot-description common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null)))
+ (common-lisp:defclass create-snapshot-request common-lisp:nil
+                       ((game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %create-snapshot-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or snapshot-description common-lisp:null)
+                         :accessor %create-snapshot-request-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-snapshot-request 'make-create-snapshot-request))
+ (common-lisp:defun make-create-snapshot-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game-name description)
+   (common-lisp:apply #'common-lisp:make-instance 'create-snapshot-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -198,13 +233,19 @@
                           create-snapshot-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-snapshot-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-snapshot-result-"))
-   (snapshot common-lisp:nil :type
-    (common-lisp:or snapshot-details common-lisp:null)))
+ (common-lisp:defclass create-snapshot-result common-lisp:nil
+                       ((snapshot :initarg :snapshot :type
+                         (common-lisp:or snapshot-details common-lisp:null)
+                         :accessor %create-snapshot-result-snapshot :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-snapshot-result 'make-create-snapshot-result))
+ (common-lisp:defun make-create-snapshot-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot)
+   (common-lisp:apply #'common-lisp:make-instance 'create-snapshot-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -228,22 +269,39 @@
                           create-snapshot-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-stage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-stage-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or stage-description common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (role (common-lisp:error ":role is required") :type
-    (common-lisp:or role-arn common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-stage-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-stage-request-tags :initform common-lisp:nil)
+                        (stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %create-stage-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (role :initarg :role :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %create-stage-request-role :initform
+                         (common-lisp:error ":role is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %create-stage-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or stage-description common-lisp:null)
+                         :accessor %create-stage-request-description :initform
+                         common-lisp:nil)
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %create-stage-request-client-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-stage-request 'make-create-stage-request))
+ (common-lisp:defun make-create-stage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags stage-name role game-name
+                     description client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-stage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-stage-request))
    (common-lisp:append))
@@ -289,13 +347,19 @@
                         ((aws-sdk/generator/shape::input create-stage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-stage-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-stage-result-"))
-   (stage common-lisp:nil :type
-    (common-lisp:or stage-details common-lisp:null)))
+ (common-lisp:defclass create-stage-result common-lisp:nil
+                       ((stage :initarg :stage :type
+                         (common-lisp:or stage-details common-lisp:null)
+                         :accessor %create-stage-result-stage :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-stage-result 'make-create-stage-result))
+ (common-lisp:defun make-create-stage-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage)
+   (common-lisp:apply #'common-lisp:make-instance 'create-stage-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-stage-result))
    (common-lisp:append))
@@ -314,13 +378,19 @@
    common-lisp:nil))
 (common-lisp:deftype date-time () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-game-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-game-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null)))
+ (common-lisp:defclass delete-game-request common-lisp:nil
+                       ((game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %delete-game-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-game-request 'make-delete-game-request))
+ (common-lisp:defun make-delete-game-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-game-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-game-request))
    (common-lisp:append))
@@ -331,11 +401,15 @@
                         ((aws-sdk/generator/shape::input delete-game-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-game-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-game-result-")))
+ (common-lisp:defclass delete-game-result common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-game-result 'make-delete-game-result))
+ (common-lisp:defun make-delete-game-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-game-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-game-result))
    (common-lisp:append))
@@ -346,15 +420,23 @@
                         ((aws-sdk/generator/shape::input delete-game-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-stage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-stage-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass delete-stage-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %delete-stage-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %delete-stage-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-stage-request 'make-delete-stage-request))
+ (common-lisp:defun make-delete-stage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-stage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-stage-request))
    (common-lisp:append))
@@ -365,11 +447,15 @@
                         ((aws-sdk/generator/shape::input delete-stage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-stage-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-stage-result-")))
+ (common-lisp:defclass delete-stage-result common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-stage-result 'make-delete-stage-result))
+ (common-lisp:defun make-delete-stage-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-stage-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-stage-result))
    (common-lisp:append))
@@ -382,14 +468,23 @@
 (common-lisp:deftype deployment-action () 'common-lisp:string)
 (common-lisp:deftype deployment-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (deployment-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deployment-result-"))
-   (message common-lisp:nil :type (common-lisp:or message common-lisp:null))
-   (result-code common-lisp:nil :type
-    (common-lisp:or result-code common-lisp:null)))
+ (common-lisp:defclass deployment-result common-lisp:nil
+                       ((result-code :initarg :result-code :type
+                         (common-lisp:or result-code common-lisp:null)
+                         :accessor %deployment-result-result-code :initform
+                         common-lisp:nil)
+                        (message :initarg :message :type
+                         (common-lisp:or message common-lisp:null) :accessor
+                         %deployment-result-message :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'deployment-result 'make-deployment-result))
+ (common-lisp:defun make-deployment-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key result-code message)
+   (common-lisp:apply #'common-lisp:make-instance 'deployment-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input deployment-result))
    (common-lisp:append))
@@ -415,18 +510,28 @@
    common-lisp:nil))
 (common-lisp:deftype deployment-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (disconnect-player-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disconnect-player-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (player-id (common-lisp:error ":player-id is required") :type
-    (common-lisp:or player-id common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass disconnect-player-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %disconnect-player-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (player-id :initarg :player-id :type
+                         (common-lisp:or player-id common-lisp:null) :accessor
+                         %disconnect-player-request-player-id :initform
+                         (common-lisp:error ":player-id is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %disconnect-player-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'disconnect-player-request
                     'make-disconnect-player-request))
+ (common-lisp:defun make-disconnect-player-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name player-id game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'disconnect-player-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -443,15 +548,27 @@
                           disconnect-player-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disconnect-player-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disconnect-player-result-"))
-   (disconnect-failures common-lisp:nil :type
-    (common-lisp:or connection-id-list common-lisp:null))
-   (disconnect-successes common-lisp:nil :type
-    (common-lisp:or connection-id-list common-lisp:null)))
+ (common-lisp:defclass disconnect-player-result common-lisp:nil
+                       ((disconnect-successes :initarg :disconnect-successes
+                         :type
+                         (common-lisp:or connection-id-list common-lisp:null)
+                         :accessor
+                         %disconnect-player-result-disconnect-successes
+                         :initform common-lisp:nil)
+                        (disconnect-failures :initarg :disconnect-failures
+                         :type
+                         (common-lisp:or connection-id-list common-lisp:null)
+                         :accessor
+                         %disconnect-player-result-disconnect-failures
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disconnect-player-result 'make-disconnect-player-result))
+ (common-lisp:defun make-disconnect-player-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key disconnect-successes disconnect-failures)
+   (common-lisp:apply #'common-lisp:make-instance 'disconnect-player-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -483,10 +600,14 @@
                           disconnect-player-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (document (:copier common-lisp:nil)
-      (:conc-name "struct-shape-document-")))
+ (common-lisp:defclass document common-lisp:nil common-lisp:nil)
  (common-lisp:export (common-lisp:list 'document 'make-document))
+ (common-lisp:defun make-document
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'document
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input document))
    (common-lisp:append))
@@ -498,15 +619,24 @@
    common-lisp:nil))
 (common-lisp:deftype exception-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-snapshot-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-snapshot-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (snapshot-id (common-lisp:error ":snapshot-id is required") :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass export-snapshot-request common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %export-snapshot-request-snapshot-id
+                         :initform
+                         (common-lisp:error ":snapshot-id is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %export-snapshot-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'export-snapshot-request 'make-export-snapshot-request))
+ (common-lisp:defun make-export-snapshot-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'export-snapshot-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -523,13 +653,19 @@
                           export-snapshot-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-snapshot-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-snapshot-result-"))
-   (s3url common-lisp:nil :type
-    (common-lisp:or s3presigned-url common-lisp:null)))
+ (common-lisp:defclass export-snapshot-result common-lisp:nil
+                       ((s3url :initarg :s3url :type
+                         (common-lisp:or s3presigned-url common-lisp:null)
+                         :accessor %export-snapshot-result-s3url :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-snapshot-result 'make-export-snapshot-result))
+ (common-lisp:defun make-export-snapshot-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3url)
+   (common-lisp:apply #'common-lisp:make-instance 'export-snapshot-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -554,17 +690,28 @@
    common-lisp:nil))
 (common-lisp:deftype extension-description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (extension-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-extension-details-"))
-   (description common-lisp:nil :type
-    (common-lisp:or extension-description common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or extension-name common-lisp:null))
-   (namespace common-lisp:nil :type
-    (common-lisp:or extension-namespace common-lisp:null)))
+ (common-lisp:defclass extension-details common-lisp:nil
+                       ((namespace :initarg :namespace :type
+                         (common-lisp:or extension-namespace common-lisp:null)
+                         :accessor %extension-details-namespace :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or extension-name common-lisp:null)
+                         :accessor %extension-details-name :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or extension-description
+                                         common-lisp:null)
+                         :accessor %extension-details-description :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'extension-details 'make-extension-details))
+ (common-lisp:defun make-extension-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key namespace name description)
+   (common-lisp:apply #'common-lisp:make-instance 'extension-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input extension-details))
    (common-lisp:append))
@@ -607,20 +754,33 @@
 (common-lisp:deftype extension-namespace () 'common-lisp:string)
 (common-lisp:deftype extension-version () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (extension-version-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-extension-version-details-"))
-   (name common-lisp:nil :type
-    (common-lisp:or extension-name common-lisp:null))
-   (namespace common-lisp:nil :type
-    (common-lisp:or extension-namespace common-lisp:null))
-   (schema common-lisp:nil :type
-    (common-lisp:or extension-version-schema common-lisp:null))
-   (version common-lisp:nil :type
-    (common-lisp:or extension-version common-lisp:null)))
+ (common-lisp:defclass extension-version-details common-lisp:nil
+                       ((version :initarg :version :type
+                         (common-lisp:or extension-version common-lisp:null)
+                         :accessor %extension-version-details-version :initform
+                         common-lisp:nil)
+                        (schema :initarg :schema :type
+                         (common-lisp:or extension-version-schema
+                                         common-lisp:null)
+                         :accessor %extension-version-details-schema :initform
+                         common-lisp:nil)
+                        (namespace :initarg :namespace :type
+                         (common-lisp:or extension-namespace common-lisp:null)
+                         :accessor %extension-version-details-namespace
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or extension-name common-lisp:null)
+                         :accessor %extension-version-details-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'extension-version-details
                     'make-extension-version-details))
+ (common-lisp:defun make-extension-version-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key version schema namespace name)
+   (common-lisp:apply #'common-lisp:make-instance 'extension-version-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -675,16 +835,28 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype extension-version-schema () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (game-configuration-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-game-configuration-details-"))
-   (created common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
-   (last-updated common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (sections common-lisp:nil :type (common-lisp:or sections common-lisp:null)))
+ (common-lisp:defclass game-configuration-details common-lisp:nil
+                       ((sections :initarg :sections :type
+                         (common-lisp:or sections common-lisp:null) :accessor
+                         %game-configuration-details-sections :initform
+                         common-lisp:nil)
+                        (last-updated :initarg :last-updated :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %game-configuration-details-last-updated :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %game-configuration-details-created :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'game-configuration-details
                     'make-game-configuration-details))
+ (common-lisp:defun make-game-configuration-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sections last-updated created)
+   (common-lisp:apply #'common-lisp:make-instance 'game-configuration-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -723,21 +895,43 @@
    common-lisp:nil))
 (common-lisp:deftype game-description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (game-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-game-details-"))
-   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (created common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or game-description common-lisp:null))
-   (enable-termination-protection common-lisp:nil :type
-    (common-lisp:or game-termination-protection common-lisp:null))
-   (last-updated common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or game-name common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or game-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass game-details common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %game-details-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or game-state common-lisp:null) :accessor
+                         %game-details-state :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %game-details-name :initform common-lisp:nil)
+                        (last-updated :initarg :last-updated :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %game-details-last-updated :initform common-lisp:nil)
+                        (enable-termination-protection :initarg
+                         :enable-termination-protection :type
+                         (common-lisp:or game-termination-protection
+                                         common-lisp:null)
+                         :accessor %game-details-enable-termination-protection
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or game-description common-lisp:null)
+                         :accessor %game-details-description :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %game-details-created :initform common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %game-details-arn :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'game-details 'make-game-details))
+ (common-lisp:defun make-game-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state name last-updated
+                     enable-termination-protection description created arn)
+   (common-lisp:apply #'common-lisp:make-instance 'game-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input game-details))
    (common-lisp:append))
@@ -809,15 +1003,27 @@
 (common-lisp:deftype game-sdk-version () 'common-lisp:string)
 (common-lisp:deftype game-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (game-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-game-summary-"))
-   (description common-lisp:nil :type
-    (common-lisp:or game-description common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or game-name common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or game-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass game-summary common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %game-summary-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or game-state common-lisp:null) :accessor
+                         %game-summary-state :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %game-summary-name :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or game-description common-lisp:null)
+                         :accessor %game-summary-description :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'game-summary 'make-game-summary))
+ (common-lisp:defun make-game-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state name description)
+   (common-lisp:apply #'common-lisp:make-instance 'game-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input game-summary))
    (common-lisp:append))
@@ -866,22 +1072,42 @@
 (common-lisp:deftype game-termination-protection () 'common-lisp:boolean)
 (common-lisp:deftype generated-code-job-description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (generated-code-job-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-generated-code-job-details-"))
-   (description common-lisp:nil :type
-    (common-lisp:or generated-code-job-description common-lisp:null))
-   (expiration-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (generated-code-job-id common-lisp:nil :type
-    (common-lisp:or generated-code-job-id common-lisp:null))
-   (s3url common-lisp:nil :type
-    (common-lisp:or s3presigned-url common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or generated-code-job-state common-lisp:null)))
+ (common-lisp:defclass generated-code-job-details common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or generated-code-job-state
+                                         common-lisp:null)
+                         :accessor %generated-code-job-details-status :initform
+                         common-lisp:nil)
+                        (s3url :initarg :s3url :type
+                         (common-lisp:or s3presigned-url common-lisp:null)
+                         :accessor %generated-code-job-details-s3url :initform
+                         common-lisp:nil)
+                        (generated-code-job-id :initarg :generated-code-job-id
+                         :type
+                         (common-lisp:or generated-code-job-id
+                                         common-lisp:null)
+                         :accessor
+                         %generated-code-job-details-generated-code-job-id
+                         :initform common-lisp:nil)
+                        (expiration-time :initarg :expiration-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %generated-code-job-details-expiration-time :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or generated-code-job-description
+                                         common-lisp:null)
+                         :accessor %generated-code-job-details-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'generated-code-job-details
                     'make-generated-code-job-details))
+ (common-lisp:defun make-generated-code-job-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status s3url generated-code-job-id
+                     expiration-time description)
+   (common-lisp:apply #'common-lisp:make-instance 'generated-code-job-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -945,15 +1171,26 @@
 (common-lisp:deftype generated-code-job-id () 'common-lisp:string)
 (common-lisp:deftype generated-code-job-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (generator (:copier common-lisp:nil)
-      (:conc-name "struct-shape-generator-"))
-   (game-sdk-version common-lisp:nil :type
-    (common-lisp:or game-sdk-version common-lisp:null))
-   (language common-lisp:nil :type (common-lisp:or language common-lisp:null))
-   (target-platform common-lisp:nil :type
-    (common-lisp:or target-platform common-lisp:null)))
+ (common-lisp:defclass generator common-lisp:nil
+                       ((target-platform :initarg :target-platform :type
+                         (common-lisp:or target-platform common-lisp:null)
+                         :accessor %generator-target-platform :initform
+                         common-lisp:nil)
+                        (language :initarg :language :type
+                         (common-lisp:or language common-lisp:null) :accessor
+                         %generator-language :initform common-lisp:nil)
+                        (game-sdk-version :initarg :game-sdk-version :type
+                         (common-lisp:or game-sdk-version common-lisp:null)
+                         :accessor %generator-game-sdk-version :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'generator 'make-generator))
+ (common-lisp:defun make-generator
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-platform language
+                     game-sdk-version)
+   (common-lisp:apply #'common-lisp:make-instance 'generator
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input generator))
    (common-lisp:append))
@@ -985,15 +1222,23 @@
                         ((aws-sdk/generator/shape::input generator))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-extension-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-extension-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or extension-name common-lisp:null))
-   (namespace (common-lisp:error ":namespace is required") :type
-    (common-lisp:or extension-namespace common-lisp:null)))
+ (common-lisp:defclass get-extension-request common-lisp:nil
+                       ((namespace :initarg :namespace :type
+                         (common-lisp:or extension-namespace common-lisp:null)
+                         :accessor %get-extension-request-namespace :initform
+                         (common-lisp:error ":namespace is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or extension-name common-lisp:null)
+                         :accessor %get-extension-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-extension-request 'make-get-extension-request))
+ (common-lisp:defun make-get-extension-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key namespace name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-extension-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1010,13 +1255,19 @@
                           get-extension-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-extension-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-extension-result-"))
-   (extension common-lisp:nil :type
-    (common-lisp:or extension-details common-lisp:null)))
+ (common-lisp:defclass get-extension-result common-lisp:nil
+                       ((extension :initarg :extension :type
+                         (common-lisp:or extension-details common-lisp:null)
+                         :accessor %get-extension-result-extension :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-extension-result 'make-get-extension-result))
+ (common-lisp:defun make-get-extension-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key extension)
+   (common-lisp:apply #'common-lisp:make-instance 'get-extension-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-extension-result))
    (common-lisp:append))
@@ -1034,18 +1285,33 @@
                         ((aws-sdk/generator/shape::input get-extension-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-extension-version-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-extension-version-request-"))
-   (extension-version (common-lisp:error ":extension-version is required")
-    :type (common-lisp:or extension-version common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or extension-name common-lisp:null))
-   (namespace (common-lisp:error ":namespace is required") :type
-    (common-lisp:or extension-namespace common-lisp:null)))
+ (common-lisp:defclass get-extension-version-request common-lisp:nil
+                       ((namespace :initarg :namespace :type
+                         (common-lisp:or extension-namespace common-lisp:null)
+                         :accessor %get-extension-version-request-namespace
+                         :initform
+                         (common-lisp:error ":namespace is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or extension-name common-lisp:null)
+                         :accessor %get-extension-version-request-name
+                         :initform (common-lisp:error ":name is required"))
+                        (extension-version :initarg :extension-version :type
+                         (common-lisp:or extension-version common-lisp:null)
+                         :accessor
+                         %get-extension-version-request-extension-version
+                         :initform
+                         (common-lisp:error
+                          ":extension-version is required"))))
  (common-lisp:export
   (common-lisp:list 'get-extension-version-request
                     'make-get-extension-version-request))
+ (common-lisp:defun make-get-extension-version-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key namespace name extension-version)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-extension-version-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1062,14 +1328,22 @@
                           get-extension-version-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-extension-version-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-extension-version-result-"))
-   (extension-version common-lisp:nil :type
-    (common-lisp:or extension-version-details common-lisp:null)))
+ (common-lisp:defclass get-extension-version-result common-lisp:nil
+                       ((extension-version :initarg :extension-version :type
+                         (common-lisp:or extension-version-details
+                                         common-lisp:null)
+                         :accessor
+                         %get-extension-version-result-extension-version
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-extension-version-result
                     'make-get-extension-version-result))
+ (common-lisp:defun make-get-extension-version-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key extension-version)
+   (common-lisp:apply #'common-lisp:make-instance 'get-extension-version-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1093,16 +1367,25 @@
                           get-extension-version-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-game-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-game-configuration-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (sections common-lisp:nil :type
-    (common-lisp:or section-list common-lisp:null)))
+ (common-lisp:defclass get-game-configuration-request common-lisp:nil
+                       ((sections :initarg :sections :type
+                         (common-lisp:or section-list common-lisp:null)
+                         :accessor %get-game-configuration-request-sections
+                         :initform common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %get-game-configuration-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-game-configuration-request
                     'make-get-game-configuration-request))
+ (common-lisp:defun make-get-game-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sections game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-game-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1119,14 +1402,23 @@
                           get-game-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-game-configuration-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-game-configuration-result-"))
-   (game-configuration common-lisp:nil :type
-    (common-lisp:or game-configuration-details common-lisp:null)))
+ (common-lisp:defclass get-game-configuration-result common-lisp:nil
+                       ((game-configuration :initarg :game-configuration :type
+                         (common-lisp:or game-configuration-details
+                                         common-lisp:null)
+                         :accessor
+                         %get-game-configuration-result-game-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-game-configuration-result
                     'make-get-game-configuration-result))
+ (common-lisp:defun make-get-game-configuration-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-game-configuration-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1150,13 +1442,19 @@
                           get-game-configuration-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-game-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-game-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null)))
+ (common-lisp:defclass get-game-request common-lisp:nil
+                       ((game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %get-game-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-game-request 'make-get-game-request))
+ (common-lisp:defun make-get-game-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-game-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-game-request))
    (common-lisp:append))
@@ -1167,11 +1465,18 @@
                         ((aws-sdk/generator/shape::input get-game-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-game-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-game-result-"))
-   (game common-lisp:nil :type (common-lisp:or game-details common-lisp:null)))
+ (common-lisp:defclass get-game-result common-lisp:nil
+                       ((game :initarg :game :type
+                         (common-lisp:or game-details common-lisp:null)
+                         :accessor %get-game-result-game :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'get-game-result 'make-get-game-result))
+ (common-lisp:defun make-get-game-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game)
+   (common-lisp:apply #'common-lisp:make-instance 'get-game-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-game-result))
    (common-lisp:append))
@@ -1189,18 +1494,31 @@
                         ((aws-sdk/generator/shape::input get-game-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-generated-code-job-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-generated-code-job-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (job-id (common-lisp:error ":job-id is required") :type
-    (common-lisp:or generated-code-job-id common-lisp:null))
-   (snapshot-id (common-lisp:error ":snapshot-id is required") :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass get-generated-code-job-request common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %get-generated-code-job-request-snapshot-id
+                         :initform
+                         (common-lisp:error ":snapshot-id is required"))
+                        (job-id :initarg :job-id :type
+                         (common-lisp:or generated-code-job-id
+                                         common-lisp:null)
+                         :accessor %get-generated-code-job-request-job-id
+                         :initform (common-lisp:error ":job-id is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %get-generated-code-job-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-generated-code-job-request
                     'make-get-generated-code-job-request))
+ (common-lisp:defun make-get-generated-code-job-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id job-id game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-generated-code-job-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1217,14 +1535,23 @@
                           get-generated-code-job-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-generated-code-job-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-generated-code-job-result-"))
-   (generated-code-job common-lisp:nil :type
-    (common-lisp:or generated-code-job-details common-lisp:null)))
+ (common-lisp:defclass get-generated-code-job-result common-lisp:nil
+                       ((generated-code-job :initarg :generated-code-job :type
+                         (common-lisp:or generated-code-job-details
+                                         common-lisp:null)
+                         :accessor
+                         %get-generated-code-job-result-generated-code-job
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-generated-code-job-result
                     'make-get-generated-code-job-result))
+ (common-lisp:defun make-get-generated-code-job-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key generated-code-job)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-generated-code-job-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1248,18 +1575,32 @@
                           get-generated-code-job-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-player-connection-status-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-player-connection-status-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (player-id (common-lisp:error ":player-id is required") :type
-    (common-lisp:or player-id common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass get-player-connection-status-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %get-player-connection-status-request-stage-name
+                         :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (player-id :initarg :player-id :type
+                         (common-lisp:or player-id common-lisp:null) :accessor
+                         %get-player-connection-status-request-player-id
+                         :initform
+                         (common-lisp:error ":player-id is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %get-player-connection-status-request-game-name
+                         :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-player-connection-status-request
                     'make-get-player-connection-status-request))
+ (common-lisp:defun make-get-player-connection-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name player-id game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-player-connection-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1276,14 +1617,22 @@
                           get-player-connection-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-player-connection-status-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-player-connection-status-result-"))
-   (connections common-lisp:nil :type
-    (common-lisp:or connection-list common-lisp:null)))
+ (common-lisp:defclass get-player-connection-status-result common-lisp:nil
+                       ((connections :initarg :connections :type
+                         (common-lisp:or connection-list common-lisp:null)
+                         :accessor
+                         %get-player-connection-status-result-connections
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-player-connection-status-result
                     'make-get-player-connection-status-result))
+ (common-lisp:defun make-get-player-connection-status-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connections)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-player-connection-status-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1307,17 +1656,27 @@
                           get-player-connection-status-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-snapshot-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-snapshot-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (sections common-lisp:nil :type
-    (common-lisp:or section-list common-lisp:null))
-   (snapshot-id (common-lisp:error ":snapshot-id is required") :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass get-snapshot-request common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %get-snapshot-request-snapshot-id :initform
+                         (common-lisp:error ":snapshot-id is required"))
+                        (sections :initarg :sections :type
+                         (common-lisp:or section-list common-lisp:null)
+                         :accessor %get-snapshot-request-sections :initform
+                         common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %get-snapshot-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-snapshot-request 'make-get-snapshot-request))
+ (common-lisp:defun make-get-snapshot-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id sections game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-snapshot-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-snapshot-request))
    (common-lisp:append))
@@ -1328,13 +1687,19 @@
                         ((aws-sdk/generator/shape::input get-snapshot-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-snapshot-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-snapshot-result-"))
-   (snapshot common-lisp:nil :type
-    (common-lisp:or snapshot-details common-lisp:null)))
+ (common-lisp:defclass get-snapshot-result common-lisp:nil
+                       ((snapshot :initarg :snapshot :type
+                         (common-lisp:or snapshot-details common-lisp:null)
+                         :accessor %get-snapshot-result-snapshot :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-snapshot-result 'make-get-snapshot-result))
+ (common-lisp:defun make-get-snapshot-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot)
+   (common-lisp:apply #'common-lisp:make-instance 'get-snapshot-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-snapshot-result))
    (common-lisp:append))
@@ -1352,18 +1717,28 @@
                         ((aws-sdk/generator/shape::input get-snapshot-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-stage-deployment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-stage-deployment-request-"))
-   (deployment-id common-lisp:nil :type
-    (common-lisp:or deployment-id common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass get-stage-deployment-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %get-stage-deployment-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %get-stage-deployment-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (deployment-id :initarg :deployment-id :type
+                         (common-lisp:or deployment-id common-lisp:null)
+                         :accessor %get-stage-deployment-request-deployment-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-stage-deployment-request
                     'make-get-stage-deployment-request))
+ (common-lisp:defun make-get-stage-deployment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name game-name deployment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-stage-deployment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1380,14 +1755,22 @@
                           get-stage-deployment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-stage-deployment-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-stage-deployment-result-"))
-   (stage-deployment common-lisp:nil :type
-    (common-lisp:or stage-deployment-details common-lisp:null)))
+ (common-lisp:defclass get-stage-deployment-result common-lisp:nil
+                       ((stage-deployment :initarg :stage-deployment :type
+                         (common-lisp:or stage-deployment-details
+                                         common-lisp:null)
+                         :accessor
+                         %get-stage-deployment-result-stage-deployment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-stage-deployment-result
                     'make-get-stage-deployment-result))
+ (common-lisp:defun make-get-stage-deployment-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-deployment)
+   (common-lisp:apply #'common-lisp:make-instance 'get-stage-deployment-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1411,15 +1794,23 @@
                           get-stage-deployment-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-stage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-stage-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass get-stage-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %get-stage-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %get-stage-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-stage-request 'make-get-stage-request))
+ (common-lisp:defun make-get-stage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-stage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-stage-request))
    (common-lisp:append))
@@ -1430,13 +1821,19 @@
                         ((aws-sdk/generator/shape::input get-stage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-stage-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-stage-result-"))
-   (stage common-lisp:nil :type
-    (common-lisp:or stage-details common-lisp:null)))
+ (common-lisp:defclass get-stage-result common-lisp:nil
+                       ((stage :initarg :stage :type
+                         (common-lisp:or stage-details common-lisp:null)
+                         :accessor %get-stage-result-stage :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-stage-result 'make-get-stage-result))
+ (common-lisp:defun make-get-stage-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage)
+   (common-lisp:apply #'common-lisp:make-instance 'get-stage-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-stage-result))
    (common-lisp:append))
@@ -1454,16 +1851,28 @@
                         ((aws-sdk/generator/shape::input get-stage-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-game-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-game-configuration-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (import-source (common-lisp:error ":import-source is required") :type
-    (common-lisp:or import-game-configuration-source common-lisp:null)))
+ (common-lisp:defclass import-game-configuration-request common-lisp:nil
+                       ((import-source :initarg :import-source :type
+                         (common-lisp:or import-game-configuration-source
+                                         common-lisp:null)
+                         :accessor
+                         %import-game-configuration-request-import-source
+                         :initform
+                         (common-lisp:error ":import-source is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %import-game-configuration-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'import-game-configuration-request
                     'make-import-game-configuration-request))
+ (common-lisp:defun make-import-game-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key import-source game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'import-game-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1487,14 +1896,23 @@
                           import-game-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-game-configuration-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-game-configuration-result-"))
-   (game-configuration common-lisp:nil :type
-    (common-lisp:or game-configuration-details common-lisp:null)))
+ (common-lisp:defclass import-game-configuration-result common-lisp:nil
+                       ((game-configuration :initarg :game-configuration :type
+                         (common-lisp:or game-configuration-details
+                                         common-lisp:null)
+                         :accessor
+                         %import-game-configuration-result-game-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'import-game-configuration-result
                     'make-import-game-configuration-result))
+ (common-lisp:defun make-import-game-configuration-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'import-game-configuration-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1518,14 +1936,22 @@
                           import-game-configuration-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-game-configuration-source (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-game-configuration-source-"))
-   (file (common-lisp:error ":file is required") :type
-    (common-lisp:or raw-game-configuration-data common-lisp:null)))
+ (common-lisp:defclass import-game-configuration-source common-lisp:nil
+                       ((file :initarg :file :type
+                         (common-lisp:or raw-game-configuration-data
+                                         common-lisp:null)
+                         :accessor %import-game-configuration-source-file
+                         :initform (common-lisp:error ":file is required"))))
  (common-lisp:export
   (common-lisp:list 'import-game-configuration-source
                     'make-import-game-configuration-source))
+ (common-lisp:defun make-import-game-configuration-source
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key file)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'import-game-configuration-source
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1558,20 +1984,34 @@
                     'internal-server-exception-message)))
 (common-lisp:deftype language () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-extension-versions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-extension-versions-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or extension-name common-lisp:null))
-   (namespace (common-lisp:error ":namespace is required") :type
-    (common-lisp:or extension-namespace common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-extension-versions-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-extension-versions-request-next-token :initform
+                         common-lisp:nil)
+                        (namespace :initarg :namespace :type
+                         (common-lisp:or extension-namespace common-lisp:null)
+                         :accessor %list-extension-versions-request-namespace
+                         :initform
+                         (common-lisp:error ":namespace is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or extension-name common-lisp:null)
+                         :accessor %list-extension-versions-request-name
+                         :initform (common-lisp:error ":name is required"))
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-extension-versions-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-extension-versions-request
                     'make-list-extension-versions-request))
+ (common-lisp:defun make-list-extension-versions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token namespace name max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-extension-versions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1588,16 +2028,27 @@
                           list-extension-versions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-extension-versions-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-extension-versions-result-"))
-   (extension-versions common-lisp:nil :type
-    (common-lisp:or extension-version-details-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-extension-versions-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-extension-versions-result-next-token :initform
+                         common-lisp:nil)
+                        (extension-versions :initarg :extension-versions :type
+                         (common-lisp:or extension-version-details-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-extension-versions-result-extension-versions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-extension-versions-result
                     'make-list-extension-versions-result))
+ (common-lisp:defun make-list-extension-versions-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token extension-versions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-extension-versions-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1628,15 +2079,23 @@
                           list-extension-versions-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-extensions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-extensions-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-extensions-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-extensions-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-extensions-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-extensions-request 'make-list-extensions-request))
+ (common-lisp:defun make-list-extensions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-extensions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1653,15 +2112,24 @@
                           list-extensions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-extensions-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-extensions-result-"))
-   (extensions common-lisp:nil :type
-    (common-lisp:or extension-details-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-extensions-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-extensions-result-next-token :initform
+                         common-lisp:nil)
+                        (extensions :initarg :extensions :type
+                         (common-lisp:or extension-details-list
+                                         common-lisp:null)
+                         :accessor %list-extensions-result-extensions :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-extensions-result 'make-list-extensions-result))
+ (common-lisp:defun make-list-extensions-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token extensions)
+   (common-lisp:apply #'common-lisp:make-instance 'list-extensions-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1692,15 +2160,23 @@
                           list-extensions-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-games-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-games-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-games-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-games-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-games-request-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-games-request 'make-list-games-request))
+ (common-lisp:defun make-list-games-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-games-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-games-request))
    (common-lisp:append))
@@ -1711,15 +2187,23 @@
                         ((aws-sdk/generator/shape::input list-games-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-games-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-games-result-"))
-   (games common-lisp:nil :type
-    (common-lisp:or game-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-games-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-games-result-next-token :initform
+                         common-lisp:nil)
+                        (games :initarg :games :type
+                         (common-lisp:or game-summary-list common-lisp:null)
+                         :accessor %list-games-result-games :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-games-result 'make-list-games-result))
+ (common-lisp:defun make-list-games-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token games)
+   (common-lisp:apply #'common-lisp:make-instance 'list-games-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-games-result))
    (common-lisp:append))
@@ -1744,20 +2228,37 @@
                         ((aws-sdk/generator/shape::input list-games-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-generated-code-jobs-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-generated-code-jobs-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (snapshot-id (common-lisp:error ":snapshot-id is required") :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass list-generated-code-jobs-request common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor
+                         %list-generated-code-jobs-request-snapshot-id
+                         :initform
+                         (common-lisp:error ":snapshot-id is required"))
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-generated-code-jobs-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-generated-code-jobs-request-max-results
+                         :initform common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %list-generated-code-jobs-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-generated-code-jobs-request
                     'make-list-generated-code-jobs-request))
+ (common-lisp:defun make-list-generated-code-jobs-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id next-token max-results
+                     game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-generated-code-jobs-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1774,16 +2275,28 @@
                           list-generated-code-jobs-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-generated-code-jobs-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-generated-code-jobs-result-"))
-   (generated-code-jobs common-lisp:nil :type
-    (common-lisp:or generated-code-job-details-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-generated-code-jobs-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-generated-code-jobs-result-next-token :initform
+                         common-lisp:nil)
+                        (generated-code-jobs :initarg :generated-code-jobs
+                         :type
+                         (common-lisp:or generated-code-job-details-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-generated-code-jobs-result-generated-code-jobs
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-generated-code-jobs-result
                     'make-list-generated-code-jobs-result))
+ (common-lisp:defun make-list-generated-code-jobs-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token generated-code-jobs)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-generated-code-jobs-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1814,17 +2327,27 @@
                           list-generated-code-jobs-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-snapshots-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-snapshots-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-snapshots-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-snapshots-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-snapshots-request-max-results
+                         :initform common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %list-snapshots-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-snapshots-request 'make-list-snapshots-request))
+ (common-lisp:defun make-list-snapshots-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'list-snapshots-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1841,15 +2364,24 @@
                           list-snapshots-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-snapshots-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-snapshots-result-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (snapshots common-lisp:nil :type
-    (common-lisp:or snapshot-summary-list common-lisp:null)))
+ (common-lisp:defclass list-snapshots-result common-lisp:nil
+                       ((snapshots :initarg :snapshots :type
+                         (common-lisp:or snapshot-summary-list
+                                         common-lisp:null)
+                         :accessor %list-snapshots-result-snapshots :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-snapshots-result-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-snapshots-result 'make-list-snapshots-result))
+ (common-lisp:defun make-list-snapshots-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshots next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-snapshots-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1880,20 +2412,34 @@
                           list-snapshots-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-stage-deployments-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-stage-deployments-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass list-stage-deployments-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %list-stage-deployments-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-stage-deployments-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-stage-deployments-request-max-results
+                         :initform common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %list-stage-deployments-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-stage-deployments-request
                     'make-list-stage-deployments-request))
+ (common-lisp:defun make-list-stage-deployments-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name next-token max-results
+                     game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-stage-deployments-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1910,16 +2456,27 @@
                           list-stage-deployments-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-stage-deployments-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-stage-deployments-result-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (stage-deployments common-lisp:nil :type
-    (common-lisp:or stage-deployment-list common-lisp:null)))
+ (common-lisp:defclass list-stage-deployments-result common-lisp:nil
+                       ((stage-deployments :initarg :stage-deployments :type
+                         (common-lisp:or stage-deployment-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-stage-deployments-result-stage-deployments
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-stage-deployments-result-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-stage-deployments-result
                     'make-list-stage-deployments-result))
+ (common-lisp:defun make-list-stage-deployments-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-deployments next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-stage-deployments-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1950,17 +2507,27 @@
                           list-stage-deployments-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-stages-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-stages-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-stages-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-stages-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-stages-request-max-results :initform
+                         common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %list-stages-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-stages-request 'make-list-stages-request))
+ (common-lisp:defun make-list-stages-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results game-name)
+   (common-lisp:apply #'common-lisp:make-instance 'list-stages-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-stages-request))
    (common-lisp:append))
@@ -1971,15 +2538,23 @@
                         ((aws-sdk/generator/shape::input list-stages-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-stages-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-stages-result-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (stages common-lisp:nil :type
-    (common-lisp:or stage-summary-list common-lisp:null)))
+ (common-lisp:defclass list-stages-result common-lisp:nil
+                       ((stages :initarg :stages :type
+                         (common-lisp:or stage-summary-list common-lisp:null)
+                         :accessor %list-stages-result-stages :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-stages-result-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-stages-result 'make-list-stages-result))
+ (common-lisp:defun make-list-stages-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stages next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-stages-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-stages-result))
    (common-lisp:append))
@@ -2004,14 +2579,22 @@
                         ((aws-sdk/generator/shape::input list-stages-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2028,13 +2611,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-result-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-result common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-tags-for-resource-result-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-result
                     'make-list-tags-for-resource-result))
+ (common-lisp:defun make-list-tags-for-resource-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2079,13 +2670,23 @@
 (common-lisp:deftype role-arn () 'common-lisp:string)
 (common-lisp:deftype s3presigned-url () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (section (:copier common-lisp:nil) (:conc-name "struct-shape-section-"))
-   (attributes common-lisp:nil :type
-    (common-lisp:or document common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or section-name common-lisp:null))
-   (size common-lisp:nil :type (common-lisp:or byte-size common-lisp:null)))
+ (common-lisp:defclass section common-lisp:nil
+                       ((size :initarg :size :type
+                         (common-lisp:or byte-size common-lisp:null) :accessor
+                         %section-size :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or section-name common-lisp:null)
+                         :accessor %section-name :initform common-lisp:nil)
+                        (attributes :initarg :attributes :type
+                         (common-lisp:or document common-lisp:null) :accessor
+                         %section-attributes :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'section 'make-section))
+ (common-lisp:defun make-section
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key size name attributes)
+   (common-lisp:apply #'common-lisp:make-instance 'section
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input section))
    (common-lisp:append))
@@ -2125,18 +2726,30 @@
                            (trivial-types:proper-list section-name))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (section-modification (:copier common-lisp:nil)
-      (:conc-name "struct-shape-section-modification-"))
-   (operation (common-lisp:error ":operation is required") :type
-    (common-lisp:or operation common-lisp:null))
-   (path (common-lisp:error ":path is required") :type
-    (common-lisp:or path common-lisp:null))
-   (section (common-lisp:error ":section is required") :type
-    (common-lisp:or section-name common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or document common-lisp:null)))
+ (common-lisp:defclass section-modification common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or document common-lisp:null) :accessor
+                         %section-modification-value :initform common-lisp:nil)
+                        (section :initarg :section :type
+                         (common-lisp:or section-name common-lisp:null)
+                         :accessor %section-modification-section :initform
+                         (common-lisp:error ":section is required"))
+                        (path :initarg :path :type
+                         (common-lisp:or path common-lisp:null) :accessor
+                         %section-modification-path :initform
+                         (common-lisp:error ":path is required"))
+                        (operation :initarg :operation :type
+                         (common-lisp:or operation common-lisp:null) :accessor
+                         %section-modification-operation :initform
+                         (common-lisp:error ":operation is required"))))
  (common-lisp:export
   (common-lisp:list 'section-modification 'make-section-modification))
+ (common-lisp:defun make-section-modification
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value section path operation)
+   (common-lisp:apply #'common-lisp:make-instance 'section-modification
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input section-modification))
    (common-lisp:append))
@@ -2200,18 +2813,34 @@
                     'service-quota-exceeded-exception-message)))
 (common-lisp:deftype snapshot-description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (snapshot-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-snapshot-details-"))
-   (created common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or snapshot-description common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or snapshot-id common-lisp:null))
-   (last-updated common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (sections common-lisp:nil :type (common-lisp:or sections common-lisp:null)))
+ (common-lisp:defclass snapshot-details common-lisp:nil
+                       ((sections :initarg :sections :type
+                         (common-lisp:or sections common-lisp:null) :accessor
+                         %snapshot-details-sections :initform common-lisp:nil)
+                        (last-updated :initarg :last-updated :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %snapshot-details-last-updated :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %snapshot-details-id :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or snapshot-description common-lisp:null)
+                         :accessor %snapshot-details-description :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %snapshot-details-created :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'snapshot-details 'make-snapshot-details))
+ (common-lisp:defun make-snapshot-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sections last-updated id description
+                     created)
+   (common-lisp:apply #'common-lisp:make-instance 'snapshot-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input snapshot-details))
    (common-lisp:append))
@@ -2258,17 +2887,30 @@
    common-lisp:nil))
 (common-lisp:deftype snapshot-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (snapshot-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-snapshot-summary-"))
-   (created common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or snapshot-description common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or snapshot-id common-lisp:null))
-   (last-updated common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null)))
+ (common-lisp:defclass snapshot-summary common-lisp:nil
+                       ((last-updated :initarg :last-updated :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %snapshot-summary-last-updated :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %snapshot-summary-id :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or snapshot-description common-lisp:null)
+                         :accessor %snapshot-summary-description :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %snapshot-summary-created :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'snapshot-summary 'make-snapshot-summary))
+ (common-lisp:defun make-snapshot-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-updated id description created)
+   (common-lisp:apply #'common-lisp:make-instance 'snapshot-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input snapshot-summary))
    (common-lisp:append))
@@ -2315,24 +2957,44 @@
                            (trivial-types:proper-list snapshot-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stage-deployment-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stage-deployment-details-"))
-   (created common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
-   (deployment-action common-lisp:nil :type
-    (common-lisp:or deployment-action common-lisp:null))
-   (deployment-id common-lisp:nil :type
-    (common-lisp:or deployment-id common-lisp:null))
-   (deployment-result common-lisp:nil :type
-    (common-lisp:or deployment-result common-lisp:null))
-   (deployment-state common-lisp:nil :type
-    (common-lisp:or deployment-state common-lisp:null))
-   (last-updated common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (snapshot-id common-lisp:nil :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass stage-deployment-details common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %stage-deployment-details-snapshot-id
+                         :initform common-lisp:nil)
+                        (last-updated :initarg :last-updated :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %stage-deployment-details-last-updated :initform
+                         common-lisp:nil)
+                        (deployment-state :initarg :deployment-state :type
+                         (common-lisp:or deployment-state common-lisp:null)
+                         :accessor %stage-deployment-details-deployment-state
+                         :initform common-lisp:nil)
+                        (deployment-result :initarg :deployment-result :type
+                         (common-lisp:or deployment-result common-lisp:null)
+                         :accessor %stage-deployment-details-deployment-result
+                         :initform common-lisp:nil)
+                        (deployment-id :initarg :deployment-id :type
+                         (common-lisp:or deployment-id common-lisp:null)
+                         :accessor %stage-deployment-details-deployment-id
+                         :initform common-lisp:nil)
+                        (deployment-action :initarg :deployment-action :type
+                         (common-lisp:or deployment-action common-lisp:null)
+                         :accessor %stage-deployment-details-deployment-action
+                         :initform common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %stage-deployment-details-created :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'stage-deployment-details 'make-stage-deployment-details))
+ (common-lisp:defun make-stage-deployment-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id last-updated deployment-state
+                     deployment-result deployment-id deployment-action created)
+   (common-lisp:apply #'common-lisp:make-instance 'stage-deployment-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2407,23 +3069,40 @@
                             stage-deployment-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stage-deployment-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stage-deployment-summary-"))
-   (deployment-action common-lisp:nil :type
-    (common-lisp:or deployment-action common-lisp:null))
-   (deployment-id common-lisp:nil :type
-    (common-lisp:or deployment-id common-lisp:null))
-   (deployment-result common-lisp:nil :type
-    (common-lisp:or deployment-result common-lisp:null))
-   (deployment-state common-lisp:nil :type
-    (common-lisp:or deployment-state common-lisp:null))
-   (last-updated common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (snapshot-id common-lisp:nil :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass stage-deployment-summary common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %stage-deployment-summary-snapshot-id
+                         :initform common-lisp:nil)
+                        (last-updated :initarg :last-updated :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %stage-deployment-summary-last-updated :initform
+                         common-lisp:nil)
+                        (deployment-state :initarg :deployment-state :type
+                         (common-lisp:or deployment-state common-lisp:null)
+                         :accessor %stage-deployment-summary-deployment-state
+                         :initform common-lisp:nil)
+                        (deployment-result :initarg :deployment-result :type
+                         (common-lisp:or deployment-result common-lisp:null)
+                         :accessor %stage-deployment-summary-deployment-result
+                         :initform common-lisp:nil)
+                        (deployment-id :initarg :deployment-id :type
+                         (common-lisp:or deployment-id common-lisp:null)
+                         :accessor %stage-deployment-summary-deployment-id
+                         :initform common-lisp:nil)
+                        (deployment-action :initarg :deployment-action :type
+                         (common-lisp:or deployment-action common-lisp:null)
+                         :accessor %stage-deployment-summary-deployment-action
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'stage-deployment-summary 'make-stage-deployment-summary))
+ (common-lisp:defun make-stage-deployment-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id last-updated deployment-state
+                     deployment-result deployment-id deployment-action)
+   (common-lisp:apply #'common-lisp:make-instance 'stage-deployment-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2483,23 +3162,48 @@
    common-lisp:nil))
 (common-lisp:deftype stage-description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (stage-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stage-details-"))
-   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (created common-lisp:nil :type (common-lisp:or date-time common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or stage-description common-lisp:null))
-   (game-key common-lisp:nil :type (common-lisp:or game-key common-lisp:null))
-   (last-updated common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (log-group common-lisp:nil :type
-    (common-lisp:or log-group-name common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or stage-name common-lisp:null))
-   (role common-lisp:nil :type (common-lisp:or role-arn common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or stage-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass stage-details common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %stage-details-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or stage-state common-lisp:null)
+                         :accessor %stage-details-state :initform
+                         common-lisp:nil)
+                        (role :initarg :role :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %stage-details-role :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %stage-details-name :initform common-lisp:nil)
+                        (log-group :initarg :log-group :type
+                         (common-lisp:or log-group-name common-lisp:null)
+                         :accessor %stage-details-log-group :initform
+                         common-lisp:nil)
+                        (last-updated :initarg :last-updated :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %stage-details-last-updated :initform common-lisp:nil)
+                        (game-key :initarg :game-key :type
+                         (common-lisp:or game-key common-lisp:null) :accessor
+                         %stage-details-game-key :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or stage-description common-lisp:null)
+                         :accessor %stage-details-description :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %stage-details-created :initform common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %stage-details-arn :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'stage-details 'make-stage-details))
+ (common-lisp:defun make-stage-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state role name log-group
+                     last-updated game-key description created arn)
+   (common-lisp:apply #'common-lisp:make-instance 'stage-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input stage-details))
    (common-lisp:append))
@@ -2582,16 +3286,31 @@
 (common-lisp:deftype stage-name () 'common-lisp:string)
 (common-lisp:deftype stage-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (stage-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stage-summary-"))
-   (description common-lisp:nil :type
-    (common-lisp:or stage-description common-lisp:null))
-   (game-key common-lisp:nil :type (common-lisp:or game-key common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or stage-name common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or stage-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass stage-summary common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %stage-summary-tags :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or stage-state common-lisp:null)
+                         :accessor %stage-summary-state :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %stage-summary-name :initform common-lisp:nil)
+                        (game-key :initarg :game-key :type
+                         (common-lisp:or game-key common-lisp:null) :accessor
+                         %stage-summary-game-key :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or stage-description common-lisp:null)
+                         :accessor %stage-summary-description :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'stage-summary 'make-stage-summary))
+ (common-lisp:defun make-stage-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags state name game-key description)
+   (common-lisp:apply #'common-lisp:make-instance 'stage-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input stage-summary))
    (common-lisp:append))
@@ -2645,18 +3364,31 @@
                            (trivial-types:proper-list stage-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-generated-code-job-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-generated-code-job-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (generator (common-lisp:error ":generator is required") :type
-    (common-lisp:or generator common-lisp:null))
-   (snapshot-id (common-lisp:error ":snapshot-id is required") :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass start-generated-code-job-request common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor
+                         %start-generated-code-job-request-snapshot-id
+                         :initform
+                         (common-lisp:error ":snapshot-id is required"))
+                        (generator :initarg :generator :type
+                         (common-lisp:or generator common-lisp:null) :accessor
+                         %start-generated-code-job-request-generator :initform
+                         (common-lisp:error ":generator is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %start-generated-code-job-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'start-generated-code-job-request
                     'make-start-generated-code-job-request))
+ (common-lisp:defun make-start-generated-code-job-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id generator game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-generated-code-job-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2680,14 +3412,24 @@
                           start-generated-code-job-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-generated-code-job-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-generated-code-job-result-"))
-   (generated-code-job-id common-lisp:nil :type
-    (common-lisp:or generated-code-job-id common-lisp:null)))
+ (common-lisp:defclass start-generated-code-job-result common-lisp:nil
+                       ((generated-code-job-id :initarg :generated-code-job-id
+                         :type
+                         (common-lisp:or generated-code-job-id
+                                         common-lisp:null)
+                         :accessor
+                         %start-generated-code-job-result-generated-code-job-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-generated-code-job-result
                     'make-start-generated-code-job-result))
+ (common-lisp:defun make-start-generated-code-job-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key generated-code-job-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-generated-code-job-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2712,20 +3454,35 @@
                           start-generated-code-job-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-stage-deployment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-stage-deployment-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (snapshot-id (common-lisp:error ":snapshot-id is required") :type
-    (common-lisp:or snapshot-id common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass start-stage-deployment-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %start-stage-deployment-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %start-stage-deployment-request-snapshot-id
+                         :initform
+                         (common-lisp:error ":snapshot-id is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %start-stage-deployment-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %start-stage-deployment-request-client-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-stage-deployment-request
                     'make-start-stage-deployment-request))
+ (common-lisp:defun make-start-stage-deployment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name snapshot-id game-name
+                     client-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-stage-deployment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2756,14 +3513,23 @@
                           start-stage-deployment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-stage-deployment-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-stage-deployment-result-"))
-   (stage-deployment common-lisp:nil :type
-    (common-lisp:or stage-deployment-details common-lisp:null)))
+ (common-lisp:defclass start-stage-deployment-result common-lisp:nil
+                       ((stage-deployment :initarg :stage-deployment :type
+                         (common-lisp:or stage-deployment-details
+                                         common-lisp:null)
+                         :accessor
+                         %start-stage-deployment-result-stage-deployment
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-stage-deployment-result
                     'make-start-stage-deployment-result))
+ (common-lisp:defun make-start-stage-deployment-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-deployment)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-stage-deployment-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2802,15 +3568,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -2828,11 +3602,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-result-")))
+ (common-lisp:defclass tag-resource-result common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-result 'make-tag-resource-result))
+ (common-lisp:defun make-tag-resource-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-result))
    (common-lisp:append))
@@ -2852,15 +3630,24 @@
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tagkeys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :|tagKeys| :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tagkeys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2877,11 +3664,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-result-")))
+ (common-lisp:defclass untag-resource-result common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-result 'make-untag-resource-result))
+ (common-lisp:defun make-untag-resource-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2898,16 +3689,28 @@
                           untag-resource-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-game-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-game-configuration-request-"))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (modifications (common-lisp:error ":modifications is required") :type
-    (common-lisp:or section-modification-list common-lisp:null)))
+ (common-lisp:defclass update-game-configuration-request common-lisp:nil
+                       ((modifications :initarg :modifications :type
+                         (common-lisp:or section-modification-list
+                                         common-lisp:null)
+                         :accessor
+                         %update-game-configuration-request-modifications
+                         :initform
+                         (common-lisp:error ":modifications is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %update-game-configuration-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-game-configuration-request
                     'make-update-game-configuration-request))
+ (common-lisp:defun make-update-game-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key modifications game-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-game-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2931,14 +3734,23 @@
                           update-game-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-game-configuration-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-game-configuration-result-"))
-   (game-configuration common-lisp:nil :type
-    (common-lisp:or game-configuration-details common-lisp:null)))
+ (common-lisp:defclass update-game-configuration-result common-lisp:nil
+                       ((game-configuration :initarg :game-configuration :type
+                         (common-lisp:or game-configuration-details
+                                         common-lisp:null)
+                         :accessor
+                         %update-game-configuration-result-game-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-game-configuration-result
                     'make-update-game-configuration-result))
+ (common-lisp:defun make-update-game-configuration-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-game-configuration-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2962,15 +3774,23 @@
                           update-game-configuration-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-game-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-game-request-"))
-   (description common-lisp:nil :type
-    (common-lisp:or game-description common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null)))
+ (common-lisp:defclass update-game-request common-lisp:nil
+                       ((game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %update-game-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or game-description common-lisp:null)
+                         :accessor %update-game-request-description :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-game-request 'make-update-game-request))
+ (common-lisp:defun make-update-game-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game-name description)
+   (common-lisp:apply #'common-lisp:make-instance 'update-game-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-game-request))
    (common-lisp:append))
@@ -2988,12 +3808,19 @@
                         ((aws-sdk/generator/shape::input update-game-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-game-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-game-result-"))
-   (game common-lisp:nil :type (common-lisp:or game-details common-lisp:null)))
+ (common-lisp:defclass update-game-result common-lisp:nil
+                       ((game :initarg :game :type
+                         (common-lisp:or game-details common-lisp:null)
+                         :accessor %update-game-result-game :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-game-result 'make-update-game-result))
+ (common-lisp:defun make-update-game-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key game)
+   (common-lisp:apply #'common-lisp:make-instance 'update-game-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-game-result))
    (common-lisp:append))
@@ -3011,17 +3838,28 @@
                         ((aws-sdk/generator/shape::input update-game-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-snapshot-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-snapshot-request-"))
-   (description common-lisp:nil :type
-    (common-lisp:or snapshot-description common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (snapshot-id (common-lisp:error ":snapshot-id is required") :type
-    (common-lisp:or snapshot-id common-lisp:null)))
+ (common-lisp:defclass update-snapshot-request common-lisp:nil
+                       ((snapshot-id :initarg :snapshot-id :type
+                         (common-lisp:or snapshot-id common-lisp:null)
+                         :accessor %update-snapshot-request-snapshot-id
+                         :initform
+                         (common-lisp:error ":snapshot-id is required"))
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %update-snapshot-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or snapshot-description common-lisp:null)
+                         :accessor %update-snapshot-request-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-snapshot-request 'make-update-snapshot-request))
+ (common-lisp:defun make-update-snapshot-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-id game-name description)
+   (common-lisp:apply #'common-lisp:make-instance 'update-snapshot-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3045,13 +3883,19 @@
                           update-snapshot-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-snapshot-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-snapshot-result-"))
-   (snapshot common-lisp:nil :type
-    (common-lisp:or snapshot-details common-lisp:null)))
+ (common-lisp:defclass update-snapshot-result common-lisp:nil
+                       ((snapshot :initarg :snapshot :type
+                         (common-lisp:or snapshot-details common-lisp:null)
+                         :accessor %update-snapshot-result-snapshot :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-snapshot-result 'make-update-snapshot-result))
+ (common-lisp:defun make-update-snapshot-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot)
+   (common-lisp:apply #'common-lisp:make-instance 'update-snapshot-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3075,18 +3919,30 @@
                           update-snapshot-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-stage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-stage-request-"))
-   (description common-lisp:nil :type
-    (common-lisp:or stage-description common-lisp:null))
-   (game-name (common-lisp:error ":game-name is required") :type
-    (common-lisp:or game-name common-lisp:null))
-   (role common-lisp:nil :type (common-lisp:or role-arn common-lisp:null))
-   (stage-name (common-lisp:error ":stage-name is required") :type
-    (common-lisp:or stage-name common-lisp:null)))
+ (common-lisp:defclass update-stage-request common-lisp:nil
+                       ((stage-name :initarg :stage-name :type
+                         (common-lisp:or stage-name common-lisp:null) :accessor
+                         %update-stage-request-stage-name :initform
+                         (common-lisp:error ":stage-name is required"))
+                        (role :initarg :role :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %update-stage-request-role :initform common-lisp:nil)
+                        (game-name :initarg :game-name :type
+                         (common-lisp:or game-name common-lisp:null) :accessor
+                         %update-stage-request-game-name :initform
+                         (common-lisp:error ":game-name is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or stage-description common-lisp:null)
+                         :accessor %update-stage-request-description :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-stage-request 'make-update-stage-request))
+ (common-lisp:defun make-update-stage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage-name role game-name description)
+   (common-lisp:apply #'common-lisp:make-instance 'update-stage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-stage-request))
    (common-lisp:append))
@@ -3111,13 +3967,19 @@
                         ((aws-sdk/generator/shape::input update-stage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-stage-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-stage-result-"))
-   (stage common-lisp:nil :type
-    (common-lisp:or stage-details common-lisp:null)))
+ (common-lisp:defclass update-stage-result common-lisp:nil
+                       ((stage :initarg :stage :type
+                         (common-lisp:or stage-details common-lisp:null)
+                         :accessor %update-stage-result-stage :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-stage-result 'make-update-stage-result))
+ (common-lisp:defun make-update-stage-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stage)
+   (common-lisp:apply #'common-lisp:make-instance 'update-stage-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-stage-result))
    (common-lisp:append))

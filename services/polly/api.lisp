@@ -50,13 +50,19 @@
 (common-lisp:deftype content-type () 'common-lisp:string)
 (common-lisp:deftype date-time () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-lexicon-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-lexicon-input-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or lexicon-name common-lisp:null)))
+ (common-lisp:defclass delete-lexicon-input common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or lexicon-name common-lisp:null)
+                         :accessor %delete-lexicon-input-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-lexicon-input 'make-delete-lexicon-input))
+ (common-lisp:defun make-delete-lexicon-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-lexicon-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-lexicon-input))
    (common-lisp:append))
@@ -67,11 +73,15 @@
                         ((aws-sdk/generator/shape::input delete-lexicon-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-lexicon-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-lexicon-output-")))
+ (common-lisp:defclass delete-lexicon-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-lexicon-output 'make-delete-lexicon-output))
+ (common-lisp:defun make-delete-lexicon-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-lexicon-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -88,18 +98,35 @@
                           delete-lexicon-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-voices-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-voices-input-"))
-   (engine common-lisp:nil :type (common-lisp:or engine common-lisp:null))
-   (language-code common-lisp:nil :type
-    (common-lisp:or language-code common-lisp:null))
-   (include-additional-language-codes common-lisp:nil :type
-    (common-lisp:or include-additional-language-codes common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-voices-input common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-voices-input-next-token :initform
+                         common-lisp:nil)
+                        (include-additional-language-codes :initarg
+                         :include-additional-language-codes :type
+                         (common-lisp:or include-additional-language-codes
+                                         common-lisp:null)
+                         :accessor
+                         %describe-voices-input-include-additional-language-codes
+                         :initform common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or language-code common-lisp:null)
+                         :accessor %describe-voices-input-language-code
+                         :initform common-lisp:nil)
+                        (engine :initarg :engine :type
+                         (common-lisp:or engine common-lisp:null) :accessor
+                         %describe-voices-input-engine :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-voices-input 'make-describe-voices-input))
+ (common-lisp:defun make-describe-voices-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     include-additional-language-codes language-code engine)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-voices-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -116,14 +143,23 @@
                           describe-voices-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-voices-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-voices-output-"))
-   (voices common-lisp:nil :type (common-lisp:or voice-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-voices-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-voices-output-next-token :initform
+                         common-lisp:nil)
+                        (voices :initarg :voices :type
+                         (common-lisp:or voice-list common-lisp:null) :accessor
+                         %describe-voices-output-voices :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-voices-output 'make-describe-voices-output))
+ (common-lisp:defun make-describe-voices-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token voices)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-voices-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -164,7 +200,7 @@
 (common-lisp:progn
  (common-lisp:define-condition engine-not-supported-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        engine-not-supported-exception-message)))
  (common-lisp:export
   (common-lisp:list 'engine-not-supported-exception
@@ -172,13 +208,19 @@
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:deftype gender () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-lexicon-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-lexicon-input-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or lexicon-name common-lisp:null)))
+ (common-lisp:defclass get-lexicon-input common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or lexicon-name common-lisp:null)
+                         :accessor %get-lexicon-input-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-lexicon-input 'make-get-lexicon-input))
+ (common-lisp:defun make-get-lexicon-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-lexicon-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-lexicon-input))
    (common-lisp:append))
@@ -189,14 +231,23 @@
                         ((aws-sdk/generator/shape::input get-lexicon-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-lexicon-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-lexicon-output-"))
-   (lexicon common-lisp:nil :type (common-lisp:or lexicon common-lisp:null))
-   (lexicon-attributes common-lisp:nil :type
-    (common-lisp:or lexicon-attributes common-lisp:null)))
+ (common-lisp:defclass get-lexicon-output common-lisp:nil
+                       ((lexicon-attributes :initarg :lexicon-attributes :type
+                         (common-lisp:or lexicon-attributes common-lisp:null)
+                         :accessor %get-lexicon-output-lexicon-attributes
+                         :initform common-lisp:nil)
+                        (lexicon :initarg :lexicon :type
+                         (common-lisp:or lexicon common-lisp:null) :accessor
+                         %get-lexicon-output-lexicon :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-lexicon-output 'make-get-lexicon-output))
+ (common-lisp:defun make-get-lexicon-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lexicon-attributes lexicon)
+   (common-lisp:apply #'common-lisp:make-instance 'get-lexicon-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-lexicon-output))
    (common-lisp:append))
@@ -221,14 +272,21 @@
                         ((aws-sdk/generator/shape::input get-lexicon-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-speech-synthesis-task-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-speech-synthesis-task-input-"))
-   (task-id (common-lisp:error ":task-id is required") :type
-    (common-lisp:or task-id common-lisp:null)))
+ (common-lisp:defclass get-speech-synthesis-task-input common-lisp:nil
+                       ((task-id :initarg :task-id :type
+                         (common-lisp:or task-id common-lisp:null) :accessor
+                         %get-speech-synthesis-task-input-task-id :initform
+                         (common-lisp:error ":task-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-speech-synthesis-task-input
                     'make-get-speech-synthesis-task-input))
+ (common-lisp:defun make-get-speech-synthesis-task-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key task-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-speech-synthesis-task-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -245,14 +303,22 @@
                           get-speech-synthesis-task-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-speech-synthesis-task-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-speech-synthesis-task-output-"))
-   (synthesis-task common-lisp:nil :type
-    (common-lisp:or synthesis-task common-lisp:null)))
+ (common-lisp:defclass get-speech-synthesis-task-output common-lisp:nil
+                       ((synthesis-task :initarg :synthesis-task :type
+                         (common-lisp:or synthesis-task common-lisp:null)
+                         :accessor
+                         %get-speech-synthesis-task-output-synthesis-task
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-speech-synthesis-task-output
                     'make-get-speech-synthesis-task-output))
+ (common-lisp:defun make-get-speech-synthesis-task-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key synthesis-task)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-speech-synthesis-task-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -279,7 +345,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-lexicon-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-lexicon-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-lexicon-exception
@@ -287,7 +353,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-next-token-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-next-token-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-next-token-exception
@@ -295,7 +361,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-s3bucket-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-s3bucket-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-s3bucket-exception
@@ -303,14 +369,14 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-s3key-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-s3key-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-s3key-exception 'invalid-s3key-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-sample-rate-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-sample-rate-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-sample-rate-exception
@@ -318,7 +384,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-sns-topic-arn-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-sns-topic-arn-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-sns-topic-arn-exception
@@ -326,14 +392,14 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-ssml-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-ssml-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-ssml-exception 'invalid-ssml-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-task-id-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-task-id-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-task-id-exception
@@ -351,7 +417,7 @@
 (common-lisp:progn
  (common-lisp:define-condition language-not-supported-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        language-not-supported-exception-message)))
  (common-lisp:export
   (common-lisp:list 'language-not-supported-exception
@@ -359,12 +425,21 @@
 (common-lisp:deftype last-modified () 'common-lisp:string)
 (common-lisp:deftype lexemes-count () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (lexicon (:copier common-lisp:nil) (:conc-name "struct-shape-lexicon-"))
-   (content common-lisp:nil :type
-    (common-lisp:or lexicon-content common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or lexicon-name common-lisp:null)))
+ (common-lisp:defclass lexicon common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or lexicon-name common-lisp:null)
+                         :accessor %lexicon-name :initform common-lisp:nil)
+                        (content :initarg :content :type
+                         (common-lisp:or lexicon-content common-lisp:null)
+                         :accessor %lexicon-content :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'lexicon 'make-lexicon))
+ (common-lisp:defun make-lexicon
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name content)
+   (common-lisp:apply #'common-lisp:make-instance 'lexicon
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lexicon))
    (common-lisp:append))
@@ -390,21 +465,39 @@
    common-lisp:nil))
 (common-lisp:deftype lexicon-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (lexicon-attributes (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lexicon-attributes-"))
-   (alphabet common-lisp:nil :type (common-lisp:or alphabet common-lisp:null))
-   (language-code common-lisp:nil :type
-    (common-lisp:or language-code common-lisp:null))
-   (last-modified common-lisp:nil :type
-    (common-lisp:or last-modified common-lisp:null))
-   (lexicon-arn common-lisp:nil :type
-    (common-lisp:or lexicon-arn common-lisp:null))
-   (lexemes-count common-lisp:nil :type
-    (common-lisp:or lexemes-count common-lisp:null))
-   (size common-lisp:nil :type (common-lisp:or size common-lisp:null)))
+ (common-lisp:defclass lexicon-attributes common-lisp:nil
+                       ((size :initarg :size :type
+                         (common-lisp:or size common-lisp:null) :accessor
+                         %lexicon-attributes-size :initform common-lisp:nil)
+                        (lexemes-count :initarg :lexemes-count :type
+                         (common-lisp:or lexemes-count common-lisp:null)
+                         :accessor %lexicon-attributes-lexemes-count :initform
+                         common-lisp:nil)
+                        (lexicon-arn :initarg :lexicon-arn :type
+                         (common-lisp:or lexicon-arn common-lisp:null)
+                         :accessor %lexicon-attributes-lexicon-arn :initform
+                         common-lisp:nil)
+                        (last-modified :initarg :last-modified :type
+                         (common-lisp:or last-modified common-lisp:null)
+                         :accessor %lexicon-attributes-last-modified :initform
+                         common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or language-code common-lisp:null)
+                         :accessor %lexicon-attributes-language-code :initform
+                         common-lisp:nil)
+                        (alphabet :initarg :alphabet :type
+                         (common-lisp:or alphabet common-lisp:null) :accessor
+                         %lexicon-attributes-alphabet :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lexicon-attributes 'make-lexicon-attributes))
+ (common-lisp:defun make-lexicon-attributes
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key size lexemes-count lexicon-arn
+                     last-modified language-code alphabet)
+   (common-lisp:apply #'common-lisp:make-instance 'lexicon-attributes
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lexicon-attributes))
    (common-lisp:append))
@@ -458,14 +551,23 @@
    common-lisp:nil))
 (common-lisp:deftype lexicon-content () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (lexicon-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lexicon-description-"))
-   (name common-lisp:nil :type (common-lisp:or lexicon-name common-lisp:null))
-   (attributes common-lisp:nil :type
-    (common-lisp:or lexicon-attributes common-lisp:null)))
+ (common-lisp:defclass lexicon-description common-lisp:nil
+                       ((attributes :initarg :attributes :type
+                         (common-lisp:or lexicon-attributes common-lisp:null)
+                         :accessor %lexicon-description-attributes :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or lexicon-name common-lisp:null)
+                         :accessor %lexicon-description-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lexicon-description 'make-lexicon-description))
+ (common-lisp:defun make-lexicon-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attributes name)
+   (common-lisp:apply #'common-lisp:make-instance 'lexicon-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lexicon-description))
    (common-lisp:append))
@@ -509,7 +611,7 @@
 (common-lisp:progn
  (common-lisp:define-condition lexicon-not-found-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        lexicon-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'lexicon-not-found-exception
@@ -517,19 +619,25 @@
 (common-lisp:progn
  (common-lisp:define-condition lexicon-size-exceeded-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        lexicon-size-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'lexicon-size-exceeded-exception
                     'lexicon-size-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-lexicons-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-lexicons-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-lexicons-input common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-lexicons-input-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-lexicons-input 'make-list-lexicons-input))
+ (common-lisp:defun make-list-lexicons-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-lexicons-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-lexicons-input))
    (common-lisp:append))
@@ -540,15 +648,24 @@
                         ((aws-sdk/generator/shape::input list-lexicons-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-lexicons-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-lexicons-output-"))
-   (lexicons common-lisp:nil :type
-    (common-lisp:or lexicon-description-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-lexicons-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-lexicons-output-next-token :initform
+                         common-lisp:nil)
+                        (lexicons :initarg :lexicons :type
+                         (common-lisp:or lexicon-description-list
+                                         common-lisp:null)
+                         :accessor %list-lexicons-output-lexicons :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-lexicons-output 'make-list-lexicons-output))
+ (common-lisp:defun make-list-lexicons-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token lexicons)
+   (common-lisp:apply #'common-lisp:make-instance 'list-lexicons-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-lexicons-output))
    (common-lisp:append))
@@ -573,18 +690,30 @@
                         ((aws-sdk/generator/shape::input list-lexicons-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-speech-synthesis-tasks-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-speech-synthesis-tasks-input-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or task-status common-lisp:null)))
+ (common-lisp:defclass list-speech-synthesis-tasks-input common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or task-status common-lisp:null)
+                         :accessor %list-speech-synthesis-tasks-input-status
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-speech-synthesis-tasks-input-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-speech-synthesis-tasks-input-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-speech-synthesis-tasks-input
                     'make-list-speech-synthesis-tasks-input))
+ (common-lisp:defun make-list-speech-synthesis-tasks-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-speech-synthesis-tasks-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -601,16 +730,26 @@
                           list-speech-synthesis-tasks-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-speech-synthesis-tasks-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-speech-synthesis-tasks-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (synthesis-tasks common-lisp:nil :type
-    (common-lisp:or synthesis-tasks common-lisp:null)))
+ (common-lisp:defclass list-speech-synthesis-tasks-output common-lisp:nil
+                       ((synthesis-tasks :initarg :synthesis-tasks :type
+                         (common-lisp:or synthesis-tasks common-lisp:null)
+                         :accessor
+                         %list-speech-synthesis-tasks-output-synthesis-tasks
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-speech-synthesis-tasks-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-speech-synthesis-tasks-output
                     'make-list-speech-synthesis-tasks-output))
+ (common-lisp:defun make-list-speech-synthesis-tasks-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key synthesis-tasks next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-speech-synthesis-tasks-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -643,7 +782,7 @@
 (common-lisp:progn
  (common-lisp:define-condition marks-not-supported-for-format-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        marks-not-supported-for-format-exception-message)))
  (common-lisp:export
   (common-lisp:list 'marks-not-supported-for-format-exception
@@ -651,7 +790,7 @@
 (common-lisp:progn
  (common-lisp:define-condition max-lexeme-length-exceeded-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        max-lexeme-length-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'max-lexeme-length-exceeded-exception
@@ -659,7 +798,7 @@
 (common-lisp:progn
  (common-lisp:define-condition max-lexicons-number-exceeded-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        max-lexicons-number-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'max-lexicons-number-exceeded-exception
@@ -671,15 +810,23 @@
 (common-lisp:deftype output-s3key-prefix () 'common-lisp:string)
 (common-lisp:deftype output-uri () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-lexicon-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-lexicon-input-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or lexicon-name common-lisp:null))
-   (content (common-lisp:error ":content is required") :type
-    (common-lisp:or lexicon-content common-lisp:null)))
+ (common-lisp:defclass put-lexicon-input common-lisp:nil
+                       ((content :initarg :content :type
+                         (common-lisp:or lexicon-content common-lisp:null)
+                         :accessor %put-lexicon-input-content :initform
+                         (common-lisp:error ":content is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or lexicon-name common-lisp:null)
+                         :accessor %put-lexicon-input-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'put-lexicon-input 'make-put-lexicon-input))
+ (common-lisp:defun make-put-lexicon-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key content name)
+   (common-lisp:apply #'common-lisp:make-instance 'put-lexicon-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-lexicon-input))
    (common-lisp:append))
@@ -697,11 +844,15 @@
                         ((aws-sdk/generator/shape::input put-lexicon-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-lexicon-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-lexicon-output-")))
+ (common-lisp:defclass put-lexicon-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'put-lexicon-output 'make-put-lexicon-output))
+ (common-lisp:defun make-put-lexicon-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'put-lexicon-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-lexicon-output))
    (common-lisp:append))
@@ -716,7 +867,7 @@
 (common-lisp:progn
  (common-lisp:define-condition service-failure-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-failure-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-failure-exception
@@ -735,42 +886,88 @@
 (common-lisp:progn
  (common-lisp:define-condition ssml-marks-not-supported-for-text-type-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        ssml-marks-not-supported-for-text-type-exception-message)))
  (common-lisp:export
   (common-lisp:list 'ssml-marks-not-supported-for-text-type-exception
                     'ssml-marks-not-supported-for-text-type-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-speech-synthesis-task-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-speech-synthesis-task-input-"))
-   (engine common-lisp:nil :type (common-lisp:or engine common-lisp:null))
-   (language-code common-lisp:nil :type
-    (common-lisp:or language-code common-lisp:null))
-   (lexicon-names common-lisp:nil :type
-    (common-lisp:or lexicon-name-list common-lisp:null))
-   (output-format (common-lisp:error ":output-format is required") :type
-    (common-lisp:or output-format common-lisp:null))
-   (output-s3bucket-name
-    (common-lisp:error ":output-s3bucket-name is required") :type
-    (common-lisp:or output-s3bucket-name common-lisp:null))
-   (output-s3key-prefix common-lisp:nil :type
-    (common-lisp:or output-s3key-prefix common-lisp:null))
-   (sample-rate common-lisp:nil :type
-    (common-lisp:or sample-rate common-lisp:null))
-   (sns-topic-arn common-lisp:nil :type
-    (common-lisp:or sns-topic-arn common-lisp:null))
-   (speech-mark-types common-lisp:nil :type
-    (common-lisp:or speech-mark-type-list common-lisp:null))
-   (text (common-lisp:error ":text is required") :type
-    (common-lisp:or text common-lisp:null))
-   (text-type common-lisp:nil :type
-    (common-lisp:or text-type common-lisp:null))
-   (voice-id (common-lisp:error ":voice-id is required") :type
-    (common-lisp:or voice-id common-lisp:null)))
+ (common-lisp:defclass start-speech-synthesis-task-input common-lisp:nil
+                       ((voice-id :initarg :voice-id :type
+                         (common-lisp:or voice-id common-lisp:null) :accessor
+                         %start-speech-synthesis-task-input-voice-id :initform
+                         (common-lisp:error ":voice-id is required"))
+                        (text-type :initarg :text-type :type
+                         (common-lisp:or text-type common-lisp:null) :accessor
+                         %start-speech-synthesis-task-input-text-type :initform
+                         common-lisp:nil)
+                        (text :initarg :text :type
+                         (common-lisp:or text common-lisp:null) :accessor
+                         %start-speech-synthesis-task-input-text :initform
+                         (common-lisp:error ":text is required"))
+                        (speech-mark-types :initarg :speech-mark-types :type
+                         (common-lisp:or speech-mark-type-list
+                                         common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-speech-mark-types
+                         :initform common-lisp:nil)
+                        (sns-topic-arn :initarg :sns-topic-arn :type
+                         (common-lisp:or sns-topic-arn common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-sns-topic-arn
+                         :initform common-lisp:nil)
+                        (sample-rate :initarg :sample-rate :type
+                         (common-lisp:or sample-rate common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-sample-rate
+                         :initform common-lisp:nil)
+                        (output-s3key-prefix :initarg :output-s3key-prefix
+                         :type
+                         (common-lisp:or output-s3key-prefix common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-output-s3key-prefix
+                         :initform common-lisp:nil)
+                        (output-s3bucket-name :initarg :output-s3bucket-name
+                         :type
+                         (common-lisp:or output-s3bucket-name common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-output-s3bucket-name
+                         :initform
+                         (common-lisp:error
+                          ":output-s3bucket-name is required"))
+                        (output-format :initarg :output-format :type
+                         (common-lisp:or output-format common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-output-format
+                         :initform
+                         (common-lisp:error ":output-format is required"))
+                        (lexicon-names :initarg :lexicon-names :type
+                         (common-lisp:or lexicon-name-list common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-lexicon-names
+                         :initform common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or language-code common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-input-language-code
+                         :initform common-lisp:nil)
+                        (engine :initarg :engine :type
+                         (common-lisp:or engine common-lisp:null) :accessor
+                         %start-speech-synthesis-task-input-engine :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-speech-synthesis-task-input
                     'make-start-speech-synthesis-task-input))
+ (common-lisp:defun make-start-speech-synthesis-task-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-id text-type text speech-mark-types
+                     sns-topic-arn sample-rate output-s3key-prefix
+                     output-s3bucket-name output-format lexicon-names
+                     language-code engine)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-speech-synthesis-task-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -872,14 +1069,22 @@
                           start-speech-synthesis-task-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-speech-synthesis-task-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-speech-synthesis-task-output-"))
-   (synthesis-task common-lisp:nil :type
-    (common-lisp:or synthesis-task common-lisp:null)))
+ (common-lisp:defclass start-speech-synthesis-task-output common-lisp:nil
+                       ((synthesis-task :initarg :synthesis-task :type
+                         (common-lisp:or synthesis-task common-lisp:null)
+                         :accessor
+                         %start-speech-synthesis-task-output-synthesis-task
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-speech-synthesis-task-output
                     'make-start-speech-synthesis-task-output))
+ (common-lisp:defun make-start-speech-synthesis-task-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key synthesis-task)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-speech-synthesis-task-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -903,37 +1108,73 @@
                           start-speech-synthesis-task-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (synthesis-task (:copier common-lisp:nil)
-      (:conc-name "struct-shape-synthesis-task-"))
-   (engine common-lisp:nil :type (common-lisp:or engine common-lisp:null))
-   (task-id common-lisp:nil :type (common-lisp:or task-id common-lisp:null))
-   (task-status common-lisp:nil :type
-    (common-lisp:or task-status common-lisp:null))
-   (task-status-reason common-lisp:nil :type
-    (common-lisp:or task-status-reason common-lisp:null))
-   (output-uri common-lisp:nil :type
-    (common-lisp:or output-uri common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (request-characters common-lisp:nil :type
-    (common-lisp:or request-characters common-lisp:null))
-   (sns-topic-arn common-lisp:nil :type
-    (common-lisp:or sns-topic-arn common-lisp:null))
-   (lexicon-names common-lisp:nil :type
-    (common-lisp:or lexicon-name-list common-lisp:null))
-   (output-format common-lisp:nil :type
-    (common-lisp:or output-format common-lisp:null))
-   (sample-rate common-lisp:nil :type
-    (common-lisp:or sample-rate common-lisp:null))
-   (speech-mark-types common-lisp:nil :type
-    (common-lisp:or speech-mark-type-list common-lisp:null))
-   (text-type common-lisp:nil :type
-    (common-lisp:or text-type common-lisp:null))
-   (voice-id common-lisp:nil :type (common-lisp:or voice-id common-lisp:null))
-   (language-code common-lisp:nil :type
-    (common-lisp:or language-code common-lisp:null)))
+ (common-lisp:defclass synthesis-task common-lisp:nil
+                       ((language-code :initarg :language-code :type
+                         (common-lisp:or language-code common-lisp:null)
+                         :accessor %synthesis-task-language-code :initform
+                         common-lisp:nil)
+                        (voice-id :initarg :voice-id :type
+                         (common-lisp:or voice-id common-lisp:null) :accessor
+                         %synthesis-task-voice-id :initform common-lisp:nil)
+                        (text-type :initarg :text-type :type
+                         (common-lisp:or text-type common-lisp:null) :accessor
+                         %synthesis-task-text-type :initform common-lisp:nil)
+                        (speech-mark-types :initarg :speech-mark-types :type
+                         (common-lisp:or speech-mark-type-list
+                                         common-lisp:null)
+                         :accessor %synthesis-task-speech-mark-types :initform
+                         common-lisp:nil)
+                        (sample-rate :initarg :sample-rate :type
+                         (common-lisp:or sample-rate common-lisp:null)
+                         :accessor %synthesis-task-sample-rate :initform
+                         common-lisp:nil)
+                        (output-format :initarg :output-format :type
+                         (common-lisp:or output-format common-lisp:null)
+                         :accessor %synthesis-task-output-format :initform
+                         common-lisp:nil)
+                        (lexicon-names :initarg :lexicon-names :type
+                         (common-lisp:or lexicon-name-list common-lisp:null)
+                         :accessor %synthesis-task-lexicon-names :initform
+                         common-lisp:nil)
+                        (sns-topic-arn :initarg :sns-topic-arn :type
+                         (common-lisp:or sns-topic-arn common-lisp:null)
+                         :accessor %synthesis-task-sns-topic-arn :initform
+                         common-lisp:nil)
+                        (request-characters :initarg :request-characters :type
+                         (common-lisp:or request-characters common-lisp:null)
+                         :accessor %synthesis-task-request-characters :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %synthesis-task-creation-time :initform
+                         common-lisp:nil)
+                        (output-uri :initarg :output-uri :type
+                         (common-lisp:or output-uri common-lisp:null) :accessor
+                         %synthesis-task-output-uri :initform common-lisp:nil)
+                        (task-status-reason :initarg :task-status-reason :type
+                         (common-lisp:or task-status-reason common-lisp:null)
+                         :accessor %synthesis-task-task-status-reason :initform
+                         common-lisp:nil)
+                        (task-status :initarg :task-status :type
+                         (common-lisp:or task-status common-lisp:null)
+                         :accessor %synthesis-task-task-status :initform
+                         common-lisp:nil)
+                        (task-id :initarg :task-id :type
+                         (common-lisp:or task-id common-lisp:null) :accessor
+                         %synthesis-task-task-id :initform common-lisp:nil)
+                        (engine :initarg :engine :type
+                         (common-lisp:or engine common-lisp:null) :accessor
+                         %synthesis-task-engine :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'synthesis-task 'make-synthesis-task))
+ (common-lisp:defun make-synthesis-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key language-code voice-id text-type
+                     speech-mark-types sample-rate output-format lexicon-names
+                     sns-topic-arn request-characters creation-time output-uri
+                     task-status-reason task-status task-id engine)
+   (common-lisp:apply #'common-lisp:make-instance 'synthesis-task
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input synthesis-task))
    (common-lisp:append))
@@ -1051,7 +1292,7 @@
 (common-lisp:progn
  (common-lisp:define-condition synthesis-task-not-found-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        synthesis-task-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'synthesis-task-not-found-exception
@@ -1065,28 +1306,55 @@
                            (trivial-types:proper-list synthesis-task))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (synthesize-speech-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-synthesize-speech-input-"))
-   (engine common-lisp:nil :type (common-lisp:or engine common-lisp:null))
-   (language-code common-lisp:nil :type
-    (common-lisp:or language-code common-lisp:null))
-   (lexicon-names common-lisp:nil :type
-    (common-lisp:or lexicon-name-list common-lisp:null))
-   (output-format (common-lisp:error ":output-format is required") :type
-    (common-lisp:or output-format common-lisp:null))
-   (sample-rate common-lisp:nil :type
-    (common-lisp:or sample-rate common-lisp:null))
-   (speech-mark-types common-lisp:nil :type
-    (common-lisp:or speech-mark-type-list common-lisp:null))
-   (text (common-lisp:error ":text is required") :type
-    (common-lisp:or text common-lisp:null))
-   (text-type common-lisp:nil :type
-    (common-lisp:or text-type common-lisp:null))
-   (voice-id (common-lisp:error ":voice-id is required") :type
-    (common-lisp:or voice-id common-lisp:null)))
+ (common-lisp:defclass synthesize-speech-input common-lisp:nil
+                       ((voice-id :initarg :voice-id :type
+                         (common-lisp:or voice-id common-lisp:null) :accessor
+                         %synthesize-speech-input-voice-id :initform
+                         (common-lisp:error ":voice-id is required"))
+                        (text-type :initarg :text-type :type
+                         (common-lisp:or text-type common-lisp:null) :accessor
+                         %synthesize-speech-input-text-type :initform
+                         common-lisp:nil)
+                        (text :initarg :text :type
+                         (common-lisp:or text common-lisp:null) :accessor
+                         %synthesize-speech-input-text :initform
+                         (common-lisp:error ":text is required"))
+                        (speech-mark-types :initarg :speech-mark-types :type
+                         (common-lisp:or speech-mark-type-list
+                                         common-lisp:null)
+                         :accessor %synthesize-speech-input-speech-mark-types
+                         :initform common-lisp:nil)
+                        (sample-rate :initarg :sample-rate :type
+                         (common-lisp:or sample-rate common-lisp:null)
+                         :accessor %synthesize-speech-input-sample-rate
+                         :initform common-lisp:nil)
+                        (output-format :initarg :output-format :type
+                         (common-lisp:or output-format common-lisp:null)
+                         :accessor %synthesize-speech-input-output-format
+                         :initform
+                         (common-lisp:error ":output-format is required"))
+                        (lexicon-names :initarg :lexicon-names :type
+                         (common-lisp:or lexicon-name-list common-lisp:null)
+                         :accessor %synthesize-speech-input-lexicon-names
+                         :initform common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or language-code common-lisp:null)
+                         :accessor %synthesize-speech-input-language-code
+                         :initform common-lisp:nil)
+                        (engine :initarg :engine :type
+                         (common-lisp:or engine common-lisp:null) :accessor
+                         %synthesize-speech-input-engine :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'synthesize-speech-input 'make-synthesize-speech-input))
+ (common-lisp:defun make-synthesize-speech-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-id text-type text speech-mark-types
+                     sample-rate output-format lexicon-names language-code
+                     engine)
+   (common-lisp:apply #'common-lisp:make-instance 'synthesize-speech-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1166,17 +1434,28 @@
                           synthesize-speech-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (synthesize-speech-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-synthesize-speech-output-"))
-   (audio-stream common-lisp:nil :type
-    (common-lisp:or audio-stream common-lisp:null))
-   (content-type common-lisp:nil :type
-    (common-lisp:or content-type common-lisp:null))
-   (request-characters common-lisp:nil :type
-    (common-lisp:or request-characters common-lisp:null)))
+ (common-lisp:defclass synthesize-speech-output common-lisp:nil
+                       ((request-characters :initarg :request-characters :type
+                         (common-lisp:or request-characters common-lisp:null)
+                         :accessor %synthesize-speech-output-request-characters
+                         :initform common-lisp:nil)
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or content-type common-lisp:null)
+                         :accessor %synthesize-speech-output-content-type
+                         :initform common-lisp:nil)
+                        (audio-stream :initarg :audio-stream :type
+                         (common-lisp:or audio-stream common-lisp:null)
+                         :accessor %synthesize-speech-output-audio-stream
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'synthesize-speech-output 'make-synthesize-speech-output))
+ (common-lisp:defun make-synthesize-speech-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key request-characters content-type
+                     audio-stream)
+   (common-lisp:apply #'common-lisp:make-instance 'synthesize-speech-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1207,7 +1486,8 @@
                         (
                          (aws-sdk/generator/shape::input
                           synthesize-speech-output))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'audio-stream)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'audio-stream))))
 (common-lisp:deftype task-id () 'common-lisp:string)
 (common-lisp:deftype task-status () 'common-lisp:string)
 (common-lisp:deftype task-status-reason () 'common-lisp:string)
@@ -1215,7 +1495,7 @@
 (common-lisp:progn
  (common-lisp:define-condition text-length-exceeded-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        text-length-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'text-length-exceeded-exception
@@ -1224,7 +1504,7 @@
 (common-lisp:progn
  (common-lisp:define-condition unsupported-pls-alphabet-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        unsupported-pls-alphabet-exception-message)))
  (common-lisp:export
   (common-lisp:list 'unsupported-pls-alphabet-exception
@@ -1232,26 +1512,48 @@
 (common-lisp:progn
  (common-lisp:define-condition unsupported-pls-language-exception
      (polly-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        unsupported-pls-language-exception-message)))
  (common-lisp:export
   (common-lisp:list 'unsupported-pls-language-exception
                     'unsupported-pls-language-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice (:copier common-lisp:nil) (:conc-name "struct-shape-voice-"))
-   (gender common-lisp:nil :type (common-lisp:or gender common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or voice-id common-lisp:null))
-   (language-code common-lisp:nil :type
-    (common-lisp:or language-code common-lisp:null))
-   (language-name common-lisp:nil :type
-    (common-lisp:or language-name common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or voice-name common-lisp:null))
-   (additional-language-codes common-lisp:nil :type
-    (common-lisp:or language-code-list common-lisp:null))
-   (supported-engines common-lisp:nil :type
-    (common-lisp:or engine-list common-lisp:null)))
+ (common-lisp:defclass voice common-lisp:nil
+                       ((supported-engines :initarg :supported-engines :type
+                         (common-lisp:or engine-list common-lisp:null)
+                         :accessor %voice-supported-engines :initform
+                         common-lisp:nil)
+                        (additional-language-codes :initarg
+                         :additional-language-codes :type
+                         (common-lisp:or language-code-list common-lisp:null)
+                         :accessor %voice-additional-language-codes :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-name common-lisp:null) :accessor
+                         %voice-name :initform common-lisp:nil)
+                        (language-name :initarg :language-name :type
+                         (common-lisp:or language-name common-lisp:null)
+                         :accessor %voice-language-name :initform
+                         common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or language-code common-lisp:null)
+                         :accessor %voice-language-code :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or voice-id common-lisp:null) :accessor
+                         %voice-id :initform common-lisp:nil)
+                        (gender :initarg :gender :type
+                         (common-lisp:or gender common-lisp:null) :accessor
+                         %voice-gender :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'voice 'make-voice))
+ (common-lisp:defun make-voice
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key supported-engines
+                     additional-language-codes name language-name language-code
+                     id gender)
+   (common-lisp:apply #'common-lisp:make-instance 'voice
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input voice))
    (common-lisp:append))

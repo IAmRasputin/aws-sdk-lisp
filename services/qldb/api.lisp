@@ -30,16 +30,28 @@
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (cancel-journal-kinesis-stream-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cancel-journal-kinesis-stream-request-"))
-   (ledger-name (common-lisp:error ":ledger-name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (stream-id (common-lisp:error ":stream-id is required") :type
-    (common-lisp:or unique-id common-lisp:null)))
+ (common-lisp:defclass cancel-journal-kinesis-stream-request common-lisp:nil
+                       ((stream-id :initarg :stream-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %cancel-journal-kinesis-stream-request-stream-id
+                         :initform
+                         (common-lisp:error ":stream-id is required"))
+                        (ledger-name :initarg :ledger-name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor
+                         %cancel-journal-kinesis-stream-request-ledger-name
+                         :initform
+                         (common-lisp:error ":ledger-name is required"))))
  (common-lisp:export
   (common-lisp:list 'cancel-journal-kinesis-stream-request
                     'make-cancel-journal-kinesis-stream-request))
+ (common-lisp:defun make-cancel-journal-kinesis-stream-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stream-id ledger-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'cancel-journal-kinesis-stream-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -56,14 +68,21 @@
                           cancel-journal-kinesis-stream-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cancel-journal-kinesis-stream-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cancel-journal-kinesis-stream-response-"))
-   (stream-id common-lisp:nil :type
-    (common-lisp:or unique-id common-lisp:null)))
+ (common-lisp:defclass cancel-journal-kinesis-stream-response common-lisp:nil
+                       ((stream-id :initarg :stream-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %cancel-journal-kinesis-stream-response-stream-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'cancel-journal-kinesis-stream-response
                     'make-cancel-journal-kinesis-stream-response))
+ (common-lisp:defun make-cancel-journal-kinesis-stream-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stream-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'cancel-journal-kinesis-stream-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -87,19 +106,37 @@
                           cancel-journal-kinesis-stream-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-ledger-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-ledger-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null))
-   (permissions-mode (common-lisp:error ":permissions-mode is required") :type
-    (common-lisp:or permissions-mode common-lisp:null))
-   (deletion-protection common-lisp:nil :type
-    (common-lisp:or deletion-protection common-lisp:null))
-   (kms-key common-lisp:nil :type (common-lisp:or kms-key common-lisp:null)))
+ (common-lisp:defclass create-ledger-request common-lisp:nil
+                       ((kms-key :initarg :kms-key :type
+                         (common-lisp:or kms-key common-lisp:null) :accessor
+                         %create-ledger-request-kms-key :initform
+                         common-lisp:nil)
+                        (deletion-protection :initarg :deletion-protection
+                         :type
+                         (common-lisp:or deletion-protection common-lisp:null)
+                         :accessor %create-ledger-request-deletion-protection
+                         :initform common-lisp:nil)
+                        (permissions-mode :initarg :permissions-mode :type
+                         (common-lisp:or permissions-mode common-lisp:null)
+                         :accessor %create-ledger-request-permissions-mode
+                         :initform
+                         (common-lisp:error ":permissions-mode is required"))
+                        (tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %create-ledger-request-tags :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %create-ledger-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-ledger-request 'make-create-ledger-request))
+ (common-lisp:defun make-create-ledger-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key kms-key deletion-protection
+                     permissions-mode tags name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-ledger-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -151,21 +188,44 @@
                           create-ledger-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-ledger-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-ledger-response-"))
-   (name common-lisp:nil :type (common-lisp:or ledger-name common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or ledger-state common-lisp:null))
-   (creation-date-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (permissions-mode common-lisp:nil :type
-    (common-lisp:or permissions-mode common-lisp:null))
-   (deletion-protection common-lisp:nil :type
-    (common-lisp:or deletion-protection common-lisp:null))
-   (kms-key-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass create-ledger-response common-lisp:nil
+                       ((kms-key-arn :initarg :kms-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-ledger-response-kms-key-arn :initform
+                         common-lisp:nil)
+                        (deletion-protection :initarg :deletion-protection
+                         :type
+                         (common-lisp:or deletion-protection common-lisp:null)
+                         :accessor %create-ledger-response-deletion-protection
+                         :initform common-lisp:nil)
+                        (permissions-mode :initarg :permissions-mode :type
+                         (common-lisp:or permissions-mode common-lisp:null)
+                         :accessor %create-ledger-response-permissions-mode
+                         :initform common-lisp:nil)
+                        (creation-date-time :initarg :creation-date-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %create-ledger-response-creation-date-time :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or ledger-state common-lisp:null)
+                         :accessor %create-ledger-response-state :initform
+                         common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %create-ledger-response-arn :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %create-ledger-response-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-ledger-response 'make-create-ledger-response))
+ (common-lisp:defun make-create-ledger-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key kms-key-arn deletion-protection
+                     permissions-mode creation-date-time state arn name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-ledger-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -231,13 +291,19 @@
                           create-ledger-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-ledger-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-ledger-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null)))
+ (common-lisp:defclass delete-ledger-request common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %delete-ledger-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-ledger-request 'make-delete-ledger-request))
+ (common-lisp:defun make-delete-ledger-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-ledger-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -255,16 +321,28 @@
    common-lisp:nil))
 (common-lisp:deftype deletion-protection () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-journal-kinesis-stream-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-journal-kinesis-stream-request-"))
-   (ledger-name (common-lisp:error ":ledger-name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (stream-id (common-lisp:error ":stream-id is required") :type
-    (common-lisp:or unique-id common-lisp:null)))
+ (common-lisp:defclass describe-journal-kinesis-stream-request common-lisp:nil
+                       ((stream-id :initarg :stream-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %describe-journal-kinesis-stream-request-stream-id
+                         :initform
+                         (common-lisp:error ":stream-id is required"))
+                        (ledger-name :initarg :ledger-name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor
+                         %describe-journal-kinesis-stream-request-ledger-name
+                         :initform
+                         (common-lisp:error ":ledger-name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-journal-kinesis-stream-request
                     'make-describe-journal-kinesis-stream-request))
+ (common-lisp:defun make-describe-journal-kinesis-stream-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stream-id ledger-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-journal-kinesis-stream-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -281,14 +359,23 @@
                           describe-journal-kinesis-stream-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-journal-kinesis-stream-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-journal-kinesis-stream-response-"))
-   (stream common-lisp:nil :type
-    (common-lisp:or journal-kinesis-stream-description common-lisp:null)))
+ (common-lisp:defclass describe-journal-kinesis-stream-response common-lisp:nil
+                       ((stream :initarg :stream :type
+                         (common-lisp:or journal-kinesis-stream-description
+                                         common-lisp:null)
+                         :accessor
+                         %describe-journal-kinesis-stream-response-stream
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-journal-kinesis-stream-response
                     'make-describe-journal-kinesis-stream-response))
+ (common-lisp:defun make-describe-journal-kinesis-stream-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-journal-kinesis-stream-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -312,16 +399,25 @@
                           describe-journal-kinesis-stream-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-journal-s3export-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-journal-s3export-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (export-id (common-lisp:error ":export-id is required") :type
-    (common-lisp:or unique-id common-lisp:null)))
+ (common-lisp:defclass describe-journal-s3export-request common-lisp:nil
+                       ((export-id :initarg :export-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %describe-journal-s3export-request-export-id :initform
+                         (common-lisp:error ":export-id is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %describe-journal-s3export-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-journal-s3export-request
                     'make-describe-journal-s3export-request))
+ (common-lisp:defun make-describe-journal-s3export-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key export-id name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-journal-s3export-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -338,14 +434,25 @@
                           describe-journal-s3export-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-journal-s3export-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-journal-s3export-response-"))
-   (export-description (common-lisp:error ":export-description is required")
-    :type (common-lisp:or journal-s3export-description common-lisp:null)))
+ (common-lisp:defclass describe-journal-s3export-response common-lisp:nil
+                       ((export-description :initarg :export-description :type
+                         (common-lisp:or journal-s3export-description
+                                         common-lisp:null)
+                         :accessor
+                         %describe-journal-s3export-response-export-description
+                         :initform
+                         (common-lisp:error
+                          ":export-description is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-journal-s3export-response
                     'make-describe-journal-s3export-response))
+ (common-lisp:defun make-describe-journal-s3export-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key export-description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-journal-s3export-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -369,13 +476,19 @@
                           describe-journal-s3export-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-ledger-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-ledger-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null)))
+ (common-lisp:defclass describe-ledger-request common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %describe-ledger-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-ledger-request 'make-describe-ledger-request))
+ (common-lisp:defun make-describe-ledger-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-ledger-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -392,22 +505,50 @@
                           describe-ledger-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-ledger-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-ledger-response-"))
-   (name common-lisp:nil :type (common-lisp:or ledger-name common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or ledger-state common-lisp:null))
-   (creation-date-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (permissions-mode common-lisp:nil :type
-    (common-lisp:or permissions-mode common-lisp:null))
-   (deletion-protection common-lisp:nil :type
-    (common-lisp:or deletion-protection common-lisp:null))
-   (encryption-description common-lisp:nil :type
-    (common-lisp:or ledger-encryption-description common-lisp:null)))
+ (common-lisp:defclass describe-ledger-response common-lisp:nil
+                       ((encryption-description :initarg
+                         :encryption-description :type
+                         (common-lisp:or ledger-encryption-description
+                                         common-lisp:null)
+                         :accessor
+                         %describe-ledger-response-encryption-description
+                         :initform common-lisp:nil)
+                        (deletion-protection :initarg :deletion-protection
+                         :type
+                         (common-lisp:or deletion-protection common-lisp:null)
+                         :accessor
+                         %describe-ledger-response-deletion-protection
+                         :initform common-lisp:nil)
+                        (permissions-mode :initarg :permissions-mode :type
+                         (common-lisp:or permissions-mode common-lisp:null)
+                         :accessor %describe-ledger-response-permissions-mode
+                         :initform common-lisp:nil)
+                        (creation-date-time :initarg :creation-date-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %describe-ledger-response-creation-date-time :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or ledger-state common-lisp:null)
+                         :accessor %describe-ledger-response-state :initform
+                         common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-ledger-response-arn :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %describe-ledger-response-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-ledger-response 'make-describe-ledger-response))
+ (common-lisp:defun make-describe-ledger-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key encryption-description
+                     deletion-protection permissions-mode creation-date-time
+                     state arn name)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-ledger-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -479,26 +620,51 @@
 (common-lisp:deftype error-cause () 'common-lisp:string)
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-journal-to-s3request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-journal-to-s3request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (inclusive-start-time
-    (common-lisp:error ":inclusive-start-time is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (exclusive-end-time (common-lisp:error ":exclusive-end-time is required")
-    :type (common-lisp:or timestamp common-lisp:null))
-   (s3export-configuration
-    (common-lisp:error ":s3export-configuration is required") :type
-    (common-lisp:or s3export-configuration common-lisp:null))
-   (role-arn (common-lisp:error ":role-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (output-format common-lisp:nil :type
-    (common-lisp:or output-format common-lisp:null)))
+ (common-lisp:defclass export-journal-to-s3request common-lisp:nil
+                       ((output-format :initarg :output-format :type
+                         (common-lisp:or output-format common-lisp:null)
+                         :accessor %export-journal-to-s3request-output-format
+                         :initform common-lisp:nil)
+                        (role-arn :initarg :role-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %export-journal-to-s3request-role-arn :initform
+                         (common-lisp:error ":role-arn is required"))
+                        (s3export-configuration :initarg
+                         :s3export-configuration :type
+                         (common-lisp:or s3export-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %export-journal-to-s3request-s3export-configuration
+                         :initform
+                         (common-lisp:error
+                          ":s3export-configuration is required"))
+                        (exclusive-end-time :initarg :exclusive-end-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %export-journal-to-s3request-exclusive-end-time
+                         :initform
+                         (common-lisp:error ":exclusive-end-time is required"))
+                        (inclusive-start-time :initarg :inclusive-start-time
+                         :type (common-lisp:or timestamp common-lisp:null)
+                         :accessor
+                         %export-journal-to-s3request-inclusive-start-time
+                         :initform
+                         (common-lisp:error
+                          ":inclusive-start-time is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %export-journal-to-s3request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'export-journal-to-s3request
                     'make-export-journal-to-s3request))
+ (common-lisp:defun make-export-journal-to-s3request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output-format role-arn
+                     s3export-configuration exclusive-end-time
+                     inclusive-start-time name)
+   (common-lisp:apply #'common-lisp:make-instance 'export-journal-to-s3request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -552,14 +718,20 @@
                           export-journal-to-s3request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-journal-to-s3response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-journal-to-s3response-"))
-   (export-id (common-lisp:error ":export-id is required") :type
-    (common-lisp:or unique-id common-lisp:null)))
+ (common-lisp:defclass export-journal-to-s3response common-lisp:nil
+                       ((export-id :initarg :export-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %export-journal-to-s3response-export-id :initform
+                         (common-lisp:error ":export-id is required"))))
  (common-lisp:export
   (common-lisp:list 'export-journal-to-s3response
                     'make-export-journal-to-s3response))
+ (common-lisp:defun make-export-journal-to-s3response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key export-id)
+   (common-lisp:apply #'common-lisp:make-instance 'export-journal-to-s3response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -584,17 +756,27 @@
    common-lisp:nil))
 (common-lisp:deftype export-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-block-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-block-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (block-address (common-lisp:error ":block-address is required") :type
-    (common-lisp:or value-holder common-lisp:null))
-   (digest-tip-address common-lisp:nil :type
-    (common-lisp:or value-holder common-lisp:null)))
+ (common-lisp:defclass get-block-request common-lisp:nil
+                       ((digest-tip-address :initarg :digest-tip-address :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-block-request-digest-tip-address
+                         :initform common-lisp:nil)
+                        (block-address :initarg :block-address :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-block-request-block-address :initform
+                         (common-lisp:error ":block-address is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %get-block-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-block-request 'make-get-block-request))
+ (common-lisp:defun make-get-block-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key digest-tip-address block-address name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-block-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-block-request))
    (common-lisp:append))
@@ -619,15 +801,23 @@
                         ((aws-sdk/generator/shape::input get-block-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-block-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-block-response-"))
-   (block (common-lisp:error ":block is required") :type
-    (common-lisp:or value-holder common-lisp:null))
-   (proof common-lisp:nil :type
-    (common-lisp:or value-holder common-lisp:null)))
+ (common-lisp:defclass get-block-response common-lisp:nil
+                       ((proof :initarg :proof :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-block-response-proof :initform
+                         common-lisp:nil)
+                        (block :initarg :block :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-block-response-block :initform
+                         (common-lisp:error ":block is required"))))
  (common-lisp:export
   (common-lisp:list 'get-block-response 'make-get-block-response))
+ (common-lisp:defun make-get-block-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proof block)
+   (common-lisp:apply #'common-lisp:make-instance 'get-block-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-block-response))
    (common-lisp:append))
@@ -652,13 +842,19 @@
                         ((aws-sdk/generator/shape::input get-block-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-digest-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-digest-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null)))
+ (common-lisp:defclass get-digest-request common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %get-digest-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-digest-request 'make-get-digest-request))
+ (common-lisp:defun make-get-digest-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-digest-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-digest-request))
    (common-lisp:append))
@@ -669,15 +865,24 @@
                         ((aws-sdk/generator/shape::input get-digest-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-digest-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-digest-response-"))
-   (digest (common-lisp:error ":digest is required") :type
-    (common-lisp:or digest common-lisp:null))
-   (digest-tip-address (common-lisp:error ":digest-tip-address is required")
-    :type (common-lisp:or value-holder common-lisp:null)))
+ (common-lisp:defclass get-digest-response common-lisp:nil
+                       ((digest-tip-address :initarg :digest-tip-address :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-digest-response-digest-tip-address
+                         :initform
+                         (common-lisp:error ":digest-tip-address is required"))
+                        (digest :initarg :digest :type
+                         (common-lisp:or digest common-lisp:null) :accessor
+                         %get-digest-response-digest :initform
+                         (common-lisp:error ":digest is required"))))
  (common-lisp:export
   (common-lisp:list 'get-digest-response 'make-get-digest-response))
+ (common-lisp:defun make-get-digest-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key digest-tip-address digest)
+   (common-lisp:apply #'common-lisp:make-instance 'get-digest-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-digest-response))
    (common-lisp:append))
@@ -702,19 +907,33 @@
                         ((aws-sdk/generator/shape::input get-digest-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-revision-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-revision-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (block-address (common-lisp:error ":block-address is required") :type
-    (common-lisp:or value-holder common-lisp:null))
-   (document-id (common-lisp:error ":document-id is required") :type
-    (common-lisp:or unique-id common-lisp:null))
-   (digest-tip-address common-lisp:nil :type
-    (common-lisp:or value-holder common-lisp:null)))
+ (common-lisp:defclass get-revision-request common-lisp:nil
+                       ((digest-tip-address :initarg :digest-tip-address :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-revision-request-digest-tip-address
+                         :initform common-lisp:nil)
+                        (document-id :initarg :document-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %get-revision-request-document-id :initform
+                         (common-lisp:error ":document-id is required"))
+                        (block-address :initarg :block-address :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-revision-request-block-address
+                         :initform
+                         (common-lisp:error ":block-address is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %get-revision-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-revision-request 'make-get-revision-request))
+ (common-lisp:defun make-get-revision-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key digest-tip-address document-id
+                     block-address name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-revision-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-revision-request))
    (common-lisp:append))
@@ -746,14 +965,23 @@
                         ((aws-sdk/generator/shape::input get-revision-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-revision-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-revision-response-"))
-   (proof common-lisp:nil :type (common-lisp:or value-holder common-lisp:null))
-   (revision (common-lisp:error ":revision is required") :type
-    (common-lisp:or value-holder common-lisp:null)))
+ (common-lisp:defclass get-revision-response common-lisp:nil
+                       ((revision :initarg :revision :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-revision-response-revision :initform
+                         (common-lisp:error ":revision is required"))
+                        (proof :initarg :proof :type
+                         (common-lisp:or value-holder common-lisp:null)
+                         :accessor %get-revision-response-proof :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-revision-response 'make-get-revision-response))
+ (common-lisp:defun make-get-revision-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key revision proof)
+   (common-lisp:apply #'common-lisp:make-instance 'get-revision-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -796,34 +1024,76 @@
                     'invalid-parameter-exception-parameter-name)))
 (common-lisp:deftype ion-text () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (journal-kinesis-stream-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-journal-kinesis-stream-description-"))
-   (ledger-name (common-lisp:error ":ledger-name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (inclusive-start-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (exclusive-end-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (role-arn (common-lisp:error ":role-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (stream-id (common-lisp:error ":stream-id is required") :type
-    (common-lisp:or unique-id common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or stream-status common-lisp:null))
-   (kinesis-configuration
-    (common-lisp:error ":kinesis-configuration is required") :type
-    (common-lisp:or kinesis-configuration common-lisp:null))
-   (error-cause common-lisp:nil :type
-    (common-lisp:or error-cause common-lisp:null))
-   (stream-name (common-lisp:error ":stream-name is required") :type
-    (common-lisp:or stream-name common-lisp:null)))
+ (common-lisp:defclass journal-kinesis-stream-description common-lisp:nil
+                       ((stream-name :initarg :stream-name :type
+                         (common-lisp:or stream-name common-lisp:null)
+                         :accessor
+                         %journal-kinesis-stream-description-stream-name
+                         :initform
+                         (common-lisp:error ":stream-name is required"))
+                        (error-cause :initarg :error-cause :type
+                         (common-lisp:or error-cause common-lisp:null)
+                         :accessor
+                         %journal-kinesis-stream-description-error-cause
+                         :initform common-lisp:nil)
+                        (kinesis-configuration :initarg :kinesis-configuration
+                         :type
+                         (common-lisp:or kinesis-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %journal-kinesis-stream-description-kinesis-configuration
+                         :initform
+                         (common-lisp:error
+                          ":kinesis-configuration is required"))
+                        (status :initarg :status :type
+                         (common-lisp:or stream-status common-lisp:null)
+                         :accessor %journal-kinesis-stream-description-status
+                         :initform (common-lisp:error ":status is required"))
+                        (arn :initarg :arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %journal-kinesis-stream-description-arn :initform
+                         common-lisp:nil)
+                        (stream-id :initarg :stream-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %journal-kinesis-stream-description-stream-id
+                         :initform
+                         (common-lisp:error ":stream-id is required"))
+                        (role-arn :initarg :role-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %journal-kinesis-stream-description-role-arn :initform
+                         (common-lisp:error ":role-arn is required"))
+                        (exclusive-end-time :initarg :exclusive-end-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %journal-kinesis-stream-description-exclusive-end-time
+                         :initform common-lisp:nil)
+                        (inclusive-start-time :initarg :inclusive-start-time
+                         :type (common-lisp:or timestamp common-lisp:null)
+                         :accessor
+                         %journal-kinesis-stream-description-inclusive-start-time
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %journal-kinesis-stream-description-creation-time
+                         :initform common-lisp:nil)
+                        (ledger-name :initarg :ledger-name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor
+                         %journal-kinesis-stream-description-ledger-name
+                         :initform
+                         (common-lisp:error ":ledger-name is required"))))
  (common-lisp:export
   (common-lisp:list 'journal-kinesis-stream-description
                     'make-journal-kinesis-stream-description))
+ (common-lisp:defun make-journal-kinesis-stream-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stream-name error-cause
+                     kinesis-configuration status arn stream-id role-arn
+                     exclusive-end-time inclusive-start-time creation-time
+                     ledger-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'journal-kinesis-stream-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -928,33 +1198,68 @@
                             journal-kinesis-stream-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (journal-s3export-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-journal-s3export-description-"))
-   (ledger-name (common-lisp:error ":ledger-name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (export-id (common-lisp:error ":export-id is required") :type
-    (common-lisp:or unique-id common-lisp:null))
-   (export-creation-time
-    (common-lisp:error ":export-creation-time is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or export-status common-lisp:null))
-   (inclusive-start-time
-    (common-lisp:error ":inclusive-start-time is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (exclusive-end-time (common-lisp:error ":exclusive-end-time is required")
-    :type (common-lisp:or timestamp common-lisp:null))
-   (s3export-configuration
-    (common-lisp:error ":s3export-configuration is required") :type
-    (common-lisp:or s3export-configuration common-lisp:null))
-   (role-arn (common-lisp:error ":role-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (output-format common-lisp:nil :type
-    (common-lisp:or output-format common-lisp:null)))
+ (common-lisp:defclass journal-s3export-description common-lisp:nil
+                       ((output-format :initarg :output-format :type
+                         (common-lisp:or output-format common-lisp:null)
+                         :accessor %journal-s3export-description-output-format
+                         :initform common-lisp:nil)
+                        (role-arn :initarg :role-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %journal-s3export-description-role-arn :initform
+                         (common-lisp:error ":role-arn is required"))
+                        (s3export-configuration :initarg
+                         :s3export-configuration :type
+                         (common-lisp:or s3export-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %journal-s3export-description-s3export-configuration
+                         :initform
+                         (common-lisp:error
+                          ":s3export-configuration is required"))
+                        (exclusive-end-time :initarg :exclusive-end-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %journal-s3export-description-exclusive-end-time
+                         :initform
+                         (common-lisp:error ":exclusive-end-time is required"))
+                        (inclusive-start-time :initarg :inclusive-start-time
+                         :type (common-lisp:or timestamp common-lisp:null)
+                         :accessor
+                         %journal-s3export-description-inclusive-start-time
+                         :initform
+                         (common-lisp:error
+                          ":inclusive-start-time is required"))
+                        (status :initarg :status :type
+                         (common-lisp:or export-status common-lisp:null)
+                         :accessor %journal-s3export-description-status
+                         :initform (common-lisp:error ":status is required"))
+                        (export-creation-time :initarg :export-creation-time
+                         :type (common-lisp:or timestamp common-lisp:null)
+                         :accessor
+                         %journal-s3export-description-export-creation-time
+                         :initform
+                         (common-lisp:error
+                          ":export-creation-time is required"))
+                        (export-id :initarg :export-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %journal-s3export-description-export-id :initform
+                         (common-lisp:error ":export-id is required"))
+                        (ledger-name :initarg :ledger-name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %journal-s3export-description-ledger-name
+                         :initform
+                         (common-lisp:error ":ledger-name is required"))))
  (common-lisp:export
   (common-lisp:list 'journal-s3export-description
                     'make-journal-s3export-description))
+ (common-lisp:defun make-journal-s3export-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output-format role-arn
+                     s3export-configuration exclusive-end-time
+                     inclusive-start-time status export-creation-time export-id
+                     ledger-name)
+   (common-lisp:apply #'common-lisp:make-instance 'journal-s3export-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1046,15 +1351,23 @@
                             journal-s3export-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-configuration-"))
-   (stream-arn (common-lisp:error ":stream-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (aggregation-enabled common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass kinesis-configuration common-lisp:nil
+                       ((aggregation-enabled :initarg :aggregation-enabled
+                         :type (common-lisp:or boolean common-lisp:null)
+                         :accessor %kinesis-configuration-aggregation-enabled
+                         :initform common-lisp:nil)
+                        (stream-arn :initarg :stream-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %kinesis-configuration-stream-arn :initform
+                         (common-lisp:error ":stream-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'kinesis-configuration 'make-kinesis-configuration))
+ (common-lisp:defun make-kinesis-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key aggregation-enabled stream-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'kinesis-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1086,18 +1399,33 @@
    common-lisp:nil))
 (common-lisp:deftype kms-key () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (ledger-encryption-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ledger-encryption-description-"))
-   (kms-key-arn (common-lisp:error ":kms-key-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (encryption-status (common-lisp:error ":encryption-status is required")
-    :type (common-lisp:or encryption-status common-lisp:null))
-   (inaccessible-kms-key-date-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass ledger-encryption-description common-lisp:nil
+                       ((inaccessible-kms-key-date-time :initarg
+                         :inaccessible-kms-key-date-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %ledger-encryption-description-inaccessible-kms-key-date-time
+                         :initform common-lisp:nil)
+                        (encryption-status :initarg :encryption-status :type
+                         (common-lisp:or encryption-status common-lisp:null)
+                         :accessor
+                         %ledger-encryption-description-encryption-status
+                         :initform
+                         (common-lisp:error ":encryption-status is required"))
+                        (kms-key-arn :initarg :kms-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %ledger-encryption-description-kms-key-arn :initform
+                         (common-lisp:error ":kms-key-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'ledger-encryption-description
                     'make-ledger-encryption-description))
+ (common-lisp:defun make-ledger-encryption-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key inaccessible-kms-key-date-time
+                     encryption-status kms-key-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'ledger-encryption-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1146,14 +1474,26 @@
 (common-lisp:deftype ledger-name () 'common-lisp:string)
 (common-lisp:deftype ledger-state () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (ledger-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ledger-summary-"))
-   (name common-lisp:nil :type (common-lisp:or ledger-name common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or ledger-state common-lisp:null))
-   (creation-date-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass ledger-summary common-lisp:nil
+                       ((creation-date-time :initarg :creation-date-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %ledger-summary-creation-date-time :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or ledger-state common-lisp:null)
+                         :accessor %ledger-summary-state :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %ledger-summary-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'ledger-summary 'make-ledger-summary))
+ (common-lisp:defun make-ledger-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-date-time state name)
+   (common-lisp:apply #'common-lisp:make-instance 'ledger-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input ledger-summary))
    (common-lisp:append))
@@ -1195,19 +1535,33 @@
   (common-lisp:list 'limit-exceeded-exception 'limit-exceeded-exception-message
                     'limit-exceeded-exception-resource-type)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-journal-kinesis-streams-for-ledger-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-journal-kinesis-streams-for-ledger-request-"))
-   (ledger-name (common-lisp:error ":ledger-name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-journal-kinesis-streams-for-ledger-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-journal-kinesis-streams-for-ledger-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-journal-kinesis-streams-for-ledger-request-max-results
+                         :initform common-lisp:nil)
+                        (ledger-name :initarg :ledger-name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor
+                         %list-journal-kinesis-streams-for-ledger-request-ledger-name
+                         :initform
+                         (common-lisp:error ":ledger-name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-journal-kinesis-streams-for-ledger-request
                     'make-list-journal-kinesis-streams-for-ledger-request))
+ (common-lisp:defun make-list-journal-kinesis-streams-for-ledger-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results ledger-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-journal-kinesis-streams-for-ledger-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1224,18 +1578,29 @@
                           list-journal-kinesis-streams-for-ledger-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-journal-kinesis-streams-for-ledger-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-journal-kinesis-streams-for-ledger-response-"))
-   (streams common-lisp:nil :type
-    (common-lisp:or journal-kinesis-stream-description-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-journal-kinesis-streams-for-ledger-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-journal-kinesis-streams-for-ledger-response-next-token
+                         :initform common-lisp:nil)
+                        (streams :initarg :streams :type
+                         (common-lisp:or
+                          journal-kinesis-stream-description-list
+                          common-lisp:null)
+                         :accessor
+                         %list-journal-kinesis-streams-for-ledger-response-streams
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-journal-kinesis-streams-for-ledger-response
                     'make-list-journal-kinesis-streams-for-ledger-response))
+ (common-lisp:defun make-list-journal-kinesis-streams-for-ledger-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token streams)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-journal-kinesis-streams-for-ledger-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1266,18 +1631,32 @@
                           list-journal-kinesis-streams-for-ledger-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-journal-s3exports-for-ledger-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-journal-s3exports-for-ledger-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-journal-s3exports-for-ledger-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-journal-s3exports-for-ledger-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-journal-s3exports-for-ledger-request-max-results
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor
+                         %list-journal-s3exports-for-ledger-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'list-journal-s3exports-for-ledger-request
                     'make-list-journal-s3exports-for-ledger-request))
+ (common-lisp:defun make-list-journal-s3exports-for-ledger-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-journal-s3exports-for-ledger-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1294,16 +1673,28 @@
                           list-journal-s3exports-for-ledger-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-journal-s3exports-for-ledger-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-journal-s3exports-for-ledger-response-"))
-   (journal-s3exports common-lisp:nil :type
-    (common-lisp:or journal-s3export-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-journal-s3exports-for-ledger-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-journal-s3exports-for-ledger-response-next-token
+                         :initform common-lisp:nil)
+                        (journal-s3exports :initarg :journal-s3exports :type
+                         (common-lisp:or journal-s3export-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-journal-s3exports-for-ledger-response-journal-s3exports
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-journal-s3exports-for-ledger-response
                     'make-list-journal-s3exports-for-ledger-response))
+ (common-lisp:defun make-list-journal-s3exports-for-ledger-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token journal-s3exports)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-journal-s3exports-for-ledger-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1334,16 +1725,25 @@
                           list-journal-s3exports-for-ledger-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-journal-s3exports-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-journal-s3exports-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-journal-s3exports-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-journal-s3exports-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-journal-s3exports-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-journal-s3exports-request
                     'make-list-journal-s3exports-request))
+ (common-lisp:defun make-list-journal-s3exports-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-journal-s3exports-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1360,16 +1760,27 @@
                           list-journal-s3exports-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-journal-s3exports-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-journal-s3exports-response-"))
-   (journal-s3exports common-lisp:nil :type
-    (common-lisp:or journal-s3export-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-journal-s3exports-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-journal-s3exports-response-next-token :initform
+                         common-lisp:nil)
+                        (journal-s3exports :initarg :journal-s3exports :type
+                         (common-lisp:or journal-s3export-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-journal-s3exports-response-journal-s3exports
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-journal-s3exports-response
                     'make-list-journal-s3exports-response))
+ (common-lisp:defun make-list-journal-s3exports-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token journal-s3exports)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-journal-s3exports-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1400,15 +1811,23 @@
                           list-journal-s3exports-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-ledgers-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-ledgers-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-ledgers-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-ledgers-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-ledgers-request-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-ledgers-request 'make-list-ledgers-request))
+ (common-lisp:defun make-list-ledgers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-ledgers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-ledgers-request))
    (common-lisp:append))
@@ -1419,15 +1838,23 @@
                         ((aws-sdk/generator/shape::input list-ledgers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-ledgers-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-ledgers-response-"))
-   (ledgers common-lisp:nil :type
-    (common-lisp:or ledger-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-ledgers-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-ledgers-response-next-token :initform
+                         common-lisp:nil)
+                        (ledgers :initarg :ledgers :type
+                         (common-lisp:or ledger-list common-lisp:null)
+                         :accessor %list-ledgers-response-ledgers :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-ledgers-response 'make-list-ledgers-response))
+ (common-lisp:defun make-list-ledgers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token ledgers)
+   (common-lisp:apply #'common-lisp:make-instance 'list-ledgers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1458,14 +1885,21 @@
                           list-ledgers-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-tags-for-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1482,13 +1916,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1576,16 +2018,29 @@
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:deftype s3bucket () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3encryption-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3encryption-configuration-"))
-   (object-encryption-type
-    (common-lisp:error ":object-encryption-type is required") :type
-    (common-lisp:or s3object-encryption-type common-lisp:null))
-   (kms-key-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass s3encryption-configuration common-lisp:nil
+                       ((kms-key-arn :initarg :kms-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %s3encryption-configuration-kms-key-arn :initform
+                         common-lisp:nil)
+                        (object-encryption-type :initarg
+                         :object-encryption-type :type
+                         (common-lisp:or s3object-encryption-type
+                                         common-lisp:null)
+                         :accessor
+                         %s3encryption-configuration-object-encryption-type
+                         :initform
+                         (common-lisp:error
+                          ":object-encryption-type is required"))))
  (common-lisp:export
   (common-lisp:list 's3encryption-configuration
                     'make-s3encryption-configuration))
+ (common-lisp:defun make-s3encryption-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key kms-key-arn object-encryption-type)
+   (common-lisp:apply #'common-lisp:make-instance 's3encryption-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1617,18 +2072,32 @@
                           s3encryption-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3export-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3export-configuration-"))
-   (bucket (common-lisp:error ":bucket is required") :type
-    (common-lisp:or s3bucket common-lisp:null))
-   (prefix (common-lisp:error ":prefix is required") :type
-    (common-lisp:or s3prefix common-lisp:null))
-   (encryption-configuration
-    (common-lisp:error ":encryption-configuration is required") :type
-    (common-lisp:or s3encryption-configuration common-lisp:null)))
+ (common-lisp:defclass s3export-configuration common-lisp:nil
+                       ((encryption-configuration :initarg
+                         :encryption-configuration :type
+                         (common-lisp:or s3encryption-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %s3export-configuration-encryption-configuration
+                         :initform
+                         (common-lisp:error
+                          ":encryption-configuration is required"))
+                        (prefix :initarg :prefix :type
+                         (common-lisp:or s3prefix common-lisp:null) :accessor
+                         %s3export-configuration-prefix :initform
+                         (common-lisp:error ":prefix is required"))
+                        (bucket :initarg :bucket :type
+                         (common-lisp:or s3bucket common-lisp:null) :accessor
+                         %s3export-configuration-bucket :initform
+                         (common-lisp:error ":bucket is required"))))
  (common-lisp:export
   (common-lisp:list 's3export-configuration 'make-s3export-configuration))
+ (common-lisp:defun make-s3export-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key encryption-configuration prefix bucket)
+   (common-lisp:apply #'common-lisp:make-instance 's3export-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1669,27 +2138,59 @@
 (common-lisp:deftype s3object-encryption-type () 'common-lisp:string)
 (common-lisp:deftype s3prefix () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (stream-journal-to-kinesis-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stream-journal-to-kinesis-request-"))
-   (ledger-name (common-lisp:error ":ledger-name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (role-arn (common-lisp:error ":role-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tags common-lisp:null))
-   (inclusive-start-time
-    (common-lisp:error ":inclusive-start-time is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (exclusive-end-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (kinesis-configuration
-    (common-lisp:error ":kinesis-configuration is required") :type
-    (common-lisp:or kinesis-configuration common-lisp:null))
-   (stream-name (common-lisp:error ":stream-name is required") :type
-    (common-lisp:or stream-name common-lisp:null)))
+ (common-lisp:defclass stream-journal-to-kinesis-request common-lisp:nil
+                       ((stream-name :initarg :stream-name :type
+                         (common-lisp:or stream-name common-lisp:null)
+                         :accessor
+                         %stream-journal-to-kinesis-request-stream-name
+                         :initform
+                         (common-lisp:error ":stream-name is required"))
+                        (kinesis-configuration :initarg :kinesis-configuration
+                         :type
+                         (common-lisp:or kinesis-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %stream-journal-to-kinesis-request-kinesis-configuration
+                         :initform
+                         (common-lisp:error
+                          ":kinesis-configuration is required"))
+                        (exclusive-end-time :initarg :exclusive-end-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %stream-journal-to-kinesis-request-exclusive-end-time
+                         :initform common-lisp:nil)
+                        (inclusive-start-time :initarg :inclusive-start-time
+                         :type (common-lisp:or timestamp common-lisp:null)
+                         :accessor
+                         %stream-journal-to-kinesis-request-inclusive-start-time
+                         :initform
+                         (common-lisp:error
+                          ":inclusive-start-time is required"))
+                        (tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %stream-journal-to-kinesis-request-tags :initform
+                         common-lisp:nil)
+                        (role-arn :initarg :role-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %stream-journal-to-kinesis-request-role-arn :initform
+                         (common-lisp:error ":role-arn is required"))
+                        (ledger-name :initarg :ledger-name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor
+                         %stream-journal-to-kinesis-request-ledger-name
+                         :initform
+                         (common-lisp:error ":ledger-name is required"))))
  (common-lisp:export
   (common-lisp:list 'stream-journal-to-kinesis-request
                     'make-stream-journal-to-kinesis-request))
+ (common-lisp:defun make-stream-journal-to-kinesis-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stream-name kinesis-configuration
+                     exclusive-end-time inclusive-start-time tags role-arn
+                     ledger-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stream-journal-to-kinesis-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1750,14 +2251,21 @@
                           stream-journal-to-kinesis-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stream-journal-to-kinesis-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stream-journal-to-kinesis-response-"))
-   (stream-id common-lisp:nil :type
-    (common-lisp:or unique-id common-lisp:null)))
+ (common-lisp:defclass stream-journal-to-kinesis-response common-lisp:nil
+                       ((stream-id :initarg :stream-id :type
+                         (common-lisp:or unique-id common-lisp:null) :accessor
+                         %stream-journal-to-kinesis-response-stream-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'stream-journal-to-kinesis-response
                     'make-stream-journal-to-kinesis-response))
+ (common-lisp:defun make-stream-journal-to-kinesis-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key stream-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stream-journal-to-kinesis-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1791,15 +2299,23 @@
                            (trivial-types:proper-list tag-key))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tags common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tags common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -1817,11 +2333,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1848,15 +2368,23 @@
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:deftype unique-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %untag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1873,11 +2401,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1894,16 +2426,27 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-ledger-permissions-mode-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-ledger-permissions-mode-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (permissions-mode (common-lisp:error ":permissions-mode is required") :type
-    (common-lisp:or permissions-mode common-lisp:null)))
+ (common-lisp:defclass update-ledger-permissions-mode-request common-lisp:nil
+                       ((permissions-mode :initarg :permissions-mode :type
+                         (common-lisp:or permissions-mode common-lisp:null)
+                         :accessor
+                         %update-ledger-permissions-mode-request-permissions-mode
+                         :initform
+                         (common-lisp:error ":permissions-mode is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %update-ledger-permissions-mode-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-ledger-permissions-mode-request
                     'make-update-ledger-permissions-mode-request))
+ (common-lisp:defun make-update-ledger-permissions-mode-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permissions-mode name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-ledger-permissions-mode-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1927,16 +2470,31 @@
                           update-ledger-permissions-mode-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-ledger-permissions-mode-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-ledger-permissions-mode-response-"))
-   (name common-lisp:nil :type (common-lisp:or ledger-name common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (permissions-mode common-lisp:nil :type
-    (common-lisp:or permissions-mode common-lisp:null)))
+ (common-lisp:defclass update-ledger-permissions-mode-response common-lisp:nil
+                       ((permissions-mode :initarg :permissions-mode :type
+                         (common-lisp:or permissions-mode common-lisp:null)
+                         :accessor
+                         %update-ledger-permissions-mode-response-permissions-mode
+                         :initform common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-ledger-permissions-mode-response-arn :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor
+                         %update-ledger-permissions-mode-response-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-ledger-permissions-mode-response
                     'make-update-ledger-permissions-mode-response))
+ (common-lisp:defun make-update-ledger-permissions-mode-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permissions-mode arn name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-ledger-permissions-mode-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1974,16 +2532,28 @@
                           update-ledger-permissions-mode-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-ledger-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-ledger-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or ledger-name common-lisp:null))
-   (deletion-protection common-lisp:nil :type
-    (common-lisp:or deletion-protection common-lisp:null))
-   (kms-key common-lisp:nil :type (common-lisp:or kms-key common-lisp:null)))
+ (common-lisp:defclass update-ledger-request common-lisp:nil
+                       ((kms-key :initarg :kms-key :type
+                         (common-lisp:or kms-key common-lisp:null) :accessor
+                         %update-ledger-request-kms-key :initform
+                         common-lisp:nil)
+                        (deletion-protection :initarg :deletion-protection
+                         :type
+                         (common-lisp:or deletion-protection common-lisp:null)
+                         :accessor %update-ledger-request-deletion-protection
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %update-ledger-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-ledger-request 'make-update-ledger-request))
+ (common-lisp:defun make-update-ledger-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key kms-key deletion-protection name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-ledger-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2014,20 +2584,43 @@
                           update-ledger-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-ledger-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-ledger-response-"))
-   (name common-lisp:nil :type (common-lisp:or ledger-name common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or ledger-state common-lisp:null))
-   (creation-date-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (deletion-protection common-lisp:nil :type
-    (common-lisp:or deletion-protection common-lisp:null))
-   (encryption-description common-lisp:nil :type
-    (common-lisp:or ledger-encryption-description common-lisp:null)))
+ (common-lisp:defclass update-ledger-response common-lisp:nil
+                       ((encryption-description :initarg
+                         :encryption-description :type
+                         (common-lisp:or ledger-encryption-description
+                                         common-lisp:null)
+                         :accessor
+                         %update-ledger-response-encryption-description
+                         :initform common-lisp:nil)
+                        (deletion-protection :initarg :deletion-protection
+                         :type
+                         (common-lisp:or deletion-protection common-lisp:null)
+                         :accessor %update-ledger-response-deletion-protection
+                         :initform common-lisp:nil)
+                        (creation-date-time :initarg :creation-date-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %update-ledger-response-creation-date-time :initform
+                         common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or ledger-state common-lisp:null)
+                         :accessor %update-ledger-response-state :initform
+                         common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-ledger-response-arn :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or ledger-name common-lisp:null)
+                         :accessor %update-ledger-response-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-ledger-response 'make-update-ledger-response))
+ (common-lisp:defun make-update-ledger-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key encryption-description
+                     deletion-protection creation-date-time state arn name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-ledger-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2087,11 +2680,17 @@
                           update-ledger-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (value-holder (:copier common-lisp:nil)
-      (:conc-name "struct-shape-value-holder-"))
-   (ion-text common-lisp:nil :type (common-lisp:or ion-text common-lisp:null)))
+ (common-lisp:defclass value-holder common-lisp:nil
+                       ((ion-text :initarg :ion-text :type
+                         (common-lisp:or ion-text common-lisp:null) :accessor
+                         %value-holder-ion-text :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'value-holder 'make-value-holder))
+ (common-lisp:defun make-value-holder
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ion-text)
+   (common-lisp:apply #'common-lisp:make-instance 'value-holder
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input value-holder))
    (common-lisp:append))

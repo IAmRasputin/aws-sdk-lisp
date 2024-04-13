@@ -39,14 +39,22 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (data-point (:copier common-lisp:nil)
-      (:conc-name "struct-shape-data-point-"))
-   (timestamp (common-lisp:error ":timestamp is required") :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or double common-lisp:null)))
+ (common-lisp:defclass data-point common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or double common-lisp:null) :accessor
+                         %data-point-value :initform
+                         (common-lisp:error ":value is required"))
+                        (timestamp :initarg :timestamp :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor %data-point-timestamp :initform
+                         (common-lisp:error ":timestamp is required"))))
  (common-lisp:export (common-lisp:list 'data-point 'make-data-point))
+ (common-lisp:defun make-data-point
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value timestamp)
+   (common-lisp:apply #'common-lisp:make-instance 'data-point
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input data-point))
    (common-lisp:append))
@@ -79,36 +87,75 @@
                            (trivial-types:proper-list data-point))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-dimension-keys-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-dimension-keys-request-"))
-   (service-type (common-lisp:error ":service-type is required") :type
-    (common-lisp:or service-type common-lisp:null))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (start-time (common-lisp:error ":start-time is required") :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (end-time (common-lisp:error ":end-time is required") :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (metric (common-lisp:error ":metric is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (period-in-seconds common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (group-by (common-lisp:error ":group-by is required") :type
-    (common-lisp:or dimension-group common-lisp:null))
-   (additional-metrics common-lisp:nil :type
-    (common-lisp:or additional-metrics-list common-lisp:null))
-   (partition-by common-lisp:nil :type
-    (common-lisp:or dimension-group common-lisp:null))
-   (filter common-lisp:nil :type
-    (common-lisp:or metric-query-filter-map common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-dimension-keys-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-dimension-keys-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %describe-dimension-keys-request-max-results
+                         :initform common-lisp:nil)
+                        (filter :initarg :filter :type
+                         (common-lisp:or metric-query-filter-map
+                                         common-lisp:null)
+                         :accessor %describe-dimension-keys-request-filter
+                         :initform common-lisp:nil)
+                        (partition-by :initarg :partition-by :type
+                         (common-lisp:or dimension-group common-lisp:null)
+                         :accessor
+                         %describe-dimension-keys-request-partition-by
+                         :initform common-lisp:nil)
+                        (additional-metrics :initarg :additional-metrics :type
+                         (common-lisp:or additional-metrics-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-dimension-keys-request-additional-metrics
+                         :initform common-lisp:nil)
+                        (group-by :initarg :group-by :type
+                         (common-lisp:or dimension-group common-lisp:null)
+                         :accessor %describe-dimension-keys-request-group-by
+                         :initform (common-lisp:error ":group-by is required"))
+                        (period-in-seconds :initarg :period-in-seconds :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %describe-dimension-keys-request-period-in-seconds
+                         :initform common-lisp:nil)
+                        (metric :initarg :metric :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor %describe-dimension-keys-request-metric
+                         :initform (common-lisp:error ":metric is required"))
+                        (end-time :initarg :end-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor %describe-dimension-keys-request-end-time
+                         :initform (common-lisp:error ":end-time is required"))
+                        (start-time :initarg :start-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor %describe-dimension-keys-request-start-time
+                         :initform
+                         (common-lisp:error ":start-time is required"))
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor %describe-dimension-keys-request-identifier
+                         :initform
+                         (common-lisp:error ":identifier is required"))
+                        (service-type :initarg :service-type :type
+                         (common-lisp:or service-type common-lisp:null)
+                         :accessor
+                         %describe-dimension-keys-request-service-type
+                         :initform
+                         (common-lisp:error ":service-type is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-dimension-keys-request
                     'make-describe-dimension-keys-request))
+ (common-lisp:defun make-describe-dimension-keys-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results filter
+                     partition-by additional-metrics group-by period-in-seconds
+                     metric end-time start-time identifier service-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-dimension-keys-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -209,22 +256,43 @@
                           describe-dimension-keys-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-dimension-keys-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-dimension-keys-response-"))
-   (aligned-start-time common-lisp:nil :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (aligned-end-time common-lisp:nil :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (partition-keys common-lisp:nil :type
-    (common-lisp:or response-partition-key-list common-lisp:null))
-   (keys common-lisp:nil :type
-    (common-lisp:or dimension-key-description-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-dimension-keys-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-dimension-keys-response-next-token :initform
+                         common-lisp:nil)
+                        (keys :initarg :keys :type
+                         (common-lisp:or dimension-key-description-list
+                                         common-lisp:null)
+                         :accessor %describe-dimension-keys-response-keys
+                         :initform common-lisp:nil)
+                        (partition-keys :initarg :partition-keys :type
+                         (common-lisp:or response-partition-key-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-dimension-keys-response-partition-keys
+                         :initform common-lisp:nil)
+                        (aligned-end-time :initarg :aligned-end-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor
+                         %describe-dimension-keys-response-aligned-end-time
+                         :initform common-lisp:nil)
+                        (aligned-start-time :initarg :aligned-start-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor
+                         %describe-dimension-keys-response-aligned-start-time
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-dimension-keys-response
                     'make-describe-dimension-keys-response))
+ (common-lisp:defun make-describe-dimension-keys-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token keys partition-keys
+                     aligned-end-time aligned-start-time)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-dimension-keys-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -278,12 +346,19 @@
 (common-lisp:deftype description () 'common-lisp:string)
 (common-lisp:deftype detail-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (dimension-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-dimension-detail-"))
-   (identifier common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass dimension-detail common-lisp:nil
+                       ((identifier :initarg :identifier :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %dimension-detail-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'dimension-detail 'make-dimension-detail))
+ (common-lisp:defun make-dimension-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'dimension-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input dimension-detail))
    (common-lisp:append))
@@ -309,15 +384,25 @@
                            (trivial-types:proper-list dimension-detail))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (dimension-group (:copier common-lisp:nil)
-      (:conc-name "struct-shape-dimension-group-"))
-   (group (common-lisp:error ":group is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (dimensions common-lisp:nil :type
-    (common-lisp:or request-string-list common-lisp:null))
-   (limit common-lisp:nil :type (common-lisp:or limit common-lisp:null)))
+ (common-lisp:defclass dimension-group common-lisp:nil
+                       ((limit :initarg :limit :type
+                         (common-lisp:or limit common-lisp:null) :accessor
+                         %dimension-group-limit :initform common-lisp:nil)
+                        (dimensions :initarg :dimensions :type
+                         (common-lisp:or request-string-list common-lisp:null)
+                         :accessor %dimension-group-dimensions :initform
+                         common-lisp:nil)
+                        (group :initarg :group :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor %dimension-group-group :initform
+                         (common-lisp:error ":group is required"))))
  (common-lisp:export (common-lisp:list 'dimension-group 'make-dimension-group))
+ (common-lisp:defun make-dimension-group
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key limit dimensions group)
+   (common-lisp:apply #'common-lisp:make-instance 'dimension-group
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input dimension-group))
    (common-lisp:append))
@@ -349,14 +434,24 @@
                         ((aws-sdk/generator/shape::input dimension-group))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (dimension-group-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-dimension-group-detail-"))
-   (group common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (dimensions common-lisp:nil :type
-    (common-lisp:or dimension-detail-list common-lisp:null)))
+ (common-lisp:defclass dimension-group-detail common-lisp:nil
+                       ((dimensions :initarg :dimensions :type
+                         (common-lisp:or dimension-detail-list
+                                         common-lisp:null)
+                         :accessor %dimension-group-detail-dimensions :initform
+                         common-lisp:nil)
+                        (group :initarg :group :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %dimension-group-detail-group :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'dimension-group-detail 'make-dimension-group-detail))
+ (common-lisp:defun make-dimension-group-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dimensions group)
+   (common-lisp:apply #'common-lisp:make-instance 'dimension-group-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -395,19 +490,35 @@
                            (trivial-types:proper-list dimension-group-detail))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (dimension-key-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-dimension-key-description-"))
-   (dimensions common-lisp:nil :type
-    (common-lisp:or dimension-map common-lisp:null))
-   (total common-lisp:nil :type (common-lisp:or double common-lisp:null))
-   (additional-metrics common-lisp:nil :type
-    (common-lisp:or additional-metrics-map common-lisp:null))
-   (partitions common-lisp:nil :type
-    (common-lisp:or metric-values-list common-lisp:null)))
+ (common-lisp:defclass dimension-key-description common-lisp:nil
+                       ((partitions :initarg :partitions :type
+                         (common-lisp:or metric-values-list common-lisp:null)
+                         :accessor %dimension-key-description-partitions
+                         :initform common-lisp:nil)
+                        (additional-metrics :initarg :additional-metrics :type
+                         (common-lisp:or additional-metrics-map
+                                         common-lisp:null)
+                         :accessor
+                         %dimension-key-description-additional-metrics
+                         :initform common-lisp:nil)
+                        (total :initarg :total :type
+                         (common-lisp:or double common-lisp:null) :accessor
+                         %dimension-key-description-total :initform
+                         common-lisp:nil)
+                        (dimensions :initarg :dimensions :type
+                         (common-lisp:or dimension-map common-lisp:null)
+                         :accessor %dimension-key-description-dimensions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'dimension-key-description
                     'make-dimension-key-description))
+ (common-lisp:defun make-dimension-key-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key partitions additional-metrics total
+                     dimensions)
+   (common-lisp:apply #'common-lisp:make-instance 'dimension-key-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -461,15 +572,27 @@
                             dimension-key-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (dimension-key-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-dimension-key-detail-"))
-   (value common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (dimension common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or detail-status common-lisp:null)))
+ (common-lisp:defclass dimension-key-detail common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or detail-status common-lisp:null)
+                         :accessor %dimension-key-detail-status :initform
+                         common-lisp:nil)
+                        (dimension :initarg :dimension :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %dimension-key-detail-dimension :initform
+                         common-lisp:nil)
+                        (value :initarg :value :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %dimension-key-detail-value :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'dimension-key-detail 'make-dimension-key-detail))
+ (common-lisp:defun make-dimension-key-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status dimension value)
+   (common-lisp:apply #'common-lisp:make-instance 'dimension-key-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input dimension-key-detail))
    (common-lisp:append))
@@ -526,13 +649,19 @@
 (common-lisp:deftype double () 'common-lisp:double-float)
 (common-lisp:deftype error-string () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (feature-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-feature-metadata-"))
-   (status common-lisp:nil :type
-    (common-lisp:or feature-status common-lisp:null)))
+ (common-lisp:defclass feature-metadata common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or feature-status common-lisp:null)
+                         :accessor %feature-metadata-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'feature-metadata 'make-feature-metadata))
+ (common-lisp:defun make-feature-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status)
+   (common-lisp:apply #'common-lisp:make-instance 'feature-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input feature-metadata))
    (common-lisp:append))
@@ -559,22 +688,47 @@
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype feature-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-dimension-key-details-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-dimension-key-details-request-"))
-   (service-type (common-lisp:error ":service-type is required") :type
-    (common-lisp:or service-type common-lisp:null))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or identifier-string common-lisp:null))
-   (group (common-lisp:error ":group is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (group-identifier (common-lisp:error ":group-identifier is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (requested-dimensions common-lisp:nil :type
-    (common-lisp:or requested-dimension-list common-lisp:null)))
+ (common-lisp:defclass get-dimension-key-details-request common-lisp:nil
+                       ((requested-dimensions :initarg :requested-dimensions
+                         :type
+                         (common-lisp:or requested-dimension-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-dimension-key-details-request-requested-dimensions
+                         :initform common-lisp:nil)
+                        (group-identifier :initarg :group-identifier :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor
+                         %get-dimension-key-details-request-group-identifier
+                         :initform
+                         (common-lisp:error ":group-identifier is required"))
+                        (group :initarg :group :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor %get-dimension-key-details-request-group
+                         :initform (common-lisp:error ":group is required"))
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or identifier-string common-lisp:null)
+                         :accessor
+                         %get-dimension-key-details-request-identifier
+                         :initform
+                         (common-lisp:error ":identifier is required"))
+                        (service-type :initarg :service-type :type
+                         (common-lisp:or service-type common-lisp:null)
+                         :accessor
+                         %get-dimension-key-details-request-service-type
+                         :initform
+                         (common-lisp:error ":service-type is required"))))
  (common-lisp:export
   (common-lisp:list 'get-dimension-key-details-request
                     'make-get-dimension-key-details-request))
+ (common-lisp:defun make-get-dimension-key-details-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key requested-dimensions group-identifier
+                     group identifier service-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-dimension-key-details-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -627,14 +781,23 @@
                           get-dimension-key-details-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-dimension-key-details-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-dimension-key-details-response-"))
-   (dimensions common-lisp:nil :type
-    (common-lisp:or dimension-key-detail-list common-lisp:null)))
+ (common-lisp:defclass get-dimension-key-details-response common-lisp:nil
+                       ((dimensions :initarg :dimensions :type
+                         (common-lisp:or dimension-key-detail-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-dimension-key-details-response-dimensions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-dimension-key-details-response
                     'make-get-dimension-key-details-response))
+ (common-lisp:defun make-get-dimension-key-details-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dimensions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-dimension-key-details-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -658,16 +821,27 @@
                           get-dimension-key-details-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-resource-metadata-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-resource-metadata-request-"))
-   (service-type (common-lisp:error ":service-type is required") :type
-    (common-lisp:or service-type common-lisp:null))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or request-string common-lisp:null)))
+ (common-lisp:defclass get-resource-metadata-request common-lisp:nil
+                       ((identifier :initarg :identifier :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor %get-resource-metadata-request-identifier
+                         :initform
+                         (common-lisp:error ":identifier is required"))
+                        (service-type :initarg :service-type :type
+                         (common-lisp:or service-type common-lisp:null)
+                         :accessor %get-resource-metadata-request-service-type
+                         :initform
+                         (common-lisp:error ":service-type is required"))))
  (common-lisp:export
   (common-lisp:list 'get-resource-metadata-request
                     'make-get-resource-metadata-request))
+ (common-lisp:defun make-get-resource-metadata-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identifier service-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-resource-metadata-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -698,15 +872,25 @@
                           get-resource-metadata-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-resource-metadata-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-resource-metadata-response-"))
-   (identifier common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (features common-lisp:nil :type
-    (common-lisp:or feature-metadata-map common-lisp:null)))
+ (common-lisp:defclass get-resource-metadata-response common-lisp:nil
+                       ((features :initarg :features :type
+                         (common-lisp:or feature-metadata-map common-lisp:null)
+                         :accessor %get-resource-metadata-response-features
+                         :initform common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-resource-metadata-response-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-resource-metadata-response
                     'make-get-resource-metadata-response))
+ (common-lisp:defun make-get-resource-metadata-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key features identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-resource-metadata-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -737,30 +921,59 @@
                           get-resource-metadata-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-resource-metrics-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-resource-metrics-request-"))
-   (service-type (common-lisp:error ":service-type is required") :type
-    (common-lisp:or service-type common-lisp:null))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (metric-queries (common-lisp:error ":metric-queries is required") :type
-    (common-lisp:or metric-query-list common-lisp:null))
-   (start-time (common-lisp:error ":start-time is required") :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (end-time (common-lisp:error ":end-time is required") :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (period-in-seconds common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (period-alignment common-lisp:nil :type
-    (common-lisp:or period-alignment common-lisp:null)))
+ (common-lisp:defclass get-resource-metrics-request common-lisp:nil
+                       ((period-alignment :initarg :period-alignment :type
+                         (common-lisp:or period-alignment common-lisp:null)
+                         :accessor
+                         %get-resource-metrics-request-period-alignment
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-resource-metrics-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-resource-metrics-request-max-results
+                         :initform common-lisp:nil)
+                        (period-in-seconds :initarg :period-in-seconds :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-resource-metrics-request-period-in-seconds
+                         :initform common-lisp:nil)
+                        (end-time :initarg :end-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor %get-resource-metrics-request-end-time
+                         :initform (common-lisp:error ":end-time is required"))
+                        (start-time :initarg :start-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor %get-resource-metrics-request-start-time
+                         :initform
+                         (common-lisp:error ":start-time is required"))
+                        (metric-queries :initarg :metric-queries :type
+                         (common-lisp:or metric-query-list common-lisp:null)
+                         :accessor %get-resource-metrics-request-metric-queries
+                         :initform
+                         (common-lisp:error ":metric-queries is required"))
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor %get-resource-metrics-request-identifier
+                         :initform
+                         (common-lisp:error ":identifier is required"))
+                        (service-type :initarg :service-type :type
+                         (common-lisp:or service-type common-lisp:null)
+                         :accessor %get-resource-metrics-request-service-type
+                         :initform
+                         (common-lisp:error ":service-type is required"))))
  (common-lisp:export
   (common-lisp:list 'get-resource-metrics-request
                     'make-get-resource-metrics-request))
+ (common-lisp:defun make-get-resource-metrics-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key period-alignment next-token max-results
+                     period-in-seconds end-time start-time metric-queries
+                     identifier service-type)
+   (common-lisp:apply #'common-lisp:make-instance 'get-resource-metrics-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -840,21 +1053,41 @@
                           get-resource-metrics-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-resource-metrics-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-resource-metrics-response-"))
-   (aligned-start-time common-lisp:nil :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (aligned-end-time common-lisp:nil :type
-    (common-lisp:or isotimestamp common-lisp:null))
-   (identifier common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (metric-list common-lisp:nil :type
-    (common-lisp:or metric-key-data-points-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-resource-metrics-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-resource-metrics-response-next-token :initform
+                         common-lisp:nil)
+                        (metric-list :initarg :metric-list :type
+                         (common-lisp:or metric-key-data-points-list
+                                         common-lisp:null)
+                         :accessor %get-resource-metrics-response-metric-list
+                         :initform common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-resource-metrics-response-identifier :initform
+                         common-lisp:nil)
+                        (aligned-end-time :initarg :aligned-end-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor
+                         %get-resource-metrics-response-aligned-end-time
+                         :initform common-lisp:nil)
+                        (aligned-start-time :initarg :aligned-start-time :type
+                         (common-lisp:or isotimestamp common-lisp:null)
+                         :accessor
+                         %get-resource-metrics-response-aligned-start-time
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-resource-metrics-response
                     'make-get-resource-metrics-response))
+ (common-lisp:defun make-get-resource-metrics-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token metric-list identifier
+                     aligned-end-time aligned-start-time)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-resource-metrics-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -925,22 +1158,46 @@
                     'invalid-argument-exception-message)))
 (common-lisp:deftype limit () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-available-resource-dimensions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-available-resource-dimensions-request-"))
-   (service-type (common-lisp:error ":service-type is required") :type
-    (common-lisp:or service-type common-lisp:null))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (metrics (common-lisp:error ":metrics is required") :type
-    (common-lisp:or dimensions-metric-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-available-resource-dimensions-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-available-resource-dimensions-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-available-resource-dimensions-request-max-results
+                         :initform common-lisp:nil)
+                        (metrics :initarg :metrics :type
+                         (common-lisp:or dimensions-metric-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-available-resource-dimensions-request-metrics
+                         :initform (common-lisp:error ":metrics is required"))
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor
+                         %list-available-resource-dimensions-request-identifier
+                         :initform
+                         (common-lisp:error ":identifier is required"))
+                        (service-type :initarg :service-type :type
+                         (common-lisp:or service-type common-lisp:null)
+                         :accessor
+                         %list-available-resource-dimensions-request-service-type
+                         :initform
+                         (common-lisp:error ":service-type is required"))))
  (common-lisp:export
   (common-lisp:list 'list-available-resource-dimensions-request
                     'make-list-available-resource-dimensions-request))
+ (common-lisp:defun make-list-available-resource-dimensions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results metrics identifier
+                     service-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-available-resource-dimensions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -992,16 +1249,28 @@
                           list-available-resource-dimensions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-available-resource-dimensions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-available-resource-dimensions-response-"))
-   (metric-dimensions common-lisp:nil :type
-    (common-lisp:or metric-dimensions-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-available-resource-dimensions-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-available-resource-dimensions-response-next-token
+                         :initform common-lisp:nil)
+                        (metric-dimensions :initarg :metric-dimensions :type
+                         (common-lisp:or metric-dimensions-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-available-resource-dimensions-response-metric-dimensions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-available-resource-dimensions-response
                     'make-list-available-resource-dimensions-response))
+ (common-lisp:defun make-list-available-resource-dimensions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token metric-dimensions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-available-resource-dimensions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1032,22 +1301,45 @@
                           list-available-resource-dimensions-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-available-resource-metrics-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-available-resource-metrics-request-"))
-   (service-type (common-lisp:error ":service-type is required") :type
-    (common-lisp:or service-type common-lisp:null))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (metric-types (common-lisp:error ":metric-types is required") :type
-    (common-lisp:or metric-type-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-available-resource-metrics-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-available-resource-metrics-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-available-resource-metrics-request-next-token
+                         :initform common-lisp:nil)
+                        (metric-types :initarg :metric-types :type
+                         (common-lisp:or metric-type-list common-lisp:null)
+                         :accessor
+                         %list-available-resource-metrics-request-metric-types
+                         :initform
+                         (common-lisp:error ":metric-types is required"))
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor
+                         %list-available-resource-metrics-request-identifier
+                         :initform
+                         (common-lisp:error ":identifier is required"))
+                        (service-type :initarg :service-type :type
+                         (common-lisp:or service-type common-lisp:null)
+                         :accessor
+                         %list-available-resource-metrics-request-service-type
+                         :initform
+                         (common-lisp:error ":service-type is required"))))
  (common-lisp:export
   (common-lisp:list 'list-available-resource-metrics-request
                     'make-list-available-resource-metrics-request))
+ (common-lisp:defun make-list-available-resource-metrics-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token metric-types
+                     identifier service-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-available-resource-metrics-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1099,16 +1391,27 @@
                           list-available-resource-metrics-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-available-resource-metrics-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-available-resource-metrics-response-"))
-   (metrics common-lisp:nil :type
-    (common-lisp:or response-resource-metric-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-available-resource-metrics-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-available-resource-metrics-response-next-token
+                         :initform common-lisp:nil)
+                        (metrics :initarg :metrics :type
+                         (common-lisp:or response-resource-metric-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-available-resource-metrics-response-metrics
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-available-resource-metrics-response
                     'make-list-available-resource-metrics-response))
+ (common-lisp:defun make-list-available-resource-metrics-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token metrics)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-available-resource-metrics-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1140,14 +1443,24 @@
    common-lisp:nil))
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (metric-dimension-groups (:copier common-lisp:nil)
-      (:conc-name "struct-shape-metric-dimension-groups-"))
-   (metric common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or dimension-group-detail-list common-lisp:null)))
+ (common-lisp:defclass metric-dimension-groups common-lisp:nil
+                       ((groups :initarg :groups :type
+                         (common-lisp:or dimension-group-detail-list
+                                         common-lisp:null)
+                         :accessor %metric-dimension-groups-groups :initform
+                         common-lisp:nil)
+                        (metric :initarg :metric :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %metric-dimension-groups-metric :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'metric-dimension-groups 'make-metric-dimension-groups))
+ (common-lisp:defun make-metric-dimension-groups
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key groups metric)
+   (common-lisp:apply #'common-lisp:make-instance 'metric-dimension-groups
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1186,15 +1499,24 @@
                            (trivial-types:proper-list metric-dimension-groups))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (metric-key-data-points (:copier common-lisp:nil)
-      (:conc-name "struct-shape-metric-key-data-points-"))
-   (key common-lisp:nil :type
-    (common-lisp:or response-resource-metric-key common-lisp:null))
-   (data-points common-lisp:nil :type
-    (common-lisp:or data-points-list common-lisp:null)))
+ (common-lisp:defclass metric-key-data-points common-lisp:nil
+                       ((data-points :initarg :data-points :type
+                         (common-lisp:or data-points-list common-lisp:null)
+                         :accessor %metric-key-data-points-data-points
+                         :initform common-lisp:nil)
+                        (key :initarg :key :type
+                         (common-lisp:or response-resource-metric-key
+                                         common-lisp:null)
+                         :accessor %metric-key-data-points-key :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'metric-key-data-points 'make-metric-key-data-points))
+ (common-lisp:defun make-metric-key-data-points
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key data-points key)
+   (common-lisp:apply #'common-lisp:make-instance 'metric-key-data-points
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1233,16 +1555,27 @@
                            (trivial-types:proper-list metric-key-data-points))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (metric-query (:copier common-lisp:nil)
-      (:conc-name "struct-shape-metric-query-"))
-   (metric (common-lisp:error ":metric is required") :type
-    (common-lisp:or request-string common-lisp:null))
-   (group-by common-lisp:nil :type
-    (common-lisp:or dimension-group common-lisp:null))
-   (filter common-lisp:nil :type
-    (common-lisp:or metric-query-filter-map common-lisp:null)))
+ (common-lisp:defclass metric-query common-lisp:nil
+                       ((filter :initarg :filter :type
+                         (common-lisp:or metric-query-filter-map
+                                         common-lisp:null)
+                         :accessor %metric-query-filter :initform
+                         common-lisp:nil)
+                        (group-by :initarg :group-by :type
+                         (common-lisp:or dimension-group common-lisp:null)
+                         :accessor %metric-query-group-by :initform
+                         common-lisp:nil)
+                        (metric :initarg :metric :type
+                         (common-lisp:or request-string common-lisp:null)
+                         :accessor %metric-query-metric :initform
+                         (common-lisp:error ":metric is required"))))
  (common-lisp:export (common-lisp:list 'metric-query 'make-metric-query))
+ (common-lisp:defun make-metric-query
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key filter group-by metric)
+   (common-lisp:apply #'common-lisp:make-instance 'metric-query
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input metric-query))
    (common-lisp:append))
@@ -1333,13 +1666,19 @@
                            (trivial-types:proper-list request-string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (response-partition-key (:copier common-lisp:nil)
-      (:conc-name "struct-shape-response-partition-key-"))
-   (dimensions (common-lisp:error ":dimensions is required") :type
-    (common-lisp:or dimension-map common-lisp:null)))
+ (common-lisp:defclass response-partition-key common-lisp:nil
+                       ((dimensions :initarg :dimensions :type
+                         (common-lisp:or dimension-map common-lisp:null)
+                         :accessor %response-partition-key-dimensions :initform
+                         (common-lisp:error ":dimensions is required"))))
  (common-lisp:export
   (common-lisp:list 'response-partition-key 'make-response-partition-key))
+ (common-lisp:defun make-response-partition-key
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dimensions)
+   (common-lisp:apply #'common-lisp:make-instance 'response-partition-key
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1371,15 +1710,27 @@
                            (trivial-types:proper-list response-partition-key))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (response-resource-metric (:copier common-lisp:nil)
-      (:conc-name "struct-shape-response-resource-metric-"))
-   (metric common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (unit common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass response-resource-metric common-lisp:nil
+                       ((unit :initarg :unit :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %response-resource-metric-unit :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %response-resource-metric-description
+                         :initform common-lisp:nil)
+                        (metric :initarg :metric :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %response-resource-metric-metric :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'response-resource-metric 'make-response-resource-metric))
+ (common-lisp:defun make-response-resource-metric
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key unit description metric)
+   (common-lisp:apply #'common-lisp:make-instance 'response-resource-metric
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1417,16 +1768,24 @@
                           response-resource-metric))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (response-resource-metric-key (:copier common-lisp:nil)
-      (:conc-name "struct-shape-response-resource-metric-key-"))
-   (metric (common-lisp:error ":metric is required") :type
-    (common-lisp:or string common-lisp:null))
-   (dimensions common-lisp:nil :type
-    (common-lisp:or dimension-map common-lisp:null)))
+ (common-lisp:defclass response-resource-metric-key common-lisp:nil
+                       ((dimensions :initarg :dimensions :type
+                         (common-lisp:or dimension-map common-lisp:null)
+                         :accessor %response-resource-metric-key-dimensions
+                         :initform common-lisp:nil)
+                        (metric :initarg :metric :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %response-resource-metric-key-metric :initform
+                         (common-lisp:error ":metric is required"))))
  (common-lisp:export
   (common-lisp:list 'response-resource-metric-key
                     'make-response-resource-metric-key))
+ (common-lisp:defun make-response-resource-metric-key
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dimensions metric)
+   (common-lisp:apply #'common-lisp:make-instance 'response-resource-metric-key
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

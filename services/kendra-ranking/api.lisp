@@ -45,15 +45,25 @@
                            (trivial-types:proper-list tokens))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (capacity-units-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-capacity-units-configuration-"))
-   (rescore-capacity-units
-    (common-lisp:error ":rescore-capacity-units is required") :type
-    (common-lisp:or rescore-capacity-unit common-lisp:null)))
+ (common-lisp:defclass capacity-units-configuration common-lisp:nil
+                       ((rescore-capacity-units :initarg
+                         :rescore-capacity-units :type
+                         (common-lisp:or rescore-capacity-unit
+                                         common-lisp:null)
+                         :accessor
+                         %capacity-units-configuration-rescore-capacity-units
+                         :initform
+                         (common-lisp:error
+                          ":rescore-capacity-units is required"))))
  (common-lisp:export
   (common-lisp:list 'capacity-units-configuration
                     'make-capacity-units-configuration))
+ (common-lisp:defun make-capacity-units-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key rescore-capacity-units)
+   (common-lisp:apply #'common-lisp:make-instance 'capacity-units-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -86,21 +96,43 @@
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-rescore-execution-plan-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-rescore-execution-plan-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or rescore-execution-plan-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (capacity-units common-lisp:nil :type
-    (common-lisp:or capacity-units-configuration common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token-name common-lisp:null)))
+ (common-lisp:defclass create-rescore-execution-plan-request common-lisp:nil
+                       ((client-token :initarg :client-token :type
+                         (common-lisp:or client-token-name common-lisp:null)
+                         :accessor
+                         %create-rescore-execution-plan-request-client-token
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-rescore-execution-plan-request-tags :initform
+                         common-lisp:nil)
+                        (capacity-units :initarg :capacity-units :type
+                         (common-lisp:or capacity-units-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %create-rescore-execution-plan-request-capacity-units
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor
+                         %create-rescore-execution-plan-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or rescore-execution-plan-name
+                                         common-lisp:null)
+                         :accessor %create-rescore-execution-plan-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-rescore-execution-plan-request
                     'make-create-rescore-execution-plan-request))
+ (common-lisp:defun make-create-rescore-execution-plan-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-token tags capacity-units
+                     description name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-rescore-execution-plan-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -152,16 +184,27 @@
                           create-rescore-execution-plan-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-rescore-execution-plan-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-rescore-execution-plan-response-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or rescore-execution-plan-id common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or rescore-execution-plan-arn common-lisp:null)))
+ (common-lisp:defclass create-rescore-execution-plan-response common-lisp:nil
+                       ((arn :initarg :arn :type
+                         (common-lisp:or rescore-execution-plan-arn
+                                         common-lisp:null)
+                         :accessor %create-rescore-execution-plan-response-arn
+                         :initform (common-lisp:error ":arn is required"))
+                        (id :initarg :id :type
+                         (common-lisp:or rescore-execution-plan-id
+                                         common-lisp:null)
+                         :accessor %create-rescore-execution-plan-response-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-rescore-execution-plan-response
                     'make-create-rescore-execution-plan-response))
+ (common-lisp:defun make-create-rescore-execution-plan-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key arn id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-rescore-execution-plan-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -192,14 +235,22 @@
                           create-rescore-execution-plan-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-rescore-execution-plan-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-rescore-execution-plan-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or rescore-execution-plan-id common-lisp:null)))
+ (common-lisp:defclass delete-rescore-execution-plan-request common-lisp:nil
+                       ((id :initarg :id :type
+                         (common-lisp:or rescore-execution-plan-id
+                                         common-lisp:null)
+                         :accessor %delete-rescore-execution-plan-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-rescore-execution-plan-request
                     'make-delete-rescore-execution-plan-request))
+ (common-lisp:defun make-delete-rescore-execution-plan-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-rescore-execution-plan-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -223,14 +274,22 @@
                           delete-rescore-execution-plan-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-rescore-execution-plan-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-rescore-execution-plan-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or rescore-execution-plan-id common-lisp:null)))
+ (common-lisp:defclass describe-rescore-execution-plan-request common-lisp:nil
+                       ((id :initarg :id :type
+                         (common-lisp:or rescore-execution-plan-id
+                                         common-lisp:null)
+                         :accessor %describe-rescore-execution-plan-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-rescore-execution-plan-request
                     'make-describe-rescore-execution-plan-request))
+ (common-lisp:defun make-describe-rescore-execution-plan-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-rescore-execution-plan-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -254,30 +313,65 @@
                           describe-rescore-execution-plan-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-rescore-execution-plan-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-rescore-execution-plan-response-"))
-   (id common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-id common-lisp:null))
-   (arn common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-arn common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (capacity-units common-lisp:nil :type
-    (common-lisp:or capacity-units-configuration common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (updated-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-status common-lisp:null))
-   (error-message common-lisp:nil :type
-    (common-lisp:or error-message common-lisp:null)))
+ (common-lisp:defclass describe-rescore-execution-plan-response common-lisp:nil
+                       ((error-message :initarg :error-message :type
+                         (common-lisp:or error-message common-lisp:null)
+                         :accessor
+                         %describe-rescore-execution-plan-response-error-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or rescore-execution-plan-status
+                                         common-lisp:null)
+                         :accessor
+                         %describe-rescore-execution-plan-response-status
+                         :initform common-lisp:nil)
+                        (updated-at :initarg :updated-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %describe-rescore-execution-plan-response-updated-at
+                         :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %describe-rescore-execution-plan-response-created-at
+                         :initform common-lisp:nil)
+                        (capacity-units :initarg :capacity-units :type
+                         (common-lisp:or capacity-units-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %describe-rescore-execution-plan-response-capacity-units
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor
+                         %describe-rescore-execution-plan-response-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or rescore-execution-plan-name
+                                         common-lisp:null)
+                         :accessor
+                         %describe-rescore-execution-plan-response-name
+                         :initform common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or rescore-execution-plan-arn
+                                         common-lisp:null)
+                         :accessor
+                         %describe-rescore-execution-plan-response-arn
+                         :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or rescore-execution-plan-id
+                                         common-lisp:null)
+                         :accessor %describe-rescore-execution-plan-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-rescore-execution-plan-response
                     'make-describe-rescore-execution-plan-response))
+ (common-lisp:defun make-describe-rescore-execution-plan-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error-message status updated-at
+                     created-at capacity-units description name arn id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-rescore-execution-plan-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -358,21 +452,40 @@
    common-lisp:nil))
 (common-lisp:deftype description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (document (:copier common-lisp:nil) (:conc-name "struct-shape-document-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or document-id common-lisp:null))
-   (group-id common-lisp:nil :type (common-lisp:or group-id common-lisp:null))
-   (title common-lisp:nil :type
-    (common-lisp:or document-title common-lisp:null))
-   (body common-lisp:nil :type (common-lisp:or document-body common-lisp:null))
-   (tokenized-title common-lisp:nil :type
-    (common-lisp:or title-tokens-list common-lisp:null))
-   (tokenized-body common-lisp:nil :type
-    (common-lisp:or body-tokens-list common-lisp:null))
-   (original-score (common-lisp:error ":original-score is required") :type
-    (common-lisp:or float common-lisp:null)))
+ (common-lisp:defclass document common-lisp:nil
+                       ((original-score :initarg :original-score :type
+                         (common-lisp:or float common-lisp:null) :accessor
+                         %document-original-score :initform
+                         (common-lisp:error ":original-score is required"))
+                        (tokenized-body :initarg :tokenized-body :type
+                         (common-lisp:or body-tokens-list common-lisp:null)
+                         :accessor %document-tokenized-body :initform
+                         common-lisp:nil)
+                        (tokenized-title :initarg :tokenized-title :type
+                         (common-lisp:or title-tokens-list common-lisp:null)
+                         :accessor %document-tokenized-title :initform
+                         common-lisp:nil)
+                        (body :initarg :body :type
+                         (common-lisp:or document-body common-lisp:null)
+                         :accessor %document-body :initform common-lisp:nil)
+                        (title :initarg :title :type
+                         (common-lisp:or document-title common-lisp:null)
+                         :accessor %document-title :initform common-lisp:nil)
+                        (group-id :initarg :group-id :type
+                         (common-lisp:or group-id common-lisp:null) :accessor
+                         %document-group-id :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or document-id common-lisp:null)
+                         :accessor %document-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export (common-lisp:list 'document 'make-document))
+ (common-lisp:defun make-document
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key original-score tokenized-body
+                     tokenized-title body title group-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'document
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input document))
    (common-lisp:append))
@@ -453,18 +566,28 @@
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-rescore-execution-plans-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-rescore-execution-plans-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or
-     max-results-integer-for-list-rescore-execution-plans-request
-     common-lisp:null)))
+ (common-lisp:defclass list-rescore-execution-plans-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or
+                          max-results-integer-for-list-rescore-execution-plans-request
+                          common-lisp:null)
+                         :accessor
+                         %list-rescore-execution-plans-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-rescore-execution-plans-request-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-rescore-execution-plans-request
                     'make-list-rescore-execution-plans-request))
+ (common-lisp:defun make-list-rescore-execution-plans-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-rescore-execution-plans-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -495,16 +618,27 @@
                           list-rescore-execution-plans-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-rescore-execution-plans-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-rescore-execution-plans-response-"))
-   (summary-items common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-rescore-execution-plans-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-rescore-execution-plans-response-next-token
+                         :initform common-lisp:nil)
+                        (summary-items :initarg :summary-items :type
+                         (common-lisp:or rescore-execution-plan-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-rescore-execution-plans-response-summary-items
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-rescore-execution-plans-response
                     'make-list-rescore-execution-plans-response))
+ (common-lisp:defun make-list-rescore-execution-plans-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token summary-items)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-rescore-execution-plans-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -535,14 +669,22 @@
                           list-rescore-execution-plans-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or amazon-resource-name common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or amazon-resource-name common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -566,13 +708,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -605,22 +755,40 @@
 (common-lisp:deftype rescore-execution-plan-name () 'common-lisp:string)
 (common-lisp:deftype rescore-execution-plan-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (rescore-execution-plan-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-rescore-execution-plan-summary-"))
-   (name common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-name common-lisp:null))
-   (id common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-id common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (updated-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-status common-lisp:null)))
+ (common-lisp:defclass rescore-execution-plan-summary common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or rescore-execution-plan-status
+                                         common-lisp:null)
+                         :accessor %rescore-execution-plan-summary-status
+                         :initform common-lisp:nil)
+                        (updated-at :initarg :updated-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %rescore-execution-plan-summary-updated-at :initform
+                         common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %rescore-execution-plan-summary-created-at :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or rescore-execution-plan-id
+                                         common-lisp:null)
+                         :accessor %rescore-execution-plan-summary-id :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or rescore-execution-plan-name
+                                         common-lisp:null)
+                         :accessor %rescore-execution-plan-summary-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'rescore-execution-plan-summary
                     'make-rescore-execution-plan-summary))
+ (common-lisp:defun make-rescore-execution-plan-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status updated-at created-at id name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'rescore-execution-plan-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -682,17 +850,31 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype rescore-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (rescore-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-rescore-request-"))
-   (rescore-execution-plan-id
-    (common-lisp:error ":rescore-execution-plan-id is required") :type
-    (common-lisp:or rescore-execution-plan-id common-lisp:null))
-   (search-query (common-lisp:error ":search-query is required") :type
-    (common-lisp:or search-query common-lisp:null))
-   (documents (common-lisp:error ":documents is required") :type
-    (common-lisp:or document-list common-lisp:null)))
+ (common-lisp:defclass rescore-request common-lisp:nil
+                       ((documents :initarg :documents :type
+                         (common-lisp:or document-list common-lisp:null)
+                         :accessor %rescore-request-documents :initform
+                         (common-lisp:error ":documents is required"))
+                        (search-query :initarg :search-query :type
+                         (common-lisp:or search-query common-lisp:null)
+                         :accessor %rescore-request-search-query :initform
+                         (common-lisp:error ":search-query is required"))
+                        (rescore-execution-plan-id :initarg
+                         :rescore-execution-plan-id :type
+                         (common-lisp:or rescore-execution-plan-id
+                                         common-lisp:null)
+                         :accessor %rescore-request-rescore-execution-plan-id
+                         :initform
+                         (common-lisp:error
+                          ":rescore-execution-plan-id is required"))))
  (common-lisp:export (common-lisp:list 'rescore-request 'make-rescore-request))
+ (common-lisp:defun make-rescore-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key documents search-query
+                     rescore-execution-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'rescore-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input rescore-request))
    (common-lisp:append))
@@ -725,14 +907,23 @@
                         ((aws-sdk/generator/shape::input rescore-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (rescore-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-rescore-result-"))
-   (rescore-id common-lisp:nil :type
-    (common-lisp:or rescore-id common-lisp:null))
-   (result-items common-lisp:nil :type
-    (common-lisp:or rescore-result-item-list common-lisp:null)))
+ (common-lisp:defclass rescore-result common-lisp:nil
+                       ((result-items :initarg :result-items :type
+                         (common-lisp:or rescore-result-item-list
+                                         common-lisp:null)
+                         :accessor %rescore-result-result-items :initform
+                         common-lisp:nil)
+                        (rescore-id :initarg :rescore-id :type
+                         (common-lisp:or rescore-id common-lisp:null) :accessor
+                         %rescore-result-rescore-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'rescore-result 'make-rescore-result))
+ (common-lisp:defun make-rescore-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key result-items rescore-id)
+   (common-lisp:apply #'common-lisp:make-instance 'rescore-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input rescore-result))
    (common-lisp:append))
@@ -757,14 +948,22 @@
                         ((aws-sdk/generator/shape::input rescore-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (rescore-result-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-rescore-result-item-"))
-   (document-id common-lisp:nil :type
-    (common-lisp:or document-id common-lisp:null))
-   (score common-lisp:nil :type (common-lisp:or float common-lisp:null)))
+ (common-lisp:defclass rescore-result-item common-lisp:nil
+                       ((score :initarg :score :type
+                         (common-lisp:or float common-lisp:null) :accessor
+                         %rescore-result-item-score :initform common-lisp:nil)
+                        (document-id :initarg :document-id :type
+                         (common-lisp:or document-id common-lisp:null)
+                         :accessor %rescore-result-item-document-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'rescore-result-item 'make-rescore-result-item))
+ (common-lisp:defun make-rescore-result-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key score document-id)
+   (common-lisp:apply #'common-lisp:make-instance 'rescore-result-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input rescore-result-item))
    (common-lisp:append))
@@ -822,13 +1021,22 @@
   (common-lisp:list 'service-quota-exceeded-exception
                     'service-quota-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform
+                         (common-lisp:error ":value is required"))
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -868,15 +1076,23 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or amazon-resource-name common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or amazon-resource-name common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -901,11 +1117,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -939,15 +1159,24 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype tokens () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or amazon-resource-name common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or amazon-resource-name common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -978,11 +1207,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -999,20 +1232,38 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-rescore-execution-plan-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-rescore-execution-plan-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or rescore-execution-plan-id common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or rescore-execution-plan-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (capacity-units common-lisp:nil :type
-    (common-lisp:or capacity-units-configuration common-lisp:null)))
+ (common-lisp:defclass update-rescore-execution-plan-request common-lisp:nil
+                       ((capacity-units :initarg :capacity-units :type
+                         (common-lisp:or capacity-units-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %update-rescore-execution-plan-request-capacity-units
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor
+                         %update-rescore-execution-plan-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or rescore-execution-plan-name
+                                         common-lisp:null)
+                         :accessor %update-rescore-execution-plan-request-name
+                         :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or rescore-execution-plan-id
+                                         common-lisp:null)
+                         :accessor %update-rescore-execution-plan-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-rescore-execution-plan-request
                     'make-update-rescore-execution-plan-request))
+ (common-lisp:defun make-update-rescore-execution-plan-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key capacity-units description name id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-rescore-execution-plan-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

@@ -39,29 +39,63 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'access-denied-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (address (:copier common-lisp:nil) (:conc-name "struct-shape-address-"))
-   (street-name common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (street-suffix common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (post-directional common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (pre-directional common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (street-number common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (city common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (postal-code common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (postal-code-plus4 common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (country common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null)))
+ (common-lisp:defclass address common-lisp:nil
+                       ((country :initarg :|country| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-country :initform common-lisp:nil)
+                        (postal-code-plus4 :initarg :|postalCodePlus4| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-postal-code-plus4 :initform
+                         common-lisp:nil)
+                        (postal-code :initarg :|postalCode| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-postal-code :initform
+                         common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-state :initform common-lisp:nil)
+                        (city :initarg :|city| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-city :initform common-lisp:nil)
+                        (street-number :initarg :|streetNumber| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-street-number :initform
+                         common-lisp:nil)
+                        (pre-directional :initarg :|preDirectional| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-pre-directional :initform
+                         common-lisp:nil)
+                        (post-directional :initarg :|postDirectional| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-post-directional :initform
+                         common-lisp:nil)
+                        (street-suffix :initarg :|streetSuffix| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-street-suffix :initform
+                         common-lisp:nil)
+                        (street-name :initarg :|streetName| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %address-street-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'address 'make-address))
+ (common-lisp:defun make-address
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key country postal-code-plus4 postal-code
+                     state city street-number pre-directional post-directional
+                     street-suffix street-name)
+   (common-lisp:apply #'common-lisp:make-instance 'address
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input address))
    (common-lisp:append))
@@ -155,21 +189,31 @@
 (common-lisp:deftype area-code () 'common-lisp:string)
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-phone-numbers-with-voice-connector-group-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-phone-numbers-with-voice-connector-group-request-"))
-   (voice-connector-group-id
-    (common-lisp:error ":voice-connector-group-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (e164phone-numbers (common-lisp:error ":e164phone-numbers is required")
-    :type (common-lisp:or e164phone-number-list common-lisp:null))
-   (force-associate common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null)))
+ (common-lisp:defclass
+  associate-phone-numbers-with-voice-connector-group-request common-lisp:nil
+  ((force-associate :initarg :force-associate :type
+    (common-lisp:or nullable-boolean common-lisp:null) :accessor
+    %associate-phone-numbers-with-voice-connector-group-request-force-associate
+    :initform common-lisp:nil)
+   (e164phone-numbers :initarg :e164phone-numbers :type
+    (common-lisp:or e164phone-number-list common-lisp:null) :accessor
+    %associate-phone-numbers-with-voice-connector-group-request-e164phone-numbers
+    :initform (common-lisp:error ":e164phone-numbers is required"))
+   (voice-connector-group-id :initarg :voice-connector-group-id :type
+    (common-lisp:or non-empty-string common-lisp:null) :accessor
+    %associate-phone-numbers-with-voice-connector-group-request-voice-connector-group-id
+    :initform (common-lisp:error ":voice-connector-group-id is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-phone-numbers-with-voice-connector-group-request
                     'make-associate-phone-numbers-with-voice-connector-group-request))
+ (common-lisp:defun make-associate-phone-numbers-with-voice-connector-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key force-associate e164phone-numbers
+                     voice-connector-group-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-phone-numbers-with-voice-connector-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -200,17 +244,23 @@
                           associate-phone-numbers-with-voice-connector-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-phone-numbers-with-voice-connector-group-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-phone-numbers-with-voice-connector-group-response-"))
-   (phone-number-errors common-lisp:nil :type
-    (common-lisp:or phone-number-error-list common-lisp:null)))
+ (common-lisp:defclass
+  associate-phone-numbers-with-voice-connector-group-response common-lisp:nil
+  ((phone-number-errors :initarg :phone-number-errors :type
+    (common-lisp:or phone-number-error-list common-lisp:null) :accessor
+    %associate-phone-numbers-with-voice-connector-group-response-phone-number-errors
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'associate-phone-numbers-with-voice-connector-group-response
    'make-associate-phone-numbers-with-voice-connector-group-response))
+ (common-lisp:defun make-associate-phone-numbers-with-voice-connector-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-errors)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-phone-numbers-with-voice-connector-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -234,20 +284,38 @@
                           associate-phone-numbers-with-voice-connector-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-phone-numbers-with-voice-connector-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-phone-numbers-with-voice-connector-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (e164phone-numbers (common-lisp:error ":e164phone-numbers is required")
-    :type (common-lisp:or e164phone-number-list common-lisp:null))
-   (force-associate common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null)))
+ (common-lisp:defclass associate-phone-numbers-with-voice-connector-request
+                       common-lisp:nil
+                       ((force-associate :initarg :force-associate :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor
+                         %associate-phone-numbers-with-voice-connector-request-force-associate
+                         :initform common-lisp:nil)
+                        (e164phone-numbers :initarg :e164phone-numbers :type
+                         (common-lisp:or e164phone-number-list
+                                         common-lisp:null)
+                         :accessor
+                         %associate-phone-numbers-with-voice-connector-request-e164phone-numbers
+                         :initform
+                         (common-lisp:error ":e164phone-numbers is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %associate-phone-numbers-with-voice-connector-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-phone-numbers-with-voice-connector-request
                     'make-associate-phone-numbers-with-voice-connector-request))
+ (common-lisp:defun make-associate-phone-numbers-with-voice-connector-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key force-associate e164phone-numbers
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-phone-numbers-with-voice-connector-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -278,16 +346,25 @@
                           associate-phone-numbers-with-voice-connector-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-phone-numbers-with-voice-connector-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-associate-phone-numbers-with-voice-connector-response-"))
-   (phone-number-errors common-lisp:nil :type
-    (common-lisp:or phone-number-error-list common-lisp:null)))
+ (common-lisp:defclass associate-phone-numbers-with-voice-connector-response
+                       common-lisp:nil
+                       ((phone-number-errors :initarg :phone-number-errors
+                         :type
+                         (common-lisp:or phone-number-error-list
+                                         common-lisp:null)
+                         :accessor
+                         %associate-phone-numbers-with-voice-connector-response-phone-number-errors
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-phone-numbers-with-voice-connector-response
                     'make-associate-phone-numbers-with-voice-connector-response))
+ (common-lisp:defun make-associate-phone-numbers-with-voice-connector-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-errors)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-phone-numbers-with-voice-connector-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -316,14 +393,24 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'bad-request-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-delete-phone-number-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-delete-phone-number-request-"))
-   (phone-number-ids (common-lisp:error ":phone-number-ids is required") :type
-    (common-lisp:or non-empty-string-list common-lisp:null)))
+ (common-lisp:defclass batch-delete-phone-number-request common-lisp:nil
+                       ((phone-number-ids :initarg :phone-number-ids :type
+                         (common-lisp:or non-empty-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %batch-delete-phone-number-request-phone-number-ids
+                         :initform
+                         (common-lisp:error ":phone-number-ids is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-delete-phone-number-request
                     'make-batch-delete-phone-number-request))
+ (common-lisp:defun make-batch-delete-phone-number-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-delete-phone-number-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -347,14 +434,24 @@
                           batch-delete-phone-number-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-delete-phone-number-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-delete-phone-number-response-"))
-   (phone-number-errors common-lisp:nil :type
-    (common-lisp:or phone-number-error-list common-lisp:null)))
+ (common-lisp:defclass batch-delete-phone-number-response common-lisp:nil
+                       ((phone-number-errors :initarg :phone-number-errors
+                         :type
+                         (common-lisp:or phone-number-error-list
+                                         common-lisp:null)
+                         :accessor
+                         %batch-delete-phone-number-response-phone-number-errors
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'batch-delete-phone-number-response
                     'make-batch-delete-phone-number-response))
+ (common-lisp:defun make-batch-delete-phone-number-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-errors)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-delete-phone-number-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -378,15 +475,26 @@
                           batch-delete-phone-number-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-update-phone-number-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-update-phone-number-request-"))
-   (update-phone-number-request-items
-    (common-lisp:error ":update-phone-number-request-items is required") :type
-    (common-lisp:or update-phone-number-request-item-list common-lisp:null)))
+ (common-lisp:defclass batch-update-phone-number-request common-lisp:nil
+                       ((update-phone-number-request-items :initarg
+                         :update-phone-number-request-items :type
+                         (common-lisp:or update-phone-number-request-item-list
+                                         common-lisp:null)
+                         :accessor
+                         %batch-update-phone-number-request-update-phone-number-request-items
+                         :initform
+                         (common-lisp:error
+                          ":update-phone-number-request-items is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-update-phone-number-request
                     'make-batch-update-phone-number-request))
+ (common-lisp:defun make-batch-update-phone-number-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-phone-number-request-items)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-update-phone-number-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -411,14 +519,24 @@
                           batch-update-phone-number-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-update-phone-number-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-update-phone-number-response-"))
-   (phone-number-errors common-lisp:nil :type
-    (common-lisp:or phone-number-error-list common-lisp:null)))
+ (common-lisp:defclass batch-update-phone-number-response common-lisp:nil
+                       ((phone-number-errors :initarg :phone-number-errors
+                         :type
+                         (common-lisp:or phone-number-error-list
+                                         common-lisp:null)
+                         :accessor
+                         %batch-update-phone-number-response-phone-number-errors
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'batch-update-phone-number-response
                     'make-batch-update-phone-number-response))
+ (common-lisp:defun make-batch-update-phone-number-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-errors)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-update-phone-number-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -443,15 +561,26 @@
    common-lisp:nil))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (call-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-call-details-"))
-   (voice-connector-id common-lisp:nil :type
-    (common-lisp:or non-empty-string128 common-lisp:null))
-   (transaction-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (is-caller common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass call-details common-lisp:nil
+                       ((is-caller :initarg :is-caller :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %call-details-is-caller :initform common-lisp:nil)
+                        (transaction-id :initarg :transaction-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor %call-details-transaction-id :initform
+                         common-lisp:nil)
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor %call-details-voice-connector-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'call-details 'make-call-details))
+ (common-lisp:defun make-call-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key is-caller transaction-id
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'call-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input call-details))
    (common-lisp:append))
@@ -494,25 +623,51 @@
                            (trivial-types:proper-list calling-region))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (candidate-address (:copier common-lisp:nil)
-      (:conc-name "struct-shape-candidate-address-"))
-   (street-info common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (street-number common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (city common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (postal-code common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (postal-code-plus4 common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (country common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null)))
+ (common-lisp:defclass candidate-address common-lisp:nil
+                       ((country :initarg :|country| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %candidate-address-country :initform
+                         common-lisp:nil)
+                        (postal-code-plus4 :initarg :|postalCodePlus4| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %candidate-address-postal-code-plus4
+                         :initform common-lisp:nil)
+                        (postal-code :initarg :|postalCode| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %candidate-address-postal-code :initform
+                         common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %candidate-address-state :initform
+                         common-lisp:nil)
+                        (city :initarg :|city| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %candidate-address-city :initform
+                         common-lisp:nil)
+                        (street-number :initarg :|streetNumber| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %candidate-address-street-number :initform
+                         common-lisp:nil)
+                        (street-info :initarg :|streetInfo| :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %candidate-address-street-info :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'candidate-address 'make-candidate-address))
+ (common-lisp:defun make-candidate-address
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key country postal-code-plus4 postal-code
+                     state city street-number street-info)
+   (common-lisp:apply #'common-lisp:make-instance 'candidate-address
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input candidate-address))
    (common-lisp:append))
@@ -605,16 +760,31 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype cps-limit () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-phone-number-order-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-phone-number-order-request-"))
-   (product-type (common-lisp:error ":product-type is required") :type
-    (common-lisp:or phone-number-product-type common-lisp:null))
-   (e164phone-numbers (common-lisp:error ":e164phone-numbers is required")
-    :type (common-lisp:or e164phone-number-list common-lisp:null)))
+ (common-lisp:defclass create-phone-number-order-request common-lisp:nil
+                       ((e164phone-numbers :initarg :e164phone-numbers :type
+                         (common-lisp:or e164phone-number-list
+                                         common-lisp:null)
+                         :accessor
+                         %create-phone-number-order-request-e164phone-numbers
+                         :initform
+                         (common-lisp:error ":e164phone-numbers is required"))
+                        (product-type :initarg :product-type :type
+                         (common-lisp:or phone-number-product-type
+                                         common-lisp:null)
+                         :accessor
+                         %create-phone-number-order-request-product-type
+                         :initform
+                         (common-lisp:error ":product-type is required"))))
  (common-lisp:export
   (common-lisp:list 'create-phone-number-order-request
                     'make-create-phone-number-order-request))
+ (common-lisp:defun make-create-phone-number-order-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key e164phone-numbers product-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-phone-number-order-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -645,14 +815,22 @@
                           create-phone-number-order-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-phone-number-order-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-phone-number-order-response-"))
-   (phone-number-order common-lisp:nil :type
-    (common-lisp:or phone-number-order common-lisp:null)))
+ (common-lisp:defclass create-phone-number-order-response common-lisp:nil
+                       ((phone-number-order :initarg :phone-number-order :type
+                         (common-lisp:or phone-number-order common-lisp:null)
+                         :accessor
+                         %create-phone-number-order-response-phone-number-order
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-phone-number-order-response
                     'make-create-phone-number-order-response))
+ (common-lisp:defun make-create-phone-number-order-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-order)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-phone-number-order-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -676,29 +854,65 @@
                           create-phone-number-order-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-proxy-session-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-proxy-session-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (participant-phone-numbers
-    (common-lisp:error ":participant-phone-numbers is required") :type
-    (common-lisp:or participant-phone-number-list common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or proxy-session-name-string common-lisp:null))
-   (expiry-minutes common-lisp:nil :type
-    (common-lisp:or positive-integer common-lisp:null))
-   (capabilities (common-lisp:error ":capabilities is required") :type
-    (common-lisp:or capability-list common-lisp:null))
-   (number-selection-behavior common-lisp:nil :type
-    (common-lisp:or number-selection-behavior common-lisp:null))
-   (geo-match-level common-lisp:nil :type
-    (common-lisp:or geo-match-level common-lisp:null))
-   (geo-match-params common-lisp:nil :type
-    (common-lisp:or geo-match-params common-lisp:null)))
+ (common-lisp:defclass create-proxy-session-request common-lisp:nil
+                       ((geo-match-params :initarg :geo-match-params :type
+                         (common-lisp:or geo-match-params common-lisp:null)
+                         :accessor
+                         %create-proxy-session-request-geo-match-params
+                         :initform common-lisp:nil)
+                        (geo-match-level :initarg :geo-match-level :type
+                         (common-lisp:or geo-match-level common-lisp:null)
+                         :accessor
+                         %create-proxy-session-request-geo-match-level
+                         :initform common-lisp:nil)
+                        (number-selection-behavior :initarg
+                         :number-selection-behavior :type
+                         (common-lisp:or number-selection-behavior
+                                         common-lisp:null)
+                         :accessor
+                         %create-proxy-session-request-number-selection-behavior
+                         :initform common-lisp:nil)
+                        (capabilities :initarg :capabilities :type
+                         (common-lisp:or capability-list common-lisp:null)
+                         :accessor %create-proxy-session-request-capabilities
+                         :initform
+                         (common-lisp:error ":capabilities is required"))
+                        (expiry-minutes :initarg :expiry-minutes :type
+                         (common-lisp:or positive-integer common-lisp:null)
+                         :accessor %create-proxy-session-request-expiry-minutes
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or proxy-session-name-string
+                                         common-lisp:null)
+                         :accessor %create-proxy-session-request-name :initform
+                         common-lisp:nil)
+                        (participant-phone-numbers :initarg
+                         :participant-phone-numbers :type
+                         (common-lisp:or participant-phone-number-list
+                                         common-lisp:null)
+                         :accessor
+                         %create-proxy-session-request-participant-phone-numbers
+                         :initform
+                         (common-lisp:error
+                          ":participant-phone-numbers is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %create-proxy-session-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-proxy-session-request
                     'make-create-proxy-session-request))
+ (common-lisp:defun make-create-proxy-session-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key geo-match-params geo-match-level
+                     number-selection-behavior capabilities expiry-minutes name
+                     participant-phone-numbers voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-proxy-session-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -766,14 +980,21 @@
                           create-proxy-session-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-proxy-session-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-proxy-session-response-"))
-   (proxy-session common-lisp:nil :type
-    (common-lisp:or proxy-session common-lisp:null)))
+ (common-lisp:defclass create-proxy-session-response common-lisp:nil
+                       ((proxy-session :initarg :proxy-session :type
+                         (common-lisp:or proxy-session common-lisp:null)
+                         :accessor %create-proxy-session-response-proxy-session
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-proxy-session-response
                     'make-create-proxy-session-response))
+ (common-lisp:defun make-create-proxy-session-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy-session)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-proxy-session-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -797,23 +1018,52 @@
                           create-proxy-session-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-sip-media-application-call-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-sip-media-application-call-request-"))
-   (from-phone-number (common-lisp:error ":from-phone-number is required")
-    :type (common-lisp:or e164phone-number common-lisp:null))
-   (to-phone-number (common-lisp:error ":to-phone-number is required") :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (sip-headers common-lisp:nil :type
-    (common-lisp:or sip-headers-map common-lisp:null))
-   (arguments-map common-lisp:nil :type
-    (common-lisp:or smacreate-call-arguments-map common-lisp:null)))
+ (common-lisp:defclass create-sip-media-application-call-request
+                       common-lisp:nil
+                       ((arguments-map :initarg :arguments-map :type
+                         (common-lisp:or smacreate-call-arguments-map
+                                         common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-call-request-arguments-map
+                         :initform common-lisp:nil)
+                        (sip-headers :initarg :sip-headers :type
+                         (common-lisp:or sip-headers-map common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-call-request-sip-headers
+                         :initform common-lisp:nil)
+                        (sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-call-request-sip-media-application-id
+                         :initform
+                         (common-lisp:error
+                          ":sip-media-application-id is required"))
+                        (to-phone-number :initarg :to-phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-call-request-to-phone-number
+                         :initform
+                         (common-lisp:error ":to-phone-number is required"))
+                        (from-phone-number :initarg :from-phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-call-request-from-phone-number
+                         :initform
+                         (common-lisp:error
+                          ":from-phone-number is required"))))
  (common-lisp:export
   (common-lisp:list 'create-sip-media-application-call-request
                     'make-create-sip-media-application-call-request))
+ (common-lisp:defun make-create-sip-media-application-call-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key arguments-map sip-headers
+                     sip-media-application-id to-phone-number
+                     from-phone-number)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-sip-media-application-call-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -858,14 +1108,25 @@
                           create-sip-media-application-call-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-sip-media-application-call-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-sip-media-application-call-response-"))
-   (sip-media-application-call common-lisp:nil :type
-    (common-lisp:or sip-media-application-call common-lisp:null)))
+ (common-lisp:defclass create-sip-media-application-call-response
+                       common-lisp:nil
+                       ((sip-media-application-call :initarg
+                         :sip-media-application-call :type
+                         (common-lisp:or sip-media-application-call
+                                         common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-call-response-sip-media-application-call
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-sip-media-application-call-response
                     'make-create-sip-media-application-call-response))
+ (common-lisp:defun make-create-sip-media-application-call-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application-call)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-sip-media-application-call-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -890,19 +1151,38 @@
                           create-sip-media-application-call-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-sip-media-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-sip-media-application-request-"))
-   (aws-region (common-lisp:error ":aws-region is required") :type
-    (common-lisp:or string common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or sip-media-application-name common-lisp:null))
-   (endpoints (common-lisp:error ":endpoints is required") :type
-    (common-lisp:or sip-media-application-endpoint-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-sip-media-application-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-sip-media-application-request-tags :initform
+                         common-lisp:nil)
+                        (endpoints :initarg :endpoints :type
+                         (common-lisp:or sip-media-application-endpoint-list
+                                         common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-request-endpoints
+                         :initform
+                         (common-lisp:error ":endpoints is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or sip-media-application-name
+                                         common-lisp:null)
+                         :accessor %create-sip-media-application-request-name
+                         :initform (common-lisp:error ":name is required"))
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-sip-media-application-request-aws-region
+                         :initform
+                         (common-lisp:error ":aws-region is required"))))
  (common-lisp:export
   (common-lisp:list 'create-sip-media-application-request
                     'make-create-sip-media-application-request))
+ (common-lisp:defun make-create-sip-media-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags endpoints name aws-region)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-sip-media-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -947,14 +1227,24 @@
                           create-sip-media-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-sip-media-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-sip-media-application-response-"))
-   (sip-media-application common-lisp:nil :type
-    (common-lisp:or sip-media-application common-lisp:null)))
+ (common-lisp:defclass create-sip-media-application-response common-lisp:nil
+                       ((sip-media-application :initarg :sip-media-application
+                         :type
+                         (common-lisp:or sip-media-application
+                                         common-lisp:null)
+                         :accessor
+                         %create-sip-media-application-response-sip-media-application
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-sip-media-application-response
                     'make-create-sip-media-application-response))
+ (common-lisp:defun make-create-sip-media-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-sip-media-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -979,21 +1269,41 @@
                           create-sip-media-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-sip-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-sip-rule-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or sip-rule-name common-lisp:null))
-   (trigger-type (common-lisp:error ":trigger-type is required") :type
-    (common-lisp:or sip-rule-trigger-type common-lisp:null))
-   (trigger-value (common-lisp:error ":trigger-value is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (disabled common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (target-applications common-lisp:nil :type
-    (common-lisp:or sip-rule-target-application-list common-lisp:null)))
+ (common-lisp:defclass create-sip-rule-request common-lisp:nil
+                       ((target-applications :initarg :target-applications
+                         :type
+                         (common-lisp:or sip-rule-target-application-list
+                                         common-lisp:null)
+                         :accessor %create-sip-rule-request-target-applications
+                         :initform common-lisp:nil)
+                        (disabled :initarg :disabled :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %create-sip-rule-request-disabled :initform
+                         common-lisp:nil)
+                        (trigger-value :initarg :trigger-value :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %create-sip-rule-request-trigger-value
+                         :initform
+                         (common-lisp:error ":trigger-value is required"))
+                        (trigger-type :initarg :trigger-type :type
+                         (common-lisp:or sip-rule-trigger-type
+                                         common-lisp:null)
+                         :accessor %create-sip-rule-request-trigger-type
+                         :initform
+                         (common-lisp:error ":trigger-type is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or sip-rule-name common-lisp:null)
+                         :accessor %create-sip-rule-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-sip-rule-request 'make-create-sip-rule-request))
+ (common-lisp:defun make-create-sip-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-applications disabled
+                     trigger-value trigger-type name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-sip-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1045,12 +1355,19 @@
                           create-sip-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-sip-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-sip-rule-response-"))
-   (sip-rule common-lisp:nil :type (common-lisp:or sip-rule common-lisp:null)))
+ (common-lisp:defclass create-sip-rule-response common-lisp:nil
+                       ((sip-rule :initarg :sip-rule :type
+                         (common-lisp:or sip-rule common-lisp:null) :accessor
+                         %create-sip-rule-response-sip-rule :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-sip-rule-response 'make-create-sip-rule-response))
+ (common-lisp:defun make-create-sip-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-rule)
+   (common-lisp:apply #'common-lisp:make-instance 'create-sip-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1074,16 +1391,29 @@
                           create-sip-rule-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-connector-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-connector-group-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or voice-connector-group-name common-lisp:null))
-   (voice-connector-items common-lisp:nil :type
-    (common-lisp:or voice-connector-item-list common-lisp:null)))
+ (common-lisp:defclass create-voice-connector-group-request common-lisp:nil
+                       ((voice-connector-items :initarg :voice-connector-items
+                         :type
+                         (common-lisp:or voice-connector-item-list
+                                         common-lisp:null)
+                         :accessor
+                         %create-voice-connector-group-request-voice-connector-items
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-connector-group-name
+                                         common-lisp:null)
+                         :accessor %create-voice-connector-group-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-voice-connector-group-request
                     'make-create-voice-connector-group-request))
+ (common-lisp:defun make-create-voice-connector-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-items name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-voice-connector-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1115,14 +1445,24 @@
                           create-voice-connector-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-connector-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-connector-group-response-"))
-   (voice-connector-group common-lisp:nil :type
-    (common-lisp:or voice-connector-group common-lisp:null)))
+ (common-lisp:defclass create-voice-connector-group-response common-lisp:nil
+                       ((voice-connector-group :initarg :voice-connector-group
+                         :type
+                         (common-lisp:or voice-connector-group
+                                         common-lisp:null)
+                         :accessor
+                         %create-voice-connector-group-response-voice-connector-group
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-voice-connector-group-response
                     'make-create-voice-connector-group-response))
+ (common-lisp:defun make-create-voice-connector-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-group)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-voice-connector-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1147,19 +1487,35 @@
                           create-voice-connector-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-connector-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-connector-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or voice-connector-name common-lisp:null))
-   (aws-region common-lisp:nil :type
-    (common-lisp:or voice-connector-aws-region common-lisp:null))
-   (require-encryption (common-lisp:error ":require-encryption is required")
-    :type (common-lisp:or boolean common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-voice-connector-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-voice-connector-request-tags :initform
+                         common-lisp:nil)
+                        (require-encryption :initarg :require-encryption :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %create-voice-connector-request-require-encryption
+                         :initform
+                         (common-lisp:error ":require-encryption is required"))
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or voice-connector-aws-region
+                                         common-lisp:null)
+                         :accessor %create-voice-connector-request-aws-region
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-connector-name common-lisp:null)
+                         :accessor %create-voice-connector-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-voice-connector-request
                     'make-create-voice-connector-request))
+ (common-lisp:defun make-create-voice-connector-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags require-encryption aws-region name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-voice-connector-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1204,14 +1560,22 @@
                           create-voice-connector-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-connector-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-connector-response-"))
-   (voice-connector common-lisp:nil :type
-    (common-lisp:or voice-connector common-lisp:null)))
+ (common-lisp:defclass create-voice-connector-response common-lisp:nil
+                       ((voice-connector :initarg :voice-connector :type
+                         (common-lisp:or voice-connector common-lisp:null)
+                         :accessor
+                         %create-voice-connector-response-voice-connector
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-voice-connector-response
                     'make-create-voice-connector-response))
+ (common-lisp:defun make-create-voice-connector-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-voice-connector-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1235,23 +1599,48 @@
                           create-voice-connector-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-profile-domain-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-profile-domain-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or voice-profile-domain-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-description common-lisp:null))
-   (server-side-encryption-configuration
-    (common-lisp:error ":server-side-encryption-configuration is required")
-    :type
-    (common-lisp:or server-side-encryption-configuration common-lisp:null))
-   (client-request-token common-lisp:nil :type
-    (common-lisp:or client-request-id common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-voice-profile-domain-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-voice-profile-domain-request-tags :initform
+                         common-lisp:nil)
+                        (client-request-token :initarg :client-request-token
+                         :type
+                         (common-lisp:or client-request-id common-lisp:null)
+                         :accessor
+                         %create-voice-profile-domain-request-client-request-token
+                         :initform common-lisp:nil)
+                        (server-side-encryption-configuration :initarg
+                         :server-side-encryption-configuration :type
+                         (common-lisp:or server-side-encryption-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %create-voice-profile-domain-request-server-side-encryption-configuration
+                         :initform
+                         (common-lisp:error
+                          ":server-side-encryption-configuration is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or voice-profile-domain-description
+                                         common-lisp:null)
+                         :accessor
+                         %create-voice-profile-domain-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-profile-domain-name
+                                         common-lisp:null)
+                         :accessor %create-voice-profile-domain-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-voice-profile-domain-request
                     'make-create-voice-profile-domain-request))
+ (common-lisp:defun make-create-voice-profile-domain-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags client-request-token
+                     server-side-encryption-configuration description name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-voice-profile-domain-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1305,14 +1694,23 @@
                           create-voice-profile-domain-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-profile-domain-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-profile-domain-response-"))
-   (voice-profile-domain common-lisp:nil :type
-    (common-lisp:or voice-profile-domain common-lisp:null)))
+ (common-lisp:defclass create-voice-profile-domain-response common-lisp:nil
+                       ((voice-profile-domain :initarg :voice-profile-domain
+                         :type
+                         (common-lisp:or voice-profile-domain common-lisp:null)
+                         :accessor
+                         %create-voice-profile-domain-response-voice-profile-domain
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-voice-profile-domain-response
                     'make-create-voice-profile-domain-response))
+ (common-lisp:defun make-create-voice-profile-domain-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-domain)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-voice-profile-domain-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1337,15 +1735,24 @@
                           create-voice-profile-domain-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-profile-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-profile-request-"))
-   (speaker-search-task-id
-    (common-lisp:error ":speaker-search-task-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass create-voice-profile-request common-lisp:nil
+                       ((speaker-search-task-id :initarg
+                         :speaker-search-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %create-voice-profile-request-speaker-search-task-id
+                         :initform
+                         (common-lisp:error
+                          ":speaker-search-task-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-voice-profile-request
                     'make-create-voice-profile-request))
+ (common-lisp:defun make-create-voice-profile-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key speaker-search-task-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-voice-profile-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1370,14 +1777,21 @@
                           create-voice-profile-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-voice-profile-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-voice-profile-response-"))
-   (voice-profile common-lisp:nil :type
-    (common-lisp:or voice-profile common-lisp:null)))
+ (common-lisp:defclass create-voice-profile-response common-lisp:nil
+                       ((voice-profile :initarg :voice-profile :type
+                         (common-lisp:or voice-profile common-lisp:null)
+                         :accessor %create-voice-profile-response-voice-profile
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-voice-profile-response
                     'make-create-voice-profile-response))
+ (common-lisp:defun make-create-voice-profile-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-voice-profile-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1401,14 +1815,22 @@
                           create-voice-profile-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (credential (:copier common-lisp:nil)
-      (:conc-name "struct-shape-credential-"))
-   (username common-lisp:nil :type
-    (common-lisp:or sensitive-string common-lisp:null))
-   (password common-lisp:nil :type
-    (common-lisp:or sensitive-string common-lisp:null)))
+ (common-lisp:defclass credential common-lisp:nil
+                       ((password :initarg :password :type
+                         (common-lisp:or sensitive-string common-lisp:null)
+                         :accessor %credential-password :initform
+                         common-lisp:nil)
+                        (username :initarg :username :type
+                         (common-lisp:or sensitive-string common-lisp:null)
+                         :accessor %credential-username :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'credential 'make-credential))
+ (common-lisp:defun make-credential
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key password username)
+   (common-lisp:apply #'common-lisp:make-instance 'credential
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input credential))
    (common-lisp:append))
@@ -1441,19 +1863,37 @@
                            (trivial-types:proper-list credential))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (dnisemergency-calling-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-dnisemergency-calling-configuration-"))
-   (emergency-phone-number
-    (common-lisp:error ":emergency-phone-number is required") :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (test-phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (calling-country (common-lisp:error ":calling-country is required") :type
-    (common-lisp:or alpha2country-code common-lisp:null)))
+ (common-lisp:defclass dnisemergency-calling-configuration common-lisp:nil
+                       ((calling-country :initarg :calling-country :type
+                         (common-lisp:or alpha2country-code common-lisp:null)
+                         :accessor
+                         %dnisemergency-calling-configuration-calling-country
+                         :initform
+                         (common-lisp:error ":calling-country is required"))
+                        (test-phone-number :initarg :test-phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor
+                         %dnisemergency-calling-configuration-test-phone-number
+                         :initform common-lisp:nil)
+                        (emergency-phone-number :initarg
+                         :emergency-phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor
+                         %dnisemergency-calling-configuration-emergency-phone-number
+                         :initform
+                         (common-lisp:error
+                          ":emergency-phone-number is required"))))
  (common-lisp:export
   (common-lisp:list 'dnisemergency-calling-configuration
                     'make-dnisemergency-calling-configuration))
+ (common-lisp:defun make-dnisemergency-calling-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key calling-country test-phone-number
+                     emergency-phone-number)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'dnisemergency-calling-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1502,14 +1942,22 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype data-retention-in-hours () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-phone-number-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-phone-number-request-"))
-   (phone-number-id (common-lisp:error ":phone-number-id is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-phone-number-request common-lisp:nil
+                       ((phone-number-id :initarg :phone-number-id :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %delete-phone-number-request-phone-number-id
+                         :initform
+                         (common-lisp:error ":phone-number-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-phone-number-request
                     'make-delete-phone-number-request))
+ (common-lisp:defun make-delete-phone-number-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-phone-number-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1526,16 +1974,29 @@
                           delete-phone-number-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-proxy-session-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-proxy-session-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (proxy-session-id (common-lisp:error ":proxy-session-id is required") :type
-    (common-lisp:or non-empty-string128 common-lisp:null)))
+ (common-lisp:defclass delete-proxy-session-request common-lisp:nil
+                       ((proxy-session-id :initarg :proxy-session-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %delete-proxy-session-request-proxy-session-id
+                         :initform
+                         (common-lisp:error ":proxy-session-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %delete-proxy-session-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-proxy-session-request
                     'make-delete-proxy-session-request))
+ (common-lisp:defun make-delete-proxy-session-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy-session-id voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-proxy-session-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1552,15 +2013,25 @@
                           delete-proxy-session-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-sip-media-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-sip-media-application-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-sip-media-application-request common-lisp:nil
+                       ((sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %delete-sip-media-application-request-sip-media-application-id
+                         :initform
+                         (common-lisp:error
+                          ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-sip-media-application-request
                     'make-delete-sip-media-application-request))
+ (common-lisp:defun make-delete-sip-media-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-sip-media-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1577,13 +2048,20 @@
                           delete-sip-media-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-sip-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-sip-rule-request-"))
-   (sip-rule-id (common-lisp:error ":sip-rule-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-sip-rule-request common-lisp:nil
+                       ((sip-rule-id :initarg :sip-rule-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %delete-sip-rule-request-sip-rule-id
+                         :initform
+                         (common-lisp:error ":sip-rule-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-sip-rule-request 'make-delete-sip-rule-request))
+ (common-lisp:defun make-delete-sip-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-rule-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-sip-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1600,17 +2078,24 @@
                           delete-sip-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-emergency-calling-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-voice-connector-emergency-calling-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass
+  delete-voice-connector-emergency-calling-configuration-request
+  common-lisp:nil
+  ((voice-connector-id :initarg :voice-connector-id :type
+    (common-lisp:or non-empty-string common-lisp:null) :accessor
+    %delete-voice-connector-emergency-calling-configuration-request-voice-connector-id
+    :initform (common-lisp:error ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list
    'delete-voice-connector-emergency-calling-configuration-request
    'make-delete-voice-connector-emergency-calling-configuration-request))
+ (common-lisp:defun make-delete-voice-connector-emergency-calling-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-emergency-calling-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1627,15 +2112,25 @@
                           delete-voice-connector-emergency-calling-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-voice-connector-group-request-"))
-   (voice-connector-group-id
-    (common-lisp:error ":voice-connector-group-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-voice-connector-group-request common-lisp:nil
+                       ((voice-connector-group-id :initarg
+                         :voice-connector-group-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-group-request-voice-connector-group-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-group-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-connector-group-request
                     'make-delete-voice-connector-group-request))
+ (common-lisp:defun make-delete-voice-connector-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-group-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1652,14 +2147,25 @@
                           delete-voice-connector-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-origination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-voice-connector-origination-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-voice-connector-origination-request
+                       common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-origination-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-connector-origination-request
                     'make-delete-voice-connector-origination-request))
+ (common-lisp:defun make-delete-voice-connector-origination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-origination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1676,14 +2182,24 @@
                           delete-voice-connector-origination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-proxy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-voice-connector-proxy-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null)))
+ (common-lisp:defclass delete-voice-connector-proxy-request common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-proxy-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-connector-proxy-request
                     'make-delete-voice-connector-proxy-request))
+ (common-lisp:defun make-delete-voice-connector-proxy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-proxy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1700,14 +2216,24 @@
                           delete-voice-connector-proxy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-voice-connector-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-voice-connector-request common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-connector-request
                     'make-delete-voice-connector-request))
+ (common-lisp:defun make-delete-voice-connector-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1724,16 +2250,25 @@
                           delete-voice-connector-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-streaming-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-voice-connector-streaming-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-voice-connector-streaming-configuration-request
+                       common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-streaming-configuration-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-connector-streaming-configuration-request
                     'make-delete-voice-connector-streaming-configuration-request))
+ (common-lisp:defun make-delete-voice-connector-streaming-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-streaming-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1750,18 +2285,32 @@
                           delete-voice-connector-streaming-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-termination-credentials-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-voice-connector-termination-credentials-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (usernames (common-lisp:error ":usernames is required") :type
-    (common-lisp:or sensitive-string-list common-lisp:null)))
+ (common-lisp:defclass delete-voice-connector-termination-credentials-request
+                       common-lisp:nil
+                       ((usernames :initarg :usernames :type
+                         (common-lisp:or sensitive-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-termination-credentials-request-usernames
+                         :initform
+                         (common-lisp:error ":usernames is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-termination-credentials-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-connector-termination-credentials-request
                     'make-delete-voice-connector-termination-credentials-request))
+ (common-lisp:defun make-delete-voice-connector-termination-credentials-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key usernames voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-termination-credentials-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1785,14 +2334,25 @@
                           delete-voice-connector-termination-credentials-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-connector-termination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-voice-connector-termination-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass delete-voice-connector-termination-request
+                       common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %delete-voice-connector-termination-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-connector-termination-request
                     'make-delete-voice-connector-termination-request))
+ (common-lisp:defun make-delete-voice-connector-termination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-connector-termination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1809,15 +2369,25 @@
                           delete-voice-connector-termination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-profile-domain-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-voice-profile-domain-request-"))
-   (voice-profile-domain-id
-    (common-lisp:error ":voice-profile-domain-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass delete-voice-profile-domain-request common-lisp:nil
+                       ((voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %delete-voice-profile-domain-request-voice-profile-domain-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-profile-domain-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-profile-domain-request
                     'make-delete-voice-profile-domain-request))
+ (common-lisp:defun make-delete-voice-profile-domain-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-domain-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-voice-profile-domain-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1834,14 +2404,22 @@
                           delete-voice-profile-domain-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-voice-profile-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-voice-profile-request-"))
-   (voice-profile-id (common-lisp:error ":voice-profile-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass delete-voice-profile-request common-lisp:nil
+                       ((voice-profile-id :initarg :voice-profile-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %delete-voice-profile-request-voice-profile-id
+                         :initform
+                         (common-lisp:error ":voice-profile-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-voice-profile-request
                     'make-delete-voice-profile-request))
+ (common-lisp:defun make-delete-voice-profile-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-voice-profile-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1858,20 +2436,28 @@
                           delete-voice-profile-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-phone-numbers-from-voice-connector-group-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-phone-numbers-from-voice-connector-group-request-"))
-   (voice-connector-group-id
-    (common-lisp:error ":voice-connector-group-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (e164phone-numbers (common-lisp:error ":e164phone-numbers is required")
-    :type (common-lisp:or e164phone-number-list common-lisp:null)))
+ (common-lisp:defclass
+  disassociate-phone-numbers-from-voice-connector-group-request common-lisp:nil
+  ((e164phone-numbers :initarg :e164phone-numbers :type
+    (common-lisp:or e164phone-number-list common-lisp:null) :accessor
+    %disassociate-phone-numbers-from-voice-connector-group-request-e164phone-numbers
+    :initform (common-lisp:error ":e164phone-numbers is required"))
+   (voice-connector-group-id :initarg :voice-connector-group-id :type
+    (common-lisp:or non-empty-string common-lisp:null) :accessor
+    %disassociate-phone-numbers-from-voice-connector-group-request-voice-connector-group-id
+    :initform (common-lisp:error ":voice-connector-group-id is required"))))
  (common-lisp:export
   (common-lisp:list
    'disassociate-phone-numbers-from-voice-connector-group-request
    'make-disassociate-phone-numbers-from-voice-connector-group-request))
+ (common-lisp:defun make-disassociate-phone-numbers-from-voice-connector-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key e164phone-numbers
+                     voice-connector-group-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-phone-numbers-from-voice-connector-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1895,17 +2481,24 @@
                           disassociate-phone-numbers-from-voice-connector-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-phone-numbers-from-voice-connector-group-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-phone-numbers-from-voice-connector-group-response-"))
-   (phone-number-errors common-lisp:nil :type
-    (common-lisp:or phone-number-error-list common-lisp:null)))
+ (common-lisp:defclass
+  disassociate-phone-numbers-from-voice-connector-group-response
+  common-lisp:nil
+  ((phone-number-errors :initarg :phone-number-errors :type
+    (common-lisp:or phone-number-error-list common-lisp:null) :accessor
+    %disassociate-phone-numbers-from-voice-connector-group-response-phone-number-errors
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'disassociate-phone-numbers-from-voice-connector-group-response
    'make-disassociate-phone-numbers-from-voice-connector-group-response))
+ (common-lisp:defun make-disassociate-phone-numbers-from-voice-connector-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-errors)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-phone-numbers-from-voice-connector-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1929,18 +2522,32 @@
                           disassociate-phone-numbers-from-voice-connector-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-phone-numbers-from-voice-connector-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-phone-numbers-from-voice-connector-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (e164phone-numbers (common-lisp:error ":e164phone-numbers is required")
-    :type (common-lisp:or e164phone-number-list common-lisp:null)))
+ (common-lisp:defclass disassociate-phone-numbers-from-voice-connector-request
+                       common-lisp:nil
+                       ((e164phone-numbers :initarg :e164phone-numbers :type
+                         (common-lisp:or e164phone-number-list
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-phone-numbers-from-voice-connector-request-e164phone-numbers
+                         :initform
+                         (common-lisp:error ":e164phone-numbers is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %disassociate-phone-numbers-from-voice-connector-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-phone-numbers-from-voice-connector-request
                     'make-disassociate-phone-numbers-from-voice-connector-request))
+ (common-lisp:defun make-disassociate-phone-numbers-from-voice-connector-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key e164phone-numbers voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-phone-numbers-from-voice-connector-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1964,16 +2571,25 @@
                           disassociate-phone-numbers-from-voice-connector-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-phone-numbers-from-voice-connector-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-disassociate-phone-numbers-from-voice-connector-response-"))
-   (phone-number-errors common-lisp:nil :type
-    (common-lisp:or phone-number-error-list common-lisp:null)))
+ (common-lisp:defclass disassociate-phone-numbers-from-voice-connector-response
+                       common-lisp:nil
+                       ((phone-number-errors :initarg :phone-number-errors
+                         :type
+                         (common-lisp:or phone-number-error-list
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-phone-numbers-from-voice-connector-response-phone-number-errors
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-phone-numbers-from-voice-connector-response
                     'make-disassociate-phone-numbers-from-voice-connector-response))
+ (common-lisp:defun make-disassociate-phone-numbers-from-voice-connector-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-errors)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-phone-numbers-from-voice-connector-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2006,15 +2622,23 @@
                            (trivial-types:proper-list e164phone-number))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (emergency-calling-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-emergency-calling-configuration-"))
-   (dnis common-lisp:nil :type
-    (common-lisp:or dnisemergency-calling-configuration-list
-                    common-lisp:null)))
+ (common-lisp:defclass emergency-calling-configuration common-lisp:nil
+                       ((dnis :initarg :dnis :type
+                         (common-lisp:or
+                          dnisemergency-calling-configuration-list
+                          common-lisp:null)
+                         :accessor %emergency-calling-configuration-dnis
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'emergency-calling-configuration
                     'make-emergency-calling-configuration))
+ (common-lisp:defun make-emergency-calling-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dnis)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'emergency-calling-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2046,15 +2670,23 @@
 (common-lisp:deftype function-arn () 'common-lisp:string)
 (common-lisp:deftype geo-match-level () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (geo-match-params (:copier common-lisp:nil)
-      (:conc-name "struct-shape-geo-match-params-"))
-   (country (common-lisp:error ":country is required") :type
-    (common-lisp:or country common-lisp:null))
-   (area-code (common-lisp:error ":area-code is required") :type
-    (common-lisp:or area-code common-lisp:null)))
+ (common-lisp:defclass geo-match-params common-lisp:nil
+                       ((area-code :initarg :area-code :type
+                         (common-lisp:or area-code common-lisp:null) :accessor
+                         %geo-match-params-area-code :initform
+                         (common-lisp:error ":area-code is required"))
+                        (country :initarg :country :type
+                         (common-lisp:or country common-lisp:null) :accessor
+                         %geo-match-params-country :initform
+                         (common-lisp:error ":country is required"))))
  (common-lisp:export
   (common-lisp:list 'geo-match-params 'make-geo-match-params))
+ (common-lisp:defun make-geo-match-params
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key area-code country)
+   (common-lisp:apply #'common-lisp:make-instance 'geo-match-params
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input geo-match-params))
    (common-lisp:append))
@@ -2079,14 +2711,22 @@
                         ((aws-sdk/generator/shape::input geo-match-params))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-global-settings-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-global-settings-response-"))
-   (voice-connector common-lisp:nil :type
-    (common-lisp:or voice-connector-settings common-lisp:null)))
+ (common-lisp:defclass get-global-settings-response common-lisp:nil
+                       ((voice-connector :initarg :voice-connector :type
+                         (common-lisp:or voice-connector-settings
+                                         common-lisp:null)
+                         :accessor
+                         %get-global-settings-response-voice-connector
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-global-settings-response
                     'make-get-global-settings-response))
+ (common-lisp:defun make-get-global-settings-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector)
+   (common-lisp:apply #'common-lisp:make-instance 'get-global-settings-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2110,15 +2750,24 @@
                           get-global-settings-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-phone-number-order-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-phone-number-order-request-"))
-   (phone-number-order-id
-    (common-lisp:error ":phone-number-order-id is required") :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass get-phone-number-order-request common-lisp:nil
+                       ((phone-number-order-id :initarg :phone-number-order-id
+                         :type (common-lisp:or guid-string common-lisp:null)
+                         :accessor
+                         %get-phone-number-order-request-phone-number-order-id
+                         :initform
+                         (common-lisp:error
+                          ":phone-number-order-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-phone-number-order-request
                     'make-get-phone-number-order-request))
+ (common-lisp:defun make-get-phone-number-order-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-order-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-phone-number-order-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2135,14 +2784,22 @@
                           get-phone-number-order-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-phone-number-order-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-phone-number-order-response-"))
-   (phone-number-order common-lisp:nil :type
-    (common-lisp:or phone-number-order common-lisp:null)))
+ (common-lisp:defclass get-phone-number-order-response common-lisp:nil
+                       ((phone-number-order :initarg :phone-number-order :type
+                         (common-lisp:or phone-number-order common-lisp:null)
+                         :accessor
+                         %get-phone-number-order-response-phone-number-order
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-phone-number-order-response
                     'make-get-phone-number-order-response))
+ (common-lisp:defun make-get-phone-number-order-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-order)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-phone-number-order-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2166,13 +2823,21 @@
                           get-phone-number-order-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-phone-number-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-phone-number-request-"))
-   (phone-number-id (common-lisp:error ":phone-number-id is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-phone-number-request common-lisp:nil
+                       ((phone-number-id :initarg :phone-number-id :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %get-phone-number-request-phone-number-id
+                         :initform
+                         (common-lisp:error ":phone-number-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-phone-number-request 'make-get-phone-number-request))
+ (common-lisp:defun make-get-phone-number-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-phone-number-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2189,14 +2854,20 @@
                           get-phone-number-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-phone-number-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-phone-number-response-"))
-   (phone-number common-lisp:nil :type
-    (common-lisp:or phone-number common-lisp:null)))
+ (common-lisp:defclass get-phone-number-response common-lisp:nil
+                       ((phone-number :initarg :phone-number :type
+                         (common-lisp:or phone-number common-lisp:null)
+                         :accessor %get-phone-number-response-phone-number
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-phone-number-response
                     'make-get-phone-number-response))
+ (common-lisp:defun make-get-phone-number-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number)
+   (common-lisp:apply #'common-lisp:make-instance 'get-phone-number-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2220,16 +2891,29 @@
                           get-phone-number-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-phone-number-settings-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-phone-number-settings-response-"))
-   (calling-name common-lisp:nil :type
-    (common-lisp:or calling-name common-lisp:null))
-   (calling-name-updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass get-phone-number-settings-response common-lisp:nil
+                       ((calling-name-updated-timestamp :initarg
+                         :calling-name-updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor
+                         %get-phone-number-settings-response-calling-name-updated-timestamp
+                         :initform common-lisp:nil)
+                        (calling-name :initarg :calling-name :type
+                         (common-lisp:or calling-name common-lisp:null)
+                         :accessor
+                         %get-phone-number-settings-response-calling-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-phone-number-settings-response
                     'make-get-phone-number-settings-response))
+ (common-lisp:defun make-get-phone-number-settings-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key calling-name-updated-timestamp
+                     calling-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-phone-number-settings-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2261,16 +2945,28 @@
                           get-phone-number-settings-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-proxy-session-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-proxy-session-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (proxy-session-id (common-lisp:error ":proxy-session-id is required") :type
-    (common-lisp:or non-empty-string128 common-lisp:null)))
+ (common-lisp:defclass get-proxy-session-request common-lisp:nil
+                       ((proxy-session-id :initarg :proxy-session-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor %get-proxy-session-request-proxy-session-id
+                         :initform
+                         (common-lisp:error ":proxy-session-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %get-proxy-session-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-proxy-session-request
                     'make-get-proxy-session-request))
+ (common-lisp:defun make-get-proxy-session-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy-session-id voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-proxy-session-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2287,14 +2983,20 @@
                           get-proxy-session-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-proxy-session-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-proxy-session-response-"))
-   (proxy-session common-lisp:nil :type
-    (common-lisp:or proxy-session common-lisp:null)))
+ (common-lisp:defclass get-proxy-session-response common-lisp:nil
+                       ((proxy-session :initarg :proxy-session :type
+                         (common-lisp:or proxy-session common-lisp:null)
+                         :accessor %get-proxy-session-response-proxy-session
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-proxy-session-response
                     'make-get-proxy-session-response))
+ (common-lisp:defun make-get-proxy-session-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy-session)
+   (common-lisp:apply #'common-lisp:make-instance 'get-proxy-session-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2318,18 +3020,23 @@
                           get-proxy-session-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-media-application-alexa-skill-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-sip-media-application-alexa-skill-configuration-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass
+  get-sip-media-application-alexa-skill-configuration-request common-lisp:nil
+  ((sip-media-application-id :initarg :sip-media-application-id :type
+    (common-lisp:or non-empty-string common-lisp:null) :accessor
+    %get-sip-media-application-alexa-skill-configuration-request-sip-media-application-id
+    :initform (common-lisp:error ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list
    'get-sip-media-application-alexa-skill-configuration-request
    'make-get-sip-media-application-alexa-skill-configuration-request))
+ (common-lisp:defun make-get-sip-media-application-alexa-skill-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-sip-media-application-alexa-skill-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2346,18 +3053,27 @@
                           get-sip-media-application-alexa-skill-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-media-application-alexa-skill-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-sip-media-application-alexa-skill-configuration-response-"))
-   (sip-media-application-alexa-skill-configuration common-lisp:nil :type
+ (common-lisp:defclass
+  get-sip-media-application-alexa-skill-configuration-response common-lisp:nil
+  ((sip-media-application-alexa-skill-configuration :initarg
+    :sip-media-application-alexa-skill-configuration :type
     (common-lisp:or sip-media-application-alexa-skill-configuration
-                    common-lisp:null)))
+                    common-lisp:null)
+    :accessor
+    %get-sip-media-application-alexa-skill-configuration-response-sip-media-application-alexa-skill-configuration
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'get-sip-media-application-alexa-skill-configuration-response
    'make-get-sip-media-application-alexa-skill-configuration-response))
+ (common-lisp:defun make-get-sip-media-application-alexa-skill-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     sip-media-application-alexa-skill-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-sip-media-application-alexa-skill-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2382,17 +3098,26 @@
                           get-sip-media-application-alexa-skill-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-media-application-logging-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-sip-media-application-logging-configuration-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-sip-media-application-logging-configuration-request
+                       common-lisp:nil
+                       ((sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-sip-media-application-logging-configuration-request-sip-media-application-id
+                         :initform
+                         (common-lisp:error
+                          ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-sip-media-application-logging-configuration-request
                     'make-get-sip-media-application-logging-configuration-request))
+ (common-lisp:defun make-get-sip-media-application-logging-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-sip-media-application-logging-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2409,17 +3134,27 @@
                           get-sip-media-application-logging-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-media-application-logging-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-sip-media-application-logging-configuration-response-"))
-   (sip-media-application-logging-configuration common-lisp:nil :type
-    (common-lisp:or sip-media-application-logging-configuration
-                    common-lisp:null)))
+ (common-lisp:defclass get-sip-media-application-logging-configuration-response
+                       common-lisp:nil
+                       ((sip-media-application-logging-configuration :initarg
+                         :sip-media-application-logging-configuration :type
+                         (common-lisp:or
+                          sip-media-application-logging-configuration
+                          common-lisp:null)
+                         :accessor
+                         %get-sip-media-application-logging-configuration-response-sip-media-application-logging-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-sip-media-application-logging-configuration-response
                     'make-get-sip-media-application-logging-configuration-response))
+ (common-lisp:defun make-get-sip-media-application-logging-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     sip-media-application-logging-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-sip-media-application-logging-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2444,15 +3179,25 @@
                           get-sip-media-application-logging-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-media-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-sip-media-application-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-sip-media-application-request common-lisp:nil
+                       ((sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-sip-media-application-request-sip-media-application-id
+                         :initform
+                         (common-lisp:error
+                          ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-sip-media-application-request
                     'make-get-sip-media-application-request))
+ (common-lisp:defun make-get-sip-media-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-sip-media-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2469,14 +3214,24 @@
                           get-sip-media-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-media-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-sip-media-application-response-"))
-   (sip-media-application common-lisp:nil :type
-    (common-lisp:or sip-media-application common-lisp:null)))
+ (common-lisp:defclass get-sip-media-application-response common-lisp:nil
+                       ((sip-media-application :initarg :sip-media-application
+                         :type
+                         (common-lisp:or sip-media-application
+                                         common-lisp:null)
+                         :accessor
+                         %get-sip-media-application-response-sip-media-application
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-sip-media-application-response
                     'make-get-sip-media-application-response))
+ (common-lisp:defun make-get-sip-media-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-sip-media-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2501,13 +3256,19 @@
                           get-sip-media-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-sip-rule-request-"))
-   (sip-rule-id (common-lisp:error ":sip-rule-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-sip-rule-request common-lisp:nil
+                       ((sip-rule-id :initarg :sip-rule-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %get-sip-rule-request-sip-rule-id :initform
+                         (common-lisp:error ":sip-rule-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-sip-rule-request 'make-get-sip-rule-request))
+ (common-lisp:defun make-get-sip-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-rule-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-sip-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-sip-rule-request))
    (common-lisp:append))
@@ -2518,12 +3279,19 @@
                         ((aws-sdk/generator/shape::input get-sip-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-sip-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-sip-rule-response-"))
-   (sip-rule common-lisp:nil :type (common-lisp:or sip-rule common-lisp:null)))
+ (common-lisp:defclass get-sip-rule-response common-lisp:nil
+                       ((sip-rule :initarg :sip-rule :type
+                         (common-lisp:or sip-rule common-lisp:null) :accessor
+                         %get-sip-rule-response-sip-rule :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-sip-rule-response 'make-get-sip-rule-response))
+ (common-lisp:defun make-get-sip-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-rule)
+   (common-lisp:apply #'common-lisp:make-instance 'get-sip-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2547,17 +3315,33 @@
                           get-sip-rule-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-speaker-search-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-speaker-search-task-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (speaker-search-task-id
-    (common-lisp:error ":speaker-search-task-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass get-speaker-search-task-request common-lisp:nil
+                       ((speaker-search-task-id :initarg
+                         :speaker-search-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %get-speaker-search-task-request-speaker-search-task-id
+                         :initform
+                         (common-lisp:error
+                          ":speaker-search-task-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %get-speaker-search-task-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-speaker-search-task-request
                     'make-get-speaker-search-task-request))
+ (common-lisp:defun make-get-speaker-search-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key speaker-search-task-id
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-speaker-search-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2574,14 +3358,23 @@
                           get-speaker-search-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-speaker-search-task-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-speaker-search-task-response-"))
-   (speaker-search-task common-lisp:nil :type
-    (common-lisp:or speaker-search-task common-lisp:null)))
+ (common-lisp:defclass get-speaker-search-task-response common-lisp:nil
+                       ((speaker-search-task :initarg :speaker-search-task
+                         :type
+                         (common-lisp:or speaker-search-task common-lisp:null)
+                         :accessor
+                         %get-speaker-search-task-response-speaker-search-task
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-speaker-search-task-response
                     'make-get-speaker-search-task-response))
+ (common-lisp:defun make-get-speaker-search-task-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key speaker-search-task)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-speaker-search-task-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2605,17 +3398,23 @@
                           get-speaker-search-task-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-emergency-calling-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-emergency-calling-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass
+  get-voice-connector-emergency-calling-configuration-request common-lisp:nil
+  ((voice-connector-id :initarg :voice-connector-id :type
+    (common-lisp:or non-empty-string common-lisp:null) :accessor
+    %get-voice-connector-emergency-calling-configuration-request-voice-connector-id
+    :initform (common-lisp:error ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list
    'get-voice-connector-emergency-calling-configuration-request
    'make-get-voice-connector-emergency-calling-configuration-request))
+ (common-lisp:defun make-get-voice-connector-emergency-calling-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-emergency-calling-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2632,17 +3431,24 @@
                           get-voice-connector-emergency-calling-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-emergency-calling-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-emergency-calling-configuration-response-"))
-   (emergency-calling-configuration common-lisp:nil :type
-    (common-lisp:or emergency-calling-configuration common-lisp:null)))
+ (common-lisp:defclass
+  get-voice-connector-emergency-calling-configuration-response common-lisp:nil
+  ((emergency-calling-configuration :initarg :emergency-calling-configuration
+    :type (common-lisp:or emergency-calling-configuration common-lisp:null)
+    :accessor
+    %get-voice-connector-emergency-calling-configuration-response-emergency-calling-configuration
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'get-voice-connector-emergency-calling-configuration-response
    'make-get-voice-connector-emergency-calling-configuration-response))
+ (common-lisp:defun make-get-voice-connector-emergency-calling-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key emergency-calling-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-emergency-calling-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2667,15 +3473,25 @@
                           get-voice-connector-emergency-calling-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-group-request-"))
-   (voice-connector-group-id
-    (common-lisp:error ":voice-connector-group-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-group-request common-lisp:nil
+                       ((voice-connector-group-id :initarg
+                         :voice-connector-group-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-voice-connector-group-request-voice-connector-group-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-group-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-group-request
                     'make-get-voice-connector-group-request))
+ (common-lisp:defun make-get-voice-connector-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-group-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2692,14 +3508,24 @@
                           get-voice-connector-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-group-response-"))
-   (voice-connector-group common-lisp:nil :type
-    (common-lisp:or voice-connector-group common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-group-response common-lisp:nil
+                       ((voice-connector-group :initarg :voice-connector-group
+                         :type
+                         (common-lisp:or voice-connector-group
+                                         common-lisp:null)
+                         :accessor
+                         %get-voice-connector-group-response-voice-connector-group
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-group-response
                     'make-get-voice-connector-group-response))
+ (common-lisp:defun make-get-voice-connector-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-group)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2724,16 +3550,25 @@
                           get-voice-connector-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-logging-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-logging-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-logging-configuration-request
+                       common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-voice-connector-logging-configuration-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-logging-configuration-request
                     'make-get-voice-connector-logging-configuration-request))
+ (common-lisp:defun make-get-voice-connector-logging-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-logging-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2750,16 +3585,25 @@
                           get-voice-connector-logging-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-logging-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-logging-configuration-response-"))
-   (logging-configuration common-lisp:nil :type
-    (common-lisp:or logging-configuration common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-logging-configuration-response
+                       common-lisp:nil
+                       ((logging-configuration :initarg :logging-configuration
+                         :type
+                         (common-lisp:or logging-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %get-voice-connector-logging-configuration-response-logging-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-logging-configuration-response
                     'make-get-voice-connector-logging-configuration-response))
+ (common-lisp:defun make-get-voice-connector-logging-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key logging-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-logging-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2784,14 +3628,24 @@
                           get-voice-connector-logging-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-origination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-origination-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-origination-request common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-voice-connector-origination-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-origination-request
                     'make-get-voice-connector-origination-request))
+ (common-lisp:defun make-get-voice-connector-origination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-origination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2808,14 +3662,22 @@
                           get-voice-connector-origination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-origination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-origination-response-"))
-   (origination common-lisp:nil :type
-    (common-lisp:or origination common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-origination-response common-lisp:nil
+                       ((origination :initarg :origination :type
+                         (common-lisp:or origination common-lisp:null)
+                         :accessor
+                         %get-voice-connector-origination-response-origination
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-origination-response
                     'make-get-voice-connector-origination-response))
+ (common-lisp:defun make-get-voice-connector-origination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key origination)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-origination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2839,14 +3701,24 @@
                           get-voice-connector-origination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-proxy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-proxy-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-proxy-request common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %get-voice-connector-proxy-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-proxy-request
                     'make-get-voice-connector-proxy-request))
+ (common-lisp:defun make-get-voice-connector-proxy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-proxy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2863,13 +3735,21 @@
                           get-voice-connector-proxy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-proxy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-proxy-response-"))
-   (proxy common-lisp:nil :type (common-lisp:or proxy common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-proxy-response common-lisp:nil
+                       ((proxy :initarg :proxy :type
+                         (common-lisp:or proxy common-lisp:null) :accessor
+                         %get-voice-connector-proxy-response-proxy :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-proxy-response
                     'make-get-voice-connector-proxy-response))
+ (common-lisp:defun make-get-voice-connector-proxy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-proxy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2893,14 +3773,23 @@
                           get-voice-connector-proxy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-request common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-voice-connector-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-request
                     'make-get-voice-connector-request))
+ (common-lisp:defun make-get-voice-connector-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-voice-connector-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2917,14 +3806,21 @@
                           get-voice-connector-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-response-"))
-   (voice-connector common-lisp:nil :type
-    (common-lisp:or voice-connector common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-response common-lisp:nil
+                       ((voice-connector :initarg :voice-connector :type
+                         (common-lisp:or voice-connector common-lisp:null)
+                         :accessor
+                         %get-voice-connector-response-voice-connector
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-response
                     'make-get-voice-connector-response))
+ (common-lisp:defun make-get-voice-connector-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector)
+   (common-lisp:apply #'common-lisp:make-instance 'get-voice-connector-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2948,16 +3844,25 @@
                           get-voice-connector-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-streaming-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-streaming-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-streaming-configuration-request
+                       common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-voice-connector-streaming-configuration-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-streaming-configuration-request
                     'make-get-voice-connector-streaming-configuration-request))
+ (common-lisp:defun make-get-voice-connector-streaming-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-streaming-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2974,16 +3879,25 @@
                           get-voice-connector-streaming-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-streaming-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-streaming-configuration-response-"))
-   (streaming-configuration common-lisp:nil :type
-    (common-lisp:or streaming-configuration common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-streaming-configuration-response
+                       common-lisp:nil
+                       ((streaming-configuration :initarg
+                         :streaming-configuration :type
+                         (common-lisp:or streaming-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %get-voice-connector-streaming-configuration-response-streaming-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-streaming-configuration-response
                     'make-get-voice-connector-streaming-configuration-response))
+ (common-lisp:defun make-get-voice-connector-streaming-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key streaming-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-streaming-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3008,15 +3922,25 @@
                           get-voice-connector-streaming-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-termination-health-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-termination-health-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-termination-health-request
+                       common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-voice-connector-termination-health-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-termination-health-request
                     'make-get-voice-connector-termination-health-request))
+ (common-lisp:defun make-get-voice-connector-termination-health-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-termination-health-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3033,15 +3957,23 @@
                           get-voice-connector-termination-health-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-termination-health-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-voice-connector-termination-health-response-"))
-   (termination-health common-lisp:nil :type
-    (common-lisp:or termination-health common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-termination-health-response
+                       common-lisp:nil
+                       ((termination-health :initarg :termination-health :type
+                         (common-lisp:or termination-health common-lisp:null)
+                         :accessor
+                         %get-voice-connector-termination-health-response-termination-health
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-termination-health-response
                     'make-get-voice-connector-termination-health-response))
+ (common-lisp:defun make-get-voice-connector-termination-health-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key termination-health)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-termination-health-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3065,14 +3997,24 @@
                           get-voice-connector-termination-health-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-termination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-termination-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-termination-request common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %get-voice-connector-termination-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-termination-request
                     'make-get-voice-connector-termination-request))
+ (common-lisp:defun make-get-voice-connector-termination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-termination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3089,14 +4031,22 @@
                           get-voice-connector-termination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-connector-termination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-connector-termination-response-"))
-   (termination common-lisp:nil :type
-    (common-lisp:or termination common-lisp:null)))
+ (common-lisp:defclass get-voice-connector-termination-response common-lisp:nil
+                       ((termination :initarg :termination :type
+                         (common-lisp:or termination common-lisp:null)
+                         :accessor
+                         %get-voice-connector-termination-response-termination
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-connector-termination-response
                     'make-get-voice-connector-termination-response))
+ (common-lisp:defun make-get-voice-connector-termination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key termination)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-connector-termination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3120,15 +4070,25 @@
                           get-voice-connector-termination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-profile-domain-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-profile-domain-request-"))
-   (voice-profile-domain-id
-    (common-lisp:error ":voice-profile-domain-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass get-voice-profile-domain-request common-lisp:nil
+                       ((voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %get-voice-profile-domain-request-voice-profile-domain-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-profile-domain-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-profile-domain-request
                     'make-get-voice-profile-domain-request))
+ (common-lisp:defun make-get-voice-profile-domain-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-domain-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-profile-domain-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3145,14 +4105,23 @@
                           get-voice-profile-domain-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-profile-domain-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-profile-domain-response-"))
-   (voice-profile-domain common-lisp:nil :type
-    (common-lisp:or voice-profile-domain common-lisp:null)))
+ (common-lisp:defclass get-voice-profile-domain-response common-lisp:nil
+                       ((voice-profile-domain :initarg :voice-profile-domain
+                         :type
+                         (common-lisp:or voice-profile-domain common-lisp:null)
+                         :accessor
+                         %get-voice-profile-domain-response-voice-profile-domain
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-profile-domain-response
                     'make-get-voice-profile-domain-response))
+ (common-lisp:defun make-get-voice-profile-domain-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-domain)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-profile-domain-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3177,14 +4146,21 @@
                           get-voice-profile-domain-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-profile-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-profile-request-"))
-   (voice-profile-id (common-lisp:error ":voice-profile-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass get-voice-profile-request common-lisp:nil
+                       ((voice-profile-id :initarg :voice-profile-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor %get-voice-profile-request-voice-profile-id
+                         :initform
+                         (common-lisp:error ":voice-profile-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-profile-request
                     'make-get-voice-profile-request))
+ (common-lisp:defun make-get-voice-profile-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-voice-profile-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3201,14 +4177,20 @@
                           get-voice-profile-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-profile-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-profile-response-"))
-   (voice-profile common-lisp:nil :type
-    (common-lisp:or voice-profile common-lisp:null)))
+ (common-lisp:defclass get-voice-profile-response common-lisp:nil
+                       ((voice-profile :initarg :voice-profile :type
+                         (common-lisp:or voice-profile common-lisp:null)
+                         :accessor %get-voice-profile-response-voice-profile
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-profile-response
                     'make-get-voice-profile-response))
+ (common-lisp:defun make-get-voice-profile-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile)
+   (common-lisp:apply #'common-lisp:make-instance 'get-voice-profile-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3232,19 +4214,38 @@
                           get-voice-profile-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-tone-analysis-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-tone-analysis-task-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (voice-tone-analysis-task-id
-    (common-lisp:error ":voice-tone-analysis-task-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (is-caller (common-lisp:error ":is-caller is required") :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass get-voice-tone-analysis-task-request common-lisp:nil
+                       ((is-caller :initarg :is-caller :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %get-voice-tone-analysis-task-request-is-caller
+                         :initform
+                         (common-lisp:error ":is-caller is required"))
+                        (voice-tone-analysis-task-id :initarg
+                         :voice-tone-analysis-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %get-voice-tone-analysis-task-request-voice-tone-analysis-task-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-tone-analysis-task-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %get-voice-tone-analysis-task-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-voice-tone-analysis-task-request
                     'make-get-voice-tone-analysis-task-request))
+ (common-lisp:defun make-get-voice-tone-analysis-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key is-caller voice-tone-analysis-task-id
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-tone-analysis-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3261,14 +4262,24 @@
                           get-voice-tone-analysis-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-voice-tone-analysis-task-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-voice-tone-analysis-task-response-"))
-   (voice-tone-analysis-task common-lisp:nil :type
-    (common-lisp:or voice-tone-analysis-task common-lisp:null)))
+ (common-lisp:defclass get-voice-tone-analysis-task-response common-lisp:nil
+                       ((voice-tone-analysis-task :initarg
+                         :voice-tone-analysis-task :type
+                         (common-lisp:or voice-tone-analysis-task
+                                         common-lisp:null)
+                         :accessor
+                         %get-voice-tone-analysis-task-response-voice-tone-analysis-task
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-voice-tone-analysis-task-response
                     'make-get-voice-tone-analysis-task-response))
+ (common-lisp:defun make-get-voice-tone-analysis-task-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-tone-analysis-task)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-voice-tone-analysis-task-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3302,15 +4313,25 @@
 (common-lisp:deftype iso8601timestamp () 'common-lisp:string)
 (common-lisp:deftype language-code () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-available-voice-connector-regions-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-available-voice-connector-regions-response-"))
-   (voice-connector-regions common-lisp:nil :type
-    (common-lisp:or voice-connector-aws-region-list common-lisp:null)))
+ (common-lisp:defclass list-available-voice-connector-regions-response
+                       common-lisp:nil
+                       ((voice-connector-regions :initarg
+                         :voice-connector-regions :type
+                         (common-lisp:or voice-connector-aws-region-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-available-voice-connector-regions-response-voice-connector-regions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-available-voice-connector-regions-response
                     'make-list-available-voice-connector-regions-response))
+ (common-lisp:defun make-list-available-voice-connector-regions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-regions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-available-voice-connector-regions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3335,15 +4356,25 @@
                           list-available-voice-connector-regions-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-phone-number-orders-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-phone-number-orders-request-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:defclass list-phone-number-orders-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-phone-number-orders-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-phone-number-orders-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-phone-number-orders-request
                     'make-list-phone-number-orders-request))
+ (common-lisp:defun make-list-phone-number-orders-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-phone-number-orders-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3360,15 +4391,28 @@
                           list-phone-number-orders-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-phone-number-orders-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-phone-number-orders-response-"))
-   (phone-number-orders common-lisp:nil :type
-    (common-lisp:or phone-number-order-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-phone-number-orders-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-phone-number-orders-response-next-token
+                         :initform common-lisp:nil)
+                        (phone-number-orders :initarg :phone-number-orders
+                         :type
+                         (common-lisp:or phone-number-order-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-phone-number-orders-response-phone-number-orders
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-phone-number-orders-response
                     'make-list-phone-number-orders-response))
+ (common-lisp:defun make-list-phone-number-orders-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token phone-number-orders)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-phone-number-orders-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3399,22 +4443,43 @@
                           list-phone-number-orders-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-phone-numbers-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-phone-numbers-request-"))
-   (status common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or phone-number-product-type common-lisp:null))
-   (filter-name common-lisp:nil :type
-    (common-lisp:or phone-number-association-name common-lisp:null))
-   (filter-value common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-phone-numbers-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-phone-numbers-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-phone-numbers-request-max-results :initform
+                         common-lisp:nil)
+                        (filter-value :initarg :filter-value :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-phone-numbers-request-filter-value :initform
+                         common-lisp:nil)
+                        (filter-name :initarg :filter-name :type
+                         (common-lisp:or phone-number-association-name
+                                         common-lisp:null)
+                         :accessor %list-phone-numbers-request-filter-name
+                         :initform common-lisp:nil)
+                        (product-type :initarg :product-type :type
+                         (common-lisp:or phone-number-product-type
+                                         common-lisp:null)
+                         :accessor %list-phone-numbers-request-product-type
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-phone-numbers-request-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-phone-numbers-request
                     'make-list-phone-numbers-request))
+ (common-lisp:defun make-list-phone-numbers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results filter-value
+                     filter-name product-type status)
+   (common-lisp:apply #'common-lisp:make-instance 'list-phone-numbers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3431,15 +4496,24 @@
                           list-phone-numbers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-phone-numbers-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-phone-numbers-response-"))
-   (phone-numbers common-lisp:nil :type
-    (common-lisp:or phone-number-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-phone-numbers-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-phone-numbers-response-next-token :initform
+                         common-lisp:nil)
+                        (phone-numbers :initarg :phone-numbers :type
+                         (common-lisp:or phone-number-list common-lisp:null)
+                         :accessor %list-phone-numbers-response-phone-numbers
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-phone-numbers-response
                     'make-list-phone-numbers-response))
+ (common-lisp:defun make-list-phone-numbers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token phone-numbers)
+   (common-lisp:apply #'common-lisp:make-instance 'list-phone-numbers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3470,20 +4544,36 @@
                           list-phone-numbers-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-proxy-sessions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-proxy-sessions-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or proxy-session-status common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token-string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:defclass list-proxy-sessions-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-proxy-sessions-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token-string common-lisp:null)
+                         :accessor %list-proxy-sessions-request-next-token
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or proxy-session-status common-lisp:null)
+                         :accessor %list-proxy-sessions-request-status
+                         :initform common-lisp:nil)
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %list-proxy-sessions-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-proxy-sessions-request
                     'make-list-proxy-sessions-request))
+ (common-lisp:defun make-list-proxy-sessions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token status
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-proxy-sessions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3500,16 +4590,24 @@
                           list-proxy-sessions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-proxy-sessions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-proxy-sessions-response-"))
-   (proxy-sessions common-lisp:nil :type
-    (common-lisp:or proxy-sessions common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token-string common-lisp:null)))
+ (common-lisp:defclass list-proxy-sessions-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token-string common-lisp:null)
+                         :accessor %list-proxy-sessions-response-next-token
+                         :initform common-lisp:nil)
+                        (proxy-sessions :initarg :proxy-sessions :type
+                         (common-lisp:or proxy-sessions common-lisp:null)
+                         :accessor %list-proxy-sessions-response-proxy-sessions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-proxy-sessions-response
                     'make-list-proxy-sessions-response))
+ (common-lisp:defun make-list-proxy-sessions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token proxy-sessions)
+   (common-lisp:apply #'common-lisp:make-instance 'list-proxy-sessions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3540,16 +4638,26 @@
                           list-proxy-sessions-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-sip-media-applications-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-sip-media-applications-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token-string common-lisp:null)))
+ (common-lisp:defclass list-sip-media-applications-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token-string common-lisp:null)
+                         :accessor
+                         %list-sip-media-applications-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-sip-media-applications-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-sip-media-applications-request
                     'make-list-sip-media-applications-request))
+ (common-lisp:defun make-list-sip-media-applications-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-sip-media-applications-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3566,16 +4674,29 @@
                           list-sip-media-applications-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-sip-media-applications-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-sip-media-applications-response-"))
-   (sip-media-applications common-lisp:nil :type
-    (common-lisp:or sip-media-application-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token-string common-lisp:null)))
+ (common-lisp:defclass list-sip-media-applications-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token-string common-lisp:null)
+                         :accessor
+                         %list-sip-media-applications-response-next-token
+                         :initform common-lisp:nil)
+                        (sip-media-applications :initarg
+                         :sip-media-applications :type
+                         (common-lisp:or sip-media-application-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-sip-media-applications-response-sip-media-applications
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-sip-media-applications-response
                     'make-list-sip-media-applications-response))
+ (common-lisp:defun make-list-sip-media-applications-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token sip-media-applications)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-sip-media-applications-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3607,17 +4728,30 @@
                           list-sip-media-applications-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-sip-rules-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-sip-rules-request-"))
-   (sip-media-application-id common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token-string common-lisp:null)))
+ (common-lisp:defclass list-sip-rules-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token-string common-lisp:null)
+                         :accessor %list-sip-rules-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-sip-rules-request-max-results :initform
+                         common-lisp:nil)
+                        (sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %list-sip-rules-request-sip-media-application-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-sip-rules-request 'make-list-sip-rules-request))
+ (common-lisp:defun make-list-sip-rules-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-sip-rules-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3634,15 +4768,23 @@
                           list-sip-rules-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-sip-rules-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-sip-rules-response-"))
-   (sip-rules common-lisp:nil :type
-    (common-lisp:or sip-rule-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token-string common-lisp:null)))
+ (common-lisp:defclass list-sip-rules-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token-string common-lisp:null)
+                         :accessor %list-sip-rules-response-next-token
+                         :initform common-lisp:nil)
+                        (sip-rules :initarg :sip-rules :type
+                         (common-lisp:or sip-rule-list common-lisp:null)
+                         :accessor %list-sip-rules-response-sip-rules :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-sip-rules-response 'make-list-sip-rules-response))
+ (common-lisp:defun make-list-sip-rules-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token sip-rules)
+   (common-lisp:apply #'common-lisp:make-instance 'list-sip-rules-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3673,15 +4815,25 @@
                           list-sip-rules-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-supported-phone-number-countries-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-supported-phone-number-countries-request-"))
-   (product-type (common-lisp:error ":product-type is required") :type
-    (common-lisp:or phone-number-product-type common-lisp:null)))
+ (common-lisp:defclass list-supported-phone-number-countries-request
+                       common-lisp:nil
+                       ((product-type :initarg :product-type :type
+                         (common-lisp:or phone-number-product-type
+                                         common-lisp:null)
+                         :accessor
+                         %list-supported-phone-number-countries-request-product-type
+                         :initform
+                         (common-lisp:error ":product-type is required"))))
  (common-lisp:export
   (common-lisp:list 'list-supported-phone-number-countries-request
                     'make-list-supported-phone-number-countries-request))
+ (common-lisp:defun make-list-supported-phone-number-countries-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key product-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-supported-phone-number-countries-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3698,15 +4850,25 @@
                           list-supported-phone-number-countries-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-supported-phone-number-countries-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-supported-phone-number-countries-response-"))
-   (phone-number-countries common-lisp:nil :type
-    (common-lisp:or phone-number-countries-list common-lisp:null)))
+ (common-lisp:defclass list-supported-phone-number-countries-response
+                       common-lisp:nil
+                       ((phone-number-countries :initarg
+                         :phone-number-countries :type
+                         (common-lisp:or phone-number-countries-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-supported-phone-number-countries-response-phone-number-countries
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-supported-phone-number-countries-response
                     'make-list-supported-phone-number-countries-response))
+ (common-lisp:defun make-list-supported-phone-number-countries-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-countries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-supported-phone-number-countries-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3731,14 +4893,21 @@
                           list-supported-phone-number-countries-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-tags-for-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3755,13 +4924,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3785,15 +4962,25 @@
                           list-tags-for-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-connector-groups-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-connector-groups-request-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:defclass list-voice-connector-groups-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-voice-connector-groups-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-connector-groups-request-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-connector-groups-request
                     'make-list-voice-connector-groups-request))
+ (common-lisp:defun make-list-voice-connector-groups-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-connector-groups-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3810,15 +4997,28 @@
                           list-voice-connector-groups-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-connector-groups-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-connector-groups-response-"))
-   (voice-connector-groups common-lisp:nil :type
-    (common-lisp:or voice-connector-group-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-voice-connector-groups-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-connector-groups-response-next-token
+                         :initform common-lisp:nil)
+                        (voice-connector-groups :initarg
+                         :voice-connector-groups :type
+                         (common-lisp:or voice-connector-group-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-voice-connector-groups-response-voice-connector-groups
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-connector-groups-response
                     'make-list-voice-connector-groups-response))
+ (common-lisp:defun make-list-voice-connector-groups-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token voice-connector-groups)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-connector-groups-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3850,16 +5050,25 @@
                           list-voice-connector-groups-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-connector-termination-credentials-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-voice-connector-termination-credentials-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass list-voice-connector-termination-credentials-request
+                       common-lisp:nil
+                       ((voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %list-voice-connector-termination-credentials-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-voice-connector-termination-credentials-request
                     'make-list-voice-connector-termination-credentials-request))
+ (common-lisp:defun make-list-voice-connector-termination-credentials-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-connector-termination-credentials-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3876,16 +5085,24 @@
                           list-voice-connector-termination-credentials-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-connector-termination-credentials-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-voice-connector-termination-credentials-response-"))
-   (usernames common-lisp:nil :type
-    (common-lisp:or sensitive-string-list common-lisp:null)))
+ (common-lisp:defclass list-voice-connector-termination-credentials-response
+                       common-lisp:nil
+                       ((usernames :initarg :usernames :type
+                         (common-lisp:or sensitive-string-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-voice-connector-termination-credentials-response-usernames
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-connector-termination-credentials-response
                     'make-list-voice-connector-termination-credentials-response))
+ (common-lisp:defun make-list-voice-connector-termination-credentials-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key usernames)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-connector-termination-credentials-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3909,15 +5126,25 @@
                           list-voice-connector-termination-credentials-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-connectors-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-connectors-request-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:defclass list-voice-connectors-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-voice-connectors-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-connectors-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-connectors-request
                     'make-list-voice-connectors-request))
+ (common-lisp:defun make-list-voice-connectors-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-connectors-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3934,15 +5161,26 @@
                           list-voice-connectors-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-connectors-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-connectors-response-"))
-   (voice-connectors common-lisp:nil :type
-    (common-lisp:or voice-connector-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-voice-connectors-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-connectors-response-next-token :initform
+                         common-lisp:nil)
+                        (voice-connectors :initarg :voice-connectors :type
+                         (common-lisp:or voice-connector-list common-lisp:null)
+                         :accessor
+                         %list-voice-connectors-response-voice-connectors
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-connectors-response
                     'make-list-voice-connectors-response))
+ (common-lisp:defun make-list-voice-connectors-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token voice-connectors)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-connectors-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3973,15 +5211,25 @@
                           list-voice-connectors-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-profile-domains-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-profile-domains-request-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:defclass list-voice-profile-domains-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-voice-profile-domains-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-profile-domains-request-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-profile-domains-request
                     'make-list-voice-profile-domains-request))
+ (common-lisp:defun make-list-voice-profile-domains-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-profile-domains-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3998,15 +5246,28 @@
                           list-voice-profile-domains-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-profile-domains-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-profile-domains-response-"))
-   (voice-profile-domains common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-voice-profile-domains-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-profile-domains-response-next-token
+                         :initform common-lisp:nil)
+                        (voice-profile-domains :initarg :voice-profile-domains
+                         :type
+                         (common-lisp:or voice-profile-domain-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-voice-profile-domains-response-voice-profile-domains
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-profile-domains-response
                     'make-list-voice-profile-domains-response))
+ (common-lisp:defun make-list-voice-profile-domains-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token voice-profile-domains)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-voice-profile-domains-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4038,18 +5299,33 @@
                           list-voice-profile-domains-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-profiles-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-profiles-request-"))
-   (voice-profile-domain-id
-    (common-lisp:error ":voice-profile-domain-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or result-max common-lisp:null)))
+ (common-lisp:defclass list-voice-profiles-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or result-max common-lisp:null) :accessor
+                         %list-voice-profiles-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-profiles-request-next-token :initform
+                         common-lisp:nil)
+                        (voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %list-voice-profiles-request-voice-profile-domain-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-profile-domain-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-voice-profiles-request
                     'make-list-voice-profiles-request))
+ (common-lisp:defun make-list-voice-profiles-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token
+                     voice-profile-domain-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-voice-profiles-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4066,15 +5342,25 @@
                           list-voice-profiles-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-voice-profiles-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-voice-profiles-response-"))
-   (voice-profiles common-lisp:nil :type
-    (common-lisp:or voice-profile-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-voice-profiles-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-voice-profiles-response-next-token :initform
+                         common-lisp:nil)
+                        (voice-profiles :initarg :voice-profiles :type
+                         (common-lisp:or voice-profile-summary-list
+                                         common-lisp:null)
+                         :accessor %list-voice-profiles-response-voice-profiles
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-voice-profiles-response
                     'make-list-voice-profiles-response))
+ (common-lisp:defun make-list-voice-profiles-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token voice-profiles)
+   (common-lisp:apply #'common-lisp:make-instance 'list-voice-profiles-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4105,15 +5391,24 @@
                           list-voice-profiles-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (logging-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-logging-configuration-"))
-   (enable-siplogs common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (enable-media-metric-logs common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass logging-configuration common-lisp:nil
+                       ((enable-media-metric-logs :initarg
+                         :enable-media-metric-logs :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %logging-configuration-enable-media-metric-logs
+                         :initform common-lisp:nil)
+                        (enable-siplogs :initarg :enable-siplogs :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %logging-configuration-enable-siplogs :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'logging-configuration 'make-logging-configuration))
+ (common-lisp:defun make-logging-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key enable-media-metric-logs enable-siplogs)
+   (common-lisp:apply #'common-lisp:make-instance 'logging-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4145,15 +5440,24 @@
                           logging-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (media-insights-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-media-insights-configuration-"))
-   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (configuration-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass media-insights-configuration common-lisp:nil
+                       ((configuration-arn :initarg :configuration-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %media-insights-configuration-configuration-arn
+                         :initform common-lisp:nil)
+                        (disabled :initarg :disabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %media-insights-configuration-disabled :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'media-insights-configuration
                     'make-media-insights-configuration))
+ (common-lisp:defun make-media-insights-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configuration-arn disabled)
+   (common-lisp:apply #'common-lisp:make-instance 'media-insights-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4204,15 +5508,24 @@
 (common-lisp:deftype nullable-boolean () 'common-lisp:boolean)
 (common-lisp:deftype number-selection-behavior () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (ordered-phone-number (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ordered-phone-number-"))
-   (e164phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or ordered-phone-number-status common-lisp:null)))
+ (common-lisp:defclass ordered-phone-number common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or ordered-phone-number-status
+                                         common-lisp:null)
+                         :accessor %ordered-phone-number-status :initform
+                         common-lisp:nil)
+                        (e164phone-number :initarg :e164phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor %ordered-phone-number-e164phone-number
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ordered-phone-number 'make-ordered-phone-number))
+ (common-lisp:defun make-ordered-phone-number
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status e164phone-number)
+   (common-lisp:apply #'common-lisp:make-instance 'ordered-phone-number
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input ordered-phone-number))
    (common-lisp:append))
@@ -4246,13 +5559,22 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype ordered-phone-number-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (origination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-origination-"))
-   (routes common-lisp:nil :type
-    (common-lisp:or origination-route-list common-lisp:null))
-   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass origination common-lisp:nil
+                       ((disabled :initarg :disabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %origination-disabled :initform common-lisp:nil)
+                        (routes :initarg :routes :type
+                         (common-lisp:or origination-route-list
+                                         common-lisp:null)
+                         :accessor %origination-routes :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'origination 'make-origination))
+ (common-lisp:defun make-origination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key disabled routes)
+   (common-lisp:apply #'common-lisp:make-instance 'origination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input origination))
    (common-lisp:append))
@@ -4277,19 +5599,36 @@
                         ((aws-sdk/generator/shape::input origination))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (origination-route (:copier common-lisp:nil)
-      (:conc-name "struct-shape-origination-route-"))
-   (host common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (port common-lisp:nil :type (common-lisp:or port common-lisp:null))
-   (protocol common-lisp:nil :type
-    (common-lisp:or origination-route-protocol common-lisp:null))
-   (priority common-lisp:nil :type
-    (common-lisp:or origination-route-priority common-lisp:null))
-   (weight common-lisp:nil :type
-    (common-lisp:or origination-route-weight common-lisp:null)))
+ (common-lisp:defclass origination-route common-lisp:nil
+                       ((weight :initarg :weight :type
+                         (common-lisp:or origination-route-weight
+                                         common-lisp:null)
+                         :accessor %origination-route-weight :initform
+                         common-lisp:nil)
+                        (priority :initarg :priority :type
+                         (common-lisp:or origination-route-priority
+                                         common-lisp:null)
+                         :accessor %origination-route-priority :initform
+                         common-lisp:nil)
+                        (protocol :initarg :protocol :type
+                         (common-lisp:or origination-route-protocol
+                                         common-lisp:null)
+                         :accessor %origination-route-protocol :initform
+                         common-lisp:nil)
+                        (port :initarg :port :type
+                         (common-lisp:or port common-lisp:null) :accessor
+                         %origination-route-port :initform common-lisp:nil)
+                        (host :initarg :host :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %origination-route-host :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'origination-route 'make-origination-route))
+ (common-lisp:defun make-origination-route
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key weight priority protocol port host)
+   (common-lisp:apply #'common-lisp:make-instance 'origination-route
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input origination-route))
    (common-lisp:append))
@@ -4346,14 +5685,22 @@
 (common-lisp:deftype origination-route-protocol () 'common-lisp:string)
 (common-lisp:deftype origination-route-weight () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (participant (:copier common-lisp:nil)
-      (:conc-name "struct-shape-participant-"))
-   (phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (proxy-phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null)))
+ (common-lisp:defclass participant common-lisp:nil
+                       ((proxy-phone-number :initarg :proxy-phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor %participant-proxy-phone-number :initform
+                         common-lisp:nil)
+                        (phone-number :initarg :phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor %participant-phone-number :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'participant 'make-participant))
+ (common-lisp:defun make-participant
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy-phone-number phone-number)
+   (common-lisp:apply #'common-lisp:make-instance 'participant
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input participant))
    (common-lisp:append))
@@ -4393,38 +5740,78 @@
                            (trivial-types:proper-list participant))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (phone-number (:copier common-lisp:nil)
-      (:conc-name "struct-shape-phone-number-"))
-   (phone-number-id common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (e164phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (country common-lisp:nil :type
-    (common-lisp:or alpha2country-code common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or phone-number-type common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or phone-number-product-type common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or phone-number-status common-lisp:null))
-   (capabilities common-lisp:nil :type
-    (common-lisp:or phone-number-capabilities common-lisp:null))
-   (associations common-lisp:nil :type
-    (common-lisp:or phone-number-association-list common-lisp:null))
-   (calling-name common-lisp:nil :type
-    (common-lisp:or calling-name common-lisp:null))
-   (calling-name-status common-lisp:nil :type
-    (common-lisp:or calling-name-status common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (deletion-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (order-id common-lisp:nil :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass phone-number common-lisp:nil
+                       ((order-id :initarg :order-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %phone-number-order-id :initform
+                         common-lisp:nil)
+                        (deletion-timestamp :initarg :deletion-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %phone-number-deletion-timestamp :initform
+                         common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %phone-number-updated-timestamp :initform
+                         common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %phone-number-created-timestamp :initform
+                         common-lisp:nil)
+                        (calling-name-status :initarg :calling-name-status
+                         :type
+                         (common-lisp:or calling-name-status common-lisp:null)
+                         :accessor %phone-number-calling-name-status :initform
+                         common-lisp:nil)
+                        (calling-name :initarg :calling-name :type
+                         (common-lisp:or calling-name common-lisp:null)
+                         :accessor %phone-number-calling-name :initform
+                         common-lisp:nil)
+                        (associations :initarg :associations :type
+                         (common-lisp:or phone-number-association-list
+                                         common-lisp:null)
+                         :accessor %phone-number-associations :initform
+                         common-lisp:nil)
+                        (capabilities :initarg :capabilities :type
+                         (common-lisp:or phone-number-capabilities
+                                         common-lisp:null)
+                         :accessor %phone-number-capabilities :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or phone-number-status common-lisp:null)
+                         :accessor %phone-number-status :initform
+                         common-lisp:nil)
+                        (product-type :initarg :product-type :type
+                         (common-lisp:or phone-number-product-type
+                                         common-lisp:null)
+                         :accessor %phone-number-product-type :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or phone-number-type common-lisp:null)
+                         :accessor %phone-number-type :initform
+                         common-lisp:nil)
+                        (country :initarg :country :type
+                         (common-lisp:or alpha2country-code common-lisp:null)
+                         :accessor %phone-number-country :initform
+                         common-lisp:nil)
+                        (e164phone-number :initarg :e164phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor %phone-number-e164phone-number :initform
+                         common-lisp:nil)
+                        (phone-number-id :initarg :phone-number-id :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %phone-number-phone-number-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'phone-number 'make-phone-number))
+ (common-lisp:defun make-phone-number
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key order-id deletion-timestamp
+                     updated-timestamp created-timestamp calling-name-status
+                     calling-name associations capabilities status product-type
+                     type country e164phone-number phone-number-id)
+   (common-lisp:apply #'common-lisp:make-instance 'phone-number
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input phone-number))
    (common-lisp:append))
@@ -4533,16 +5920,30 @@
                         ((aws-sdk/generator/shape::input phone-number))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (phone-number-association (:copier common-lisp:nil)
-      (:conc-name "struct-shape-phone-number-association-"))
-   (value common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or phone-number-association-name common-lisp:null))
-   (associated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass phone-number-association common-lisp:nil
+                       ((associated-timestamp :initarg :associated-timestamp
+                         :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor
+                         %phone-number-association-associated-timestamp
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or phone-number-association-name
+                                         common-lisp:null)
+                         :accessor %phone-number-association-name :initform
+                         common-lisp:nil)
+                        (value :initarg :value :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %phone-number-association-value :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'phone-number-association 'make-phone-number-association))
+ (common-lisp:defun make-phone-number-association
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key associated-timestamp name value)
+   (common-lisp:apply #'common-lisp:make-instance 'phone-number-association
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4591,24 +5992,41 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype phone-number-association-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (phone-number-capabilities (:copier common-lisp:nil)
-      (:conc-name "struct-shape-phone-number-capabilities-"))
-   (inbound-call common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (outbound-call common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (inbound-sms common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (outbound-sms common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (inbound-mms common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (outbound-mms common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null)))
+ (common-lisp:defclass phone-number-capabilities common-lisp:nil
+                       ((outbound-mms :initarg :outbound-mms :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %phone-number-capabilities-outbound-mms
+                         :initform common-lisp:nil)
+                        (inbound-mms :initarg :inbound-mms :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %phone-number-capabilities-inbound-mms
+                         :initform common-lisp:nil)
+                        (outbound-sms :initarg :outbound-sms :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %phone-number-capabilities-outbound-sms
+                         :initform common-lisp:nil)
+                        (inbound-sms :initarg :inbound-sms :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %phone-number-capabilities-inbound-sms
+                         :initform common-lisp:nil)
+                        (outbound-call :initarg :outbound-call :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %phone-number-capabilities-outbound-call
+                         :initform common-lisp:nil)
+                        (inbound-call :initarg :inbound-call :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %phone-number-capabilities-inbound-call
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'phone-number-capabilities
                     'make-phone-number-capabilities))
+ (common-lisp:defun make-phone-number-capabilities
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key outbound-mms inbound-mms outbound-sms
+                     inbound-sms outbound-call inbound-call)
+   (common-lisp:apply #'common-lisp:make-instance 'phone-number-capabilities
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4675,15 +6093,27 @@
                            (trivial-types:proper-list phone-number-country))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (phone-number-country (:copier common-lisp:nil)
-      (:conc-name "struct-shape-phone-number-country-"))
-   (country-code common-lisp:nil :type
-    (common-lisp:or alpha2country-code common-lisp:null))
-   (supported-phone-number-types common-lisp:nil :type
-    (common-lisp:or phone-number-type-list common-lisp:null)))
+ (common-lisp:defclass phone-number-country common-lisp:nil
+                       ((supported-phone-number-types :initarg
+                         :supported-phone-number-types :type
+                         (common-lisp:or phone-number-type-list
+                                         common-lisp:null)
+                         :accessor
+                         %phone-number-country-supported-phone-number-types
+                         :initform common-lisp:nil)
+                        (country-code :initarg :country-code :type
+                         (common-lisp:or alpha2country-code common-lisp:null)
+                         :accessor %phone-number-country-country-code :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'phone-number-country 'make-phone-number-country))
+ (common-lisp:defun make-phone-number-country
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key supported-phone-number-types
+                     country-code)
+   (common-lisp:apply #'common-lisp:make-instance 'phone-number-country
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input phone-number-country))
    (common-lisp:append))
@@ -4709,17 +6139,28 @@
                         ((aws-sdk/generator/shape::input phone-number-country))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (phone-number-error (:copier common-lisp:nil)
-      (:conc-name "struct-shape-phone-number-error-"))
-   (phone-number-id common-lisp:nil :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (error-code common-lisp:nil :type
-    (common-lisp:or error-code common-lisp:null))
-   (error-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass phone-number-error common-lisp:nil
+                       ((error-message :initarg :error-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %phone-number-error-error-message :initform
+                         common-lisp:nil)
+                        (error-code :initarg :error-code :type
+                         (common-lisp:or error-code common-lisp:null) :accessor
+                         %phone-number-error-error-code :initform
+                         common-lisp:nil)
+                        (phone-number-id :initarg :phone-number-id :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %phone-number-error-phone-number-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'phone-number-error 'make-phone-number-error))
+ (common-lisp:defun make-phone-number-error
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error-message error-code phone-number-id)
+   (common-lisp:apply #'common-lisp:make-instance 'phone-number-error
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input phone-number-error))
    (common-lisp:append))
@@ -4768,25 +6209,50 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype phone-number-max-results () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (phone-number-order (:copier common-lisp:nil)
-      (:conc-name "struct-shape-phone-number-order-"))
-   (phone-number-order-id common-lisp:nil :type
-    (common-lisp:or guid-string common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or phone-number-product-type common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or phone-number-order-status common-lisp:null))
-   (order-type common-lisp:nil :type
-    (common-lisp:or phone-number-order-type common-lisp:null))
-   (ordered-phone-numbers common-lisp:nil :type
-    (common-lisp:or ordered-phone-number-list common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass phone-number-order common-lisp:nil
+                       ((updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %phone-number-order-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %phone-number-order-created-timestamp
+                         :initform common-lisp:nil)
+                        (ordered-phone-numbers :initarg :ordered-phone-numbers
+                         :type
+                         (common-lisp:or ordered-phone-number-list
+                                         common-lisp:null)
+                         :accessor %phone-number-order-ordered-phone-numbers
+                         :initform common-lisp:nil)
+                        (order-type :initarg :order-type :type
+                         (common-lisp:or phone-number-order-type
+                                         common-lisp:null)
+                         :accessor %phone-number-order-order-type :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or phone-number-order-status
+                                         common-lisp:null)
+                         :accessor %phone-number-order-status :initform
+                         common-lisp:nil)
+                        (product-type :initarg :product-type :type
+                         (common-lisp:or phone-number-product-type
+                                         common-lisp:null)
+                         :accessor %phone-number-order-product-type :initform
+                         common-lisp:nil)
+                        (phone-number-order-id :initarg :phone-number-order-id
+                         :type (common-lisp:or guid-string common-lisp:null)
+                         :accessor %phone-number-order-phone-number-order-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'phone-number-order 'make-phone-number-order))
+ (common-lisp:defun make-phone-number-order
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-timestamp created-timestamp
+                     ordered-phone-numbers order-type status product-type
+                     phone-number-order-id)
+   (common-lisp:apply #'common-lisp:make-instance 'phone-number-order
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input phone-number-order))
    (common-lisp:append))
@@ -4871,16 +6337,34 @@
 (common-lisp:deftype port () 'common-lisp:integer)
 (common-lisp:deftype positive-integer () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (proxy (:copier common-lisp:nil) (:conc-name "struct-shape-proxy-"))
-   (default-session-expiry-minutes common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (fall-back-phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (phone-number-countries common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass proxy common-lisp:nil
+                       ((phone-number-countries :initarg
+                         :phone-number-countries :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %proxy-phone-number-countries :initform
+                         common-lisp:nil)
+                        (fall-back-phone-number :initarg
+                         :fall-back-phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor %proxy-fall-back-phone-number :initform
+                         common-lisp:nil)
+                        (disabled :initarg :disabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %proxy-disabled :initform common-lisp:nil)
+                        (default-session-expiry-minutes :initarg
+                         :default-session-expiry-minutes :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %proxy-default-session-expiry-minutes :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'proxy 'make-proxy))
+ (common-lisp:defun make-proxy
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-countries
+                     fall-back-phone-number disabled
+                     default-session-expiry-minutes)
+   (common-lisp:apply #'common-lisp:make-instance 'proxy
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input proxy))
    (common-lisp:append))
@@ -4922,35 +6406,71 @@
                         ((aws-sdk/generator/shape::input proxy))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (proxy-session (:copier common-lisp:nil)
-      (:conc-name "struct-shape-proxy-session-"))
-   (voice-connector-id common-lisp:nil :type
-    (common-lisp:or non-empty-string128 common-lisp:null))
-   (proxy-session-id common-lisp:nil :type
-    (common-lisp:or non-empty-string128 common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string128 common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or proxy-session-status common-lisp:null))
-   (expiry-minutes common-lisp:nil :type
-    (common-lisp:or positive-integer common-lisp:null))
-   (capabilities common-lisp:nil :type
-    (common-lisp:or capability-list common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (ended-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (participants common-lisp:nil :type
-    (common-lisp:or participants common-lisp:null))
-   (number-selection-behavior common-lisp:nil :type
-    (common-lisp:or number-selection-behavior common-lisp:null))
-   (geo-match-level common-lisp:nil :type
-    (common-lisp:or geo-match-level common-lisp:null))
-   (geo-match-params common-lisp:nil :type
-    (common-lisp:or geo-match-params common-lisp:null)))
+ (common-lisp:defclass proxy-session common-lisp:nil
+                       ((geo-match-params :initarg :geo-match-params :type
+                         (common-lisp:or geo-match-params common-lisp:null)
+                         :accessor %proxy-session-geo-match-params :initform
+                         common-lisp:nil)
+                        (geo-match-level :initarg :geo-match-level :type
+                         (common-lisp:or geo-match-level common-lisp:null)
+                         :accessor %proxy-session-geo-match-level :initform
+                         common-lisp:nil)
+                        (number-selection-behavior :initarg
+                         :number-selection-behavior :type
+                         (common-lisp:or number-selection-behavior
+                                         common-lisp:null)
+                         :accessor %proxy-session-number-selection-behavior
+                         :initform common-lisp:nil)
+                        (participants :initarg :participants :type
+                         (common-lisp:or participants common-lisp:null)
+                         :accessor %proxy-session-participants :initform
+                         common-lisp:nil)
+                        (ended-timestamp :initarg :ended-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %proxy-session-ended-timestamp :initform
+                         common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %proxy-session-updated-timestamp :initform
+                         common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %proxy-session-created-timestamp :initform
+                         common-lisp:nil)
+                        (capabilities :initarg :capabilities :type
+                         (common-lisp:or capability-list common-lisp:null)
+                         :accessor %proxy-session-capabilities :initform
+                         common-lisp:nil)
+                        (expiry-minutes :initarg :expiry-minutes :type
+                         (common-lisp:or positive-integer common-lisp:null)
+                         :accessor %proxy-session-expiry-minutes :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or proxy-session-status common-lisp:null)
+                         :accessor %proxy-session-status :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or string128 common-lisp:null) :accessor
+                         %proxy-session-name :initform common-lisp:nil)
+                        (proxy-session-id :initarg :proxy-session-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor %proxy-session-proxy-session-id :initform
+                         common-lisp:nil)
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor %proxy-session-voice-connector-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'proxy-session 'make-proxy-session))
+ (common-lisp:defun make-proxy-session
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key geo-match-params geo-match-level
+                     number-selection-behavior participants ended-timestamp
+                     updated-timestamp created-timestamp capabilities
+                     expiry-minutes status name proxy-session-id
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'proxy-session
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input proxy-session))
    (common-lisp:append))
@@ -5063,21 +6583,32 @@
                            (trivial-types:proper-list proxy-session))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-sip-media-application-alexa-skill-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-sip-media-application-alexa-skill-configuration-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (sip-media-application-alexa-skill-configuration common-lisp:nil :type
+ (common-lisp:defclass
+  put-sip-media-application-alexa-skill-configuration-request common-lisp:nil
+  ((sip-media-application-alexa-skill-configuration :initarg
+    :sip-media-application-alexa-skill-configuration :type
     (common-lisp:or sip-media-application-alexa-skill-configuration
-                    common-lisp:null)))
+                    common-lisp:null)
+    :accessor
+    %put-sip-media-application-alexa-skill-configuration-request-sip-media-application-alexa-skill-configuration
+    :initform common-lisp:nil)
+   (sip-media-application-id :initarg :sip-media-application-id :type
+    (common-lisp:or non-empty-string common-lisp:null) :accessor
+    %put-sip-media-application-alexa-skill-configuration-request-sip-media-application-id
+    :initform (common-lisp:error ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list
    'put-sip-media-application-alexa-skill-configuration-request
    'make-put-sip-media-application-alexa-skill-configuration-request))
+ (common-lisp:defun make-put-sip-media-application-alexa-skill-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     sip-media-application-alexa-skill-configuration
+                     sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-sip-media-application-alexa-skill-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5102,18 +6633,27 @@
                           put-sip-media-application-alexa-skill-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-sip-media-application-alexa-skill-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-sip-media-application-alexa-skill-configuration-response-"))
-   (sip-media-application-alexa-skill-configuration common-lisp:nil :type
+ (common-lisp:defclass
+  put-sip-media-application-alexa-skill-configuration-response common-lisp:nil
+  ((sip-media-application-alexa-skill-configuration :initarg
+    :sip-media-application-alexa-skill-configuration :type
     (common-lisp:or sip-media-application-alexa-skill-configuration
-                    common-lisp:null)))
+                    common-lisp:null)
+    :accessor
+    %put-sip-media-application-alexa-skill-configuration-response-sip-media-application-alexa-skill-configuration
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'put-sip-media-application-alexa-skill-configuration-response
    'make-put-sip-media-application-alexa-skill-configuration-response))
+ (common-lisp:defun make-put-sip-media-application-alexa-skill-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     sip-media-application-alexa-skill-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-sip-media-application-alexa-skill-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5138,20 +6678,36 @@
                           put-sip-media-application-alexa-skill-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-sip-media-application-logging-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-sip-media-application-logging-configuration-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (sip-media-application-logging-configuration common-lisp:nil :type
-    (common-lisp:or sip-media-application-logging-configuration
-                    common-lisp:null)))
+ (common-lisp:defclass put-sip-media-application-logging-configuration-request
+                       common-lisp:nil
+                       ((sip-media-application-logging-configuration :initarg
+                         :sip-media-application-logging-configuration :type
+                         (common-lisp:or
+                          sip-media-application-logging-configuration
+                          common-lisp:null)
+                         :accessor
+                         %put-sip-media-application-logging-configuration-request-sip-media-application-logging-configuration
+                         :initform common-lisp:nil)
+                        (sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %put-sip-media-application-logging-configuration-request-sip-media-application-id
+                         :initform
+                         (common-lisp:error
+                          ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-sip-media-application-logging-configuration-request
                     'make-put-sip-media-application-logging-configuration-request))
+ (common-lisp:defun make-put-sip-media-application-logging-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     sip-media-application-logging-configuration
+                     sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-sip-media-application-logging-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5176,17 +6732,27 @@
                           put-sip-media-application-logging-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-sip-media-application-logging-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-sip-media-application-logging-configuration-response-"))
-   (sip-media-application-logging-configuration common-lisp:nil :type
-    (common-lisp:or sip-media-application-logging-configuration
-                    common-lisp:null)))
+ (common-lisp:defclass put-sip-media-application-logging-configuration-response
+                       common-lisp:nil
+                       ((sip-media-application-logging-configuration :initarg
+                         :sip-media-application-logging-configuration :type
+                         (common-lisp:or
+                          sip-media-application-logging-configuration
+                          common-lisp:null)
+                         :accessor
+                         %put-sip-media-application-logging-configuration-response-sip-media-application-logging-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-sip-media-application-logging-configuration-response
                     'make-put-sip-media-application-logging-configuration-response))
+ (common-lisp:defun make-put-sip-media-application-logging-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     sip-media-application-logging-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-sip-media-application-logging-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5211,20 +6777,30 @@
                           put-sip-media-application-logging-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-emergency-calling-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-voice-connector-emergency-calling-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (emergency-calling-configuration
-    (common-lisp:error ":emergency-calling-configuration is required") :type
-    (common-lisp:or emergency-calling-configuration common-lisp:null)))
+ (common-lisp:defclass
+  put-voice-connector-emergency-calling-configuration-request common-lisp:nil
+  ((emergency-calling-configuration :initarg :emergency-calling-configuration
+    :type (common-lisp:or emergency-calling-configuration common-lisp:null)
+    :accessor
+    %put-voice-connector-emergency-calling-configuration-request-emergency-calling-configuration
+    :initform
+    (common-lisp:error ":emergency-calling-configuration is required"))
+   (voice-connector-id :initarg :voice-connector-id :type
+    (common-lisp:or non-empty-string common-lisp:null) :accessor
+    %put-voice-connector-emergency-calling-configuration-request-voice-connector-id
+    :initform (common-lisp:error ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list
    'put-voice-connector-emergency-calling-configuration-request
    'make-put-voice-connector-emergency-calling-configuration-request))
+ (common-lisp:defun make-put-voice-connector-emergency-calling-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key emergency-calling-configuration
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-emergency-calling-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5249,17 +6825,24 @@
                           put-voice-connector-emergency-calling-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-emergency-calling-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-voice-connector-emergency-calling-configuration-response-"))
-   (emergency-calling-configuration common-lisp:nil :type
-    (common-lisp:or emergency-calling-configuration common-lisp:null)))
+ (common-lisp:defclass
+  put-voice-connector-emergency-calling-configuration-response common-lisp:nil
+  ((emergency-calling-configuration :initarg :emergency-calling-configuration
+    :type (common-lisp:or emergency-calling-configuration common-lisp:null)
+    :accessor
+    %put-voice-connector-emergency-calling-configuration-response-emergency-calling-configuration
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'put-voice-connector-emergency-calling-configuration-response
    'make-put-voice-connector-emergency-calling-configuration-response))
+ (common-lisp:defun make-put-voice-connector-emergency-calling-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key emergency-calling-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-emergency-calling-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5284,19 +6867,34 @@
                           put-voice-connector-emergency-calling-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-logging-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-voice-connector-logging-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (logging-configuration
-    (common-lisp:error ":logging-configuration is required") :type
-    (common-lisp:or logging-configuration common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-logging-configuration-request
+                       common-lisp:nil
+                       ((logging-configuration :initarg :logging-configuration
+                         :type
+                         (common-lisp:or logging-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %put-voice-connector-logging-configuration-request-logging-configuration
+                         :initform
+                         (common-lisp:error
+                          ":logging-configuration is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %put-voice-connector-logging-configuration-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-logging-configuration-request
                     'make-put-voice-connector-logging-configuration-request))
+ (common-lisp:defun make-put-voice-connector-logging-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key logging-configuration voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-logging-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5321,16 +6919,25 @@
                           put-voice-connector-logging-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-logging-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-voice-connector-logging-configuration-response-"))
-   (logging-configuration common-lisp:nil :type
-    (common-lisp:or logging-configuration common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-logging-configuration-response
+                       common-lisp:nil
+                       ((logging-configuration :initarg :logging-configuration
+                         :type
+                         (common-lisp:or logging-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %put-voice-connector-logging-configuration-response-logging-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-logging-configuration-response
                     'make-put-voice-connector-logging-configuration-response))
+ (common-lisp:defun make-put-voice-connector-logging-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key logging-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-logging-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5355,16 +6962,30 @@
                           put-voice-connector-logging-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-origination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-voice-connector-origination-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (origination (common-lisp:error ":origination is required") :type
-    (common-lisp:or origination common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-origination-request common-lisp:nil
+                       ((origination :initarg :origination :type
+                         (common-lisp:or origination common-lisp:null)
+                         :accessor
+                         %put-voice-connector-origination-request-origination
+                         :initform
+                         (common-lisp:error ":origination is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %put-voice-connector-origination-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-origination-request
                     'make-put-voice-connector-origination-request))
+ (common-lisp:defun make-put-voice-connector-origination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key origination voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-origination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5388,14 +7009,22 @@
                           put-voice-connector-origination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-origination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-voice-connector-origination-response-"))
-   (origination common-lisp:nil :type
-    (common-lisp:or origination common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-origination-response common-lisp:nil
+                       ((origination :initarg :origination :type
+                         (common-lisp:or origination common-lisp:null)
+                         :accessor
+                         %put-voice-connector-origination-response-origination
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-origination-response
                     'make-put-voice-connector-origination-response))
+ (common-lisp:defun make-put-voice-connector-origination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key origination)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-origination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5419,23 +7048,51 @@
                           put-voice-connector-origination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-proxy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-voice-connector-proxy-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (default-session-expiry-minutes
-    (common-lisp:error ":default-session-expiry-minutes is required") :type
-    (common-lisp:or integer common-lisp:null))
-   (phone-number-pool-countries
-    (common-lisp:error ":phone-number-pool-countries is required") :type
-    (common-lisp:or country-list common-lisp:null))
-   (fall-back-phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-proxy-request common-lisp:nil
+                       ((disabled :initarg :disabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %put-voice-connector-proxy-request-disabled :initform
+                         common-lisp:nil)
+                        (fall-back-phone-number :initarg
+                         :fall-back-phone-number :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor
+                         %put-voice-connector-proxy-request-fall-back-phone-number
+                         :initform common-lisp:nil)
+                        (phone-number-pool-countries :initarg
+                         :phone-number-pool-countries :type
+                         (common-lisp:or country-list common-lisp:null)
+                         :accessor
+                         %put-voice-connector-proxy-request-phone-number-pool-countries
+                         :initform
+                         (common-lisp:error
+                          ":phone-number-pool-countries is required"))
+                        (default-session-expiry-minutes :initarg
+                         :default-session-expiry-minutes :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %put-voice-connector-proxy-request-default-session-expiry-minutes
+                         :initform
+                         (common-lisp:error
+                          ":default-session-expiry-minutes is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %put-voice-connector-proxy-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-proxy-request
                     'make-put-voice-connector-proxy-request))
+ (common-lisp:defun make-put-voice-connector-proxy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key disabled fall-back-phone-number
+                     phone-number-pool-countries default-session-expiry-minutes
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-proxy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5483,13 +7140,21 @@
                           put-voice-connector-proxy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-proxy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-voice-connector-proxy-response-"))
-   (proxy common-lisp:nil :type (common-lisp:or proxy common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-proxy-response common-lisp:nil
+                       ((proxy :initarg :proxy :type
+                         (common-lisp:or proxy common-lisp:null) :accessor
+                         %put-voice-connector-proxy-response-proxy :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-proxy-response
                     'make-put-voice-connector-proxy-response))
+ (common-lisp:defun make-put-voice-connector-proxy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-proxy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5513,19 +7178,35 @@
                           put-voice-connector-proxy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-streaming-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-voice-connector-streaming-configuration-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (streaming-configuration
-    (common-lisp:error ":streaming-configuration is required") :type
-    (common-lisp:or streaming-configuration common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-streaming-configuration-request
+                       common-lisp:nil
+                       ((streaming-configuration :initarg
+                         :streaming-configuration :type
+                         (common-lisp:or streaming-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %put-voice-connector-streaming-configuration-request-streaming-configuration
+                         :initform
+                         (common-lisp:error
+                          ":streaming-configuration is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %put-voice-connector-streaming-configuration-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-streaming-configuration-request
                     'make-put-voice-connector-streaming-configuration-request))
+ (common-lisp:defun make-put-voice-connector-streaming-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key streaming-configuration
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-streaming-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5550,16 +7231,25 @@
                           put-voice-connector-streaming-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-streaming-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-voice-connector-streaming-configuration-response-"))
-   (streaming-configuration common-lisp:nil :type
-    (common-lisp:or streaming-configuration common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-streaming-configuration-response
+                       common-lisp:nil
+                       ((streaming-configuration :initarg
+                         :streaming-configuration :type
+                         (common-lisp:or streaming-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %put-voice-connector-streaming-configuration-response-streaming-configuration
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-streaming-configuration-response
                     'make-put-voice-connector-streaming-configuration-response))
+ (common-lisp:defun make-put-voice-connector-streaming-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key streaming-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-streaming-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5584,18 +7274,30 @@
                           put-voice-connector-streaming-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-termination-credentials-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-voice-connector-termination-credentials-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (credentials common-lisp:nil :type
-    (common-lisp:or credential-list common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-termination-credentials-request
+                       common-lisp:nil
+                       ((credentials :initarg :credentials :type
+                         (common-lisp:or credential-list common-lisp:null)
+                         :accessor
+                         %put-voice-connector-termination-credentials-request-credentials
+                         :initform common-lisp:nil)
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %put-voice-connector-termination-credentials-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-termination-credentials-request
                     'make-put-voice-connector-termination-credentials-request))
+ (common-lisp:defun make-put-voice-connector-termination-credentials-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key credentials voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-termination-credentials-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5619,16 +7321,30 @@
                           put-voice-connector-termination-credentials-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-termination-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-voice-connector-termination-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (termination (common-lisp:error ":termination is required") :type
-    (common-lisp:or termination common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-termination-request common-lisp:nil
+                       ((termination :initarg :termination :type
+                         (common-lisp:or termination common-lisp:null)
+                         :accessor
+                         %put-voice-connector-termination-request-termination
+                         :initform
+                         (common-lisp:error ":termination is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %put-voice-connector-termination-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-termination-request
                     'make-put-voice-connector-termination-request))
+ (common-lisp:defun make-put-voice-connector-termination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key termination voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-termination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5652,14 +7368,22 @@
                           put-voice-connector-termination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-voice-connector-termination-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-voice-connector-termination-response-"))
-   (termination common-lisp:nil :type
-    (common-lisp:or termination common-lisp:null)))
+ (common-lisp:defclass put-voice-connector-termination-response common-lisp:nil
+                       ((termination :initarg :termination :type
+                         (common-lisp:or termination common-lisp:null)
+                         :accessor
+                         %put-voice-connector-termination-response-termination
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-voice-connector-termination-response
                     'make-put-voice-connector-termination-response))
+ (common-lisp:defun make-put-voice-connector-termination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key termination)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-voice-connector-termination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5688,14 +7412,23 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'resource-limit-exceeded-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-phone-number-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-phone-number-request-"))
-   (phone-number-id (common-lisp:error ":phone-number-id is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null)))
+ (common-lisp:defclass restore-phone-number-request common-lisp:nil
+                       ((phone-number-id :initarg :phone-number-id :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor
+                         %restore-phone-number-request-phone-number-id
+                         :initform
+                         (common-lisp:error ":phone-number-id is required"))))
  (common-lisp:export
   (common-lisp:list 'restore-phone-number-request
                     'make-restore-phone-number-request))
+ (common-lisp:defun make-restore-phone-number-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number-id)
+   (common-lisp:apply #'common-lisp:make-instance 'restore-phone-number-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5712,14 +7445,21 @@
                           restore-phone-number-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-phone-number-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-phone-number-response-"))
-   (phone-number common-lisp:nil :type
-    (common-lisp:or phone-number common-lisp:null)))
+ (common-lisp:defclass restore-phone-number-response common-lisp:nil
+                       ((phone-number :initarg :phone-number :type
+                         (common-lisp:or phone-number common-lisp:null)
+                         :accessor %restore-phone-number-response-phone-number
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'restore-phone-number-response
                     'make-restore-phone-number-response))
+ (common-lisp:defun make-restore-phone-number-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'restore-phone-number-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5760,24 +7500,55 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (search-available-phone-numbers-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-search-available-phone-numbers-request-"))
-   (area-code common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (city common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (country common-lisp:nil :type
-    (common-lisp:or alpha2country-code common-lisp:null))
-   (state common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (toll-free-prefix common-lisp:nil :type
-    (common-lisp:or toll-free-prefix common-lisp:null))
-   (phone-number-type common-lisp:nil :type
-    (common-lisp:or phone-number-type common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or phone-number-max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass search-available-phone-numbers-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %search-available-phone-numbers-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or phone-number-max-results
+                                         common-lisp:null)
+                         :accessor
+                         %search-available-phone-numbers-request-max-results
+                         :initform common-lisp:nil)
+                        (phone-number-type :initarg :phone-number-type :type
+                         (common-lisp:or phone-number-type common-lisp:null)
+                         :accessor
+                         %search-available-phone-numbers-request-phone-number-type
+                         :initform common-lisp:nil)
+                        (toll-free-prefix :initarg :toll-free-prefix :type
+                         (common-lisp:or toll-free-prefix common-lisp:null)
+                         :accessor
+                         %search-available-phone-numbers-request-toll-free-prefix
+                         :initform common-lisp:nil)
+                        (state :initarg :state :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %search-available-phone-numbers-request-state
+                         :initform common-lisp:nil)
+                        (country :initarg :country :type
+                         (common-lisp:or alpha2country-code common-lisp:null)
+                         :accessor
+                         %search-available-phone-numbers-request-country
+                         :initform common-lisp:nil)
+                        (city :initarg :city :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %search-available-phone-numbers-request-city :initform
+                         common-lisp:nil)
+                        (area-code :initarg :area-code :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %search-available-phone-numbers-request-area-code
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'search-available-phone-numbers-request
                     'make-search-available-phone-numbers-request))
+ (common-lisp:defun make-search-available-phone-numbers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results phone-number-type
+                     toll-free-prefix state country city area-code)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'search-available-phone-numbers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5794,15 +7565,27 @@
                           search-available-phone-numbers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (search-available-phone-numbers-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-search-available-phone-numbers-response-"))
-   (e164phone-numbers common-lisp:nil :type
-    (common-lisp:or e164phone-number-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass search-available-phone-numbers-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %search-available-phone-numbers-response-next-token
+                         :initform common-lisp:nil)
+                        (e164phone-numbers :initarg :e164phone-numbers :type
+                         (common-lisp:or e164phone-number-list
+                                         common-lisp:null)
+                         :accessor
+                         %search-available-phone-numbers-response-e164phone-numbers
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'search-available-phone-numbers-response
                     'make-search-available-phone-numbers-response))
+ (common-lisp:defun make-search-available-phone-numbers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token e164phone-numbers)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'search-available-phone-numbers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5843,14 +7626,22 @@
                            (trivial-types:proper-list sensitive-string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (server-side-encryption-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-server-side-encryption-configuration-"))
-   (kms-key-arn (common-lisp:error ":kms-key-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass server-side-encryption-configuration common-lisp:nil
+                       ((kms-key-arn :initarg :kms-key-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %server-side-encryption-configuration-kms-key-arn
+                         :initform
+                         (common-lisp:error ":kms-key-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'server-side-encryption-configuration
                     'make-server-side-encryption-configuration))
+ (common-lisp:defun make-server-side-encryption-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key kms-key-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'server-side-encryption-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5893,24 +7684,51 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sip-media-application (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sip-media-application-"))
-   (sip-media-application-id common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (aws-region common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sip-media-application-name common-lisp:null))
-   (endpoints common-lisp:nil :type
-    (common-lisp:or sip-media-application-endpoint-list common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (sip-media-application-arn common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass sip-media-application common-lisp:nil
+                       ((sip-media-application-arn :initarg
+                         :sip-media-application-arn :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %sip-media-application-sip-media-application-arn
+                         :initform common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %sip-media-application-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %sip-media-application-created-timestamp
+                         :initform common-lisp:nil)
+                        (endpoints :initarg :endpoints :type
+                         (common-lisp:or sip-media-application-endpoint-list
+                                         common-lisp:null)
+                         :accessor %sip-media-application-endpoints :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sip-media-application-name
+                                         common-lisp:null)
+                         :accessor %sip-media-application-name :initform
+                         common-lisp:nil)
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %sip-media-application-aws-region :initform
+                         common-lisp:nil)
+                        (sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %sip-media-application-sip-media-application-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sip-media-application 'make-sip-media-application))
+ (common-lisp:defun make-sip-media-application
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application-arn
+                     updated-timestamp created-timestamp endpoints name
+                     aws-region sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance 'sip-media-application
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5978,17 +7796,31 @@
                           sip-media-application))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sip-media-application-alexa-skill-configuration (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-sip-media-application-alexa-skill-configuration-"))
-   (alexa-skill-status (common-lisp:error ":alexa-skill-status is required")
-    :type (common-lisp:or alexa-skill-status common-lisp:null))
-   (alexa-skill-ids (common-lisp:error ":alexa-skill-ids is required") :type
-    (common-lisp:or alexa-skill-id-list common-lisp:null)))
+ (common-lisp:defclass sip-media-application-alexa-skill-configuration
+                       common-lisp:nil
+                       ((alexa-skill-ids :initarg :alexa-skill-ids :type
+                         (common-lisp:or alexa-skill-id-list common-lisp:null)
+                         :accessor
+                         %sip-media-application-alexa-skill-configuration-alexa-skill-ids
+                         :initform
+                         (common-lisp:error ":alexa-skill-ids is required"))
+                        (alexa-skill-status :initarg :alexa-skill-status :type
+                         (common-lisp:or alexa-skill-status common-lisp:null)
+                         :accessor
+                         %sip-media-application-alexa-skill-configuration-alexa-skill-status
+                         :initform
+                         (common-lisp:error
+                          ":alexa-skill-status is required"))))
  (common-lisp:export
   (common-lisp:list 'sip-media-application-alexa-skill-configuration
                     'make-sip-media-application-alexa-skill-configuration))
+ (common-lisp:defun make-sip-media-application-alexa-skill-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key alexa-skill-ids alexa-skill-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'sip-media-application-alexa-skill-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6019,14 +7851,20 @@
                           sip-media-application-alexa-skill-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sip-media-application-call (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sip-media-application-call-"))
-   (transaction-id common-lisp:nil :type
-    (common-lisp:or guid-string common-lisp:null)))
+ (common-lisp:defclass sip-media-application-call common-lisp:nil
+                       ((transaction-id :initarg :transaction-id :type
+                         (common-lisp:or guid-string common-lisp:null)
+                         :accessor %sip-media-application-call-transaction-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sip-media-application-call
                     'make-sip-media-application-call))
+ (common-lisp:defun make-sip-media-application-call
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key transaction-id)
+   (common-lisp:apply #'common-lisp:make-instance 'sip-media-application-call
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6050,14 +7888,21 @@
                           sip-media-application-call))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sip-media-application-endpoint (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sip-media-application-endpoint-"))
-   (lambda-arn common-lisp:nil :type
-    (common-lisp:or function-arn common-lisp:null)))
+ (common-lisp:defclass sip-media-application-endpoint common-lisp:nil
+                       ((lambda-arn :initarg :lambda-arn :type
+                         (common-lisp:or function-arn common-lisp:null)
+                         :accessor %sip-media-application-endpoint-lambda-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sip-media-application-endpoint
                     'make-sip-media-application-endpoint))
+ (common-lisp:defun make-sip-media-application-endpoint
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lambda-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'sip-media-application-endpoint
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6098,14 +7943,24 @@
                            (trivial-types:proper-list sip-media-application))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sip-media-application-logging-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sip-media-application-logging-configuration-"))
-   (enable-sip-media-application-message-logs common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass sip-media-application-logging-configuration
+                       common-lisp:nil
+                       ((enable-sip-media-application-message-logs :initarg
+                         :enable-sip-media-application-message-logs :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %sip-media-application-logging-configuration-enable-sip-media-application-message-logs
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sip-media-application-logging-configuration
                     'make-sip-media-application-logging-configuration))
+ (common-lisp:defun make-sip-media-application-logging-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     enable-sip-media-application-message-logs)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'sip-media-application-logging-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6131,23 +7986,49 @@
    common-lisp:nil))
 (common-lisp:deftype sip-media-application-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (sip-rule (:copier common-lisp:nil) (:conc-name "struct-shape-sip-rule-"))
-   (sip-rule-id common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or sip-rule-name common-lisp:null))
-   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (trigger-type common-lisp:nil :type
-    (common-lisp:or sip-rule-trigger-type common-lisp:null))
-   (trigger-value common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (target-applications common-lisp:nil :type
-    (common-lisp:or sip-rule-target-application-list common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass sip-rule common-lisp:nil
+                       ((updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %sip-rule-updated-timestamp :initform
+                         common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %sip-rule-created-timestamp :initform
+                         common-lisp:nil)
+                        (target-applications :initarg :target-applications
+                         :type
+                         (common-lisp:or sip-rule-target-application-list
+                                         common-lisp:null)
+                         :accessor %sip-rule-target-applications :initform
+                         common-lisp:nil)
+                        (trigger-value :initarg :trigger-value :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %sip-rule-trigger-value :initform
+                         common-lisp:nil)
+                        (trigger-type :initarg :trigger-type :type
+                         (common-lisp:or sip-rule-trigger-type
+                                         common-lisp:null)
+                         :accessor %sip-rule-trigger-type :initform
+                         common-lisp:nil)
+                        (disabled :initarg :disabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %sip-rule-disabled :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sip-rule-name common-lisp:null)
+                         :accessor %sip-rule-name :initform common-lisp:nil)
+                        (sip-rule-id :initarg :sip-rule-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %sip-rule-sip-rule-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'sip-rule 'make-sip-rule))
+ (common-lisp:defun make-sip-rule
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-timestamp created-timestamp
+                     target-applications trigger-value trigger-type disabled
+                     name sip-rule-id)
+   (common-lisp:apply #'common-lisp:make-instance 'sip-rule
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input sip-rule))
    (common-lisp:append))
@@ -6222,17 +8103,32 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype sip-rule-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (sip-rule-target-application (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sip-rule-target-application-"))
-   (sip-media-application-id common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (priority common-lisp:nil :type
-    (common-lisp:or sip-application-priority common-lisp:null))
-   (aws-region common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass sip-rule-target-application common-lisp:nil
+                       ((aws-region :initarg :aws-region :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %sip-rule-target-application-aws-region :initform
+                         common-lisp:nil)
+                        (priority :initarg :priority :type
+                         (common-lisp:or sip-application-priority
+                                         common-lisp:null)
+                         :accessor %sip-rule-target-application-priority
+                         :initform common-lisp:nil)
+                        (sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %sip-rule-target-application-sip-media-application-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sip-rule-target-application
                     'make-sip-rule-target-application))
+ (common-lisp:defun make-sip-rule-target-application
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key aws-region priority
+                     sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance 'sip-rule-target-application
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6281,15 +8177,26 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype sip-rule-trigger-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (speaker-search-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-speaker-search-details-"))
-   (results common-lisp:nil :type
-    (common-lisp:or speaker-search-result-list common-lisp:null))
-   (voiceprint-generation-status common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass speaker-search-details common-lisp:nil
+                       ((voiceprint-generation-status :initarg
+                         :voiceprint-generation-status :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %speaker-search-details-voiceprint-generation-status
+                         :initform common-lisp:nil)
+                        (results :initarg :results :type
+                         (common-lisp:or speaker-search-result-list
+                                         common-lisp:null)
+                         :accessor %speaker-search-details-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'speaker-search-details 'make-speaker-search-details))
+ (common-lisp:defun make-speaker-search-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voiceprint-generation-status results)
+   (common-lisp:apply #'common-lisp:make-instance 'speaker-search-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6321,15 +8228,23 @@
                           speaker-search-details))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (speaker-search-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-speaker-search-result-"))
-   (confidence-score common-lisp:nil :type
-    (common-lisp:or confidence-score common-lisp:null))
-   (voice-profile-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass speaker-search-result common-lisp:nil
+                       ((voice-profile-id :initarg :voice-profile-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor %speaker-search-result-voice-profile-id
+                         :initform common-lisp:nil)
+                        (confidence-score :initarg :confidence-score :type
+                         (common-lisp:or confidence-score common-lisp:null)
+                         :accessor %speaker-search-result-confidence-score
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'speaker-search-result 'make-speaker-search-result))
+ (common-lisp:defun make-speaker-search-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-id confidence-score)
+   (common-lisp:apply #'common-lisp:make-instance 'speaker-search-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6368,27 +8283,55 @@
                            (trivial-types:proper-list speaker-search-result))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (speaker-search-task (:copier common-lisp:nil)
-      (:conc-name "struct-shape-speaker-search-task-"))
-   (speaker-search-task-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (speaker-search-task-status common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (call-details common-lisp:nil :type
-    (common-lisp:or call-details common-lisp:null))
-   (speaker-search-details common-lisp:nil :type
-    (common-lisp:or speaker-search-details common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (started-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass speaker-search-task common-lisp:nil
+                       ((status-message :initarg :status-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %speaker-search-task-status-message :initform
+                         common-lisp:nil)
+                        (started-timestamp :initarg :started-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %speaker-search-task-started-timestamp
+                         :initform common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %speaker-search-task-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %speaker-search-task-created-timestamp
+                         :initform common-lisp:nil)
+                        (speaker-search-details :initarg
+                         :speaker-search-details :type
+                         (common-lisp:or speaker-search-details
+                                         common-lisp:null)
+                         :accessor %speaker-search-task-speaker-search-details
+                         :initform common-lisp:nil)
+                        (call-details :initarg :call-details :type
+                         (common-lisp:or call-details common-lisp:null)
+                         :accessor %speaker-search-task-call-details :initform
+                         common-lisp:nil)
+                        (speaker-search-task-status :initarg
+                         :speaker-search-task-status :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %speaker-search-task-speaker-search-task-status
+                         :initform common-lisp:nil)
+                        (speaker-search-task-id :initarg
+                         :speaker-search-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor %speaker-search-task-speaker-search-task-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'speaker-search-task 'make-speaker-search-task))
+ (common-lisp:defun make-speaker-search-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-message started-timestamp
+                     updated-timestamp created-timestamp speaker-search-details
+                     call-details speaker-search-task-status
+                     speaker-search-task-id)
+   (common-lisp:apply #'common-lisp:make-instance 'speaker-search-task
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input speaker-search-task))
    (common-lisp:append))
@@ -6458,21 +8401,45 @@
                         ((aws-sdk/generator/shape::input speaker-search-task))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-speaker-search-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-speaker-search-task-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (transaction-id (common-lisp:error ":transaction-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (voice-profile-domain-id
-    (common-lisp:error ":voice-profile-domain-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (client-request-token common-lisp:nil :type
-    (common-lisp:or client-request-id common-lisp:null)))
+ (common-lisp:defclass start-speaker-search-task-request common-lisp:nil
+                       ((client-request-token :initarg :client-request-token
+                         :type
+                         (common-lisp:or client-request-id common-lisp:null)
+                         :accessor
+                         %start-speaker-search-task-request-client-request-token
+                         :initform common-lisp:nil)
+                        (voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %start-speaker-search-task-request-voice-profile-domain-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-profile-domain-id is required"))
+                        (transaction-id :initarg :transaction-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %start-speaker-search-task-request-transaction-id
+                         :initform
+                         (common-lisp:error ":transaction-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %start-speaker-search-task-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'start-speaker-search-task-request
                     'make-start-speaker-search-task-request))
+ (common-lisp:defun make-start-speaker-search-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-request-token
+                     voice-profile-domain-id transaction-id voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-speaker-search-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6512,14 +8479,23 @@
                           start-speaker-search-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-speaker-search-task-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-speaker-search-task-response-"))
-   (speaker-search-task common-lisp:nil :type
-    (common-lisp:or speaker-search-task common-lisp:null)))
+ (common-lisp:defclass start-speaker-search-task-response common-lisp:nil
+                       ((speaker-search-task :initarg :speaker-search-task
+                         :type
+                         (common-lisp:or speaker-search-task common-lisp:null)
+                         :accessor
+                         %start-speaker-search-task-response-speaker-search-task
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-speaker-search-task-response
                     'make-start-speaker-search-task-response))
+ (common-lisp:defun make-start-speaker-search-task-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key speaker-search-task)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-speaker-search-task-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6543,20 +8519,43 @@
                           start-speaker-search-task-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-voice-tone-analysis-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-voice-tone-analysis-task-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (transaction-id (common-lisp:error ":transaction-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (language-code (common-lisp:error ":language-code is required") :type
-    (common-lisp:or language-code common-lisp:null))
-   (client-request-token common-lisp:nil :type
-    (common-lisp:or client-request-id common-lisp:null)))
+ (common-lisp:defclass start-voice-tone-analysis-task-request common-lisp:nil
+                       ((client-request-token :initarg :client-request-token
+                         :type
+                         (common-lisp:or client-request-id common-lisp:null)
+                         :accessor
+                         %start-voice-tone-analysis-task-request-client-request-token
+                         :initform common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or language-code common-lisp:null)
+                         :accessor
+                         %start-voice-tone-analysis-task-request-language-code
+                         :initform
+                         (common-lisp:error ":language-code is required"))
+                        (transaction-id :initarg :transaction-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %start-voice-tone-analysis-task-request-transaction-id
+                         :initform
+                         (common-lisp:error ":transaction-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %start-voice-tone-analysis-task-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'start-voice-tone-analysis-task-request
                     'make-start-voice-tone-analysis-task-request))
+ (common-lisp:defun make-start-voice-tone-analysis-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-request-token language-code
+                     transaction-id voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-voice-tone-analysis-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6595,14 +8594,24 @@
                           start-voice-tone-analysis-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-voice-tone-analysis-task-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-voice-tone-analysis-task-response-"))
-   (voice-tone-analysis-task common-lisp:nil :type
-    (common-lisp:or voice-tone-analysis-task common-lisp:null)))
+ (common-lisp:defclass start-voice-tone-analysis-task-response common-lisp:nil
+                       ((voice-tone-analysis-task :initarg
+                         :voice-tone-analysis-task :type
+                         (common-lisp:or voice-tone-analysis-task
+                                         common-lisp:null)
+                         :accessor
+                         %start-voice-tone-analysis-task-response-voice-tone-analysis-task
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-voice-tone-analysis-task-response
                     'make-start-voice-tone-analysis-task-response))
+ (common-lisp:defun make-start-voice-tone-analysis-task-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-tone-analysis-task)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-voice-tone-analysis-task-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6627,17 +8636,33 @@
                           start-voice-tone-analysis-task-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-speaker-search-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-speaker-search-task-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (speaker-search-task-id
-    (common-lisp:error ":speaker-search-task-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass stop-speaker-search-task-request common-lisp:nil
+                       ((speaker-search-task-id :initarg
+                         :speaker-search-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %stop-speaker-search-task-request-speaker-search-task-id
+                         :initform
+                         (common-lisp:error
+                          ":speaker-search-task-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %stop-speaker-search-task-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-speaker-search-task-request
                     'make-stop-speaker-search-task-request))
+ (common-lisp:defun make-stop-speaker-search-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key speaker-search-task-id
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stop-speaker-search-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6654,17 +8679,33 @@
                           stop-speaker-search-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-voice-tone-analysis-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-voice-tone-analysis-task-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (voice-tone-analysis-task-id
-    (common-lisp:error ":voice-tone-analysis-task-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass stop-voice-tone-analysis-task-request common-lisp:nil
+                       ((voice-tone-analysis-task-id :initarg
+                         :voice-tone-analysis-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %stop-voice-tone-analysis-task-request-voice-tone-analysis-task-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-tone-analysis-task-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %stop-voice-tone-analysis-task-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-voice-tone-analysis-task-request
                     'make-stop-voice-tone-analysis-task-request))
+ (common-lisp:defun make-stop-voice-tone-analysis-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-tone-analysis-task-id
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stop-voice-tone-analysis-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6681,20 +8722,44 @@
                           stop-voice-tone-analysis-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (streaming-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-streaming-configuration-"))
-   (data-retention-in-hours
-    (common-lisp:error ":data-retention-in-hours is required") :type
-    (common-lisp:or data-retention-in-hours common-lisp:null))
-   (disabled (common-lisp:error ":disabled is required") :type
-    (common-lisp:or boolean common-lisp:null))
-   (streaming-notification-targets common-lisp:nil :type
-    (common-lisp:or streaming-notification-target-list common-lisp:null))
-   (media-insights-configuration common-lisp:nil :type
-    (common-lisp:or media-insights-configuration common-lisp:null)))
+ (common-lisp:defclass streaming-configuration common-lisp:nil
+                       ((media-insights-configuration :initarg
+                         :media-insights-configuration :type
+                         (common-lisp:or media-insights-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %streaming-configuration-media-insights-configuration
+                         :initform common-lisp:nil)
+                        (streaming-notification-targets :initarg
+                         :streaming-notification-targets :type
+                         (common-lisp:or streaming-notification-target-list
+                                         common-lisp:null)
+                         :accessor
+                         %streaming-configuration-streaming-notification-targets
+                         :initform common-lisp:nil)
+                        (disabled :initarg :disabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %streaming-configuration-disabled :initform
+                         (common-lisp:error ":disabled is required"))
+                        (data-retention-in-hours :initarg
+                         :data-retention-in-hours :type
+                         (common-lisp:or data-retention-in-hours
+                                         common-lisp:null)
+                         :accessor
+                         %streaming-configuration-data-retention-in-hours
+                         :initform
+                         (common-lisp:error
+                          ":data-retention-in-hours is required"))))
  (common-lisp:export
   (common-lisp:list 'streaming-configuration 'make-streaming-configuration))
+ (common-lisp:defun make-streaming-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key media-insights-configuration
+                     streaming-notification-targets disabled
+                     data-retention-in-hours)
+   (common-lisp:apply #'common-lisp:make-instance 'streaming-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6742,14 +8807,23 @@
                           streaming-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (streaming-notification-target (:copier common-lisp:nil)
-      (:conc-name "struct-shape-streaming-notification-target-"))
-   (notification-target common-lisp:nil :type
-    (common-lisp:or notification-target common-lisp:null)))
+ (common-lisp:defclass streaming-notification-target common-lisp:nil
+                       ((notification-target :initarg :notification-target
+                         :type
+                         (common-lisp:or notification-target common-lisp:null)
+                         :accessor
+                         %streaming-notification-target-notification-target
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'streaming-notification-target
                     'make-streaming-notification-target))
+ (common-lisp:defun make-streaming-notification-target
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key notification-target)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'streaming-notification-target
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -6791,13 +8865,22 @@
                            (trivial-types:proper-list string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform
+                         (common-lisp:error ":value is required"))
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -6837,15 +8920,23 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -6871,19 +8962,34 @@
    common-lisp:nil))
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (termination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-termination-"))
-   (cps-limit common-lisp:nil :type
-    (common-lisp:or cps-limit common-lisp:null))
-   (default-phone-number common-lisp:nil :type
-    (common-lisp:or e164phone-number common-lisp:null))
-   (calling-regions common-lisp:nil :type
-    (common-lisp:or calling-region-list common-lisp:null))
-   (cidr-allowed-list common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (disabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass termination common-lisp:nil
+                       ((disabled :initarg :disabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %termination-disabled :initform common-lisp:nil)
+                        (cidr-allowed-list :initarg :cidr-allowed-list :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %termination-cidr-allowed-list :initform
+                         common-lisp:nil)
+                        (calling-regions :initarg :calling-regions :type
+                         (common-lisp:or calling-region-list common-lisp:null)
+                         :accessor %termination-calling-regions :initform
+                         common-lisp:nil)
+                        (default-phone-number :initarg :default-phone-number
+                         :type
+                         (common-lisp:or e164phone-number common-lisp:null)
+                         :accessor %termination-default-phone-number :initform
+                         common-lisp:nil)
+                        (cps-limit :initarg :cps-limit :type
+                         (common-lisp:or cps-limit common-lisp:null) :accessor
+                         %termination-cps-limit :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'termination 'make-termination))
+ (common-lisp:defun make-termination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key disabled cidr-allowed-list
+                     calling-regions default-phone-number cps-limit)
+   (common-lisp:apply #'common-lisp:make-instance 'termination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input termination))
    (common-lisp:append))
@@ -6930,14 +9036,22 @@
                         ((aws-sdk/generator/shape::input termination))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (termination-health (:copier common-lisp:nil)
-      (:conc-name "struct-shape-termination-health-"))
-   (timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (source common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass termination-health common-lisp:nil
+                       ((source :initarg :source :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %termination-health-source :initform common-lisp:nil)
+                        (timestamp :initarg :timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %termination-health-timestamp :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'termination-health 'make-termination-health))
+ (common-lisp:defun make-termination-health
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key source timestamp)
+   (common-lisp:apply #'common-lisp:make-instance 'termination-health
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input termination-health))
    (common-lisp:append))
@@ -6978,15 +9092,23 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'unprocessable-entity-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %untag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7017,14 +9139,23 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-global-settings-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-global-settings-request-"))
-   (voice-connector common-lisp:nil :type
-    (common-lisp:or voice-connector-settings common-lisp:null)))
+ (common-lisp:defclass update-global-settings-request common-lisp:nil
+                       ((voice-connector :initarg :voice-connector :type
+                         (common-lisp:or voice-connector-settings
+                                         common-lisp:null)
+                         :accessor
+                         %update-global-settings-request-voice-connector
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-global-settings-request
                     'make-update-global-settings-request))
+ (common-lisp:defun make-update-global-settings-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-global-settings-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7048,18 +9179,32 @@
                           update-global-settings-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-phone-number-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-phone-number-request-"))
-   (phone-number-id (common-lisp:error ":phone-number-id is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or phone-number-product-type common-lisp:null))
-   (calling-name common-lisp:nil :type
-    (common-lisp:or calling-name common-lisp:null)))
+ (common-lisp:defclass update-phone-number-request common-lisp:nil
+                       ((calling-name :initarg :calling-name :type
+                         (common-lisp:or calling-name common-lisp:null)
+                         :accessor %update-phone-number-request-calling-name
+                         :initform common-lisp:nil)
+                        (product-type :initarg :product-type :type
+                         (common-lisp:or phone-number-product-type
+                                         common-lisp:null)
+                         :accessor %update-phone-number-request-product-type
+                         :initform common-lisp:nil)
+                        (phone-number-id :initarg :phone-number-id :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %update-phone-number-request-phone-number-id
+                         :initform
+                         (common-lisp:error ":phone-number-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-phone-number-request
                     'make-update-phone-number-request))
+ (common-lisp:defun make-update-phone-number-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key calling-name product-type
+                     phone-number-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-phone-number-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7090,18 +9235,36 @@
                           update-phone-number-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-phone-number-request-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-phone-number-request-item-"))
-   (phone-number-id (common-lisp:error ":phone-number-id is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or phone-number-product-type common-lisp:null))
-   (calling-name common-lisp:nil :type
-    (common-lisp:or calling-name common-lisp:null)))
+ (common-lisp:defclass update-phone-number-request-item common-lisp:nil
+                       ((calling-name :initarg :calling-name :type
+                         (common-lisp:or calling-name common-lisp:null)
+                         :accessor
+                         %update-phone-number-request-item-calling-name
+                         :initform common-lisp:nil)
+                        (product-type :initarg :product-type :type
+                         (common-lisp:or phone-number-product-type
+                                         common-lisp:null)
+                         :accessor
+                         %update-phone-number-request-item-product-type
+                         :initform common-lisp:nil)
+                        (phone-number-id :initarg :phone-number-id :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor
+                         %update-phone-number-request-item-phone-number-id
+                         :initform
+                         (common-lisp:error ":phone-number-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-phone-number-request-item
                     'make-update-phone-number-request-item))
+ (common-lisp:defun make-update-phone-number-request-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key calling-name product-type
+                     phone-number-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-phone-number-request-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7148,14 +9311,20 @@
                             update-phone-number-request-item))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-phone-number-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-phone-number-response-"))
-   (phone-number common-lisp:nil :type
-    (common-lisp:or phone-number common-lisp:null)))
+ (common-lisp:defclass update-phone-number-response common-lisp:nil
+                       ((phone-number :initarg :phone-number :type
+                         (common-lisp:or phone-number common-lisp:null)
+                         :accessor %update-phone-number-response-phone-number
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-phone-number-response
                     'make-update-phone-number-response))
+ (common-lisp:defun make-update-phone-number-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key phone-number)
+   (common-lisp:apply #'common-lisp:make-instance 'update-phone-number-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7179,14 +9348,23 @@
                           update-phone-number-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-phone-number-settings-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-phone-number-settings-request-"))
-   (calling-name (common-lisp:error ":calling-name is required") :type
-    (common-lisp:or calling-name common-lisp:null)))
+ (common-lisp:defclass update-phone-number-settings-request common-lisp:nil
+                       ((calling-name :initarg :calling-name :type
+                         (common-lisp:or calling-name common-lisp:null)
+                         :accessor
+                         %update-phone-number-settings-request-calling-name
+                         :initform
+                         (common-lisp:error ":calling-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-phone-number-settings-request
                     'make-update-phone-number-settings-request))
+ (common-lisp:defun make-update-phone-number-settings-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key calling-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-phone-number-settings-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7210,20 +9388,39 @@
                           update-phone-number-settings-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-proxy-session-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-proxy-session-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string128 common-lisp:null))
-   (proxy-session-id (common-lisp:error ":proxy-session-id is required") :type
-    (common-lisp:or non-empty-string128 common-lisp:null))
-   (capabilities (common-lisp:error ":capabilities is required") :type
-    (common-lisp:or capability-list common-lisp:null))
-   (expiry-minutes common-lisp:nil :type
-    (common-lisp:or positive-integer common-lisp:null)))
+ (common-lisp:defclass update-proxy-session-request common-lisp:nil
+                       ((expiry-minutes :initarg :expiry-minutes :type
+                         (common-lisp:or positive-integer common-lisp:null)
+                         :accessor %update-proxy-session-request-expiry-minutes
+                         :initform common-lisp:nil)
+                        (capabilities :initarg :capabilities :type
+                         (common-lisp:or capability-list common-lisp:null)
+                         :accessor %update-proxy-session-request-capabilities
+                         :initform
+                         (common-lisp:error ":capabilities is required"))
+                        (proxy-session-id :initarg :proxy-session-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %update-proxy-session-request-proxy-session-id
+                         :initform
+                         (common-lisp:error ":proxy-session-id is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string128 common-lisp:null)
+                         :accessor
+                         %update-proxy-session-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-proxy-session-request
                     'make-update-proxy-session-request))
+ (common-lisp:defun make-update-proxy-session-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key expiry-minutes capabilities
+                     proxy-session-id voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-proxy-session-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7254,14 +9451,21 @@
                           update-proxy-session-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-proxy-session-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-proxy-session-response-"))
-   (proxy-session common-lisp:nil :type
-    (common-lisp:or proxy-session common-lisp:null)))
+ (common-lisp:defclass update-proxy-session-response common-lisp:nil
+                       ((proxy-session :initarg :proxy-session :type
+                         (common-lisp:or proxy-session common-lisp:null)
+                         :accessor %update-proxy-session-response-proxy-session
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-proxy-session-response
                     'make-update-proxy-session-response))
+ (common-lisp:defun make-update-proxy-session-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key proxy-session)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-proxy-session-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7285,19 +9489,40 @@
                           update-proxy-session-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-sip-media-application-call-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-sip-media-application-call-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (transaction-id (common-lisp:error ":transaction-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (arguments (common-lisp:error ":arguments is required") :type
-    (common-lisp:or smaupdate-call-arguments-map common-lisp:null)))
+ (common-lisp:defclass update-sip-media-application-call-request
+                       common-lisp:nil
+                       ((arguments :initarg :arguments :type
+                         (common-lisp:or smaupdate-call-arguments-map
+                                         common-lisp:null)
+                         :accessor
+                         %update-sip-media-application-call-request-arguments
+                         :initform
+                         (common-lisp:error ":arguments is required"))
+                        (transaction-id :initarg :transaction-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %update-sip-media-application-call-request-transaction-id
+                         :initform
+                         (common-lisp:error ":transaction-id is required"))
+                        (sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %update-sip-media-application-call-request-sip-media-application-id
+                         :initform
+                         (common-lisp:error
+                          ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-sip-media-application-call-request
                     'make-update-sip-media-application-call-request))
+ (common-lisp:defun make-update-sip-media-application-call-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key arguments transaction-id
+                     sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-sip-media-application-call-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7321,14 +9546,25 @@
                           update-sip-media-application-call-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-sip-media-application-call-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-sip-media-application-call-response-"))
-   (sip-media-application-call common-lisp:nil :type
-    (common-lisp:or sip-media-application-call common-lisp:null)))
+ (common-lisp:defclass update-sip-media-application-call-response
+                       common-lisp:nil
+                       ((sip-media-application-call :initarg
+                         :sip-media-application-call :type
+                         (common-lisp:or sip-media-application-call
+                                         common-lisp:null)
+                         :accessor
+                         %update-sip-media-application-call-response-sip-media-application-call
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-sip-media-application-call-response
                     'make-update-sip-media-application-call-response))
+ (common-lisp:defun make-update-sip-media-application-call-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application-call)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-sip-media-application-call-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7353,19 +9589,36 @@
                           update-sip-media-application-call-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-sip-media-application-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-sip-media-application-request-"))
-   (sip-media-application-id
-    (common-lisp:error ":sip-media-application-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sip-media-application-name common-lisp:null))
-   (endpoints common-lisp:nil :type
-    (common-lisp:or sip-media-application-endpoint-list common-lisp:null)))
+ (common-lisp:defclass update-sip-media-application-request common-lisp:nil
+                       ((endpoints :initarg :endpoints :type
+                         (common-lisp:or sip-media-application-endpoint-list
+                                         common-lisp:null)
+                         :accessor
+                         %update-sip-media-application-request-endpoints
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sip-media-application-name
+                                         common-lisp:null)
+                         :accessor %update-sip-media-application-request-name
+                         :initform common-lisp:nil)
+                        (sip-media-application-id :initarg
+                         :sip-media-application-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %update-sip-media-application-request-sip-media-application-id
+                         :initform
+                         (common-lisp:error
+                          ":sip-media-application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-sip-media-application-request
                     'make-update-sip-media-application-request))
+ (common-lisp:defun make-update-sip-media-application-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key endpoints name sip-media-application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-sip-media-application-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7396,14 +9649,24 @@
                           update-sip-media-application-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-sip-media-application-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-sip-media-application-response-"))
-   (sip-media-application common-lisp:nil :type
-    (common-lisp:or sip-media-application common-lisp:null)))
+ (common-lisp:defclass update-sip-media-application-response common-lisp:nil
+                       ((sip-media-application :initarg :sip-media-application
+                         :type
+                         (common-lisp:or sip-media-application
+                                         common-lisp:null)
+                         :accessor
+                         %update-sip-media-application-response-sip-media-application
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-sip-media-application-response
                     'make-update-sip-media-application-response))
+ (common-lisp:defun make-update-sip-media-application-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-media-application)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-sip-media-application-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7428,19 +9691,35 @@
                           update-sip-media-application-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-sip-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-sip-rule-request-"))
-   (sip-rule-id (common-lisp:error ":sip-rule-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or sip-rule-name common-lisp:null))
-   (disabled common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (target-applications common-lisp:nil :type
-    (common-lisp:or sip-rule-target-application-list common-lisp:null)))
+ (common-lisp:defclass update-sip-rule-request common-lisp:nil
+                       ((target-applications :initarg :target-applications
+                         :type
+                         (common-lisp:or sip-rule-target-application-list
+                                         common-lisp:null)
+                         :accessor %update-sip-rule-request-target-applications
+                         :initform common-lisp:nil)
+                        (disabled :initarg :disabled :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %update-sip-rule-request-disabled :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sip-rule-name common-lisp:null)
+                         :accessor %update-sip-rule-request-name :initform
+                         (common-lisp:error ":name is required"))
+                        (sip-rule-id :initarg :sip-rule-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %update-sip-rule-request-sip-rule-id
+                         :initform
+                         (common-lisp:error ":sip-rule-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-sip-rule-request 'make-update-sip-rule-request))
+ (common-lisp:defun make-update-sip-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-applications disabled name
+                     sip-rule-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-sip-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7478,12 +9757,19 @@
                           update-sip-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-sip-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-sip-rule-response-"))
-   (sip-rule common-lisp:nil :type (common-lisp:or sip-rule common-lisp:null)))
+ (common-lisp:defclass update-sip-rule-response common-lisp:nil
+                       ((sip-rule :initarg :sip-rule :type
+                         (common-lisp:or sip-rule common-lisp:null) :accessor
+                         %update-sip-rule-response-sip-rule :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-sip-rule-response 'make-update-sip-rule-response))
+ (common-lisp:defun make-update-sip-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sip-rule)
+   (common-lisp:apply #'common-lisp:make-instance 'update-sip-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7507,20 +9793,40 @@
                           update-sip-rule-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-connector-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-connector-group-request-"))
-   (voice-connector-group-id
-    (common-lisp:error ":voice-connector-group-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or voice-connector-group-name common-lisp:null))
-   (voice-connector-items
-    (common-lisp:error ":voice-connector-items is required") :type
-    (common-lisp:or voice-connector-item-list common-lisp:null)))
+ (common-lisp:defclass update-voice-connector-group-request common-lisp:nil
+                       ((voice-connector-items :initarg :voice-connector-items
+                         :type
+                         (common-lisp:or voice-connector-item-list
+                                         common-lisp:null)
+                         :accessor
+                         %update-voice-connector-group-request-voice-connector-items
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-items is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or voice-connector-group-name
+                                         common-lisp:null)
+                         :accessor %update-voice-connector-group-request-name
+                         :initform (common-lisp:error ":name is required"))
+                        (voice-connector-group-id :initarg
+                         :voice-connector-group-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %update-voice-connector-group-request-voice-connector-group-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-group-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-voice-connector-group-request
                     'make-update-voice-connector-group-request))
+ (common-lisp:defun make-update-voice-connector-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-items name
+                     voice-connector-group-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-voice-connector-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7552,14 +9858,24 @@
                           update-voice-connector-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-connector-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-connector-group-response-"))
-   (voice-connector-group common-lisp:nil :type
-    (common-lisp:or voice-connector-group common-lisp:null)))
+ (common-lisp:defclass update-voice-connector-group-response common-lisp:nil
+                       ((voice-connector-group :initarg :voice-connector-group
+                         :type
+                         (common-lisp:or voice-connector-group
+                                         common-lisp:null)
+                         :accessor
+                         %update-voice-connector-group-response-voice-connector-group
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-voice-connector-group-response
                     'make-update-voice-connector-group-response))
+ (common-lisp:defun make-update-voice-connector-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-group)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-voice-connector-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7584,18 +9900,34 @@
                           update-voice-connector-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-connector-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-connector-request-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or voice-connector-name common-lisp:null))
-   (require-encryption (common-lisp:error ":require-encryption is required")
-    :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass update-voice-connector-request common-lisp:nil
+                       ((require-encryption :initarg :require-encryption :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %update-voice-connector-request-require-encryption
+                         :initform
+                         (common-lisp:error ":require-encryption is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or voice-connector-name common-lisp:null)
+                         :accessor %update-voice-connector-request-name
+                         :initform (common-lisp:error ":name is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %update-voice-connector-request-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-voice-connector-request
                     'make-update-voice-connector-request))
+ (common-lisp:defun make-update-voice-connector-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key require-encryption name
+                     voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-voice-connector-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7626,14 +9958,22 @@
                           update-voice-connector-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-connector-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-connector-response-"))
-   (voice-connector common-lisp:nil :type
-    (common-lisp:or voice-connector common-lisp:null)))
+ (common-lisp:defclass update-voice-connector-response common-lisp:nil
+                       ((voice-connector :initarg :voice-connector :type
+                         (common-lisp:or voice-connector common-lisp:null)
+                         :accessor
+                         %update-voice-connector-response-voice-connector
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-voice-connector-response
                     'make-update-voice-connector-response))
+ (common-lisp:defun make-update-voice-connector-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-voice-connector-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7657,19 +9997,36 @@
                           update-voice-connector-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-profile-domain-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-profile-domain-request-"))
-   (voice-profile-domain-id
-    (common-lisp:error ":voice-profile-domain-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-description common-lisp:null)))
+ (common-lisp:defclass update-voice-profile-domain-request common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or voice-profile-domain-description
+                                         common-lisp:null)
+                         :accessor
+                         %update-voice-profile-domain-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-profile-domain-name
+                                         common-lisp:null)
+                         :accessor %update-voice-profile-domain-request-name
+                         :initform common-lisp:nil)
+                        (voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %update-voice-profile-domain-request-voice-profile-domain-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-profile-domain-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-voice-profile-domain-request
                     'make-update-voice-profile-domain-request))
+ (common-lisp:defun make-update-voice-profile-domain-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description name voice-profile-domain-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-voice-profile-domain-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7700,14 +10057,23 @@
                           update-voice-profile-domain-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-profile-domain-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-profile-domain-response-"))
-   (voice-profile-domain common-lisp:nil :type
-    (common-lisp:or voice-profile-domain common-lisp:null)))
+ (common-lisp:defclass update-voice-profile-domain-response common-lisp:nil
+                       ((voice-profile-domain :initarg :voice-profile-domain
+                         :type
+                         (common-lisp:or voice-profile-domain common-lisp:null)
+                         :accessor
+                         %update-voice-profile-domain-response-voice-profile-domain
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-voice-profile-domain-response
                     'make-update-voice-profile-domain-response))
+ (common-lisp:defun make-update-voice-profile-domain-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile-domain)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-voice-profile-domain-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7732,17 +10098,30 @@
                           update-voice-profile-domain-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-profile-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-profile-request-"))
-   (voice-profile-id (common-lisp:error ":voice-profile-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (speaker-search-task-id
-    (common-lisp:error ":speaker-search-task-id is required") :type
-    (common-lisp:or non-empty-string256 common-lisp:null)))
+ (common-lisp:defclass update-voice-profile-request common-lisp:nil
+                       ((speaker-search-task-id :initarg
+                         :speaker-search-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %update-voice-profile-request-speaker-search-task-id
+                         :initform
+                         (common-lisp:error
+                          ":speaker-search-task-id is required"))
+                        (voice-profile-id :initarg :voice-profile-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %update-voice-profile-request-voice-profile-id
+                         :initform
+                         (common-lisp:error ":voice-profile-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-voice-profile-request
                     'make-update-voice-profile-request))
+ (common-lisp:defun make-update-voice-profile-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key speaker-search-task-id voice-profile-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-voice-profile-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7767,14 +10146,21 @@
                           update-voice-profile-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-voice-profile-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-voice-profile-response-"))
-   (voice-profile common-lisp:nil :type
-    (common-lisp:or voice-profile common-lisp:null)))
+ (common-lisp:defclass update-voice-profile-response common-lisp:nil
+                       ((voice-profile :initarg :voice-profile :type
+                         (common-lisp:or voice-profile common-lisp:null)
+                         :accessor %update-voice-profile-response-voice-profile
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-voice-profile-response
                     'make-update-voice-profile-response))
+ (common-lisp:defun make-update-voice-profile-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-profile)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-voice-profile-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7798,26 +10184,55 @@
                           update-voice-profile-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validate-e911address-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validate-e911address-request-"))
-   (aws-account-id (common-lisp:error ":aws-account-id is required") :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (street-number (common-lisp:error ":street-number is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (street-info (common-lisp:error ":street-info is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (city (common-lisp:error ":city is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (state (common-lisp:error ":state is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (country (common-lisp:error ":country is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null))
-   (postal-code (common-lisp:error ":postal-code is required") :type
-    (common-lisp:or sensitive-non-empty-string common-lisp:null)))
+ (common-lisp:defclass validate-e911address-request common-lisp:nil
+                       ((postal-code :initarg :postal-code :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %validate-e911address-request-postal-code
+                         :initform
+                         (common-lisp:error ":postal-code is required"))
+                        (country :initarg :country :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %validate-e911address-request-country
+                         :initform (common-lisp:error ":country is required"))
+                        (state :initarg :state :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %validate-e911address-request-state
+                         :initform (common-lisp:error ":state is required"))
+                        (city :initarg :city :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %validate-e911address-request-city :initform
+                         (common-lisp:error ":city is required"))
+                        (street-info :initarg :street-info :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %validate-e911address-request-street-info
+                         :initform
+                         (common-lisp:error ":street-info is required"))
+                        (street-number :initarg :street-number :type
+                         (common-lisp:or sensitive-non-empty-string
+                                         common-lisp:null)
+                         :accessor %validate-e911address-request-street-number
+                         :initform
+                         (common-lisp:error ":street-number is required"))
+                        (aws-account-id :initarg :aws-account-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %validate-e911address-request-aws-account-id
+                         :initform
+                         (common-lisp:error ":aws-account-id is required"))))
  (common-lisp:export
   (common-lisp:list 'validate-e911address-request
                     'make-validate-e911address-request))
+ (common-lisp:defun make-validate-e911address-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key postal-code country state city
+                     street-info street-number aws-account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'validate-e911address-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7883,19 +10298,39 @@
                           validate-e911address-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validate-e911address-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validate-e911address-response-"))
-   (validation-result common-lisp:nil :type
-    (common-lisp:or validation-result common-lisp:null))
-   (address-external-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (address common-lisp:nil :type (common-lisp:or address common-lisp:null))
-   (candidate-address-list common-lisp:nil :type
-    (common-lisp:or candidate-address-list common-lisp:null)))
+ (common-lisp:defclass validate-e911address-response common-lisp:nil
+                       ((candidate-address-list :initarg
+                         :candidate-address-list :type
+                         (common-lisp:or candidate-address-list
+                                         common-lisp:null)
+                         :accessor
+                         %validate-e911address-response-candidate-address-list
+                         :initform common-lisp:nil)
+                        (address :initarg :address :type
+                         (common-lisp:or address common-lisp:null) :accessor
+                         %validate-e911address-response-address :initform
+                         common-lisp:nil)
+                        (address-external-id :initarg :address-external-id
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor
+                         %validate-e911address-response-address-external-id
+                         :initform common-lisp:nil)
+                        (validation-result :initarg :validation-result :type
+                         (common-lisp:or validation-result common-lisp:null)
+                         :accessor
+                         %validate-e911address-response-validation-result
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'validate-e911address-response
                     'make-validate-e911address-response))
+ (common-lisp:defun make-validate-e911address-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key candidate-address-list address
+                     address-external-id validation-result)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'validate-e911address-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -7942,26 +10377,50 @@
    common-lisp:nil))
 (common-lisp:deftype validation-result () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-connector (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-connector-"))
-   (voice-connector-id common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (aws-region common-lisp:nil :type
-    (common-lisp:or voice-connector-aws-region common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or voice-connector-name common-lisp:null))
-   (outbound-host-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (require-encryption common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (voice-connector-arn common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass voice-connector common-lisp:nil
+                       ((voice-connector-arn :initarg :voice-connector-arn
+                         :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %voice-connector-voice-connector-arn
+                         :initform common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-connector-updated-timestamp :initform
+                         common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-connector-created-timestamp :initform
+                         common-lisp:nil)
+                        (require-encryption :initarg :require-encryption :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %voice-connector-require-encryption :initform
+                         common-lisp:nil)
+                        (outbound-host-name :initarg :outbound-host-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %voice-connector-outbound-host-name :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-connector-name common-lisp:null)
+                         :accessor %voice-connector-name :initform
+                         common-lisp:nil)
+                        (aws-region :initarg :aws-region :type
+                         (common-lisp:or voice-connector-aws-region
+                                         common-lisp:null)
+                         :accessor %voice-connector-aws-region :initform
+                         common-lisp:nil)
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %voice-connector-voice-connector-id
+                         :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'voice-connector 'make-voice-connector))
+ (common-lisp:defun make-voice-connector
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-arn updated-timestamp
+                     created-timestamp require-encryption outbound-host-name
+                     name aws-region voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-connector
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input voice-connector))
    (common-lisp:append))
@@ -8038,23 +10497,48 @@
                             voice-connector-aws-region))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-connector-group (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-connector-group-"))
-   (voice-connector-group-id common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or voice-connector-group-name common-lisp:null))
-   (voice-connector-items common-lisp:nil :type
-    (common-lisp:or voice-connector-item-list common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (voice-connector-group-arn common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass voice-connector-group common-lisp:nil
+                       ((voice-connector-group-arn :initarg
+                         :voice-connector-group-arn :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %voice-connector-group-voice-connector-group-arn
+                         :initform common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-connector-group-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-connector-group-created-timestamp
+                         :initform common-lisp:nil)
+                        (voice-connector-items :initarg :voice-connector-items
+                         :type
+                         (common-lisp:or voice-connector-item-list
+                                         common-lisp:null)
+                         :accessor %voice-connector-group-voice-connector-items
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-connector-group-name
+                                         common-lisp:null)
+                         :accessor %voice-connector-group-name :initform
+                         common-lisp:nil)
+                        (voice-connector-group-id :initarg
+                         :voice-connector-group-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %voice-connector-group-voice-connector-group-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'voice-connector-group 'make-voice-connector-group))
+ (common-lisp:defun make-voice-connector-group
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-connector-group-arn
+                     updated-timestamp created-timestamp voice-connector-items
+                     name voice-connector-group-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-connector-group
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8125,15 +10609,26 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype voice-connector-group-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-connector-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-connector-item-"))
-   (voice-connector-id (common-lisp:error ":voice-connector-id is required")
-    :type (common-lisp:or non-empty-string common-lisp:null))
-   (priority (common-lisp:error ":priority is required") :type
-    (common-lisp:or voice-connector-item-priority common-lisp:null)))
+ (common-lisp:defclass voice-connector-item common-lisp:nil
+                       ((priority :initarg :priority :type
+                         (common-lisp:or voice-connector-item-priority
+                                         common-lisp:null)
+                         :accessor %voice-connector-item-priority :initform
+                         (common-lisp:error ":priority is required"))
+                        (voice-connector-id :initarg :voice-connector-id :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %voice-connector-item-voice-connector-id
+                         :initform
+                         (common-lisp:error
+                          ":voice-connector-id is required"))))
  (common-lisp:export
   (common-lisp:list 'voice-connector-item 'make-voice-connector-item))
+ (common-lisp:defun make-voice-connector-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key priority voice-connector-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-connector-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input voice-connector-item))
    (common-lisp:append))
@@ -8176,12 +10671,19 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype voice-connector-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-connector-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-connector-settings-"))
-   (cdr-bucket common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass voice-connector-settings common-lisp:nil
+                       ((cdr-bucket :initarg :cdr-bucket :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %voice-connector-settings-cdr-bucket :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'voice-connector-settings 'make-voice-connector-settings))
+ (common-lisp:defun make-voice-connector-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cdr-bucket)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-connector-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8205,22 +10707,42 @@
                           voice-connector-settings))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-profile (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-profile-"))
-   (voice-profile-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (voice-profile-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (voice-profile-domain-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (expiration-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass voice-profile common-lisp:nil
+                       ((expiration-timestamp :initarg :expiration-timestamp
+                         :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-expiration-timestamp
+                         :initform common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-updated-timestamp :initform
+                         common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-created-timestamp :initform
+                         common-lisp:nil)
+                        (voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor %voice-profile-voice-profile-domain-id
+                         :initform common-lisp:nil)
+                        (voice-profile-arn :initarg :voice-profile-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %voice-profile-voice-profile-arn :initform
+                         common-lisp:nil)
+                        (voice-profile-id :initarg :voice-profile-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor %voice-profile-voice-profile-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'voice-profile 'make-voice-profile))
+ (common-lisp:defun make-voice-profile
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key expiration-timestamp updated-timestamp
+                     created-timestamp voice-profile-domain-id
+                     voice-profile-arn voice-profile-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-profile
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input voice-profile))
    (common-lisp:append))
@@ -8275,25 +10797,53 @@
                         ((aws-sdk/generator/shape::input voice-profile))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-profile-domain (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-profile-domain-"))
-   (voice-profile-domain-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (voice-profile-domain-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-description common-lisp:null))
-   (server-side-encryption-configuration common-lisp:nil :type
-    (common-lisp:or server-side-encryption-configuration common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass voice-profile-domain common-lisp:nil
+                       ((updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-domain-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-domain-created-timestamp
+                         :initform common-lisp:nil)
+                        (server-side-encryption-configuration :initarg
+                         :server-side-encryption-configuration :type
+                         (common-lisp:or server-side-encryption-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %voice-profile-domain-server-side-encryption-configuration
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or voice-profile-domain-description
+                                         common-lisp:null)
+                         :accessor %voice-profile-domain-description :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-profile-domain-name
+                                         common-lisp:null)
+                         :accessor %voice-profile-domain-name :initform
+                         common-lisp:nil)
+                        (voice-profile-domain-arn :initarg
+                         :voice-profile-domain-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %voice-profile-domain-voice-profile-domain-arn
+                         :initform common-lisp:nil)
+                        (voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %voice-profile-domain-voice-profile-domain-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'voice-profile-domain 'make-voice-profile-domain))
+ (common-lisp:defun make-voice-profile-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-timestamp created-timestamp
+                     server-side-encryption-configuration description name
+                     voice-profile-domain-arn voice-profile-domain-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-profile-domain
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input voice-profile-domain))
    (common-lisp:append))
@@ -8358,24 +10908,49 @@
 (common-lisp:deftype voice-profile-domain-description () 'common-lisp:string)
 (common-lisp:deftype voice-profile-domain-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-profile-domain-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-profile-domain-summary-"))
-   (voice-profile-domain-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (voice-profile-domain-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or voice-profile-domain-description common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass voice-profile-domain-summary common-lisp:nil
+                       ((updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor
+                         %voice-profile-domain-summary-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor
+                         %voice-profile-domain-summary-created-timestamp
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or voice-profile-domain-description
+                                         common-lisp:null)
+                         :accessor %voice-profile-domain-summary-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or voice-profile-domain-name
+                                         common-lisp:null)
+                         :accessor %voice-profile-domain-summary-name :initform
+                         common-lisp:nil)
+                        (voice-profile-domain-arn :initarg
+                         :voice-profile-domain-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %voice-profile-domain-summary-voice-profile-domain-arn
+                         :initform common-lisp:nil)
+                        (voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %voice-profile-domain-summary-voice-profile-domain-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'voice-profile-domain-summary
                     'make-voice-profile-domain-summary))
+ (common-lisp:defun make-voice-profile-domain-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-timestamp created-timestamp
+                     description name voice-profile-domain-arn
+                     voice-profile-domain-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-profile-domain-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8445,23 +11020,44 @@
                             voice-profile-domain-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-profile-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-profile-summary-"))
-   (voice-profile-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (voice-profile-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (voice-profile-domain-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (expiration-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null)))
+ (common-lisp:defclass voice-profile-summary common-lisp:nil
+                       ((expiration-timestamp :initarg :expiration-timestamp
+                         :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-summary-expiration-timestamp
+                         :initform common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-summary-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-profile-summary-created-timestamp
+                         :initform common-lisp:nil)
+                        (voice-profile-domain-id :initarg
+                         :voice-profile-domain-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %voice-profile-summary-voice-profile-domain-id
+                         :initform common-lisp:nil)
+                        (voice-profile-arn :initarg :voice-profile-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %voice-profile-summary-voice-profile-arn :initform
+                         common-lisp:nil)
+                        (voice-profile-id :initarg :voice-profile-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor %voice-profile-summary-voice-profile-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'voice-profile-summary 'make-voice-profile-summary))
+ (common-lisp:defun make-voice-profile-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key expiration-timestamp updated-timestamp
+                     created-timestamp voice-profile-domain-id
+                     voice-profile-arn voice-profile-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-profile-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -8530,25 +11126,50 @@
                            (trivial-types:proper-list voice-profile-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-tone-analysis-task (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-tone-analysis-task-"))
-   (voice-tone-analysis-task-id common-lisp:nil :type
-    (common-lisp:or non-empty-string256 common-lisp:null))
-   (voice-tone-analysis-task-status common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (call-details common-lisp:nil :type
-    (common-lisp:or call-details common-lisp:null))
-   (created-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (updated-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (started-timestamp common-lisp:nil :type
-    (common-lisp:or iso8601timestamp common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass voice-tone-analysis-task common-lisp:nil
+                       ((status-message :initarg :status-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %voice-tone-analysis-task-status-message :initform
+                         common-lisp:nil)
+                        (started-timestamp :initarg :started-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-tone-analysis-task-started-timestamp
+                         :initform common-lisp:nil)
+                        (updated-timestamp :initarg :updated-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-tone-analysis-task-updated-timestamp
+                         :initform common-lisp:nil)
+                        (created-timestamp :initarg :created-timestamp :type
+                         (common-lisp:or iso8601timestamp common-lisp:null)
+                         :accessor %voice-tone-analysis-task-created-timestamp
+                         :initform common-lisp:nil)
+                        (call-details :initarg :call-details :type
+                         (common-lisp:or call-details common-lisp:null)
+                         :accessor %voice-tone-analysis-task-call-details
+                         :initform common-lisp:nil)
+                        (voice-tone-analysis-task-status :initarg
+                         :voice-tone-analysis-task-status :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %voice-tone-analysis-task-voice-tone-analysis-task-status
+                         :initform common-lisp:nil)
+                        (voice-tone-analysis-task-id :initarg
+                         :voice-tone-analysis-task-id :type
+                         (common-lisp:or non-empty-string256 common-lisp:null)
+                         :accessor
+                         %voice-tone-analysis-task-voice-tone-analysis-task-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'voice-tone-analysis-task 'make-voice-tone-analysis-task))
+ (common-lisp:defun make-voice-tone-analysis-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-message started-timestamp
+                     updated-timestamp created-timestamp call-details
+                     voice-tone-analysis-task-status
+                     voice-tone-analysis-task-id)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-tone-analysis-task
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

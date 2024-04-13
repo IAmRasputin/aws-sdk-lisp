@@ -5,9 +5,14 @@
         #:lake))
 (in-package #:lake-user)
 
-(task "default" ("generate"))
+(task "default" ("all"))
 
-(task "generate" ()
+(task "all" ()
   (push *default-pathname-defaults* asdf:*central-registry*)
   (ql:quickload :aws-sdk/generator)
   (uiop:symbol-call :aws-sdk/generator :generate-all-services))
+
+(task ("generate" service) ()
+  (push *default-pathname-defaults* asdf:*central-registry*)
+  (ql:quickload :aws-sdk/generator)
+  (uiop:symbol-call :aws-sdk/generator :generate-service service))

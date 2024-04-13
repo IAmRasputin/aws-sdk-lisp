@@ -35,23 +35,31 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:deftype content-type () 'common-lisp:string)
 (common-lisp:deftype correlation-data () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-thing-shadow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-thing-shadow-request-"))
-   (thing-name (common-lisp:error ":thingname is required") :type
-    (common-lisp:or thing-name common-lisp:null))
-   (shadow-name common-lisp:nil :type
-    (common-lisp:or shadow-name common-lisp:null)))
+ (common-lisp:defclass delete-thing-shadow-request common-lisp:nil
+                       ((shadow-name :initarg :|shadowName| :type
+                         (common-lisp:or shadow-name common-lisp:null)
+                         :accessor %delete-thing-shadow-request-shadow-name
+                         :initform common-lisp:nil)
+                        (thing-name :initarg :|thingName| :type
+                         (common-lisp:or thing-name common-lisp:null) :accessor
+                         %delete-thing-shadow-request-thing-name :initform
+                         (common-lisp:error ":thingname is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-thing-shadow-request
                     'make-delete-thing-shadow-request))
+ (common-lisp:defun make-delete-thing-shadow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key shadow-name thing-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-thing-shadow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -68,14 +76,21 @@
                           delete-thing-shadow-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-thing-shadow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-thing-shadow-response-"))
-   (payload (common-lisp:error ":payload is required") :type
-    (common-lisp:or json-document common-lisp:null)))
+ (common-lisp:defclass delete-thing-shadow-response common-lisp:nil
+                       ((payload :initarg :|payload| :type
+                         (common-lisp:or json-document common-lisp:null)
+                         :accessor %delete-thing-shadow-response-payload
+                         :initform
+                         (common-lisp:error ":payload is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-thing-shadow-response
                     'make-delete-thing-shadow-response))
+ (common-lisp:defun make-delete-thing-shadow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key payload)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-thing-shadow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -97,16 +112,23 @@
                         (
                          (aws-sdk/generator/shape::input
                           delete-thing-shadow-response))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'payload)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'payload))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-retained-message-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-retained-message-request-"))
-   (topic (common-lisp:error ":topic is required") :type
-    (common-lisp:or topic common-lisp:null)))
+ (common-lisp:defclass get-retained-message-request common-lisp:nil
+                       ((topic :initarg :|topic| :type
+                         (common-lisp:or topic common-lisp:null) :accessor
+                         %get-retained-message-request-topic :initform
+                         (common-lisp:error ":topic is required"))))
  (common-lisp:export
   (common-lisp:list 'get-retained-message-request
                     'make-get-retained-message-request))
+ (common-lisp:defun make-get-retained-message-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key topic)
+   (common-lisp:apply #'common-lisp:make-instance 'get-retained-message-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -123,19 +145,39 @@
                           get-retained-message-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-retained-message-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-retained-message-response-"))
-   (topic common-lisp:nil :type (common-lisp:or topic common-lisp:null))
-   (payload common-lisp:nil :type (common-lisp:or payload common-lisp:null))
-   (qos common-lisp:nil :type (common-lisp:or qos common-lisp:null))
-   (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (user-properties common-lisp:nil :type
-    (common-lisp:or user-properties-blob common-lisp:null)))
+ (common-lisp:defclass get-retained-message-response common-lisp:nil
+                       ((user-properties :initarg :|userProperties| :type
+                         (common-lisp:or user-properties-blob common-lisp:null)
+                         :accessor
+                         %get-retained-message-response-user-properties
+                         :initform common-lisp:nil)
+                        (last-modified-time :initarg :|lastModifiedTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-retained-message-response-last-modified-time
+                         :initform common-lisp:nil)
+                        (qos :initarg :|qos| :type
+                         (common-lisp:or qos common-lisp:null) :accessor
+                         %get-retained-message-response-qos :initform
+                         common-lisp:nil)
+                        (payload :initarg :|payload| :type
+                         (common-lisp:or payload common-lisp:null) :accessor
+                         %get-retained-message-response-payload :initform
+                         common-lisp:nil)
+                        (topic :initarg :|topic| :type
+                         (common-lisp:or topic common-lisp:null) :accessor
+                         %get-retained-message-response-topic :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-retained-message-response
                     'make-get-retained-message-response))
+ (common-lisp:defun make-get-retained-message-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key user-properties last-modified-time qos
+                     payload topic)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-retained-message-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -187,15 +229,23 @@
                           get-retained-message-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-thing-shadow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-thing-shadow-request-"))
-   (thing-name (common-lisp:error ":thingname is required") :type
-    (common-lisp:or thing-name common-lisp:null))
-   (shadow-name common-lisp:nil :type
-    (common-lisp:or shadow-name common-lisp:null)))
+ (common-lisp:defclass get-thing-shadow-request common-lisp:nil
+                       ((shadow-name :initarg :|shadowName| :type
+                         (common-lisp:or shadow-name common-lisp:null)
+                         :accessor %get-thing-shadow-request-shadow-name
+                         :initform common-lisp:nil)
+                        (thing-name :initarg :|thingName| :type
+                         (common-lisp:or thing-name common-lisp:null) :accessor
+                         %get-thing-shadow-request-thing-name :initform
+                         (common-lisp:error ":thingname is required"))))
  (common-lisp:export
   (common-lisp:list 'get-thing-shadow-request 'make-get-thing-shadow-request))
+ (common-lisp:defun make-get-thing-shadow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key shadow-name thing-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-thing-shadow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -212,14 +262,20 @@
                           get-thing-shadow-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-thing-shadow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-thing-shadow-response-"))
-   (payload common-lisp:nil :type
-    (common-lisp:or json-document common-lisp:null)))
+ (common-lisp:defclass get-thing-shadow-response common-lisp:nil
+                       ((payload :initarg :|payload| :type
+                         (common-lisp:or json-document common-lisp:null)
+                         :accessor %get-thing-shadow-response-payload :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-thing-shadow-response
                     'make-get-thing-shadow-response))
+ (common-lisp:defun make-get-thing-shadow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key payload)
+   (common-lisp:apply #'common-lisp:make-instance 'get-thing-shadow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -241,11 +297,12 @@
                         (
                          (aws-sdk/generator/shape::input
                           get-thing-shadow-response))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'payload)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'payload))))
 (common-lisp:progn
  (common-lisp:define-condition internal-failure-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-failure-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-failure-exception
@@ -253,7 +310,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-request-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-request-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-request-exception
@@ -261,18 +318,30 @@
 (common-lisp:deftype json-document ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-named-shadows-for-thing-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-named-shadows-for-thing-request-"))
-   (thing-name (common-lisp:error ":thingname is required") :type
-    (common-lisp:or thing-name common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (page-size common-lisp:nil :type
-    (common-lisp:or page-size common-lisp:null)))
+ (common-lisp:defclass list-named-shadows-for-thing-request common-lisp:nil
+                       ((page-size :initarg :|pageSize| :type
+                         (common-lisp:or page-size common-lisp:null) :accessor
+                         %list-named-shadows-for-thing-request-page-size
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-named-shadows-for-thing-request-next-token
+                         :initform common-lisp:nil)
+                        (thing-name :initarg :|thingName| :type
+                         (common-lisp:or thing-name common-lisp:null) :accessor
+                         %list-named-shadows-for-thing-request-thing-name
+                         :initform
+                         (common-lisp:error ":thingname is required"))))
  (common-lisp:export
   (common-lisp:list 'list-named-shadows-for-thing-request
                     'make-list-named-shadows-for-thing-request))
+ (common-lisp:defun make-list-named-shadows-for-thing-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key page-size next-token thing-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-named-shadows-for-thing-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -289,18 +358,30 @@
                           list-named-shadows-for-thing-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-named-shadows-for-thing-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-named-shadows-for-thing-response-"))
-   (results common-lisp:nil :type
-    (common-lisp:or named-shadow-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (timestamp common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass list-named-shadows-for-thing-response common-lisp:nil
+                       ((timestamp :initarg common-lisp:string :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %list-named-shadows-for-thing-response-timestamp
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-named-shadows-for-thing-response-next-token
+                         :initform common-lisp:nil)
+                        (results :initarg :|results| :type
+                         (common-lisp:or named-shadow-list common-lisp:null)
+                         :accessor
+                         %list-named-shadows-for-thing-response-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-named-shadows-for-thing-response
                     'make-list-named-shadows-for-thing-response))
+ (common-lisp:defun make-list-named-shadows-for-thing-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key timestamp next-token results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-named-shadows-for-thing-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -338,16 +419,25 @@
                           list-named-shadows-for-thing-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-retained-messages-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-retained-messages-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-retained-messages-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-retained-messages-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-retained-messages-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-retained-messages-request
                     'make-list-retained-messages-request))
+ (common-lisp:defun make-list-retained-messages-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-retained-messages-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -364,16 +454,27 @@
                           list-retained-messages-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-retained-messages-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-retained-messages-response-"))
-   (retained-topics common-lisp:nil :type
-    (common-lisp:or retained-message-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-retained-messages-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-retained-messages-response-next-token :initform
+                         common-lisp:nil)
+                        (retained-topics :initarg :|retainedTopics| :type
+                         (common-lisp:or retained-message-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-retained-messages-response-retained-topics
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-retained-messages-response
                     'make-list-retained-messages-response))
+ (common-lisp:defun make-list-retained-messages-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token retained-topics)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-retained-messages-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -408,7 +509,7 @@
 (common-lisp:progn
  (common-lisp:define-condition method-not-allowed-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        method-not-allowed-exception-message)))
  (common-lisp:export
   (common-lisp:list 'method-not-allowed-exception
@@ -428,27 +529,55 @@
 (common-lisp:deftype payload-format-indicator () 'common-lisp:string)
 (common-lisp:deftype payload-size () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (publish-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-publish-request-"))
-   (topic (common-lisp:error ":topic is required") :type
-    (common-lisp:or topic common-lisp:null))
-   (qos common-lisp:nil :type (common-lisp:or qos common-lisp:null))
-   (retain common-lisp:nil :type (common-lisp:or retain common-lisp:null))
-   (payload common-lisp:nil :type (common-lisp:or payload common-lisp:null))
-   (user-properties common-lisp:nil :type
-    (common-lisp:or user-properties common-lisp:null))
-   (payload-format-indicator common-lisp:nil :type
-    (common-lisp:or payload-format-indicator common-lisp:null))
-   (content-type common-lisp:nil :type
-    (common-lisp:or content-type common-lisp:null))
-   (response-topic common-lisp:nil :type
-    (common-lisp:or response-topic common-lisp:null))
-   (correlation-data common-lisp:nil :type
-    (common-lisp:or correlation-data common-lisp:null))
-   (message-expiry common-lisp:nil :type
-    (common-lisp:or message-expiry common-lisp:null)))
+ (common-lisp:defclass publish-request common-lisp:nil
+                       ((message-expiry :initarg :|messageExpiry| :type
+                         (common-lisp:or message-expiry common-lisp:null)
+                         :accessor %publish-request-message-expiry :initform
+                         common-lisp:nil)
+                        (correlation-data :initarg :|correlationData| :type
+                         (common-lisp:or correlation-data common-lisp:null)
+                         :accessor %publish-request-correlation-data :initform
+                         common-lisp:nil)
+                        (response-topic :initarg :|responseTopic| :type
+                         (common-lisp:or response-topic common-lisp:null)
+                         :accessor %publish-request-response-topic :initform
+                         common-lisp:nil)
+                        (content-type :initarg :|contentType| :type
+                         (common-lisp:or content-type common-lisp:null)
+                         :accessor %publish-request-content-type :initform
+                         common-lisp:nil)
+                        (payload-format-indicator :initarg
+                         :|payloadFormatIndicator| :type
+                         (common-lisp:or payload-format-indicator
+                                         common-lisp:null)
+                         :accessor %publish-request-payload-format-indicator
+                         :initform common-lisp:nil)
+                        (user-properties :initarg :|userProperties| :type
+                         (common-lisp:or user-properties common-lisp:null)
+                         :accessor %publish-request-user-properties :initform
+                         common-lisp:nil)
+                        (payload :initarg :|payload| :type
+                         (common-lisp:or payload common-lisp:null) :accessor
+                         %publish-request-payload :initform common-lisp:nil)
+                        (retain :initarg :|retain| :type
+                         (common-lisp:or retain common-lisp:null) :accessor
+                         %publish-request-retain :initform common-lisp:nil)
+                        (qos :initarg :|qos| :type
+                         (common-lisp:or qos common-lisp:null) :accessor
+                         %publish-request-qos :initform common-lisp:nil)
+                        (topic :initarg :|topic| :type
+                         (common-lisp:or topic common-lisp:null) :accessor
+                         %publish-request-topic :initform
+                         (common-lisp:error ":topic is required"))))
  (common-lisp:export (common-lisp:list 'publish-request 'make-publish-request))
+ (common-lisp:defun make-publish-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message-expiry correlation-data
+                     response-topic content-type payload-format-indicator
+                     user-properties payload retain qos topic)
+   (common-lisp:apply #'common-lisp:make-instance 'publish-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input publish-request))
    (common-lisp:append
@@ -480,12 +609,13 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input publish-request))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'payload)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'payload))))
 (common-lisp:deftype qos () 'common-lisp:integer)
 (common-lisp:progn
  (common-lisp:define-condition request-entity-too-large-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        request-entity-too-large-exception-message)))
  (common-lisp:export
   (common-lisp:list 'request-entity-too-large-exception
@@ -493,7 +623,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -510,17 +640,32 @@
                             retained-message-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (retained-message-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-retained-message-summary-"))
-   (topic common-lisp:nil :type (common-lisp:or topic common-lisp:null))
-   (payload-size common-lisp:nil :type
-    (common-lisp:or payload-size common-lisp:null))
-   (qos common-lisp:nil :type (common-lisp:or qos common-lisp:null))
-   (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass retained-message-summary common-lisp:nil
+                       ((last-modified-time :initarg :|lastModifiedTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %retained-message-summary-last-modified-time :initform
+                         common-lisp:nil)
+                        (qos :initarg :|qos| :type
+                         (common-lisp:or qos common-lisp:null) :accessor
+                         %retained-message-summary-qos :initform
+                         common-lisp:nil)
+                        (payload-size :initarg :|payloadSize| :type
+                         (common-lisp:or payload-size common-lisp:null)
+                         :accessor %retained-message-summary-payload-size
+                         :initform common-lisp:nil)
+                        (topic :initarg :|topic| :type
+                         (common-lisp:or topic common-lisp:null) :accessor
+                         %retained-message-summary-topic :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'retained-message-summary 'make-retained-message-summary))
+ (common-lisp:defun make-retained-message-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-modified-time qos payload-size
+                     topic)
+   (common-lisp:apply #'common-lisp:make-instance 'retained-message-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -567,7 +712,7 @@
 (common-lisp:progn
  (common-lisp:define-condition service-unavailable-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-unavailable-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-unavailable-exception
@@ -577,7 +722,7 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
@@ -586,31 +731,41 @@
 (common-lisp:progn
  (common-lisp:define-condition unauthorized-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        unauthorized-exception-message)))
  (common-lisp:export
   (common-lisp:list 'unauthorized-exception 'unauthorized-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition unsupported-document-encoding-exception
      (iot-data-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        unsupported-document-encoding-exception-message)))
  (common-lisp:export
   (common-lisp:list 'unsupported-document-encoding-exception
                     'unsupported-document-encoding-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-thing-shadow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-thing-shadow-request-"))
-   (thing-name (common-lisp:error ":thingname is required") :type
-    (common-lisp:or thing-name common-lisp:null))
-   (shadow-name common-lisp:nil :type
-    (common-lisp:or shadow-name common-lisp:null))
-   (payload (common-lisp:error ":payload is required") :type
-    (common-lisp:or json-document common-lisp:null)))
+ (common-lisp:defclass update-thing-shadow-request common-lisp:nil
+                       ((payload :initarg :|payload| :type
+                         (common-lisp:or json-document common-lisp:null)
+                         :accessor %update-thing-shadow-request-payload
+                         :initform (common-lisp:error ":payload is required"))
+                        (shadow-name :initarg :|shadowName| :type
+                         (common-lisp:or shadow-name common-lisp:null)
+                         :accessor %update-thing-shadow-request-shadow-name
+                         :initform common-lisp:nil)
+                        (thing-name :initarg :|thingName| :type
+                         (common-lisp:or thing-name common-lisp:null) :accessor
+                         %update-thing-shadow-request-thing-name :initform
+                         (common-lisp:error ":thingname is required"))))
  (common-lisp:export
   (common-lisp:list 'update-thing-shadow-request
                     'make-update-thing-shadow-request))
+ (common-lisp:defun make-update-thing-shadow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key payload shadow-name thing-name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-thing-shadow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -632,16 +787,23 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-thing-shadow-request))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'payload)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'payload))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-thing-shadow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-thing-shadow-response-"))
-   (payload common-lisp:nil :type
-    (common-lisp:or json-document common-lisp:null)))
+ (common-lisp:defclass update-thing-shadow-response common-lisp:nil
+                       ((payload :initarg :|payload| :type
+                         (common-lisp:or json-document common-lisp:null)
+                         :accessor %update-thing-shadow-response-payload
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-thing-shadow-response
                     'make-update-thing-shadow-response))
+ (common-lisp:defun make-update-thing-shadow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key payload)
+   (common-lisp:apply #'common-lisp:make-instance 'update-thing-shadow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -663,7 +825,8 @@
                         (
                          (aws-sdk/generator/shape::input
                           update-thing-shadow-response))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'payload)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'payload))))
 (common-lisp:deftype user-properties () 'common-lisp:string)
 (common-lisp:deftype user-properties-blob ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))

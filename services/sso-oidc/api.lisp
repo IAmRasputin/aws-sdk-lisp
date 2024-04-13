@@ -36,10 +36,10 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        access-denied-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader access-denied-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader access-denied-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-error
                     'access-denied-exception-error-description)))
@@ -48,10 +48,11 @@
 (common-lisp:progn
  (common-lisp:define-condition authorization-pending-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        authorization-pending-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader authorization-pending-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader
+       authorization-pending-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'authorization-pending-exception
                     'authorization-pending-exception-error
@@ -61,24 +62,47 @@
 (common-lisp:deftype client-secret () 'common-lisp:string)
 (common-lisp:deftype client-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-token-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-token-request-"))
-   (client-id (common-lisp:error ":clientid is required") :type
-    (common-lisp:or client-id common-lisp:null))
-   (client-secret (common-lisp:error ":clientsecret is required") :type
-    (common-lisp:or client-secret common-lisp:null))
-   (grant-type (common-lisp:error ":granttype is required") :type
-    (common-lisp:or grant-type common-lisp:null))
-   (device-code common-lisp:nil :type
-    (common-lisp:or device-code common-lisp:null))
-   (code common-lisp:nil :type (common-lisp:or auth-code common-lisp:null))
-   (refresh-token common-lisp:nil :type
-    (common-lisp:or refresh-token common-lisp:null))
-   (scope common-lisp:nil :type (common-lisp:or scopes common-lisp:null))
-   (redirect-uri common-lisp:nil :type (common-lisp:or uri common-lisp:null)))
+ (common-lisp:defclass create-token-request common-lisp:nil
+                       ((redirect-uri :initarg :|redirectUri| :type
+                         (common-lisp:or uri common-lisp:null) :accessor
+                         %create-token-request-redirect-uri :initform
+                         common-lisp:nil)
+                        (scope :initarg :|scope| :type
+                         (common-lisp:or scopes common-lisp:null) :accessor
+                         %create-token-request-scope :initform common-lisp:nil)
+                        (refresh-token :initarg :|refreshToken| :type
+                         (common-lisp:or refresh-token common-lisp:null)
+                         :accessor %create-token-request-refresh-token
+                         :initform common-lisp:nil)
+                        (code :initarg :|code| :type
+                         (common-lisp:or auth-code common-lisp:null) :accessor
+                         %create-token-request-code :initform common-lisp:nil)
+                        (device-code :initarg :|deviceCode| :type
+                         (common-lisp:or device-code common-lisp:null)
+                         :accessor %create-token-request-device-code :initform
+                         common-lisp:nil)
+                        (grant-type :initarg :|grantType| :type
+                         (common-lisp:or grant-type common-lisp:null) :accessor
+                         %create-token-request-grant-type :initform
+                         (common-lisp:error ":granttype is required"))
+                        (client-secret :initarg :|clientSecret| :type
+                         (common-lisp:or client-secret common-lisp:null)
+                         :accessor %create-token-request-client-secret
+                         :initform
+                         (common-lisp:error ":clientsecret is required"))
+                        (client-id :initarg :|clientId| :type
+                         (common-lisp:or client-id common-lisp:null) :accessor
+                         %create-token-request-client-id :initform
+                         (common-lisp:error ":clientid is required"))))
  (common-lisp:export
   (common-lisp:list 'create-token-request 'make-create-token-request))
+ (common-lisp:defun make-create-token-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key redirect-uri scope refresh-token code
+                     device-code grant-type client-secret client-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-token-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-token-request))
    (common-lisp:append))
@@ -145,20 +169,37 @@
                         ((aws-sdk/generator/shape::input create-token-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-token-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-token-response-"))
-   (access-token common-lisp:nil :type
-    (common-lisp:or access-token common-lisp:null))
-   (token-type common-lisp:nil :type
-    (common-lisp:or token-type common-lisp:null))
-   (expires-in common-lisp:nil :type
-    (common-lisp:or expiration-in-seconds common-lisp:null))
-   (refresh-token common-lisp:nil :type
-    (common-lisp:or refresh-token common-lisp:null))
-   (id-token common-lisp:nil :type (common-lisp:or id-token common-lisp:null)))
+ (common-lisp:defclass create-token-response common-lisp:nil
+                       ((id-token :initarg :|idToken| :type
+                         (common-lisp:or id-token common-lisp:null) :accessor
+                         %create-token-response-id-token :initform
+                         common-lisp:nil)
+                        (refresh-token :initarg :|refreshToken| :type
+                         (common-lisp:or refresh-token common-lisp:null)
+                         :accessor %create-token-response-refresh-token
+                         :initform common-lisp:nil)
+                        (expires-in :initarg :|expiresIn| :type
+                         (common-lisp:or expiration-in-seconds
+                                         common-lisp:null)
+                         :accessor %create-token-response-expires-in :initform
+                         common-lisp:nil)
+                        (token-type :initarg :|tokenType| :type
+                         (common-lisp:or token-type common-lisp:null) :accessor
+                         %create-token-response-token-type :initform
+                         common-lisp:nil)
+                        (access-token :initarg :|accessToken| :type
+                         (common-lisp:or access-token common-lisp:null)
+                         :accessor %create-token-response-access-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-token-response 'make-create-token-response))
+ (common-lisp:defun make-create-token-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id-token refresh-token expires-in
+                     token-type access-token)
+   (common-lisp:apply #'common-lisp:make-instance 'create-token-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -216,10 +257,10 @@
 (common-lisp:progn
  (common-lisp:define-condition expired-token-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        expired-token-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader expired-token-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader expired-token-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'expired-token-exception 'expired-token-exception-error
                     'expired-token-exception-error-description)))
@@ -228,10 +269,10 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        internal-server-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader internal-server-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader internal-server-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception 'internal-server-exception-error
                     'internal-server-exception-error-description)))
@@ -239,20 +280,21 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-client-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        invalid-client-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader invalid-client-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader invalid-client-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'invalid-client-exception 'invalid-client-exception-error
                     'invalid-client-exception-error-description)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-client-metadata-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        invalid-client-metadata-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader invalid-client-metadata-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader
+       invalid-client-metadata-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'invalid-client-metadata-exception
                     'invalid-client-metadata-exception-error
@@ -260,46 +302,59 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-grant-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        invalid-grant-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader invalid-grant-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader invalid-grant-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'invalid-grant-exception 'invalid-grant-exception-error
                     'invalid-grant-exception-error-description)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-request-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        invalid-request-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader invalid-request-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader invalid-request-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'invalid-request-exception 'invalid-request-exception-error
                     'invalid-request-exception-error-description)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-scope-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        invalid-scope-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader invalid-scope-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader invalid-scope-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'invalid-scope-exception 'invalid-scope-exception-error
                     'invalid-scope-exception-error-description)))
 (common-lisp:deftype long-time-stamp-type () 'common-lisp:integer)
 (common-lisp:deftype refresh-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-client-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-client-request-"))
-   (client-name (common-lisp:error ":clientname is required") :type
-    (common-lisp:or client-name common-lisp:null))
-   (client-type (common-lisp:error ":clienttype is required") :type
-    (common-lisp:or client-type common-lisp:null))
-   (scopes common-lisp:nil :type (common-lisp:or scopes common-lisp:null)))
+ (common-lisp:defclass register-client-request common-lisp:nil
+                       ((scopes :initarg :|scopes| :type
+                         (common-lisp:or scopes common-lisp:null) :accessor
+                         %register-client-request-scopes :initform
+                         common-lisp:nil)
+                        (client-type :initarg :|clientType| :type
+                         (common-lisp:or client-type common-lisp:null)
+                         :accessor %register-client-request-client-type
+                         :initform
+                         (common-lisp:error ":clienttype is required"))
+                        (client-name :initarg :|clientName| :type
+                         (common-lisp:or client-name common-lisp:null)
+                         :accessor %register-client-request-client-name
+                         :initform
+                         (common-lisp:error ":clientname is required"))))
  (common-lisp:export
   (common-lisp:list 'register-client-request 'make-register-client-request))
+ (common-lisp:defun make-register-client-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key scopes client-type client-name)
+   (common-lisp:apply #'common-lisp:make-instance 'register-client-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -337,23 +392,45 @@
                           register-client-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-client-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-client-response-"))
-   (client-id common-lisp:nil :type
-    (common-lisp:or client-id common-lisp:null))
-   (client-secret common-lisp:nil :type
-    (common-lisp:or client-secret common-lisp:null))
-   (client-id-issued-at common-lisp:nil :type
-    (common-lisp:or long-time-stamp-type common-lisp:null))
-   (client-secret-expires-at common-lisp:nil :type
-    (common-lisp:or long-time-stamp-type common-lisp:null))
-   (authorization-endpoint common-lisp:nil :type
-    (common-lisp:or uri common-lisp:null))
-   (token-endpoint common-lisp:nil :type
-    (common-lisp:or uri common-lisp:null)))
+ (common-lisp:defclass register-client-response common-lisp:nil
+                       ((token-endpoint :initarg :|tokenEndpoint| :type
+                         (common-lisp:or uri common-lisp:null) :accessor
+                         %register-client-response-token-endpoint :initform
+                         common-lisp:nil)
+                        (authorization-endpoint :initarg
+                         :|authorizationEndpoint| :type
+                         (common-lisp:or uri common-lisp:null) :accessor
+                         %register-client-response-authorization-endpoint
+                         :initform common-lisp:nil)
+                        (client-secret-expires-at :initarg
+                         :|clientSecretExpiresAt| :type
+                         (common-lisp:or long-time-stamp-type common-lisp:null)
+                         :accessor
+                         %register-client-response-client-secret-expires-at
+                         :initform common-lisp:nil)
+                        (client-id-issued-at :initarg :|clientIdIssuedAt| :type
+                         (common-lisp:or long-time-stamp-type common-lisp:null)
+                         :accessor
+                         %register-client-response-client-id-issued-at
+                         :initform common-lisp:nil)
+                        (client-secret :initarg :|clientSecret| :type
+                         (common-lisp:or client-secret common-lisp:null)
+                         :accessor %register-client-response-client-secret
+                         :initform common-lisp:nil)
+                        (client-id :initarg :|clientId| :type
+                         (common-lisp:or client-id common-lisp:null) :accessor
+                         %register-client-response-client-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'register-client-response 'make-register-client-response))
+ (common-lisp:defun make-register-client-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key token-endpoint authorization-endpoint
+                     client-secret-expires-at client-id-issued-at client-secret
+                     client-id)
+   (common-lisp:apply #'common-lisp:make-instance 'register-client-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -424,26 +501,40 @@
 (common-lisp:progn
  (common-lisp:define-condition slow-down-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        slow-down-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader slow-down-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader slow-down-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'slow-down-exception 'slow-down-exception-error
                     'slow-down-exception-error-description)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-device-authorization-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-device-authorization-request-"))
-   (client-id (common-lisp:error ":clientid is required") :type
-    (common-lisp:or client-id common-lisp:null))
-   (client-secret (common-lisp:error ":clientsecret is required") :type
-    (common-lisp:or client-secret common-lisp:null))
-   (start-url (common-lisp:error ":starturl is required") :type
-    (common-lisp:or uri common-lisp:null)))
+ (common-lisp:defclass start-device-authorization-request common-lisp:nil
+                       ((start-url :initarg :|startUrl| :type
+                         (common-lisp:or uri common-lisp:null) :accessor
+                         %start-device-authorization-request-start-url
+                         :initform (common-lisp:error ":starturl is required"))
+                        (client-secret :initarg :|clientSecret| :type
+                         (common-lisp:or client-secret common-lisp:null)
+                         :accessor
+                         %start-device-authorization-request-client-secret
+                         :initform
+                         (common-lisp:error ":clientsecret is required"))
+                        (client-id :initarg :|clientId| :type
+                         (common-lisp:or client-id common-lisp:null) :accessor
+                         %start-device-authorization-request-client-id
+                         :initform
+                         (common-lisp:error ":clientid is required"))))
  (common-lisp:export
   (common-lisp:list 'start-device-authorization-request
                     'make-start-device-authorization-request))
+ (common-lisp:defun make-start-device-authorization-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key start-url client-secret client-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-device-authorization-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -481,24 +572,48 @@
                           start-device-authorization-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-device-authorization-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-device-authorization-response-"))
-   (device-code common-lisp:nil :type
-    (common-lisp:or device-code common-lisp:null))
-   (user-code common-lisp:nil :type
-    (common-lisp:or user-code common-lisp:null))
-   (verification-uri common-lisp:nil :type
-    (common-lisp:or uri common-lisp:null))
-   (verification-uri-complete common-lisp:nil :type
-    (common-lisp:or uri common-lisp:null))
-   (expires-in common-lisp:nil :type
-    (common-lisp:or expiration-in-seconds common-lisp:null))
-   (interval common-lisp:nil :type
-    (common-lisp:or interval-in-seconds common-lisp:null)))
+ (common-lisp:defclass start-device-authorization-response common-lisp:nil
+                       ((interval :initarg :|interval| :type
+                         (common-lisp:or interval-in-seconds common-lisp:null)
+                         :accessor
+                         %start-device-authorization-response-interval
+                         :initform common-lisp:nil)
+                        (expires-in :initarg :|expiresIn| :type
+                         (common-lisp:or expiration-in-seconds
+                                         common-lisp:null)
+                         :accessor
+                         %start-device-authorization-response-expires-in
+                         :initform common-lisp:nil)
+                        (verification-uri-complete :initarg
+                         :|verificationUriComplete| :type
+                         (common-lisp:or uri common-lisp:null) :accessor
+                         %start-device-authorization-response-verification-uri-complete
+                         :initform common-lisp:nil)
+                        (verification-uri :initarg :|verificationUri| :type
+                         (common-lisp:or uri common-lisp:null) :accessor
+                         %start-device-authorization-response-verification-uri
+                         :initform common-lisp:nil)
+                        (user-code :initarg :|userCode| :type
+                         (common-lisp:or user-code common-lisp:null) :accessor
+                         %start-device-authorization-response-user-code
+                         :initform common-lisp:nil)
+                        (device-code :initarg :|deviceCode| :type
+                         (common-lisp:or device-code common-lisp:null)
+                         :accessor
+                         %start-device-authorization-response-device-code
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-device-authorization-response
                     'make-start-device-authorization-response))
+ (common-lisp:defun make-start-device-authorization-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key interval expires-in
+                     verification-uri-complete verification-uri user-code
+                     device-code)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-device-authorization-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -562,10 +677,11 @@
 (common-lisp:progn
  (common-lisp:define-condition unauthorized-client-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        unauthorized-client-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader unauthorized-client-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader
+       unauthorized-client-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'unauthorized-client-exception
                     'unauthorized-client-exception-error
@@ -573,10 +689,11 @@
 (common-lisp:progn
  (common-lisp:define-condition unsupported-grant-type-exception
      (sso-oidc-error)
-     ((error :initarg :error :initform common-lisp:nil :reader
+     ((error :initarg :|error| :initform common-lisp:nil :reader
        unsupported-grant-type-exception-error)
-      (error-description :initarg :error-description :initform common-lisp:nil
-       :reader unsupported-grant-type-exception-error-description)))
+      (error-description :initarg :|error_description| :initform
+       common-lisp:nil :reader
+       unsupported-grant-type-exception-error-description)))
  (common-lisp:export
   (common-lisp:list 'unsupported-grant-type-exception
                     'unsupported-grant-type-exception-error

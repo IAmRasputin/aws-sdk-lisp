@@ -33,7 +33,7 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
@@ -48,11 +48,11 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)
-      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+      (resource-id :initarg :|resourceId| :initform common-lisp:nil :reader
        conflict-exception-resource-id)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        conflict-exception-resource-type)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message
@@ -62,20 +62,29 @@
 (common-lisp:progn
  (common-lisp:define-condition endpoint-temporarily-unavailable-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        endpoint-temporarily-unavailable-exception-message)))
  (common-lisp:export
   (common-lisp:list 'endpoint-temporarily-unavailable-exception
                     'endpoint-temporarily-unavailable-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-routing-control-state-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-routing-control-state-request-"))
-   (routing-control-arn (common-lisp:error ":routing-control-arn is required")
-    :type (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass get-routing-control-state-request common-lisp:nil
+                       ((routing-control-arn :initarg :routing-control-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %get-routing-control-state-request-routing-control-arn
+                         :initform
+                         (common-lisp:error
+                          ":routing-control-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-routing-control-state-request
                     'make-get-routing-control-state-request))
+ (common-lisp:defun make-get-routing-control-state-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key routing-control-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-routing-control-state-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -99,19 +108,39 @@
                           get-routing-control-state-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-routing-control-state-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-routing-control-state-response-"))
-   (routing-control-arn (common-lisp:error ":routing-control-arn is required")
-    :type (common-lisp:or arn common-lisp:null))
-   (routing-control-state
-    (common-lisp:error ":routing-control-state is required") :type
-    (common-lisp:or routing-control-state common-lisp:null))
-   (routing-control-name common-lisp:nil :type
-    (common-lisp:or routing-control-name common-lisp:null)))
+ (common-lisp:defclass get-routing-control-state-response common-lisp:nil
+                       ((routing-control-name :initarg :routing-control-name
+                         :type
+                         (common-lisp:or routing-control-name common-lisp:null)
+                         :accessor
+                         %get-routing-control-state-response-routing-control-name
+                         :initform common-lisp:nil)
+                        (routing-control-state :initarg :routing-control-state
+                         :type
+                         (common-lisp:or routing-control-state
+                                         common-lisp:null)
+                         :accessor
+                         %get-routing-control-state-response-routing-control-state
+                         :initform
+                         (common-lisp:error
+                          ":routing-control-state is required"))
+                        (routing-control-arn :initarg :routing-control-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %get-routing-control-state-response-routing-control-arn
+                         :initform
+                         (common-lisp:error
+                          ":routing-control-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-routing-control-state-response
                     'make-get-routing-control-state-response))
+ (common-lisp:defun make-get-routing-control-state-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key routing-control-name
+                     routing-control-state routing-control-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-routing-control-state-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -153,27 +182,38 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)
-      (retry-after-seconds :initarg :retry-after-seconds :initform
+      (retry-after-seconds :initarg :|retryAfterSeconds| :initform
        common-lisp:nil :reader internal-server-exception-retry-after-seconds)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message
                     'internal-server-exception-retry-after-seconds)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-routing-controls-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-routing-controls-request-"))
-   (control-panel-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or page-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-routing-controls-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-routing-controls-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or page-token common-lisp:null) :accessor
+                         %list-routing-controls-request-next-token :initform
+                         common-lisp:nil)
+                        (control-panel-arn :initarg :control-panel-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-routing-controls-request-control-panel-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-routing-controls-request
                     'make-list-routing-controls-request))
+ (common-lisp:defun make-list-routing-controls-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token control-panel-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-routing-controls-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -211,16 +251,27 @@
                           list-routing-controls-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-routing-controls-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-routing-controls-response-"))
-   (routing-controls (common-lisp:error ":routing-controls is required") :type
-    (common-lisp:or routing-controls common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or page-token common-lisp:null)))
+ (common-lisp:defclass list-routing-controls-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or page-token common-lisp:null) :accessor
+                         %list-routing-controls-response-next-token :initform
+                         common-lisp:nil)
+                        (routing-controls :initarg :routing-controls :type
+                         (common-lisp:or routing-controls common-lisp:null)
+                         :accessor
+                         %list-routing-controls-response-routing-controls
+                         :initform
+                         (common-lisp:error ":routing-controls is required"))))
  (common-lisp:export
   (common-lisp:list 'list-routing-controls-response
                     'make-list-routing-controls-response))
+ (common-lisp:defun make-list-routing-controls-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token routing-controls)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-routing-controls-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -255,11 +306,11 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)
-      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+      (resource-id :initarg :|resourceId| :initform common-lisp:nil :reader
        resource-not-found-exception-resource-id)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        resource-not-found-exception-resource-type)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -268,20 +319,39 @@
                     'resource-not-found-exception-resource-type)))
 (common-lisp:deftype retry-after-seconds () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (routing-control (:copier common-lisp:nil)
-      (:conc-name "struct-shape-routing-control-"))
-   (control-panel-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (control-panel-name common-lisp:nil :type
-    (common-lisp:or control-panel-name common-lisp:null))
-   (routing-control-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (routing-control-name common-lisp:nil :type
-    (common-lisp:or routing-control-name common-lisp:null))
-   (routing-control-state common-lisp:nil :type
-    (common-lisp:or routing-control-state common-lisp:null)))
+ (common-lisp:defclass routing-control common-lisp:nil
+                       ((routing-control-state :initarg :routing-control-state
+                         :type
+                         (common-lisp:or routing-control-state
+                                         common-lisp:null)
+                         :accessor %routing-control-routing-control-state
+                         :initform common-lisp:nil)
+                        (routing-control-name :initarg :routing-control-name
+                         :type
+                         (common-lisp:or routing-control-name common-lisp:null)
+                         :accessor %routing-control-routing-control-name
+                         :initform common-lisp:nil)
+                        (routing-control-arn :initarg :routing-control-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %routing-control-routing-control-arn :initform
+                         common-lisp:nil)
+                        (control-panel-name :initarg :control-panel-name :type
+                         (common-lisp:or control-panel-name common-lisp:null)
+                         :accessor %routing-control-control-panel-name
+                         :initform common-lisp:nil)
+                        (control-panel-arn :initarg :control-panel-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %routing-control-control-panel-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'routing-control 'make-routing-control))
+ (common-lisp:defun make-routing-control
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key routing-control-state
+                     routing-control-name routing-control-arn
+                     control-panel-name control-panel-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'routing-control
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input routing-control))
    (common-lisp:append))
@@ -341,15 +411,15 @@
 (common-lisp:progn
  (common-lisp:define-condition service-limit-exceeded-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-limit-exceeded-exception-message)
-      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+      (resource-id :initarg :|resourceId| :initform common-lisp:nil :reader
        service-limit-exceeded-exception-resource-id)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        service-limit-exceeded-exception-resource-type)
-      (limit-code :initarg :limit-code :initform common-lisp:nil :reader
+      (limit-code :initarg :|limitCode| :initform common-lisp:nil :reader
        service-limit-exceeded-exception-limit-code)
-      (service-code :initarg :service-code :initform common-lisp:nil :reader
+      (service-code :initarg :|serviceCode| :initform common-lisp:nil :reader
        service-limit-exceeded-exception-service-code)))
  (common-lisp:export
   (common-lisp:list 'service-limit-exceeded-exception
@@ -362,9 +432,9 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)
-      (retry-after-seconds :initarg :retry-after-seconds :initform
+      (retry-after-seconds :initarg :|retryAfterSeconds| :initform
        common-lisp:nil :reader throttling-exception-retry-after-seconds)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message
@@ -379,17 +449,33 @@
                             update-routing-control-state-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-routing-control-state-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-routing-control-state-entry-"))
-   (routing-control-arn (common-lisp:error ":routing-control-arn is required")
-    :type (common-lisp:or arn common-lisp:null))
-   (routing-control-state
-    (common-lisp:error ":routing-control-state is required") :type
-    (common-lisp:or routing-control-state common-lisp:null)))
+ (common-lisp:defclass update-routing-control-state-entry common-lisp:nil
+                       ((routing-control-state :initarg :routing-control-state
+                         :type
+                         (common-lisp:or routing-control-state
+                                         common-lisp:null)
+                         :accessor
+                         %update-routing-control-state-entry-routing-control-state
+                         :initform
+                         (common-lisp:error
+                          ":routing-control-state is required"))
+                        (routing-control-arn :initarg :routing-control-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %update-routing-control-state-entry-routing-control-arn
+                         :initform
+                         (common-lisp:error
+                          ":routing-control-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-routing-control-state-entry
                     'make-update-routing-control-state-entry))
+ (common-lisp:defun make-update-routing-control-state-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key routing-control-state
+                     routing-control-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-routing-control-state-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -421,19 +507,38 @@
                           update-routing-control-state-entry))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-routing-control-state-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-routing-control-state-request-"))
-   (routing-control-arn (common-lisp:error ":routing-control-arn is required")
-    :type (common-lisp:or arn common-lisp:null))
-   (routing-control-state
-    (common-lisp:error ":routing-control-state is required") :type
-    (common-lisp:or routing-control-state common-lisp:null))
-   (safety-rules-to-override common-lisp:nil :type
-    (common-lisp:or arns common-lisp:null)))
+ (common-lisp:defclass update-routing-control-state-request common-lisp:nil
+                       ((safety-rules-to-override :initarg
+                         :safety-rules-to-override :type
+                         (common-lisp:or arns common-lisp:null) :accessor
+                         %update-routing-control-state-request-safety-rules-to-override
+                         :initform common-lisp:nil)
+                        (routing-control-state :initarg :routing-control-state
+                         :type
+                         (common-lisp:or routing-control-state
+                                         common-lisp:null)
+                         :accessor
+                         %update-routing-control-state-request-routing-control-state
+                         :initform
+                         (common-lisp:error
+                          ":routing-control-state is required"))
+                        (routing-control-arn :initarg :routing-control-arn
+                         :type (common-lisp:or arn common-lisp:null) :accessor
+                         %update-routing-control-state-request-routing-control-arn
+                         :initform
+                         (common-lisp:error
+                          ":routing-control-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-routing-control-state-request
                     'make-update-routing-control-state-request))
+ (common-lisp:defun make-update-routing-control-state-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key safety-rules-to-override
+                     routing-control-state routing-control-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-routing-control-state-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -473,12 +578,18 @@
                           update-routing-control-state-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-routing-control-state-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-routing-control-state-response-")))
+ (common-lisp:defclass update-routing-control-state-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-routing-control-state-response
                     'make-update-routing-control-state-response))
+ (common-lisp:defun make-update-routing-control-state-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-routing-control-state-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -495,18 +606,32 @@
                           update-routing-control-state-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-routing-control-states-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-routing-control-states-request-"))
-   (update-routing-control-state-entries
-    (common-lisp:error ":update-routing-control-state-entries is required")
-    :type
-    (common-lisp:or update-routing-control-state-entries common-lisp:null))
-   (safety-rules-to-override common-lisp:nil :type
-    (common-lisp:or arns common-lisp:null)))
+ (common-lisp:defclass update-routing-control-states-request common-lisp:nil
+                       ((safety-rules-to-override :initarg
+                         :safety-rules-to-override :type
+                         (common-lisp:or arns common-lisp:null) :accessor
+                         %update-routing-control-states-request-safety-rules-to-override
+                         :initform common-lisp:nil)
+                        (update-routing-control-state-entries :initarg
+                         :update-routing-control-state-entries :type
+                         (common-lisp:or update-routing-control-state-entries
+                                         common-lisp:null)
+                         :accessor
+                         %update-routing-control-states-request-update-routing-control-state-entries
+                         :initform
+                         (common-lisp:error
+                          ":update-routing-control-state-entries is required"))))
  (common-lisp:export
   (common-lisp:list 'update-routing-control-states-request
                     'make-update-routing-control-states-request))
+ (common-lisp:defun make-update-routing-control-states-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key safety-rules-to-override
+                     update-routing-control-state-entries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-routing-control-states-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -539,12 +664,18 @@
                           update-routing-control-states-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-routing-control-states-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-routing-control-states-response-")))
+ (common-lisp:defclass update-routing-control-states-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-routing-control-states-response
                     'make-update-routing-control-states-response))
+ (common-lisp:defun make-update-routing-control-states-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-routing-control-states-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -563,26 +694,34 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (route53-recovery-cluster-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)
-      (reason :initarg :reason :initform common-lisp:nil :reader
+      (reason :initarg :|reason| :initform common-lisp:nil :reader
        validation-exception-reason)
-      (fields :initarg :fields :initform common-lisp:nil :reader
+      (fields :initarg :|fields| :initform common-lisp:nil :reader
        validation-exception-fields)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message
                     'validation-exception-reason 'validation-exception-fields)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validation-exception-field (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validation-exception-field-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string common-lisp:null))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass validation-exception-field common-lisp:nil
+                       ((message :initarg :|message| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-exception-field-message :initform
+                         (common-lisp:error ":message is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-exception-field-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'validation-exception-field
                     'make-validation-exception-field))
+ (common-lisp:defun make-validation-exception-field
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message name)
+   (common-lisp:apply #'common-lisp:make-instance 'validation-exception-field
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

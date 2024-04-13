@@ -36,17 +36,31 @@
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:deftype control-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-home-region-control-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-home-region-control-request-"))
-   (home-region (common-lisp:error ":home-region is required") :type
-    (common-lisp:or home-region common-lisp:null))
-   (target (common-lisp:error ":target is required") :type
-    (common-lisp:or target common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass create-home-region-control-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %create-home-region-control-request-dry-run :initform
+                         common-lisp:nil)
+                        (target :initarg :target :type
+                         (common-lisp:or target common-lisp:null) :accessor
+                         %create-home-region-control-request-target :initform
+                         (common-lisp:error ":target is required"))
+                        (home-region :initarg :home-region :type
+                         (common-lisp:or home-region common-lisp:null)
+                         :accessor
+                         %create-home-region-control-request-home-region
+                         :initform
+                         (common-lisp:error ":home-region is required"))))
  (common-lisp:export
   (common-lisp:list 'create-home-region-control-request
                     'make-create-home-region-control-request))
+ (common-lisp:defun make-create-home-region-control-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run target home-region)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-home-region-control-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -84,14 +98,23 @@
                           create-home-region-control-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-home-region-control-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-home-region-control-result-"))
-   (home-region-control common-lisp:nil :type
-    (common-lisp:or home-region-control common-lisp:null)))
+ (common-lisp:defclass create-home-region-control-result common-lisp:nil
+                       ((home-region-control :initarg :home-region-control
+                         :type
+                         (common-lisp:or home-region-control common-lisp:null)
+                         :accessor
+                         %create-home-region-control-result-home-region-control
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-home-region-control-result
                     'make-create-home-region-control-result))
+ (common-lisp:defun make-create-home-region-control-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key home-region-control)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-home-region-control-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -117,21 +140,42 @@
 (common-lisp:deftype describe-home-region-controls-max-results ()
   'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-home-region-controls-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-home-region-controls-request-"))
-   (control-id common-lisp:nil :type
-    (common-lisp:or control-id common-lisp:null))
-   (home-region common-lisp:nil :type
-    (common-lisp:or home-region common-lisp:null))
-   (target common-lisp:nil :type (common-lisp:or target common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or describe-home-region-controls-max-results
-                    common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass describe-home-region-controls-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %describe-home-region-controls-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or
+                          describe-home-region-controls-max-results
+                          common-lisp:null)
+                         :accessor
+                         %describe-home-region-controls-request-max-results
+                         :initform common-lisp:nil)
+                        (target :initarg :target :type
+                         (common-lisp:or target common-lisp:null) :accessor
+                         %describe-home-region-controls-request-target
+                         :initform common-lisp:nil)
+                        (home-region :initarg :home-region :type
+                         (common-lisp:or home-region common-lisp:null)
+                         :accessor
+                         %describe-home-region-controls-request-home-region
+                         :initform common-lisp:nil)
+                        (control-id :initarg :control-id :type
+                         (common-lisp:or control-id common-lisp:null) :accessor
+                         %describe-home-region-controls-request-control-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-home-region-controls-request
                     'make-describe-home-region-controls-request))
+ (common-lisp:defun make-describe-home-region-controls-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results target home-region
+                     control-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-home-region-controls-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -183,15 +227,27 @@
                           describe-home-region-controls-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-home-region-controls-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-home-region-controls-result-"))
-   (home-region-controls common-lisp:nil :type
-    (common-lisp:or home-region-controls common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass describe-home-region-controls-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %describe-home-region-controls-result-next-token
+                         :initform common-lisp:nil)
+                        (home-region-controls :initarg :home-region-controls
+                         :type
+                         (common-lisp:or home-region-controls common-lisp:null)
+                         :accessor
+                         %describe-home-region-controls-result-home-region-controls
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-home-region-controls-result
                     'make-describe-home-region-controls-result))
+ (common-lisp:defun make-describe-home-region-controls-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token home-region-controls)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-home-region-controls-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -232,11 +288,15 @@
   (common-lisp:list 'dry-run-operation 'dry-run-operation-message)))
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-home-region-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-home-region-request-")))
+ (common-lisp:defclass get-home-region-request common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'get-home-region-request 'make-get-home-region-request))
+ (common-lisp:defun make-get-home-region-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'get-home-region-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -253,13 +313,19 @@
                           get-home-region-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-home-region-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-home-region-result-"))
-   (home-region common-lisp:nil :type
-    (common-lisp:or home-region common-lisp:null)))
+ (common-lisp:defclass get-home-region-result common-lisp:nil
+                       ((home-region :initarg :home-region :type
+                         (common-lisp:or home-region common-lisp:null)
+                         :accessor %get-home-region-result-home-region
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-home-region-result 'make-get-home-region-result))
+ (common-lisp:defun make-get-home-region-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key home-region)
+   (common-lisp:apply #'common-lisp:make-instance 'get-home-region-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -284,18 +350,31 @@
    common-lisp:nil))
 (common-lisp:deftype home-region () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (home-region-control (:copier common-lisp:nil)
-      (:conc-name "struct-shape-home-region-control-"))
-   (control-id common-lisp:nil :type
-    (common-lisp:or control-id common-lisp:null))
-   (home-region common-lisp:nil :type
-    (common-lisp:or home-region common-lisp:null))
-   (target common-lisp:nil :type (common-lisp:or target common-lisp:null))
-   (requested-time common-lisp:nil :type
-    (common-lisp:or requested-time common-lisp:null)))
+ (common-lisp:defclass home-region-control common-lisp:nil
+                       ((requested-time :initarg :requested-time :type
+                         (common-lisp:or requested-time common-lisp:null)
+                         :accessor %home-region-control-requested-time
+                         :initform common-lisp:nil)
+                        (target :initarg :target :type
+                         (common-lisp:or target common-lisp:null) :accessor
+                         %home-region-control-target :initform common-lisp:nil)
+                        (home-region :initarg :home-region :type
+                         (common-lisp:or home-region common-lisp:null)
+                         :accessor %home-region-control-home-region :initform
+                         common-lisp:nil)
+                        (control-id :initarg :control-id :type
+                         (common-lisp:or control-id common-lisp:null) :accessor
+                         %home-region-control-control-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'home-region-control 'make-home-region-control))
+ (common-lisp:defun make-home-region-control
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key requested-time target home-region
+                     control-id)
+   (common-lisp:apply #'common-lisp:make-instance 'home-region-control
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input home-region-control))
    (common-lisp:append))
@@ -366,12 +445,21 @@
   (common-lisp:list 'service-unavailable-exception
                     'service-unavailable-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (target (:copier common-lisp:nil) (:conc-name "struct-shape-target-"))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or target-type common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or target-id common-lisp:null)))
+ (common-lisp:defclass target common-lisp:nil
+                       ((id :initarg :id :type
+                         (common-lisp:or target-id common-lisp:null) :accessor
+                         %target-id :initform common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or target-type common-lisp:null)
+                         :accessor %target-type :initform
+                         (common-lisp:error ":type is required"))))
  (common-lisp:export (common-lisp:list 'target 'make-target))
+ (common-lisp:defun make-target
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id type)
+   (common-lisp:apply #'common-lisp:make-instance 'target
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input target))
    (common-lisp:append))

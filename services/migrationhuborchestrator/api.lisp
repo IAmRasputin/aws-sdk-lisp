@@ -29,38 +29,72 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (migrationhuborchestrator-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:deftype application-configuration-name () 'common-lisp:string)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-migration-workflow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-migration-workflow-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or create-migration-workflow-request-name-string
-                    common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or create-migration-workflow-request-description-string
-                    common-lisp:null))
-   (template-id (common-lisp:error ":templateid is required") :type
-    (common-lisp:or create-migration-workflow-request-template-id-string
-                    common-lisp:null))
-   (application-configuration-id
-    (common-lisp:error ":applicationconfigurationid is required") :type
-    (common-lisp:or
-     create-migration-workflow-request-application-configuration-id-string
-     common-lisp:null))
-   (input-parameters (common-lisp:error ":inputparameters is required") :type
-    (common-lisp:or step-input-parameters common-lisp:null))
-   (step-targets common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or string-map common-lisp:null)))
+ (common-lisp:defclass create-migration-workflow-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or string-map common-lisp:null) :accessor
+                         %create-migration-workflow-request-tags :initform
+                         common-lisp:nil)
+                        (step-targets :initarg :|stepTargets| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %create-migration-workflow-request-step-targets
+                         :initform common-lisp:nil)
+                        (input-parameters :initarg :|inputParameters| :type
+                         (common-lisp:or step-input-parameters
+                                         common-lisp:null)
+                         :accessor
+                         %create-migration-workflow-request-input-parameters
+                         :initform
+                         (common-lisp:error ":inputparameters is required"))
+                        (application-configuration-id :initarg
+                         :|applicationConfigurationId| :type
+                         (common-lisp:or
+                          create-migration-workflow-request-application-configuration-id-string
+                          common-lisp:null)
+                         :accessor
+                         %create-migration-workflow-request-application-configuration-id
+                         :initform
+                         (common-lisp:error
+                          ":applicationconfigurationid is required"))
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or
+                          create-migration-workflow-request-template-id-string
+                          common-lisp:null)
+                         :accessor
+                         %create-migration-workflow-request-template-id
+                         :initform
+                         (common-lisp:error ":templateid is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or
+                          create-migration-workflow-request-description-string
+                          common-lisp:null)
+                         :accessor
+                         %create-migration-workflow-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or
+                          create-migration-workflow-request-name-string
+                          common-lisp:null)
+                         :accessor %create-migration-workflow-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-migration-workflow-request
                     'make-create-migration-workflow-request))
+ (common-lisp:defun make-create-migration-workflow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags step-targets input-parameters
+                     application-configuration-id template-id description name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-migration-workflow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -136,29 +170,69 @@
 (common-lisp:deftype create-migration-workflow-request-template-id-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-migration-workflow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-migration-workflow-response-"))
-   (id common-lisp:nil :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (template-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (ads-application-configuration-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (workflow-inputs common-lisp:nil :type
-    (common-lisp:or step-input-parameters common-lisp:null))
-   (step-targets common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or string-map common-lisp:null)))
+ (common-lisp:defclass create-migration-workflow-response common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or string-map common-lisp:null) :accessor
+                         %create-migration-workflow-response-tags :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %create-migration-workflow-response-creation-time
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %create-migration-workflow-response-status
+                         :initform common-lisp:nil)
+                        (step-targets :initarg :|stepTargets| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %create-migration-workflow-response-step-targets
+                         :initform common-lisp:nil)
+                        (workflow-inputs :initarg :|workflowInputs| :type
+                         (common-lisp:or step-input-parameters
+                                         common-lisp:null)
+                         :accessor
+                         %create-migration-workflow-response-workflow-inputs
+                         :initform common-lisp:nil)
+                        (ads-application-configuration-id :initarg
+                         :|adsApplicationConfigurationId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-migration-workflow-response-ads-application-configuration-id
+                         :initform common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-migration-workflow-response-template-id
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-migration-workflow-response-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-migration-workflow-response-name :initform
+                         common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-migration-workflow-response-arn :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %create-migration-workflow-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-migration-workflow-response
                     'make-create-migration-workflow-response))
+ (common-lisp:defun make-create-migration-workflow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags creation-time status step-targets
+                     workflow-inputs ads-application-configuration-id
+                     template-id description name arn id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-migration-workflow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -253,21 +327,43 @@
                           create-migration-workflow-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-workflow-step-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-workflow-step-group-request-"))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or step-group-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or step-group-description common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass create-workflow-step-group-request common-lisp:nil
+                       ((previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-workflow-step-group-request-previous
+                         :initform common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-workflow-step-group-request-next
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or step-group-description
+                                         common-lisp:null)
+                         :accessor
+                         %create-workflow-step-group-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or step-group-name common-lisp:null)
+                         :accessor %create-workflow-step-group-request-name
+                         :initform (common-lisp:error ":name is required"))
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor
+                         %create-workflow-step-group-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))))
  (common-lisp:export
   (common-lisp:list 'create-workflow-step-group-request
                     'make-create-workflow-step-group-request))
+ (common-lisp:defun make-create-workflow-step-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key previous next description name
+                     workflow-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-workflow-step-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -319,22 +415,51 @@
                           create-workflow-step-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-workflow-step-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-workflow-step-group-response-"))
-   (workflow-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (tools common-lisp:nil :type (common-lisp:or tools-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass create-workflow-step-group-response common-lisp:nil
+                       ((creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %create-workflow-step-group-response-creation-time
+                         :initform common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %create-workflow-step-group-response-previous
+                         :initform common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-workflow-step-group-response-next
+                         :initform common-lisp:nil)
+                        (tools :initarg :|tools| :type
+                         (common-lisp:or tools-list common-lisp:null) :accessor
+                         %create-workflow-step-group-response-tools :initform
+                         common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-group-response-description
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-group-response-id :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-group-response-name :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-group-response-workflow-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-workflow-step-group-response
                     'make-create-workflow-step-group-response))
+ (common-lisp:defun make-create-workflow-step-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-time previous next tools
+                     description id name workflow-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-workflow-step-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -407,31 +532,69 @@
                           create-workflow-step-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-workflow-step-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-workflow-step-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or migration-workflow-name common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (step-action-type (common-lisp:error ":stepactiontype is required") :type
-    (common-lisp:or step-action-type common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or migration-workflow-description common-lisp:null))
-   (workflow-step-automation-configuration common-lisp:nil :type
-    (common-lisp:or workflow-step-automation-configuration common-lisp:null))
-   (step-target common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (outputs common-lisp:nil :type
-    (common-lisp:or workflow-step-output-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass create-workflow-step-request common-lisp:nil
+                       ((next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-workflow-step-request-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-workflow-step-request-previous
+                         :initform common-lisp:nil)
+                        (outputs :initarg :|outputs| :type
+                         (common-lisp:or workflow-step-output-list
+                                         common-lisp:null)
+                         :accessor %create-workflow-step-request-outputs
+                         :initform common-lisp:nil)
+                        (step-target :initarg :|stepTarget| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-workflow-step-request-step-target
+                         :initform common-lisp:nil)
+                        (workflow-step-automation-configuration :initarg
+                         :|workflowStepAutomationConfiguration| :type
+                         (common-lisp:or workflow-step-automation-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %create-workflow-step-request-workflow-step-automation-configuration
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or migration-workflow-description
+                                         common-lisp:null)
+                         :accessor %create-workflow-step-request-description
+                         :initform common-lisp:nil)
+                        (step-action-type :initarg :|stepActionType| :type
+                         (common-lisp:or step-action-type common-lisp:null)
+                         :accessor
+                         %create-workflow-step-request-step-action-type
+                         :initform
+                         (common-lisp:error ":stepactiontype is required"))
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %create-workflow-step-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %create-workflow-step-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or migration-workflow-name
+                                         common-lisp:null)
+                         :accessor %create-workflow-step-request-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-workflow-step-request
                     'make-create-workflow-step-request))
+ (common-lisp:defun make-create-workflow-step-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next previous outputs step-target
+                     workflow-step-automation-configuration description
+                     step-action-type workflow-id step-group-id name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-workflow-step-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -519,17 +682,33 @@
                           create-workflow-step-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-workflow-step-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-workflow-step-response-"))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-group-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (workflow-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass create-workflow-step-response common-lisp:nil
+                       ((name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-response-name :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-response-workflow-id :initform
+                         common-lisp:nil)
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-response-step-group-id :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-workflow-step-response-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-workflow-step-response
                     'make-create-workflow-step-response))
+ (common-lisp:defun make-create-workflow-step-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name workflow-id step-group-id id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-workflow-step-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -575,14 +754,22 @@
    common-lisp:nil))
 (common-lisp:deftype data-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-migration-workflow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-migration-workflow-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null)))
+ (common-lisp:defclass delete-migration-workflow-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %delete-migration-workflow-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-migration-workflow-request
                     'make-delete-migration-workflow-request))
+ (common-lisp:defun make-delete-migration-workflow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-migration-workflow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -599,17 +786,31 @@
                           delete-migration-workflow-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-migration-workflow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-migration-workflow-response-"))
-   (id common-lisp:nil :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null)))
+ (common-lisp:defclass delete-migration-workflow-response common-lisp:nil
+                       ((status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %delete-migration-workflow-response-status
+                         :initform common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-migration-workflow-response-arn :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %delete-migration-workflow-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-migration-workflow-response
                     'make-delete-migration-workflow-response))
+ (common-lisp:defun make-delete-migration-workflow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status arn id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-migration-workflow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -647,16 +848,28 @@
                           delete-migration-workflow-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-workflow-step-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-workflow-step-group-request-"))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-group-id common-lisp:null)))
+ (common-lisp:defclass delete-workflow-step-group-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %delete-workflow-step-group-request-id
+                         :initform (common-lisp:error ":id is required"))
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor
+                         %delete-workflow-step-group-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-workflow-step-group-request
                     'make-delete-workflow-step-group-request))
+ (common-lisp:defun make-delete-workflow-step-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id workflow-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-workflow-step-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -673,12 +886,18 @@
                           delete-workflow-step-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-workflow-step-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-workflow-step-group-response-")))
+ (common-lisp:defclass delete-workflow-step-group-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-workflow-step-group-response
                     'make-delete-workflow-step-group-response))
+ (common-lisp:defun make-delete-workflow-step-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-workflow-step-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -695,18 +914,31 @@
                           delete-workflow-step-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-workflow-step-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-workflow-step-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-id common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null)))
+ (common-lisp:defclass delete-workflow-step-request common-lisp:nil
+                       ((workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %delete-workflow-step-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %delete-workflow-step-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-id common-lisp:null) :accessor
+                         %delete-workflow-step-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-workflow-step-request
                     'make-delete-workflow-step-request))
+ (common-lisp:defun make-delete-workflow-step-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key workflow-id step-group-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-workflow-step-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -723,12 +955,18 @@
                           delete-workflow-step-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-workflow-step-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-workflow-step-response-")))
+ (common-lisp:defclass delete-workflow-step-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-workflow-step-response
                     'make-delete-workflow-step-response))
+ (common-lisp:defun make-delete-workflow-step-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-workflow-step-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -745,14 +983,22 @@
                           delete-workflow-step-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-migration-workflow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-migration-workflow-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null)))
+ (common-lisp:defclass get-migration-workflow-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %get-migration-workflow-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-migration-workflow-request
                     'make-get-migration-workflow-request))
+ (common-lisp:defun make-get-migration-workflow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-migration-workflow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -769,45 +1015,108 @@
                           get-migration-workflow-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-migration-workflow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-migration-workflow-response-"))
-   (id common-lisp:nil :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (template-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (ads-application-configuration-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (ads-application-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-start-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-stop-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (end-time common-lisp:nil :type (common-lisp:or timestamp common-lisp:null))
-   (tools common-lisp:nil :type (common-lisp:or tools-list common-lisp:null))
-   (total-steps common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (completed-steps common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (workflow-inputs common-lisp:nil :type
-    (common-lisp:or step-input-parameters common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or string-map common-lisp:null))
-   (workflow-bucket common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass get-migration-workflow-response common-lisp:nil
+                       ((workflow-bucket :initarg :|workflowBucket| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-response-workflow-bucket
+                         :initform common-lisp:nil)
+                        (tags :initarg :|tags| :type
+                         (common-lisp:or string-map common-lisp:null) :accessor
+                         %get-migration-workflow-response-tags :initform
+                         common-lisp:nil)
+                        (workflow-inputs :initarg :|workflowInputs| :type
+                         (common-lisp:or step-input-parameters
+                                         common-lisp:null)
+                         :accessor
+                         %get-migration-workflow-response-workflow-inputs
+                         :initform common-lisp:nil)
+                        (completed-steps :initarg :|completedSteps| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-migration-workflow-response-completed-steps
+                         :initform common-lisp:nil)
+                        (total-steps :initarg :|totalSteps| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-migration-workflow-response-total-steps :initform
+                         common-lisp:nil)
+                        (tools :initarg :|tools| :type
+                         (common-lisp:or tools-list common-lisp:null) :accessor
+                         %get-migration-workflow-response-tools :initform
+                         common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-migration-workflow-response-end-time :initform
+                         common-lisp:nil)
+                        (last-modified-time :initarg :|lastModifiedTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-migration-workflow-response-last-modified-time
+                         :initform common-lisp:nil)
+                        (last-stop-time :initarg :|lastStopTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-migration-workflow-response-last-stop-time
+                         :initform common-lisp:nil)
+                        (last-start-time :initarg :|lastStartTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-migration-workflow-response-last-start-time
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-migration-workflow-response-creation-time
+                         :initform common-lisp:nil)
+                        (status-message :initarg :|statusMessage| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-response-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %get-migration-workflow-response-status
+                         :initform common-lisp:nil)
+                        (ads-application-name :initarg :|adsApplicationName|
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor
+                         %get-migration-workflow-response-ads-application-name
+                         :initform common-lisp:nil)
+                        (ads-application-configuration-id :initarg
+                         :|adsApplicationConfigurationId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-response-ads-application-configuration-id
+                         :initform common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-response-template-id :initform
+                         common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-response-description :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-response-name :initform
+                         common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-response-arn :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %get-migration-workflow-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-migration-workflow-response
                     'make-get-migration-workflow-response))
+ (common-lisp:defun make-get-migration-workflow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key workflow-bucket tags workflow-inputs
+                     completed-steps total-steps tools end-time
+                     last-modified-time last-stop-time last-start-time
+                     creation-time status-message status ads-application-name
+                     ads-application-configuration-id template-id description
+                     name arn id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-migration-workflow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -966,14 +1275,21 @@
                           get-migration-workflow-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-migration-workflow-template-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-migration-workflow-template-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or template-id common-lisp:null)))
+ (common-lisp:defclass get-migration-workflow-template-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or template-id common-lisp:null)
+                         :accessor %get-migration-workflow-template-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-migration-workflow-template-request
                     'make-get-migration-workflow-template-request))
+ (common-lisp:defun make-get-migration-workflow-template-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-migration-workflow-template-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -990,22 +1306,48 @@
                           get-migration-workflow-template-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-migration-workflow-template-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-migration-workflow-template-response-"))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (inputs common-lisp:nil :type
-    (common-lisp:or template-input-list common-lisp:null))
-   (tools common-lisp:nil :type (common-lisp:or tools-list common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or template-status common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass get-migration-workflow-template-response common-lisp:nil
+                       ((creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-migration-workflow-template-response-creation-time
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or template-status common-lisp:null)
+                         :accessor
+                         %get-migration-workflow-template-response-status
+                         :initform common-lisp:nil)
+                        (tools :initarg :|tools| :type
+                         (common-lisp:or tools-list common-lisp:null) :accessor
+                         %get-migration-workflow-template-response-tools
+                         :initform common-lisp:nil)
+                        (inputs :initarg :|inputs| :type
+                         (common-lisp:or template-input-list common-lisp:null)
+                         :accessor
+                         %get-migration-workflow-template-response-inputs
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-template-response-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-template-response-name
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-migration-workflow-template-response-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-migration-workflow-template-response
                     'make-get-migration-workflow-template-response))
+ (common-lisp:defun make-get-migration-workflow-template-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key creation-time status tools inputs
+                     description name id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-migration-workflow-template-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1071,16 +1413,26 @@
                           get-migration-workflow-template-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-template-step-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-template-step-group-request-"))
-   (template-id (common-lisp:error ":templateid is required") :type
-    (common-lisp:or template-id common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-group-id common-lisp:null)))
+ (common-lisp:defclass get-template-step-group-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %get-template-step-group-request-id
+                         :initform (common-lisp:error ":id is required"))
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or template-id common-lisp:null)
+                         :accessor %get-template-step-group-request-template-id
+                         :initform
+                         (common-lisp:error ":templateid is required"))))
  (common-lisp:export
   (common-lisp:list 'get-template-step-group-request
                     'make-get-template-step-group-request))
+ (common-lisp:defun make-get-template-step-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id template-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-template-step-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1097,26 +1449,58 @@
                           get-template-step-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-template-step-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-template-step-group-response-"))
-   (template-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or step-group-status common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (tools common-lisp:nil :type (common-lisp:or tools-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass get-template-step-group-response common-lisp:nil
+                       ((next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-template-step-group-response-next
+                         :initform common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-template-step-group-response-previous
+                         :initform common-lisp:nil)
+                        (tools :initarg :|tools| :type
+                         (common-lisp:or tools-list common-lisp:null) :accessor
+                         %get-template-step-group-response-tools :initform
+                         common-lisp:nil)
+                        (last-modified-time :initarg :|lastModifiedTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-template-step-group-response-last-modified-time
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-template-step-group-response-creation-time
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or step-group-status common-lisp:null)
+                         :accessor %get-template-step-group-response-status
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-template-step-group-response-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-template-step-group-response-name :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-template-step-group-response-id :initform
+                         common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-template-step-group-response-template-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-template-step-group-response
                     'make-get-template-step-group-response))
+ (common-lisp:defun make-get-template-step-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next previous tools last-modified-time
+                     creation-time status description name id template-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-template-step-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1203,18 +1587,30 @@
                           get-template-step-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-template-step-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-template-step-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-id common-lisp:null))
-   (template-id (common-lisp:error ":templateid is required") :type
-    (common-lisp:or template-id common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null)))
+ (common-lisp:defclass get-template-step-request common-lisp:nil
+                       ((step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %get-template-step-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or template-id common-lisp:null)
+                         :accessor %get-template-step-request-template-id
+                         :initform
+                         (common-lisp:error ":templateid is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-id common-lisp:null) :accessor
+                         %get-template-step-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-template-step-request
                     'make-get-template-step-request))
+ (common-lisp:defun make-get-template-step-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key step-group-id template-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-template-step-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1231,30 +1627,65 @@
                           get-template-step-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-template-step-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-template-step-response-"))
-   (id common-lisp:nil :type (common-lisp:or step-id common-lisp:null))
-   (step-group-id common-lisp:nil :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (template-id common-lisp:nil :type
-    (common-lisp:or template-id common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-action-type common-lisp:nil :type
-    (common-lisp:or step-action-type common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (outputs common-lisp:nil :type
-    (common-lisp:or step-output-list common-lisp:null))
-   (step-automation-configuration common-lisp:nil :type
-    (common-lisp:or step-automation-configuration common-lisp:null)))
+ (common-lisp:defclass get-template-step-response common-lisp:nil
+                       ((step-automation-configuration :initarg
+                         :|stepAutomationConfiguration| :type
+                         (common-lisp:or step-automation-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %get-template-step-response-step-automation-configuration
+                         :initform common-lisp:nil)
+                        (outputs :initarg :|outputs| :type
+                         (common-lisp:or step-output-list common-lisp:null)
+                         :accessor %get-template-step-response-outputs
+                         :initform common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-template-step-response-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-template-step-response-previous
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-template-step-response-creation-time :initform
+                         common-lisp:nil)
+                        (step-action-type :initarg :|stepActionType| :type
+                         (common-lisp:or step-action-type common-lisp:null)
+                         :accessor %get-template-step-response-step-action-type
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-template-step-response-description :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-template-step-response-name :initform
+                         common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or template-id common-lisp:null)
+                         :accessor %get-template-step-response-template-id
+                         :initform common-lisp:nil)
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %get-template-step-response-step-group-id
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-id common-lisp:null) :accessor
+                         %get-template-step-response-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-template-step-response
                     'make-get-template-step-response))
+ (common-lisp:defun make-get-template-step-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key step-automation-configuration outputs
+                     next previous creation-time step-action-type description
+                     name template-id step-group-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-template-step-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1349,16 +1780,27 @@
                           get-template-step-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-workflow-step-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-workflow-step-group-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null)))
+ (common-lisp:defclass get-workflow-step-group-request common-lisp:nil
+                       ((workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %get-workflow-step-group-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %get-workflow-step-group-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-workflow-step-group-request
                     'make-get-workflow-step-group-request))
+ (common-lisp:defun make-get-workflow-step-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key workflow-id id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-workflow-step-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1375,28 +1817,67 @@
                           get-workflow-step-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-workflow-step-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-workflow-step-group-response-"))
-   (id common-lisp:nil :type (common-lisp:or step-group-id common-lisp:null))
-   (workflow-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or step-group-status common-lisp:null))
-   (owner common-lisp:nil :type (common-lisp:or owner common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (end-time common-lisp:nil :type (common-lisp:or timestamp common-lisp:null))
-   (tools common-lisp:nil :type (common-lisp:or tools-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass get-workflow-step-group-response common-lisp:nil
+                       ((next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-workflow-step-group-response-next
+                         :initform common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-workflow-step-group-response-previous
+                         :initform common-lisp:nil)
+                        (tools :initarg :|tools| :type
+                         (common-lisp:or tools-list common-lisp:null) :accessor
+                         %get-workflow-step-group-response-tools :initform
+                         common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-workflow-step-group-response-end-time :initform
+                         common-lisp:nil)
+                        (last-modified-time :initarg :|lastModifiedTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-workflow-step-group-response-last-modified-time
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-workflow-step-group-response-creation-time
+                         :initform common-lisp:nil)
+                        (owner :initarg :|owner| :type
+                         (common-lisp:or owner common-lisp:null) :accessor
+                         %get-workflow-step-group-response-owner :initform
+                         common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or step-group-status common-lisp:null)
+                         :accessor %get-workflow-step-group-response-status
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-group-response-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-group-response-name :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-group-response-workflow-id
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %get-workflow-step-group-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-workflow-step-group-response
                     'make-get-workflow-step-group-response))
+ (common-lisp:defun make-get-workflow-step-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next previous tools end-time
+                     last-modified-time creation-time owner status description
+                     name workflow-id id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-workflow-step-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1497,18 +1978,31 @@
                           get-workflow-step-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-workflow-step-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-workflow-step-request-"))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-id common-lisp:null)))
+ (common-lisp:defclass get-workflow-step-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or step-id common-lisp:null) :accessor
+                         %get-workflow-step-request-id :initform
+                         (common-lisp:error ":id is required"))
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %get-workflow-step-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %get-workflow-step-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))))
  (common-lisp:export
   (common-lisp:list 'get-workflow-step-request
                     'make-get-workflow-step-request))
+ (common-lisp:defun make-get-workflow-step-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id step-group-id workflow-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-workflow-step-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1525,46 +2019,111 @@
                           get-workflow-step-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-workflow-step-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-workflow-step-response-"))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-group-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (workflow-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-action-type common-lisp:nil :type
-    (common-lisp:or step-action-type common-lisp:null))
-   (owner common-lisp:nil :type (common-lisp:or owner common-lisp:null))
-   (workflow-step-automation-configuration common-lisp:nil :type
-    (common-lisp:or workflow-step-automation-configuration common-lisp:null))
-   (step-target common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (outputs common-lisp:nil :type
-    (common-lisp:or get-workflow-step-response-outputs-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or step-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (script-output-location common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-start-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (end-time common-lisp:nil :type (common-lisp:or timestamp common-lisp:null))
-   (no-of-srv-completed common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (no-of-srv-failed common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (total-no-of-srv common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass get-workflow-step-response common-lisp:nil
+                       ((total-no-of-srv :initarg :|totalNoOfSrv| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-workflow-step-response-total-no-of-srv :initform
+                         common-lisp:nil)
+                        (no-of-srv-failed :initarg :|noOfSrvFailed| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-workflow-step-response-no-of-srv-failed :initform
+                         common-lisp:nil)
+                        (no-of-srv-completed :initarg :|noOfSrvCompleted| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %get-workflow-step-response-no-of-srv-completed
+                         :initform common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-workflow-step-response-end-time :initform
+                         common-lisp:nil)
+                        (last-start-time :initarg :|lastStartTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-workflow-step-response-last-start-time :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %get-workflow-step-response-creation-time :initform
+                         common-lisp:nil)
+                        (script-output-location :initarg
+                         :|scriptOutputLocation| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-response-script-output-location
+                         :initform common-lisp:nil)
+                        (status-message :initarg :|statusMessage| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-response-status-message :initform
+                         common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or step-status common-lisp:null)
+                         :accessor %get-workflow-step-response-status :initform
+                         common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-workflow-step-response-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-workflow-step-response-previous
+                         :initform common-lisp:nil)
+                        (outputs :initarg :|outputs| :type
+                         (common-lisp:or
+                          get-workflow-step-response-outputs-list
+                          common-lisp:null)
+                         :accessor %get-workflow-step-response-outputs
+                         :initform common-lisp:nil)
+                        (step-target :initarg :|stepTarget| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-workflow-step-response-step-target
+                         :initform common-lisp:nil)
+                        (workflow-step-automation-configuration :initarg
+                         :|workflowStepAutomationConfiguration| :type
+                         (common-lisp:or workflow-step-automation-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %get-workflow-step-response-workflow-step-automation-configuration
+                         :initform common-lisp:nil)
+                        (owner :initarg :|owner| :type
+                         (common-lisp:or owner common-lisp:null) :accessor
+                         %get-workflow-step-response-owner :initform
+                         common-lisp:nil)
+                        (step-action-type :initarg :|stepActionType| :type
+                         (common-lisp:or step-action-type common-lisp:null)
+                         :accessor %get-workflow-step-response-step-action-type
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-response-description :initform
+                         common-lisp:nil)
+                        (step-id :initarg :|stepId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-response-step-id :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-response-workflow-id :initform
+                         common-lisp:nil)
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-response-step-group-id :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-workflow-step-response-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-workflow-step-response
                     'make-get-workflow-step-response))
+ (common-lisp:defun make-get-workflow-step-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key total-no-of-srv no-of-srv-failed
+                     no-of-srv-completed end-time last-start-time creation-time
+                     script-output-location status-message status next previous
+                     outputs step-target workflow-step-automation-configuration
+                     owner step-action-type description step-id workflow-id
+                     step-group-id name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-workflow-step-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1742,24 +2301,38 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (migrationhuborchestrator-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-migration-workflow-templates-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-migration-workflow-templates-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or template-name common-lisp:null)))
+ (common-lisp:defclass list-migration-workflow-templates-request
+                       common-lisp:nil
+                       ((name :initarg :|name| :type
+                         (common-lisp:or template-name common-lisp:null)
+                         :accessor
+                         %list-migration-workflow-templates-request-name
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-migration-workflow-templates-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-migration-workflow-templates-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-migration-workflow-templates-request
                     'make-list-migration-workflow-templates-request))
+ (common-lisp:defun make-list-migration-workflow-templates-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-migration-workflow-templates-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1776,16 +2349,29 @@
                           list-migration-workflow-templates-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-migration-workflow-templates-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-migration-workflow-templates-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (template-summary (common-lisp:error ":templatesummary is required") :type
-    (common-lisp:or template-summary-list common-lisp:null)))
+ (common-lisp:defclass list-migration-workflow-templates-response
+                       common-lisp:nil
+                       ((template-summary :initarg :|templateSummary| :type
+                         (common-lisp:or template-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-migration-workflow-templates-response-template-summary
+                         :initform
+                         (common-lisp:error ":templatesummary is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-migration-workflow-templates-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-migration-workflow-templates-response
                     'make-list-migration-workflow-templates-response))
+ (common-lisp:defun make-list-migration-workflow-templates-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key template-summary next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-migration-workflow-templates-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1816,23 +2402,49 @@
                           list-migration-workflow-templates-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-migration-workflows-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-migration-workflows-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (template-id common-lisp:nil :type
-    (common-lisp:or template-id common-lisp:null))
-   (ads-application-configuration-name common-lisp:nil :type
-    (common-lisp:or application-configuration-name common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-migration-workflows-request common-lisp:nil
+                       ((name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-migration-workflows-request-name :initform
+                         common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %list-migration-workflows-request-status
+                         :initform common-lisp:nil)
+                        (ads-application-configuration-name :initarg
+                         :|adsApplicationConfigurationName| :type
+                         (common-lisp:or application-configuration-name
+                                         common-lisp:null)
+                         :accessor
+                         %list-migration-workflows-request-ads-application-configuration-name
+                         :initform common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or template-id common-lisp:null)
+                         :accessor
+                         %list-migration-workflows-request-template-id
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-migration-workflows-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-migration-workflows-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-migration-workflows-request
                     'make-list-migration-workflows-request))
+ (common-lisp:defun make-list-migration-workflows-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name status
+                     ads-application-configuration-name template-id next-token
+                     max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-migration-workflows-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1849,17 +2461,30 @@
                           list-migration-workflows-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-migration-workflows-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-migration-workflows-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (migration-workflow-summary
-    (common-lisp:error ":migrationworkflowsummary is required") :type
-    (common-lisp:or migration-workflow-summary-list common-lisp:null)))
+ (common-lisp:defclass list-migration-workflows-response common-lisp:nil
+                       ((migration-workflow-summary :initarg
+                         :|migrationWorkflowSummary| :type
+                         (common-lisp:or migration-workflow-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-migration-workflows-response-migration-workflow-summary
+                         :initform
+                         (common-lisp:error
+                          ":migrationworkflowsummary is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-migration-workflows-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-migration-workflows-response
                     'make-list-migration-workflows-response))
+ (common-lisp:defun make-list-migration-workflows-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key migration-workflow-summary next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-migration-workflows-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1891,15 +2516,23 @@
                           list-migration-workflows-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-plugins-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-plugins-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-plugins-request common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-plugins-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-plugins-request-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-plugins-request 'make-list-plugins-request))
+ (common-lisp:defun make-list-plugins-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-plugins-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-plugins-request))
    (common-lisp:append))
@@ -1910,15 +2543,23 @@
                         ((aws-sdk/generator/shape::input list-plugins-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-plugins-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-plugins-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (plugins common-lisp:nil :type
-    (common-lisp:or plugin-summaries common-lisp:null)))
+ (common-lisp:defclass list-plugins-response common-lisp:nil
+                       ((plugins :initarg :|plugins| :type
+                         (common-lisp:or plugin-summaries common-lisp:null)
+                         :accessor %list-plugins-response-plugins :initform
+                         common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-plugins-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-plugins-response 'make-list-plugins-response))
+ (common-lisp:defun make-list-plugins-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key plugins next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-plugins-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1949,14 +2590,22 @@
                           list-plugins-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or resource-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1973,13 +2622,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2003,18 +2660,32 @@
                           list-tags-for-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-template-step-groups-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-template-step-groups-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (template-id (common-lisp:error ":templateid is required") :type
-    (common-lisp:or template-id common-lisp:null)))
+ (common-lisp:defclass list-template-step-groups-request common-lisp:nil
+                       ((template-id :initarg :|templateId| :type
+                         (common-lisp:or template-id common-lisp:null)
+                         :accessor
+                         %list-template-step-groups-request-template-id
+                         :initform
+                         (common-lisp:error ":templateid is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-template-step-groups-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-template-step-groups-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-template-step-groups-request
                     'make-list-template-step-groups-request))
+ (common-lisp:defun make-list-template-step-groups-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key template-id next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-template-step-groups-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2031,17 +2702,30 @@
                           list-template-step-groups-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-template-step-groups-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-template-step-groups-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (template-step-group-summary
-    (common-lisp:error ":templatestepgroupsummary is required") :type
-    (common-lisp:or template-step-group-summary-list common-lisp:null)))
+ (common-lisp:defclass list-template-step-groups-response common-lisp:nil
+                       ((template-step-group-summary :initarg
+                         :|templateStepGroupSummary| :type
+                         (common-lisp:or template-step-group-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-template-step-groups-response-template-step-group-summary
+                         :initform
+                         (common-lisp:error
+                          ":templatestepgroupsummary is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-template-step-groups-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-template-step-groups-response
                     'make-list-template-step-groups-response))
+ (common-lisp:defun make-list-template-step-groups-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key template-step-group-summary next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-template-step-groups-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2073,20 +2757,35 @@
                           list-template-step-groups-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-template-steps-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-template-steps-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (template-id (common-lisp:error ":templateid is required") :type
-    (common-lisp:or template-id common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null)))
+ (common-lisp:defclass list-template-steps-request common-lisp:nil
+                       ((step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %list-template-steps-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or template-id common-lisp:null)
+                         :accessor %list-template-steps-request-template-id
+                         :initform
+                         (common-lisp:error ":templateid is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-template-steps-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-template-steps-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-template-steps-request
                     'make-list-template-steps-request))
+ (common-lisp:defun make-list-template-steps-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key step-group-id template-id next-token
+                     max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-template-steps-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2103,16 +2802,27 @@
                           list-template-steps-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-template-steps-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-template-steps-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (template-step-summary-list common-lisp:nil :type
-    (common-lisp:or template-step-summary-list common-lisp:null)))
+ (common-lisp:defclass list-template-steps-response common-lisp:nil
+                       ((template-step-summary-list :initarg
+                         :|templateStepSummaryList| :type
+                         (common-lisp:or template-step-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-template-steps-response-template-step-summary-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-template-steps-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-template-steps-response
                     'make-list-template-steps-response))
+ (common-lisp:defun make-list-template-steps-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key template-step-summary-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-template-steps-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2144,18 +2854,33 @@
                           list-template-steps-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-workflow-step-groups-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-workflow-step-groups-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null)))
+ (common-lisp:defclass list-workflow-step-groups-request common-lisp:nil
+                       ((workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor
+                         %list-workflow-step-groups-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-workflow-step-groups-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-workflow-step-groups-request-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-workflow-step-groups-request
                     'make-list-workflow-step-groups-request))
+ (common-lisp:defun make-list-workflow-step-groups-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key workflow-id max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-workflow-step-groups-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2172,17 +2897,30 @@
                           list-workflow-step-groups-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-workflow-step-groups-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-workflow-step-groups-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (workflow-step-groups-summary
-    (common-lisp:error ":workflowstepgroupssummary is required") :type
-    (common-lisp:or workflow-step-groups-summary-list common-lisp:null)))
+ (common-lisp:defclass list-workflow-step-groups-response common-lisp:nil
+                       ((workflow-step-groups-summary :initarg
+                         :|workflowStepGroupsSummary| :type
+                         (common-lisp:or workflow-step-groups-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-workflow-step-groups-response-workflow-step-groups-summary
+                         :initform
+                         (common-lisp:error
+                          ":workflowstepgroupssummary is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-workflow-step-groups-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-workflow-step-groups-response
                     'make-list-workflow-step-groups-response))
+ (common-lisp:defun make-list-workflow-step-groups-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key workflow-step-groups-summary next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-workflow-step-groups-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2214,20 +2952,36 @@
                           list-workflow-step-groups-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-workflow-steps-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-workflow-steps-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null)))
+ (common-lisp:defclass list-workflow-steps-request common-lisp:nil
+                       ((step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %list-workflow-steps-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %list-workflow-steps-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-workflow-steps-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-workflow-steps-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-workflow-steps-request
                     'make-list-workflow-steps-request))
+ (common-lisp:defun make-list-workflow-steps-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key step-group-id workflow-id max-results
+                     next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-workflow-steps-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2244,17 +2998,29 @@
                           list-workflow-steps-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-workflow-steps-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-workflow-steps-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (workflow-steps-summary
-    (common-lisp:error ":workflowstepssummary is required") :type
-    (common-lisp:or workflow-steps-summary-list common-lisp:null)))
+ (common-lisp:defclass list-workflow-steps-response common-lisp:nil
+                       ((workflow-steps-summary :initarg
+                         :|workflowStepsSummary| :type
+                         (common-lisp:or workflow-steps-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-workflow-steps-response-workflow-steps-summary
+                         :initform
+                         (common-lisp:error
+                          ":workflowstepssummary is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-workflow-steps-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-workflow-steps-response
                     'make-list-workflow-steps-response))
+ (common-lisp:defun make-list-workflow-steps-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key workflow-steps-summary next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-workflow-steps-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2291,29 +3057,61 @@
 (common-lisp:deftype migration-workflow-name () 'common-lisp:string)
 (common-lisp:deftype migration-workflow-status-enum () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (migration-workflow-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-migration-workflow-summary-"))
-   (id common-lisp:nil :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (template-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (ads-application-configuration-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (end-time common-lisp:nil :type (common-lisp:or timestamp common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (completed-steps common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (total-steps common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass migration-workflow-summary common-lisp:nil
+                       ((total-steps :initarg :|totalSteps| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %migration-workflow-summary-total-steps :initform
+                         common-lisp:nil)
+                        (completed-steps :initarg :|completedSteps| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %migration-workflow-summary-completed-steps :initform
+                         common-lisp:nil)
+                        (status-message :initarg :|statusMessage| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %migration-workflow-summary-status-message :initform
+                         common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %migration-workflow-summary-end-time :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %migration-workflow-summary-creation-time :initform
+                         common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %migration-workflow-summary-status :initform
+                         common-lisp:nil)
+                        (ads-application-configuration-name :initarg
+                         :|adsApplicationConfigurationName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %migration-workflow-summary-ads-application-configuration-name
+                         :initform common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %migration-workflow-summary-template-id :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %migration-workflow-summary-name :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %migration-workflow-summary-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'migration-workflow-summary
                     'make-migration-workflow-summary))
+ (common-lisp:defun make-migration-workflow-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key total-steps completed-steps
+                     status-message end-time creation-time status
+                     ads-application-configuration-name template-id name id)
+   (common-lisp:apply #'common-lisp:make-instance 'migration-workflow-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2412,13 +3210,21 @@
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:deftype owner () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (platform-command (:copier common-lisp:nil)
-      (:conc-name "struct-shape-platform-command-"))
-   (linux common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (windows common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass platform-command common-lisp:nil
+                       ((windows :initarg :|windows| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %platform-command-windows :initform common-lisp:nil)
+                        (linux :initarg :|linux| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %platform-command-linux :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'platform-command 'make-platform-command))
+ (common-lisp:defun make-platform-command
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key windows linux)
+   (common-lisp:apply #'common-lisp:make-instance 'platform-command
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input platform-command))
    (common-lisp:append))
@@ -2443,13 +3249,23 @@
                         ((aws-sdk/generator/shape::input platform-command))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (platform-script-key (:copier common-lisp:nil)
-      (:conc-name "struct-shape-platform-script-key-"))
-   (linux common-lisp:nil :type (common-lisp:or s3key common-lisp:null))
-   (windows common-lisp:nil :type (common-lisp:or s3key common-lisp:null)))
+ (common-lisp:defclass platform-script-key common-lisp:nil
+                       ((windows :initarg :|windows| :type
+                         (common-lisp:or s3key common-lisp:null) :accessor
+                         %platform-script-key-windows :initform
+                         common-lisp:nil)
+                        (linux :initarg :|linux| :type
+                         (common-lisp:or s3key common-lisp:null) :accessor
+                         %platform-script-key-linux :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'platform-script-key 'make-platform-script-key))
+ (common-lisp:defun make-platform-script-key
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key windows linux)
+   (common-lisp:apply #'common-lisp:make-instance 'platform-script-key
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input platform-script-key))
    (common-lisp:append))
@@ -2484,21 +3300,36 @@
                            (trivial-types:proper-list plugin-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (plugin-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-plugin-summary-"))
-   (plugin-id common-lisp:nil :type
-    (common-lisp:or plugin-id common-lisp:null))
-   (hostname common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or plugin-health common-lisp:null))
-   (ip-address common-lisp:nil :type
-    (common-lisp:or ipaddress common-lisp:null))
-   (version common-lisp:nil :type
-    (common-lisp:or plugin-version common-lisp:null))
-   (registered-time common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass plugin-summary common-lisp:nil
+                       ((registered-time :initarg :|registeredTime| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %plugin-summary-registered-time :initform
+                         common-lisp:nil)
+                        (version :initarg :|version| :type
+                         (common-lisp:or plugin-version common-lisp:null)
+                         :accessor %plugin-summary-version :initform
+                         common-lisp:nil)
+                        (ip-address :initarg :|ipAddress| :type
+                         (common-lisp:or ipaddress common-lisp:null) :accessor
+                         %plugin-summary-ip-address :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or plugin-health common-lisp:null)
+                         :accessor %plugin-summary-status :initform
+                         common-lisp:nil)
+                        (hostname :initarg :|hostname| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %plugin-summary-hostname :initform common-lisp:nil)
+                        (plugin-id :initarg :|pluginId| :type
+                         (common-lisp:or plugin-id common-lisp:null) :accessor
+                         %plugin-summary-plugin-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'plugin-summary 'make-plugin-summary))
+ (common-lisp:defun make-plugin-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key registered-time version ip-address status
+                     hostname plugin-id)
+   (common-lisp:apply #'common-lisp:make-instance 'plugin-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input plugin-summary))
    (common-lisp:append))
@@ -2555,24 +3386,37 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (migrationhuborchestrator-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (retry-workflow-step-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-retry-workflow-step-request-"))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-id common-lisp:null)))
+ (common-lisp:defclass retry-workflow-step-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or step-id common-lisp:null) :accessor
+                         %retry-workflow-step-request-id :initform
+                         (common-lisp:error ":id is required"))
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %retry-workflow-step-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %retry-workflow-step-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))))
  (common-lisp:export
   (common-lisp:list 'retry-workflow-step-request
                     'make-retry-workflow-step-request))
+ (common-lisp:defun make-retry-workflow-step-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id step-group-id workflow-id)
+   (common-lisp:apply #'common-lisp:make-instance 'retry-workflow-step-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2589,18 +3433,32 @@
                           retry-workflow-step-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (retry-workflow-step-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-retry-workflow-step-response-"))
-   (step-group-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (workflow-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or step-status common-lisp:null)))
+ (common-lisp:defclass retry-workflow-step-response common-lisp:nil
+                       ((status :initarg :|status| :type
+                         (common-lisp:or step-status common-lisp:null)
+                         :accessor %retry-workflow-step-response-status
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %retry-workflow-step-response-id :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %retry-workflow-step-response-workflow-id :initform
+                         common-lisp:nil)
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %retry-workflow-step-response-step-group-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'retry-workflow-step-response
                     'make-retry-workflow-step-response))
+ (common-lisp:defun make-retry-workflow-step-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status id workflow-id step-group-id)
+   (common-lisp:apply #'common-lisp:make-instance 'retry-workflow-step-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2648,14 +3506,22 @@
 (common-lisp:deftype s3bucket () 'common-lisp:string)
 (common-lisp:deftype s3key () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-migration-workflow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-migration-workflow-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null)))
+ (common-lisp:defclass start-migration-workflow-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %start-migration-workflow-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'start-migration-workflow-request
                     'make-start-migration-workflow-request))
+ (common-lisp:defun make-start-migration-workflow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-migration-workflow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2672,21 +3538,40 @@
                           start-migration-workflow-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-migration-workflow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-migration-workflow-response-"))
-   (id common-lisp:nil :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (last-start-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass start-migration-workflow-response common-lisp:nil
+                       ((last-start-time :initarg :|lastStartTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %start-migration-workflow-response-last-start-time
+                         :initform common-lisp:nil)
+                        (status-message :initarg :|statusMessage| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %start-migration-workflow-response-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %start-migration-workflow-response-status
+                         :initform common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %start-migration-workflow-response-arn :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %start-migration-workflow-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-migration-workflow-response
                     'make-start-migration-workflow-response))
+ (common-lisp:defun make-start-migration-workflow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-start-time status-message status arn
+                     id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-migration-workflow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2739,22 +3624,42 @@
    common-lisp:nil))
 (common-lisp:deftype step-action-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (step-automation-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-step-automation-configuration-"))
-   (script-location-s3bucket common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (script-location-s3key common-lisp:nil :type
-    (common-lisp:or platform-script-key common-lisp:null))
-   (command common-lisp:nil :type
-    (common-lisp:or platform-command common-lisp:null))
-   (run-environment common-lisp:nil :type
-    (common-lisp:or run-environment common-lisp:null))
-   (target-type common-lisp:nil :type
-    (common-lisp:or target-type common-lisp:null)))
+ (common-lisp:defclass step-automation-configuration common-lisp:nil
+                       ((target-type :initarg :|targetType| :type
+                         (common-lisp:or target-type common-lisp:null)
+                         :accessor %step-automation-configuration-target-type
+                         :initform common-lisp:nil)
+                        (run-environment :initarg :|runEnvironment| :type
+                         (common-lisp:or run-environment common-lisp:null)
+                         :accessor
+                         %step-automation-configuration-run-environment
+                         :initform common-lisp:nil)
+                        (command :initarg :|command| :type
+                         (common-lisp:or platform-command common-lisp:null)
+                         :accessor %step-automation-configuration-command
+                         :initform common-lisp:nil)
+                        (script-location-s3key :initarg :|scriptLocationS3Key|
+                         :type
+                         (common-lisp:or platform-script-key common-lisp:null)
+                         :accessor
+                         %step-automation-configuration-script-location-s3key
+                         :initform common-lisp:nil)
+                        (script-location-s3bucket :initarg
+                         :|scriptLocationS3Bucket| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %step-automation-configuration-script-location-s3bucket
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'step-automation-configuration
                     'make-step-automation-configuration))
+ (common-lisp:defun make-step-automation-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-type run-environment command
+                     script-location-s3key script-location-s3bucket)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'step-automation-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2814,18 +3719,30 @@
 (common-lisp:deftype step-group-status () 'common-lisp:string)
 (common-lisp:deftype step-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (step-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-step-input-"))
-   (integer-value common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (string-value common-lisp:nil :type
-    (common-lisp:or string-value common-lisp:null))
-   (list-of-strings-value common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (map-of-string-value common-lisp:nil :type
-    (common-lisp:or string-map common-lisp:null)))
+ (common-lisp:defclass step-input common-lisp:nil
+                       ((map-of-string-value :initarg :|mapOfStringValue| :type
+                         (common-lisp:or string-map common-lisp:null) :accessor
+                         %step-input-map-of-string-value :initform
+                         common-lisp:nil)
+                        (list-of-strings-value :initarg :|listOfStringsValue|
+                         :type (common-lisp:or string-list common-lisp:null)
+                         :accessor %step-input-list-of-strings-value :initform
+                         common-lisp:nil)
+                        (string-value :initarg :|stringValue| :type
+                         (common-lisp:or string-value common-lisp:null)
+                         :accessor %step-input-string-value :initform
+                         common-lisp:nil)
+                        (integer-value :initarg :|integerValue| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %step-input-integer-value :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'step-input 'make-step-input))
+ (common-lisp:defun make-step-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key map-of-string-value list-of-strings-value
+                     string-value integer-value)
+   (common-lisp:apply #'common-lisp:make-instance 'step-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input step-input))
    (common-lisp:append))
@@ -2875,14 +3792,23 @@
 (common-lisp:deftype step-input-parameters-key () 'common-lisp:string)
 (common-lisp:deftype step-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (step-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-step-output-"))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (data-type common-lisp:nil :type
-    (common-lisp:or data-type common-lisp:null))
-   (required common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass step-output common-lisp:nil
+                       ((required :initarg :|required| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %step-output-required :initform common-lisp:nil)
+                        (data-type :initarg :|dataType| :type
+                         (common-lisp:or data-type common-lisp:null) :accessor
+                         %step-output-data-type :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %step-output-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'step-output 'make-step-output))
+ (common-lisp:defun make-step-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key required data-type name)
+   (common-lisp:apply #'common-lisp:make-instance 'step-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input step-output))
    (common-lisp:append))
@@ -2923,14 +3849,22 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype step-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-migration-workflow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-migration-workflow-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null)))
+ (common-lisp:defclass stop-migration-workflow-request common-lisp:nil
+                       ((id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %stop-migration-workflow-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-migration-workflow-request
                     'make-stop-migration-workflow-request))
+ (common-lisp:defun make-stop-migration-workflow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stop-migration-workflow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2947,21 +3881,40 @@
                           stop-migration-workflow-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-migration-workflow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-migration-workflow-response-"))
-   (id common-lisp:nil :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (last-stop-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass stop-migration-workflow-response common-lisp:nil
+                       ((last-stop-time :initarg :|lastStopTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %stop-migration-workflow-response-last-stop-time
+                         :initform common-lisp:nil)
+                        (status-message :initarg :|statusMessage| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %stop-migration-workflow-response-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %stop-migration-workflow-response-status
+                         :initform common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %stop-migration-workflow-response-arn :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %stop-migration-workflow-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'stop-migration-workflow-response
                     'make-stop-migration-workflow-response))
+ (common-lisp:defun make-stop-migration-workflow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-stop-time status-message status arn
+                     id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stop-migration-workflow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3048,15 +4001,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -3074,11 +4035,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3098,15 +4063,24 @@
 (common-lisp:deftype target-type () 'common-lisp:string)
 (common-lisp:deftype template-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (template-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-template-input-"))
-   (input-name common-lisp:nil :type
-    (common-lisp:or template-input-name common-lisp:null))
-   (data-type common-lisp:nil :type
-    (common-lisp:or data-type common-lisp:null))
-   (required common-lisp:nil :type (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass template-input common-lisp:nil
+                       ((required :initarg :|required| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %template-input-required :initform common-lisp:nil)
+                        (data-type :initarg :|dataType| :type
+                         (common-lisp:or data-type common-lisp:null) :accessor
+                         %template-input-data-type :initform common-lisp:nil)
+                        (input-name :initarg :|inputName| :type
+                         (common-lisp:or template-input-name common-lisp:null)
+                         :accessor %template-input-input-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'template-input 'make-template-input))
+ (common-lisp:defun make-template-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key required data-type input-name)
+   (common-lisp:apply #'common-lisp:make-instance 'template-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input template-input))
    (common-lisp:append))
@@ -3149,17 +4123,32 @@
 (common-lisp:deftype template-name () 'common-lisp:string)
 (common-lisp:deftype template-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (template-step-group-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-template-step-group-summary-"))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass template-step-group-summary common-lisp:nil
+                       ((next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %template-step-group-summary-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %template-step-group-summary-previous
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-step-group-summary-name :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-step-group-summary-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'template-step-group-summary
                     'make-template-step-group-summary))
+ (common-lisp:defun make-template-step-group-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next previous name id)
+   (common-lisp:apply #'common-lisp:make-instance 'template-step-group-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3213,24 +4202,50 @@
                             template-step-group-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (template-step-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-template-step-summary-"))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-group-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (template-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-action-type common-lisp:nil :type
-    (common-lisp:or step-action-type common-lisp:null))
-   (target-type common-lisp:nil :type
-    (common-lisp:or target-type common-lisp:null))
-   (owner common-lisp:nil :type (common-lisp:or owner common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass template-step-summary common-lisp:nil
+                       ((next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %template-step-summary-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %template-step-summary-previous :initform
+                         common-lisp:nil)
+                        (owner :initarg :|owner| :type
+                         (common-lisp:or owner common-lisp:null) :accessor
+                         %template-step-summary-owner :initform
+                         common-lisp:nil)
+                        (target-type :initarg :|targetType| :type
+                         (common-lisp:or target-type common-lisp:null)
+                         :accessor %template-step-summary-target-type :initform
+                         common-lisp:nil)
+                        (step-action-type :initarg :|stepActionType| :type
+                         (common-lisp:or step-action-type common-lisp:null)
+                         :accessor %template-step-summary-step-action-type
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-step-summary-name :initform common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-step-summary-template-id :initform
+                         common-lisp:nil)
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-step-summary-step-group-id :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-step-summary-id :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'template-step-summary 'make-template-step-summary))
+ (common-lisp:defun make-template-step-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next previous owner target-type
+                     step-action-type name template-id step-group-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'template-step-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3318,16 +4333,28 @@
                            (trivial-types:proper-list template-step-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (template-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-template-summary-"))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass template-summary common-lisp:nil
+                       ((description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-summary-description :initform
+                         common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-summary-arn :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-summary-name :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %template-summary-id :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'template-summary 'make-template-summary))
+ (common-lisp:defun make-template-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description arn name id)
+   (common-lisp:apply #'common-lisp:make-instance 'template-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input template-summary))
    (common-lisp:append))
@@ -3376,17 +4403,26 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (migrationhuborchestrator-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (tool (:copier common-lisp:nil) (:conc-name "struct-shape-tool-"))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (url common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass tool common-lisp:nil
+                       ((url :initarg :|url| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %tool-url :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %tool-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'tool 'make-tool))
+ (common-lisp:defun make-tool
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key url name)
+   (common-lisp:apply #'common-lisp:make-instance 'tool
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tool))
    (common-lisp:append))
@@ -3418,15 +4454,24 @@
                            (trivial-types:proper-list tool))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or resource-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tagkeys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :|tagKeys| :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tagkeys is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or resource-arn common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3443,11 +4488,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3464,24 +4513,47 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-migration-workflow-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-migration-workflow-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or update-migration-workflow-request-name-string
-                    common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or update-migration-workflow-request-description-string
-                    common-lisp:null))
-   (input-parameters common-lisp:nil :type
-    (common-lisp:or step-input-parameters common-lisp:null))
-   (step-targets common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass update-migration-workflow-request common-lisp:nil
+                       ((step-targets :initarg :|stepTargets| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %update-migration-workflow-request-step-targets
+                         :initform common-lisp:nil)
+                        (input-parameters :initarg :|inputParameters| :type
+                         (common-lisp:or step-input-parameters
+                                         common-lisp:null)
+                         :accessor
+                         %update-migration-workflow-request-input-parameters
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or
+                          update-migration-workflow-request-description-string
+                          common-lisp:null)
+                         :accessor
+                         %update-migration-workflow-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or
+                          update-migration-workflow-request-name-string
+                          common-lisp:null)
+                         :accessor %update-migration-workflow-request-name
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %update-migration-workflow-request-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-migration-workflow-request
                     'make-update-migration-workflow-request))
+ (common-lisp:defun make-update-migration-workflow-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key step-targets input-parameters description
+                     name id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-migration-workflow-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3530,31 +4602,74 @@
 (common-lisp:deftype update-migration-workflow-request-name-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-migration-workflow-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-migration-workflow-response-"))
-   (id common-lisp:nil :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (template-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (ads-application-configuration-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (workflow-inputs common-lisp:nil :type
-    (common-lisp:or step-input-parameters common-lisp:null))
-   (step-targets common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or migration-workflow-status-enum common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or string-map common-lisp:null)))
+ (common-lisp:defclass update-migration-workflow-response common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or string-map common-lisp:null) :accessor
+                         %update-migration-workflow-response-tags :initform
+                         common-lisp:nil)
+                        (last-modified-time :initarg :|lastModifiedTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %update-migration-workflow-response-last-modified-time
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :|creationTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %update-migration-workflow-response-creation-time
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or migration-workflow-status-enum
+                                         common-lisp:null)
+                         :accessor %update-migration-workflow-response-status
+                         :initform common-lisp:nil)
+                        (step-targets :initarg :|stepTargets| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %update-migration-workflow-response-step-targets
+                         :initform common-lisp:nil)
+                        (workflow-inputs :initarg :|workflowInputs| :type
+                         (common-lisp:or step-input-parameters
+                                         common-lisp:null)
+                         :accessor
+                         %update-migration-workflow-response-workflow-inputs
+                         :initform common-lisp:nil)
+                        (ads-application-configuration-id :initarg
+                         :|adsApplicationConfigurationId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-migration-workflow-response-ads-application-configuration-id
+                         :initform common-lisp:nil)
+                        (template-id :initarg :|templateId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-migration-workflow-response-template-id
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-migration-workflow-response-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-migration-workflow-response-name :initform
+                         common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-migration-workflow-response-arn :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %update-migration-workflow-response-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-migration-workflow-response
                     'make-update-migration-workflow-response))
+ (common-lisp:defun make-update-migration-workflow-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags last-modified-time creation-time
+                     status step-targets workflow-inputs
+                     ads-application-configuration-id template-id description
+                     name arn id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-migration-workflow-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3656,23 +4771,47 @@
                           update-migration-workflow-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-workflow-step-group-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-workflow-step-group-request-"))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or step-group-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or step-group-description common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass update-workflow-step-group-request common-lisp:nil
+                       ((previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-workflow-step-group-request-previous
+                         :initform common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-workflow-step-group-request-next
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or step-group-description
+                                         common-lisp:null)
+                         :accessor
+                         %update-workflow-step-group-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or step-group-name common-lisp:null)
+                         :accessor %update-workflow-step-group-request-name
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %update-workflow-step-group-request-id
+                         :initform (common-lisp:error ":id is required"))
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor
+                         %update-workflow-step-group-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))))
  (common-lisp:export
   (common-lisp:list 'update-workflow-step-group-request
                     'make-update-workflow-step-group-request))
+ (common-lisp:defun make-update-workflow-step-group-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key previous next description name id
+                     workflow-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-workflow-step-group-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3717,22 +4856,51 @@
                           update-workflow-step-group-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-workflow-step-group-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-workflow-step-group-response-"))
-   (workflow-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (tools common-lisp:nil :type (common-lisp:or tools-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (last-modified-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass update-workflow-step-group-response common-lisp:nil
+                       ((last-modified-time :initarg :|lastModifiedTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %update-workflow-step-group-response-last-modified-time
+                         :initform common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %update-workflow-step-group-response-previous
+                         :initform common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-workflow-step-group-response-next
+                         :initform common-lisp:nil)
+                        (tools :initarg :|tools| :type
+                         (common-lisp:or tools-list common-lisp:null) :accessor
+                         %update-workflow-step-group-response-tools :initform
+                         common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-workflow-step-group-response-description
+                         :initform common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-workflow-step-group-response-id :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-workflow-step-group-response-name :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-workflow-step-group-response-workflow-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-workflow-step-group-response
                     'make-update-workflow-step-group-response))
+ (common-lisp:defun make-update-workflow-step-group-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-modified-time previous next tools
+                     description id name workflow-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-workflow-step-group-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3805,34 +4973,74 @@
                           update-workflow-step-group-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-workflow-step-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-workflow-step-request-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or step-id common-lisp:null))
-   (step-group-id (common-lisp:error ":stepgroupid is required") :type
-    (common-lisp:or step-group-id common-lisp:null))
-   (workflow-id (common-lisp:error ":workflowid is required") :type
-    (common-lisp:or migration-workflow-id common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or step-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or step-description common-lisp:null))
-   (step-action-type common-lisp:nil :type
-    (common-lisp:or step-action-type common-lisp:null))
-   (workflow-step-automation-configuration common-lisp:nil :type
-    (common-lisp:or workflow-step-automation-configuration common-lisp:null))
-   (step-target common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (outputs common-lisp:nil :type
-    (common-lisp:or workflow-step-output-list common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or step-status common-lisp:null)))
+ (common-lisp:defclass update-workflow-step-request common-lisp:nil
+                       ((status :initarg :|status| :type
+                         (common-lisp:or step-status common-lisp:null)
+                         :accessor %update-workflow-step-request-status
+                         :initform common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-workflow-step-request-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-workflow-step-request-previous
+                         :initform common-lisp:nil)
+                        (outputs :initarg :|outputs| :type
+                         (common-lisp:or workflow-step-output-list
+                                         common-lisp:null)
+                         :accessor %update-workflow-step-request-outputs
+                         :initform common-lisp:nil)
+                        (step-target :initarg :|stepTarget| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-workflow-step-request-step-target
+                         :initform common-lisp:nil)
+                        (workflow-step-automation-configuration :initarg
+                         :|workflowStepAutomationConfiguration| :type
+                         (common-lisp:or workflow-step-automation-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %update-workflow-step-request-workflow-step-automation-configuration
+                         :initform common-lisp:nil)
+                        (step-action-type :initarg :|stepActionType| :type
+                         (common-lisp:or step-action-type common-lisp:null)
+                         :accessor
+                         %update-workflow-step-request-step-action-type
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or step-description common-lisp:null)
+                         :accessor %update-workflow-step-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or step-name common-lisp:null) :accessor
+                         %update-workflow-step-request-name :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or migration-workflow-id
+                                         common-lisp:null)
+                         :accessor %update-workflow-step-request-workflow-id
+                         :initform
+                         (common-lisp:error ":workflowid is required"))
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or step-group-id common-lisp:null)
+                         :accessor %update-workflow-step-request-step-group-id
+                         :initform
+                         (common-lisp:error ":stepgroupid is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-id common-lisp:null) :accessor
+                         %update-workflow-step-request-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-workflow-step-request
                     'make-update-workflow-step-request))
+ (common-lisp:defun make-update-workflow-step-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status next previous outputs step-target
+                     workflow-step-automation-configuration step-action-type
+                     description name workflow-id step-group-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-workflow-step-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3927,17 +5135,33 @@
                           update-workflow-step-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-workflow-step-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-workflow-step-response-"))
-   (id common-lisp:nil :type (common-lisp:or step-id common-lisp:null))
-   (step-group-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (workflow-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass update-workflow-step-response common-lisp:nil
+                       ((name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-workflow-step-response-name :initform
+                         common-lisp:nil)
+                        (workflow-id :initarg :|workflowId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-workflow-step-response-workflow-id :initform
+                         common-lisp:nil)
+                        (step-group-id :initarg :|stepGroupId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-workflow-step-response-step-group-id :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or step-id common-lisp:null) :accessor
+                         %update-workflow-step-response-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-workflow-step-response
                     'make-update-workflow-step-response))
+ (common-lisp:defun make-update-workflow-step-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name workflow-id step-group-id id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-workflow-step-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3984,27 +5208,49 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (migrationhuborchestrator-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (workflow-step-automation-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-workflow-step-automation-configuration-"))
-   (script-location-s3bucket common-lisp:nil :type
-    (common-lisp:or s3bucket common-lisp:null))
-   (script-location-s3key common-lisp:nil :type
-    (common-lisp:or platform-script-key common-lisp:null))
-   (command common-lisp:nil :type
-    (common-lisp:or platform-command common-lisp:null))
-   (run-environment common-lisp:nil :type
-    (common-lisp:or run-environment common-lisp:null))
-   (target-type common-lisp:nil :type
-    (common-lisp:or target-type common-lisp:null)))
+ (common-lisp:defclass workflow-step-automation-configuration common-lisp:nil
+                       ((target-type :initarg :|targetType| :type
+                         (common-lisp:or target-type common-lisp:null)
+                         :accessor
+                         %workflow-step-automation-configuration-target-type
+                         :initform common-lisp:nil)
+                        (run-environment :initarg :|runEnvironment| :type
+                         (common-lisp:or run-environment common-lisp:null)
+                         :accessor
+                         %workflow-step-automation-configuration-run-environment
+                         :initform common-lisp:nil)
+                        (command :initarg :|command| :type
+                         (common-lisp:or platform-command common-lisp:null)
+                         :accessor
+                         %workflow-step-automation-configuration-command
+                         :initform common-lisp:nil)
+                        (script-location-s3key :initarg :|scriptLocationS3Key|
+                         :type
+                         (common-lisp:or platform-script-key common-lisp:null)
+                         :accessor
+                         %workflow-step-automation-configuration-script-location-s3key
+                         :initform common-lisp:nil)
+                        (script-location-s3bucket :initarg
+                         :|scriptLocationS3Bucket| :type
+                         (common-lisp:or s3bucket common-lisp:null) :accessor
+                         %workflow-step-automation-configuration-script-location-s3bucket
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'workflow-step-automation-configuration
                     'make-workflow-step-automation-configuration))
+ (common-lisp:defun make-workflow-step-automation-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-type run-environment command
+                     script-location-s3key script-location-s3bucket)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'workflow-step-automation-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4058,20 +5304,40 @@
                           workflow-step-automation-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (workflow-step-group-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-workflow-step-group-summary-"))
-   (id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (owner common-lisp:nil :type (common-lisp:or owner common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or step-group-status common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass workflow-step-group-summary common-lisp:nil
+                       ((next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %workflow-step-group-summary-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %workflow-step-group-summary-previous
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or step-group-status common-lisp:null)
+                         :accessor %workflow-step-group-summary-status
+                         :initform common-lisp:nil)
+                        (owner :initarg :|owner| :type
+                         (common-lisp:or owner common-lisp:null) :accessor
+                         %workflow-step-group-summary-owner :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %workflow-step-group-summary-name :initform
+                         common-lisp:nil)
+                        (id :initarg :|id| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %workflow-step-group-summary-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'workflow-step-group-summary
                     'make-workflow-step-group-summary))
+ (common-lisp:defun make-workflow-step-group-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next previous status owner name id)
+   (common-lisp:apply #'common-lisp:make-instance 'workflow-step-group-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4139,18 +5405,33 @@
                             workflow-step-group-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (workflow-step-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-workflow-step-output-"))
-   (name common-lisp:nil :type
-    (common-lisp:or workflow-step-output-name common-lisp:null))
-   (data-type common-lisp:nil :type
-    (common-lisp:or data-type common-lisp:null))
-   (required common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or workflow-step-output-union common-lisp:null)))
+ (common-lisp:defclass workflow-step-output common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or workflow-step-output-union
+                                         common-lisp:null)
+                         :accessor %workflow-step-output-value :initform
+                         common-lisp:nil)
+                        (required :initarg :|required| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %workflow-step-output-required :initform
+                         common-lisp:nil)
+                        (data-type :initarg :|dataType| :type
+                         (common-lisp:or data-type common-lisp:null) :accessor
+                         %workflow-step-output-data-type :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or workflow-step-output-name
+                                         common-lisp:null)
+                         :accessor %workflow-step-output-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'workflow-step-output 'make-workflow-step-output))
+ (common-lisp:defun make-workflow-step-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value required data-type name)
+   (common-lisp:apply #'common-lisp:make-instance 'workflow-step-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input workflow-step-output))
    (common-lisp:append))
@@ -4198,18 +5479,30 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype workflow-step-output-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (workflow-step-output-union (:copier common-lisp:nil)
-      (:conc-name "struct-shape-workflow-step-output-union-"))
-   (integer-value common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (string-value common-lisp:nil :type
-    (common-lisp:or string-value common-lisp:null))
-   (list-of-string-value common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass workflow-step-output-union common-lisp:nil
+                       ((list-of-string-value :initarg :|listOfStringValue|
+                         :type (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %workflow-step-output-union-list-of-string-value
+                         :initform common-lisp:nil)
+                        (string-value :initarg :|stringValue| :type
+                         (common-lisp:or string-value common-lisp:null)
+                         :accessor %workflow-step-output-union-string-value
+                         :initform common-lisp:nil)
+                        (integer-value :initarg :|integerValue| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %workflow-step-output-union-integer-value :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'workflow-step-output-union
                     'make-workflow-step-output-union))
+ (common-lisp:defun make-workflow-step-output-union
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key list-of-string-value string-value
+                     integer-value)
+   (common-lisp:apply #'common-lisp:make-instance 'workflow-step-output-union
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4248,31 +5541,69 @@
                           workflow-step-output-union))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (workflow-step-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-workflow-step-summary-"))
-   (step-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (step-action-type common-lisp:nil :type
-    (common-lisp:or step-action-type common-lisp:null))
-   (owner common-lisp:nil :type (common-lisp:or owner common-lisp:null))
-   (previous common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (next common-lisp:nil :type (common-lisp:or string-list common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or step-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (no-of-srv-completed common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (no-of-srv-failed common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (total-no-of-srv common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (script-location common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass workflow-step-summary common-lisp:nil
+                       ((script-location :initarg :|scriptLocation| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %workflow-step-summary-script-location :initform
+                         common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %workflow-step-summary-description :initform
+                         common-lisp:nil)
+                        (total-no-of-srv :initarg :|totalNoOfSrv| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %workflow-step-summary-total-no-of-srv :initform
+                         common-lisp:nil)
+                        (no-of-srv-failed :initarg :|noOfSrvFailed| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %workflow-step-summary-no-of-srv-failed :initform
+                         common-lisp:nil)
+                        (no-of-srv-completed :initarg :|noOfSrvCompleted| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %workflow-step-summary-no-of-srv-completed :initform
+                         common-lisp:nil)
+                        (status-message :initarg :|statusMessage| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %workflow-step-summary-status-message :initform
+                         common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or step-status common-lisp:null)
+                         :accessor %workflow-step-summary-status :initform
+                         common-lisp:nil)
+                        (next :initarg :|next| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %workflow-step-summary-next :initform
+                         common-lisp:nil)
+                        (previous :initarg :|previous| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %workflow-step-summary-previous :initform
+                         common-lisp:nil)
+                        (owner :initarg :|owner| :type
+                         (common-lisp:or owner common-lisp:null) :accessor
+                         %workflow-step-summary-owner :initform
+                         common-lisp:nil)
+                        (step-action-type :initarg :|stepActionType| :type
+                         (common-lisp:or step-action-type common-lisp:null)
+                         :accessor %workflow-step-summary-step-action-type
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %workflow-step-summary-name :initform common-lisp:nil)
+                        (step-id :initarg :|stepId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %workflow-step-summary-step-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'workflow-step-summary 'make-workflow-step-summary))
+ (common-lisp:defun make-workflow-step-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key script-location description
+                     total-no-of-srv no-of-srv-failed no-of-srv-completed
+                     status-message status next previous owner step-action-type
+                     name step-id)
+   (common-lisp:apply #'common-lisp:make-instance 'workflow-step-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

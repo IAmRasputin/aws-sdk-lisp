@@ -46,21 +46,40 @@
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-endpoint-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-endpoint-request-"))
-   (outpost-id (common-lisp:error ":outpost-id is required") :type
-    (common-lisp:or outpost-id common-lisp:null))
-   (subnet-id (common-lisp:error ":subnet-id is required") :type
-    (common-lisp:or subnet-id common-lisp:null))
-   (security-group-id (common-lisp:error ":security-group-id is required")
-    :type (common-lisp:or security-group-id common-lisp:null))
-   (access-type common-lisp:nil :type
-    (common-lisp:or endpoint-access-type common-lisp:null))
-   (customer-owned-ipv4pool common-lisp:nil :type
-    (common-lisp:or customer-owned-ipv4pool common-lisp:null)))
+ (common-lisp:defclass create-endpoint-request common-lisp:nil
+                       ((customer-owned-ipv4pool :initarg
+                         :customer-owned-ipv4pool :type
+                         (common-lisp:or customer-owned-ipv4pool
+                                         common-lisp:null)
+                         :accessor
+                         %create-endpoint-request-customer-owned-ipv4pool
+                         :initform common-lisp:nil)
+                        (access-type :initarg :access-type :type
+                         (common-lisp:or endpoint-access-type common-lisp:null)
+                         :accessor %create-endpoint-request-access-type
+                         :initform common-lisp:nil)
+                        (security-group-id :initarg :security-group-id :type
+                         (common-lisp:or security-group-id common-lisp:null)
+                         :accessor %create-endpoint-request-security-group-id
+                         :initform
+                         (common-lisp:error ":security-group-id is required"))
+                        (subnet-id :initarg :subnet-id :type
+                         (common-lisp:or subnet-id common-lisp:null) :accessor
+                         %create-endpoint-request-subnet-id :initform
+                         (common-lisp:error ":subnet-id is required"))
+                        (outpost-id :initarg :outpost-id :type
+                         (common-lisp:or outpost-id common-lisp:null) :accessor
+                         %create-endpoint-request-outpost-id :initform
+                         (common-lisp:error ":outpost-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-endpoint-request 'make-create-endpoint-request))
+ (common-lisp:defun make-create-endpoint-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-owned-ipv4pool access-type
+                     security-group-id subnet-id outpost-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-endpoint-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -113,13 +132,19 @@
                           create-endpoint-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-endpoint-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-endpoint-result-"))
-   (endpoint-arn common-lisp:nil :type
-    (common-lisp:or endpoint-arn common-lisp:null)))
+ (common-lisp:defclass create-endpoint-result common-lisp:nil
+                       ((endpoint-arn :initarg :endpoint-arn :type
+                         (common-lisp:or endpoint-arn common-lisp:null)
+                         :accessor %create-endpoint-result-endpoint-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-endpoint-result 'make-create-endpoint-result))
+ (common-lisp:defun make-create-endpoint-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key endpoint-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-endpoint-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -145,15 +170,24 @@
 (common-lisp:deftype creation-time () 'common-lisp:string)
 (common-lisp:deftype customer-owned-ipv4pool () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-endpoint-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-endpoint-request-"))
-   (endpoint-id (common-lisp:error ":endpoint-id is required") :type
-    (common-lisp:or endpoint-id common-lisp:null))
-   (outpost-id (common-lisp:error ":outpost-id is required") :type
-    (common-lisp:or outpost-id common-lisp:null)))
+ (common-lisp:defclass delete-endpoint-request common-lisp:nil
+                       ((outpost-id :initarg :outpost-id :type
+                         (common-lisp:or outpost-id common-lisp:null) :accessor
+                         %delete-endpoint-request-outpost-id :initform
+                         (common-lisp:error ":outpost-id is required"))
+                        (endpoint-id :initarg :endpoint-id :type
+                         (common-lisp:or endpoint-id common-lisp:null)
+                         :accessor %delete-endpoint-request-endpoint-id
+                         :initform
+                         (common-lisp:error ":endpoint-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-endpoint-request 'make-delete-endpoint-request))
+ (common-lisp:defun make-delete-endpoint-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key outpost-id endpoint-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-endpoint-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -170,32 +204,62 @@
                           delete-endpoint-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (endpoint (:copier common-lisp:nil) (:conc-name "struct-shape-endpoint-"))
-   (endpoint-arn common-lisp:nil :type
-    (common-lisp:or endpoint-arn common-lisp:null))
-   (outposts-id common-lisp:nil :type
-    (common-lisp:or outpost-id common-lisp:null))
-   (cidr-block common-lisp:nil :type
-    (common-lisp:or cidr-block common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or endpoint-status common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or creation-time common-lisp:null))
-   (network-interfaces common-lisp:nil :type
-    (common-lisp:or network-interfaces common-lisp:null))
-   (vpc-id common-lisp:nil :type (common-lisp:or vpc-id common-lisp:null))
-   (subnet-id common-lisp:nil :type
-    (common-lisp:or subnet-id common-lisp:null))
-   (security-group-id common-lisp:nil :type
-    (common-lisp:or security-group-id common-lisp:null))
-   (access-type common-lisp:nil :type
-    (common-lisp:or endpoint-access-type common-lisp:null))
-   (customer-owned-ipv4pool common-lisp:nil :type
-    (common-lisp:or customer-owned-ipv4pool common-lisp:null))
-   (failed-reason common-lisp:nil :type
-    (common-lisp:or failed-reason common-lisp:null)))
+ (common-lisp:defclass endpoint common-lisp:nil
+                       ((failed-reason :initarg :failed-reason :type
+                         (common-lisp:or failed-reason common-lisp:null)
+                         :accessor %endpoint-failed-reason :initform
+                         common-lisp:nil)
+                        (customer-owned-ipv4pool :initarg
+                         :customer-owned-ipv4pool :type
+                         (common-lisp:or customer-owned-ipv4pool
+                                         common-lisp:null)
+                         :accessor %endpoint-customer-owned-ipv4pool :initform
+                         common-lisp:nil)
+                        (access-type :initarg :access-type :type
+                         (common-lisp:or endpoint-access-type common-lisp:null)
+                         :accessor %endpoint-access-type :initform
+                         common-lisp:nil)
+                        (security-group-id :initarg :security-group-id :type
+                         (common-lisp:or security-group-id common-lisp:null)
+                         :accessor %endpoint-security-group-id :initform
+                         common-lisp:nil)
+                        (subnet-id :initarg :subnet-id :type
+                         (common-lisp:or subnet-id common-lisp:null) :accessor
+                         %endpoint-subnet-id :initform common-lisp:nil)
+                        (vpc-id :initarg :vpc-id :type
+                         (common-lisp:or vpc-id common-lisp:null) :accessor
+                         %endpoint-vpc-id :initform common-lisp:nil)
+                        (network-interfaces :initarg :network-interfaces :type
+                         (common-lisp:or network-interfaces common-lisp:null)
+                         :accessor %endpoint-network-interfaces :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or creation-time common-lisp:null)
+                         :accessor %endpoint-creation-time :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or endpoint-status common-lisp:null)
+                         :accessor %endpoint-status :initform common-lisp:nil)
+                        (cidr-block :initarg :cidr-block :type
+                         (common-lisp:or cidr-block common-lisp:null) :accessor
+                         %endpoint-cidr-block :initform common-lisp:nil)
+                        (outposts-id :initarg :outposts-id :type
+                         (common-lisp:or outpost-id common-lisp:null) :accessor
+                         %endpoint-outposts-id :initform common-lisp:nil)
+                        (endpoint-arn :initarg :endpoint-arn :type
+                         (common-lisp:or endpoint-arn common-lisp:null)
+                         :accessor %endpoint-endpoint-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'endpoint 'make-endpoint))
+ (common-lisp:defun make-endpoint
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed-reason customer-owned-ipv4pool
+                     access-type security-group-id subnet-id vpc-id
+                     network-interfaces creation-time status cidr-block
+                     outposts-id endpoint-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'endpoint
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input endpoint))
    (common-lisp:append))
@@ -304,13 +368,20 @@
 (common-lisp:deftype error-code () 'common-lisp:string)
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (failed-reason (:copier common-lisp:nil)
-      (:conc-name "struct-shape-failed-reason-"))
-   (error-code common-lisp:nil :type
-    (common-lisp:or error-code common-lisp:null))
-   (message common-lisp:nil :type (common-lisp:or message common-lisp:null)))
+ (common-lisp:defclass failed-reason common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or message common-lisp:null) :accessor
+                         %failed-reason-message :initform common-lisp:nil)
+                        (error-code :initarg :error-code :type
+                         (common-lisp:or error-code common-lisp:null) :accessor
+                         %failed-reason-error-code :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'failed-reason 'make-failed-reason))
+ (common-lisp:defun make-failed-reason
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message error-code)
+   (common-lisp:apply #'common-lisp:make-instance 'failed-reason
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input failed-reason))
    (common-lisp:append))
@@ -343,15 +414,23 @@
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-endpoints-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-endpoints-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-endpoints-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-endpoints-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-endpoints-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-endpoints-request 'make-list-endpoints-request))
+ (common-lisp:defun make-list-endpoints-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-endpoints-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -368,15 +447,23 @@
                           list-endpoints-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-endpoints-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-endpoints-result-"))
-   (endpoints common-lisp:nil :type
-    (common-lisp:or endpoints common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-endpoints-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-endpoints-result-next-token :initform
+                         common-lisp:nil)
+                        (endpoints :initarg :endpoints :type
+                         (common-lisp:or endpoints common-lisp:null) :accessor
+                         %list-endpoints-result-endpoints :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-endpoints-result 'make-list-endpoints-result))
+ (common-lisp:defun make-list-endpoints-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token endpoints)
+   (common-lisp:apply #'common-lisp:make-instance 'list-endpoints-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -407,16 +494,24 @@
                           list-endpoints-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-outposts-with-s3request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-outposts-with-s3request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-outposts-with-s3request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-outposts-with-s3request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-outposts-with-s3request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-outposts-with-s3request
                     'make-list-outposts-with-s3request))
+ (common-lisp:defun make-list-outposts-with-s3request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-outposts-with-s3request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -433,15 +528,24 @@
                           list-outposts-with-s3request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-outposts-with-s3result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-outposts-with-s3result-"))
-   (outposts common-lisp:nil :type (common-lisp:or outposts common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-outposts-with-s3result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-outposts-with-s3result-next-token :initform
+                         common-lisp:nil)
+                        (outposts :initarg :outposts :type
+                         (common-lisp:or outposts common-lisp:null) :accessor
+                         %list-outposts-with-s3result-outposts :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-outposts-with-s3result
                     'make-list-outposts-with-s3result))
+ (common-lisp:defun make-list-outposts-with-s3result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token outposts)
+   (common-lisp:apply #'common-lisp:make-instance 'list-outposts-with-s3result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -472,18 +576,29 @@
                           list-outposts-with-s3result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-shared-endpoints-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-shared-endpoints-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (outpost-id (common-lisp:error ":outpost-id is required") :type
-    (common-lisp:or outpost-id common-lisp:null)))
+ (common-lisp:defclass list-shared-endpoints-request common-lisp:nil
+                       ((outpost-id :initarg :outpost-id :type
+                         (common-lisp:or outpost-id common-lisp:null) :accessor
+                         %list-shared-endpoints-request-outpost-id :initform
+                         (common-lisp:error ":outpost-id is required"))
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-shared-endpoints-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-shared-endpoints-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-shared-endpoints-request
                     'make-list-shared-endpoints-request))
+ (common-lisp:defun make-list-shared-endpoints-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key outpost-id max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-shared-endpoints-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -500,16 +615,24 @@
                           list-shared-endpoints-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-shared-endpoints-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-shared-endpoints-result-"))
-   (endpoints common-lisp:nil :type
-    (common-lisp:or endpoints common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-shared-endpoints-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-shared-endpoints-result-next-token :initform
+                         common-lisp:nil)
+                        (endpoints :initarg :endpoints :type
+                         (common-lisp:or endpoints common-lisp:null) :accessor
+                         %list-shared-endpoints-result-endpoints :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-shared-endpoints-result
                     'make-list-shared-endpoints-result))
+ (common-lisp:defun make-list-shared-endpoints-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token endpoints)
+   (common-lisp:apply #'common-lisp:make-instance 'list-shared-endpoints-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -542,13 +665,20 @@
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (network-interface (:copier common-lisp:nil)
-      (:conc-name "struct-shape-network-interface-"))
-   (network-interface-id common-lisp:nil :type
-    (common-lisp:or network-interface-id common-lisp:null)))
+ (common-lisp:defclass network-interface common-lisp:nil
+                       ((network-interface-id :initarg :network-interface-id
+                         :type
+                         (common-lisp:or network-interface-id common-lisp:null)
+                         :accessor %network-interface-network-interface-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'network-interface 'make-network-interface))
+ (common-lisp:defun make-network-interface
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key network-interface-id)
+   (common-lisp:apply #'common-lisp:make-instance 'network-interface
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input network-interface))
    (common-lisp:append))
@@ -577,17 +707,29 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (outpost (:copier common-lisp:nil) (:conc-name "struct-shape-outpost-"))
-   (outpost-arn common-lisp:nil :type
-    (common-lisp:or outpost-arn common-lisp:null))
-   (outpost-id common-lisp:nil :type
-    (common-lisp:or outpost-id common-lisp:null))
-   (owner-id common-lisp:nil :type
-    (common-lisp:or aws-account-id common-lisp:null))
-   (capacity-in-bytes common-lisp:nil :type
-    (common-lisp:or capacity-in-bytes common-lisp:null)))
+ (common-lisp:defclass outpost common-lisp:nil
+                       ((capacity-in-bytes :initarg :capacity-in-bytes :type
+                         (common-lisp:or capacity-in-bytes common-lisp:null)
+                         :accessor %outpost-capacity-in-bytes :initform
+                         common-lisp:nil)
+                        (owner-id :initarg :owner-id :type
+                         (common-lisp:or aws-account-id common-lisp:null)
+                         :accessor %outpost-owner-id :initform common-lisp:nil)
+                        (outpost-id :initarg :outpost-id :type
+                         (common-lisp:or outpost-id common-lisp:null) :accessor
+                         %outpost-outpost-id :initform common-lisp:nil)
+                        (outpost-arn :initarg :outpost-arn :type
+                         (common-lisp:or outpost-arn common-lisp:null)
+                         :accessor %outpost-outpost-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'outpost 'make-outpost))
+ (common-lisp:defun make-outpost
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key capacity-in-bytes owner-id outpost-id
+                     outpost-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'outpost
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input outpost))
    (common-lisp:append))

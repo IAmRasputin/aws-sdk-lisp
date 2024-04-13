@@ -44,22 +44,44 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-personalized-ranking-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-personalized-ranking-request-"))
-   (campaign-arn (common-lisp:error ":campaignarn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (input-list (common-lisp:error ":inputlist is required") :type
-    (common-lisp:or input-list common-lisp:null))
-   (user-id (common-lisp:error ":userid is required") :type
-    (common-lisp:or user-id common-lisp:null))
-   (context common-lisp:nil :type (common-lisp:or context common-lisp:null))
-   (filter-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (filter-values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass get-personalized-ranking-request common-lisp:nil
+                       ((filter-values :initarg :|filterValues| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor
+                         %get-personalized-ranking-request-filter-values
+                         :initform common-lisp:nil)
+                        (filter-arn :initarg :|filterArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-personalized-ranking-request-filter-arn :initform
+                         common-lisp:nil)
+                        (context :initarg :|context| :type
+                         (common-lisp:or context common-lisp:null) :accessor
+                         %get-personalized-ranking-request-context :initform
+                         common-lisp:nil)
+                        (user-id :initarg :|userId| :type
+                         (common-lisp:or user-id common-lisp:null) :accessor
+                         %get-personalized-ranking-request-user-id :initform
+                         (common-lisp:error ":userid is required"))
+                        (input-list :initarg :|inputList| :type
+                         (common-lisp:or input-list common-lisp:null) :accessor
+                         %get-personalized-ranking-request-input-list :initform
+                         (common-lisp:error ":inputlist is required"))
+                        (campaign-arn :initarg :|campaignArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-personalized-ranking-request-campaign-arn
+                         :initform
+                         (common-lisp:error ":campaignarn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-personalized-ranking-request
                     'make-get-personalized-ranking-request))
+ (common-lisp:defun make-get-personalized-ranking-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key filter-values filter-arn context user-id
+                     input-list campaign-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-personalized-ranking-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -118,16 +140,27 @@
                           get-personalized-ranking-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-personalized-ranking-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-personalized-ranking-response-"))
-   (personalized-ranking common-lisp:nil :type
-    (common-lisp:or item-list common-lisp:null))
-   (recommendation-id common-lisp:nil :type
-    (common-lisp:or recommendation-id common-lisp:null)))
+ (common-lisp:defclass get-personalized-ranking-response common-lisp:nil
+                       ((recommendation-id :initarg :|recommendationId| :type
+                         (common-lisp:or recommendation-id common-lisp:null)
+                         :accessor
+                         %get-personalized-ranking-response-recommendation-id
+                         :initform common-lisp:nil)
+                        (personalized-ranking :initarg :|personalizedRanking|
+                         :type (common-lisp:or item-list common-lisp:null)
+                         :accessor
+                         %get-personalized-ranking-response-personalized-ranking
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-personalized-ranking-response
                     'make-get-personalized-ranking-response))
+ (common-lisp:defun make-get-personalized-ranking-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-id personalized-ranking)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-personalized-ranking-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -159,25 +192,54 @@
                           get-personalized-ranking-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recommendations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recommendations-request-"))
-   (campaign-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (item-id common-lisp:nil :type (common-lisp:or item-id common-lisp:null))
-   (user-id common-lisp:nil :type (common-lisp:or user-id common-lisp:null))
-   (num-results common-lisp:nil :type
-    (common-lisp:or num-results common-lisp:null))
-   (context common-lisp:nil :type (common-lisp:or context common-lisp:null))
-   (filter-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (filter-values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null))
-   (recommender-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (promotions common-lisp:nil :type
-    (common-lisp:or promotion-list common-lisp:null)))
+ (common-lisp:defclass get-recommendations-request common-lisp:nil
+                       ((promotions :initarg :|promotions| :type
+                         (common-lisp:or promotion-list common-lisp:null)
+                         :accessor %get-recommendations-request-promotions
+                         :initform common-lisp:nil)
+                        (recommender-arn :initarg :|recommenderArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-recommendations-request-recommender-arn :initform
+                         common-lisp:nil)
+                        (filter-values :initarg :|filterValues| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor %get-recommendations-request-filter-values
+                         :initform common-lisp:nil)
+                        (filter-arn :initarg :|filterArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-recommendations-request-filter-arn :initform
+                         common-lisp:nil)
+                        (context :initarg :|context| :type
+                         (common-lisp:or context common-lisp:null) :accessor
+                         %get-recommendations-request-context :initform
+                         common-lisp:nil)
+                        (num-results :initarg :|numResults| :type
+                         (common-lisp:or num-results common-lisp:null)
+                         :accessor %get-recommendations-request-num-results
+                         :initform common-lisp:nil)
+                        (user-id :initarg :|userId| :type
+                         (common-lisp:or user-id common-lisp:null) :accessor
+                         %get-recommendations-request-user-id :initform
+                         common-lisp:nil)
+                        (item-id :initarg :|itemId| :type
+                         (common-lisp:or item-id common-lisp:null) :accessor
+                         %get-recommendations-request-item-id :initform
+                         common-lisp:nil)
+                        (campaign-arn :initarg :|campaignArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-recommendations-request-campaign-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-recommendations-request
                     'make-get-recommendations-request))
+ (common-lisp:defun make-get-recommendations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key promotions recommender-arn filter-values
+                     filter-arn context num-results user-id item-id
+                     campaign-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-recommendations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -257,16 +319,25 @@
                           get-recommendations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-recommendations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-recommendations-response-"))
-   (item-list common-lisp:nil :type
-    (common-lisp:or item-list common-lisp:null))
-   (recommendation-id common-lisp:nil :type
-    (common-lisp:or recommendation-id common-lisp:null)))
+ (common-lisp:defclass get-recommendations-response common-lisp:nil
+                       ((recommendation-id :initarg :|recommendationId| :type
+                         (common-lisp:or recommendation-id common-lisp:null)
+                         :accessor
+                         %get-recommendations-response-recommendation-id
+                         :initform common-lisp:nil)
+                        (item-list :initarg :|itemList| :type
+                         (common-lisp:or item-list common-lisp:null) :accessor
+                         %get-recommendations-response-item-list :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-recommendations-response
                     'make-get-recommendations-response))
+ (common-lisp:defun make-get-recommendations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recommendation-id item-list)
+   (common-lisp:apply #'common-lisp:make-instance 'get-recommendations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -306,7 +377,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-input-exception
      (personalize-runtime-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-input-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-input-exception 'invalid-input-exception-message)))
@@ -322,14 +393,24 @@
 (common-lisp:deftype num-results () 'common-lisp:integer)
 (common-lisp:deftype percent-promoted-items () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (predicted-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-predicted-item-"))
-   (item-id common-lisp:nil :type (common-lisp:or item-id common-lisp:null))
-   (score common-lisp:nil :type (common-lisp:or score common-lisp:null))
-   (promotion-name common-lisp:nil :type
-    (common-lisp:or name common-lisp:null)))
+ (common-lisp:defclass predicted-item common-lisp:nil
+                       ((promotion-name :initarg :|promotionName| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %predicted-item-promotion-name :initform
+                         common-lisp:nil)
+                        (score :initarg :|score| :type
+                         (common-lisp:or score common-lisp:null) :accessor
+                         %predicted-item-score :initform common-lisp:nil)
+                        (item-id :initarg :|itemId| :type
+                         (common-lisp:or item-id common-lisp:null) :accessor
+                         %predicted-item-item-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'predicted-item 'make-predicted-item))
+ (common-lisp:defun make-predicted-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key promotion-name score item-id)
+   (common-lisp:apply #'common-lisp:make-instance 'predicted-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input predicted-item))
    (common-lisp:append))
@@ -361,16 +442,31 @@
                         ((aws-sdk/generator/shape::input predicted-item))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (promotion (:copier common-lisp:nil)
-      (:conc-name "struct-shape-promotion-"))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
-   (percent-promoted-items common-lisp:nil :type
-    (common-lisp:or percent-promoted-items common-lisp:null))
-   (filter-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (filter-values common-lisp:nil :type
-    (common-lisp:or filter-values common-lisp:null)))
+ (common-lisp:defclass promotion common-lisp:nil
+                       ((filter-values :initarg :|filterValues| :type
+                         (common-lisp:or filter-values common-lisp:null)
+                         :accessor %promotion-filter-values :initform
+                         common-lisp:nil)
+                        (filter-arn :initarg :|filterArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %promotion-filter-arn :initform common-lisp:nil)
+                        (percent-promoted-items :initarg
+                         :|percentPromotedItems| :type
+                         (common-lisp:or percent-promoted-items
+                                         common-lisp:null)
+                         :accessor %promotion-percent-promoted-items :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %promotion-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'promotion 'make-promotion))
+ (common-lisp:defun make-promotion
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key filter-values filter-arn
+                     percent-promoted-items name)
+   (common-lisp:apply #'common-lisp:make-instance 'promotion
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input promotion))
    (common-lisp:append))
@@ -420,7 +516,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (personalize-runtime-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception

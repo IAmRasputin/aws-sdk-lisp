@@ -34,19 +34,26 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (license-manager-user-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (active-directory-identity-provider (:copier common-lisp:nil)
-      (:conc-name "struct-shape-active-directory-identity-provider-"))
-   (directory-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass active-directory-identity-provider common-lisp:nil
+                       ((directory-id :initarg :directory-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %active-directory-identity-provider-directory-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'active-directory-identity-provider
                     'make-active-directory-identity-provider))
+ (common-lisp:defun make-active-directory-identity-provider
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key directory-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'active-directory-identity-provider
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -70,18 +77,33 @@
                           active-directory-identity-provider))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-user-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-user-request-"))
-   (domain common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass associate-user-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %associate-user-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %associate-user-request-instance-id :initform
+                         (common-lisp:error ":instance-id is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor %associate-user-request-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %associate-user-request-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'associate-user-request 'make-associate-user-request))
+ (common-lisp:defun make-associate-user-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username instance-id identity-provider
+                     domain)
+   (common-lisp:apply #'common-lisp:make-instance 'associate-user-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -126,14 +148,24 @@
                           associate-user-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-user-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-user-response-"))
-   (instance-user-summary
-    (common-lisp:error ":instance-user-summary is required") :type
-    (common-lisp:or instance-user-summary common-lisp:null)))
+ (common-lisp:defclass associate-user-response common-lisp:nil
+                       ((instance-user-summary :initarg :instance-user-summary
+                         :type
+                         (common-lisp:or instance-user-summary
+                                         common-lisp:null)
+                         :accessor
+                         %associate-user-response-instance-user-summary
+                         :initform
+                         (common-lisp:error
+                          ":instance-user-summary is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-user-response 'make-associate-user-response))
+ (common-lisp:defun make-associate-user-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key instance-user-summary)
+   (common-lisp:apply #'common-lisp:make-instance 'associate-user-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -161,21 +193,33 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (license-manager-user-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (deregister-identity-provider-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deregister-identity-provider-request-"))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass deregister-identity-provider-request common-lisp:nil
+                       ((product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %deregister-identity-provider-request-product
+                         :initform (common-lisp:error ":product is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor
+                         %deregister-identity-provider-request-identity-provider
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider is required"))))
  (common-lisp:export
   (common-lisp:list 'deregister-identity-provider-request
                     'make-deregister-identity-provider-request))
+ (common-lisp:defun make-deregister-identity-provider-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key product identity-provider)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'deregister-identity-provider-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -206,15 +250,26 @@
                           deregister-identity-provider-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (deregister-identity-provider-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-deregister-identity-provider-response-"))
-   (identity-provider-summary
-    (common-lisp:error ":identity-provider-summary is required") :type
-    (common-lisp:or identity-provider-summary common-lisp:null)))
+ (common-lisp:defclass deregister-identity-provider-response common-lisp:nil
+                       ((identity-provider-summary :initarg
+                         :identity-provider-summary :type
+                         (common-lisp:or identity-provider-summary
+                                         common-lisp:null)
+                         :accessor
+                         %deregister-identity-provider-response-identity-provider-summary
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider-summary is required"))))
  (common-lisp:export
   (common-lisp:list 'deregister-identity-provider-response
                     'make-deregister-identity-provider-response))
+ (common-lisp:defun make-deregister-identity-provider-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-provider-summary)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'deregister-identity-provider-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -239,19 +294,34 @@
                           deregister-identity-provider-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-user-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-user-request-"))
-   (domain common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass disassociate-user-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %disassociate-user-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %disassociate-user-request-instance-id :initform
+                         (common-lisp:error ":instance-id is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor %disassociate-user-request-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %disassociate-user-request-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disassociate-user-request
                     'make-disassociate-user-request))
+ (common-lisp:defun make-disassociate-user-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username instance-id identity-provider
+                     domain)
+   (common-lisp:apply #'common-lisp:make-instance 'disassociate-user-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -296,15 +366,25 @@
                           disassociate-user-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-user-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-user-response-"))
-   (instance-user-summary
-    (common-lisp:error ":instance-user-summary is required") :type
-    (common-lisp:or instance-user-summary common-lisp:null)))
+ (common-lisp:defclass disassociate-user-response common-lisp:nil
+                       ((instance-user-summary :initarg :instance-user-summary
+                         :type
+                         (common-lisp:or instance-user-summary
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-user-response-instance-user-summary
+                         :initform
+                         (common-lisp:error
+                          ":instance-user-summary is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-user-response
                     'make-disassociate-user-response))
+ (common-lisp:defun make-disassociate-user-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key instance-user-summary)
+   (common-lisp:apply #'common-lisp:make-instance 'disassociate-user-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -329,12 +409,23 @@
                           disassociate-user-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (filter (:copier common-lisp:nil) (:conc-name "struct-shape-filter-"))
-   (attribute common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (operation common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass filter common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %filter-value :initform common-lisp:nil)
+                        (operation :initarg :operation :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %filter-operation :initform common-lisp:nil)
+                        (attribute :initarg :attribute :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %filter-attribute :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'filter 'make-filter))
+ (common-lisp:defun make-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value operation attribute)
+   (common-lisp:apply #'common-lisp:make-instance 'filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input filter))
    (common-lisp:append))
@@ -373,13 +464,22 @@
                            (trivial-types:proper-list filter))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (identity-provider (:copier common-lisp:nil)
-      (:conc-name "struct-shape-identity-provider-"))
-   (active-directory-identity-provider common-lisp:nil :type
-    (common-lisp:or active-directory-identity-provider common-lisp:null)))
+ (common-lisp:defclass identity-provider common-lisp:nil
+                       ((active-directory-identity-provider :initarg
+                         :active-directory-identity-provider :type
+                         (common-lisp:or active-directory-identity-provider
+                                         common-lisp:null)
+                         :accessor
+                         %identity-provider-active-directory-identity-provider
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'identity-provider 'make-identity-provider))
+ (common-lisp:defun make-identity-provider
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key active-directory-identity-provider)
+   (common-lisp:apply #'common-lisp:make-instance 'identity-provider
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input identity-provider))
    (common-lisp:append))
@@ -398,22 +498,38 @@
                         ((aws-sdk/generator/shape::input identity-provider))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (identity-provider-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-identity-provider-summary-"))
-   (failure-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null))
-   (settings (common-lisp:error ":settings is required") :type
-    (common-lisp:or settings common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass identity-provider-summary common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %identity-provider-summary-status :initform
+                         (common-lisp:error ":status is required"))
+                        (settings :initarg :settings :type
+                         (common-lisp:or settings common-lisp:null) :accessor
+                         %identity-provider-summary-settings :initform
+                         (common-lisp:error ":settings is required"))
+                        (product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %identity-provider-summary-product :initform
+                         (common-lisp:error ":product is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor %identity-provider-summary-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (failure-message :initarg :failure-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %identity-provider-summary-failure-message :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'identity-provider-summary
                     'make-identity-provider-summary))
+ (common-lisp:defun make-identity-provider-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status settings product identity-provider
+                     failure-message)
+   (common-lisp:apply #'common-lisp:make-instance 'identity-provider-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -474,21 +590,37 @@
                             identity-provider-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (instance-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-instance-summary-"))
-   (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (last-status-check-date common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (products (common-lisp:error ":products is required") :type
-    (common-lisp:or string-list common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass instance-summary common-lisp:nil
+                       ((status-message :initarg :status-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-summary-status-message :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-summary-status :initform
+                         (common-lisp:error ":status is required"))
+                        (products :initarg :products :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %instance-summary-products :initform
+                         (common-lisp:error ":products is required"))
+                        (last-status-check-date :initarg
+                         :last-status-check-date :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-summary-last-status-check-date :initform
+                         common-lisp:nil)
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-summary-instance-id :initform
+                         (common-lisp:error ":instance-id is required"))))
  (common-lisp:export
   (common-lisp:list 'instance-summary 'make-instance-summary))
+ (common-lisp:defun make-instance-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-message status products
+                     last-status-check-date instance-id)
+   (common-lisp:apply #'common-lisp:make-instance 'instance-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input instance-summary))
    (common-lisp:append))
@@ -543,26 +675,50 @@
                            (trivial-types:proper-list instance-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (instance-user-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-instance-user-summary-"))
-   (association-date common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (disassociation-date common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (domain common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass instance-user-summary common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-user-summary-username :initform
+                         (common-lisp:error ":username is required"))
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-user-summary-status-message :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-user-summary-status :initform
+                         (common-lisp:error ":status is required"))
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-user-summary-instance-id :initform
+                         (common-lisp:error ":instance-id is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor %instance-user-summary-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-user-summary-domain :initform
+                         common-lisp:nil)
+                        (disassociation-date :initarg :disassociation-date
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor %instance-user-summary-disassociation-date
+                         :initform common-lisp:nil)
+                        (association-date :initarg :association-date :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-user-summary-association-date :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'instance-user-summary 'make-instance-user-summary))
+ (common-lisp:defun make-instance-user-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username status-message status
+                     instance-id identity-provider domain disassociation-date
+                     association-date)
+   (common-lisp:apply #'common-lisp:make-instance 'instance-user-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -645,21 +801,31 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (license-manager-user-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-identity-providers-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-identity-providers-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or box-integer common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-identity-providers-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-identity-providers-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or box-integer common-lisp:null)
+                         :accessor %list-identity-providers-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-identity-providers-request
                     'make-list-identity-providers-request))
+ (common-lisp:defun make-list-identity-providers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-identity-providers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -690,16 +856,30 @@
                           list-identity-providers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-identity-providers-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-identity-providers-response-"))
-   (identity-provider-summaries
-    (common-lisp:error ":identity-provider-summaries is required") :type
-    (common-lisp:or identity-provider-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-identity-providers-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-identity-providers-response-next-token :initform
+                         common-lisp:nil)
+                        (identity-provider-summaries :initarg
+                         :identity-provider-summaries :type
+                         (common-lisp:or identity-provider-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-identity-providers-response-identity-provider-summaries
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider-summaries is required"))))
  (common-lisp:export
   (common-lisp:list 'list-identity-providers-response
                     'make-list-identity-providers-response))
+ (common-lisp:defun make-list-identity-providers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token identity-provider-summaries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-identity-providers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -731,16 +911,27 @@
                           list-identity-providers-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-instances-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-instances-request-"))
-   (filters common-lisp:nil :type
-    (common-lisp:or filter-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or box-integer common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-instances-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-instances-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or box-integer common-lisp:null)
+                         :accessor %list-instances-request-max-results
+                         :initform common-lisp:nil)
+                        (filters :initarg :filters :type
+                         (common-lisp:or filter-list common-lisp:null)
+                         :accessor %list-instances-request-filters :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-instances-request 'make-list-instances-request))
+ (common-lisp:defun make-list-instances-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results filters)
+   (common-lisp:apply #'common-lisp:make-instance 'list-instances-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -778,14 +969,24 @@
                           list-instances-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-instances-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-instances-response-"))
-   (instance-summaries common-lisp:nil :type
-    (common-lisp:or instance-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-instances-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-instances-response-next-token :initform
+                         common-lisp:nil)
+                        (instance-summaries :initarg :instance-summaries :type
+                         (common-lisp:or instance-summary-list
+                                         common-lisp:null)
+                         :accessor %list-instances-response-instance-summaries
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-instances-response 'make-list-instances-response))
+ (common-lisp:defun make-list-instances-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token instance-summaries)
+   (common-lisp:apply #'common-lisp:make-instance 'list-instances-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -816,21 +1017,41 @@
                           list-instances-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-product-subscriptions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-product-subscriptions-request-"))
-   (filters common-lisp:nil :type
-    (common-lisp:or filter-list common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or box-integer common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-product-subscriptions-request common-lisp:nil
+                       ((product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-product-subscriptions-request-product :initform
+                         (common-lisp:error ":product is required"))
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-product-subscriptions-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or box-integer common-lisp:null)
+                         :accessor
+                         %list-product-subscriptions-request-max-results
+                         :initform common-lisp:nil)
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor
+                         %list-product-subscriptions-request-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (filters :initarg :filters :type
+                         (common-lisp:or filter-list common-lisp:null)
+                         :accessor %list-product-subscriptions-request-filters
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-product-subscriptions-request
                     'make-list-product-subscriptions-request))
+ (common-lisp:defun make-list-product-subscriptions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key product next-token max-results
+                     identity-provider filters)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-product-subscriptions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -882,15 +1103,28 @@
                           list-product-subscriptions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-product-subscriptions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-product-subscriptions-response-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (product-user-summaries common-lisp:nil :type
-    (common-lisp:or product-user-summary-list common-lisp:null)))
+ (common-lisp:defclass list-product-subscriptions-response common-lisp:nil
+                       ((product-user-summaries :initarg
+                         :product-user-summaries :type
+                         (common-lisp:or product-user-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-product-subscriptions-response-product-user-summaries
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-product-subscriptions-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-product-subscriptions-response
                     'make-list-product-subscriptions-response))
+ (common-lisp:defun make-list-product-subscriptions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key product-user-summaries next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-product-subscriptions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -922,21 +1156,40 @@
                           list-product-subscriptions-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-user-associations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-user-associations-request-"))
-   (filters common-lisp:nil :type
-    (common-lisp:or filter-list common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or box-integer common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-user-associations-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-user-associations-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or box-integer common-lisp:null)
+                         :accessor %list-user-associations-request-max-results
+                         :initform common-lisp:nil)
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-user-associations-request-instance-id :initform
+                         (common-lisp:error ":instance-id is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor
+                         %list-user-associations-request-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (filters :initarg :filters :type
+                         (common-lisp:or filter-list common-lisp:null)
+                         :accessor %list-user-associations-request-filters
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-user-associations-request
                     'make-list-user-associations-request))
+ (common-lisp:defun make-list-user-associations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results instance-id
+                     identity-provider filters)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-user-associations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -988,15 +1241,28 @@
                           list-user-associations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-user-associations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-user-associations-response-"))
-   (instance-user-summaries common-lisp:nil :type
-    (common-lisp:or instance-user-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-user-associations-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-user-associations-response-next-token :initform
+                         common-lisp:nil)
+                        (instance-user-summaries :initarg
+                         :instance-user-summaries :type
+                         (common-lisp:or instance-user-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-user-associations-response-instance-user-summaries
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-user-associations-response
                     'make-list-user-associations-response))
+ (common-lisp:defun make-list-user-associations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token instance-user-summaries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-user-associations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1028,26 +1294,51 @@
                           list-user-associations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (product-user-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-product-user-summary-"))
-   (domain common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (subscription-end-date common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (subscription-start-date common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass product-user-summary common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %product-user-summary-username :initform
+                         (common-lisp:error ":username is required"))
+                        (subscription-start-date :initarg
+                         :subscription-start-date :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %product-user-summary-subscription-start-date
+                         :initform common-lisp:nil)
+                        (subscription-end-date :initarg :subscription-end-date
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor %product-user-summary-subscription-end-date
+                         :initform common-lisp:nil)
+                        (status-message :initarg :status-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %product-user-summary-status-message :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %product-user-summary-status :initform
+                         (common-lisp:error ":status is required"))
+                        (product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %product-user-summary-product :initform
+                         (common-lisp:error ":product is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor %product-user-summary-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %product-user-summary-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'product-user-summary 'make-product-user-summary))
+ (common-lisp:defun make-product-user-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username subscription-start-date
+                     subscription-end-date status-message status product
+                     identity-provider domain)
+   (common-lisp:apply #'common-lisp:make-instance 'product-user-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input product-user-summary))
    (common-lisp:append))
@@ -1124,17 +1415,32 @@
                            (trivial-types:proper-list product-user-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-identity-provider-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-identity-provider-request-"))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null))
-   (settings common-lisp:nil :type (common-lisp:or settings common-lisp:null)))
+ (common-lisp:defclass register-identity-provider-request common-lisp:nil
+                       ((settings :initarg :settings :type
+                         (common-lisp:or settings common-lisp:null) :accessor
+                         %register-identity-provider-request-settings :initform
+                         common-lisp:nil)
+                        (product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %register-identity-provider-request-product :initform
+                         (common-lisp:error ":product is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor
+                         %register-identity-provider-request-identity-provider
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider is required"))))
  (common-lisp:export
   (common-lisp:list 'register-identity-provider-request
                     'make-register-identity-provider-request))
+ (common-lisp:defun make-register-identity-provider-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key settings product identity-provider)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'register-identity-provider-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1172,15 +1478,26 @@
                           register-identity-provider-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-identity-provider-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-identity-provider-response-"))
-   (identity-provider-summary
-    (common-lisp:error ":identity-provider-summary is required") :type
-    (common-lisp:or identity-provider-summary common-lisp:null)))
+ (common-lisp:defclass register-identity-provider-response common-lisp:nil
+                       ((identity-provider-summary :initarg
+                         :identity-provider-summary :type
+                         (common-lisp:or identity-provider-summary
+                                         common-lisp:null)
+                         :accessor
+                         %register-identity-provider-response-identity-provider-summary
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider-summary is required"))))
  (common-lisp:export
   (common-lisp:list 'register-identity-provider-response
                     'make-register-identity-provider-response))
+ (common-lisp:defun make-register-identity-provider-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-provider-summary)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'register-identity-provider-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1207,7 +1524,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (license-manager-user-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -1216,19 +1533,30 @@
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (license-manager-user-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-quota-exceeded-exception
                     'service-quota-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (settings (:copier common-lisp:nil) (:conc-name "struct-shape-settings-"))
-   (security-group-id (common-lisp:error ":security-group-id is required")
-    :type (common-lisp:or security-group common-lisp:null))
-   (subnets (common-lisp:error ":subnets is required") :type
-    (common-lisp:or settings-subnets-list common-lisp:null)))
+ (common-lisp:defclass settings common-lisp:nil
+                       ((subnets :initarg :subnets :type
+                         (common-lisp:or settings-subnets-list
+                                         common-lisp:null)
+                         :accessor %settings-subnets :initform
+                         (common-lisp:error ":subnets is required"))
+                        (security-group-id :initarg :security-group-id :type
+                         (common-lisp:or security-group common-lisp:null)
+                         :accessor %settings-security-group-id :initform
+                         (common-lisp:error
+                          ":security-group-id is required"))))
  (common-lisp:export (common-lisp:list 'settings 'make-settings))
+ (common-lisp:defun make-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key subnets security-group-id)
+   (common-lisp:apply #'common-lisp:make-instance 'settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input settings))
    (common-lisp:append))
@@ -1261,19 +1589,36 @@
                            (trivial-types:proper-list subnet))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-product-subscription-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-product-subscription-request-"))
-   (domain common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass start-product-subscription-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %start-product-subscription-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %start-product-subscription-request-product :initform
+                         (common-lisp:error ":product is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor
+                         %start-product-subscription-request-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %start-product-subscription-request-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-product-subscription-request
                     'make-start-product-subscription-request))
+ (common-lisp:defun make-start-product-subscription-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username product identity-provider
+                     domain)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-product-subscription-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1318,15 +1663,25 @@
                           start-product-subscription-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-product-subscription-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-product-subscription-response-"))
-   (product-user-summary
-    (common-lisp:error ":product-user-summary is required") :type
-    (common-lisp:or product-user-summary common-lisp:null)))
+ (common-lisp:defclass start-product-subscription-response common-lisp:nil
+                       ((product-user-summary :initarg :product-user-summary
+                         :type
+                         (common-lisp:or product-user-summary common-lisp:null)
+                         :accessor
+                         %start-product-subscription-response-product-user-summary
+                         :initform
+                         (common-lisp:error
+                          ":product-user-summary is required"))))
  (common-lisp:export
   (common-lisp:list 'start-product-subscription-response
                     'make-start-product-subscription-response))
+ (common-lisp:defun make-start-product-subscription-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key product-user-summary)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-product-subscription-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1351,19 +1706,36 @@
                           start-product-subscription-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-product-subscription-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-product-subscription-request-"))
-   (domain common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass stop-product-subscription-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %stop-product-subscription-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %stop-product-subscription-request-product :initform
+                         (common-lisp:error ":product is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor
+                         %stop-product-subscription-request-identity-provider
+                         :initform
+                         (common-lisp:error ":identity-provider is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %stop-product-subscription-request-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'stop-product-subscription-request
                     'make-stop-product-subscription-request))
+ (common-lisp:defun make-stop-product-subscription-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username product identity-provider
+                     domain)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stop-product-subscription-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1408,15 +1780,25 @@
                           stop-product-subscription-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-product-subscription-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-product-subscription-response-"))
-   (product-user-summary
-    (common-lisp:error ":product-user-summary is required") :type
-    (common-lisp:or product-user-summary common-lisp:null)))
+ (common-lisp:defclass stop-product-subscription-response common-lisp:nil
+                       ((product-user-summary :initarg :product-user-summary
+                         :type
+                         (common-lisp:or product-user-summary common-lisp:null)
+                         :accessor
+                         %stop-product-subscription-response-product-user-summary
+                         :initform
+                         (common-lisp:error
+                          ":product-user-summary is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-product-subscription-response
                     'make-stop-product-subscription-response))
+ (common-lisp:defun make-stop-product-subscription-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key product-user-summary)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'stop-product-subscription-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1459,23 +1841,41 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (license-manager-user-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-identity-provider-settings-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-identity-provider-settings-request-"))
-   (identity-provider (common-lisp:error ":identity-provider is required")
-    :type (common-lisp:or identity-provider common-lisp:null))
-   (product (common-lisp:error ":product is required") :type
-    (common-lisp:or string common-lisp:null))
-   (update-settings (common-lisp:error ":update-settings is required") :type
-    (common-lisp:or update-settings common-lisp:null)))
+ (common-lisp:defclass update-identity-provider-settings-request
+                       common-lisp:nil
+                       ((update-settings :initarg :update-settings :type
+                         (common-lisp:or update-settings common-lisp:null)
+                         :accessor
+                         %update-identity-provider-settings-request-update-settings
+                         :initform
+                         (common-lisp:error ":update-settings is required"))
+                        (product :initarg :product :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-identity-provider-settings-request-product
+                         :initform (common-lisp:error ":product is required"))
+                        (identity-provider :initarg :identity-provider :type
+                         (common-lisp:or identity-provider common-lisp:null)
+                         :accessor
+                         %update-identity-provider-settings-request-identity-provider
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider is required"))))
  (common-lisp:export
   (common-lisp:list 'update-identity-provider-settings-request
                     'make-update-identity-provider-settings-request))
+ (common-lisp:defun make-update-identity-provider-settings-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-settings product
+                     identity-provider)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-identity-provider-settings-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1513,15 +1913,27 @@
                           update-identity-provider-settings-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-identity-provider-settings-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-identity-provider-settings-response-"))
-   (identity-provider-summary
-    (common-lisp:error ":identity-provider-summary is required") :type
-    (common-lisp:or identity-provider-summary common-lisp:null)))
+ (common-lisp:defclass update-identity-provider-settings-response
+                       common-lisp:nil
+                       ((identity-provider-summary :initarg
+                         :identity-provider-summary :type
+                         (common-lisp:or identity-provider-summary
+                                         common-lisp:null)
+                         :accessor
+                         %update-identity-provider-settings-response-identity-provider-summary
+                         :initform
+                         (common-lisp:error
+                          ":identity-provider-summary is required"))))
  (common-lisp:export
   (common-lisp:list 'update-identity-provider-settings-response
                     'make-update-identity-provider-settings-response))
+ (common-lisp:defun make-update-identity-provider-settings-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-provider-summary)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-identity-provider-settings-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1546,16 +1958,27 @@
                           update-identity-provider-settings-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-settings-"))
-   (add-subnets (common-lisp:error ":add-subnets is required") :type
-    (common-lisp:or subnets common-lisp:null))
-   (remove-subnets (common-lisp:error ":remove-subnets is required") :type
-    (common-lisp:or subnets common-lisp:null))
-   (security-group-id common-lisp:nil :type
-    (common-lisp:or security-group common-lisp:null)))
+ (common-lisp:defclass update-settings common-lisp:nil
+                       ((security-group-id :initarg :security-group-id :type
+                         (common-lisp:or security-group common-lisp:null)
+                         :accessor %update-settings-security-group-id :initform
+                         common-lisp:nil)
+                        (remove-subnets :initarg :remove-subnets :type
+                         (common-lisp:or subnets common-lisp:null) :accessor
+                         %update-settings-remove-subnets :initform
+                         (common-lisp:error ":remove-subnets is required"))
+                        (add-subnets :initarg :add-subnets :type
+                         (common-lisp:or subnets common-lisp:null) :accessor
+                         %update-settings-add-subnets :initform
+                         (common-lisp:error ":add-subnets is required"))))
  (common-lisp:export (common-lisp:list 'update-settings 'make-update-settings))
+ (common-lisp:defun make-update-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-group-id remove-subnets
+                     add-subnets)
+   (common-lisp:apply #'common-lisp:make-instance 'update-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-settings))
    (common-lisp:append))
@@ -1589,7 +2012,7 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (license-manager-user-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))

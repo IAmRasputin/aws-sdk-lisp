@@ -31,34 +31,53 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (controltower-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (controltower-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:deftype control-identifier () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (control-operation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-control-operation-"))
-   (end-time common-lisp:nil :type
-    (common-lisp:or synthetic-timestamp-date-time common-lisp:null))
-   (operation-type common-lisp:nil :type
-    (common-lisp:or control-operation-type common-lisp:null))
-   (start-time common-lisp:nil :type
-    (common-lisp:or synthetic-timestamp-date-time common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or control-operation-status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass control-operation common-lisp:nil
+                       ((status-message :initarg :|statusMessage| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %control-operation-status-message :initform
+                         common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or control-operation-status
+                                         common-lisp:null)
+                         :accessor %control-operation-status :initform
+                         common-lisp:nil)
+                        (start-time :initarg :|startTime| :type
+                         (common-lisp:or synthetic-timestamp-date-time
+                                         common-lisp:null)
+                         :accessor %control-operation-start-time :initform
+                         common-lisp:nil)
+                        (operation-type :initarg :|operationType| :type
+                         (common-lisp:or control-operation-type
+                                         common-lisp:null)
+                         :accessor %control-operation-operation-type :initform
+                         common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or synthetic-timestamp-date-time
+                                         common-lisp:null)
+                         :accessor %control-operation-end-time :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'control-operation 'make-control-operation))
+ (common-lisp:defun make-control-operation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-message status start-time
+                     operation-type end-time)
+   (common-lisp:apply #'common-lisp:make-instance 'control-operation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input control-operation))
    (common-lisp:append))
@@ -106,15 +125,26 @@
 (common-lisp:deftype control-operation-status () 'common-lisp:string)
 (common-lisp:deftype control-operation-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (disable-control-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disable-control-input-"))
-   (control-identifier (common-lisp:error ":controlidentifier is required")
-    :type (common-lisp:or control-identifier common-lisp:null))
-   (target-identifier (common-lisp:error ":targetidentifier is required") :type
-    (common-lisp:or target-identifier common-lisp:null)))
+ (common-lisp:defclass disable-control-input common-lisp:nil
+                       ((target-identifier :initarg :|targetIdentifier| :type
+                         (common-lisp:or target-identifier common-lisp:null)
+                         :accessor %disable-control-input-target-identifier
+                         :initform
+                         (common-lisp:error ":targetidentifier is required"))
+                        (control-identifier :initarg :|controlIdentifier| :type
+                         (common-lisp:or control-identifier common-lisp:null)
+                         :accessor %disable-control-input-control-identifier
+                         :initform
+                         (common-lisp:error
+                          ":controlidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'disable-control-input 'make-disable-control-input))
+ (common-lisp:defun make-disable-control-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-identifier control-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'disable-control-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -145,13 +175,22 @@
                           disable-control-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disable-control-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disable-control-output-"))
-   (operation-identifier (common-lisp:error ":operationidentifier is required")
-    :type (common-lisp:or operation-identifier common-lisp:null)))
+ (common-lisp:defclass disable-control-output common-lisp:nil
+                       ((operation-identifier :initarg :|operationIdentifier|
+                         :type
+                         (common-lisp:or operation-identifier common-lisp:null)
+                         :accessor %disable-control-output-operation-identifier
+                         :initform
+                         (common-lisp:error
+                          ":operationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'disable-control-output 'make-disable-control-output))
+ (common-lisp:defun make-disable-control-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key operation-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'disable-control-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -176,15 +215,26 @@
                           disable-control-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (enable-control-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-enable-control-input-"))
-   (control-identifier (common-lisp:error ":controlidentifier is required")
-    :type (common-lisp:or control-identifier common-lisp:null))
-   (target-identifier (common-lisp:error ":targetidentifier is required") :type
-    (common-lisp:or target-identifier common-lisp:null)))
+ (common-lisp:defclass enable-control-input common-lisp:nil
+                       ((target-identifier :initarg :|targetIdentifier| :type
+                         (common-lisp:or target-identifier common-lisp:null)
+                         :accessor %enable-control-input-target-identifier
+                         :initform
+                         (common-lisp:error ":targetidentifier is required"))
+                        (control-identifier :initarg :|controlIdentifier| :type
+                         (common-lisp:or control-identifier common-lisp:null)
+                         :accessor %enable-control-input-control-identifier
+                         :initform
+                         (common-lisp:error
+                          ":controlidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'enable-control-input 'make-enable-control-input))
+ (common-lisp:defun make-enable-control-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-identifier control-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'enable-control-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input enable-control-input))
    (common-lisp:append))
@@ -209,13 +259,22 @@
                         ((aws-sdk/generator/shape::input enable-control-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (enable-control-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-enable-control-output-"))
-   (operation-identifier (common-lisp:error ":operationidentifier is required")
-    :type (common-lisp:or operation-identifier common-lisp:null)))
+ (common-lisp:defclass enable-control-output common-lisp:nil
+                       ((operation-identifier :initarg :|operationIdentifier|
+                         :type
+                         (common-lisp:or operation-identifier common-lisp:null)
+                         :accessor %enable-control-output-operation-identifier
+                         :initform
+                         (common-lisp:error
+                          ":operationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'enable-control-output 'make-enable-control-output))
+ (common-lisp:defun make-enable-control-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key operation-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'enable-control-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -240,13 +299,19 @@
                           enable-control-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (enabled-control-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-enabled-control-summary-"))
-   (control-identifier common-lisp:nil :type
-    (common-lisp:or control-identifier common-lisp:null)))
+ (common-lisp:defclass enabled-control-summary common-lisp:nil
+                       ((control-identifier :initarg :|controlIdentifier| :type
+                         (common-lisp:or control-identifier common-lisp:null)
+                         :accessor %enabled-control-summary-control-identifier
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'enabled-control-summary 'make-enabled-control-summary))
+ (common-lisp:defun make-enabled-control-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key control-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'enabled-control-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -278,14 +343,24 @@
                            (trivial-types:proper-list enabled-control-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-control-operation-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-control-operation-input-"))
-   (operation-identifier (common-lisp:error ":operationidentifier is required")
-    :type (common-lisp:or operation-identifier common-lisp:null)))
+ (common-lisp:defclass get-control-operation-input common-lisp:nil
+                       ((operation-identifier :initarg :|operationIdentifier|
+                         :type
+                         (common-lisp:or operation-identifier common-lisp:null)
+                         :accessor
+                         %get-control-operation-input-operation-identifier
+                         :initform
+                         (common-lisp:error
+                          ":operationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-control-operation-input
                     'make-get-control-operation-input))
+ (common-lisp:defun make-get-control-operation-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key operation-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-control-operation-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -310,14 +385,22 @@
                           get-control-operation-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-control-operation-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-control-operation-output-"))
-   (control-operation (common-lisp:error ":controloperation is required") :type
-    (common-lisp:or control-operation common-lisp:null)))
+ (common-lisp:defclass get-control-operation-output common-lisp:nil
+                       ((control-operation :initarg :|controlOperation| :type
+                         (common-lisp:or control-operation common-lisp:null)
+                         :accessor
+                         %get-control-operation-output-control-operation
+                         :initform
+                         (common-lisp:error ":controloperation is required"))))
  (common-lisp:export
   (common-lisp:list 'get-control-operation-output
                     'make-get-control-operation-output))
+ (common-lisp:defun make-get-control-operation-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key control-operation)
+   (common-lisp:apply #'common-lisp:make-instance 'get-control-operation-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -344,23 +427,36 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (controltower-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-enabled-controls-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-enabled-controls-input-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (target-identifier (common-lisp:error ":targetidentifier is required") :type
-    (common-lisp:or target-identifier common-lisp:null)))
+ (common-lisp:defclass list-enabled-controls-input common-lisp:nil
+                       ((target-identifier :initarg :|targetIdentifier| :type
+                         (common-lisp:or target-identifier common-lisp:null)
+                         :accessor
+                         %list-enabled-controls-input-target-identifier
+                         :initform
+                         (common-lisp:error ":targetidentifier is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-enabled-controls-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-enabled-controls-input-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-enabled-controls-input
                     'make-list-enabled-controls-input))
+ (common-lisp:defun make-list-enabled-controls-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-identifier next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-enabled-controls-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -398,15 +494,26 @@
                           list-enabled-controls-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-enabled-controls-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-enabled-controls-output-"))
-   (enabled-controls (common-lisp:error ":enabledcontrols is required") :type
-    (common-lisp:or enabled-controls common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-enabled-controls-output common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-enabled-controls-output-next-token :initform
+                         common-lisp:nil)
+                        (enabled-controls :initarg :|enabledControls| :type
+                         (common-lisp:or enabled-controls common-lisp:null)
+                         :accessor
+                         %list-enabled-controls-output-enabled-controls
+                         :initform
+                         (common-lisp:error ":enabledcontrols is required"))))
  (common-lisp:export
   (common-lisp:list 'list-enabled-controls-output
                     'make-list-enabled-controls-output))
+ (common-lisp:defun make-list-enabled-controls-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token enabled-controls)
+   (common-lisp:apply #'common-lisp:make-instance 'list-enabled-controls-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -441,7 +548,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (controltower-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -449,7 +556,7 @@
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (controltower-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-quota-exceeded-exception
@@ -460,13 +567,13 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (controltower-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)
-      (quota-code :initarg :quota-code :initform common-lisp:nil :reader
+      (quota-code :initarg :|quotaCode| :initform common-lisp:nil :reader
        throttling-exception-quota-code)
-      (retry-after-seconds :initarg :retry-after-seconds :initform
+      (retry-after-seconds :initarg :|retryAfterSeconds| :initform
        common-lisp:nil :reader throttling-exception-retry-after-seconds)
-      (service-code :initarg :service-code :initform common-lisp:nil :reader
+      (service-code :initarg :|serviceCode| :initform common-lisp:nil :reader
        throttling-exception-service-code)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message
@@ -476,7 +583,7 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (controltower-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))

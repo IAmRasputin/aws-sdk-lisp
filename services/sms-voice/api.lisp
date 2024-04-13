@@ -44,14 +44,21 @@
   (common-lisp:list 'bad-request-exception 'bad-request-exception-message)))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (call-instructions-message-type (:copier common-lisp:nil)
-      (:conc-name "struct-shape-call-instructions-message-type-"))
-   (text common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass call-instructions-message-type common-lisp:nil
+                       ((text :initarg :text :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %call-instructions-message-type-text
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'call-instructions-message-type
                     'make-call-instructions-message-type))
+ (common-lisp:defun make-call-instructions-message-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key text)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'call-instructions-message-type
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -75,16 +82,24 @@
                           call-instructions-message-type))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cloud-watch-logs-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cloud-watch-logs-destination-"))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (log-group-arn common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass cloud-watch-logs-destination common-lisp:nil
+                       ((log-group-arn :initarg :log-group-arn :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cloud-watch-logs-destination-log-group-arn :initform
+                         common-lisp:nil)
+                        (iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cloud-watch-logs-destination-iam-role-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'cloud-watch-logs-destination
                     'make-cloud-watch-logs-destination))
+ (common-lisp:defun make-cloud-watch-logs-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-group-arn iam-role-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'cloud-watch-logs-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -124,21 +139,38 @@
                             word-characters-with-delimiters))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-set-event-destination-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-configuration-set-event-destination-request-"))
-   (configuration-set-name
-    (common-lisp:error ":configuration-set-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (event-destination common-lisp:nil :type
-    (common-lisp:or event-destination-definition common-lisp:null))
-   (event-destination-name common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass create-configuration-set-event-destination-request
+                       common-lisp:nil
+                       ((event-destination-name :initarg
+                         :event-destination-name :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %create-configuration-set-event-destination-request-event-destination-name
+                         :initform common-lisp:nil)
+                        (event-destination :initarg :event-destination :type
+                         (common-lisp:or event-destination-definition
+                                         common-lisp:null)
+                         :accessor
+                         %create-configuration-set-event-destination-request-event-destination
+                         :initform common-lisp:nil)
+                        (configuration-set-name :initarg
+                         :configuration-set-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-set-event-destination-request-configuration-set-name
+                         :initform
+                         (common-lisp:error
+                          ":configuration-set-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configuration-set-event-destination-request
                     'make-create-configuration-set-event-destination-request))
+ (common-lisp:defun make-create-configuration-set-event-destination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-destination-name event-destination
+                     configuration-set-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configuration-set-event-destination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -170,14 +202,18 @@
                           create-configuration-set-event-destination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-set-event-destination-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-configuration-set-event-destination-response-")))
+ (common-lisp:defclass create-configuration-set-event-destination-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'create-configuration-set-event-destination-response
                     'make-create-configuration-set-event-destination-response))
+ (common-lisp:defun make-create-configuration-set-event-destination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configuration-set-event-destination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -194,14 +230,24 @@
                           create-configuration-set-event-destination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configuration-set-request-"))
-   (configuration-set-name common-lisp:nil :type
-    (common-lisp:or word-characters-with-delimiters common-lisp:null)))
+ (common-lisp:defclass create-configuration-set-request common-lisp:nil
+                       ((configuration-set-name :initarg
+                         :configuration-set-name :type
+                         (common-lisp:or word-characters-with-delimiters
+                                         common-lisp:null)
+                         :accessor
+                         %create-configuration-set-request-configuration-set-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-configuration-set-request
                     'make-create-configuration-set-request))
+ (common-lisp:defun make-create-configuration-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configuration-set-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configuration-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -226,12 +272,18 @@
                           create-configuration-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configuration-set-response-")))
+ (common-lisp:defclass create-configuration-set-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'create-configuration-set-response
                     'make-create-configuration-set-response))
+ (common-lisp:defun make-create-configuration-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configuration-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -248,20 +300,33 @@
                           create-configuration-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configuration-set-event-destination-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-configuration-set-event-destination-request-"))
-   (configuration-set-name
-    (common-lisp:error ":configuration-set-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (event-destination-name
-    (common-lisp:error ":event-destination-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-configuration-set-event-destination-request
+                       common-lisp:nil
+                       ((event-destination-name :initarg
+                         :event-destination-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-configuration-set-event-destination-request-event-destination-name
+                         :initform
+                         (common-lisp:error
+                          ":event-destination-name is required"))
+                        (configuration-set-name :initarg
+                         :configuration-set-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-configuration-set-event-destination-request-configuration-set-name
+                         :initform
+                         (common-lisp:error
+                          ":configuration-set-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-configuration-set-event-destination-request
                     'make-delete-configuration-set-event-destination-request))
+ (common-lisp:defun make-delete-configuration-set-event-destination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-destination-name
+                     configuration-set-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configuration-set-event-destination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -278,14 +343,18 @@
                           delete-configuration-set-event-destination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configuration-set-event-destination-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-configuration-set-event-destination-response-")))
+ (common-lisp:defclass delete-configuration-set-event-destination-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-configuration-set-event-destination-response
                     'make-delete-configuration-set-event-destination-response))
+ (common-lisp:defun make-delete-configuration-set-event-destination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configuration-set-event-destination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -302,15 +371,24 @@
                           delete-configuration-set-event-destination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configuration-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-configuration-set-request-"))
-   (configuration-set-name
-    (common-lisp:error ":configuration-set-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-configuration-set-request common-lisp:nil
+                       ((configuration-set-name :initarg
+                         :configuration-set-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-configuration-set-request-configuration-set-name
+                         :initform
+                         (common-lisp:error
+                          ":configuration-set-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-configuration-set-request
                     'make-delete-configuration-set-request))
+ (common-lisp:defun make-delete-configuration-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configuration-set-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configuration-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -327,12 +405,18 @@
                           delete-configuration-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configuration-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-configuration-set-response-")))
+ (common-lisp:defclass delete-configuration-set-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-configuration-set-response
                     'make-delete-configuration-set-response))
+ (common-lisp:defun make-delete-configuration-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configuration-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -349,21 +433,45 @@
                           delete-configuration-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-destination-"))
-   (cloud-watch-logs-destination common-lisp:nil :type
-    (common-lisp:or cloud-watch-logs-destination common-lisp:null))
-   (enabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (kinesis-firehose-destination common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-destination common-lisp:null))
-   (matching-event-types common-lisp:nil :type
-    (common-lisp:or event-types common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (sns-destination common-lisp:nil :type
-    (common-lisp:or sns-destination common-lisp:null)))
+ (common-lisp:defclass event-destination common-lisp:nil
+                       ((sns-destination :initarg :sns-destination :type
+                         (common-lisp:or sns-destination common-lisp:null)
+                         :accessor %event-destination-sns-destination :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %event-destination-name :initform common-lisp:nil)
+                        (matching-event-types :initarg :matching-event-types
+                         :type (common-lisp:or event-types common-lisp:null)
+                         :accessor %event-destination-matching-event-types
+                         :initform common-lisp:nil)
+                        (kinesis-firehose-destination :initarg
+                         :kinesis-firehose-destination :type
+                         (common-lisp:or kinesis-firehose-destination
+                                         common-lisp:null)
+                         :accessor
+                         %event-destination-kinesis-firehose-destination
+                         :initform common-lisp:nil)
+                        (enabled :initarg :enabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %event-destination-enabled :initform common-lisp:nil)
+                        (cloud-watch-logs-destination :initarg
+                         :cloud-watch-logs-destination :type
+                         (common-lisp:or cloud-watch-logs-destination
+                                         common-lisp:null)
+                         :accessor
+                         %event-destination-cloud-watch-logs-destination
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'event-destination 'make-event-destination))
+ (common-lisp:defun make-event-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sns-destination name matching-event-types
+                     kinesis-firehose-destination enabled
+                     cloud-watch-logs-destination)
+   (common-lisp:apply #'common-lisp:make-instance 'event-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-destination))
    (common-lisp:append))
@@ -419,21 +527,46 @@
                         ((aws-sdk/generator/shape::input event-destination))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-destination-definition (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-destination-definition-"))
-   (cloud-watch-logs-destination common-lisp:nil :type
-    (common-lisp:or cloud-watch-logs-destination common-lisp:null))
-   (enabled common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (kinesis-firehose-destination common-lisp:nil :type
-    (common-lisp:or kinesis-firehose-destination common-lisp:null))
-   (matching-event-types common-lisp:nil :type
-    (common-lisp:or event-types common-lisp:null))
-   (sns-destination common-lisp:nil :type
-    (common-lisp:or sns-destination common-lisp:null)))
+ (common-lisp:defclass event-destination-definition common-lisp:nil
+                       ((sns-destination :initarg :sns-destination :type
+                         (common-lisp:or sns-destination common-lisp:null)
+                         :accessor
+                         %event-destination-definition-sns-destination
+                         :initform common-lisp:nil)
+                        (matching-event-types :initarg :matching-event-types
+                         :type (common-lisp:or event-types common-lisp:null)
+                         :accessor
+                         %event-destination-definition-matching-event-types
+                         :initform common-lisp:nil)
+                        (kinesis-firehose-destination :initarg
+                         :kinesis-firehose-destination :type
+                         (common-lisp:or kinesis-firehose-destination
+                                         common-lisp:null)
+                         :accessor
+                         %event-destination-definition-kinesis-firehose-destination
+                         :initform common-lisp:nil)
+                        (enabled :initarg :enabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %event-destination-definition-enabled :initform
+                         common-lisp:nil)
+                        (cloud-watch-logs-destination :initarg
+                         :cloud-watch-logs-destination :type
+                         (common-lisp:or cloud-watch-logs-destination
+                                         common-lisp:null)
+                         :accessor
+                         %event-destination-definition-cloud-watch-logs-destination
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'event-destination-definition
                     'make-event-destination-definition))
+ (common-lisp:defun make-event-destination-definition
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sns-destination matching-event-types
+                     kinesis-firehose-destination enabled
+                     cloud-watch-logs-destination)
+   (common-lisp:apply #'common-lisp:make-instance 'event-destination-definition
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -504,17 +637,25 @@
                            (trivial-types:proper-list event-type))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configuration-set-event-destinations-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-configuration-set-event-destinations-request-"))
-   (configuration-set-name
-    (common-lisp:error ":configuration-set-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-configuration-set-event-destinations-request
+                       common-lisp:nil
+                       ((configuration-set-name :initarg
+                         :configuration-set-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-configuration-set-event-destinations-request-configuration-set-name
+                         :initform
+                         (common-lisp:error
+                          ":configuration-set-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-configuration-set-event-destinations-request
                     'make-get-configuration-set-event-destinations-request))
+ (common-lisp:defun make-get-configuration-set-event-destinations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configuration-set-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-configuration-set-event-destinations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -531,16 +672,23 @@
                           get-configuration-set-event-destinations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configuration-set-event-destinations-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-configuration-set-event-destinations-response-"))
-   (event-destinations common-lisp:nil :type
-    (common-lisp:or event-destinations common-lisp:null)))
+ (common-lisp:defclass get-configuration-set-event-destinations-response
+                       common-lisp:nil
+                       ((event-destinations :initarg :event-destinations :type
+                         (common-lisp:or event-destinations common-lisp:null)
+                         :accessor
+                         %get-configuration-set-event-destinations-response-event-destinations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-configuration-set-event-destinations-response
                     'make-get-configuration-set-event-destinations-response))
+ (common-lisp:defun make-get-configuration-set-event-destinations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-destinations)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-configuration-set-event-destinations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -572,16 +720,25 @@
   (common-lisp:list 'internal-service-error-exception
                     'internal-service-error-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (kinesis-firehose-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-kinesis-firehose-destination-"))
-   (delivery-stream-arn common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (iam-role-arn common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass kinesis-firehose-destination common-lisp:nil
+                       ((iam-role-arn :initarg :iam-role-arn :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %kinesis-firehose-destination-iam-role-arn :initform
+                         common-lisp:nil)
+                        (delivery-stream-arn :initarg :delivery-stream-arn
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor
+                         %kinesis-firehose-destination-delivery-stream-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'kinesis-firehose-destination
                     'make-kinesis-firehose-destination))
+ (common-lisp:defun make-kinesis-firehose-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key iam-role-arn delivery-stream-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'kinesis-firehose-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -620,16 +777,25 @@
   (common-lisp:list 'limit-exceeded-exception
                     'limit-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configuration-sets-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configuration-sets-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (page-size common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-configuration-sets-request common-lisp:nil
+                       ((page-size :initarg :page-size :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-sets-request-page-size :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-sets-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configuration-sets-request
                     'make-list-configuration-sets-request))
+ (common-lisp:defun make-list-configuration-sets-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key page-size next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configuration-sets-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -646,16 +812,26 @@
                           list-configuration-sets-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configuration-sets-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configuration-sets-response-"))
-   (configuration-sets common-lisp:nil :type
-    (common-lisp:or configuration-sets common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token-string common-lisp:null)))
+ (common-lisp:defclass list-configuration-sets-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token-string common-lisp:null)
+                         :accessor %list-configuration-sets-response-next-token
+                         :initform common-lisp:nil)
+                        (configuration-sets :initarg :configuration-sets :type
+                         (common-lisp:or configuration-sets common-lisp:null)
+                         :accessor
+                         %list-configuration-sets-response-configuration-sets
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configuration-sets-response
                     'make-list-configuration-sets-response))
+ (common-lisp:defun make-list-configuration-sets-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token configuration-sets)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configuration-sets-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -695,16 +871,27 @@
  (common-lisp:export
   (common-lisp:list 'not-found-exception 'not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (plain-text-message-type (:copier common-lisp:nil)
-      (:conc-name "struct-shape-plain-text-message-type-"))
-   (language-code common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (text common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (voice-id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass plain-text-message-type common-lisp:nil
+                       ((voice-id :initarg :voice-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %plain-text-message-type-voice-id :initform
+                         common-lisp:nil)
+                        (text :initarg :text :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %plain-text-message-type-text :initform
+                         common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %plain-text-message-type-language-code :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'plain-text-message-type 'make-plain-text-message-type))
+ (common-lisp:defun make-plain-text-message-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-id text language-code)
+   (common-lisp:apply #'common-lisp:make-instance 'plain-text-message-type
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -742,16 +929,26 @@
                           plain-text-message-type))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ssmlmessage-type (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ssmlmessage-type-"))
-   (language-code common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (text common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (voice-id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass ssmlmessage-type common-lisp:nil
+                       ((voice-id :initarg :voice-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %ssmlmessage-type-voice-id :initform common-lisp:nil)
+                        (text :initarg :text :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %ssmlmessage-type-text :initform
+                         common-lisp:nil)
+                        (language-code :initarg :language-code :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %ssmlmessage-type-language-code :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'ssmlmessage-type 'make-ssmlmessage-type))
+ (common-lisp:defun make-ssmlmessage-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key voice-id text language-code)
+   (common-lisp:apply #'common-lisp:make-instance 'ssmlmessage-type
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input ssmlmessage-type))
    (common-lisp:append))
@@ -783,21 +980,46 @@
                         ((aws-sdk/generator/shape::input ssmlmessage-type))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-voice-message-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-voice-message-request-"))
-   (caller-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (configuration-set-name common-lisp:nil :type
-    (common-lisp:or word-characters-with-delimiters common-lisp:null))
-   (content common-lisp:nil :type
-    (common-lisp:or voice-message-content common-lisp:null))
-   (destination-phone-number common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (origination-phone-number common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null)))
+ (common-lisp:defclass send-voice-message-request common-lisp:nil
+                       ((origination-phone-number :initarg
+                         :origination-phone-number :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %send-voice-message-request-origination-phone-number
+                         :initform common-lisp:nil)
+                        (destination-phone-number :initarg
+                         :destination-phone-number :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor
+                         %send-voice-message-request-destination-phone-number
+                         :initform common-lisp:nil)
+                        (content :initarg :content :type
+                         (common-lisp:or voice-message-content
+                                         common-lisp:null)
+                         :accessor %send-voice-message-request-content
+                         :initform common-lisp:nil)
+                        (configuration-set-name :initarg
+                         :configuration-set-name :type
+                         (common-lisp:or word-characters-with-delimiters
+                                         common-lisp:null)
+                         :accessor
+                         %send-voice-message-request-configuration-set-name
+                         :initform common-lisp:nil)
+                        (caller-id :initarg :caller-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-voice-message-request-caller-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'send-voice-message-request
                     'make-send-voice-message-request))
+ (common-lisp:defun make-send-voice-message-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key origination-phone-number
+                     destination-phone-number content configuration-set-name
+                     caller-id)
+   (common-lisp:apply #'common-lisp:make-instance 'send-voice-message-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -852,13 +1074,20 @@
                           send-voice-message-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-voice-message-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-voice-message-response-"))
-   (message-id common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass send-voice-message-response common-lisp:nil
+                       ((message-id :initarg :message-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-voice-message-response-message-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'send-voice-message-response
                     'make-send-voice-message-response))
+ (common-lisp:defun make-send-voice-message-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message-id)
+   (common-lisp:apply #'common-lisp:make-instance 'send-voice-message-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -882,11 +1111,18 @@
                           send-voice-message-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sns-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sns-destination-"))
-   (topic-arn common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass sns-destination common-lisp:nil
+                       ((topic-arn :initarg :topic-arn :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %sns-destination-topic-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'sns-destination 'make-sns-destination))
+ (common-lisp:defun make-sns-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key topic-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'sns-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input sns-destination))
    (common-lisp:append))
@@ -913,22 +1149,39 @@
   (common-lisp:list 'too-many-requests-exception
                     'too-many-requests-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-set-event-destination-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-configuration-set-event-destination-request-"))
-   (configuration-set-name
-    (common-lisp:error ":configuration-set-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (event-destination common-lisp:nil :type
-    (common-lisp:or event-destination-definition common-lisp:null))
-   (event-destination-name
-    (common-lisp:error ":event-destination-name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-configuration-set-event-destination-request
+                       common-lisp:nil
+                       ((event-destination-name :initarg
+                         :event-destination-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-set-event-destination-request-event-destination-name
+                         :initform
+                         (common-lisp:error
+                          ":event-destination-name is required"))
+                        (event-destination :initarg :event-destination :type
+                         (common-lisp:or event-destination-definition
+                                         common-lisp:null)
+                         :accessor
+                         %update-configuration-set-event-destination-request-event-destination
+                         :initform common-lisp:nil)
+                        (configuration-set-name :initarg
+                         :configuration-set-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-set-event-destination-request-configuration-set-name
+                         :initform
+                         (common-lisp:error
+                          ":configuration-set-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configuration-set-event-destination-request
                     'make-update-configuration-set-event-destination-request))
+ (common-lisp:defun make-update-configuration-set-event-destination-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-destination-name event-destination
+                     configuration-set-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configuration-set-event-destination-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -952,14 +1205,18 @@
                           update-configuration-set-event-destination-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-set-event-destination-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-configuration-set-event-destination-response-")))
+ (common-lisp:defclass update-configuration-set-event-destination-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-configuration-set-event-destination-response
                     'make-update-configuration-set-event-destination-response))
+ (common-lisp:defun make-update-configuration-set-event-destination-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configuration-set-event-destination-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -976,17 +1233,32 @@
                           update-configuration-set-event-destination-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (voice-message-content (:copier common-lisp:nil)
-      (:conc-name "struct-shape-voice-message-content-"))
-   (call-instructions-message common-lisp:nil :type
-    (common-lisp:or call-instructions-message-type common-lisp:null))
-   (plain-text-message common-lisp:nil :type
-    (common-lisp:or plain-text-message-type common-lisp:null))
-   (ssmlmessage common-lisp:nil :type
-    (common-lisp:or ssmlmessage-type common-lisp:null)))
+ (common-lisp:defclass voice-message-content common-lisp:nil
+                       ((ssmlmessage :initarg :ssmlmessage :type
+                         (common-lisp:or ssmlmessage-type common-lisp:null)
+                         :accessor %voice-message-content-ssmlmessage :initform
+                         common-lisp:nil)
+                        (plain-text-message :initarg :plain-text-message :type
+                         (common-lisp:or plain-text-message-type
+                                         common-lisp:null)
+                         :accessor %voice-message-content-plain-text-message
+                         :initform common-lisp:nil)
+                        (call-instructions-message :initarg
+                         :call-instructions-message :type
+                         (common-lisp:or call-instructions-message-type
+                                         common-lisp:null)
+                         :accessor
+                         %voice-message-content-call-instructions-message
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'voice-message-content 'make-voice-message-content))
+ (common-lisp:defun make-voice-message-content
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ssmlmessage plain-text-message
+                     call-instructions-message)
+   (common-lisp:apply #'common-lisp:make-instance 'voice-message-content
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

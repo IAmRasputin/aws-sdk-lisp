@@ -64,7 +64,7 @@
             :initform nil
             :reader request-payload)
    (session :initarg :session
-            :initform *session*
+            :initform (or *session* (error "aws-sdk:*session* has not been set; are you logged in?"))
             :reader request-session)))
 
 (defmethod initialize-instance :after ((req request) &rest args &key path params &allow-other-keys)

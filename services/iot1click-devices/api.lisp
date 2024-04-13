@@ -29,10 +29,14 @@
     ("ResourceConflictException" . resource-conflict-exception)
     ("ResourceNotFoundException" . resource-not-found-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attributes (:copier common-lisp:nil)
-      (:conc-name "struct-shape-attributes-")))
+ (common-lisp:defclass attributes common-lisp:nil common-lisp:nil)
  (common-lisp:export (common-lisp:list 'attributes 'make-attributes))
+ (common-lisp:defun make-attributes
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'attributes
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input attributes))
    (common-lisp:append))
@@ -43,14 +47,22 @@
                         ((aws-sdk/generator/shape::input attributes))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (claim-devices-by-claim-code-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-claim-devices-by-claim-code-request-"))
-   (claim-code (common-lisp:error ":claim-code is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass claim-devices-by-claim-code-request common-lisp:nil
+                       ((claim-code :initarg :claim-code :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %claim-devices-by-claim-code-request-claim-code
+                         :initform
+                         (common-lisp:error ":claim-code is required"))))
  (common-lisp:export
   (common-lisp:list 'claim-devices-by-claim-code-request
                     'make-claim-devices-by-claim-code-request))
+ (common-lisp:defun make-claim-devices-by-claim-code-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key claim-code)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'claim-devices-by-claim-code-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -67,15 +79,26 @@
                           claim-devices-by-claim-code-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (claim-devices-by-claim-code-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-claim-devices-by-claim-code-response-"))
-   (claim-code common-lisp:nil :type
-    (common-lisp:or |__stringMin12Max40| common-lisp:null))
-   (total common-lisp:nil :type (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:defclass claim-devices-by-claim-code-response common-lisp:nil
+                       ((total :initarg :total :type
+                         (common-lisp:or |__integer| common-lisp:null)
+                         :accessor %claim-devices-by-claim-code-response-total
+                         :initform common-lisp:nil)
+                        (claim-code :initarg :claim-code :type
+                         (common-lisp:or |__stringMin12Max40| common-lisp:null)
+                         :accessor
+                         %claim-devices-by-claim-code-response-claim-code
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'claim-devices-by-claim-code-response
                     'make-claim-devices-by-claim-code-response))
+ (common-lisp:defun make-claim-devices-by-claim-code-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key total claim-code)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'claim-devices-by-claim-code-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -106,13 +129,19 @@
                           claim-devices-by-claim-code-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-device-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-device-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-device-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-device-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-device-request 'make-describe-device-request))
+ (common-lisp:defun make-describe-device-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-device-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -129,13 +158,19 @@
                           describe-device-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-device-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-device-response-"))
-   (device-description common-lisp:nil :type
-    (common-lisp:or device-description common-lisp:null)))
+ (common-lisp:defclass describe-device-response common-lisp:nil
+                       ((device-description :initarg :device-description :type
+                         (common-lisp:or device-description common-lisp:null)
+                         :accessor %describe-device-response-device-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-device-response 'make-describe-device-response))
+ (common-lisp:defun make-describe-device-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-description)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-device-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -159,14 +194,23 @@
                           describe-device-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (device (:copier common-lisp:nil) (:conc-name "struct-shape-device-"))
-   (attributes common-lisp:nil :type
-    (common-lisp:or attributes common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (type common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass device common-lisp:nil
+                       ((type :initarg :type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-type :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-device-id :initform common-lisp:nil)
+                        (attributes :initarg :attributes :type
+                         (common-lisp:or attributes common-lisp:null) :accessor
+                         %device-attributes :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'device 'make-device))
+ (common-lisp:defun make-device
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key type device-id attributes)
+   (common-lisp:apply #'common-lisp:make-instance 'device
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input device))
    (common-lisp:append))
@@ -206,12 +250,19 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (device-claim-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-device-claim-response-"))
-   (state common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass device-claim-response common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-claim-response-state :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'device-claim-response 'make-device-claim-response))
+ (common-lisp:defun make-device-claim-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state)
+   (common-lisp:apply #'common-lisp:make-instance 'device-claim-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -235,23 +286,42 @@
                           device-claim-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (device-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-device-description-"))
-   (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (attributes common-lisp:nil :type
-    (common-lisp:or device-attributes common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (enabled common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (remaining-life common-lisp:nil :type
-    (common-lisp:or |__doubleMin0Max100| common-lisp:null))
-   (type common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass device-description common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %device-description-tags :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-description-type :initform common-lisp:nil)
+                        (remaining-life :initarg :remaining-life :type
+                         (common-lisp:or |__doubleMin0Max100| common-lisp:null)
+                         :accessor %device-description-remaining-life :initform
+                         common-lisp:nil)
+                        (enabled :initarg :enabled :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %device-description-enabled :initform
+                         common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-description-device-id :initform
+                         common-lisp:nil)
+                        (attributes :initarg :attributes :type
+                         (common-lisp:or device-attributes common-lisp:null)
+                         :accessor %device-description-attributes :initform
+                         common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-description-arn :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'device-description 'make-device-description))
+ (common-lisp:defun make-device-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags type remaining-life enabled
+                     device-id attributes arn)
+   (common-lisp:apply #'common-lisp:make-instance 'device-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input device-description))
    (common-lisp:append))
@@ -311,13 +381,20 @@
                         ((aws-sdk/generator/shape::input device-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (device-event (:copier common-lisp:nil)
-      (:conc-name "struct-shape-device-event-"))
-   (device common-lisp:nil :type (common-lisp:or device common-lisp:null))
-   (std-event common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass device-event common-lisp:nil
+                       ((std-event :initarg :std-event :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-event-std-event :initform common-lisp:nil)
+                        (device :initarg :device :type
+                         (common-lisp:or device common-lisp:null) :accessor
+                         %device-event-device :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'device-event 'make-device-event))
+ (common-lisp:defun make-device-event
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key std-event device)
+   (common-lisp:apply #'common-lisp:make-instance 'device-event
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input device-event))
    (common-lisp:append))
@@ -342,15 +419,24 @@
                         ((aws-sdk/generator/shape::input device-event))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (device-events-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-device-events-response-"))
-   (events common-lisp:nil :type
-    (common-lisp:or |__listOfDeviceEvent| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass device-events-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-events-response-next-token :initform
+                         common-lisp:nil)
+                        (events :initarg :events :type
+                         (common-lisp:or |__listOfDeviceEvent|
+                                         common-lisp:null)
+                         :accessor %device-events-response-events :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'device-events-response 'make-device-events-response))
+ (common-lisp:defun make-device-events-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token events)
+   (common-lisp:apply #'common-lisp:make-instance 'device-events-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -381,14 +467,21 @@
                           device-events-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (device-method (:copier common-lisp:nil)
-      (:conc-name "struct-shape-device-method-"))
-   (device-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (method-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass device-method common-lisp:nil
+                       ((method-name :initarg :method-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-method-method-name :initform common-lisp:nil)
+                        (device-type :initarg :device-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %device-method-device-type :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'device-method 'make-device-method))
+ (common-lisp:defun make-device-method
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key method-name device-type)
+   (common-lisp:apply #'common-lisp:make-instance 'device-method
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input device-method))
    (common-lisp:append))
@@ -413,9 +506,14 @@
                         ((aws-sdk/generator/shape::input device-method))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (empty (:copier common-lisp:nil) (:conc-name "struct-shape-empty-")))
+ (common-lisp:defclass empty common-lisp:nil common-lisp:nil)
  (common-lisp:export (common-lisp:list 'empty 'make-empty))
+ (common-lisp:defun make-empty
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'empty
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input empty))
    (common-lisp:append))
@@ -426,16 +524,25 @@
                         ((aws-sdk/generator/shape::input empty))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (finalize-device-claim-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-finalize-device-claim-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass finalize-device-claim-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %finalize-device-claim-request-tags
+                         :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %finalize-device-claim-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'finalize-device-claim-request
                     'make-finalize-device-claim-request))
+ (common-lisp:defun make-finalize-device-claim-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags device-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'finalize-device-claim-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -459,13 +566,21 @@
                           finalize-device-claim-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (finalize-device-claim-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-finalize-device-claim-response-"))
-   (state common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass finalize-device-claim-response common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %finalize-device-claim-response-state :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'finalize-device-claim-response
                     'make-finalize-device-claim-response))
+ (common-lisp:defun make-finalize-device-claim-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'finalize-device-claim-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -499,14 +614,20 @@
   (common-lisp:list 'forbidden-exception 'forbidden-exception-code
                     'forbidden-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-device-methods-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-device-methods-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass get-device-methods-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %get-device-methods-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-device-methods-request
                     'make-get-device-methods-request))
+ (common-lisp:defun make-get-device-methods-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-device-methods-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -523,14 +644,21 @@
                           get-device-methods-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-device-methods-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-device-methods-response-"))
-   (device-methods common-lisp:nil :type
-    (common-lisp:or |__listOfDeviceMethod| common-lisp:null)))
+ (common-lisp:defclass get-device-methods-response common-lisp:nil
+                       ((device-methods :initarg :device-methods :type
+                         (common-lisp:or |__listOfDeviceMethod|
+                                         common-lisp:null)
+                         :accessor %get-device-methods-response-device-methods
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-device-methods-response
                     'make-get-device-methods-response))
+ (common-lisp:defun make-get-device-methods-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-methods)
+   (common-lisp:apply #'common-lisp:make-instance 'get-device-methods-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -554,14 +682,21 @@
                           get-device-methods-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (initiate-device-claim-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-initiate-device-claim-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass initiate-device-claim-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %initiate-device-claim-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'initiate-device-claim-request
                     'make-initiate-device-claim-request))
+ (common-lisp:defun make-initiate-device-claim-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'initiate-device-claim-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -578,13 +713,21 @@
                           initiate-device-claim-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (initiate-device-claim-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-initiate-device-claim-response-"))
-   (state common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass initiate-device-claim-response common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %initiate-device-claim-response-state :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'initiate-device-claim-response
                     'make-initiate-device-claim-response))
+ (common-lisp:defun make-initiate-device-claim-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'initiate-device-claim-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -629,18 +772,30 @@
   (common-lisp:list 'invalid-request-exception 'invalid-request-exception-code
                     'invalid-request-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (invoke-device-method-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-invoke-device-method-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (device-method common-lisp:nil :type
-    (common-lisp:or device-method common-lisp:null))
-   (device-method-parameters common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass invoke-device-method-request common-lisp:nil
+                       ((device-method-parameters :initarg
+                         :device-method-parameters :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %invoke-device-method-request-device-method-parameters
+                         :initform common-lisp:nil)
+                        (device-method :initarg :device-method :type
+                         (common-lisp:or device-method common-lisp:null)
+                         :accessor %invoke-device-method-request-device-method
+                         :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %invoke-device-method-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'invoke-device-method-request
                     'make-invoke-device-method-request))
+ (common-lisp:defun make-invoke-device-method-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-method-parameters device-method
+                     device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'invoke-device-method-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -672,14 +827,22 @@
                           invoke-device-method-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (invoke-device-method-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-invoke-device-method-response-"))
-   (device-method-response common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass invoke-device-method-response common-lisp:nil
+                       ((device-method-response :initarg
+                         :device-method-response :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %invoke-device-method-response-device-method-response
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'invoke-device-method-response
                     'make-invoke-device-method-response))
+ (common-lisp:defun make-invoke-device-method-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-method-response)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'invoke-device-method-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -704,22 +867,39 @@
                           invoke-device-method-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-device-events-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-device-events-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (from-time-stamp (common-lisp:error ":from-time-stamp is required") :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (to-time-stamp (common-lisp:error ":to-time-stamp is required") :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null)))
+ (common-lisp:defclass list-device-events-request common-lisp:nil
+                       ((to-time-stamp :initarg :to-time-stamp :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %list-device-events-request-to-time-stamp
+                         :initform
+                         (common-lisp:error ":to-time-stamp is required"))
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-device-events-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-device-events-request-max-results
+                         :initform common-lisp:nil)
+                        (from-time-stamp :initarg :from-time-stamp :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %list-device-events-request-from-time-stamp
+                         :initform
+                         (common-lisp:error ":from-time-stamp is required"))
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-device-events-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-device-events-request
                     'make-list-device-events-request))
+ (common-lisp:defun make-list-device-events-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key to-time-stamp next-token max-results
+                     from-time-stamp device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-device-events-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -736,16 +916,25 @@
                           list-device-events-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-device-events-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-device-events-response-"))
-   (events common-lisp:nil :type
-    (common-lisp:or |__listOfDeviceEvent| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-device-events-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-device-events-response-next-token :initform
+                         common-lisp:nil)
+                        (events :initarg :events :type
+                         (common-lisp:or |__listOfDeviceEvent|
+                                         common-lisp:null)
+                         :accessor %list-device-events-response-events
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-device-events-response
                     'make-list-device-events-response))
+ (common-lisp:defun make-list-device-events-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token events)
+   (common-lisp:apply #'common-lisp:make-instance 'list-device-events-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -776,17 +965,27 @@
                           list-device-events-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-devices-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-devices-request-"))
-   (device-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-devices-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-devices-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-devices-request-max-results :initform
+                         common-lisp:nil)
+                        (device-type :initarg :device-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-devices-request-device-type :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-devices-request 'make-list-devices-request))
+ (common-lisp:defun make-list-devices-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results device-type)
+   (common-lisp:apply #'common-lisp:make-instance 'list-devices-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-devices-request))
    (common-lisp:append))
@@ -797,15 +996,24 @@
                         ((aws-sdk/generator/shape::input list-devices-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-devices-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-devices-response-"))
-   (devices common-lisp:nil :type
-    (common-lisp:or |__listOfDeviceDescription| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-devices-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-devices-response-next-token :initform
+                         common-lisp:nil)
+                        (devices :initarg :devices :type
+                         (common-lisp:or |__listOfDeviceDescription|
+                                         common-lisp:null)
+                         :accessor %list-devices-response-devices :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-devices-response 'make-list-devices-response))
+ (common-lisp:defun make-list-devices-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token devices)
+   (common-lisp:apply #'common-lisp:make-instance 'list-devices-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -836,14 +1044,21 @@
                           list-devices-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-tags-for-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -860,14 +1075,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %list-tags-for-resource-response-tags
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -936,15 +1158,23 @@
                     'resource-not-found-exception-code
                     'resource-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -962,13 +1192,19 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (unclaim-device-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-unclaim-device-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass unclaim-device-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %unclaim-device-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'unclaim-device-request 'make-unclaim-device-request))
+ (common-lisp:defun make-unclaim-device-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'unclaim-device-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -985,12 +1221,19 @@
                           unclaim-device-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (unclaim-device-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-unclaim-device-response-"))
-   (state common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass unclaim-device-response common-lisp:nil
+                       ((state :initarg :state :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %unclaim-device-response-state :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'unclaim-device-response 'make-unclaim-device-response))
+ (common-lisp:defun make-unclaim-device-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key state)
+   (common-lisp:apply #'common-lisp:make-instance 'unclaim-device-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1014,15 +1257,23 @@
                           unclaim-device-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or |__listOf__string| common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %untag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1039,16 +1290,24 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-device-state-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-device-state-request-"))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (enabled common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass update-device-state-request common-lisp:nil
+                       ((enabled :initarg :enabled :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %update-device-state-request-enabled
+                         :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-device-state-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-device-state-request
                     'make-update-device-state-request))
+ (common-lisp:defun make-update-device-state-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key enabled device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-device-state-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1072,12 +1331,17 @@
                           update-device-state-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-device-state-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-device-state-response-")))
+ (common-lisp:defclass update-device-state-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-device-state-response
                     'make-update-device-state-response))
+ (common-lisp:defun make-update-device-state-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'update-device-state-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

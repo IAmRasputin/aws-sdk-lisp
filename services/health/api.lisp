@@ -23,25 +23,46 @@
     ("InvalidPaginationToken" . invalid-pagination-token)
     ("UnsupportedLocale" . unsupported-locale)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (affected-entity (:copier common-lisp:nil)
-      (:conc-name "struct-shape-affected-entity-"))
-   (entity-arn common-lisp:nil :type
-    (common-lisp:or |entityArn| common-lisp:null))
-   (event-arn common-lisp:nil :type
-    (common-lisp:or |eventArn| common-lisp:null))
-   (entity-value common-lisp:nil :type
-    (common-lisp:or |entityValue| common-lisp:null))
-   (entity-url common-lisp:nil :type
-    (common-lisp:or |entityUrl| common-lisp:null))
-   (aws-account-id common-lisp:nil :type
-    (common-lisp:or |accountId| common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status-code common-lisp:nil :type
-    (common-lisp:or |entityStatusCode| common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or |tagSet| common-lisp:null)))
+ (common-lisp:defclass affected-entity common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or |tagSet| common-lisp:null) :accessor
+                         %affected-entity-tags :initform common-lisp:nil)
+                        (status-code :initarg :|statusCode| :type
+                         (common-lisp:or |entityStatusCode| common-lisp:null)
+                         :accessor %affected-entity-status-code :initform
+                         common-lisp:nil)
+                        (last-updated-time :initarg :|lastUpdatedTime| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %affected-entity-last-updated-time :initform
+                         common-lisp:nil)
+                        (aws-account-id :initarg :|awsAccountId| :type
+                         (common-lisp:or |accountId| common-lisp:null)
+                         :accessor %affected-entity-aws-account-id :initform
+                         common-lisp:nil)
+                        (entity-url :initarg :|entityUrl| :type
+                         (common-lisp:or |entityUrl| common-lisp:null)
+                         :accessor %affected-entity-entity-url :initform
+                         common-lisp:nil)
+                        (entity-value :initarg :|entityValue| :type
+                         (common-lisp:or |entityValue| common-lisp:null)
+                         :accessor %affected-entity-entity-value :initform
+                         common-lisp:nil)
+                        (event-arn :initarg :|eventArn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %affected-entity-event-arn :initform common-lisp:nil)
+                        (entity-arn :initarg :|entityArn| :type
+                         (common-lisp:or |entityArn| common-lisp:null)
+                         :accessor %affected-entity-entity-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'affected-entity 'make-affected-entity))
+ (common-lisp:defun make-affected-entity
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags status-code last-updated-time
+                     aws-account-id entity-url entity-value event-arn
+                     entity-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'affected-entity
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input affected-entity))
    (common-lisp:append))
@@ -110,20 +131,28 @@
 (common-lisp:progn
  (common-lisp:define-condition concurrent-modification-exception
      (health-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        concurrent-modification-exception-message)))
  (common-lisp:export
   (common-lisp:list 'concurrent-modification-exception
                     'concurrent-modification-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (date-time-range (:copier common-lisp:nil)
-      (:conc-name "struct-shape-date-time-range-"))
-   (from common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (to common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass date-time-range common-lisp:nil
+                       ((to :initarg :|to| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %date-time-range-to :initform
+                         common-lisp:nil)
+                        (from :initarg :|from| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %date-time-range-from :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'date-time-range 'make-date-time-range))
+ (common-lisp:defun make-date-time-range
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key to from)
+   (common-lisp:apply #'common-lisp:make-instance 'date-time-range
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input date-time-range))
    (common-lisp:append))
@@ -148,20 +177,33 @@
                         ((aws-sdk/generator/shape::input date-time-range))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-affected-accounts-for-organization-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-affected-accounts-for-organization-request-"))
-   (event-arn (common-lisp:error ":eventarn is required") :type
-    (common-lisp:or |eventArn| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |maxResults| common-lisp:null)))
+ (common-lisp:defclass describe-affected-accounts-for-organization-request
+                       common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or |maxResults| common-lisp:null)
+                         :accessor
+                         %describe-affected-accounts-for-organization-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-affected-accounts-for-organization-request-next-token
+                         :initform common-lisp:nil)
+                        (event-arn :initarg :|eventArn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %describe-affected-accounts-for-organization-request-event-arn
+                         :initform
+                         (common-lisp:error ":eventarn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-affected-accounts-for-organization-request
                     'make-describe-affected-accounts-for-organization-request))
+ (common-lisp:defun make-describe-affected-accounts-for-organization-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token event-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-affected-accounts-for-organization-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -199,20 +241,35 @@
                           describe-affected-accounts-for-organization-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-affected-accounts-for-organization-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-affected-accounts-for-organization-response-"))
-   (affected-accounts common-lisp:nil :type
-    (common-lisp:or |affectedAccountsList| common-lisp:null))
-   (event-scope-code common-lisp:nil :type
-    (common-lisp:or |eventScopeCode| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-affected-accounts-for-organization-response
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-affected-accounts-for-organization-response-next-token
+                         :initform common-lisp:nil)
+                        (event-scope-code :initarg :|eventScopeCode| :type
+                         (common-lisp:or |eventScopeCode| common-lisp:null)
+                         :accessor
+                         %describe-affected-accounts-for-organization-response-event-scope-code
+                         :initform common-lisp:nil)
+                        (affected-accounts :initarg :|affectedAccounts| :type
+                         (common-lisp:or |affectedAccountsList|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-affected-accounts-for-organization-response-affected-accounts
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-affected-accounts-for-organization-response
                     'make-describe-affected-accounts-for-organization-response))
+ (common-lisp:defun make-describe-affected-accounts-for-organization-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token event-scope-code
+                     affected-accounts)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-affected-accounts-for-organization-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -259,22 +316,43 @@
                             organization-affected-entities-error-item))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-affected-entities-for-organization-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-affected-entities-for-organization-request-"))
-   (organization-entity-filters
-    (common-lisp:error ":organizationentityfilters is required") :type
-    (common-lisp:or organization-entity-filters-list common-lisp:null))
-   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |maxResultsLowerRange| common-lisp:null)))
+ (common-lisp:defclass describe-affected-entities-for-organization-request
+                       common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or |maxResultsLowerRange|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-for-organization-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-for-organization-request-next-token
+                         :initform common-lisp:nil)
+                        (locale :initarg :|locale| :type
+                         (common-lisp:or |locale| common-lisp:null) :accessor
+                         %describe-affected-entities-for-organization-request-locale
+                         :initform common-lisp:nil)
+                        (organization-entity-filters :initarg
+                         :|organizationEntityFilters| :type
+                         (common-lisp:or organization-entity-filters-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-for-organization-request-organization-entity-filters
+                         :initform
+                         (common-lisp:error
+                          ":organizationentityfilters is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-affected-entities-for-organization-request
                     'make-describe-affected-entities-for-organization-request))
+ (common-lisp:defun make-describe-affected-entities-for-organization-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token locale
+                     organization-entity-filters)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-affected-entities-for-organization-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -320,21 +398,35 @@
                           describe-affected-entities-for-organization-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-affected-entities-for-organization-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-affected-entities-for-organization-response-"))
-   (entities common-lisp:nil :type
-    (common-lisp:or entity-list common-lisp:null))
-   (failed-set common-lisp:nil :type
-    (common-lisp:or describe-affected-entities-for-organization-failed-set
-                    common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-affected-entities-for-organization-response
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-for-organization-response-next-token
+                         :initform common-lisp:nil)
+                        (failed-set :initarg :|failedSet| :type
+                         (common-lisp:or
+                          describe-affected-entities-for-organization-failed-set
+                          common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-for-organization-response-failed-set
+                         :initform common-lisp:nil)
+                        (entities :initarg :|entities| :type
+                         (common-lisp:or entity-list common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-for-organization-response-entities
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-affected-entities-for-organization-response
                     'make-describe-affected-entities-for-organization-response))
+ (common-lisp:defun make-describe-affected-entities-for-organization-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token failed-set entities)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-affected-entities-for-organization-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -372,19 +464,35 @@
                           describe-affected-entities-for-organization-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-affected-entities-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-affected-entities-request-"))
-   (filter (common-lisp:error ":filter is required") :type
-    (common-lisp:or entity-filter common-lisp:null))
-   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |maxResults| common-lisp:null)))
+ (common-lisp:defclass describe-affected-entities-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or |maxResults| common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-request-next-token
+                         :initform common-lisp:nil)
+                        (locale :initarg :|locale| :type
+                         (common-lisp:or |locale| common-lisp:null) :accessor
+                         %describe-affected-entities-request-locale :initform
+                         common-lisp:nil)
+                        (filter :initarg :|filter| :type
+                         (common-lisp:or entity-filter common-lisp:null)
+                         :accessor %describe-affected-entities-request-filter
+                         :initform (common-lisp:error ":filter is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-affected-entities-request
                     'make-describe-affected-entities-request))
+ (common-lisp:defun make-describe-affected-entities-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token locale filter)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-affected-entities-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -429,16 +537,27 @@
                           describe-affected-entities-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-affected-entities-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-affected-entities-response-"))
-   (entities common-lisp:nil :type
-    (common-lisp:or entity-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-affected-entities-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-response-next-token
+                         :initform common-lisp:nil)
+                        (entities :initarg :|entities| :type
+                         (common-lisp:or entity-list common-lisp:null)
+                         :accessor
+                         %describe-affected-entities-response-entities
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-affected-entities-response
                     'make-describe-affected-entities-response))
+ (common-lisp:defun make-describe-affected-entities-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token entities)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-affected-entities-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -469,14 +588,22 @@
                           describe-affected-entities-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-entity-aggregates-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-entity-aggregates-request-"))
-   (event-arns common-lisp:nil :type
-    (common-lisp:or event-arns-list common-lisp:null)))
+ (common-lisp:defclass describe-entity-aggregates-request common-lisp:nil
+                       ((event-arns :initarg :|eventArns| :type
+                         (common-lisp:or event-arns-list common-lisp:null)
+                         :accessor
+                         %describe-entity-aggregates-request-event-arns
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-entity-aggregates-request
                     'make-describe-entity-aggregates-request))
+ (common-lisp:defun make-describe-entity-aggregates-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-arns)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-entity-aggregates-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -500,14 +627,23 @@
                           describe-entity-aggregates-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-entity-aggregates-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-entity-aggregates-response-"))
-   (entity-aggregates common-lisp:nil :type
-    (common-lisp:or entity-aggregate-list common-lisp:null)))
+ (common-lisp:defclass describe-entity-aggregates-response common-lisp:nil
+                       ((entity-aggregates :initarg :|entityAggregates| :type
+                         (common-lisp:or entity-aggregate-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-entity-aggregates-response-entity-aggregates
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-entity-aggregates-response
                     'make-describe-entity-aggregates-response))
+ (common-lisp:defun make-describe-entity-aggregates-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key entity-aggregates)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-entity-aggregates-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -531,20 +667,39 @@
                           describe-entity-aggregates-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-aggregates-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-event-aggregates-request-"))
-   (filter common-lisp:nil :type
-    (common-lisp:or event-filter common-lisp:null))
-   (aggregate-field (common-lisp:error ":aggregatefield is required") :type
-    (common-lisp:or |eventAggregateField| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |maxResults| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-event-aggregates-request common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-event-aggregates-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or |maxResults| common-lisp:null)
+                         :accessor
+                         %describe-event-aggregates-request-max-results
+                         :initform common-lisp:nil)
+                        (aggregate-field :initarg :|aggregateField| :type
+                         (common-lisp:or |eventAggregateField|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-event-aggregates-request-aggregate-field
+                         :initform
+                         (common-lisp:error ":aggregatefield is required"))
+                        (filter :initarg :|filter| :type
+                         (common-lisp:or event-filter common-lisp:null)
+                         :accessor %describe-event-aggregates-request-filter
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-event-aggregates-request
                     'make-describe-event-aggregates-request))
+ (common-lisp:defun make-describe-event-aggregates-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results aggregate-field
+                     filter)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-event-aggregates-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -589,16 +744,27 @@
                           describe-event-aggregates-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-aggregates-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-event-aggregates-response-"))
-   (event-aggregates common-lisp:nil :type
-    (common-lisp:or event-aggregate-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-event-aggregates-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-event-aggregates-response-next-token
+                         :initform common-lisp:nil)
+                        (event-aggregates :initarg :|eventAggregates| :type
+                         (common-lisp:or event-aggregate-list common-lisp:null)
+                         :accessor
+                         %describe-event-aggregates-response-event-aggregates
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-event-aggregates-response
                     'make-describe-event-aggregates-response))
+ (common-lisp:defun make-describe-event-aggregates-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token event-aggregates)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-event-aggregates-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -647,17 +813,31 @@
                             organization-event-details-error-item))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-details-for-organization-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-event-details-for-organization-request-"))
-   (organization-event-detail-filters
-    (common-lisp:error ":organizationeventdetailfilters is required") :type
-    (common-lisp:or organization-event-detail-filters-list common-lisp:null))
-   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null)))
+ (common-lisp:defclass describe-event-details-for-organization-request
+                       common-lisp:nil
+                       ((locale :initarg :|locale| :type
+                         (common-lisp:or |locale| common-lisp:null) :accessor
+                         %describe-event-details-for-organization-request-locale
+                         :initform common-lisp:nil)
+                        (organization-event-detail-filters :initarg
+                         :|organizationEventDetailFilters| :type
+                         (common-lisp:or organization-event-detail-filters-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-event-details-for-organization-request-organization-event-detail-filters
+                         :initform
+                         (common-lisp:error
+                          ":organizationeventdetailfilters is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-event-details-for-organization-request
                     'make-describe-event-details-for-organization-request))
+ (common-lisp:defun make-describe-event-details-for-organization-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key locale organization-event-detail-filters)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-event-details-for-organization-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -689,20 +869,32 @@
                           describe-event-details-for-organization-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-details-for-organization-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-event-details-for-organization-response-"))
-   (successful-set common-lisp:nil :type
-    (common-lisp:or describe-event-details-for-organization-successful-set
-                    common-lisp:null))
-   (failed-set common-lisp:nil :type
-    (common-lisp:or describe-event-details-for-organization-failed-set
-                    common-lisp:null)))
+ (common-lisp:defclass describe-event-details-for-organization-response
+                       common-lisp:nil
+                       ((failed-set :initarg :|failedSet| :type
+                         (common-lisp:or
+                          describe-event-details-for-organization-failed-set
+                          common-lisp:null)
+                         :accessor
+                         %describe-event-details-for-organization-response-failed-set
+                         :initform common-lisp:nil)
+                        (successful-set :initarg :|successfulSet| :type
+                         (common-lisp:or
+                          describe-event-details-for-organization-successful-set
+                          common-lisp:null)
+                         :accessor
+                         %describe-event-details-for-organization-response-successful-set
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-event-details-for-organization-response
                     'make-describe-event-details-for-organization-response))
+ (common-lisp:defun make-describe-event-details-for-organization-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed-set successful-set)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-event-details-for-organization-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -742,15 +934,26 @@
                             organization-event-details))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-details-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-event-details-request-"))
-   (event-arns (common-lisp:error ":eventarns is required") :type
-    (common-lisp:or |eventArnList| common-lisp:null))
-   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null)))
+ (common-lisp:defclass describe-event-details-request common-lisp:nil
+                       ((locale :initarg :|locale| :type
+                         (common-lisp:or |locale| common-lisp:null) :accessor
+                         %describe-event-details-request-locale :initform
+                         common-lisp:nil)
+                        (event-arns :initarg :|eventArns| :type
+                         (common-lisp:or |eventArnList| common-lisp:null)
+                         :accessor %describe-event-details-request-event-arns
+                         :initform
+                         (common-lisp:error ":eventarns is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-event-details-request
                     'make-describe-event-details-request))
+ (common-lisp:defun make-describe-event-details-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key locale event-arns)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-event-details-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -781,16 +984,28 @@
                           describe-event-details-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-details-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-event-details-response-"))
-   (successful-set common-lisp:nil :type
-    (common-lisp:or describe-event-details-successful-set common-lisp:null))
-   (failed-set common-lisp:nil :type
-    (common-lisp:or describe-event-details-failed-set common-lisp:null)))
+ (common-lisp:defclass describe-event-details-response common-lisp:nil
+                       ((failed-set :initarg :|failedSet| :type
+                         (common-lisp:or describe-event-details-failed-set
+                                         common-lisp:null)
+                         :accessor %describe-event-details-response-failed-set
+                         :initform common-lisp:nil)
+                        (successful-set :initarg :|successfulSet| :type
+                         (common-lisp:or describe-event-details-successful-set
+                                         common-lisp:null)
+                         :accessor
+                         %describe-event-details-response-successful-set
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-event-details-response
                     'make-describe-event-details-response))
+ (common-lisp:defun make-describe-event-details-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed-set successful-set)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-event-details-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -829,19 +1044,32 @@
                            (trivial-types:proper-list event-details))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-types-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-event-types-request-"))
-   (filter common-lisp:nil :type
-    (common-lisp:or event-type-filter common-lisp:null))
-   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |maxResults| common-lisp:null)))
+ (common-lisp:defclass describe-event-types-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or |maxResults| common-lisp:null)
+                         :accessor %describe-event-types-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor %describe-event-types-request-next-token
+                         :initform common-lisp:nil)
+                        (locale :initarg :|locale| :type
+                         (common-lisp:or |locale| common-lisp:null) :accessor
+                         %describe-event-types-request-locale :initform
+                         common-lisp:nil)
+                        (filter :initarg :|filter| :type
+                         (common-lisp:or event-type-filter common-lisp:null)
+                         :accessor %describe-event-types-request-filter
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-event-types-request
                     'make-describe-event-types-request))
+ (common-lisp:defun make-describe-event-types-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token locale filter)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-event-types-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -886,16 +1114,25 @@
                           describe-event-types-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-event-types-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-event-types-response-"))
-   (event-types common-lisp:nil :type
-    (common-lisp:or event-type-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-event-types-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor %describe-event-types-response-next-token
+                         :initform common-lisp:nil)
+                        (event-types :initarg :|eventTypes| :type
+                         (common-lisp:or event-type-list common-lisp:null)
+                         :accessor %describe-event-types-response-event-types
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-event-types-response
                     'make-describe-event-types-response))
+ (common-lisp:defun make-describe-event-types-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token event-types)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-event-types-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -926,19 +1163,38 @@
                           describe-event-types-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-events-for-organization-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-events-for-organization-request-"))
-   (filter common-lisp:nil :type
-    (common-lisp:or organization-event-filter common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |maxResultsLowerRange| common-lisp:null))
-   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null)))
+ (common-lisp:defclass describe-events-for-organization-request common-lisp:nil
+                       ((locale :initarg :|locale| :type
+                         (common-lisp:or |locale| common-lisp:null) :accessor
+                         %describe-events-for-organization-request-locale
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or |maxResultsLowerRange|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-events-for-organization-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-events-for-organization-request-next-token
+                         :initform common-lisp:nil)
+                        (filter :initarg :|filter| :type
+                         (common-lisp:or organization-event-filter
+                                         common-lisp:null)
+                         :accessor
+                         %describe-events-for-organization-request-filter
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-events-for-organization-request
                     'make-describe-events-for-organization-request))
+ (common-lisp:defun make-describe-events-for-organization-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key locale max-results next-token filter)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-events-for-organization-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -983,16 +1239,29 @@
                           describe-events-for-organization-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-events-for-organization-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-events-for-organization-response-"))
-   (events common-lisp:nil :type
-    (common-lisp:or organization-event-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-events-for-organization-response
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor
+                         %describe-events-for-organization-response-next-token
+                         :initform common-lisp:nil)
+                        (events :initarg :|events| :type
+                         (common-lisp:or organization-event-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-events-for-organization-response-events
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-events-for-organization-response
                     'make-describe-events-for-organization-response))
+ (common-lisp:defun make-describe-events-for-organization-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token events)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-events-for-organization-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1023,18 +1292,31 @@
                           describe-events-for-organization-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-events-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-events-request-"))
-   (filter common-lisp:nil :type
-    (common-lisp:or event-filter common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |maxResults| common-lisp:null))
-   (locale common-lisp:nil :type (common-lisp:or |locale| common-lisp:null)))
+ (common-lisp:defclass describe-events-request common-lisp:nil
+                       ((locale :initarg :|locale| :type
+                         (common-lisp:or |locale| common-lisp:null) :accessor
+                         %describe-events-request-locale :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or |maxResults| common-lisp:null)
+                         :accessor %describe-events-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor %describe-events-request-next-token
+                         :initform common-lisp:nil)
+                        (filter :initarg :|filter| :type
+                         (common-lisp:or event-filter common-lisp:null)
+                         :accessor %describe-events-request-filter :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-events-request 'make-describe-events-request))
+ (common-lisp:defun make-describe-events-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key locale max-results next-token filter)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-events-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1079,14 +1361,23 @@
                           describe-events-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-events-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-events-response-"))
-   (events common-lisp:nil :type (common-lisp:or event-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |nextToken| common-lisp:null)))
+ (common-lisp:defclass describe-events-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or |nextToken| common-lisp:null)
+                         :accessor %describe-events-response-next-token
+                         :initform common-lisp:nil)
+                        (events :initarg :|events| :type
+                         (common-lisp:or event-list common-lisp:null) :accessor
+                         %describe-events-response-events :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-events-response 'make-describe-events-response))
+ (common-lisp:defun make-describe-events-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token events)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-events-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1117,17 +1408,27 @@
                           describe-events-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-health-service-status-for-organization-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-health-service-status-for-organization-response-"))
-   (health-service-access-status-for-organization common-lisp:nil :type
-    (common-lisp:or |healthServiceAccessStatusForOrganization|
-                    common-lisp:null)))
+ (common-lisp:defclass describe-health-service-status-for-organization-response
+                       common-lisp:nil
+                       ((health-service-access-status-for-organization :initarg
+                         :|healthServiceAccessStatusForOrganization| :type
+                         (common-lisp:or
+                          |healthServiceAccessStatusForOrganization|
+                          common-lisp:null)
+                         :accessor
+                         %describe-health-service-status-for-organization-response-health-service-access-status-for-organization
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-health-service-status-for-organization-response
                     'make-describe-health-service-status-for-organization-response))
+ (common-lisp:defun make-describe-health-service-status-for-organization-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     health-service-access-status-for-organization)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-health-service-status-for-organization-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1152,14 +1453,22 @@
                           describe-health-service-status-for-organization-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (entity-aggregate (:copier common-lisp:nil)
-      (:conc-name "struct-shape-entity-aggregate-"))
-   (event-arn common-lisp:nil :type
-    (common-lisp:or |eventArn| common-lisp:null))
-   (count common-lisp:nil :type (common-lisp:or |count| common-lisp:null)))
+ (common-lisp:defclass entity-aggregate common-lisp:nil
+                       ((count :initarg :|count| :type
+                         (common-lisp:or |count| common-lisp:null) :accessor
+                         %entity-aggregate-count :initform common-lisp:nil)
+                        (event-arn :initarg :|eventArn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %entity-aggregate-event-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'entity-aggregate 'make-entity-aggregate))
+ (common-lisp:defun make-entity-aggregate
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key count event-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'entity-aggregate
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input entity-aggregate))
    (common-lisp:append))
@@ -1192,21 +1501,40 @@
                            (trivial-types:proper-list entity-aggregate))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (entity-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-entity-filter-"))
-   (event-arns (common-lisp:error ":eventarns is required") :type
-    (common-lisp:or |eventArnList| common-lisp:null))
-   (entity-arns common-lisp:nil :type
-    (common-lisp:or |entityArnList| common-lisp:null))
-   (entity-values common-lisp:nil :type
-    (common-lisp:or |entityValueList| common-lisp:null))
-   (last-updated-times common-lisp:nil :type
-    (common-lisp:or |dateTimeRangeList| common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or |tagFilter| common-lisp:null))
-   (status-codes common-lisp:nil :type
-    (common-lisp:or |entityStatusCodeList| common-lisp:null)))
+ (common-lisp:defclass entity-filter common-lisp:nil
+                       ((status-codes :initarg :|statusCodes| :type
+                         (common-lisp:or |entityStatusCodeList|
+                                         common-lisp:null)
+                         :accessor %entity-filter-status-codes :initform
+                         common-lisp:nil)
+                        (tags :initarg :|tags| :type
+                         (common-lisp:or |tagFilter| common-lisp:null)
+                         :accessor %entity-filter-tags :initform
+                         common-lisp:nil)
+                        (last-updated-times :initarg :|lastUpdatedTimes| :type
+                         (common-lisp:or |dateTimeRangeList| common-lisp:null)
+                         :accessor %entity-filter-last-updated-times :initform
+                         common-lisp:nil)
+                        (entity-values :initarg :|entityValues| :type
+                         (common-lisp:or |entityValueList| common-lisp:null)
+                         :accessor %entity-filter-entity-values :initform
+                         common-lisp:nil)
+                        (entity-arns :initarg :|entityArns| :type
+                         (common-lisp:or |entityArnList| common-lisp:null)
+                         :accessor %entity-filter-entity-arns :initform
+                         common-lisp:nil)
+                        (event-arns :initarg :|eventArns| :type
+                         (common-lisp:or |eventArnList| common-lisp:null)
+                         :accessor %entity-filter-event-arns :initform
+                         (common-lisp:error ":eventarns is required"))))
  (common-lisp:export (common-lisp:list 'entity-filter 'make-entity-filter))
+ (common-lisp:defun make-entity-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-codes tags last-updated-times
+                     entity-values entity-arns event-arns)
+   (common-lisp:apply #'common-lisp:make-instance 'entity-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input entity-filter))
    (common-lisp:append))
@@ -1267,28 +1595,56 @@
                            (trivial-types:proper-list affected-entity))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event (:copier common-lisp:nil) (:conc-name "struct-shape-event-"))
-   (arn common-lisp:nil :type (common-lisp:or |eventArn| common-lisp:null))
-   (service common-lisp:nil :type (common-lisp:or |service| common-lisp:null))
-   (event-type-code common-lisp:nil :type
-    (common-lisp:or |eventTypeCode| common-lisp:null))
-   (event-type-category common-lisp:nil :type
-    (common-lisp:or |eventTypeCategory| common-lisp:null))
-   (region common-lisp:nil :type (common-lisp:or |region| common-lisp:null))
-   (availability-zone common-lisp:nil :type
-    (common-lisp:or |availabilityZone| common-lisp:null))
-   (start-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (end-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status-code common-lisp:nil :type
-    (common-lisp:or |eventStatusCode| common-lisp:null))
-   (event-scope-code common-lisp:nil :type
-    (common-lisp:or |eventScopeCode| common-lisp:null)))
+ (common-lisp:defclass event common-lisp:nil
+                       ((event-scope-code :initarg :|eventScopeCode| :type
+                         (common-lisp:or |eventScopeCode| common-lisp:null)
+                         :accessor %event-event-scope-code :initform
+                         common-lisp:nil)
+                        (status-code :initarg :|statusCode| :type
+                         (common-lisp:or |eventStatusCode| common-lisp:null)
+                         :accessor %event-status-code :initform
+                         common-lisp:nil)
+                        (last-updated-time :initarg :|lastUpdatedTime| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %event-last-updated-time :initform
+                         common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %event-end-time :initform common-lisp:nil)
+                        (start-time :initarg :|startTime| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %event-start-time :initform common-lisp:nil)
+                        (availability-zone :initarg :|availabilityZone| :type
+                         (common-lisp:or |availabilityZone| common-lisp:null)
+                         :accessor %event-availability-zone :initform
+                         common-lisp:nil)
+                        (region :initarg :|region| :type
+                         (common-lisp:or |region| common-lisp:null) :accessor
+                         %event-region :initform common-lisp:nil)
+                        (event-type-category :initarg :|eventTypeCategory|
+                         :type
+                         (common-lisp:or |eventTypeCategory| common-lisp:null)
+                         :accessor %event-event-type-category :initform
+                         common-lisp:nil)
+                        (event-type-code :initarg :|eventTypeCode| :type
+                         (common-lisp:or |eventTypeCode| common-lisp:null)
+                         :accessor %event-event-type-code :initform
+                         common-lisp:nil)
+                        (service :initarg :|service| :type
+                         (common-lisp:or |service| common-lisp:null) :accessor
+                         %event-service :initform common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %event-arn :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'event 'make-event))
+ (common-lisp:defun make-event
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-scope-code status-code
+                     last-updated-time end-time start-time availability-zone
+                     region event-type-category event-type-code service arn)
+   (common-lisp:apply #'common-lisp:make-instance 'event
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event))
    (common-lisp:append))
@@ -1376,15 +1732,23 @@
                         ((aws-sdk/generator/shape::input event))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-account-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-account-filter-"))
-   (event-arn (common-lisp:error ":eventarn is required") :type
-    (common-lisp:or |eventArn| common-lisp:null))
-   (aws-account-id common-lisp:nil :type
-    (common-lisp:or |accountId| common-lisp:null)))
+ (common-lisp:defclass event-account-filter common-lisp:nil
+                       ((aws-account-id :initarg :|awsAccountId| :type
+                         (common-lisp:or |accountId| common-lisp:null)
+                         :accessor %event-account-filter-aws-account-id
+                         :initform common-lisp:nil)
+                        (event-arn :initarg :|eventArn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %event-account-filter-event-arn :initform
+                         (common-lisp:error ":eventarn is required"))))
  (common-lisp:export
   (common-lisp:list 'event-account-filter 'make-event-account-filter))
+ (common-lisp:defun make-event-account-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key aws-account-id event-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'event-account-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-account-filter))
    (common-lisp:append))
@@ -1409,13 +1773,21 @@
                         ((aws-sdk/generator/shape::input event-account-filter))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-aggregate (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-aggregate-"))
-   (aggregate-value common-lisp:nil :type
-    (common-lisp:or |aggregateValue| common-lisp:null))
-   (count common-lisp:nil :type (common-lisp:or |count| common-lisp:null)))
+ (common-lisp:defclass event-aggregate common-lisp:nil
+                       ((count :initarg :|count| :type
+                         (common-lisp:or |count| common-lisp:null) :accessor
+                         %event-aggregate-count :initform common-lisp:nil)
+                        (aggregate-value :initarg :|aggregateValue| :type
+                         (common-lisp:or |aggregateValue| common-lisp:null)
+                         :accessor %event-aggregate-aggregate-value :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'event-aggregate 'make-event-aggregate))
+ (common-lisp:defun make-event-aggregate
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key count aggregate-value)
+   (common-lisp:apply #'common-lisp:make-instance 'event-aggregate
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-aggregate))
    (common-lisp:append))
@@ -1456,13 +1828,19 @@
                            (trivial-types:proper-list |eventArn|))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-description (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-description-"))
-   (latest-description common-lisp:nil :type
-    (common-lisp:or |eventDescription| common-lisp:null)))
+ (common-lisp:defclass event-description common-lisp:nil
+                       ((latest-description :initarg :|latestDescription| :type
+                         (common-lisp:or |eventDescription| common-lisp:null)
+                         :accessor %event-description-latest-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'event-description 'make-event-description))
+ (common-lisp:defun make-event-description
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key latest-description)
+   (common-lisp:apply #'common-lisp:make-instance 'event-description
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-description))
    (common-lisp:append))
@@ -1480,15 +1858,25 @@
                         ((aws-sdk/generator/shape::input event-description))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-details-"))
-   (event common-lisp:nil :type (common-lisp:or event common-lisp:null))
-   (event-description common-lisp:nil :type
-    (common-lisp:or event-description common-lisp:null))
-   (event-metadata common-lisp:nil :type
-    (common-lisp:or |eventMetadata| common-lisp:null)))
+ (common-lisp:defclass event-details common-lisp:nil
+                       ((event-metadata :initarg :|eventMetadata| :type
+                         (common-lisp:or |eventMetadata| common-lisp:null)
+                         :accessor %event-details-event-metadata :initform
+                         common-lisp:nil)
+                        (event-description :initarg :|eventDescription| :type
+                         (common-lisp:or event-description common-lisp:null)
+                         :accessor %event-details-event-description :initform
+                         common-lisp:nil)
+                        (event :initarg :|event| :type
+                         (common-lisp:or event common-lisp:null) :accessor
+                         %event-details-event :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'event-details 'make-event-details))
+ (common-lisp:defun make-event-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-metadata event-description event)
+   (common-lisp:apply #'common-lisp:make-instance 'event-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-details))
    (common-lisp:append))
@@ -1520,17 +1908,27 @@
                         ((aws-sdk/generator/shape::input event-details))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-details-error-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-details-error-item-"))
-   (event-arn common-lisp:nil :type
-    (common-lisp:or |eventArn| common-lisp:null))
-   (error-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (error-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass event-details-error-item common-lisp:nil
+                       ((error-message :initarg :|errorMessage| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %event-details-error-item-error-message
+                         :initform common-lisp:nil)
+                        (error-name :initarg :|errorName| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %event-details-error-item-error-name
+                         :initform common-lisp:nil)
+                        (event-arn :initarg :|eventArn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %event-details-error-item-event-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'event-details-error-item 'make-event-details-error-item))
+ (common-lisp:defun make-event-details-error-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error-message error-name event-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'event-details-error-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1568,35 +1966,73 @@
                           event-details-error-item))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-filter-"))
-   (event-arns common-lisp:nil :type
-    (common-lisp:or |eventArnList| common-lisp:null))
-   (event-type-codes common-lisp:nil :type
-    (common-lisp:or |eventTypeList| common-lisp:null))
-   (services common-lisp:nil :type
-    (common-lisp:or |serviceList| common-lisp:null))
-   (regions common-lisp:nil :type
-    (common-lisp:or |regionList| common-lisp:null))
-   (availability-zones common-lisp:nil :type
-    (common-lisp:or |availabilityZones| common-lisp:null))
-   (start-times common-lisp:nil :type
-    (common-lisp:or |dateTimeRangeList| common-lisp:null))
-   (end-times common-lisp:nil :type
-    (common-lisp:or |dateTimeRangeList| common-lisp:null))
-   (last-updated-times common-lisp:nil :type
-    (common-lisp:or |dateTimeRangeList| common-lisp:null))
-   (entity-arns common-lisp:nil :type
-    (common-lisp:or |entityArnList| common-lisp:null))
-   (entity-values common-lisp:nil :type
-    (common-lisp:or |entityValueList| common-lisp:null))
-   (event-type-categories common-lisp:nil :type
-    (common-lisp:or |eventTypeCategoryList| common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or |tagFilter| common-lisp:null))
-   (event-status-codes common-lisp:nil :type
-    (common-lisp:or |eventStatusCodeList| common-lisp:null)))
+ (common-lisp:defclass event-filter common-lisp:nil
+                       ((event-status-codes :initarg :|eventStatusCodes| :type
+                         (common-lisp:or |eventStatusCodeList|
+                                         common-lisp:null)
+                         :accessor %event-filter-event-status-codes :initform
+                         common-lisp:nil)
+                        (tags :initarg :|tags| :type
+                         (common-lisp:or |tagFilter| common-lisp:null)
+                         :accessor %event-filter-tags :initform
+                         common-lisp:nil)
+                        (event-type-categories :initarg :|eventTypeCategories|
+                         :type
+                         (common-lisp:or |eventTypeCategoryList|
+                                         common-lisp:null)
+                         :accessor %event-filter-event-type-categories
+                         :initform common-lisp:nil)
+                        (entity-values :initarg :|entityValues| :type
+                         (common-lisp:or |entityValueList| common-lisp:null)
+                         :accessor %event-filter-entity-values :initform
+                         common-lisp:nil)
+                        (entity-arns :initarg :|entityArns| :type
+                         (common-lisp:or |entityArnList| common-lisp:null)
+                         :accessor %event-filter-entity-arns :initform
+                         common-lisp:nil)
+                        (last-updated-times :initarg :|lastUpdatedTimes| :type
+                         (common-lisp:or |dateTimeRangeList| common-lisp:null)
+                         :accessor %event-filter-last-updated-times :initform
+                         common-lisp:nil)
+                        (end-times :initarg :|endTimes| :type
+                         (common-lisp:or |dateTimeRangeList| common-lisp:null)
+                         :accessor %event-filter-end-times :initform
+                         common-lisp:nil)
+                        (start-times :initarg :|startTimes| :type
+                         (common-lisp:or |dateTimeRangeList| common-lisp:null)
+                         :accessor %event-filter-start-times :initform
+                         common-lisp:nil)
+                        (availability-zones :initarg :|availabilityZones| :type
+                         (common-lisp:or |availabilityZones| common-lisp:null)
+                         :accessor %event-filter-availability-zones :initform
+                         common-lisp:nil)
+                        (regions :initarg :|regions| :type
+                         (common-lisp:or |regionList| common-lisp:null)
+                         :accessor %event-filter-regions :initform
+                         common-lisp:nil)
+                        (services :initarg :|services| :type
+                         (common-lisp:or |serviceList| common-lisp:null)
+                         :accessor %event-filter-services :initform
+                         common-lisp:nil)
+                        (event-type-codes :initarg :|eventTypeCodes| :type
+                         (common-lisp:or |eventTypeList| common-lisp:null)
+                         :accessor %event-filter-event-type-codes :initform
+                         common-lisp:nil)
+                        (event-arns :initarg :|eventArns| :type
+                         (common-lisp:or |eventArnList| common-lisp:null)
+                         :accessor %event-filter-event-arns :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'event-filter 'make-event-filter))
+ (common-lisp:defun make-event-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-status-codes tags
+                     event-type-categories entity-values entity-arns
+                     last-updated-times end-times start-times
+                     availability-zones regions services event-type-codes
+                     event-arns)
+   (common-lisp:apply #'common-lisp:make-instance 'event-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-filter))
    (common-lisp:append))
@@ -1706,15 +2142,24 @@
                            (trivial-types:proper-list event))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-type (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-type-"))
-   (service common-lisp:nil :type (common-lisp:or |service| common-lisp:null))
-   (code common-lisp:nil :type
-    (common-lisp:or |eventTypeCode| common-lisp:null))
-   (category common-lisp:nil :type
-    (common-lisp:or |eventTypeCategory| common-lisp:null)))
+ (common-lisp:defclass event-type common-lisp:nil
+                       ((category :initarg :|category| :type
+                         (common-lisp:or |eventTypeCategory| common-lisp:null)
+                         :accessor %event-type-category :initform
+                         common-lisp:nil)
+                        (code :initarg :|code| :type
+                         (common-lisp:or |eventTypeCode| common-lisp:null)
+                         :accessor %event-type-code :initform common-lisp:nil)
+                        (service :initarg :|service| :type
+                         (common-lisp:or |service| common-lisp:null) :accessor
+                         %event-type-service :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'event-type 'make-event-type))
+ (common-lisp:defun make-event-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key category code service)
+   (common-lisp:apply #'common-lisp:make-instance 'event-type
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-type))
    (common-lisp:append))
@@ -1762,17 +2207,30 @@
                            (trivial-types:proper-list |eventTypeCode|))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (event-type-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-event-type-filter-"))
-   (event-type-codes common-lisp:nil :type
-    (common-lisp:or event-type-code-list common-lisp:null))
-   (services common-lisp:nil :type
-    (common-lisp:or |serviceList| common-lisp:null))
-   (event-type-categories common-lisp:nil :type
-    (common-lisp:or event-type-category-list common-lisp:null)))
+ (common-lisp:defclass event-type-filter common-lisp:nil
+                       ((event-type-categories :initarg :|eventTypeCategories|
+                         :type
+                         (common-lisp:or event-type-category-list
+                                         common-lisp:null)
+                         :accessor %event-type-filter-event-type-categories
+                         :initform common-lisp:nil)
+                        (services :initarg :|services| :type
+                         (common-lisp:or |serviceList| common-lisp:null)
+                         :accessor %event-type-filter-services :initform
+                         common-lisp:nil)
+                        (event-type-codes :initarg :|eventTypeCodes| :type
+                         (common-lisp:or event-type-code-list common-lisp:null)
+                         :accessor %event-type-filter-event-type-codes
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'event-type-filter 'make-event-type-filter))
+ (common-lisp:defun make-event-type-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-type-categories services
+                     event-type-codes)
+   (common-lisp:apply #'common-lisp:make-instance 'event-type-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event-type-filter))
    (common-lisp:append))
@@ -1815,26 +2273,44 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-pagination-token
      (health-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-pagination-token-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-pagination-token
                     'invalid-pagination-token-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (organization-affected-entities-error-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-organization-affected-entities-error-item-"))
-   (aws-account-id common-lisp:nil :type
-    (common-lisp:or |accountId| common-lisp:null))
-   (event-arn common-lisp:nil :type
-    (common-lisp:or |eventArn| common-lisp:null))
-   (error-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (error-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass organization-affected-entities-error-item
+                       common-lisp:nil
+                       ((error-message :initarg :|errorMessage| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %organization-affected-entities-error-item-error-message
+                         :initform common-lisp:nil)
+                        (error-name :initarg :|errorName| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %organization-affected-entities-error-item-error-name
+                         :initform common-lisp:nil)
+                        (event-arn :initarg :|eventArn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %organization-affected-entities-error-item-event-arn
+                         :initform common-lisp:nil)
+                        (aws-account-id :initarg :|awsAccountId| :type
+                         (common-lisp:or |accountId| common-lisp:null)
+                         :accessor
+                         %organization-affected-entities-error-item-aws-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'organization-affected-entities-error-item
                     'make-organization-affected-entities-error-item))
+ (common-lisp:defun make-organization-affected-entities-error-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error-message error-name event-arn
+                     aws-account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'organization-affected-entities-error-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1887,28 +2363,55 @@
                            (trivial-types:proper-list event-account-filter))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (organization-event (:copier common-lisp:nil)
-      (:conc-name "struct-shape-organization-event-"))
-   (arn common-lisp:nil :type (common-lisp:or |eventArn| common-lisp:null))
-   (service common-lisp:nil :type (common-lisp:or |service| common-lisp:null))
-   (event-type-code common-lisp:nil :type
-    (common-lisp:or |eventTypeCode| common-lisp:null))
-   (event-type-category common-lisp:nil :type
-    (common-lisp:or |eventTypeCategory| common-lisp:null))
-   (event-scope-code common-lisp:nil :type
-    (common-lisp:or |eventScopeCode| common-lisp:null))
-   (region common-lisp:nil :type (common-lisp:or |region| common-lisp:null))
-   (start-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (end-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (status-code common-lisp:nil :type
-    (common-lisp:or |eventStatusCode| common-lisp:null)))
+ (common-lisp:defclass organization-event common-lisp:nil
+                       ((status-code :initarg :|statusCode| :type
+                         (common-lisp:or |eventStatusCode| common-lisp:null)
+                         :accessor %organization-event-status-code :initform
+                         common-lisp:nil)
+                        (last-updated-time :initarg :|lastUpdatedTime| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %organization-event-last-updated-time
+                         :initform common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %organization-event-end-time :initform
+                         common-lisp:nil)
+                        (start-time :initarg :|startTime| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %organization-event-start-time :initform
+                         common-lisp:nil)
+                        (region :initarg :|region| :type
+                         (common-lisp:or |region| common-lisp:null) :accessor
+                         %organization-event-region :initform common-lisp:nil)
+                        (event-scope-code :initarg :|eventScopeCode| :type
+                         (common-lisp:or |eventScopeCode| common-lisp:null)
+                         :accessor %organization-event-event-scope-code
+                         :initform common-lisp:nil)
+                        (event-type-category :initarg :|eventTypeCategory|
+                         :type
+                         (common-lisp:or |eventTypeCategory| common-lisp:null)
+                         :accessor %organization-event-event-type-category
+                         :initform common-lisp:nil)
+                        (event-type-code :initarg :|eventTypeCode| :type
+                         (common-lisp:or |eventTypeCode| common-lisp:null)
+                         :accessor %organization-event-event-type-code
+                         :initform common-lisp:nil)
+                        (service :initarg :|service| :type
+                         (common-lisp:or |service| common-lisp:null) :accessor
+                         %organization-event-service :initform common-lisp:nil)
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %organization-event-arn :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'organization-event 'make-organization-event))
+ (common-lisp:defun make-organization-event
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-code last-updated-time end-time
+                     start-time region event-scope-code event-type-category
+                     event-type-code service arn)
+   (common-lisp:apply #'common-lisp:make-instance 'organization-event
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input organization-event))
    (common-lisp:append))
@@ -1997,19 +2500,34 @@
                            (trivial-types:proper-list event-account-filter))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (organization-event-details (:copier common-lisp:nil)
-      (:conc-name "struct-shape-organization-event-details-"))
-   (aws-account-id common-lisp:nil :type
-    (common-lisp:or |accountId| common-lisp:null))
-   (event common-lisp:nil :type (common-lisp:or event common-lisp:null))
-   (event-description common-lisp:nil :type
-    (common-lisp:or event-description common-lisp:null))
-   (event-metadata common-lisp:nil :type
-    (common-lisp:or |eventMetadata| common-lisp:null)))
+ (common-lisp:defclass organization-event-details common-lisp:nil
+                       ((event-metadata :initarg :|eventMetadata| :type
+                         (common-lisp:or |eventMetadata| common-lisp:null)
+                         :accessor %organization-event-details-event-metadata
+                         :initform common-lisp:nil)
+                        (event-description :initarg :|eventDescription| :type
+                         (common-lisp:or event-description common-lisp:null)
+                         :accessor
+                         %organization-event-details-event-description
+                         :initform common-lisp:nil)
+                        (event :initarg :|event| :type
+                         (common-lisp:or event common-lisp:null) :accessor
+                         %organization-event-details-event :initform
+                         common-lisp:nil)
+                        (aws-account-id :initarg :|awsAccountId| :type
+                         (common-lisp:or |accountId| common-lisp:null)
+                         :accessor %organization-event-details-aws-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'organization-event-details
                     'make-organization-event-details))
+ (common-lisp:defun make-organization-event-details
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-metadata event-description event
+                     aws-account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'organization-event-details
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2054,20 +2572,37 @@
                           organization-event-details))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (organization-event-details-error-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-organization-event-details-error-item-"))
-   (aws-account-id common-lisp:nil :type
-    (common-lisp:or |accountId| common-lisp:null))
-   (event-arn common-lisp:nil :type
-    (common-lisp:or |eventArn| common-lisp:null))
-   (error-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (error-message common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass organization-event-details-error-item common-lisp:nil
+                       ((error-message :initarg :|errorMessage| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %organization-event-details-error-item-error-message
+                         :initform common-lisp:nil)
+                        (error-name :initarg :|errorName| :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %organization-event-details-error-item-error-name
+                         :initform common-lisp:nil)
+                        (event-arn :initarg :|eventArn| :type
+                         (common-lisp:or |eventArn| common-lisp:null) :accessor
+                         %organization-event-details-error-item-event-arn
+                         :initform common-lisp:nil)
+                        (aws-account-id :initarg :|awsAccountId| :type
+                         (common-lisp:or |accountId| common-lisp:null)
+                         :accessor
+                         %organization-event-details-error-item-aws-account-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'organization-event-details-error-item
                     'make-organization-event-details-error-item))
+ (common-lisp:defun make-organization-event-details-error-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error-message error-name event-arn
+                     aws-account-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'organization-event-details-error-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2112,34 +2647,68 @@
                           organization-event-details-error-item))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (organization-event-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-organization-event-filter-"))
-   (event-type-codes common-lisp:nil :type
-    (common-lisp:or |eventTypeList| common-lisp:null))
-   (aws-account-ids common-lisp:nil :type
-    (common-lisp:or |awsAccountIdsList| common-lisp:null))
-   (services common-lisp:nil :type
-    (common-lisp:or |serviceList| common-lisp:null))
-   (regions common-lisp:nil :type
-    (common-lisp:or |regionList| common-lisp:null))
-   (start-time common-lisp:nil :type
-    (common-lisp:or date-time-range common-lisp:null))
-   (end-time common-lisp:nil :type
-    (common-lisp:or date-time-range common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or date-time-range common-lisp:null))
-   (entity-arns common-lisp:nil :type
-    (common-lisp:or |entityArnList| common-lisp:null))
-   (entity-values common-lisp:nil :type
-    (common-lisp:or |entityValueList| common-lisp:null))
-   (event-type-categories common-lisp:nil :type
-    (common-lisp:or |eventTypeCategoryList| common-lisp:null))
-   (event-status-codes common-lisp:nil :type
-    (common-lisp:or |eventStatusCodeList| common-lisp:null)))
+ (common-lisp:defclass organization-event-filter common-lisp:nil
+                       ((event-status-codes :initarg :|eventStatusCodes| :type
+                         (common-lisp:or |eventStatusCodeList|
+                                         common-lisp:null)
+                         :accessor
+                         %organization-event-filter-event-status-codes
+                         :initform common-lisp:nil)
+                        (event-type-categories :initarg :|eventTypeCategories|
+                         :type
+                         (common-lisp:or |eventTypeCategoryList|
+                                         common-lisp:null)
+                         :accessor
+                         %organization-event-filter-event-type-categories
+                         :initform common-lisp:nil)
+                        (entity-values :initarg :|entityValues| :type
+                         (common-lisp:or |entityValueList| common-lisp:null)
+                         :accessor %organization-event-filter-entity-values
+                         :initform common-lisp:nil)
+                        (entity-arns :initarg :|entityArns| :type
+                         (common-lisp:or |entityArnList| common-lisp:null)
+                         :accessor %organization-event-filter-entity-arns
+                         :initform common-lisp:nil)
+                        (last-updated-time :initarg :|lastUpdatedTime| :type
+                         (common-lisp:or date-time-range common-lisp:null)
+                         :accessor %organization-event-filter-last-updated-time
+                         :initform common-lisp:nil)
+                        (end-time :initarg :|endTime| :type
+                         (common-lisp:or date-time-range common-lisp:null)
+                         :accessor %organization-event-filter-end-time
+                         :initform common-lisp:nil)
+                        (start-time :initarg :|startTime| :type
+                         (common-lisp:or date-time-range common-lisp:null)
+                         :accessor %organization-event-filter-start-time
+                         :initform common-lisp:nil)
+                        (regions :initarg :|regions| :type
+                         (common-lisp:or |regionList| common-lisp:null)
+                         :accessor %organization-event-filter-regions :initform
+                         common-lisp:nil)
+                        (services :initarg :|services| :type
+                         (common-lisp:or |serviceList| common-lisp:null)
+                         :accessor %organization-event-filter-services
+                         :initform common-lisp:nil)
+                        (aws-account-ids :initarg :|awsAccountIds| :type
+                         (common-lisp:or |awsAccountIdsList| common-lisp:null)
+                         :accessor %organization-event-filter-aws-account-ids
+                         :initform common-lisp:nil)
+                        (event-type-codes :initarg :|eventTypeCodes| :type
+                         (common-lisp:or |eventTypeList| common-lisp:null)
+                         :accessor %organization-event-filter-event-type-codes
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'organization-event-filter
                     'make-organization-event-filter))
+ (common-lisp:defun make-organization-event-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-status-codes event-type-categories
+                     entity-values entity-arns last-updated-time end-time
+                     start-time regions services aws-account-ids
+                     event-type-codes)
+   (common-lisp:apply #'common-lisp:make-instance 'organization-event-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2244,7 +2813,7 @@
 (common-lisp:progn
  (common-lisp:define-condition unsupported-locale
      (health-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        unsupported-locale-message)))
  (common-lisp:export
   (common-lisp:list 'unsupported-locale 'unsupported-locale-message)))

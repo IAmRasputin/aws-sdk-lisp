@@ -46,17 +46,28 @@
                            (trivial-types:proper-list application-id))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (application-state (:copier common-lisp:nil)
-      (:conc-name "struct-shape-application-state-"))
-   (application-id common-lisp:nil :type
-    (common-lisp:or application-id common-lisp:null))
-   (application-status common-lisp:nil :type
-    (common-lisp:or application-status common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or update-date-time common-lisp:null)))
+ (common-lisp:defclass application-state common-lisp:nil
+                       ((last-updated-time :initarg :last-updated-time :type
+                         (common-lisp:or update-date-time common-lisp:null)
+                         :accessor %application-state-last-updated-time
+                         :initform common-lisp:nil)
+                        (application-status :initarg :application-status :type
+                         (common-lisp:or application-status common-lisp:null)
+                         :accessor %application-state-application-status
+                         :initform common-lisp:nil)
+                        (application-id :initarg :application-id :type
+                         (common-lisp:or application-id common-lisp:null)
+                         :accessor %application-state-application-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'application-state 'make-application-state))
+ (common-lisp:defun make-application-state
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-updated-time application-status
+                     application-id)
+   (common-lisp:apply #'common-lisp:make-instance 'application-state
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input application-state))
    (common-lisp:append))
@@ -97,20 +108,45 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype application-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-created-artifact-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-created-artifact-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (created-artifact (common-lisp:error ":created-artifact is required") :type
-    (common-lisp:or created-artifact common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass associate-created-artifact-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %associate-created-artifact-request-dry-run :initform
+                         common-lisp:nil)
+                        (created-artifact :initarg :created-artifact :type
+                         (common-lisp:or created-artifact common-lisp:null)
+                         :accessor
+                         %associate-created-artifact-request-created-artifact
+                         :initform
+                         (common-lisp:error ":created-artifact is required"))
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %associate-created-artifact-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %associate-created-artifact-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-created-artifact-request
                     'make-associate-created-artifact-request))
+ (common-lisp:defun make-associate-created-artifact-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run created-artifact
+                     migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-created-artifact-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -156,12 +192,18 @@
                           associate-created-artifact-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-created-artifact-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-created-artifact-result-")))
+ (common-lisp:defclass associate-created-artifact-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'associate-created-artifact-result
                     'make-associate-created-artifact-result))
+ (common-lisp:defun make-associate-created-artifact-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-created-artifact-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -178,20 +220,47 @@
                           associate-created-artifact-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-discovered-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-discovered-resource-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (discovered-resource (common-lisp:error ":discovered-resource is required")
-    :type (common-lisp:or discovered-resource common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass associate-discovered-resource-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %associate-discovered-resource-request-dry-run
+                         :initform common-lisp:nil)
+                        (discovered-resource :initarg :discovered-resource
+                         :type
+                         (common-lisp:or discovered-resource common-lisp:null)
+                         :accessor
+                         %associate-discovered-resource-request-discovered-resource
+                         :initform
+                         (common-lisp:error
+                          ":discovered-resource is required"))
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %associate-discovered-resource-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %associate-discovered-resource-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'associate-discovered-resource-request
                     'make-associate-discovered-resource-request))
+ (common-lisp:defun make-associate-discovered-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run discovered-resource
+                     migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-discovered-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -237,12 +306,18 @@
                           associate-discovered-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (associate-discovered-resource-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-associate-discovered-resource-result-")))
+ (common-lisp:defclass associate-discovered-resource-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'associate-discovered-resource-result
                     'make-associate-discovered-resource-result))
+ (common-lisp:defun make-associate-discovered-resource-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'associate-discovered-resource-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -260,16 +335,30 @@
    common-lisp:nil))
 (common-lisp:deftype configuration-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-progress-update-stream-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-progress-update-stream-request-"))
-   (progress-update-stream-name
-    (common-lisp:error ":progress-update-stream-name is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass create-progress-update-stream-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %create-progress-update-stream-request-dry-run
+                         :initform common-lisp:nil)
+                        (progress-update-stream-name :initarg
+                         :progress-update-stream-name :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %create-progress-update-stream-request-progress-update-stream-name
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-progress-update-stream-request
                     'make-create-progress-update-stream-request))
+ (common-lisp:defun make-create-progress-update-stream-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run progress-update-stream-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-progress-update-stream-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -301,12 +390,18 @@
                           create-progress-update-stream-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-progress-update-stream-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-progress-update-stream-result-")))
+ (common-lisp:defclass create-progress-update-stream-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'create-progress-update-stream-result
                     'make-create-progress-update-stream-result))
+ (common-lisp:defun make-create-progress-update-stream-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-progress-update-stream-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -323,15 +418,25 @@
                           create-progress-update-stream-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (created-artifact (:copier common-lisp:nil)
-      (:conc-name "struct-shape-created-artifact-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or created-artifact-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or created-artifact-description common-lisp:null)))
+ (common-lisp:defclass created-artifact common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or created-artifact-description
+                                         common-lisp:null)
+                         :accessor %created-artifact-description :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or created-artifact-name
+                                         common-lisp:null)
+                         :accessor %created-artifact-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'created-artifact 'make-created-artifact))
+ (common-lisp:defun make-created-artifact
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description name)
+   (common-lisp:apply #'common-lisp:make-instance 'created-artifact
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input created-artifact))
    (common-lisp:append))
@@ -366,16 +471,30 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype created-artifact-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-progress-update-stream-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-progress-update-stream-request-"))
-   (progress-update-stream-name
-    (common-lisp:error ":progress-update-stream-name is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass delete-progress-update-stream-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %delete-progress-update-stream-request-dry-run
+                         :initform common-lisp:nil)
+                        (progress-update-stream-name :initarg
+                         :progress-update-stream-name :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %delete-progress-update-stream-request-progress-update-stream-name
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-progress-update-stream-request
                     'make-delete-progress-update-stream-request))
+ (common-lisp:defun make-delete-progress-update-stream-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run progress-update-stream-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-progress-update-stream-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -407,12 +526,18 @@
                           delete-progress-update-stream-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-progress-update-stream-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-progress-update-stream-result-")))
+ (common-lisp:defclass delete-progress-update-stream-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-progress-update-stream-result
                     'make-delete-progress-update-stream-result))
+ (common-lisp:defun make-delete-progress-update-stream-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-progress-update-stream-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -429,14 +554,23 @@
                           delete-progress-update-stream-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-state-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-state-request-"))
-   (application-id (common-lisp:error ":application-id is required") :type
-    (common-lisp:or application-id common-lisp:null)))
+ (common-lisp:defclass describe-application-state-request common-lisp:nil
+                       ((application-id :initarg :application-id :type
+                         (common-lisp:or application-id common-lisp:null)
+                         :accessor
+                         %describe-application-state-request-application-id
+                         :initform
+                         (common-lisp:error ":application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-application-state-request
                     'make-describe-application-state-request))
+ (common-lisp:defun make-describe-application-state-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-application-state-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -460,16 +594,27 @@
                           describe-application-state-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-application-state-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-application-state-result-"))
-   (application-status common-lisp:nil :type
-    (common-lisp:or application-status common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or update-date-time common-lisp:null)))
+ (common-lisp:defclass describe-application-state-result common-lisp:nil
+                       ((last-updated-time :initarg :last-updated-time :type
+                         (common-lisp:or update-date-time common-lisp:null)
+                         :accessor
+                         %describe-application-state-result-last-updated-time
+                         :initform common-lisp:nil)
+                        (application-status :initarg :application-status :type
+                         (common-lisp:or application-status common-lisp:null)
+                         :accessor
+                         %describe-application-state-result-application-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-application-state-result
                     'make-describe-application-state-result))
+ (common-lisp:defun make-describe-application-state-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-updated-time application-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-application-state-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -500,17 +645,35 @@
                           describe-application-state-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-migration-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-migration-task-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null)))
+ (common-lisp:defclass describe-migration-task-request common-lisp:nil
+                       ((migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %describe-migration-task-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %describe-migration-task-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-migration-task-request
                     'make-describe-migration-task-request))
+ (common-lisp:defun make-describe-migration-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key migration-task-name
+                     progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-migration-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -542,14 +705,22 @@
                           describe-migration-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-migration-task-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-migration-task-result-"))
-   (migration-task common-lisp:nil :type
-    (common-lisp:or migration-task common-lisp:null)))
+ (common-lisp:defclass describe-migration-task-result common-lisp:nil
+                       ((migration-task :initarg :migration-task :type
+                         (common-lisp:or migration-task common-lisp:null)
+                         :accessor
+                         %describe-migration-task-result-migration-task
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-migration-task-result
                     'make-describe-migration-task-result))
+ (common-lisp:defun make-describe-migration-task-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key migration-task)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-migration-task-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -573,21 +744,48 @@
                           describe-migration-task-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-created-artifact-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-created-artifact-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (created-artifact-name
-    (common-lisp:error ":created-artifact-name is required") :type
-    (common-lisp:or created-artifact-name common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass disassociate-created-artifact-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %disassociate-created-artifact-request-dry-run
+                         :initform common-lisp:nil)
+                        (created-artifact-name :initarg :created-artifact-name
+                         :type
+                         (common-lisp:or created-artifact-name
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-created-artifact-request-created-artifact-name
+                         :initform
+                         (common-lisp:error
+                          ":created-artifact-name is required"))
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %disassociate-created-artifact-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-created-artifact-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-created-artifact-request
                     'make-disassociate-created-artifact-request))
+ (common-lisp:defun make-disassociate-created-artifact-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run created-artifact-name
+                     migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-created-artifact-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -634,12 +832,18 @@
                           disassociate-created-artifact-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-created-artifact-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-created-artifact-result-")))
+ (common-lisp:defclass disassociate-created-artifact-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'disassociate-created-artifact-result
                     'make-disassociate-created-artifact-result))
+ (common-lisp:defun make-disassociate-created-artifact-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-created-artifact-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -656,20 +860,45 @@
                           disassociate-created-artifact-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-discovered-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-discovered-resource-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (configuration-id (common-lisp:error ":configuration-id is required") :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass disassociate-discovered-resource-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %disassociate-discovered-resource-request-dry-run
+                         :initform common-lisp:nil)
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor
+                         %disassociate-discovered-resource-request-configuration-id
+                         :initform
+                         (common-lisp:error ":configuration-id is required"))
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %disassociate-discovered-resource-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %disassociate-discovered-resource-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'disassociate-discovered-resource-request
                     'make-disassociate-discovered-resource-request))
+ (common-lisp:defun make-disassociate-discovered-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run configuration-id
+                     migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-discovered-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -715,12 +944,18 @@
                           disassociate-discovered-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disassociate-discovered-resource-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disassociate-discovered-resource-result-")))
+ (common-lisp:defclass disassociate-discovered-resource-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'disassociate-discovered-resource-result
                     'make-disassociate-discovered-resource-result))
+ (common-lisp:defun make-disassociate-discovered-resource-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disassociate-discovered-resource-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -737,15 +972,25 @@
                           disassociate-discovered-resource-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (discovered-resource (:copier common-lisp:nil)
-      (:conc-name "struct-shape-discovered-resource-"))
-   (configuration-id (common-lisp:error ":configuration-id is required") :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or discovered-resource-description common-lisp:null)))
+ (common-lisp:defclass discovered-resource common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or discovered-resource-description
+                                         common-lisp:null)
+                         :accessor %discovered-resource-description :initform
+                         common-lisp:nil)
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %discovered-resource-configuration-id
+                         :initform
+                         (common-lisp:error ":configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'discovered-resource 'make-discovered-resource))
+ (common-lisp:defun make-discovered-resource
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance 'discovered-resource
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input discovered-resource))
    (common-lisp:append))
@@ -796,18 +1041,39 @@
   (common-lisp:list 'home-region-not-set-exception
                     'home-region-not-set-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-migration-task-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-migration-task-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass import-migration-task-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %import-migration-task-request-dry-run :initform
+                         common-lisp:nil)
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %import-migration-task-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %import-migration-task-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'import-migration-task-request
                     'make-import-migration-task-request))
+ (common-lisp:defun make-import-migration-task-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run migration-task-name
+                     progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'import-migration-task-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -846,12 +1112,17 @@
                           import-migration-task-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-migration-task-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-migration-task-result-")))
+ (common-lisp:defclass import-migration-task-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'import-migration-task-result
                     'make-import-migration-task-result))
+ (common-lisp:defun make-import-migration-task-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'import-migration-task-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -890,17 +1161,30 @@
                            (trivial-types:proper-list resource-attribute))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-application-states-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-application-states-request-"))
-   (application-ids common-lisp:nil :type
-    (common-lisp:or application-ids common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-application-states-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-application-states-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-application-states-request-next-token :initform
+                         common-lisp:nil)
+                        (application-ids :initarg :application-ids :type
+                         (common-lisp:or application-ids common-lisp:null)
+                         :accessor
+                         %list-application-states-request-application-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-application-states-request
                     'make-list-application-states-request))
+ (common-lisp:defun make-list-application-states-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token application-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-application-states-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -938,15 +1222,28 @@
                           list-application-states-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-application-states-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-application-states-result-"))
-   (application-state-list common-lisp:nil :type
-    (common-lisp:or application-state-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-application-states-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-application-states-result-next-token :initform
+                         common-lisp:nil)
+                        (application-state-list :initarg
+                         :application-state-list :type
+                         (common-lisp:or application-state-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-application-states-result-application-state-list
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-application-states-result
                     'make-list-application-states-result))
+ (common-lisp:defun make-list-application-states-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token application-state-list)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-application-states-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -978,20 +1275,44 @@
                           list-application-states-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-created-artifacts-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-created-artifacts-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results-created-artifacts common-lisp:null)))
+ (common-lisp:defclass list-created-artifacts-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results-created-artifacts
+                                         common-lisp:null)
+                         :accessor %list-created-artifacts-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-created-artifacts-request-next-token :initform
+                         common-lisp:nil)
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %list-created-artifacts-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %list-created-artifacts-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'list-created-artifacts-request
                     'make-list-created-artifacts-request))
+ (common-lisp:defun make-list-created-artifacts-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token
+                     migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-created-artifacts-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1037,15 +1358,28 @@
                           list-created-artifacts-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-created-artifacts-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-created-artifacts-result-"))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (created-artifact-list common-lisp:nil :type
-    (common-lisp:or created-artifact-list common-lisp:null)))
+ (common-lisp:defclass list-created-artifacts-result common-lisp:nil
+                       ((created-artifact-list :initarg :created-artifact-list
+                         :type
+                         (common-lisp:or created-artifact-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-created-artifacts-result-created-artifact-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-created-artifacts-result-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-created-artifacts-result
                     'make-list-created-artifacts-result))
+ (common-lisp:defun make-list-created-artifacts-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-artifact-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-created-artifacts-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1077,20 +1411,45 @@
                           list-created-artifacts-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-discovered-resources-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-discovered-resources-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results-resources common-lisp:null)))
+ (common-lisp:defclass list-discovered-resources-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results-resources
+                                         common-lisp:null)
+                         :accessor
+                         %list-discovered-resources-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-discovered-resources-request-next-token
+                         :initform common-lisp:nil)
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %list-discovered-resources-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %list-discovered-resources-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'list-discovered-resources-request
                     'make-list-discovered-resources-request))
+ (common-lisp:defun make-list-discovered-resources-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token
+                     migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-discovered-resources-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1136,15 +1495,28 @@
                           list-discovered-resources-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-discovered-resources-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-discovered-resources-result-"))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (discovered-resource-list common-lisp:nil :type
-    (common-lisp:or discovered-resource-list common-lisp:null)))
+ (common-lisp:defclass list-discovered-resources-result common-lisp:nil
+                       ((discovered-resource-list :initarg
+                         :discovered-resource-list :type
+                         (common-lisp:or discovered-resource-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-discovered-resources-result-discovered-resource-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-discovered-resources-result-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-discovered-resources-result
                     'make-list-discovered-resources-result))
+ (common-lisp:defun make-list-discovered-resources-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key discovered-resource-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-discovered-resources-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1176,17 +1548,28 @@
                           list-discovered-resources-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-migration-tasks-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-migration-tasks-request-"))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (resource-name common-lisp:nil :type
-    (common-lisp:or resource-name common-lisp:null)))
+ (common-lisp:defclass list-migration-tasks-request common-lisp:nil
+                       ((resource-name :initarg :resource-name :type
+                         (common-lisp:or resource-name common-lisp:null)
+                         :accessor %list-migration-tasks-request-resource-name
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-migration-tasks-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-migration-tasks-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-migration-tasks-request
                     'make-list-migration-tasks-request))
+ (common-lisp:defun make-list-migration-tasks-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-name max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-migration-tasks-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1224,15 +1607,27 @@
                           list-migration-tasks-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-migration-tasks-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-migration-tasks-result-"))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (migration-task-summary-list common-lisp:nil :type
-    (common-lisp:or migration-task-summary-list common-lisp:null)))
+ (common-lisp:defclass list-migration-tasks-result common-lisp:nil
+                       ((migration-task-summary-list :initarg
+                         :migration-task-summary-list :type
+                         (common-lisp:or migration-task-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-migration-tasks-result-migration-task-summary-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-migration-tasks-result-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-migration-tasks-result
                     'make-list-migration-tasks-result))
+ (common-lisp:defun make-list-migration-tasks-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key migration-task-summary-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-migration-tasks-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1264,15 +1659,26 @@
                           list-migration-tasks-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-progress-update-streams-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-progress-update-streams-request-"))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-progress-update-streams-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-progress-update-streams-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-progress-update-streams-request-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-progress-update-streams-request
                     'make-list-progress-update-streams-request))
+ (common-lisp:defun make-list-progress-update-streams-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-progress-update-streams-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1303,15 +1709,29 @@
                           list-progress-update-streams-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-progress-update-streams-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-progress-update-streams-result-"))
-   (progress-update-stream-summary-list common-lisp:nil :type
-    (common-lisp:or progress-update-stream-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-progress-update-streams-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-progress-update-streams-result-next-token
+                         :initform common-lisp:nil)
+                        (progress-update-stream-summary-list :initarg
+                         :progress-update-stream-summary-list :type
+                         (common-lisp:or progress-update-stream-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-progress-update-streams-result-progress-update-stream-summary-list
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-progress-update-streams-result
                     'make-list-progress-update-streams-result))
+ (common-lisp:defun make-list-progress-update-streams-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     progress-update-stream-summary-list)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-progress-update-streams-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1346,19 +1766,39 @@
 (common-lisp:deftype max-results-created-artifacts () 'common-lisp:integer)
 (common-lisp:deftype max-results-resources () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (migration-task (:copier common-lisp:nil)
-      (:conc-name "struct-shape-migration-task-"))
-   (progress-update-stream common-lisp:nil :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name common-lisp:nil :type
-    (common-lisp:or migration-task-name common-lisp:null))
-   (task common-lisp:nil :type (common-lisp:or task common-lisp:null))
-   (update-date-time common-lisp:nil :type
-    (common-lisp:or update-date-time common-lisp:null))
-   (resource-attribute-list common-lisp:nil :type
-    (common-lisp:or latest-resource-attribute-list common-lisp:null)))
+ (common-lisp:defclass migration-task common-lisp:nil
+                       ((resource-attribute-list :initarg
+                         :resource-attribute-list :type
+                         (common-lisp:or latest-resource-attribute-list
+                                         common-lisp:null)
+                         :accessor %migration-task-resource-attribute-list
+                         :initform common-lisp:nil)
+                        (update-date-time :initarg :update-date-time :type
+                         (common-lisp:or update-date-time common-lisp:null)
+                         :accessor %migration-task-update-date-time :initform
+                         common-lisp:nil)
+                        (task :initarg :task :type
+                         (common-lisp:or task common-lisp:null) :accessor
+                         %migration-task-task :initform common-lisp:nil)
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor %migration-task-migration-task-name
+                         :initform common-lisp:nil)
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor %migration-task-progress-update-stream
+                         :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'migration-task 'make-migration-task))
+ (common-lisp:defun make-migration-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-attribute-list update-date-time
+                     task migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance 'migration-task
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input migration-task))
    (common-lisp:append))
@@ -1407,22 +1847,45 @@
    common-lisp:nil))
 (common-lisp:deftype migration-task-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (migration-task-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-migration-task-summary-"))
-   (progress-update-stream common-lisp:nil :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name common-lisp:nil :type
-    (common-lisp:or migration-task-name common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
-   (progress-percent common-lisp:nil :type
-    (common-lisp:or progress-percent common-lisp:null))
-   (status-detail common-lisp:nil :type
-    (common-lisp:or status-detail common-lisp:null))
-   (update-date-time common-lisp:nil :type
-    (common-lisp:or update-date-time common-lisp:null)))
+ (common-lisp:defclass migration-task-summary common-lisp:nil
+                       ((update-date-time :initarg :update-date-time :type
+                         (common-lisp:or update-date-time common-lisp:null)
+                         :accessor %migration-task-summary-update-date-time
+                         :initform common-lisp:nil)
+                        (status-detail :initarg :status-detail :type
+                         (common-lisp:or status-detail common-lisp:null)
+                         :accessor %migration-task-summary-status-detail
+                         :initform common-lisp:nil)
+                        (progress-percent :initarg :progress-percent :type
+                         (common-lisp:or progress-percent common-lisp:null)
+                         :accessor %migration-task-summary-progress-percent
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %migration-task-summary-status :initform
+                         common-lisp:nil)
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor %migration-task-summary-migration-task-name
+                         :initform common-lisp:nil)
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %migration-task-summary-progress-update-stream
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'migration-task-summary 'make-migration-task-summary))
+ (common-lisp:defun make-migration-task-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-date-time status-detail
+                     progress-percent status migration-task-name
+                     progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance 'migration-task-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1491,19 +1954,37 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype next-update-seconds () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (notify-application-state-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-notify-application-state-request-"))
-   (application-id (common-lisp:error ":application-id is required") :type
-    (common-lisp:or application-id common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or application-status common-lisp:null))
-   (update-date-time common-lisp:nil :type
-    (common-lisp:or update-date-time common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass notify-application-state-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %notify-application-state-request-dry-run :initform
+                         common-lisp:nil)
+                        (update-date-time :initarg :update-date-time :type
+                         (common-lisp:or update-date-time common-lisp:null)
+                         :accessor
+                         %notify-application-state-request-update-date-time
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or application-status common-lisp:null)
+                         :accessor %notify-application-state-request-status
+                         :initform (common-lisp:error ":status is required"))
+                        (application-id :initarg :application-id :type
+                         (common-lisp:or application-id common-lisp:null)
+                         :accessor
+                         %notify-application-state-request-application-id
+                         :initform
+                         (common-lisp:error ":application-id is required"))))
  (common-lisp:export
   (common-lisp:list 'notify-application-state-request
                     'make-notify-application-state-request))
+ (common-lisp:defun make-notify-application-state-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run update-date-time status
+                     application-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'notify-application-state-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1548,12 +2029,18 @@
                           notify-application-state-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (notify-application-state-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-notify-application-state-result-")))
+ (common-lisp:defclass notify-application-state-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'notify-application-state-result
                     'make-notify-application-state-result))
+ (common-lisp:defun make-notify-application-state-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'notify-application-state-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1570,24 +2057,58 @@
                           notify-application-state-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (notify-migration-task-state-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-notify-migration-task-state-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (task (common-lisp:error ":task is required") :type
-    (common-lisp:or task common-lisp:null))
-   (update-date-time (common-lisp:error ":update-date-time is required") :type
-    (common-lisp:or update-date-time common-lisp:null))
-   (next-update-seconds (common-lisp:error ":next-update-seconds is required")
-    :type (common-lisp:or next-update-seconds common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass notify-migration-task-state-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %notify-migration-task-state-request-dry-run :initform
+                         common-lisp:nil)
+                        (next-update-seconds :initarg :next-update-seconds
+                         :type
+                         (common-lisp:or next-update-seconds common-lisp:null)
+                         :accessor
+                         %notify-migration-task-state-request-next-update-seconds
+                         :initform
+                         (common-lisp:error
+                          ":next-update-seconds is required"))
+                        (update-date-time :initarg :update-date-time :type
+                         (common-lisp:or update-date-time common-lisp:null)
+                         :accessor
+                         %notify-migration-task-state-request-update-date-time
+                         :initform
+                         (common-lisp:error ":update-date-time is required"))
+                        (task :initarg :task :type
+                         (common-lisp:or task common-lisp:null) :accessor
+                         %notify-migration-task-state-request-task :initform
+                         (common-lisp:error ":task is required"))
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %notify-migration-task-state-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %notify-migration-task-state-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'notify-migration-task-state-request
                     'make-notify-migration-task-state-request))
+ (common-lisp:defun make-notify-migration-task-state-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run next-update-seconds
+                     update-date-time task migration-task-name
+                     progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'notify-migration-task-state-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1647,12 +2168,18 @@
                           notify-migration-task-state-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (notify-migration-task-state-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-notify-migration-task-state-result-")))
+ (common-lisp:defclass notify-migration-task-state-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'notify-migration-task-state-result
                     'make-notify-migration-task-state-result))
+ (common-lisp:defun make-notify-migration-task-state-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'notify-migration-task-state-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1678,14 +2205,24 @@
 (common-lisp:deftype progress-percent () 'common-lisp:integer)
 (common-lisp:deftype progress-update-stream () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (progress-update-stream-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-progress-update-stream-summary-"))
-   (progress-update-stream-name common-lisp:nil :type
-    (common-lisp:or progress-update-stream common-lisp:null)))
+ (common-lisp:defclass progress-update-stream-summary common-lisp:nil
+                       ((progress-update-stream-name :initarg
+                         :progress-update-stream-name :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %progress-update-stream-summary-progress-update-stream-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'progress-update-stream-summary
                     'make-progress-update-stream-summary))
+ (common-lisp:defun make-progress-update-stream-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key progress-update-stream-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'progress-update-stream-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1719,21 +2256,48 @@
                             progress-update-stream-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-resource-attributes-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-resource-attributes-request-"))
-   (progress-update-stream
-    (common-lisp:error ":progress-update-stream is required") :type
-    (common-lisp:or progress-update-stream common-lisp:null))
-   (migration-task-name (common-lisp:error ":migration-task-name is required")
-    :type (common-lisp:or migration-task-name common-lisp:null))
-   (resource-attribute-list
-    (common-lisp:error ":resource-attribute-list is required") :type
-    (common-lisp:or resource-attribute-list common-lisp:null))
-   (dry-run common-lisp:nil :type (common-lisp:or dry-run common-lisp:null)))
+ (common-lisp:defclass put-resource-attributes-request common-lisp:nil
+                       ((dry-run :initarg :dry-run :type
+                         (common-lisp:or dry-run common-lisp:null) :accessor
+                         %put-resource-attributes-request-dry-run :initform
+                         common-lisp:nil)
+                        (resource-attribute-list :initarg
+                         :resource-attribute-list :type
+                         (common-lisp:or resource-attribute-list
+                                         common-lisp:null)
+                         :accessor
+                         %put-resource-attributes-request-resource-attribute-list
+                         :initform
+                         (common-lisp:error
+                          ":resource-attribute-list is required"))
+                        (migration-task-name :initarg :migration-task-name
+                         :type
+                         (common-lisp:or migration-task-name common-lisp:null)
+                         :accessor
+                         %put-resource-attributes-request-migration-task-name
+                         :initform
+                         (common-lisp:error
+                          ":migration-task-name is required"))
+                        (progress-update-stream :initarg
+                         :progress-update-stream :type
+                         (common-lisp:or progress-update-stream
+                                         common-lisp:null)
+                         :accessor
+                         %put-resource-attributes-request-progress-update-stream
+                         :initform
+                         (common-lisp:error
+                          ":progress-update-stream is required"))))
  (common-lisp:export
   (common-lisp:list 'put-resource-attributes-request
                     'make-put-resource-attributes-request))
+ (common-lisp:defun make-put-resource-attributes-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dry-run resource-attribute-list
+                     migration-task-name progress-update-stream)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-resource-attributes-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1780,12 +2344,18 @@
                           put-resource-attributes-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-resource-attributes-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-resource-attributes-result-")))
+ (common-lisp:defclass put-resource-attributes-result common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'put-resource-attributes-result
                     'make-put-resource-attributes-result))
+ (common-lisp:defun make-put-resource-attributes-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-resource-attributes-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1802,15 +2372,25 @@
                           put-resource-attributes-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (resource-attribute (:copier common-lisp:nil)
-      (:conc-name "struct-shape-resource-attribute-"))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or resource-attribute-type common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or resource-attribute-value common-lisp:null)))
+ (common-lisp:defclass resource-attribute common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or resource-attribute-value
+                                         common-lisp:null)
+                         :accessor %resource-attribute-value :initform
+                         (common-lisp:error ":value is required"))
+                        (type :initarg :type :type
+                         (common-lisp:or resource-attribute-type
+                                         common-lisp:null)
+                         :accessor %resource-attribute-type :initform
+                         (common-lisp:error ":type is required"))))
  (common-lisp:export
   (common-lisp:list 'resource-attribute 'make-resource-attribute))
+ (common-lisp:defun make-resource-attribute
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value type)
+   (common-lisp:apply #'common-lisp:make-instance 'resource-attribute
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input resource-attribute))
    (common-lisp:append))
@@ -1865,15 +2445,26 @@
 (common-lisp:deftype status () 'common-lisp:string)
 (common-lisp:deftype status-detail () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (task (:copier common-lisp:nil) (:conc-name "struct-shape-task-"))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or status common-lisp:null))
-   (status-detail common-lisp:nil :type
-    (common-lisp:or status-detail common-lisp:null))
-   (progress-percent common-lisp:nil :type
-    (common-lisp:or progress-percent common-lisp:null)))
+ (common-lisp:defclass task common-lisp:nil
+                       ((progress-percent :initarg :progress-percent :type
+                         (common-lisp:or progress-percent common-lisp:null)
+                         :accessor %task-progress-percent :initform
+                         common-lisp:nil)
+                        (status-detail :initarg :status-detail :type
+                         (common-lisp:or status-detail common-lisp:null)
+                         :accessor %task-status-detail :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %task-status :initform
+                         (common-lisp:error ":status is required"))))
  (common-lisp:export (common-lisp:list 'task 'make-task))
+ (common-lisp:defun make-task
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key progress-percent status-detail status)
+   (common-lisp:apply #'common-lisp:make-instance 'task
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input task))
    (common-lisp:append))

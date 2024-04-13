@@ -31,44 +31,79 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (docdb-elastic-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:deftype auth () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (cluster (:copier common-lisp:nil) (:conc-name "struct-shape-cluster-"))
-   (admin-user-name (common-lisp:error ":adminusername is required") :type
-    (common-lisp:or string common-lisp:null))
-   (auth-type (common-lisp:error ":authtype is required") :type
-    (common-lisp:or auth common-lisp:null))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (cluster-endpoint (common-lisp:error ":clusterendpoint is required") :type
-    (common-lisp:or string common-lisp:null))
-   (cluster-name (common-lisp:error ":clustername is required") :type
-    (common-lisp:or string common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or string common-lisp:null))
-   (kms-key-id (common-lisp:error ":kmskeyid is required") :type
-    (common-lisp:or string common-lisp:null))
-   (preferred-maintenance-window
-    (common-lisp:error ":preferredmaintenancewindow is required") :type
-    (common-lisp:or string common-lisp:null))
-   (shard-capacity (common-lisp:error ":shardcapacity is required") :type
-    (common-lisp:or integer common-lisp:null))
-   (shard-count (common-lisp:error ":shardcount is required") :type
-    (common-lisp:or integer common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or status common-lisp:null))
-   (subnet-ids (common-lisp:error ":subnetids is required") :type
-    (common-lisp:or string-list common-lisp:null))
-   (vpc-security-group-ids
-    (common-lisp:error ":vpcsecuritygroupids is required") :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass cluster common-lisp:nil
+                       ((vpc-security-group-ids :initarg :|vpcSecurityGroupIds|
+                         :type (common-lisp:or string-list common-lisp:null)
+                         :accessor %cluster-vpc-security-group-ids :initform
+                         (common-lisp:error
+                          ":vpcsecuritygroupids is required"))
+                        (subnet-ids :initarg :|subnetIds| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %cluster-subnet-ids :initform
+                         (common-lisp:error ":subnetids is required"))
+                        (status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %cluster-status :initform
+                         (common-lisp:error ":status is required"))
+                        (shard-count :initarg :|shardCount| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %cluster-shard-count :initform
+                         (common-lisp:error ":shardcount is required"))
+                        (shard-capacity :initarg :|shardCapacity| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %cluster-shard-capacity :initform
+                         (common-lisp:error ":shardcapacity is required"))
+                        (preferred-maintenance-window :initarg
+                         :|preferredMaintenanceWindow| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-preferred-maintenance-window :initform
+                         (common-lisp:error
+                          ":preferredmaintenancewindow is required"))
+                        (kms-key-id :initarg :|kmsKeyId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-kms-key-id :initform
+                         (common-lisp:error ":kmskeyid is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (cluster-name :initarg :|clusterName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-cluster-name :initform
+                         (common-lisp:error ":clustername is required"))
+                        (cluster-endpoint :initarg :|clusterEndpoint| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-cluster-endpoint :initform
+                         (common-lisp:error ":clusterendpoint is required"))
+                        (cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))
+                        (auth-type :initarg :|authType| :type
+                         (common-lisp:or auth common-lisp:null) :accessor
+                         %cluster-auth-type :initform
+                         (common-lisp:error ":authtype is required"))
+                        (admin-user-name :initarg :|adminUserName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-admin-user-name :initform
+                         (common-lisp:error ":adminusername is required"))))
  (common-lisp:export (common-lisp:list 'cluster 'make-cluster))
+ (common-lisp:defun make-cluster
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-security-group-ids subnet-ids status
+                     shard-count shard-capacity preferred-maintenance-window
+                     kms-key-id create-time cluster-name cluster-endpoint
+                     cluster-arn auth-type admin-user-name)
+   (common-lisp:apply #'common-lisp:make-instance 'cluster
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input cluster))
    (common-lisp:append))
@@ -172,16 +207,26 @@
                         ((aws-sdk/generator/shape::input cluster))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cluster-in-list (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cluster-in-list-"))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (cluster-name (common-lisp:error ":clustername is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or status common-lisp:null)))
+ (common-lisp:defclass cluster-in-list common-lisp:nil
+                       ((status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %cluster-in-list-status :initform
+                         (common-lisp:error ":status is required"))
+                        (cluster-name :initarg :|clusterName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-in-list-cluster-name :initform
+                         (common-lisp:error ":clustername is required"))
+                        (cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-in-list-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))))
  (common-lisp:export (common-lisp:list 'cluster-in-list 'make-cluster-in-list))
+ (common-lisp:defun make-cluster-in-list
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status cluster-name cluster-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'cluster-in-list
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input cluster-in-list))
    (common-lisp:append))
@@ -221,34 +266,64 @@
                            (trivial-types:proper-list cluster-in-list))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cluster-snapshot (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cluster-snapshot-"))
-   (admin-user-name (common-lisp:error ":adminusername is required") :type
-    (common-lisp:or string common-lisp:null))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (cluster-creation-time
-    (common-lisp:error ":clustercreationtime is required") :type
-    (common-lisp:or string common-lisp:null))
-   (kms-key-id (common-lisp:error ":kmskeyid is required") :type
-    (common-lisp:or string common-lisp:null))
-   (snapshot-arn (common-lisp:error ":snapshotarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (snapshot-creation-time
-    (common-lisp:error ":snapshotcreationtime is required") :type
-    (common-lisp:or string common-lisp:null))
-   (snapshot-name (common-lisp:error ":snapshotname is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or status common-lisp:null))
-   (subnet-ids (common-lisp:error ":subnetids is required") :type
-    (common-lisp:or string-list common-lisp:null))
-   (vpc-security-group-ids
-    (common-lisp:error ":vpcsecuritygroupids is required") :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass cluster-snapshot common-lisp:nil
+                       ((vpc-security-group-ids :initarg :|vpcSecurityGroupIds|
+                         :type (common-lisp:or string-list common-lisp:null)
+                         :accessor %cluster-snapshot-vpc-security-group-ids
+                         :initform
+                         (common-lisp:error
+                          ":vpcsecuritygroupids is required"))
+                        (subnet-ids :initarg :|subnetIds| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %cluster-snapshot-subnet-ids :initform
+                         (common-lisp:error ":subnetids is required"))
+                        (status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %cluster-snapshot-status :initform
+                         (common-lisp:error ":status is required"))
+                        (snapshot-name :initarg :|snapshotName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-snapshot-name :initform
+                         (common-lisp:error ":snapshotname is required"))
+                        (snapshot-creation-time :initarg
+                         :|snapshotCreationTime| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-snapshot-creation-time :initform
+                         (common-lisp:error
+                          ":snapshotcreationtime is required"))
+                        (snapshot-arn :initarg :|snapshotArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-snapshot-arn :initform
+                         (common-lisp:error ":snapshotarn is required"))
+                        (kms-key-id :initarg :|kmsKeyId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-kms-key-id :initform
+                         (common-lisp:error ":kmskeyid is required"))
+                        (cluster-creation-time :initarg :|clusterCreationTime|
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor %cluster-snapshot-cluster-creation-time
+                         :initform
+                         (common-lisp:error
+                          ":clustercreationtime is required"))
+                        (cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))
+                        (admin-user-name :initarg :|adminUserName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-admin-user-name :initform
+                         (common-lisp:error ":adminusername is required"))))
  (common-lisp:export
   (common-lisp:list 'cluster-snapshot 'make-cluster-snapshot))
+ (common-lisp:defun make-cluster-snapshot
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-security-group-ids subnet-ids status
+                     snapshot-name snapshot-creation-time snapshot-arn
+                     kms-key-id cluster-creation-time cluster-arn
+                     admin-user-name)
+   (common-lisp:apply #'common-lisp:make-instance 'cluster-snapshot
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input cluster-snapshot))
    (common-lisp:append))
@@ -332,22 +407,39 @@
                         ((aws-sdk/generator/shape::input cluster-snapshot))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (cluster-snapshot-in-list (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cluster-snapshot-in-list-"))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (snapshot-arn (common-lisp:error ":snapshotarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (snapshot-creation-time
-    (common-lisp:error ":snapshotcreationtime is required") :type
-    (common-lisp:or string common-lisp:null))
-   (snapshot-name (common-lisp:error ":snapshotname is required") :type
-    (common-lisp:or string common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or status common-lisp:null)))
+ (common-lisp:defclass cluster-snapshot-in-list common-lisp:nil
+                       ((status :initarg :|status| :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %cluster-snapshot-in-list-status :initform
+                         (common-lisp:error ":status is required"))
+                        (snapshot-name :initarg :|snapshotName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-in-list-snapshot-name :initform
+                         (common-lisp:error ":snapshotname is required"))
+                        (snapshot-creation-time :initarg
+                         :|snapshotCreationTime| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-in-list-snapshot-creation-time
+                         :initform
+                         (common-lisp:error
+                          ":snapshotcreationtime is required"))
+                        (snapshot-arn :initarg :|snapshotArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-in-list-snapshot-arn :initform
+                         (common-lisp:error ":snapshotarn is required"))
+                        (cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %cluster-snapshot-in-list-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))))
  (common-lisp:export
   (common-lisp:list 'cluster-snapshot-in-list 'make-cluster-snapshot-in-list))
+ (common-lisp:defun make-cluster-snapshot-in-list
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status snapshot-name
+                     snapshot-creation-time snapshot-arn cluster-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'cluster-snapshot-in-list
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -411,44 +503,78 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (docdb-elastic-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)
-      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+      (resource-id :initarg :|resourceId| :initform common-lisp:nil :reader
        conflict-exception-resource-id)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        conflict-exception-resource-type)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message
                     'conflict-exception-resource-id
                     'conflict-exception-resource-type)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-cluster-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-cluster-input-"))
-   (admin-user-name (common-lisp:error ":adminusername is required") :type
-    (common-lisp:or string common-lisp:null))
-   (admin-user-password (common-lisp:error ":adminuserpassword is required")
-    :type (common-lisp:or password common-lisp:null))
-   (auth-type (common-lisp:error ":authtype is required") :type
-    (common-lisp:or auth common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (cluster-name (common-lisp:error ":clustername is required") :type
-    (common-lisp:or string common-lisp:null))
-   (kms-key-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (preferred-maintenance-window common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (shard-capacity (common-lisp:error ":shardcapacity is required") :type
-    (common-lisp:or integer common-lisp:null))
-   (shard-count (common-lisp:error ":shardcount is required") :type
-    (common-lisp:or integer common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null))
-   (vpc-security-group-ids common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass create-cluster-input common-lisp:nil
+                       ((vpc-security-group-ids :initarg :|vpcSecurityGroupIds|
+                         :type (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-cluster-input-vpc-security-group-ids
+                         :initform common-lisp:nil)
+                        (tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-cluster-input-tags :initform common-lisp:nil)
+                        (subnet-ids :initarg :|subnetIds| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %create-cluster-input-subnet-ids :initform
+                         common-lisp:nil)
+                        (shard-count :initarg :|shardCount| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %create-cluster-input-shard-count :initform
+                         (common-lisp:error ":shardcount is required"))
+                        (shard-capacity :initarg :|shardCapacity| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %create-cluster-input-shard-capacity :initform
+                         (common-lisp:error ":shardcapacity is required"))
+                        (preferred-maintenance-window :initarg
+                         :|preferredMaintenanceWindow| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-cluster-input-preferred-maintenance-window
+                         :initform common-lisp:nil)
+                        (kms-key-id :initarg :|kmsKeyId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-cluster-input-kms-key-id :initform
+                         common-lisp:nil)
+                        (cluster-name :initarg :|clusterName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-cluster-input-cluster-name :initform
+                         (common-lisp:error ":clustername is required"))
+                        (client-token :initarg :|clientToken| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-cluster-input-client-token :initform
+                         common-lisp:nil)
+                        (auth-type :initarg :|authType| :type
+                         (common-lisp:or auth common-lisp:null) :accessor
+                         %create-cluster-input-auth-type :initform
+                         (common-lisp:error ":authtype is required"))
+                        (admin-user-password :initarg :|adminUserPassword|
+                         :type (common-lisp:or password common-lisp:null)
+                         :accessor %create-cluster-input-admin-user-password
+                         :initform
+                         (common-lisp:error ":adminuserpassword is required"))
+                        (admin-user-name :initarg :|adminUserName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-cluster-input-admin-user-name :initform
+                         (common-lisp:error ":adminusername is required"))))
  (common-lisp:export
   (common-lisp:list 'create-cluster-input 'make-create-cluster-input))
+ (common-lisp:defun make-create-cluster-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-security-group-ids tags subnet-ids
+                     shard-count shard-capacity preferred-maintenance-window
+                     kms-key-id cluster-name client-token auth-type
+                     admin-user-password admin-user-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-cluster-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-cluster-input))
    (common-lisp:append))
@@ -545,13 +671,19 @@
                         ((aws-sdk/generator/shape::input create-cluster-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-cluster-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-cluster-output-"))
-   (cluster (common-lisp:error ":cluster is required") :type
-    (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:defclass create-cluster-output common-lisp:nil
+                       ((cluster :initarg :|cluster| :type
+                         (common-lisp:or cluster common-lisp:null) :accessor
+                         %create-cluster-output-cluster :initform
+                         (common-lisp:error ":cluster is required"))))
  (common-lisp:export
   (common-lisp:list 'create-cluster-output 'make-create-cluster-output))
+ (common-lisp:defun make-create-cluster-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cluster)
+   (common-lisp:apply #'common-lisp:make-instance 'create-cluster-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -575,18 +707,32 @@
                           create-cluster-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-cluster-snapshot-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-cluster-snapshot-input-"))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (snapshot-name (common-lisp:error ":snapshotname is required") :type
-    (common-lisp:or create-cluster-snapshot-input-snapshot-name-string
-                    common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-cluster-snapshot-input common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-cluster-snapshot-input-tags :initform
+                         common-lisp:nil)
+                        (snapshot-name :initarg :|snapshotName| :type
+                         (common-lisp:or
+                          create-cluster-snapshot-input-snapshot-name-string
+                          common-lisp:null)
+                         :accessor %create-cluster-snapshot-input-snapshot-name
+                         :initform
+                         (common-lisp:error ":snapshotname is required"))
+                        (cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-cluster-snapshot-input-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-cluster-snapshot-input
                     'make-create-cluster-snapshot-input))
+ (common-lisp:defun make-create-cluster-snapshot-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags snapshot-name cluster-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-cluster-snapshot-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -626,14 +772,22 @@
 (common-lisp:deftype create-cluster-snapshot-input-snapshot-name-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-cluster-snapshot-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-cluster-snapshot-output-"))
-   (snapshot (common-lisp:error ":snapshot is required") :type
-    (common-lisp:or cluster-snapshot common-lisp:null)))
+ (common-lisp:defclass create-cluster-snapshot-output common-lisp:nil
+                       ((snapshot :initarg :|snapshot| :type
+                         (common-lisp:or cluster-snapshot common-lisp:null)
+                         :accessor %create-cluster-snapshot-output-snapshot
+                         :initform
+                         (common-lisp:error ":snapshot is required"))))
  (common-lisp:export
   (common-lisp:list 'create-cluster-snapshot-output
                     'make-create-cluster-snapshot-output))
+ (common-lisp:defun make-create-cluster-snapshot-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-cluster-snapshot-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -657,13 +811,19 @@
                           create-cluster-snapshot-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-cluster-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-cluster-input-"))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass delete-cluster-input common-lisp:nil
+                       ((cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-cluster-input-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-cluster-input 'make-delete-cluster-input))
+ (common-lisp:defun make-delete-cluster-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cluster-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-cluster-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-cluster-input))
    (common-lisp:append))
@@ -674,13 +834,19 @@
                         ((aws-sdk/generator/shape::input delete-cluster-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-cluster-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-cluster-output-"))
-   (cluster (common-lisp:error ":cluster is required") :type
-    (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:defclass delete-cluster-output common-lisp:nil
+                       ((cluster :initarg :|cluster| :type
+                         (common-lisp:or cluster common-lisp:null) :accessor
+                         %delete-cluster-output-cluster :initform
+                         (common-lisp:error ":cluster is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-cluster-output 'make-delete-cluster-output))
+ (common-lisp:defun make-delete-cluster-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cluster)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-cluster-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -704,14 +870,21 @@
                           delete-cluster-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-cluster-snapshot-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-cluster-snapshot-input-"))
-   (snapshot-arn (common-lisp:error ":snapshotarn is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass delete-cluster-snapshot-input common-lisp:nil
+                       ((snapshot-arn :initarg :|snapshotArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-cluster-snapshot-input-snapshot-arn :initform
+                         (common-lisp:error ":snapshotarn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-cluster-snapshot-input
                     'make-delete-cluster-snapshot-input))
+ (common-lisp:defun make-delete-cluster-snapshot-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-cluster-snapshot-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -728,14 +901,22 @@
                           delete-cluster-snapshot-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-cluster-snapshot-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-cluster-snapshot-output-"))
-   (snapshot (common-lisp:error ":snapshot is required") :type
-    (common-lisp:or cluster-snapshot common-lisp:null)))
+ (common-lisp:defclass delete-cluster-snapshot-output common-lisp:nil
+                       ((snapshot :initarg :|snapshot| :type
+                         (common-lisp:or cluster-snapshot common-lisp:null)
+                         :accessor %delete-cluster-snapshot-output-snapshot
+                         :initform
+                         (common-lisp:error ":snapshot is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-cluster-snapshot-output
                     'make-delete-cluster-snapshot-output))
+ (common-lisp:defun make-delete-cluster-snapshot-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-cluster-snapshot-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -759,13 +940,19 @@
                           delete-cluster-snapshot-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-cluster-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-cluster-input-"))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass get-cluster-input common-lisp:nil
+                       ((cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-cluster-input-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-cluster-input 'make-get-cluster-input))
+ (common-lisp:defun make-get-cluster-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cluster-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-cluster-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-cluster-input))
    (common-lisp:append))
@@ -776,13 +963,19 @@
                         ((aws-sdk/generator/shape::input get-cluster-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-cluster-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-cluster-output-"))
-   (cluster (common-lisp:error ":cluster is required") :type
-    (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:defclass get-cluster-output common-lisp:nil
+                       ((cluster :initarg :|cluster| :type
+                         (common-lisp:or cluster common-lisp:null) :accessor
+                         %get-cluster-output-cluster :initform
+                         (common-lisp:error ":cluster is required"))))
  (common-lisp:export
   (common-lisp:list 'get-cluster-output 'make-get-cluster-output))
+ (common-lisp:defun make-get-cluster-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cluster)
+   (common-lisp:apply #'common-lisp:make-instance 'get-cluster-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-cluster-output))
    (common-lisp:append))
@@ -800,14 +993,20 @@
                         ((aws-sdk/generator/shape::input get-cluster-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-cluster-snapshot-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-cluster-snapshot-input-"))
-   (snapshot-arn (common-lisp:error ":snapshotarn is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass get-cluster-snapshot-input common-lisp:nil
+                       ((snapshot-arn :initarg :|snapshotArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-cluster-snapshot-input-snapshot-arn :initform
+                         (common-lisp:error ":snapshotarn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-cluster-snapshot-input
                     'make-get-cluster-snapshot-input))
+ (common-lisp:defun make-get-cluster-snapshot-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-cluster-snapshot-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -824,14 +1023,21 @@
                           get-cluster-snapshot-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-cluster-snapshot-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-cluster-snapshot-output-"))
-   (snapshot (common-lisp:error ":snapshot is required") :type
-    (common-lisp:or cluster-snapshot common-lisp:null)))
+ (common-lisp:defclass get-cluster-snapshot-output common-lisp:nil
+                       ((snapshot :initarg :|snapshot| :type
+                         (common-lisp:or cluster-snapshot common-lisp:null)
+                         :accessor %get-cluster-snapshot-output-snapshot
+                         :initform
+                         (common-lisp:error ":snapshot is required"))))
  (common-lisp:export
   (common-lisp:list 'get-cluster-snapshot-output
                     'make-get-cluster-snapshot-output))
+ (common-lisp:defun make-get-cluster-snapshot-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshot)
+   (common-lisp:apply #'common-lisp:make-instance 'get-cluster-snapshot-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -858,24 +1064,36 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (docdb-elastic-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-cluster-snapshots-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-cluster-snapshots-input-"))
-   (cluster-arn common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or list-cluster-snapshots-input-max-results-integer
-                    common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-cluster-snapshots-input common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-cluster-snapshots-input-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or
+                          list-cluster-snapshots-input-max-results-integer
+                          common-lisp:null)
+                         :accessor %list-cluster-snapshots-input-max-results
+                         :initform common-lisp:nil)
+                        (cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-cluster-snapshots-input-cluster-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-cluster-snapshots-input
                     'make-list-cluster-snapshots-input))
+ (common-lisp:defun make-list-cluster-snapshots-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results cluster-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-cluster-snapshots-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -894,16 +1112,26 @@
 (common-lisp:deftype list-cluster-snapshots-input-max-results-integer ()
   'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-cluster-snapshots-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-cluster-snapshots-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (snapshots common-lisp:nil :type
-    (common-lisp:or cluster-snapshot-list common-lisp:null)))
+ (common-lisp:defclass list-cluster-snapshots-output common-lisp:nil
+                       ((snapshots :initarg :|snapshots| :type
+                         (common-lisp:or cluster-snapshot-list
+                                         common-lisp:null)
+                         :accessor %list-cluster-snapshots-output-snapshots
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-cluster-snapshots-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-cluster-snapshots-output
                     'make-list-cluster-snapshots-output))
+ (common-lisp:defun make-list-cluster-snapshots-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key snapshots next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-cluster-snapshots-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -934,15 +1162,25 @@
                           list-cluster-snapshots-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-clusters-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-clusters-input-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or list-clusters-input-max-results-integer common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-clusters-input common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-clusters-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or
+                          list-clusters-input-max-results-integer
+                          common-lisp:null)
+                         :accessor %list-clusters-input-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-clusters-input 'make-list-clusters-input))
+ (common-lisp:defun make-list-clusters-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-clusters-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-clusters-input))
    (common-lisp:append))
@@ -955,15 +1193,23 @@
 (common-lisp:deftype list-clusters-input-max-results-integer ()
   'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-clusters-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-clusters-output-"))
-   (clusters common-lisp:nil :type
-    (common-lisp:or cluster-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-clusters-output common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-clusters-output-next-token :initform
+                         common-lisp:nil)
+                        (clusters :initarg :|clusters| :type
+                         (common-lisp:or cluster-list common-lisp:null)
+                         :accessor %list-clusters-output-clusters :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-clusters-output 'make-list-clusters-output))
+ (common-lisp:defun make-list-clusters-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token clusters)
+   (common-lisp:apply #'common-lisp:make-instance 'list-clusters-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-clusters-output))
    (common-lisp:append))
@@ -988,14 +1234,21 @@
                         ((aws-sdk/generator/shape::input list-clusters-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-tags-for-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1012,13 +1265,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1046,11 +1307,11 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (docdb-elastic-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)
-      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+      (resource-id :initarg :|resourceId| :initform common-lisp:nil :reader
        resource-not-found-exception-resource-id)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        resource-not-found-exception-resource-type)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -1058,22 +1319,46 @@
                     'resource-not-found-exception-resource-id
                     'resource-not-found-exception-resource-type)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-cluster-from-snapshot-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-cluster-from-snapshot-input-"))
-   (cluster-name (common-lisp:error ":clustername is required") :type
-    (common-lisp:or string common-lisp:null))
-   (kms-key-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (snapshot-arn (common-lisp:error ":snapshotarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null))
-   (vpc-security-group-ids common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass restore-cluster-from-snapshot-input common-lisp:nil
+                       ((vpc-security-group-ids :initarg :|vpcSecurityGroupIds|
+                         :type (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %restore-cluster-from-snapshot-input-vpc-security-group-ids
+                         :initform common-lisp:nil)
+                        (tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %restore-cluster-from-snapshot-input-tags :initform
+                         common-lisp:nil)
+                        (subnet-ids :initarg :|subnetIds| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %restore-cluster-from-snapshot-input-subnet-ids
+                         :initform common-lisp:nil)
+                        (snapshot-arn :initarg :|snapshotArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %restore-cluster-from-snapshot-input-snapshot-arn
+                         :initform
+                         (common-lisp:error ":snapshotarn is required"))
+                        (kms-key-id :initarg :|kmsKeyId| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %restore-cluster-from-snapshot-input-kms-key-id
+                         :initform common-lisp:nil)
+                        (cluster-name :initarg :|clusterName| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %restore-cluster-from-snapshot-input-cluster-name
+                         :initform
+                         (common-lisp:error ":clustername is required"))))
  (common-lisp:export
   (common-lisp:list 'restore-cluster-from-snapshot-input
                     'make-restore-cluster-from-snapshot-input))
+ (common-lisp:defun make-restore-cluster-from-snapshot-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-security-group-ids tags subnet-ids
+                     snapshot-arn kms-key-id cluster-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'restore-cluster-from-snapshot-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1126,14 +1411,22 @@
                           restore-cluster-from-snapshot-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (restore-cluster-from-snapshot-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-restore-cluster-from-snapshot-output-"))
-   (cluster (common-lisp:error ":cluster is required") :type
-    (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:defclass restore-cluster-from-snapshot-output common-lisp:nil
+                       ((cluster :initarg :|cluster| :type
+                         (common-lisp:or cluster common-lisp:null) :accessor
+                         %restore-cluster-from-snapshot-output-cluster
+                         :initform
+                         (common-lisp:error ":cluster is required"))))
  (common-lisp:export
   (common-lisp:list 'restore-cluster-from-snapshot-output
                     'make-restore-cluster-from-snapshot-output))
+ (common-lisp:defun make-restore-cluster-from-snapshot-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cluster)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'restore-cluster-from-snapshot-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1159,7 +1452,7 @@
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (docdb-elastic-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-quota-exceeded-exception
@@ -1189,15 +1482,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -1215,11 +1516,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1239,23 +1544,31 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (docdb-elastic-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)
-      (retry-after-seconds :initarg :retry-after-seconds :initform
+      (retry-after-seconds :initarg :|retryAfterSeconds| :initform
        common-lisp:nil :reader throttling-exception-retry-after-seconds)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message
                     'throttling-exception-retry-after-seconds)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tagkeys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :|tagKeys| :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tagkeys is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %untag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1272,11 +1585,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1293,28 +1610,54 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-cluster-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-cluster-input-"))
-   (admin-user-password common-lisp:nil :type
-    (common-lisp:or password common-lisp:null))
-   (auth-type common-lisp:nil :type (common-lisp:or auth common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (cluster-arn (common-lisp:error ":clusterarn is required") :type
-    (common-lisp:or string common-lisp:null))
-   (preferred-maintenance-window common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (shard-capacity common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (shard-count common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (vpc-security-group-ids common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass update-cluster-input common-lisp:nil
+                       ((vpc-security-group-ids :initarg :|vpcSecurityGroupIds|
+                         :type (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-cluster-input-vpc-security-group-ids
+                         :initform common-lisp:nil)
+                        (subnet-ids :initarg :|subnetIds| :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %update-cluster-input-subnet-ids :initform
+                         common-lisp:nil)
+                        (shard-count :initarg :|shardCount| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %update-cluster-input-shard-count :initform
+                         common-lisp:nil)
+                        (shard-capacity :initarg :|shardCapacity| :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %update-cluster-input-shard-capacity :initform
+                         common-lisp:nil)
+                        (preferred-maintenance-window :initarg
+                         :|preferredMaintenanceWindow| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-cluster-input-preferred-maintenance-window
+                         :initform common-lisp:nil)
+                        (cluster-arn :initarg :|clusterArn| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-cluster-input-cluster-arn :initform
+                         (common-lisp:error ":clusterarn is required"))
+                        (client-token :initarg :|clientToken| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %update-cluster-input-client-token :initform
+                         common-lisp:nil)
+                        (auth-type :initarg :|authType| :type
+                         (common-lisp:or auth common-lisp:null) :accessor
+                         %update-cluster-input-auth-type :initform
+                         common-lisp:nil)
+                        (admin-user-password :initarg :|adminUserPassword|
+                         :type (common-lisp:or password common-lisp:null)
+                         :accessor %update-cluster-input-admin-user-password
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-cluster-input 'make-update-cluster-input))
+ (common-lisp:defun make-update-cluster-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-security-group-ids subnet-ids
+                     shard-count shard-capacity preferred-maintenance-window
+                     cluster-arn client-token auth-type admin-user-password)
+   (common-lisp:apply #'common-lisp:make-instance 'update-cluster-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-cluster-input))
    (common-lisp:append))
@@ -1383,13 +1726,19 @@
                         ((aws-sdk/generator/shape::input update-cluster-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-cluster-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-cluster-output-"))
-   (cluster (common-lisp:error ":cluster is required") :type
-    (common-lisp:or cluster common-lisp:null)))
+ (common-lisp:defclass update-cluster-output common-lisp:nil
+                       ((cluster :initarg :|cluster| :type
+                         (common-lisp:or cluster common-lisp:null) :accessor
+                         %update-cluster-output-cluster :initform
+                         (common-lisp:error ":cluster is required"))))
  (common-lisp:export
   (common-lisp:list 'update-cluster-output 'make-update-cluster-output))
+ (common-lisp:defun make-update-cluster-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cluster)
+   (common-lisp:apply #'common-lisp:make-instance 'update-cluster-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1415,27 +1764,35 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (docdb-elastic-error)
-     ((field-list :initarg :field-list :initform common-lisp:nil :reader
+     ((field-list :initarg :|fieldList| :initform common-lisp:nil :reader
        validation-exception-field-list)
-      (message :initarg :message :initform common-lisp:nil :reader
+      (message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)
-      (reason :initarg :reason :initform common-lisp:nil :reader
+      (reason :initarg :|reason| :initform common-lisp:nil :reader
        validation-exception-reason)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-field-list
                     'validation-exception-message
                     'validation-exception-reason)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validation-exception-field (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validation-exception-field-"))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or string common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass validation-exception-field common-lisp:nil
+                       ((name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-exception-field-name :initform
+                         (common-lisp:error ":name is required"))
+                        (message :initarg :|message| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-exception-field-message :initform
+                         (common-lisp:error ":message is required"))))
  (common-lisp:export
   (common-lisp:list 'validation-exception-field
                     'make-validation-exception-field))
+ (common-lisp:defun make-validation-exception-field
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name message)
+   (common-lisp:apply #'common-lisp:make-instance 'validation-exception-field
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

@@ -31,13 +31,23 @@
 (common-lisp:deftype box-integer () 'common-lisp:integer)
 (common-lisp:deftype box-long () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (filter (:copier common-lisp:nil) (:conc-name "struct-shape-filter-"))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (operator common-lisp:nil :type (common-lisp:or operator common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass filter common-lisp:nil
+                       ((values :initarg :values :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %filter-values :initform common-lisp:nil)
+                        (operator :initarg :operator :type
+                         (common-lisp:or operator common-lisp:null) :accessor
+                         %filter-operator :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %filter-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'filter 'make-filter))
+ (common-lisp:defun make-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values operator name)
+   (common-lisp:apply #'common-lisp:make-instance 'filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input filter))
    (common-lisp:append))
@@ -76,12 +86,17 @@
                            (trivial-types:proper-list filter))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-service-settings-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-service-settings-request-")))
+ (common-lisp:defclass get-service-settings-request common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'get-service-settings-request
                     'make-get-service-settings-request))
+ (common-lisp:defun make-get-service-settings-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'get-service-settings-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -98,21 +113,45 @@
                           get-service-settings-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-service-settings-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-service-settings-response-"))
-   (home-regions common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (linux-subscriptions-discovery common-lisp:nil :type
-    (common-lisp:or linux-subscriptions-discovery common-lisp:null))
-   (linux-subscriptions-discovery-settings common-lisp:nil :type
-    (common-lisp:or linux-subscriptions-discovery-settings common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string-map common-lisp:null)))
+ (common-lisp:defclass get-service-settings-response common-lisp:nil
+                       ((status-message :initarg :status-message :type
+                         (common-lisp:or string-map common-lisp:null) :accessor
+                         %get-service-settings-response-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %get-service-settings-response-status :initform
+                         common-lisp:nil)
+                        (linux-subscriptions-discovery-settings :initarg
+                         :linux-subscriptions-discovery-settings :type
+                         (common-lisp:or linux-subscriptions-discovery-settings
+                                         common-lisp:null)
+                         :accessor
+                         %get-service-settings-response-linux-subscriptions-discovery-settings
+                         :initform common-lisp:nil)
+                        (linux-subscriptions-discovery :initarg
+                         :linux-subscriptions-discovery :type
+                         (common-lisp:or linux-subscriptions-discovery
+                                         common-lisp:null)
+                         :accessor
+                         %get-service-settings-response-linux-subscriptions-discovery
+                         :initform common-lisp:nil)
+                        (home-regions :initarg :home-regions :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %get-service-settings-response-home-regions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-service-settings-response
                     'make-get-service-settings-response))
+ (common-lisp:defun make-get-service-settings-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-message status
+                     linux-subscriptions-discovery-settings
+                     linux-subscriptions-discovery home-regions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-service-settings-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -166,24 +205,47 @@
                           get-service-settings-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (instance (:copier common-lisp:nil) (:conc-name "struct-shape-instance-"))
-   (account-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (ami-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (instance-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (instance-type common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (last-updated-time common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (product-code common-lisp:nil :type
-    (common-lisp:or product-code-list common-lisp:null))
-   (region common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (subscription-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (usage-operation common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass instance common-lisp:nil
+                       ((usage-operation :initarg :usage-operation :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-usage-operation :initform common-lisp:nil)
+                        (subscription-name :initarg :subscription-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-subscription-name :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-status :initform common-lisp:nil)
+                        (region :initarg :region :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-region :initform common-lisp:nil)
+                        (product-code :initarg :product-code :type
+                         (common-lisp:or product-code-list common-lisp:null)
+                         :accessor %instance-product-code :initform
+                         common-lisp:nil)
+                        (last-updated-time :initarg :last-updated-time :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-last-updated-time :initform common-lisp:nil)
+                        (instance-type :initarg :instance-type :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-instance-type :initform common-lisp:nil)
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-instance-id :initform common-lisp:nil)
+                        (ami-id :initarg :ami-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-ami-id :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %instance-account-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'instance 'make-instance))
+ (common-lisp:defun make-instance
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key usage-operation subscription-name status
+                     region product-code last-updated-time instance-type
+                     instance-id ami-id account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'instance
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input instance))
    (common-lisp:append))
@@ -273,24 +335,39 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (license-manager-linux-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:deftype linux-subscriptions-discovery () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (linux-subscriptions-discovery-settings (:copier common-lisp:nil)
-      (:conc-name "struct-shape-linux-subscriptions-discovery-settings-"))
-   (organization-integration
-    (common-lisp:error ":organization-integration is required") :type
-    (common-lisp:or organization-integration common-lisp:null))
-   (source-regions (common-lisp:error ":source-regions is required") :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass linux-subscriptions-discovery-settings common-lisp:nil
+                       ((source-regions :initarg :source-regions :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %linux-subscriptions-discovery-settings-source-regions
+                         :initform
+                         (common-lisp:error ":source-regions is required"))
+                        (organization-integration :initarg
+                         :organization-integration :type
+                         (common-lisp:or organization-integration
+                                         common-lisp:null)
+                         :accessor
+                         %linux-subscriptions-discovery-settings-organization-integration
+                         :initform
+                         (common-lisp:error
+                          ":organization-integration is required"))))
  (common-lisp:export
   (common-lisp:list 'linux-subscriptions-discovery-settings
                     'make-linux-subscriptions-discovery-settings))
+ (common-lisp:defun make-linux-subscriptions-discovery-settings
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key source-regions organization-integration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'linux-subscriptions-discovery-settings
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -322,19 +399,35 @@
                           linux-subscriptions-discovery-settings))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-linux-subscription-instances-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-linux-subscription-instances-request-"))
-   (filters common-lisp:nil :type
-    (common-lisp:or filter-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or box-integer common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or list-linux-subscription-instances-request-next-token-string
-                    common-lisp:null)))
+ (common-lisp:defclass list-linux-subscription-instances-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or
+                          list-linux-subscription-instances-request-next-token-string
+                          common-lisp:null)
+                         :accessor
+                         %list-linux-subscription-instances-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or box-integer common-lisp:null)
+                         :accessor
+                         %list-linux-subscription-instances-request-max-results
+                         :initform common-lisp:nil)
+                        (filters :initarg :filters :type
+                         (common-lisp:or filter-list common-lisp:null)
+                         :accessor
+                         %list-linux-subscription-instances-request-filters
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-linux-subscription-instances-request
                     'make-list-linux-subscription-instances-request))
+ (common-lisp:defun make-list-linux-subscription-instances-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results filters)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-linux-subscription-instances-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -375,15 +468,27 @@
                      ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-linux-subscription-instances-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-linux-subscription-instances-response-"))
-   (instances common-lisp:nil :type
-    (common-lisp:or instance-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-linux-subscription-instances-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-linux-subscription-instances-response-next-token
+                         :initform common-lisp:nil)
+                        (instances :initarg :instances :type
+                         (common-lisp:or instance-list common-lisp:null)
+                         :accessor
+                         %list-linux-subscription-instances-response-instances
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-linux-subscription-instances-response
                     'make-list-linux-subscription-instances-response))
+ (common-lisp:defun make-list-linux-subscription-instances-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token instances)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-linux-subscription-instances-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -414,19 +519,32 @@
                           list-linux-subscription-instances-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-linux-subscriptions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-linux-subscriptions-request-"))
-   (filters common-lisp:nil :type
-    (common-lisp:or filter-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or box-integer common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or list-linux-subscriptions-request-next-token-string
-                    common-lisp:null)))
+ (common-lisp:defclass list-linux-subscriptions-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or
+                          list-linux-subscriptions-request-next-token-string
+                          common-lisp:null)
+                         :accessor %list-linux-subscriptions-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or box-integer common-lisp:null)
+                         :accessor
+                         %list-linux-subscriptions-request-max-results
+                         :initform common-lisp:nil)
+                        (filters :initarg :filters :type
+                         (common-lisp:or filter-list common-lisp:null)
+                         :accessor %list-linux-subscriptions-request-filters
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-linux-subscriptions-request
                     'make-list-linux-subscriptions-request))
+ (common-lisp:defun make-list-linux-subscriptions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results filters)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-linux-subscriptions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -466,15 +584,26 @@
 (common-lisp:deftype list-linux-subscriptions-request-next-token-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-linux-subscriptions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-linux-subscriptions-response-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (subscriptions common-lisp:nil :type
-    (common-lisp:or subscription-list common-lisp:null)))
+ (common-lisp:defclass list-linux-subscriptions-response common-lisp:nil
+                       ((subscriptions :initarg :subscriptions :type
+                         (common-lisp:or subscription-list common-lisp:null)
+                         :accessor
+                         %list-linux-subscriptions-response-subscriptions
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-linux-subscriptions-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-linux-subscriptions-response
                     'make-list-linux-subscriptions-response))
+ (common-lisp:defun make-list-linux-subscriptions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key subscriptions next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-linux-subscriptions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -533,14 +662,24 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (subscription (:copier common-lisp:nil)
-      (:conc-name "struct-shape-subscription-"))
-   (instance-count common-lisp:nil :type
-    (common-lisp:or box-long common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (type common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass subscription common-lisp:nil
+                       ((type :initarg :type :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %subscription-type :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %subscription-name :initform common-lisp:nil)
+                        (instance-count :initarg :instance-count :type
+                         (common-lisp:or box-long common-lisp:null) :accessor
+                         %subscription-instance-count :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'subscription 'make-subscription))
+ (common-lisp:defun make-subscription
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key type name instance-count)
+   (common-lisp:apply #'common-lisp:make-instance 'subscription
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input subscription))
    (common-lisp:append))
@@ -582,26 +721,45 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (license-manager-linux-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-service-settings-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-service-settings-request-"))
-   (allow-update common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (linux-subscriptions-discovery
-    (common-lisp:error ":linux-subscriptions-discovery is required") :type
-    (common-lisp:or linux-subscriptions-discovery common-lisp:null))
-   (linux-subscriptions-discovery-settings
-    (common-lisp:error ":linux-subscriptions-discovery-settings is required")
-    :type
-    (common-lisp:or linux-subscriptions-discovery-settings common-lisp:null)))
+ (common-lisp:defclass update-service-settings-request common-lisp:nil
+                       ((linux-subscriptions-discovery-settings :initarg
+                         :linux-subscriptions-discovery-settings :type
+                         (common-lisp:or linux-subscriptions-discovery-settings
+                                         common-lisp:null)
+                         :accessor
+                         %update-service-settings-request-linux-subscriptions-discovery-settings
+                         :initform
+                         (common-lisp:error
+                          ":linux-subscriptions-discovery-settings is required"))
+                        (linux-subscriptions-discovery :initarg
+                         :linux-subscriptions-discovery :type
+                         (common-lisp:or linux-subscriptions-discovery
+                                         common-lisp:null)
+                         :accessor
+                         %update-service-settings-request-linux-subscriptions-discovery
+                         :initform
+                         (common-lisp:error
+                          ":linux-subscriptions-discovery is required"))
+                        (allow-update :initarg :allow-update :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %update-service-settings-request-allow-update
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-service-settings-request
                     'make-update-service-settings-request))
+ (common-lisp:defun make-update-service-settings-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key linux-subscriptions-discovery-settings
+                     linux-subscriptions-discovery allow-update)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-service-settings-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -641,21 +799,46 @@
                           update-service-settings-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-service-settings-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-service-settings-response-"))
-   (home-regions common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (linux-subscriptions-discovery common-lisp:nil :type
-    (common-lisp:or linux-subscriptions-discovery common-lisp:null))
-   (linux-subscriptions-discovery-settings common-lisp:nil :type
-    (common-lisp:or linux-subscriptions-discovery-settings common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or status common-lisp:null))
-   (status-message common-lisp:nil :type
-    (common-lisp:or string-map common-lisp:null)))
+ (common-lisp:defclass update-service-settings-response common-lisp:nil
+                       ((status-message :initarg :status-message :type
+                         (common-lisp:or string-map common-lisp:null) :accessor
+                         %update-service-settings-response-status-message
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status common-lisp:null) :accessor
+                         %update-service-settings-response-status :initform
+                         common-lisp:nil)
+                        (linux-subscriptions-discovery-settings :initarg
+                         :linux-subscriptions-discovery-settings :type
+                         (common-lisp:or linux-subscriptions-discovery-settings
+                                         common-lisp:null)
+                         :accessor
+                         %update-service-settings-response-linux-subscriptions-discovery-settings
+                         :initform common-lisp:nil)
+                        (linux-subscriptions-discovery :initarg
+                         :linux-subscriptions-discovery :type
+                         (common-lisp:or linux-subscriptions-discovery
+                                         common-lisp:null)
+                         :accessor
+                         %update-service-settings-response-linux-subscriptions-discovery
+                         :initform common-lisp:nil)
+                        (home-regions :initarg :home-regions :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %update-service-settings-response-home-regions
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-service-settings-response
                     'make-update-service-settings-response))
+ (common-lisp:defun make-update-service-settings-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status-message status
+                     linux-subscriptions-discovery-settings
+                     linux-subscriptions-discovery home-regions)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-service-settings-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -711,7 +894,7 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (license-manager-linux-subscriptions-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))

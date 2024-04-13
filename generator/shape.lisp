@@ -5,10 +5,12 @@
   (:import-from #:alexandria
                 #:ensure-car
                 #:alist-hash-table
+                #:flatten
                 #:when-let)
   (:import-from #:serapeum
                 #:@
-                #:href-default)
+                #:href-default
+                #:maphash-return)
   (:import-from #:kebab
                 #:to-pascal-case)
   (:import-from #:xml-emitter
@@ -58,7 +60,7 @@
                          (null "/"))
                  :params (append `(("Action" . ,action) ("Version" . ,version))
                                  (input-params input))
-                 :protocol (intern (format nil "~:@(~A~)" protocol) :keyword)
+                 :protocol (intern (format nil "~:@(~A~)" protocol) (find-package :keyword))
                  :operation action
                  :headers (input-headers input)
                  :payload (input-payload input)))
@@ -70,55 +72,61 @@
         collect (cons member-name member-options)))
 
 (defun compile-structure-shape (name &key required members payload protocol)
-  ;(declare (optimize (debug 3) (speed 0) (space 0) (safety 0)))
-  ;(when (equalp name "CreateBucketConfiguration")
-  ;  (break))
   (let ((shape-name (lispify* name)))
     `(progn
-       (defstruct (,shape-name (:copier nil) (:conc-name ,(format nil "struct-shape-~A-" shape-name)))
-         ,@(loop for key being each hash-key of members
-                 using (hash-value value)
-                 collect `(,(lispify key)
-                            ,(if (find key required :test #'string=)
-                                 `(error ,(format nil ":~A is required" (lispify* key)))
-                                 nil)
-                            :type (or ,(lispify* (gethash "shape" value))
-                                      ,@(when (gethash "streaming" value)
-                                          '(stream pathname string))
-                                      null))))
+       (defclass ,shape-name ()
+         (,@(maphash-return (lambda (k v)
+                              `(,(lispify k)
+                                :initarg ,(lispify* k (find-package :keyword))
+                                :type (or ,(lispify* (gethash "shape" v))
+                                          ,@(when (gethash "streaming" v)
+                                              '(stream pathname string))
+                                          null)
+                                :accessor ,(intern (format nil "%~:@(~a-~a~)" shape-name (lispify k)))
+                                :initform ,(when (find k required :test #'string=)
+                                             `(error ,(format nil ":~a is required" (lispify* k))))))
+                            members)))
+
        (export (list ',shape-name
                      ',(intern (format nil "~:@(~A-~A~)" '#:make shape-name))))
+
+       (defun ,(intern (format nil "~:@(~A-~A~)" '#:make shape-name)) (&rest args &key ,@(maphash-return (lambda (k v)
+                                                                                                           (declare (ignore v))
+                                                                                                           (lispify k))
+                                                                                                         members))
+         (apply #'make-instance ',shape-name args))
+
        (defmethod input-headers ((input ,shape-name))
          (append
-           ,@(mapcar
-               (lambda (key-value)
-                 (destructuring-bind (key . value) key-value
-                   `(when-let (value (slot-value input ',(lispify key)))
-                      (cons ,(gethash "locationName" value) value))))
-               (filter-member "location" "header" members))
-           ,@(mapcar
-               (lambda (key-value)
-                 (destructuring-bind (key . value) key-value
-                   `(when (slot-value input ',(lispify key))
-                      (loop for key being each hash-key of (slot-value input ',(lispify key))
+          ,@(mapcar
+             (lambda (key-value)
+               (destructuring-bind (key . value) key-value
+                 `(when-let (value (slot-value input ',(lispify key)))
+                    (cons ,(gethash "locationName" value) value))))
+             (filter-member "location" "header" members))
+          ,@(mapcar
+             (lambda (key-value)
+               (destructuring-bind (key . value) key-value
+                 `(when (slot-value input ',(lispify key))
+                    (loop for key being each hash-key of (slot-value input ',(lispify key))
                             using (hash-value value)
-                            collect (cons (format nil "~A~A" ,(gethash "locationName" value) key)
-                                          value)))))
-               (filter-member "location" "headers" members))))
+                          collect (cons (format nil "~A~A" ,(gethash "locationName" value) key)
+                                        value)))))
+             (filter-member "location" "headers" members))))
        (defmethod input-params ((input ,shape-name))
          (append
-           ,@(loop for key being each hash-key of members
-                   using (hash-value value)
-                   if (not (or (gethash "location" value)
-                               (gethash "streaming" value)))
-                   collect `(when-let (value (slot-value input ',(lispify key)))
-                              (list (cons ,key (input-params value)))))))
+          ,@(loop for key being each hash-key of members
+                    using (hash-value value)
+                  if (not (or (gethash "location" value)
+                              (gethash "streaming" value)))
+                    collect `(when-let (value (slot-value input ',(lispify key)))
+                               (list (cons ,key (input-params value)))))))
        (defmethod input-payload ((input ,shape-name))
          ,(if payload
               (case protocol
                 ((:json :rest-json) `(stringify (slot-value input ',(lispify payload))))
                 (:rest-xml `(with-output-to-string (s)
-                              (format t "~s~%" input)
+                              (format t "~s~%" (com.inuoe.jzon:stringify input :pretty t))
                               (with-xml-output (s :encoding "UTF-8")
                                 (with-tag (,payload nil ,(href-default nil members payload "xmlNamespace" "uri"))
                                   ())))))
@@ -129,9 +137,9 @@
     `(progn
        (define-condition ,condition-name (,exception)
          ,(loop for member-name being each hash-key of members
-                using (hash-value member-options)
+                  using (hash-value member-options)
                 for slot-name = (lispify member-name)
-                collect `(,(lispify member-name) :initarg ,(lispify member-name :keyword)
+                collect `(,(lispify member-name) :initarg ,(lispify* member-name (find-package :keyword))
                                                  :initform nil
                                                  :reader ,(lispify (format nil "~A-~A" condition-name slot-name)))))
        (export (list ',condition-name
@@ -169,7 +177,7 @@
       ((string= type "map")
        (compile-map-shape name))
       ((string= type "list")
-       (let ((member-type (gethash "shape" (gethash "member" options))))
+       (let ((member-type (@ options "member" "shape")))
          (assert member-type)
          (compile-list-shape name member-type)))
       ((string= type "structure")

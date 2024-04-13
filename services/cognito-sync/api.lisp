@@ -38,7 +38,7 @@
 (common-lisp:progn
  (common-lisp:define-condition already-streamed-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        already-streamed-exception-message)))
  (common-lisp:export
   (common-lisp:list 'already-streamed-exception
@@ -55,13 +55,20 @@
 (common-lisp:deftype assume-role-arn () 'common-lisp:string)
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (bulk-publish-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-bulk-publish-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null)))
+ (common-lisp:defclass bulk-publish-request common-lisp:nil
+                       ((identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %bulk-publish-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'bulk-publish-request 'make-bulk-publish-request))
+ (common-lisp:defun make-bulk-publish-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'bulk-publish-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input bulk-publish-request))
    (common-lisp:append))
@@ -72,13 +79,19 @@
                         ((aws-sdk/generator/shape::input bulk-publish-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (bulk-publish-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-bulk-publish-response-"))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or identity-pool-id common-lisp:null)))
+ (common-lisp:defclass bulk-publish-response common-lisp:nil
+                       ((identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %bulk-publish-response-identity-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'bulk-publish-response 'make-bulk-publish-response))
+ (common-lisp:defun make-bulk-publish-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'bulk-publish-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -105,16 +118,26 @@
 (common-lisp:deftype client-context () 'common-lisp:string)
 (common-lisp:deftype cognito-event-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (cognito-streams (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cognito-streams-"))
-   (stream-name common-lisp:nil :type
-    (common-lisp:or stream-name common-lisp:null))
-   (role-arn common-lisp:nil :type
-    (common-lisp:or assume-role-arn common-lisp:null))
-   (streaming-status common-lisp:nil :type
-    (common-lisp:or streaming-status common-lisp:null)))
+ (common-lisp:defclass cognito-streams common-lisp:nil
+                       ((streaming-status :initarg :streaming-status :type
+                         (common-lisp:or streaming-status common-lisp:null)
+                         :accessor %cognito-streams-streaming-status :initform
+                         common-lisp:nil)
+                        (role-arn :initarg :role-arn :type
+                         (common-lisp:or assume-role-arn common-lisp:null)
+                         :accessor %cognito-streams-role-arn :initform
+                         common-lisp:nil)
+                        (stream-name :initarg :stream-name :type
+                         (common-lisp:or stream-name common-lisp:null)
+                         :accessor %cognito-streams-stream-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'cognito-streams 'make-cognito-streams))
+ (common-lisp:defun make-cognito-streams
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key streaming-status role-arn stream-name)
+   (common-lisp:apply #'common-lisp:make-instance 'cognito-streams
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input cognito-streams))
    (common-lisp:append))
@@ -148,26 +171,44 @@
 (common-lisp:progn
  (common-lisp:define-condition concurrent-modification-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        concurrent-modification-exception-message)))
  (common-lisp:export
   (common-lisp:list 'concurrent-modification-exception
                     'concurrent-modification-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (dataset (:copier common-lisp:nil) (:conc-name "struct-shape-dataset-"))
-   (identity-id common-lisp:nil :type
-    (common-lisp:or identity-id common-lisp:null))
-   (dataset-name common-lisp:nil :type
-    (common-lisp:or dataset-name common-lisp:null))
-   (creation-date common-lisp:nil :type (common-lisp:or date common-lisp:null))
-   (last-modified-date common-lisp:nil :type
-    (common-lisp:or date common-lisp:null))
-   (last-modified-by common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (data-storage common-lisp:nil :type (common-lisp:or long common-lisp:null))
-   (num-records common-lisp:nil :type (common-lisp:or long common-lisp:null)))
+ (common-lisp:defclass dataset common-lisp:nil
+                       ((num-records :initarg :num-records :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %dataset-num-records :initform common-lisp:nil)
+                        (data-storage :initarg :data-storage :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %dataset-data-storage :initform common-lisp:nil)
+                        (last-modified-by :initarg :last-modified-by :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %dataset-last-modified-by :initform common-lisp:nil)
+                        (last-modified-date :initarg :last-modified-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %dataset-last-modified-date :initform common-lisp:nil)
+                        (creation-date :initarg :creation-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %dataset-creation-date :initform common-lisp:nil)
+                        (dataset-name :initarg :dataset-name :type
+                         (common-lisp:or dataset-name common-lisp:null)
+                         :accessor %dataset-dataset-name :initform
+                         common-lisp:nil)
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %dataset-identity-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'dataset 'make-dataset))
+ (common-lisp:defun make-dataset
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key num-records data-storage last-modified-by
+                     last-modified-date creation-date dataset-name identity-id)
+   (common-lisp:apply #'common-lisp:make-instance 'dataset
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input dataset))
    (common-lisp:append))
@@ -236,17 +277,31 @@
 (common-lisp:deftype dataset-name () 'common-lisp:string)
 (common-lisp:deftype date () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-dataset-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-dataset-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (dataset-name (common-lisp:error ":dataset-name is required") :type
-    (common-lisp:or dataset-name common-lisp:null)))
+ (common-lisp:defclass delete-dataset-request common-lisp:nil
+                       ((dataset-name :initarg :dataset-name :type
+                         (common-lisp:or dataset-name common-lisp:null)
+                         :accessor %delete-dataset-request-dataset-name
+                         :initform
+                         (common-lisp:error ":dataset-name is required"))
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %delete-dataset-request-identity-id
+                         :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %delete-dataset-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-dataset-request 'make-delete-dataset-request))
+ (common-lisp:defun make-delete-dataset-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dataset-name identity-id
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-dataset-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -263,12 +318,19 @@
                           delete-dataset-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-dataset-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-dataset-response-"))
-   (dataset common-lisp:nil :type (common-lisp:or dataset common-lisp:null)))
+ (common-lisp:defclass delete-dataset-response common-lisp:nil
+                       ((dataset :initarg :dataset :type
+                         (common-lisp:or dataset common-lisp:null) :accessor
+                         %delete-dataset-response-dataset :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-dataset-response 'make-delete-dataset-response))
+ (common-lisp:defun make-delete-dataset-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dataset)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-dataset-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -292,17 +354,31 @@
                           delete-dataset-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-dataset-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-dataset-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (dataset-name (common-lisp:error ":dataset-name is required") :type
-    (common-lisp:or dataset-name common-lisp:null)))
+ (common-lisp:defclass describe-dataset-request common-lisp:nil
+                       ((dataset-name :initarg :dataset-name :type
+                         (common-lisp:or dataset-name common-lisp:null)
+                         :accessor %describe-dataset-request-dataset-name
+                         :initform
+                         (common-lisp:error ":dataset-name is required"))
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %describe-dataset-request-identity-id
+                         :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %describe-dataset-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-dataset-request 'make-describe-dataset-request))
+ (common-lisp:defun make-describe-dataset-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dataset-name identity-id
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-dataset-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -319,13 +395,20 @@
                           describe-dataset-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-dataset-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-dataset-response-"))
-   (dataset common-lisp:nil :type (common-lisp:or dataset common-lisp:null)))
+ (common-lisp:defclass describe-dataset-response common-lisp:nil
+                       ((dataset :initarg :dataset :type
+                         (common-lisp:or dataset common-lisp:null) :accessor
+                         %describe-dataset-response-dataset :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-dataset-response
                     'make-describe-dataset-response))
+ (common-lisp:defun make-describe-dataset-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key dataset)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-dataset-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -349,14 +432,23 @@
                           describe-dataset-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-identity-pool-usage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-identity-pool-usage-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null)))
+ (common-lisp:defclass describe-identity-pool-usage-request common-lisp:nil
+                       ((identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %describe-identity-pool-usage-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-identity-pool-usage-request
                     'make-describe-identity-pool-usage-request))
+ (common-lisp:defun make-describe-identity-pool-usage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-identity-pool-usage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -373,14 +465,23 @@
                           describe-identity-pool-usage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-identity-pool-usage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-identity-pool-usage-response-"))
-   (identity-pool-usage common-lisp:nil :type
-    (common-lisp:or identity-pool-usage common-lisp:null)))
+ (common-lisp:defclass describe-identity-pool-usage-response common-lisp:nil
+                       ((identity-pool-usage :initarg :identity-pool-usage
+                         :type
+                         (common-lisp:or identity-pool-usage common-lisp:null)
+                         :accessor
+                         %describe-identity-pool-usage-response-identity-pool-usage
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-identity-pool-usage-response
                     'make-describe-identity-pool-usage-response))
+ (common-lisp:defun make-describe-identity-pool-usage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-pool-usage)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-identity-pool-usage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -404,16 +505,28 @@
                           describe-identity-pool-usage-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-identity-usage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-identity-usage-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null)))
+ (common-lisp:defclass describe-identity-usage-request common-lisp:nil
+                       ((identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %describe-identity-usage-request-identity-id
+                         :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %describe-identity-usage-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-identity-usage-request
                     'make-describe-identity-usage-request))
+ (common-lisp:defun make-describe-identity-usage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-id identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-identity-usage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -430,14 +543,22 @@
                           describe-identity-usage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-identity-usage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-identity-usage-response-"))
-   (identity-usage common-lisp:nil :type
-    (common-lisp:or identity-usage common-lisp:null)))
+ (common-lisp:defclass describe-identity-usage-response common-lisp:nil
+                       ((identity-usage :initarg :identity-usage :type
+                         (common-lisp:or identity-usage common-lisp:null)
+                         :accessor
+                         %describe-identity-usage-response-identity-usage
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-identity-usage-response
                     'make-describe-identity-usage-response))
+ (common-lisp:defun make-describe-identity-usage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-usage)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-identity-usage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -464,7 +585,7 @@
 (common-lisp:progn
  (common-lisp:define-condition duplicate-request-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        duplicate-request-exception-message)))
  (common-lisp:export
   (common-lisp:list 'duplicate-request-exception
@@ -478,14 +599,23 @@
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:deftype exception-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-bulk-publish-details-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-bulk-publish-details-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null)))
+ (common-lisp:defclass get-bulk-publish-details-request common-lisp:nil
+                       ((identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %get-bulk-publish-details-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-bulk-publish-details-request
                     'make-get-bulk-publish-details-request))
+ (common-lisp:defun make-get-bulk-publish-details-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-bulk-publish-details-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -502,22 +632,44 @@
                           get-bulk-publish-details-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-bulk-publish-details-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-bulk-publish-details-response-"))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (bulk-publish-start-time common-lisp:nil :type
-    (common-lisp:or date common-lisp:null))
-   (bulk-publish-complete-time common-lisp:nil :type
-    (common-lisp:or date common-lisp:null))
-   (bulk-publish-status common-lisp:nil :type
-    (common-lisp:or bulk-publish-status common-lisp:null))
-   (failure-message common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass get-bulk-publish-details-response common-lisp:nil
+                       ((failure-message :initarg :failure-message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-bulk-publish-details-response-failure-message
+                         :initform common-lisp:nil)
+                        (bulk-publish-status :initarg :bulk-publish-status
+                         :type
+                         (common-lisp:or bulk-publish-status common-lisp:null)
+                         :accessor
+                         %get-bulk-publish-details-response-bulk-publish-status
+                         :initform common-lisp:nil)
+                        (bulk-publish-complete-time :initarg
+                         :bulk-publish-complete-time :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %get-bulk-publish-details-response-bulk-publish-complete-time
+                         :initform common-lisp:nil)
+                        (bulk-publish-start-time :initarg
+                         :bulk-publish-start-time :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %get-bulk-publish-details-response-bulk-publish-start-time
+                         :initform common-lisp:nil)
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %get-bulk-publish-details-response-identity-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-bulk-publish-details-response
                     'make-get-bulk-publish-details-response))
+ (common-lisp:defun make-get-bulk-publish-details-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failure-message bulk-publish-status
+                     bulk-publish-complete-time bulk-publish-start-time
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-bulk-publish-details-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -571,14 +723,21 @@
                           get-bulk-publish-details-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-cognito-events-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-cognito-events-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null)))
+ (common-lisp:defclass get-cognito-events-request common-lisp:nil
+                       ((identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %get-cognito-events-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-cognito-events-request
                     'make-get-cognito-events-request))
+ (common-lisp:defun make-get-cognito-events-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-cognito-events-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -595,13 +754,20 @@
                           get-cognito-events-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-cognito-events-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-cognito-events-response-"))
-   (events common-lisp:nil :type (common-lisp:or events common-lisp:null)))
+ (common-lisp:defclass get-cognito-events-response common-lisp:nil
+                       ((events :initarg :events :type
+                         (common-lisp:or events common-lisp:null) :accessor
+                         %get-cognito-events-response-events :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-cognito-events-response
                     'make-get-cognito-events-response))
+ (common-lisp:defun make-get-cognito-events-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key events)
+   (common-lisp:apply #'common-lisp:make-instance 'get-cognito-events-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -625,14 +791,23 @@
                           get-cognito-events-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-identity-pool-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-identity-pool-configuration-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null)))
+ (common-lisp:defclass get-identity-pool-configuration-request common-lisp:nil
+                       ((identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %get-identity-pool-configuration-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-identity-pool-configuration-request
                     'make-get-identity-pool-configuration-request))
+ (common-lisp:defun make-get-identity-pool-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-identity-pool-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -649,18 +824,32 @@
                           get-identity-pool-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-identity-pool-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-identity-pool-configuration-response-"))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (push-sync common-lisp:nil :type
-    (common-lisp:or push-sync common-lisp:null))
-   (cognito-streams common-lisp:nil :type
-    (common-lisp:or cognito-streams common-lisp:null)))
+ (common-lisp:defclass get-identity-pool-configuration-response common-lisp:nil
+                       ((cognito-streams :initarg :cognito-streams :type
+                         (common-lisp:or cognito-streams common-lisp:null)
+                         :accessor
+                         %get-identity-pool-configuration-response-cognito-streams
+                         :initform common-lisp:nil)
+                        (push-sync :initarg :push-sync :type
+                         (common-lisp:or push-sync common-lisp:null) :accessor
+                         %get-identity-pool-configuration-response-push-sync
+                         :initform common-lisp:nil)
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %get-identity-pool-configuration-response-identity-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-identity-pool-configuration-response
                     'make-get-identity-pool-configuration-response))
+ (common-lisp:defun make-get-identity-pool-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cognito-streams push-sync
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-identity-pool-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -700,18 +889,32 @@
 (common-lisp:deftype identity-id () 'common-lisp:string)
 (common-lisp:deftype identity-pool-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (identity-pool-usage (:copier common-lisp:nil)
-      (:conc-name "struct-shape-identity-pool-usage-"))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (sync-sessions-count common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (data-storage common-lisp:nil :type (common-lisp:or long common-lisp:null))
-   (last-modified-date common-lisp:nil :type
-    (common-lisp:or date common-lisp:null)))
+ (common-lisp:defclass identity-pool-usage common-lisp:nil
+                       ((last-modified-date :initarg :last-modified-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %identity-pool-usage-last-modified-date :initform
+                         common-lisp:nil)
+                        (data-storage :initarg :data-storage :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %identity-pool-usage-data-storage :initform
+                         common-lisp:nil)
+                        (sync-sessions-count :initarg :sync-sessions-count
+                         :type (common-lisp:or long common-lisp:null) :accessor
+                         %identity-pool-usage-sync-sessions-count :initform
+                         common-lisp:nil)
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %identity-pool-usage-identity-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'identity-pool-usage 'make-identity-pool-usage))
+ (common-lisp:defun make-identity-pool-usage
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-modified-date data-storage
+                     sync-sessions-count identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'identity-pool-usage
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input identity-pool-usage))
    (common-lisp:append))
@@ -758,19 +961,35 @@
                            (trivial-types:proper-list identity-pool-usage))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (identity-usage (:copier common-lisp:nil)
-      (:conc-name "struct-shape-identity-usage-"))
-   (identity-id common-lisp:nil :type
-    (common-lisp:or identity-id common-lisp:null))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (last-modified-date common-lisp:nil :type
-    (common-lisp:or date common-lisp:null))
-   (dataset-count common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (data-storage common-lisp:nil :type (common-lisp:or long common-lisp:null)))
+ (common-lisp:defclass identity-usage common-lisp:nil
+                       ((data-storage :initarg :data-storage :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %identity-usage-data-storage :initform
+                         common-lisp:nil)
+                        (dataset-count :initarg :dataset-count :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %identity-usage-dataset-count :initform
+                         common-lisp:nil)
+                        (last-modified-date :initarg :last-modified-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %identity-usage-last-modified-date :initform
+                         common-lisp:nil)
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %identity-usage-identity-pool-id :initform
+                         common-lisp:nil)
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %identity-usage-identity-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'identity-usage 'make-identity-usage))
+ (common-lisp:defun make-identity-usage
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key data-storage dataset-count
+                     last-modified-date identity-pool-id identity-id)
+   (common-lisp:apply #'common-lisp:make-instance 'identity-usage
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input identity-usage))
    (common-lisp:append))
@@ -820,7 +1039,7 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-error-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-error-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-error-exception
@@ -828,7 +1047,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-configuration-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-configuration-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-configuration-exception
@@ -836,7 +1055,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-lambda-function-output-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-lambda-function-output-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-lambda-function-output-exception
@@ -844,7 +1063,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-parameter-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-parameter-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-parameter-exception
@@ -853,7 +1072,7 @@
 (common-lisp:progn
  (common-lisp:define-condition lambda-throttled-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        lambda-throttled-exception-message)))
  (common-lisp:export
   (common-lisp:list 'lambda-throttled-exception
@@ -861,24 +1080,39 @@
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        limit-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception
                     'limit-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-datasets-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-datasets-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or integer-string common-lisp:null)))
+ (common-lisp:defclass list-datasets-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or integer-string common-lisp:null)
+                         :accessor %list-datasets-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-datasets-request-next-token :initform
+                         common-lisp:nil)
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %list-datasets-request-identity-id :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %list-datasets-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-datasets-request 'make-list-datasets-request))
+ (common-lisp:defun make-list-datasets-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token identity-id
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-datasets-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -895,15 +1129,27 @@
                           list-datasets-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-datasets-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-datasets-response-"))
-   (datasets common-lisp:nil :type
-    (common-lisp:or dataset-list common-lisp:null))
-   (count common-lisp:nil :type (common-lisp:or integer common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-datasets-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-datasets-response-next-token :initform
+                         common-lisp:nil)
+                        (count :initarg :count :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %list-datasets-response-count :initform
+                         common-lisp:nil)
+                        (datasets :initarg :datasets :type
+                         (common-lisp:or dataset-list common-lisp:null)
+                         :accessor %list-datasets-response-datasets :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-datasets-response 'make-list-datasets-response))
+ (common-lisp:defun make-list-datasets-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token count datasets)
+   (common-lisp:apply #'common-lisp:make-instance 'list-datasets-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -941,15 +1187,26 @@
                           list-datasets-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-identity-pool-usage-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-identity-pool-usage-request-"))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or integer-string common-lisp:null)))
+ (common-lisp:defclass list-identity-pool-usage-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or integer-string common-lisp:null)
+                         :accessor
+                         %list-identity-pool-usage-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-identity-pool-usage-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-identity-pool-usage-request
                     'make-list-identity-pool-usage-request))
+ (common-lisp:defun make-list-identity-pool-usage-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-identity-pool-usage-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -966,18 +1223,37 @@
                           list-identity-pool-usage-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-identity-pool-usage-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-identity-pool-usage-response-"))
-   (identity-pool-usages common-lisp:nil :type
-    (common-lisp:or identity-pool-usage-list common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (count common-lisp:nil :type (common-lisp:or integer common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-identity-pool-usage-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-identity-pool-usage-response-next-token
+                         :initform common-lisp:nil)
+                        (count :initarg :count :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %list-identity-pool-usage-response-count :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %list-identity-pool-usage-response-max-results
+                         :initform common-lisp:nil)
+                        (identity-pool-usages :initarg :identity-pool-usages
+                         :type
+                         (common-lisp:or identity-pool-usage-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-identity-pool-usage-response-identity-pool-usages
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-identity-pool-usage-response
                     'make-list-identity-pool-usage-response))
+ (common-lisp:defun make-list-identity-pool-usage-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token count max-results
+                     identity-pool-usages)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-identity-pool-usage-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1023,24 +1299,45 @@
                           list-identity-pool-usage-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-records-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-records-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (dataset-name (common-lisp:error ":dataset-name is required") :type
-    (common-lisp:or dataset-name common-lisp:null))
-   (last-sync-count common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or integer-string common-lisp:null))
-   (sync-session-token common-lisp:nil :type
-    (common-lisp:or sync-session-token common-lisp:null)))
+ (common-lisp:defclass list-records-request common-lisp:nil
+                       ((sync-session-token :initarg :sync-session-token :type
+                         (common-lisp:or sync-session-token common-lisp:null)
+                         :accessor %list-records-request-sync-session-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or integer-string common-lisp:null)
+                         :accessor %list-records-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-records-request-next-token :initform
+                         common-lisp:nil)
+                        (last-sync-count :initarg :last-sync-count :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %list-records-request-last-sync-count :initform
+                         common-lisp:nil)
+                        (dataset-name :initarg :dataset-name :type
+                         (common-lisp:or dataset-name common-lisp:null)
+                         :accessor %list-records-request-dataset-name :initform
+                         (common-lisp:error ":dataset-name is required"))
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %list-records-request-identity-id :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %list-records-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-records-request 'make-list-records-request))
+ (common-lisp:defun make-list-records-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sync-session-token max-results next-token
+                     last-sync-count dataset-name identity-id identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-records-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-records-request))
    (common-lisp:append))
@@ -1051,27 +1348,57 @@
                         ((aws-sdk/generator/shape::input list-records-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-records-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-records-response-"))
-   (records common-lisp:nil :type
-    (common-lisp:or record-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (count common-lisp:nil :type (common-lisp:or integer common-lisp:null))
-   (dataset-sync-count common-lisp:nil :type
-    (common-lisp:or long common-lisp:null))
-   (last-modified-by common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (merged-dataset-names common-lisp:nil :type
-    (common-lisp:or merged-dataset-name-list common-lisp:null))
-   (dataset-exists common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (dataset-deleted-after-requested-sync-count common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (sync-session-token common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-records-response common-lisp:nil
+                       ((sync-session-token :initarg :sync-session-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-records-response-sync-session-token :initform
+                         common-lisp:nil)
+                        (dataset-deleted-after-requested-sync-count :initarg
+                         :dataset-deleted-after-requested-sync-count :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %list-records-response-dataset-deleted-after-requested-sync-count
+                         :initform common-lisp:nil)
+                        (dataset-exists :initarg :dataset-exists :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %list-records-response-dataset-exists :initform
+                         common-lisp:nil)
+                        (merged-dataset-names :initarg :merged-dataset-names
+                         :type
+                         (common-lisp:or merged-dataset-name-list
+                                         common-lisp:null)
+                         :accessor %list-records-response-merged-dataset-names
+                         :initform common-lisp:nil)
+                        (last-modified-by :initarg :last-modified-by :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-records-response-last-modified-by :initform
+                         common-lisp:nil)
+                        (dataset-sync-count :initarg :dataset-sync-count :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %list-records-response-dataset-sync-count :initform
+                         common-lisp:nil)
+                        (count :initarg :count :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %list-records-response-count :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-records-response-next-token :initform
+                         common-lisp:nil)
+                        (records :initarg :records :type
+                         (common-lisp:or record-list common-lisp:null)
+                         :accessor %list-records-response-records :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-records-response 'make-list-records-response))
+ (common-lisp:defun make-list-records-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sync-session-token
+                     dataset-deleted-after-requested-sync-count dataset-exists
+                     merged-dataset-names last-modified-by dataset-sync-count
+                     count next-token records)
+   (common-lisp:apply #'common-lisp:make-instance 'list-records-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1164,7 +1491,7 @@
 (common-lisp:progn
  (common-lisp:define-condition not-authorized-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        not-authorized-exception-message)))
  (common-lisp:export
   (common-lisp:list 'not-authorized-exception
@@ -1172,14 +1499,22 @@
 (common-lisp:deftype operation () 'common-lisp:string)
 (common-lisp:deftype platform () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (push-sync (:copier common-lisp:nil)
-      (:conc-name "struct-shape-push-sync-"))
-   (application-arns common-lisp:nil :type
-    (common-lisp:or application-arn-list common-lisp:null))
-   (role-arn common-lisp:nil :type
-    (common-lisp:or assume-role-arn common-lisp:null)))
+ (common-lisp:defclass push-sync common-lisp:nil
+                       ((role-arn :initarg :role-arn :type
+                         (common-lisp:or assume-role-arn common-lisp:null)
+                         :accessor %push-sync-role-arn :initform
+                         common-lisp:nil)
+                        (application-arns :initarg :application-arns :type
+                         (common-lisp:or application-arn-list common-lisp:null)
+                         :accessor %push-sync-application-arns :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'push-sync 'make-push-sync))
+ (common-lisp:defun make-push-sync
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn application-arns)
+   (common-lisp:apply #'common-lisp:make-instance 'push-sync
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input push-sync))
    (common-lisp:append))
@@ -1205,18 +1540,35 @@
    common-lisp:nil))
 (common-lisp:deftype push-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (record (:copier common-lisp:nil) (:conc-name "struct-shape-record-"))
-   (key common-lisp:nil :type (common-lisp:or record-key common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or record-value common-lisp:null))
-   (sync-count common-lisp:nil :type (common-lisp:or long common-lisp:null))
-   (last-modified-date common-lisp:nil :type
-    (common-lisp:or date common-lisp:null))
-   (last-modified-by common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (device-last-modified-date common-lisp:nil :type
-    (common-lisp:or date common-lisp:null)))
+ (common-lisp:defclass record common-lisp:nil
+                       ((device-last-modified-date :initarg
+                         :device-last-modified-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %record-device-last-modified-date :initform
+                         common-lisp:nil)
+                        (last-modified-by :initarg :last-modified-by :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %record-last-modified-by :initform common-lisp:nil)
+                        (last-modified-date :initarg :last-modified-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %record-last-modified-date :initform common-lisp:nil)
+                        (sync-count :initarg :sync-count :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %record-sync-count :initform common-lisp:nil)
+                        (value :initarg :value :type
+                         (common-lisp:or record-value common-lisp:null)
+                         :accessor %record-value :initform common-lisp:nil)
+                        (key :initarg :key :type
+                         (common-lisp:or record-key common-lisp:null) :accessor
+                         %record-key :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'record 'make-record))
+ (common-lisp:defun make-record
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-last-modified-date
+                     last-modified-by last-modified-date sync-count value key)
+   (common-lisp:apply #'common-lisp:make-instance 'record
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input record))
    (common-lisp:append))
@@ -1278,19 +1630,36 @@
                            (trivial-types:proper-list record))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (record-patch (:copier common-lisp:nil)
-      (:conc-name "struct-shape-record-patch-"))
-   (op (common-lisp:error ":op is required") :type
-    (common-lisp:or operation common-lisp:null))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or record-key common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or record-value common-lisp:null))
-   (sync-count (common-lisp:error ":sync-count is required") :type
-    (common-lisp:or long common-lisp:null))
-   (device-last-modified-date common-lisp:nil :type
-    (common-lisp:or date common-lisp:null)))
+ (common-lisp:defclass record-patch common-lisp:nil
+                       ((device-last-modified-date :initarg
+                         :device-last-modified-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %record-patch-device-last-modified-date :initform
+                         common-lisp:nil)
+                        (sync-count :initarg :sync-count :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %record-patch-sync-count :initform
+                         (common-lisp:error ":sync-count is required"))
+                        (value :initarg :value :type
+                         (common-lisp:or record-value common-lisp:null)
+                         :accessor %record-patch-value :initform
+                         common-lisp:nil)
+                        (key :initarg :key :type
+                         (common-lisp:or record-key common-lisp:null) :accessor
+                         %record-patch-key :initform
+                         (common-lisp:error ":key is required"))
+                        (op :initarg :op :type
+                         (common-lisp:or operation common-lisp:null) :accessor
+                         %record-patch-op :initform
+                         (common-lisp:error ":op is required"))))
  (common-lisp:export (common-lisp:list 'record-patch 'make-record-patch))
+ (common-lisp:defun make-record-patch
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-last-modified-date sync-count
+                     value key op)
+   (common-lisp:apply #'common-lisp:make-instance 'record-patch
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input record-patch))
    (common-lisp:append))
@@ -1346,19 +1715,34 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype record-value () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-device-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-device-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (platform (common-lisp:error ":platform is required") :type
-    (common-lisp:or platform common-lisp:null))
-   (token (common-lisp:error ":token is required") :type
-    (common-lisp:or push-token common-lisp:null)))
+ (common-lisp:defclass register-device-request common-lisp:nil
+                       ((token :initarg :token :type
+                         (common-lisp:or push-token common-lisp:null) :accessor
+                         %register-device-request-token :initform
+                         (common-lisp:error ":token is required"))
+                        (platform :initarg :platform :type
+                         (common-lisp:or platform common-lisp:null) :accessor
+                         %register-device-request-platform :initform
+                         (common-lisp:error ":platform is required"))
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %register-device-request-identity-id
+                         :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %register-device-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'register-device-request 'make-register-device-request))
+ (common-lisp:defun make-register-device-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key token platform identity-id
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'register-device-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1389,13 +1773,19 @@
                           register-device-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (register-device-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-register-device-response-"))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null)))
+ (common-lisp:defclass register-device-response common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %register-device-response-device-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'register-device-response 'make-register-device-response))
+ (common-lisp:defun make-register-device-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id)
+   (common-lisp:apply #'common-lisp:make-instance 'register-device-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1421,7 +1811,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-conflict-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-conflict-exception
@@ -1429,22 +1819,31 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (set-cognito-events-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-set-cognito-events-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (events (common-lisp:error ":events is required") :type
-    (common-lisp:or events common-lisp:null)))
+ (common-lisp:defclass set-cognito-events-request common-lisp:nil
+                       ((events :initarg :events :type
+                         (common-lisp:or events common-lisp:null) :accessor
+                         %set-cognito-events-request-events :initform
+                         (common-lisp:error ":events is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %set-cognito-events-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'set-cognito-events-request
                     'make-set-cognito-events-request))
+ (common-lisp:defun make-set-cognito-events-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key events identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'set-cognito-events-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1468,18 +1867,33 @@
                           set-cognito-events-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (set-identity-pool-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-set-identity-pool-configuration-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (push-sync common-lisp:nil :type
-    (common-lisp:or push-sync common-lisp:null))
-   (cognito-streams common-lisp:nil :type
-    (common-lisp:or cognito-streams common-lisp:null)))
+ (common-lisp:defclass set-identity-pool-configuration-request common-lisp:nil
+                       ((cognito-streams :initarg :cognito-streams :type
+                         (common-lisp:or cognito-streams common-lisp:null)
+                         :accessor
+                         %set-identity-pool-configuration-request-cognito-streams
+                         :initform common-lisp:nil)
+                        (push-sync :initarg :push-sync :type
+                         (common-lisp:or push-sync common-lisp:null) :accessor
+                         %set-identity-pool-configuration-request-push-sync
+                         :initform common-lisp:nil)
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %set-identity-pool-configuration-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'set-identity-pool-configuration-request
                     'make-set-identity-pool-configuration-request))
+ (common-lisp:defun make-set-identity-pool-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cognito-streams push-sync
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'set-identity-pool-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1510,18 +1924,32 @@
                           set-identity-pool-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (set-identity-pool-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-set-identity-pool-configuration-response-"))
-   (identity-pool-id common-lisp:nil :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (push-sync common-lisp:nil :type
-    (common-lisp:or push-sync common-lisp:null))
-   (cognito-streams common-lisp:nil :type
-    (common-lisp:or cognito-streams common-lisp:null)))
+ (common-lisp:defclass set-identity-pool-configuration-response common-lisp:nil
+                       ((cognito-streams :initarg :cognito-streams :type
+                         (common-lisp:or cognito-streams common-lisp:null)
+                         :accessor
+                         %set-identity-pool-configuration-response-cognito-streams
+                         :initform common-lisp:nil)
+                        (push-sync :initarg :push-sync :type
+                         (common-lisp:or push-sync common-lisp:null) :accessor
+                         %set-identity-pool-configuration-response-push-sync
+                         :initform common-lisp:nil)
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %set-identity-pool-configuration-response-identity-pool-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'set-identity-pool-configuration-response
                     'make-set-identity-pool-configuration-response))
+ (common-lisp:defun make-set-identity-pool-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cognito-streams push-sync
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'set-identity-pool-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1562,20 +1990,37 @@
 (common-lisp:deftype streaming-status () 'common-lisp:string)
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (subscribe-to-dataset-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-subscribe-to-dataset-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (dataset-name (common-lisp:error ":dataset-name is required") :type
-    (common-lisp:or dataset-name common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null)))
+ (common-lisp:defclass subscribe-to-dataset-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %subscribe-to-dataset-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (dataset-name :initarg :dataset-name :type
+                         (common-lisp:or dataset-name common-lisp:null)
+                         :accessor %subscribe-to-dataset-request-dataset-name
+                         :initform
+                         (common-lisp:error ":dataset-name is required"))
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %subscribe-to-dataset-request-identity-id
+                         :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %subscribe-to-dataset-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'subscribe-to-dataset-request
                     'make-subscribe-to-dataset-request))
+ (common-lisp:defun make-subscribe-to-dataset-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id dataset-name identity-id
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'subscribe-to-dataset-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1592,12 +2037,18 @@
                           subscribe-to-dataset-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (subscribe-to-dataset-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-subscribe-to-dataset-response-")))
+ (common-lisp:defclass subscribe-to-dataset-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'subscribe-to-dataset-response
                     'make-subscribe-to-dataset-response))
+ (common-lisp:defun make-subscribe-to-dataset-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'subscribe-to-dataset-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1617,26 +2068,46 @@
 (common-lisp:progn
  (common-lisp:define-condition too-many-requests-exception
      (cognito-sync-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        too-many-requests-exception-message)))
  (common-lisp:export
   (common-lisp:list 'too-many-requests-exception
                     'too-many-requests-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (unsubscribe-from-dataset-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-unsubscribe-from-dataset-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (dataset-name (common-lisp:error ":dataset-name is required") :type
-    (common-lisp:or dataset-name common-lisp:null))
-   (device-id (common-lisp:error ":device-id is required") :type
-    (common-lisp:or device-id common-lisp:null)))
+ (common-lisp:defclass unsubscribe-from-dataset-request common-lisp:nil
+                       ((device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %unsubscribe-from-dataset-request-device-id :initform
+                         (common-lisp:error ":device-id is required"))
+                        (dataset-name :initarg :dataset-name :type
+                         (common-lisp:or dataset-name common-lisp:null)
+                         :accessor
+                         %unsubscribe-from-dataset-request-dataset-name
+                         :initform
+                         (common-lisp:error ":dataset-name is required"))
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor
+                         %unsubscribe-from-dataset-request-identity-id
+                         :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor
+                         %unsubscribe-from-dataset-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'unsubscribe-from-dataset-request
                     'make-unsubscribe-from-dataset-request))
+ (common-lisp:defun make-unsubscribe-from-dataset-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key device-id dataset-name identity-id
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'unsubscribe-from-dataset-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1653,12 +2124,18 @@
                           unsubscribe-from-dataset-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (unsubscribe-from-dataset-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-unsubscribe-from-dataset-response-")))
+ (common-lisp:defclass unsubscribe-from-dataset-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'unsubscribe-from-dataset-response
                     'make-unsubscribe-from-dataset-response))
+ (common-lisp:defun make-unsubscribe-from-dataset-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'unsubscribe-from-dataset-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1675,25 +2152,49 @@
                           unsubscribe-from-dataset-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-records-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-records-request-"))
-   (identity-pool-id (common-lisp:error ":identity-pool-id is required") :type
-    (common-lisp:or identity-pool-id common-lisp:null))
-   (identity-id (common-lisp:error ":identity-id is required") :type
-    (common-lisp:or identity-id common-lisp:null))
-   (dataset-name (common-lisp:error ":dataset-name is required") :type
-    (common-lisp:or dataset-name common-lisp:null))
-   (device-id common-lisp:nil :type
-    (common-lisp:or device-id common-lisp:null))
-   (record-patches common-lisp:nil :type
-    (common-lisp:or record-patch-list common-lisp:null))
-   (sync-session-token (common-lisp:error ":sync-session-token is required")
-    :type (common-lisp:or sync-session-token common-lisp:null))
-   (client-context common-lisp:nil :type
-    (common-lisp:or client-context common-lisp:null)))
+ (common-lisp:defclass update-records-request common-lisp:nil
+                       ((client-context :initarg :client-context :type
+                         (common-lisp:or client-context common-lisp:null)
+                         :accessor %update-records-request-client-context
+                         :initform common-lisp:nil)
+                        (sync-session-token :initarg :sync-session-token :type
+                         (common-lisp:or sync-session-token common-lisp:null)
+                         :accessor %update-records-request-sync-session-token
+                         :initform
+                         (common-lisp:error ":sync-session-token is required"))
+                        (record-patches :initarg :record-patches :type
+                         (common-lisp:or record-patch-list common-lisp:null)
+                         :accessor %update-records-request-record-patches
+                         :initform common-lisp:nil)
+                        (device-id :initarg :device-id :type
+                         (common-lisp:or device-id common-lisp:null) :accessor
+                         %update-records-request-device-id :initform
+                         common-lisp:nil)
+                        (dataset-name :initarg :dataset-name :type
+                         (common-lisp:or dataset-name common-lisp:null)
+                         :accessor %update-records-request-dataset-name
+                         :initform
+                         (common-lisp:error ":dataset-name is required"))
+                        (identity-id :initarg :identity-id :type
+                         (common-lisp:or identity-id common-lisp:null)
+                         :accessor %update-records-request-identity-id
+                         :initform
+                         (common-lisp:error ":identity-id is required"))
+                        (identity-pool-id :initarg :identity-pool-id :type
+                         (common-lisp:or identity-pool-id common-lisp:null)
+                         :accessor %update-records-request-identity-pool-id
+                         :initform
+                         (common-lisp:error ":identity-pool-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-records-request 'make-update-records-request))
+ (common-lisp:defun make-update-records-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key client-context sync-session-token
+                     record-patches device-id dataset-name identity-id
+                     identity-pool-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-records-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1736,13 +2237,19 @@
                           update-records-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-records-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-records-response-"))
-   (records common-lisp:nil :type
-    (common-lisp:or record-list common-lisp:null)))
+ (common-lisp:defclass update-records-response common-lisp:nil
+                       ((records :initarg :records :type
+                         (common-lisp:or record-list common-lisp:null)
+                         :accessor %update-records-response-records :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-records-response 'make-update-records-response))
+ (common-lisp:defun make-update-records-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key records)
+   (common-lisp:apply #'common-lisp:make-instance 'update-records-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

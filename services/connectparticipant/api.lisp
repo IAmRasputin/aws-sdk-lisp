@@ -45,18 +45,31 @@
                            (trivial-types:proper-list artifact-id))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attachment-item (:copier common-lisp:nil)
-      (:conc-name "struct-shape-attachment-item-"))
-   (content-type common-lisp:nil :type
-    (common-lisp:or content-type common-lisp:null))
-   (attachment-id common-lisp:nil :type
-    (common-lisp:or artifact-id common-lisp:null))
-   (attachment-name common-lisp:nil :type
-    (common-lisp:or attachment-name common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or artifact-status common-lisp:null)))
+ (common-lisp:defclass attachment-item common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or artifact-status common-lisp:null)
+                         :accessor %attachment-item-status :initform
+                         common-lisp:nil)
+                        (attachment-name :initarg :attachment-name :type
+                         (common-lisp:or attachment-name common-lisp:null)
+                         :accessor %attachment-item-attachment-name :initform
+                         common-lisp:nil)
+                        (attachment-id :initarg :attachment-id :type
+                         (common-lisp:or artifact-id common-lisp:null)
+                         :accessor %attachment-item-attachment-id :initform
+                         common-lisp:nil)
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or content-type common-lisp:null)
+                         :accessor %attachment-item-content-type :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'attachment-item 'make-attachment-item))
+ (common-lisp:defun make-attachment-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status attachment-name attachment-id
+                     content-type)
+   (common-lisp:apply #'common-lisp:make-instance 'attachment-item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input attachment-item))
    (common-lisp:append))
@@ -111,18 +124,37 @@
 (common-lisp:deftype chat-item-type () 'common-lisp:string)
 (common-lisp:deftype client-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (complete-attachment-upload-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-complete-attachment-upload-request-"))
-   (attachment-ids (common-lisp:error ":attachment-ids is required") :type
-    (common-lisp:or attachment-id-list common-lisp:null))
-   (client-token (common-lisp:error ":client-token is required") :type
-    (common-lisp:or non-empty-client-token common-lisp:null))
-   (connection-token (common-lisp:error ":connection-token is required") :type
-    (common-lisp:or participant-token common-lisp:null)))
+ (common-lisp:defclass complete-attachment-upload-request common-lisp:nil
+                       ((connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor
+                         %complete-attachment-upload-request-connection-token
+                         :initform
+                         (common-lisp:error ":connection-token is required"))
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or non-empty-client-token
+                                         common-lisp:null)
+                         :accessor
+                         %complete-attachment-upload-request-client-token
+                         :initform
+                         (common-lisp:error ":client-token is required"))
+                        (attachment-ids :initarg :attachment-ids :type
+                         (common-lisp:or attachment-id-list common-lisp:null)
+                         :accessor
+                         %complete-attachment-upload-request-attachment-ids
+                         :initform
+                         (common-lisp:error ":attachment-ids is required"))))
  (common-lisp:export
   (common-lisp:list 'complete-attachment-upload-request
                     'make-complete-attachment-upload-request))
+ (common-lisp:defun make-complete-attachment-upload-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-token client-token
+                     attachment-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'complete-attachment-upload-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -157,12 +189,18 @@
                           complete-attachment-upload-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (complete-attachment-upload-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-complete-attachment-upload-response-")))
+ (common-lisp:defclass complete-attachment-upload-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'complete-attachment-upload-response
                     'make-complete-attachment-upload-response))
+ (common-lisp:defun make-complete-attachment-upload-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'complete-attachment-upload-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -186,15 +224,23 @@
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (connection-credentials (:copier common-lisp:nil)
-      (:conc-name "struct-shape-connection-credentials-"))
-   (connection-token common-lisp:nil :type
-    (common-lisp:or participant-token common-lisp:null))
-   (expiry common-lisp:nil :type
-    (common-lisp:or iso8601datetime common-lisp:null)))
+ (common-lisp:defclass connection-credentials common-lisp:nil
+                       ((expiry :initarg :expiry :type
+                         (common-lisp:or iso8601datetime common-lisp:null)
+                         :accessor %connection-credentials-expiry :initform
+                         common-lisp:nil)
+                        (connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor %connection-credentials-connection-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'connection-credentials 'make-connection-credentials))
+ (common-lisp:defun make-connection-credentials
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key expiry connection-token)
+   (common-lisp:apply #'common-lisp:make-instance 'connection-credentials
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -236,18 +282,32 @@
 (common-lisp:deftype contact-id () 'common-lisp:string)
 (common-lisp:deftype content-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-participant-connection-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-participant-connection-request-"))
-   (type common-lisp:nil :type
-    (common-lisp:or connection-type-list common-lisp:null))
-   (participant-token (common-lisp:error ":participant-token is required")
-    :type (common-lisp:or participant-token common-lisp:null))
-   (connect-participant common-lisp:nil :type
-    (common-lisp:or bool common-lisp:null)))
+ (common-lisp:defclass create-participant-connection-request common-lisp:nil
+                       ((connect-participant :initarg :connect-participant
+                         :type (common-lisp:or bool common-lisp:null) :accessor
+                         %create-participant-connection-request-connect-participant
+                         :initform common-lisp:nil)
+                        (participant-token :initarg :participant-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor
+                         %create-participant-connection-request-participant-token
+                         :initform
+                         (common-lisp:error ":participant-token is required"))
+                        (type :initarg :type :type
+                         (common-lisp:or connection-type-list common-lisp:null)
+                         :accessor %create-participant-connection-request-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-participant-connection-request
                     'make-create-participant-connection-request))
+ (common-lisp:defun make-create-participant-connection-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connect-participant participant-token
+                     type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-participant-connection-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -282,16 +342,28 @@
                           create-participant-connection-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-participant-connection-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-participant-connection-response-"))
-   (websocket common-lisp:nil :type
-    (common-lisp:or websocket common-lisp:null))
-   (connection-credentials common-lisp:nil :type
-    (common-lisp:or connection-credentials common-lisp:null)))
+ (common-lisp:defclass create-participant-connection-response common-lisp:nil
+                       ((connection-credentials :initarg
+                         :connection-credentials :type
+                         (common-lisp:or connection-credentials
+                                         common-lisp:null)
+                         :accessor
+                         %create-participant-connection-response-connection-credentials
+                         :initform common-lisp:nil)
+                        (websocket :initarg :websocket :type
+                         (common-lisp:or websocket common-lisp:null) :accessor
+                         %create-participant-connection-response-websocket
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-participant-connection-response
                     'make-create-participant-connection-response))
+ (common-lisp:defun make-create-participant-connection-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-credentials websocket)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-participant-connection-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -323,16 +395,27 @@
                           create-participant-connection-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disconnect-participant-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disconnect-participant-request-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (connection-token (common-lisp:error ":connection-token is required") :type
-    (common-lisp:or participant-token common-lisp:null)))
+ (common-lisp:defclass disconnect-participant-request common-lisp:nil
+                       ((connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor
+                         %disconnect-participant-request-connection-token
+                         :initform
+                         (common-lisp:error ":connection-token is required"))
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %disconnect-participant-request-client-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'disconnect-participant-request
                     'make-disconnect-participant-request))
+ (common-lisp:defun make-disconnect-participant-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-token client-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disconnect-participant-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -360,12 +443,18 @@
                           disconnect-participant-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (disconnect-participant-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-disconnect-participant-response-")))
+ (common-lisp:defclass disconnect-participant-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'disconnect-participant-response
                     'make-disconnect-participant-response))
+ (common-lisp:defun make-disconnect-participant-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'disconnect-participant-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -383,15 +472,25 @@
    common-lisp:nil))
 (common-lisp:deftype display-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-attachment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-attachment-request-"))
-   (attachment-id (common-lisp:error ":attachment-id is required") :type
-    (common-lisp:or artifact-id common-lisp:null))
-   (connection-token (common-lisp:error ":connection-token is required") :type
-    (common-lisp:or participant-token common-lisp:null)))
+ (common-lisp:defclass get-attachment-request common-lisp:nil
+                       ((connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor %get-attachment-request-connection-token
+                         :initform
+                         (common-lisp:error ":connection-token is required"))
+                        (attachment-id :initarg :attachment-id :type
+                         (common-lisp:or artifact-id common-lisp:null)
+                         :accessor %get-attachment-request-attachment-id
+                         :initform
+                         (common-lisp:error ":attachment-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-attachment-request 'make-get-attachment-request))
+ (common-lisp:defun make-get-attachment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-token attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-attachment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -419,15 +518,24 @@
                           get-attachment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-attachment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-attachment-response-"))
-   (url common-lisp:nil :type
-    (common-lisp:or pre-signed-attachment-url common-lisp:null))
-   (url-expiry common-lisp:nil :type
-    (common-lisp:or iso8601datetime common-lisp:null)))
+ (common-lisp:defclass get-attachment-response common-lisp:nil
+                       ((url-expiry :initarg :url-expiry :type
+                         (common-lisp:or iso8601datetime common-lisp:null)
+                         :accessor %get-attachment-response-url-expiry
+                         :initform common-lisp:nil)
+                        (url :initarg :url :type
+                         (common-lisp:or pre-signed-attachment-url
+                                         common-lisp:null)
+                         :accessor %get-attachment-response-url :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-attachment-response 'make-get-attachment-response))
+ (common-lisp:defun make-get-attachment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key url-expiry url)
+   (common-lisp:apply #'common-lisp:make-instance 'get-attachment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -458,25 +566,46 @@
                           get-attachment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transcript-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-transcript-request-"))
-   (contact-id common-lisp:nil :type
-    (common-lisp:or contact-id common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (scan-direction common-lisp:nil :type
-    (common-lisp:or scan-direction common-lisp:null))
-   (sort-order common-lisp:nil :type
-    (common-lisp:or sort-key common-lisp:null))
-   (start-position common-lisp:nil :type
-    (common-lisp:or start-position common-lisp:null))
-   (connection-token (common-lisp:error ":connection-token is required") :type
-    (common-lisp:or participant-token common-lisp:null)))
+ (common-lisp:defclass get-transcript-request common-lisp:nil
+                       ((connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor %get-transcript-request-connection-token
+                         :initform
+                         (common-lisp:error ":connection-token is required"))
+                        (start-position :initarg :start-position :type
+                         (common-lisp:or start-position common-lisp:null)
+                         :accessor %get-transcript-request-start-position
+                         :initform common-lisp:nil)
+                        (sort-order :initarg :sort-order :type
+                         (common-lisp:or sort-key common-lisp:null) :accessor
+                         %get-transcript-request-sort-order :initform
+                         common-lisp:nil)
+                        (scan-direction :initarg :scan-direction :type
+                         (common-lisp:or scan-direction common-lisp:null)
+                         :accessor %get-transcript-request-scan-direction
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-transcript-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %get-transcript-request-max-results
+                         :initform common-lisp:nil)
+                        (contact-id :initarg :contact-id :type
+                         (common-lisp:or contact-id common-lisp:null) :accessor
+                         %get-transcript-request-contact-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-transcript-request 'make-get-transcript-request))
+ (common-lisp:defun make-get-transcript-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-token start-position
+                     sort-order scan-direction next-token max-results
+                     contact-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-transcript-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -539,17 +668,27 @@
                           get-transcript-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-transcript-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-transcript-response-"))
-   (initial-contact-id common-lisp:nil :type
-    (common-lisp:or contact-id common-lisp:null))
-   (transcript common-lisp:nil :type
-    (common-lisp:or transcript common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass get-transcript-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %get-transcript-response-next-token :initform
+                         common-lisp:nil)
+                        (transcript :initarg :transcript :type
+                         (common-lisp:or transcript common-lisp:null) :accessor
+                         %get-transcript-response-transcript :initform
+                         common-lisp:nil)
+                        (initial-contact-id :initarg :initial-contact-id :type
+                         (common-lisp:or contact-id common-lisp:null) :accessor
+                         %get-transcript-response-initial-contact-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-transcript-response 'make-get-transcript-response))
+ (common-lisp:defun make-get-transcript-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token transcript initial-contact-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-transcript-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -597,32 +736,57 @@
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (item (:copier common-lisp:nil) (:conc-name "struct-shape-item-"))
-   (absolute-time common-lisp:nil :type
-    (common-lisp:or instant common-lisp:null))
-   (content common-lisp:nil :type
-    (common-lisp:or chat-content common-lisp:null))
-   (content-type common-lisp:nil :type
-    (common-lisp:or chat-content-type common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or chat-item-id common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or chat-item-type common-lisp:null))
-   (participant-id common-lisp:nil :type
-    (common-lisp:or participant-id common-lisp:null))
-   (display-name common-lisp:nil :type
-    (common-lisp:or display-name common-lisp:null))
-   (participant-role common-lisp:nil :type
-    (common-lisp:or participant-role common-lisp:null))
-   (attachments common-lisp:nil :type
-    (common-lisp:or attachments common-lisp:null))
-   (message-metadata common-lisp:nil :type
-    (common-lisp:or message-metadata common-lisp:null))
-   (related-contact-id common-lisp:nil :type
-    (common-lisp:or contact-id common-lisp:null))
-   (contact-id common-lisp:nil :type
-    (common-lisp:or contact-id common-lisp:null)))
+ (common-lisp:defclass item common-lisp:nil
+                       ((contact-id :initarg :contact-id :type
+                         (common-lisp:or contact-id common-lisp:null) :accessor
+                         %item-contact-id :initform common-lisp:nil)
+                        (related-contact-id :initarg :related-contact-id :type
+                         (common-lisp:or contact-id common-lisp:null) :accessor
+                         %item-related-contact-id :initform common-lisp:nil)
+                        (message-metadata :initarg :message-metadata :type
+                         (common-lisp:or message-metadata common-lisp:null)
+                         :accessor %item-message-metadata :initform
+                         common-lisp:nil)
+                        (attachments :initarg :attachments :type
+                         (common-lisp:or attachments common-lisp:null)
+                         :accessor %item-attachments :initform common-lisp:nil)
+                        (participant-role :initarg :participant-role :type
+                         (common-lisp:or participant-role common-lisp:null)
+                         :accessor %item-participant-role :initform
+                         common-lisp:nil)
+                        (display-name :initarg :display-name :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %item-display-name :initform
+                         common-lisp:nil)
+                        (participant-id :initarg :participant-id :type
+                         (common-lisp:or participant-id common-lisp:null)
+                         :accessor %item-participant-id :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or chat-item-type common-lisp:null)
+                         :accessor %item-type :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or chat-item-id common-lisp:null)
+                         :accessor %item-id :initform common-lisp:nil)
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or chat-content-type common-lisp:null)
+                         :accessor %item-content-type :initform
+                         common-lisp:nil)
+                        (content :initarg :content :type
+                         (common-lisp:or chat-content common-lisp:null)
+                         :accessor %item-content :initform common-lisp:nil)
+                        (absolute-time :initarg :absolute-time :type
+                         (common-lisp:or instant common-lisp:null) :accessor
+                         %item-absolute-time :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'item 'make-item))
+ (common-lisp:defun make-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key contact-id related-contact-id
+                     message-metadata attachments participant-role display-name
+                     participant-id type id content-type content absolute-time)
+   (common-lisp:apply #'common-lisp:make-instance 'item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input item))
    (common-lisp:append))
@@ -719,14 +883,22 @@
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (message-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-message-metadata-"))
-   (message-id common-lisp:nil :type
-    (common-lisp:or chat-item-id common-lisp:null))
-   (receipts common-lisp:nil :type (common-lisp:or receipts common-lisp:null)))
+ (common-lisp:defclass message-metadata common-lisp:nil
+                       ((receipts :initarg :receipts :type
+                         (common-lisp:or receipts common-lisp:null) :accessor
+                         %message-metadata-receipts :initform common-lisp:nil)
+                        (message-id :initarg :message-id :type
+                         (common-lisp:or chat-item-id common-lisp:null)
+                         :accessor %message-metadata-message-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'message-metadata 'make-message-metadata))
+ (common-lisp:defun make-message-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key receipts message-id)
+   (common-lisp:apply #'common-lisp:make-instance 'message-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input message-metadata))
    (common-lisp:append))
@@ -760,15 +932,27 @@
 (common-lisp:deftype pre-signed-connection-url () 'common-lisp:string)
 (common-lisp:deftype reason () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (receipt (:copier common-lisp:nil) (:conc-name "struct-shape-receipt-"))
-   (delivered-timestamp common-lisp:nil :type
-    (common-lisp:or instant common-lisp:null))
-   (read-timestamp common-lisp:nil :type
-    (common-lisp:or instant common-lisp:null))
-   (recipient-participant-id common-lisp:nil :type
-    (common-lisp:or participant-id common-lisp:null)))
+ (common-lisp:defclass receipt common-lisp:nil
+                       ((recipient-participant-id :initarg
+                         :recipient-participant-id :type
+                         (common-lisp:or participant-id common-lisp:null)
+                         :accessor %receipt-recipient-participant-id :initform
+                         common-lisp:nil)
+                        (read-timestamp :initarg :read-timestamp :type
+                         (common-lisp:or instant common-lisp:null) :accessor
+                         %receipt-read-timestamp :initform common-lisp:nil)
+                        (delivered-timestamp :initarg :delivered-timestamp
+                         :type (common-lisp:or instant common-lisp:null)
+                         :accessor %receipt-delivered-timestamp :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'receipt 'make-receipt))
+ (common-lisp:defun make-receipt
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key recipient-participant-id read-timestamp
+                     delivered-timestamp)
+   (common-lisp:apply #'common-lisp:make-instance 'receipt
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input receipt))
    (common-lisp:append))
@@ -809,19 +993,33 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype scan-direction () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-event-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-event-request-"))
-   (content-type (common-lisp:error ":content-type is required") :type
-    (common-lisp:or chat-content-type common-lisp:null))
-   (content common-lisp:nil :type
-    (common-lisp:or chat-content common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (connection-token (common-lisp:error ":connection-token is required") :type
-    (common-lisp:or participant-token common-lisp:null)))
+ (common-lisp:defclass send-event-request common-lisp:nil
+                       ((connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor %send-event-request-connection-token
+                         :initform
+                         (common-lisp:error ":connection-token is required"))
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %send-event-request-client-token :initform
+                         common-lisp:nil)
+                        (content :initarg :content :type
+                         (common-lisp:or chat-content common-lisp:null)
+                         :accessor %send-event-request-content :initform
+                         common-lisp:nil)
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or chat-content-type common-lisp:null)
+                         :accessor %send-event-request-content-type :initform
+                         (common-lisp:error ":content-type is required"))))
  (common-lisp:export
   (common-lisp:list 'send-event-request 'make-send-event-request))
+ (common-lisp:defun make-send-event-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-token client-token content
+                     content-type)
+   (common-lisp:apply #'common-lisp:make-instance 'send-event-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input send-event-request))
    (common-lisp:append
@@ -857,14 +1055,23 @@
                         ((aws-sdk/generator/shape::input send-event-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-event-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-event-response-"))
-   (id common-lisp:nil :type (common-lisp:or chat-item-id common-lisp:null))
-   (absolute-time common-lisp:nil :type
-    (common-lisp:or instant common-lisp:null)))
+ (common-lisp:defclass send-event-response common-lisp:nil
+                       ((absolute-time :initarg :absolute-time :type
+                         (common-lisp:or instant common-lisp:null) :accessor
+                         %send-event-response-absolute-time :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or chat-item-id common-lisp:null)
+                         :accessor %send-event-response-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'send-event-response 'make-send-event-response))
+ (common-lisp:defun make-send-event-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key absolute-time id)
+   (common-lisp:apply #'common-lisp:make-instance 'send-event-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input send-event-response))
    (common-lisp:append))
@@ -889,19 +1096,33 @@
                         ((aws-sdk/generator/shape::input send-event-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-request-"))
-   (content-type (common-lisp:error ":content-type is required") :type
-    (common-lisp:or chat-content-type common-lisp:null))
-   (content (common-lisp:error ":content is required") :type
-    (common-lisp:or chat-content common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (connection-token (common-lisp:error ":connection-token is required") :type
-    (common-lisp:or participant-token common-lisp:null)))
+ (common-lisp:defclass send-message-request common-lisp:nil
+                       ((connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor %send-message-request-connection-token
+                         :initform
+                         (common-lisp:error ":connection-token is required"))
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %send-message-request-client-token :initform
+                         common-lisp:nil)
+                        (content :initarg :content :type
+                         (common-lisp:or chat-content common-lisp:null)
+                         :accessor %send-message-request-content :initform
+                         (common-lisp:error ":content is required"))
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or chat-content-type common-lisp:null)
+                         :accessor %send-message-request-content-type :initform
+                         (common-lisp:error ":content-type is required"))))
  (common-lisp:export
   (common-lisp:list 'send-message-request 'make-send-message-request))
+ (common-lisp:defun make-send-message-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-token client-token content
+                     content-type)
+   (common-lisp:apply #'common-lisp:make-instance 'send-message-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input send-message-request))
    (common-lisp:append
@@ -937,14 +1158,23 @@
                         ((aws-sdk/generator/shape::input send-message-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-response-"))
-   (id common-lisp:nil :type (common-lisp:or chat-item-id common-lisp:null))
-   (absolute-time common-lisp:nil :type
-    (common-lisp:or instant common-lisp:null)))
+ (common-lisp:defclass send-message-response common-lisp:nil
+                       ((absolute-time :initarg :absolute-time :type
+                         (common-lisp:or instant common-lisp:null) :accessor
+                         %send-message-response-absolute-time :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or chat-item-id common-lisp:null)
+                         :accessor %send-message-response-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'send-message-response 'make-send-message-response))
+ (common-lisp:defun make-send-message-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key absolute-time id)
+   (common-lisp:apply #'common-lisp:make-instance 'send-message-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -984,23 +1214,52 @@
                     'service-quota-exceeded-exception-message)))
 (common-lisp:deftype sort-key () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-attachment-upload-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-attachment-upload-request-"))
-   (content-type (common-lisp:error ":content-type is required") :type
-    (common-lisp:or content-type common-lisp:null))
-   (attachment-size-in-bytes
-    (common-lisp:error ":attachment-size-in-bytes is required") :type
-    (common-lisp:or attachment-size-in-bytes common-lisp:null))
-   (attachment-name (common-lisp:error ":attachment-name is required") :type
-    (common-lisp:or attachment-name common-lisp:null))
-   (client-token (common-lisp:error ":client-token is required") :type
-    (common-lisp:or non-empty-client-token common-lisp:null))
-   (connection-token (common-lisp:error ":connection-token is required") :type
-    (common-lisp:or participant-token common-lisp:null)))
+ (common-lisp:defclass start-attachment-upload-request common-lisp:nil
+                       ((connection-token :initarg :connection-token :type
+                         (common-lisp:or participant-token common-lisp:null)
+                         :accessor
+                         %start-attachment-upload-request-connection-token
+                         :initform
+                         (common-lisp:error ":connection-token is required"))
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or non-empty-client-token
+                                         common-lisp:null)
+                         :accessor
+                         %start-attachment-upload-request-client-token
+                         :initform
+                         (common-lisp:error ":client-token is required"))
+                        (attachment-name :initarg :attachment-name :type
+                         (common-lisp:or attachment-name common-lisp:null)
+                         :accessor
+                         %start-attachment-upload-request-attachment-name
+                         :initform
+                         (common-lisp:error ":attachment-name is required"))
+                        (attachment-size-in-bytes :initarg
+                         :attachment-size-in-bytes :type
+                         (common-lisp:or attachment-size-in-bytes
+                                         common-lisp:null)
+                         :accessor
+                         %start-attachment-upload-request-attachment-size-in-bytes
+                         :initform
+                         (common-lisp:error
+                          ":attachment-size-in-bytes is required"))
+                        (content-type :initarg :content-type :type
+                         (common-lisp:or content-type common-lisp:null)
+                         :accessor
+                         %start-attachment-upload-request-content-type
+                         :initform
+                         (common-lisp:error ":content-type is required"))))
  (common-lisp:export
   (common-lisp:list 'start-attachment-upload-request
                     'make-start-attachment-upload-request))
+ (common-lisp:defun make-start-attachment-upload-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-token client-token
+                     attachment-name attachment-size-in-bytes content-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-attachment-upload-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1050,16 +1309,27 @@
                           start-attachment-upload-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-attachment-upload-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-attachment-upload-response-"))
-   (attachment-id common-lisp:nil :type
-    (common-lisp:or artifact-id common-lisp:null))
-   (upload-metadata common-lisp:nil :type
-    (common-lisp:or upload-metadata common-lisp:null)))
+ (common-lisp:defclass start-attachment-upload-response common-lisp:nil
+                       ((upload-metadata :initarg :upload-metadata :type
+                         (common-lisp:or upload-metadata common-lisp:null)
+                         :accessor
+                         %start-attachment-upload-response-upload-metadata
+                         :initform common-lisp:nil)
+                        (attachment-id :initarg :attachment-id :type
+                         (common-lisp:or artifact-id common-lisp:null)
+                         :accessor
+                         %start-attachment-upload-response-attachment-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-attachment-upload-response
                     'make-start-attachment-upload-response))
+ (common-lisp:defun make-start-attachment-upload-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key upload-metadata attachment-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'start-attachment-upload-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1090,15 +1360,26 @@
                           start-attachment-upload-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-position (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-position-"))
-   (id common-lisp:nil :type (common-lisp:or chat-item-id common-lisp:null))
-   (absolute-time common-lisp:nil :type
-    (common-lisp:or instant common-lisp:null))
-   (most-recent common-lisp:nil :type
-    (common-lisp:or most-recent common-lisp:null)))
+ (common-lisp:defclass start-position common-lisp:nil
+                       ((most-recent :initarg :most-recent :type
+                         (common-lisp:or most-recent common-lisp:null)
+                         :accessor %start-position-most-recent :initform
+                         common-lisp:nil)
+                        (absolute-time :initarg :absolute-time :type
+                         (common-lisp:or instant common-lisp:null) :accessor
+                         %start-position-absolute-time :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or chat-item-id common-lisp:null)
+                         :accessor %start-position-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'start-position 'make-start-position))
+ (common-lisp:defun make-start-position
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key most-recent absolute-time id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-position
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-position))
    (common-lisp:append))
@@ -1144,16 +1425,27 @@
                            (trivial-types:proper-list item))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (upload-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-upload-metadata-"))
-   (url common-lisp:nil :type
-    (common-lisp:or upload-metadata-url common-lisp:null))
-   (url-expiry common-lisp:nil :type
-    (common-lisp:or iso8601datetime common-lisp:null))
-   (headers-to-include common-lisp:nil :type
-    (common-lisp:or upload-metadata-signed-headers common-lisp:null)))
+ (common-lisp:defclass upload-metadata common-lisp:nil
+                       ((headers-to-include :initarg :headers-to-include :type
+                         (common-lisp:or upload-metadata-signed-headers
+                                         common-lisp:null)
+                         :accessor %upload-metadata-headers-to-include
+                         :initform common-lisp:nil)
+                        (url-expiry :initarg :url-expiry :type
+                         (common-lisp:or iso8601datetime common-lisp:null)
+                         :accessor %upload-metadata-url-expiry :initform
+                         common-lisp:nil)
+                        (url :initarg :url :type
+                         (common-lisp:or upload-metadata-url common-lisp:null)
+                         :accessor %upload-metadata-url :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'upload-metadata 'make-upload-metadata))
+ (common-lisp:defun make-upload-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key headers-to-include url-expiry url)
+   (common-lisp:apply #'common-lisp:make-instance 'upload-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input upload-metadata))
    (common-lisp:append))
@@ -1205,14 +1497,22 @@
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (websocket (:copier common-lisp:nil)
-      (:conc-name "struct-shape-websocket-"))
-   (url common-lisp:nil :type
-    (common-lisp:or pre-signed-connection-url common-lisp:null))
-   (connection-expiry common-lisp:nil :type
-    (common-lisp:or iso8601datetime common-lisp:null)))
+ (common-lisp:defclass websocket common-lisp:nil
+                       ((connection-expiry :initarg :connection-expiry :type
+                         (common-lisp:or iso8601datetime common-lisp:null)
+                         :accessor %websocket-connection-expiry :initform
+                         common-lisp:nil)
+                        (url :initarg :url :type
+                         (common-lisp:or pre-signed-connection-url
+                                         common-lisp:null)
+                         :accessor %websocket-url :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'websocket 'make-websocket))
+ (common-lisp:defun make-websocket
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key connection-expiry url)
+   (common-lisp:apply #'common-lisp:make-instance 'websocket
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input websocket))
    (common-lisp:append))

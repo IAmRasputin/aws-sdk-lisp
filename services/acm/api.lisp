@@ -44,16 +44,26 @@
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-tags-to-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-tags-to-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass add-tags-to-certificate-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %add-tags-to-certificate-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %add-tags-to-certificate-request-certificate-arn
+                         :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'add-tags-to-certificate-request
                     'make-add-tags-to-certificate-request))
+ (common-lisp:defun make-add-tags-to-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'add-tags-to-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -92,54 +102,131 @@
 (common-lisp:deftype certificate-chain-blob ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (certificate-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-certificate-detail-"))
-   (certificate-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (domain-name common-lisp:nil :type
-    (common-lisp:or domain-name-string common-lisp:null))
-   (subject-alternative-names common-lisp:nil :type
-    (common-lisp:or domain-list common-lisp:null))
-   (domain-validation-options common-lisp:nil :type
-    (common-lisp:or domain-validation-list common-lisp:null))
-   (serial common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (subject common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (issuer common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (created-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (issued-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (imported-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or certificate-status common-lisp:null))
-   (revoked-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (revocation-reason common-lisp:nil :type
-    (common-lisp:or revocation-reason common-lisp:null))
-   (not-before common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (not-after common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (key-algorithm common-lisp:nil :type
-    (common-lisp:or key-algorithm common-lisp:null))
-   (signature-algorithm common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (in-use-by common-lisp:nil :type
-    (common-lisp:or in-use-list common-lisp:null))
-   (failure-reason common-lisp:nil :type
-    (common-lisp:or failure-reason common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or certificate-type common-lisp:null))
-   (renewal-summary common-lisp:nil :type
-    (common-lisp:or renewal-summary common-lisp:null))
-   (key-usages common-lisp:nil :type
-    (common-lisp:or key-usage-list common-lisp:null))
-   (extended-key-usages common-lisp:nil :type
-    (common-lisp:or extended-key-usage-list common-lisp:null))
-   (certificate-authority-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (renewal-eligibility common-lisp:nil :type
-    (common-lisp:or renewal-eligibility common-lisp:null))
-   (options common-lisp:nil :type
-    (common-lisp:or certificate-options common-lisp:null)))
+ (common-lisp:defclass certificate-detail common-lisp:nil
+                       ((options :initarg :options :type
+                         (common-lisp:or certificate-options common-lisp:null)
+                         :accessor %certificate-detail-options :initform
+                         common-lisp:nil)
+                        (renewal-eligibility :initarg :renewal-eligibility
+                         :type
+                         (common-lisp:or renewal-eligibility common-lisp:null)
+                         :accessor %certificate-detail-renewal-eligibility
+                         :initform common-lisp:nil)
+                        (certificate-authority-arn :initarg
+                         :certificate-authority-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %certificate-detail-certificate-authority-arn
+                         :initform common-lisp:nil)
+                        (extended-key-usages :initarg :extended-key-usages
+                         :type
+                         (common-lisp:or extended-key-usage-list
+                                         common-lisp:null)
+                         :accessor %certificate-detail-extended-key-usages
+                         :initform common-lisp:nil)
+                        (key-usages :initarg :key-usages :type
+                         (common-lisp:or key-usage-list common-lisp:null)
+                         :accessor %certificate-detail-key-usages :initform
+                         common-lisp:nil)
+                        (renewal-summary :initarg :renewal-summary :type
+                         (common-lisp:or renewal-summary common-lisp:null)
+                         :accessor %certificate-detail-renewal-summary
+                         :initform common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or certificate-type common-lisp:null)
+                         :accessor %certificate-detail-type :initform
+                         common-lisp:nil)
+                        (failure-reason :initarg :failure-reason :type
+                         (common-lisp:or failure-reason common-lisp:null)
+                         :accessor %certificate-detail-failure-reason :initform
+                         common-lisp:nil)
+                        (in-use-by :initarg :in-use-by :type
+                         (common-lisp:or in-use-list common-lisp:null)
+                         :accessor %certificate-detail-in-use-by :initform
+                         common-lisp:nil)
+                        (signature-algorithm :initarg :signature-algorithm
+                         :type (common-lisp:or string common-lisp:null)
+                         :accessor %certificate-detail-signature-algorithm
+                         :initform common-lisp:nil)
+                        (key-algorithm :initarg :key-algorithm :type
+                         (common-lisp:or key-algorithm common-lisp:null)
+                         :accessor %certificate-detail-key-algorithm :initform
+                         common-lisp:nil)
+                        (not-after :initarg :not-after :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-detail-not-after :initform
+                         common-lisp:nil)
+                        (not-before :initarg :not-before :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-detail-not-before :initform
+                         common-lisp:nil)
+                        (revocation-reason :initarg :revocation-reason :type
+                         (common-lisp:or revocation-reason common-lisp:null)
+                         :accessor %certificate-detail-revocation-reason
+                         :initform common-lisp:nil)
+                        (revoked-at :initarg :revoked-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-detail-revoked-at :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or certificate-status common-lisp:null)
+                         :accessor %certificate-detail-status :initform
+                         common-lisp:nil)
+                        (imported-at :initarg :imported-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-detail-imported-at :initform
+                         common-lisp:nil)
+                        (issued-at :initarg :issued-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-detail-issued-at :initform
+                         common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-detail-created-at :initform
+                         common-lisp:nil)
+                        (issuer :initarg :issuer :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %certificate-detail-issuer :initform common-lisp:nil)
+                        (subject :initarg :subject :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %certificate-detail-subject :initform common-lisp:nil)
+                        (serial :initarg :serial :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %certificate-detail-serial :initform common-lisp:nil)
+                        (domain-validation-options :initarg
+                         :domain-validation-options :type
+                         (common-lisp:or domain-validation-list
+                                         common-lisp:null)
+                         :accessor
+                         %certificate-detail-domain-validation-options
+                         :initform common-lisp:nil)
+                        (subject-alternative-names :initarg
+                         :subject-alternative-names :type
+                         (common-lisp:or domain-list common-lisp:null)
+                         :accessor
+                         %certificate-detail-subject-alternative-names
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %certificate-detail-domain-name :initform
+                         common-lisp:nil)
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %certificate-detail-certificate-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'certificate-detail 'make-certificate-detail))
+ (common-lisp:defun make-certificate-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key options renewal-eligibility
+                     certificate-authority-arn extended-key-usages key-usages
+                     renewal-summary type failure-reason in-use-by
+                     signature-algorithm key-algorithm not-after not-before
+                     revocation-reason revoked-at status imported-at issued-at
+                     created-at issuer subject serial domain-validation-options
+                     subject-alternative-names domain-name certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'certificate-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input certificate-detail))
    (common-lisp:append))
@@ -335,14 +422,24 @@
                         ((aws-sdk/generator/shape::input certificate-detail))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (certificate-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-certificate-options-"))
-   (certificate-transparency-logging-preference common-lisp:nil :type
-    (common-lisp:or certificate-transparency-logging-preference
-                    common-lisp:null)))
+ (common-lisp:defclass certificate-options common-lisp:nil
+                       ((certificate-transparency-logging-preference :initarg
+                         :certificate-transparency-logging-preference :type
+                         (common-lisp:or
+                          certificate-transparency-logging-preference
+                          common-lisp:null)
+                         :accessor
+                         %certificate-options-certificate-transparency-logging-preference
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'certificate-options 'make-certificate-options))
+ (common-lisp:defun make-certificate-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     certificate-transparency-logging-preference)
+   (common-lisp:apply #'common-lisp:make-instance 'certificate-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input certificate-options))
    (common-lisp:append))
@@ -370,41 +467,100 @@
                            (trivial-types:proper-list certificate-status))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (certificate-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-certificate-summary-"))
-   (certificate-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (domain-name common-lisp:nil :type
-    (common-lisp:or domain-name-string common-lisp:null))
-   (subject-alternative-name-summaries common-lisp:nil :type
-    (common-lisp:or domain-list common-lisp:null))
-   (has-additional-subject-alternative-names common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or certificate-status common-lisp:null))
-   (type common-lisp:nil :type
-    (common-lisp:or certificate-type common-lisp:null))
-   (key-algorithm common-lisp:nil :type
-    (common-lisp:or key-algorithm common-lisp:null))
-   (key-usages common-lisp:nil :type
-    (common-lisp:or key-usage-names common-lisp:null))
-   (extended-key-usages common-lisp:nil :type
-    (common-lisp:or extended-key-usage-names common-lisp:null))
-   (in-use common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (exported common-lisp:nil :type
-    (common-lisp:or nullable-boolean common-lisp:null))
-   (renewal-eligibility common-lisp:nil :type
-    (common-lisp:or renewal-eligibility common-lisp:null))
-   (not-before common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (not-after common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (created-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (issued-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (imported-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null))
-   (revoked-at common-lisp:nil :type (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:defclass certificate-summary common-lisp:nil
+                       ((revoked-at :initarg :revoked-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-summary-revoked-at :initform
+                         common-lisp:nil)
+                        (imported-at :initarg :imported-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-summary-imported-at :initform
+                         common-lisp:nil)
+                        (issued-at :initarg :issued-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-summary-issued-at :initform
+                         common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-summary-created-at :initform
+                         common-lisp:nil)
+                        (not-after :initarg :not-after :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-summary-not-after :initform
+                         common-lisp:nil)
+                        (not-before :initarg :not-before :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %certificate-summary-not-before :initform
+                         common-lisp:nil)
+                        (renewal-eligibility :initarg :renewal-eligibility
+                         :type
+                         (common-lisp:or renewal-eligibility common-lisp:null)
+                         :accessor %certificate-summary-renewal-eligibility
+                         :initform common-lisp:nil)
+                        (exported :initarg :exported :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %certificate-summary-exported :initform
+                         common-lisp:nil)
+                        (in-use :initarg :in-use :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor %certificate-summary-in-use :initform
+                         common-lisp:nil)
+                        (extended-key-usages :initarg :extended-key-usages
+                         :type
+                         (common-lisp:or extended-key-usage-names
+                                         common-lisp:null)
+                         :accessor %certificate-summary-extended-key-usages
+                         :initform common-lisp:nil)
+                        (key-usages :initarg :key-usages :type
+                         (common-lisp:or key-usage-names common-lisp:null)
+                         :accessor %certificate-summary-key-usages :initform
+                         common-lisp:nil)
+                        (key-algorithm :initarg :key-algorithm :type
+                         (common-lisp:or key-algorithm common-lisp:null)
+                         :accessor %certificate-summary-key-algorithm :initform
+                         common-lisp:nil)
+                        (type :initarg :type :type
+                         (common-lisp:or certificate-type common-lisp:null)
+                         :accessor %certificate-summary-type :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or certificate-status common-lisp:null)
+                         :accessor %certificate-summary-status :initform
+                         common-lisp:nil)
+                        (has-additional-subject-alternative-names :initarg
+                         :has-additional-subject-alternative-names :type
+                         (common-lisp:or nullable-boolean common-lisp:null)
+                         :accessor
+                         %certificate-summary-has-additional-subject-alternative-names
+                         :initform common-lisp:nil)
+                        (subject-alternative-name-summaries :initarg
+                         :subject-alternative-name-summaries :type
+                         (common-lisp:or domain-list common-lisp:null)
+                         :accessor
+                         %certificate-summary-subject-alternative-name-summaries
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %certificate-summary-domain-name :initform
+                         common-lisp:nil)
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %certificate-summary-certificate-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'certificate-summary 'make-certificate-summary))
+ (common-lisp:defun make-certificate-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key revoked-at imported-at issued-at
+                     created-at not-after not-before renewal-eligibility
+                     exported in-use extended-key-usages key-usages
+                     key-algorithm type status
+                     has-additional-subject-alternative-names
+                     subject-alternative-name-summaries domain-name
+                     certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'certificate-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input certificate-summary))
    (common-lisp:append))
@@ -556,19 +712,25 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass delete-certificate-request common-lisp:nil
+                       ((certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %delete-certificate-request-certificate-arn :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-certificate-request
                     'make-delete-certificate-request))
+ (common-lisp:defun make-delete-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -592,14 +754,21 @@
                           delete-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass describe-certificate-request common-lisp:nil
+                       ((certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %describe-certificate-request-certificate-arn
+                         :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-certificate-request
                     'make-describe-certificate-request))
+ (common-lisp:defun make-describe-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -623,14 +792,21 @@
                           describe-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-certificate-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-certificate-response-"))
-   (certificate common-lisp:nil :type
-    (common-lisp:or certificate-detail common-lisp:null)))
+ (common-lisp:defclass describe-certificate-response common-lisp:nil
+                       ((certificate :initarg :certificate :type
+                         (common-lisp:or certificate-detail common-lisp:null)
+                         :accessor %describe-certificate-response-certificate
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-certificate-response
                     'make-describe-certificate-response))
+ (common-lisp:defun make-describe-certificate-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-certificate-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -664,23 +840,42 @@
 (common-lisp:deftype domain-name-string () 'common-lisp:string)
 (common-lisp:deftype domain-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (domain-validation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-domain-validation-"))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name-string common-lisp:null))
-   (validation-emails common-lisp:nil :type
-    (common-lisp:or validation-email-list common-lisp:null))
-   (validation-domain common-lisp:nil :type
-    (common-lisp:or domain-name-string common-lisp:null))
-   (validation-status common-lisp:nil :type
-    (common-lisp:or domain-status common-lisp:null))
-   (resource-record common-lisp:nil :type
-    (common-lisp:or resource-record common-lisp:null))
-   (validation-method common-lisp:nil :type
-    (common-lisp:or validation-method common-lisp:null)))
+ (common-lisp:defclass domain-validation common-lisp:nil
+                       ((validation-method :initarg :validation-method :type
+                         (common-lisp:or validation-method common-lisp:null)
+                         :accessor %domain-validation-validation-method
+                         :initform common-lisp:nil)
+                        (resource-record :initarg :resource-record :type
+                         (common-lisp:or resource-record common-lisp:null)
+                         :accessor %domain-validation-resource-record :initform
+                         common-lisp:nil)
+                        (validation-status :initarg :validation-status :type
+                         (common-lisp:or domain-status common-lisp:null)
+                         :accessor %domain-validation-validation-status
+                         :initform common-lisp:nil)
+                        (validation-domain :initarg :validation-domain :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %domain-validation-validation-domain
+                         :initform common-lisp:nil)
+                        (validation-emails :initarg :validation-emails :type
+                         (common-lisp:or validation-email-list
+                                         common-lisp:null)
+                         :accessor %domain-validation-validation-emails
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %domain-validation-domain-name :initform
+                         (common-lisp:error ":domain-name is required"))))
  (common-lisp:export
   (common-lisp:list 'domain-validation 'make-domain-validation))
+ (common-lisp:defun make-domain-validation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key validation-method resource-record
+                     validation-status validation-domain validation-emails
+                     domain-name)
+   (common-lisp:apply #'common-lisp:make-instance 'domain-validation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain-validation))
    (common-lisp:append))
@@ -741,15 +936,25 @@
                            (trivial-types:proper-list domain-validation))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (domain-validation-option (:copier common-lisp:nil)
-      (:conc-name "struct-shape-domain-validation-option-"))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name-string common-lisp:null))
-   (validation-domain (common-lisp:error ":validation-domain is required")
-    :type (common-lisp:or domain-name-string common-lisp:null)))
+ (common-lisp:defclass domain-validation-option common-lisp:nil
+                       ((validation-domain :initarg :validation-domain :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %domain-validation-option-validation-domain
+                         :initform
+                         (common-lisp:error ":validation-domain is required"))
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %domain-validation-option-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))))
  (common-lisp:export
   (common-lisp:list 'domain-validation-option 'make-domain-validation-option))
+ (common-lisp:defun make-domain-validation-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key validation-domain domain-name)
+   (common-lisp:apply #'common-lisp:make-instance 'domain-validation-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -789,14 +994,21 @@
                             domain-validation-option))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (expiry-events-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-expiry-events-configuration-"))
-   (days-before-expiry common-lisp:nil :type
-    (common-lisp:or positive-integer common-lisp:null)))
+ (common-lisp:defclass expiry-events-configuration common-lisp:nil
+                       ((days-before-expiry :initarg :days-before-expiry :type
+                         (common-lisp:or positive-integer common-lisp:null)
+                         :accessor
+                         %expiry-events-configuration-days-before-expiry
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'expiry-events-configuration
                     'make-expiry-events-configuration))
+ (common-lisp:defun make-expiry-events-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key days-before-expiry)
+   (common-lisp:apply #'common-lisp:make-instance 'expiry-events-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -820,16 +1032,25 @@
                           expiry-events-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (passphrase (common-lisp:error ":passphrase is required") :type
-    (common-lisp:or passphrase-blob common-lisp:null)))
+ (common-lisp:defclass export-certificate-request common-lisp:nil
+                       ((passphrase :initarg :passphrase :type
+                         (common-lisp:or passphrase-blob common-lisp:null)
+                         :accessor %export-certificate-request-passphrase
+                         :initform
+                         (common-lisp:error ":passphrase is required"))
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %export-certificate-request-certificate-arn :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'export-certificate-request
                     'make-export-certificate-request))
+ (common-lisp:defun make-export-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key passphrase certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'export-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -860,18 +1081,30 @@
                           export-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (export-certificate-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-export-certificate-response-"))
-   (certificate common-lisp:nil :type
-    (common-lisp:or certificate-body common-lisp:null))
-   (certificate-chain common-lisp:nil :type
-    (common-lisp:or certificate-chain common-lisp:null))
-   (private-key common-lisp:nil :type
-    (common-lisp:or private-key common-lisp:null)))
+ (common-lisp:defclass export-certificate-response common-lisp:nil
+                       ((private-key :initarg :private-key :type
+                         (common-lisp:or private-key common-lisp:null)
+                         :accessor %export-certificate-response-private-key
+                         :initform common-lisp:nil)
+                        (certificate-chain :initarg :certificate-chain :type
+                         (common-lisp:or certificate-chain common-lisp:null)
+                         :accessor
+                         %export-certificate-response-certificate-chain
+                         :initform common-lisp:nil)
+                        (certificate :initarg :certificate :type
+                         (common-lisp:or certificate-body common-lisp:null)
+                         :accessor %export-certificate-response-certificate
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'export-certificate-response
                     'make-export-certificate-response))
+ (common-lisp:defun make-export-certificate-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key private-key certificate-chain
+                     certificate)
+   (common-lisp:apply #'common-lisp:make-instance 'export-certificate-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -909,14 +1142,23 @@
                           export-certificate-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (extended-key-usage (:copier common-lisp:nil)
-      (:conc-name "struct-shape-extended-key-usage-"))
-   (name common-lisp:nil :type
-    (common-lisp:or extended-key-usage-name common-lisp:null))
-   (oid common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass extended-key-usage common-lisp:nil
+                       ((oid :initarg :oid :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %extended-key-usage-oid :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or extended-key-usage-name
+                                         common-lisp:null)
+                         :accessor %extended-key-usage-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'extended-key-usage 'make-extended-key-usage))
+ (common-lisp:defun make-extended-key-usage
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key oid name)
+   (common-lisp:apply #'common-lisp:make-instance 'extended-key-usage
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input extended-key-usage))
    (common-lisp:append))
@@ -967,15 +1209,28 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype failure-reason () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (filters (:copier common-lisp:nil) (:conc-name "struct-shape-filters-"))
-   (extended-key-usage common-lisp:nil :type
-    (common-lisp:or extended-key-usage-filter-list common-lisp:null))
-   (key-usage common-lisp:nil :type
-    (common-lisp:or key-usage-filter-list common-lisp:null))
-   (key-types common-lisp:nil :type
-    (common-lisp:or key-algorithm-list common-lisp:null)))
+ (common-lisp:defclass filters common-lisp:nil
+                       ((key-types :initarg :|keyTypes| :type
+                         (common-lisp:or key-algorithm-list common-lisp:null)
+                         :accessor %filters-key-types :initform
+                         common-lisp:nil)
+                        (key-usage :initarg :|keyUsage| :type
+                         (common-lisp:or key-usage-filter-list
+                                         common-lisp:null)
+                         :accessor %filters-key-usage :initform
+                         common-lisp:nil)
+                        (extended-key-usage :initarg :|extendedKeyUsage| :type
+                         (common-lisp:or extended-key-usage-filter-list
+                                         common-lisp:null)
+                         :accessor %filters-extended-key-usage :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'filters 'make-filters))
+ (common-lisp:defun make-filters
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key key-types key-usage extended-key-usage)
+   (common-lisp:apply #'common-lisp:make-instance 'filters
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input filters))
    (common-lisp:append))
@@ -1007,14 +1262,23 @@
                         ((aws-sdk/generator/shape::input filters))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-account-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-account-configuration-response-"))
-   (expiry-events common-lisp:nil :type
-    (common-lisp:or expiry-events-configuration common-lisp:null)))
+ (common-lisp:defclass get-account-configuration-response common-lisp:nil
+                       ((expiry-events :initarg :expiry-events :type
+                         (common-lisp:or expiry-events-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %get-account-configuration-response-expiry-events
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-account-configuration-response
                     'make-get-account-configuration-response))
+ (common-lisp:defun make-get-account-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key expiry-events)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-account-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1038,13 +1302,19 @@
                           get-account-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass get-certificate-request common-lisp:nil
+                       ((certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %get-certificate-request-certificate-arn :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-certificate-request 'make-get-certificate-request))
+ (common-lisp:defun make-get-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'get-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1068,15 +1338,23 @@
                           get-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-certificate-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-certificate-response-"))
-   (certificate common-lisp:nil :type
-    (common-lisp:or certificate-body common-lisp:null))
-   (certificate-chain common-lisp:nil :type
-    (common-lisp:or certificate-chain common-lisp:null)))
+ (common-lisp:defclass get-certificate-response common-lisp:nil
+                       ((certificate-chain :initarg :certificate-chain :type
+                         (common-lisp:or certificate-chain common-lisp:null)
+                         :accessor %get-certificate-response-certificate-chain
+                         :initform common-lisp:nil)
+                        (certificate :initarg :certificate :type
+                         (common-lisp:or certificate-body common-lisp:null)
+                         :accessor %get-certificate-response-certificate
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-certificate-response 'make-get-certificate-response))
+ (common-lisp:defun make-get-certificate-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-chain certificate)
+   (common-lisp:apply #'common-lisp:make-instance 'get-certificate-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1108,21 +1386,42 @@
    common-lisp:nil))
 (common-lisp:deftype idempotency-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-certificate-request-"))
-   (certificate-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null))
-   (certificate (common-lisp:error ":certificate is required") :type
-    (common-lisp:or certificate-body-blob common-lisp:null))
-   (private-key (common-lisp:error ":private-key is required") :type
-    (common-lisp:or private-key-blob common-lisp:null))
-   (certificate-chain common-lisp:nil :type
-    (common-lisp:or certificate-chain-blob common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass import-certificate-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %import-certificate-request-tags :initform
+                         common-lisp:nil)
+                        (certificate-chain :initarg :certificate-chain :type
+                         (common-lisp:or certificate-chain-blob
+                                         common-lisp:null)
+                         :accessor
+                         %import-certificate-request-certificate-chain
+                         :initform common-lisp:nil)
+                        (private-key :initarg :private-key :type
+                         (common-lisp:or private-key-blob common-lisp:null)
+                         :accessor %import-certificate-request-private-key
+                         :initform
+                         (common-lisp:error ":private-key is required"))
+                        (certificate :initarg :certificate :type
+                         (common-lisp:or certificate-body-blob
+                                         common-lisp:null)
+                         :accessor %import-certificate-request-certificate
+                         :initform
+                         (common-lisp:error ":certificate is required"))
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %import-certificate-request-certificate-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'import-certificate-request
                     'make-import-certificate-request))
+ (common-lisp:defun make-import-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags certificate-chain private-key
+                     certificate certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'import-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1174,14 +1473,20 @@
                           import-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (import-certificate-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-import-certificate-response-"))
-   (certificate-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass import-certificate-response common-lisp:nil
+                       ((certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %import-certificate-response-certificate-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'import-certificate-response
                     'make-import-certificate-response))
+ (common-lisp:defun make-import-certificate-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'import-certificate-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1214,21 +1519,21 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-args-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-args-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-args-exception 'invalid-args-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-arn-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-arn-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-arn-exception 'invalid-arn-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-domain-validation-options-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-domain-validation-options-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-domain-validation-options-exception
@@ -1236,7 +1541,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-parameter-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-parameter-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-parameter-exception
@@ -1244,14 +1549,14 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-state-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-state-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-state-exception 'invalid-state-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-tag-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-tag-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-tag-exception 'invalid-tag-exception-message)))
@@ -1265,12 +1570,17 @@
                            (trivial-types:proper-list key-algorithm))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (key-usage (:copier common-lisp:nil)
-      (:conc-name "struct-shape-key-usage-"))
-   (name common-lisp:nil :type
-    (common-lisp:or key-usage-name common-lisp:null)))
+ (common-lisp:defclass key-usage common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or key-usage-name common-lisp:null)
+                         :accessor %key-usage-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'key-usage 'make-key-usage))
+ (common-lisp:defun make-key-usage
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'key-usage
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input key-usage))
    (common-lisp:append))
@@ -1314,28 +1624,49 @@
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        limit-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception
                     'limit-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-certificates-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-certificates-request-"))
-   (certificate-statuses common-lisp:nil :type
-    (common-lisp:or certificate-statuses common-lisp:null))
-   (includes common-lisp:nil :type (common-lisp:or filters common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-items common-lisp:nil :type
-    (common-lisp:or max-items common-lisp:null))
-   (sort-by common-lisp:nil :type (common-lisp:or sort-by common-lisp:null))
-   (sort-order common-lisp:nil :type
-    (common-lisp:or sort-order common-lisp:null)))
+ (common-lisp:defclass list-certificates-request common-lisp:nil
+                       ((sort-order :initarg :sort-order :type
+                         (common-lisp:or sort-order common-lisp:null) :accessor
+                         %list-certificates-request-sort-order :initform
+                         common-lisp:nil)
+                        (sort-by :initarg :sort-by :type
+                         (common-lisp:or sort-by common-lisp:null) :accessor
+                         %list-certificates-request-sort-by :initform
+                         common-lisp:nil)
+                        (max-items :initarg :max-items :type
+                         (common-lisp:or max-items common-lisp:null) :accessor
+                         %list-certificates-request-max-items :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-certificates-request-next-token :initform
+                         common-lisp:nil)
+                        (includes :initarg :includes :type
+                         (common-lisp:or filters common-lisp:null) :accessor
+                         %list-certificates-request-includes :initform
+                         common-lisp:nil)
+                        (certificate-statuses :initarg :certificate-statuses
+                         :type
+                         (common-lisp:or certificate-statuses common-lisp:null)
+                         :accessor
+                         %list-certificates-request-certificate-statuses
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-certificates-request
                     'make-list-certificates-request))
+ (common-lisp:defun make-list-certificates-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sort-order sort-by max-items next-token
+                     includes certificate-statuses)
+   (common-lisp:apply #'common-lisp:make-instance 'list-certificates-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1395,16 +1726,27 @@
                           list-certificates-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-certificates-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-certificates-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (certificate-summary-list common-lisp:nil :type
-    (common-lisp:or certificate-summary-list common-lisp:null)))
+ (common-lisp:defclass list-certificates-response common-lisp:nil
+                       ((certificate-summary-list :initarg
+                         :certificate-summary-list :type
+                         (common-lisp:or certificate-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-certificates-response-certificate-summary-list
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-certificates-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-certificates-response
                     'make-list-certificates-response))
+ (common-lisp:defun make-list-certificates-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-summary-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-certificates-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1436,14 +1778,22 @@
                           list-certificates-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-certificate-request common-lisp:nil
+                       ((certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-tags-for-certificate-request-certificate-arn
+                         :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-certificate-request
                     'make-list-tags-for-certificate-request))
+ (common-lisp:defun make-list-tags-for-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1467,13 +1817,21 @@
                           list-tags-for-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-certificate-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-certificate-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-certificate-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-certificate-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-certificate-response
                     'make-list-tags-for-certificate-response))
+ (common-lisp:defun make-list-tags-for-certificate-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-certificate-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1507,16 +1865,29 @@
 (common-lisp:deftype private-key-blob ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-account-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-account-configuration-request-"))
-   (expiry-events common-lisp:nil :type
-    (common-lisp:or expiry-events-configuration common-lisp:null))
-   (idempotency-token (common-lisp:error ":idempotency-token is required")
-    :type (common-lisp:or idempotency-token common-lisp:null)))
+ (common-lisp:defclass put-account-configuration-request common-lisp:nil
+                       ((idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or idempotency-token common-lisp:null)
+                         :accessor
+                         %put-account-configuration-request-idempotency-token
+                         :initform
+                         (common-lisp:error ":idempotency-token is required"))
+                        (expiry-events :initarg :expiry-events :type
+                         (common-lisp:or expiry-events-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %put-account-configuration-request-expiry-events
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-account-configuration-request
                     'make-put-account-configuration-request))
+ (common-lisp:defun make-put-account-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key idempotency-token expiry-events)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-account-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1548,16 +1919,26 @@
    common-lisp:nil))
 (common-lisp:deftype record-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-tags-from-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-tags-from-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass remove-tags-from-certificate-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %remove-tags-from-certificate-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %remove-tags-from-certificate-request-certificate-arn
+                         :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'remove-tags-from-certificate-request
                     'make-remove-tags-from-certificate-request))
+ (common-lisp:defun make-remove-tags-from-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'remove-tags-from-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1588,14 +1969,20 @@
                           remove-tags-from-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (renew-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-renew-certificate-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass renew-certificate-request common-lisp:nil
+                       ((certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %renew-certificate-request-certificate-arn :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'renew-certificate-request
                     'make-renew-certificate-request))
+ (common-lisp:defun make-renew-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'renew-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1621,19 +2008,35 @@
 (common-lisp:deftype renewal-eligibility () 'common-lisp:string)
 (common-lisp:deftype renewal-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (renewal-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-renewal-summary-"))
-   (renewal-status (common-lisp:error ":renewal-status is required") :type
-    (common-lisp:or renewal-status common-lisp:null))
-   (domain-validation-options
-    (common-lisp:error ":domain-validation-options is required") :type
-    (common-lisp:or domain-validation-list common-lisp:null))
-   (renewal-status-reason common-lisp:nil :type
-    (common-lisp:or failure-reason common-lisp:null))
-   (updated-at (common-lisp:error ":updated-at is required") :type
-    (common-lisp:or tstamp common-lisp:null)))
+ (common-lisp:defclass renewal-summary common-lisp:nil
+                       ((updated-at :initarg :updated-at :type
+                         (common-lisp:or tstamp common-lisp:null) :accessor
+                         %renewal-summary-updated-at :initform
+                         (common-lisp:error ":updated-at is required"))
+                        (renewal-status-reason :initarg :renewal-status-reason
+                         :type (common-lisp:or failure-reason common-lisp:null)
+                         :accessor %renewal-summary-renewal-status-reason
+                         :initform common-lisp:nil)
+                        (domain-validation-options :initarg
+                         :domain-validation-options :type
+                         (common-lisp:or domain-validation-list
+                                         common-lisp:null)
+                         :accessor %renewal-summary-domain-validation-options
+                         :initform
+                         (common-lisp:error
+                          ":domain-validation-options is required"))
+                        (renewal-status :initarg :renewal-status :type
+                         (common-lisp:or renewal-status common-lisp:null)
+                         :accessor %renewal-summary-renewal-status :initform
+                         (common-lisp:error ":renewal-status is required"))))
  (common-lisp:export (common-lisp:list 'renewal-summary 'make-renewal-summary))
+ (common-lisp:defun make-renewal-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key updated-at renewal-status-reason
+                     domain-validation-options renewal-status)
+   (common-lisp:apply #'common-lisp:make-instance 'renewal-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input renewal-summary))
    (common-lisp:append))
@@ -1674,29 +2077,64 @@
                         ((aws-sdk/generator/shape::input renewal-summary))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (request-certificate-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-request-certificate-request-"))
-   (domain-name (common-lisp:error ":domain-name is required") :type
-    (common-lisp:or domain-name-string common-lisp:null))
-   (validation-method common-lisp:nil :type
-    (common-lisp:or validation-method common-lisp:null))
-   (subject-alternative-names common-lisp:nil :type
-    (common-lisp:or domain-list common-lisp:null))
-   (idempotency-token common-lisp:nil :type
-    (common-lisp:or idempotency-token common-lisp:null))
-   (domain-validation-options common-lisp:nil :type
-    (common-lisp:or domain-validation-option-list common-lisp:null))
-   (options common-lisp:nil :type
-    (common-lisp:or certificate-options common-lisp:null))
-   (certificate-authority-arn common-lisp:nil :type
-    (common-lisp:or pca-arn common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (key-algorithm common-lisp:nil :type
-    (common-lisp:or key-algorithm common-lisp:null)))
+ (common-lisp:defclass request-certificate-request common-lisp:nil
+                       ((key-algorithm :initarg :key-algorithm :type
+                         (common-lisp:or key-algorithm common-lisp:null)
+                         :accessor %request-certificate-request-key-algorithm
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %request-certificate-request-tags :initform
+                         common-lisp:nil)
+                        (certificate-authority-arn :initarg
+                         :certificate-authority-arn :type
+                         (common-lisp:or pca-arn common-lisp:null) :accessor
+                         %request-certificate-request-certificate-authority-arn
+                         :initform common-lisp:nil)
+                        (options :initarg :options :type
+                         (common-lisp:or certificate-options common-lisp:null)
+                         :accessor %request-certificate-request-options
+                         :initform common-lisp:nil)
+                        (domain-validation-options :initarg
+                         :domain-validation-options :type
+                         (common-lisp:or domain-validation-option-list
+                                         common-lisp:null)
+                         :accessor
+                         %request-certificate-request-domain-validation-options
+                         :initform common-lisp:nil)
+                        (idempotency-token :initarg :idempotency-token :type
+                         (common-lisp:or idempotency-token common-lisp:null)
+                         :accessor
+                         %request-certificate-request-idempotency-token
+                         :initform common-lisp:nil)
+                        (subject-alternative-names :initarg
+                         :subject-alternative-names :type
+                         (common-lisp:or domain-list common-lisp:null)
+                         :accessor
+                         %request-certificate-request-subject-alternative-names
+                         :initform common-lisp:nil)
+                        (validation-method :initarg :validation-method :type
+                         (common-lisp:or validation-method common-lisp:null)
+                         :accessor
+                         %request-certificate-request-validation-method
+                         :initform common-lisp:nil)
+                        (domain-name :initarg :domain-name :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %request-certificate-request-domain-name
+                         :initform
+                         (common-lisp:error ":domain-name is required"))))
  (common-lisp:export
   (common-lisp:list 'request-certificate-request
                     'make-request-certificate-request))
+ (common-lisp:defun make-request-certificate-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key key-algorithm tags
+                     certificate-authority-arn options
+                     domain-validation-options idempotency-token
+                     subject-alternative-names validation-method domain-name)
+   (common-lisp:apply #'common-lisp:make-instance 'request-certificate-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1779,14 +2217,20 @@
                           request-certificate-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (request-certificate-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-request-certificate-response-"))
-   (certificate-arn common-lisp:nil :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass request-certificate-response common-lisp:nil
+                       ((certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %request-certificate-response-certificate-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'request-certificate-response
                     'make-request-certificate-response))
+ (common-lisp:defun make-request-certificate-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'request-certificate-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1812,24 +2256,38 @@
 (common-lisp:progn
  (common-lisp:define-condition request-in-progress-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        request-in-progress-exception-message)))
  (common-lisp:export
   (common-lisp:list 'request-in-progress-exception
                     'request-in-progress-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (resend-validation-email-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-resend-validation-email-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (domain (common-lisp:error ":domain is required") :type
-    (common-lisp:or domain-name-string common-lisp:null))
-   (validation-domain (common-lisp:error ":validation-domain is required")
-    :type (common-lisp:or domain-name-string common-lisp:null)))
+ (common-lisp:defclass resend-validation-email-request common-lisp:nil
+                       ((validation-domain :initarg :validation-domain :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor
+                         %resend-validation-email-request-validation-domain
+                         :initform
+                         (common-lisp:error ":validation-domain is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or domain-name-string common-lisp:null)
+                         :accessor %resend-validation-email-request-domain
+                         :initform (common-lisp:error ":domain is required"))
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %resend-validation-email-request-certificate-arn
+                         :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'resend-validation-email-request
                     'make-resend-validation-email-request))
+ (common-lisp:defun make-resend-validation-email-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key validation-domain domain certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'resend-validation-email-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1869,7 +2327,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-in-use-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-in-use-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-in-use-exception
@@ -1877,22 +2335,32 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (resource-record (:copier common-lisp:nil)
-      (:conc-name "struct-shape-resource-record-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or record-type common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass resource-record common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %resource-record-value :initform
+                         (common-lisp:error ":value is required"))
+                        (type :initarg :type :type
+                         (common-lisp:or record-type common-lisp:null)
+                         :accessor %resource-record-type :initform
+                         (common-lisp:error ":type is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %resource-record-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export (common-lisp:list 'resource-record 'make-resource-record))
+ (common-lisp:defun make-resource-record
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value type name)
+   (common-lisp:apply #'common-lisp:make-instance 'resource-record
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input resource-record))
    (common-lisp:append))
@@ -1930,12 +2398,21 @@
 (common-lisp:deftype string () 'common-lisp:string)
 (common-lisp:deftype tstamp () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform common-lisp:nil)
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -1970,7 +2447,7 @@
 (common-lisp:progn
  (common-lisp:define-condition tag-policy-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        tag-policy-exception-message)))
  (common-lisp:export
   (common-lisp:list 'tag-policy-exception 'tag-policy-exception-message)))
@@ -1978,28 +2455,38 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition too-many-tags-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        too-many-tags-exception-message)))
  (common-lisp:export
   (common-lisp:list 'too-many-tags-exception 'too-many-tags-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-certificate-options-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-certificate-options-request-"))
-   (certificate-arn (common-lisp:error ":certificate-arn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (options (common-lisp:error ":options is required") :type
-    (common-lisp:or certificate-options common-lisp:null)))
+ (common-lisp:defclass update-certificate-options-request common-lisp:nil
+                       ((options :initarg :options :type
+                         (common-lisp:or certificate-options common-lisp:null)
+                         :accessor %update-certificate-options-request-options
+                         :initform (common-lisp:error ":options is required"))
+                        (certificate-arn :initarg :certificate-arn :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %update-certificate-options-request-certificate-arn
+                         :initform
+                         (common-lisp:error ":certificate-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-certificate-options-request
                     'make-update-certificate-options-request))
+ (common-lisp:defun make-update-certificate-options-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key options certificate-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-certificate-options-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2040,7 +2527,7 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (acm-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))

@@ -31,9 +31,9 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (cleanrooms-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)
-      (reason :initarg :reason :initform common-lisp:nil :reader
+      (reason :initarg :|reason| :initform common-lisp:nil :reader
        access-denied-exception-reason)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message
@@ -41,15 +41,25 @@
 (common-lisp:deftype access-denied-exception-reason () 'common-lisp:string)
 (common-lisp:deftype account-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (aggregate-column (:copier common-lisp:nil)
-      (:conc-name "struct-shape-aggregate-column-"))
-   (column-names (common-lisp:error ":columnnames is required") :type
-    (common-lisp:or aggregate-column-column-names-list common-lisp:null))
-   (function (common-lisp:error ":function is required") :type
-    (common-lisp:or aggregate-function-name common-lisp:null)))
+ (common-lisp:defclass aggregate-column common-lisp:nil
+                       ((function :initarg :|function| :type
+                         (common-lisp:or aggregate-function-name
+                                         common-lisp:null)
+                         :accessor %aggregate-column-function :initform
+                         (common-lisp:error ":function is required"))
+                        (column-names :initarg :|columnNames| :type
+                         (common-lisp:or aggregate-column-column-names-list
+                                         common-lisp:null)
+                         :accessor %aggregate-column-column-names :initform
+                         (common-lisp:error ":columnnames is required"))))
  (common-lisp:export
   (common-lisp:list 'aggregate-column 'make-aggregate-column))
+ (common-lisp:defun make-aggregate-column
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key function column-names)
+   (common-lisp:apply #'common-lisp:make-instance 'aggregate-column
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input aggregate-column))
    (common-lisp:append))
@@ -84,17 +94,30 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype aggregate-function-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (aggregation-constraint (:copier common-lisp:nil)
-      (:conc-name "struct-shape-aggregation-constraint-"))
-   (column-name (common-lisp:error ":columnname is required") :type
-    (common-lisp:or analysis-rule-column-name common-lisp:null))
-   (minimum (common-lisp:error ":minimum is required") :type
-    (common-lisp:or aggregation-constraint-minimum-integer common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or aggregation-type common-lisp:null)))
+ (common-lisp:defclass aggregation-constraint common-lisp:nil
+                       ((type :initarg :|type| :type
+                         (common-lisp:or aggregation-type common-lisp:null)
+                         :accessor %aggregation-constraint-type :initform
+                         (common-lisp:error ":type is required"))
+                        (minimum :initarg :|minimum| :type
+                         (common-lisp:or aggregation-constraint-minimum-integer
+                                         common-lisp:null)
+                         :accessor %aggregation-constraint-minimum :initform
+                         (common-lisp:error ":minimum is required"))
+                        (column-name :initarg :|columnName| :type
+                         (common-lisp:or analysis-rule-column-name
+                                         common-lisp:null)
+                         :accessor %aggregation-constraint-column-name
+                         :initform
+                         (common-lisp:error ":columnname is required"))))
  (common-lisp:export
   (common-lisp:list 'aggregation-constraint 'make-aggregation-constraint))
+ (common-lisp:defun make-aggregation-constraint
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key type minimum column-name)
+   (common-lisp:apply #'common-lisp:make-instance 'aggregation-constraint
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -152,22 +175,40 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype analysis-method () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (analysis-rule (:copier common-lisp:nil)
-      (:conc-name "struct-shape-analysis-rule-"))
-   (collaboration-id (common-lisp:error ":collaborationid is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or analysis-rule-type common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (policy (common-lisp:error ":policy is required") :type
-    (common-lisp:or analysis-rule-policy common-lisp:null)))
+ (common-lisp:defclass analysis-rule common-lisp:nil
+                       ((policy :initarg :|policy| :type
+                         (common-lisp:or analysis-rule-policy common-lisp:null)
+                         :accessor %analysis-rule-policy :initform
+                         (common-lisp:error ":policy is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %analysis-rule-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %analysis-rule-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %analysis-rule-name :initform
+                         (common-lisp:error ":name is required"))
+                        (type :initarg :|type| :type
+                         (common-lisp:or analysis-rule-type common-lisp:null)
+                         :accessor %analysis-rule-type :initform
+                         (common-lisp:error ":type is required"))
+                        (collaboration-id :initarg :|collaborationId| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor %analysis-rule-collaboration-id :initform
+                         (common-lisp:error ":collaborationid is required"))))
  (common-lisp:export (common-lisp:list 'analysis-rule 'make-analysis-rule))
+ (common-lisp:defun make-analysis-rule
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy update-time create-time name type
+                     collaboration-id)
+   (common-lisp:apply #'common-lisp:make-instance 'analysis-rule
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input analysis-rule))
    (common-lisp:append))
@@ -220,25 +261,54 @@
                         ((aws-sdk/generator/shape::input analysis-rule))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (analysis-rule-aggregation (:copier common-lisp:nil)
-      (:conc-name "struct-shape-analysis-rule-aggregation-"))
-   (aggregate-columns (common-lisp:error ":aggregatecolumns is required") :type
-    (common-lisp:or analysis-rule-aggregation-aggregate-columns-list
-                    common-lisp:null))
-   (join-columns (common-lisp:error ":joincolumns is required") :type
-    (common-lisp:or analysis-rule-column-list common-lisp:null))
-   (join-required common-lisp:nil :type
-    (common-lisp:or join-required-option common-lisp:null))
-   (dimension-columns (common-lisp:error ":dimensioncolumns is required") :type
-    (common-lisp:or analysis-rule-column-list common-lisp:null))
-   (scalar-functions (common-lisp:error ":scalarfunctions is required") :type
-    (common-lisp:or scalar-functions-list common-lisp:null))
-   (output-constraints (common-lisp:error ":outputconstraints is required")
-    :type (common-lisp:or aggregation-constraints common-lisp:null)))
+ (common-lisp:defclass analysis-rule-aggregation common-lisp:nil
+                       ((output-constraints :initarg :|outputConstraints| :type
+                         (common-lisp:or aggregation-constraints
+                                         common-lisp:null)
+                         :accessor
+                         %analysis-rule-aggregation-output-constraints
+                         :initform
+                         (common-lisp:error ":outputconstraints is required"))
+                        (scalar-functions :initarg :|scalarFunctions| :type
+                         (common-lisp:or scalar-functions-list
+                                         common-lisp:null)
+                         :accessor %analysis-rule-aggregation-scalar-functions
+                         :initform
+                         (common-lisp:error ":scalarfunctions is required"))
+                        (dimension-columns :initarg :|dimensionColumns| :type
+                         (common-lisp:or analysis-rule-column-list
+                                         common-lisp:null)
+                         :accessor %analysis-rule-aggregation-dimension-columns
+                         :initform
+                         (common-lisp:error ":dimensioncolumns is required"))
+                        (join-required :initarg :|joinRequired| :type
+                         (common-lisp:or join-required-option common-lisp:null)
+                         :accessor %analysis-rule-aggregation-join-required
+                         :initform common-lisp:nil)
+                        (join-columns :initarg :|joinColumns| :type
+                         (common-lisp:or analysis-rule-column-list
+                                         common-lisp:null)
+                         :accessor %analysis-rule-aggregation-join-columns
+                         :initform
+                         (common-lisp:error ":joincolumns is required"))
+                        (aggregate-columns :initarg :|aggregateColumns| :type
+                         (common-lisp:or
+                          analysis-rule-aggregation-aggregate-columns-list
+                          common-lisp:null)
+                         :accessor %analysis-rule-aggregation-aggregate-columns
+                         :initform
+                         (common-lisp:error ":aggregatecolumns is required"))))
  (common-lisp:export
   (common-lisp:list 'analysis-rule-aggregation
                     'make-analysis-rule-aggregation))
+ (common-lisp:defun make-analysis-rule-aggregation
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output-constraints scalar-functions
+                     dimension-columns join-required join-columns
+                     aggregate-columns)
+   (common-lisp:apply #'common-lisp:make-instance 'analysis-rule-aggregation
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -315,15 +385,25 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype analysis-rule-column-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (analysis-rule-list (:copier common-lisp:nil)
-      (:conc-name "struct-shape-analysis-rule-list-"))
-   (join-columns (common-lisp:error ":joincolumns is required") :type
-    (common-lisp:or analysis-rule-list-join-columns-list common-lisp:null))
-   (list-columns (common-lisp:error ":listcolumns is required") :type
-    (common-lisp:or analysis-rule-column-list common-lisp:null)))
+ (common-lisp:defclass analysis-rule-list common-lisp:nil
+                       ((list-columns :initarg :|listColumns| :type
+                         (common-lisp:or analysis-rule-column-list
+                                         common-lisp:null)
+                         :accessor %analysis-rule-list-list-columns :initform
+                         (common-lisp:error ":listcolumns is required"))
+                        (join-columns :initarg :|joinColumns| :type
+                         (common-lisp:or analysis-rule-list-join-columns-list
+                                         common-lisp:null)
+                         :accessor %analysis-rule-list-join-columns :initform
+                         (common-lisp:error ":joincolumns is required"))))
  (common-lisp:export
   (common-lisp:list 'analysis-rule-list 'make-analysis-rule-list))
+ (common-lisp:defun make-analysis-rule-list
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key list-columns join-columns)
+   (common-lisp:apply #'common-lisp:make-instance 'analysis-rule-list
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input analysis-rule-list))
    (common-lisp:append))
@@ -357,13 +437,20 @@
                             analysis-rule-column-name))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (analysis-rule-policy (:copier common-lisp:nil)
-      (:conc-name "struct-shape-analysis-rule-policy-"))
-   (v1 common-lisp:nil :type
-    (common-lisp:or analysis-rule-policy-v1 common-lisp:null)))
+ (common-lisp:defclass analysis-rule-policy common-lisp:nil
+                       ((v1 :initarg :|v1| :type
+                         (common-lisp:or analysis-rule-policy-v1
+                                         common-lisp:null)
+                         :accessor %analysis-rule-policy-v1 :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'analysis-rule-policy 'make-analysis-rule-policy))
+ (common-lisp:defun make-analysis-rule-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key v1)
+   (common-lisp:apply #'common-lisp:make-instance 'analysis-rule-policy
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input analysis-rule-policy))
    (common-lisp:append))
@@ -381,15 +468,24 @@
                         ((aws-sdk/generator/shape::input analysis-rule-policy))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (analysis-rule-policy-v1 (:copier common-lisp:nil)
-      (:conc-name "struct-shape-analysis-rule-policy-v1-"))
-   (list common-lisp:nil :type
-    (common-lisp:or analysis-rule-list common-lisp:null))
-   (aggregation common-lisp:nil :type
-    (common-lisp:or analysis-rule-aggregation common-lisp:null)))
+ (common-lisp:defclass analysis-rule-policy-v1 common-lisp:nil
+                       ((aggregation :initarg :|aggregation| :type
+                         (common-lisp:or analysis-rule-aggregation
+                                         common-lisp:null)
+                         :accessor %analysis-rule-policy-v1-aggregation
+                         :initform common-lisp:nil)
+                        (list :initarg :|list| :type
+                         (common-lisp:or analysis-rule-list common-lisp:null)
+                         :accessor %analysis-rule-policy-v1-list :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'analysis-rule-policy-v1 'make-analysis-rule-policy-v1))
+ (common-lisp:defun make-analysis-rule-policy-v1
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key aggregation list)
+   (common-lisp:apply #'common-lisp:make-instance 'analysis-rule-policy-v1
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -429,17 +525,27 @@
                            (trivial-types:proper-list analysis-rule-type))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-get-schema-error (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-get-schema-error-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (code (common-lisp:error ":code is required") :type
-    (common-lisp:or string common-lisp:null))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass batch-get-schema-error common-lisp:nil
+                       ((message :initarg :|message| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %batch-get-schema-error-message :initform
+                         (common-lisp:error ":message is required"))
+                        (code :initarg :|code| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %batch-get-schema-error-code :initform
+                         (common-lisp:error ":code is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %batch-get-schema-error-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-get-schema-error 'make-batch-get-schema-error))
+ (common-lisp:defun make-batch-get-schema-error
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message code name)
+   (common-lisp:apply #'common-lisp:make-instance 'batch-get-schema-error
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -485,16 +591,28 @@
                            (trivial-types:proper-list batch-get-schema-error))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-get-schema-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-get-schema-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (names (common-lisp:error ":names is required") :type
-    (common-lisp:or table-alias-list common-lisp:null)))
+ (common-lisp:defclass batch-get-schema-input common-lisp:nil
+                       ((names :initarg :|names| :type
+                         (common-lisp:or table-alias-list common-lisp:null)
+                         :accessor %batch-get-schema-input-names :initform
+                         (common-lisp:error ":names is required"))
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %batch-get-schema-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-get-schema-input 'make-batch-get-schema-input))
+ (common-lisp:defun make-batch-get-schema-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key names collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'batch-get-schema-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -518,15 +636,24 @@
                           batch-get-schema-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-get-schema-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-get-schema-output-"))
-   (schemas (common-lisp:error ":schemas is required") :type
-    (common-lisp:or schema-list common-lisp:null))
-   (errors (common-lisp:error ":errors is required") :type
-    (common-lisp:or batch-get-schema-error-list common-lisp:null)))
+ (common-lisp:defclass batch-get-schema-output common-lisp:nil
+                       ((errors :initarg :|errors| :type
+                         (common-lisp:or batch-get-schema-error-list
+                                         common-lisp:null)
+                         :accessor %batch-get-schema-output-errors :initform
+                         (common-lisp:error ":errors is required"))
+                        (schemas :initarg :|schemas| :type
+                         (common-lisp:or schema-list common-lisp:null)
+                         :accessor %batch-get-schema-output-schemas :initform
+                         (common-lisp:error ":schemas is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-get-schema-output 'make-batch-get-schema-output))
+ (common-lisp:defun make-batch-get-schema-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors schemas)
+   (common-lisp:apply #'common-lisp:make-instance 'batch-get-schema-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -559,35 +686,74 @@
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:deftype cleanrooms-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (collaboration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-collaboration-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or collaboration-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or collaboration-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or collaboration-description common-lisp:null))
-   (creator-account-id (common-lisp:error ":creatoraccountid is required")
-    :type (common-lisp:or account-id common-lisp:null))
-   (creator-display-name (common-lisp:error ":creatordisplayname is required")
-    :type (common-lisp:or display-name common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (member-status (common-lisp:error ":memberstatus is required") :type
-    (common-lisp:or member-status common-lisp:null))
-   (membership-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (membership-arn common-lisp:nil :type
-    (common-lisp:or membership-arn common-lisp:null))
-   (data-encryption-metadata common-lisp:nil :type
-    (common-lisp:or data-encryption-metadata common-lisp:null))
-   (query-log-status (common-lisp:error ":querylogstatus is required") :type
-    (common-lisp:or collaboration-query-log-status common-lisp:null)))
+ (common-lisp:defclass collaboration common-lisp:nil
+                       ((query-log-status :initarg :|queryLogStatus| :type
+                         (common-lisp:or collaboration-query-log-status
+                                         common-lisp:null)
+                         :accessor %collaboration-query-log-status :initform
+                         (common-lisp:error ":querylogstatus is required"))
+                        (data-encryption-metadata :initarg
+                         :|dataEncryptionMetadata| :type
+                         (common-lisp:or data-encryption-metadata
+                                         common-lisp:null)
+                         :accessor %collaboration-data-encryption-metadata
+                         :initform common-lisp:nil)
+                        (membership-arn :initarg :|membershipArn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %collaboration-membership-arn :initform
+                         common-lisp:nil)
+                        (membership-id :initarg :|membershipId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %collaboration-membership-id :initform
+                         common-lisp:nil)
+                        (member-status :initarg :|memberStatus| :type
+                         (common-lisp:or member-status common-lisp:null)
+                         :accessor %collaboration-member-status :initform
+                         (common-lisp:error ":memberstatus is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %collaboration-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %collaboration-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (creator-display-name :initarg :|creatorDisplayName|
+                         :type (common-lisp:or display-name common-lisp:null)
+                         :accessor %collaboration-creator-display-name
+                         :initform
+                         (common-lisp:error ":creatordisplayname is required"))
+                        (creator-account-id :initarg :|creatorAccountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %collaboration-creator-account-id :initform
+                         (common-lisp:error ":creatoraccountid is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or collaboration-description
+                                         common-lisp:null)
+                         :accessor %collaboration-description :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or collaboration-name common-lisp:null)
+                         :accessor %collaboration-name :initform
+                         (common-lisp:error ":name is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or collaboration-arn common-lisp:null)
+                         :accessor %collaboration-arn :initform
+                         (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %collaboration-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export (common-lisp:list 'collaboration 'make-collaboration))
+ (common-lisp:defun make-collaboration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key query-log-status data-encryption-metadata
+                     membership-arn membership-id member-status update-time
+                     create-time creator-display-name creator-account-id
+                     description name arn id)
+   (common-lisp:apply #'common-lisp:make-instance 'collaboration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input collaboration))
    (common-lisp:append))
@@ -696,30 +862,59 @@
 (common-lisp:deftype collaboration-name () 'common-lisp:string)
 (common-lisp:deftype collaboration-query-log-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (collaboration-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-collaboration-summary-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or collaboration-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or collaboration-name common-lisp:null))
-   (creator-account-id (common-lisp:error ":creatoraccountid is required")
-    :type (common-lisp:or account-id common-lisp:null))
-   (creator-display-name (common-lisp:error ":creatordisplayname is required")
-    :type (common-lisp:or display-name common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (member-status (common-lisp:error ":memberstatus is required") :type
-    (common-lisp:or member-status common-lisp:null))
-   (membership-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (membership-arn common-lisp:nil :type
-    (common-lisp:or membership-arn common-lisp:null)))
+ (common-lisp:defclass collaboration-summary common-lisp:nil
+                       ((membership-arn :initarg :|membershipArn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %collaboration-summary-membership-arn
+                         :initform common-lisp:nil)
+                        (membership-id :initarg :|membershipId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %collaboration-summary-membership-id :initform
+                         common-lisp:nil)
+                        (member-status :initarg :|memberStatus| :type
+                         (common-lisp:or member-status common-lisp:null)
+                         :accessor %collaboration-summary-member-status
+                         :initform
+                         (common-lisp:error ":memberstatus is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %collaboration-summary-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %collaboration-summary-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (creator-display-name :initarg :|creatorDisplayName|
+                         :type (common-lisp:or display-name common-lisp:null)
+                         :accessor %collaboration-summary-creator-display-name
+                         :initform
+                         (common-lisp:error ":creatordisplayname is required"))
+                        (creator-account-id :initarg :|creatorAccountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %collaboration-summary-creator-account-id :initform
+                         (common-lisp:error ":creatoraccountid is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or collaboration-name common-lisp:null)
+                         :accessor %collaboration-summary-name :initform
+                         (common-lisp:error ":name is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or collaboration-arn common-lisp:null)
+                         :accessor %collaboration-summary-arn :initform
+                         (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %collaboration-summary-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'collaboration-summary 'make-collaboration-summary))
+ (common-lisp:defun make-collaboration-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership-arn membership-id
+                     member-status update-time create-time creator-display-name
+                     creator-account-id name arn id)
+   (common-lisp:apply #'common-lisp:make-instance 'collaboration-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -815,13 +1010,22 @@
                            (trivial-types:proper-list collaboration-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (column (:copier common-lisp:nil) (:conc-name "struct-shape-column-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or column-name common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or column-type-string common-lisp:null)))
+ (common-lisp:defclass column common-lisp:nil
+                       ((type :initarg :|type| :type
+                         (common-lisp:or column-type-string common-lisp:null)
+                         :accessor %column-type :initform
+                         (common-lisp:error ":type is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or column-name common-lisp:null)
+                         :accessor %column-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export (common-lisp:list 'column 'make-column))
+ (common-lisp:defun make-column
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key type name)
+   (common-lisp:apply #'common-lisp:make-instance 'column
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input column))
    (common-lisp:append))
@@ -855,32 +1059,61 @@
 (common-lisp:deftype column-name () 'common-lisp:string)
 (common-lisp:deftype column-type-string () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (configured-table (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configured-table-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or configured-table-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or display-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or table-description common-lisp:null))
-   (table-reference (common-lisp:error ":tablereference is required") :type
-    (common-lisp:or table-reference common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (analysis-rule-types (common-lisp:error ":analysisruletypes is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-type-list common-lisp:null))
-   (analysis-method (common-lisp:error ":analysismethod is required") :type
-    (common-lisp:or analysis-method common-lisp:null))
-   (allowed-columns (common-lisp:error ":allowedcolumns is required") :type
-    (common-lisp:or allowed-column-list common-lisp:null)))
+ (common-lisp:defclass configured-table common-lisp:nil
+                       ((allowed-columns :initarg :|allowedColumns| :type
+                         (common-lisp:or allowed-column-list common-lisp:null)
+                         :accessor %configured-table-allowed-columns :initform
+                         (common-lisp:error ":allowedcolumns is required"))
+                        (analysis-method :initarg :|analysisMethod| :type
+                         (common-lisp:or analysis-method common-lisp:null)
+                         :accessor %configured-table-analysis-method :initform
+                         (common-lisp:error ":analysismethod is required"))
+                        (analysis-rule-types :initarg :|analysisRuleTypes|
+                         :type
+                         (common-lisp:or
+                          configured-table-analysis-rule-type-list
+                          common-lisp:null)
+                         :accessor %configured-table-analysis-rule-types
+                         :initform
+                         (common-lisp:error ":analysisruletypes is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (table-reference :initarg :|tableReference| :type
+                         (common-lisp:or table-reference common-lisp:null)
+                         :accessor %configured-table-table-reference :initform
+                         (common-lisp:error ":tablereference is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or table-description common-lisp:null)
+                         :accessor %configured-table-description :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %configured-table-name :initform
+                         (common-lisp:error ":name is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or configured-table-arn common-lisp:null)
+                         :accessor %configured-table-arn :initform
+                         (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %configured-table-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'configured-table 'make-configured-table))
+ (common-lisp:defun make-configured-table
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key allowed-columns analysis-method
+                     analysis-rule-types update-time create-time
+                     table-reference description name arn id)
+   (common-lisp:apply #'common-lisp:make-instance 'configured-table
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input configured-table))
    (common-lisp:append))
@@ -961,24 +1194,49 @@
                         ((aws-sdk/generator/shape::input configured-table))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (configured-table-analysis-rule (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configured-table-analysis-rule-"))
-   (configured-table-id (common-lisp:error ":configuredtableid is required")
-    :type (common-lisp:or uuid common-lisp:null))
-   (configured-table-arn (common-lisp:error ":configuredtablearn is required")
-    :type (common-lisp:or configured-table-arn common-lisp:null))
-   (policy (common-lisp:error ":policy is required") :type
-    (common-lisp:or configured-table-analysis-rule-policy common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or configured-table-analysis-rule-type common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass configured-table-analysis-rule common-lisp:nil
+                       ((update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-analysis-rule-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-analysis-rule-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (type :initarg :|type| :type
+                         (common-lisp:or configured-table-analysis-rule-type
+                                         common-lisp:null)
+                         :accessor %configured-table-analysis-rule-type
+                         :initform (common-lisp:error ":type is required"))
+                        (policy :initarg :|policy| :type
+                         (common-lisp:or configured-table-analysis-rule-policy
+                                         common-lisp:null)
+                         :accessor %configured-table-analysis-rule-policy
+                         :initform (common-lisp:error ":policy is required"))
+                        (configured-table-arn :initarg :|configuredTableArn|
+                         :type
+                         (common-lisp:or configured-table-arn common-lisp:null)
+                         :accessor
+                         %configured-table-analysis-rule-configured-table-arn
+                         :initform
+                         (common-lisp:error ":configuredtablearn is required"))
+                        (configured-table-id :initarg :|configuredTableId|
+                         :type (common-lisp:or uuid common-lisp:null) :accessor
+                         %configured-table-analysis-rule-configured-table-id
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableid is required"))))
  (common-lisp:export
   (common-lisp:list 'configured-table-analysis-rule
                     'make-configured-table-analysis-rule))
+ (common-lisp:defun make-configured-table-analysis-rule
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-time create-time type policy
+                     configured-table-arn configured-table-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'configured-table-analysis-rule
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1038,15 +1296,23 @@
                           configured-table-analysis-rule))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (configured-table-analysis-rule-policy (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configured-table-analysis-rule-policy-"))
-   (v1 common-lisp:nil :type
-    (common-lisp:or configured-table-analysis-rule-policy-v1
-                    common-lisp:null)))
+ (common-lisp:defclass configured-table-analysis-rule-policy common-lisp:nil
+                       ((v1 :initarg :|v1| :type
+                         (common-lisp:or
+                          configured-table-analysis-rule-policy-v1
+                          common-lisp:null)
+                         :accessor %configured-table-analysis-rule-policy-v1
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'configured-table-analysis-rule-policy
                     'make-configured-table-analysis-rule-policy))
+ (common-lisp:defun make-configured-table-analysis-rule-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key v1)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'configured-table-analysis-rule-policy
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1070,16 +1336,28 @@
                           configured-table-analysis-rule-policy))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (configured-table-analysis-rule-policy-v1 (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configured-table-analysis-rule-policy-v1-"))
-   (list common-lisp:nil :type
-    (common-lisp:or analysis-rule-list common-lisp:null))
-   (aggregation common-lisp:nil :type
-    (common-lisp:or analysis-rule-aggregation common-lisp:null)))
+ (common-lisp:defclass configured-table-analysis-rule-policy-v1 common-lisp:nil
+                       ((aggregation :initarg :|aggregation| :type
+                         (common-lisp:or analysis-rule-aggregation
+                                         common-lisp:null)
+                         :accessor
+                         %configured-table-analysis-rule-policy-v1-aggregation
+                         :initform common-lisp:nil)
+                        (list :initarg :|list| :type
+                         (common-lisp:or analysis-rule-list common-lisp:null)
+                         :accessor
+                         %configured-table-analysis-rule-policy-v1-list
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'configured-table-analysis-rule-policy-v1
                     'make-configured-table-analysis-rule-policy-v1))
+ (common-lisp:defun make-configured-table-analysis-rule-policy-v1
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key aggregation list)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'configured-table-analysis-rule-policy-v1
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1121,34 +1399,68 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype configured-table-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (configured-table-association (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configured-table-association-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or configured-table-association-arn common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (configured-table-id (common-lisp:error ":configuredtableid is required")
-    :type (common-lisp:or uuid common-lisp:null))
-   (configured-table-arn (common-lisp:error ":configuredtablearn is required")
-    :type (common-lisp:or configured-table-arn common-lisp:null))
-   (membership-id (common-lisp:error ":membershipid is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (membership-arn (common-lisp:error ":membershiparn is required") :type
-    (common-lisp:or membership-arn common-lisp:null))
-   (role-arn (common-lisp:error ":rolearn is required") :type
-    (common-lisp:or role-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or table-description common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass configured-table-association common-lisp:nil
+                       ((update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-association-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-association-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or table-description common-lisp:null)
+                         :accessor %configured-table-association-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %configured-table-association-name :initform
+                         (common-lisp:error ":name is required"))
+                        (role-arn :initarg :|roleArn| :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %configured-table-association-role-arn :initform
+                         (common-lisp:error ":rolearn is required"))
+                        (membership-arn :initarg :|membershipArn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %configured-table-association-membership-arn
+                         :initform
+                         (common-lisp:error ":membershiparn is required"))
+                        (membership-id :initarg :|membershipId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %configured-table-association-membership-id :initform
+                         (common-lisp:error ":membershipid is required"))
+                        (configured-table-arn :initarg :|configuredTableArn|
+                         :type
+                         (common-lisp:or configured-table-arn common-lisp:null)
+                         :accessor
+                         %configured-table-association-configured-table-arn
+                         :initform
+                         (common-lisp:error ":configuredtablearn is required"))
+                        (configured-table-id :initarg :|configuredTableId|
+                         :type (common-lisp:or uuid common-lisp:null) :accessor
+                         %configured-table-association-configured-table-id
+                         :initform
+                         (common-lisp:error ":configuredtableid is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %configured-table-association-id :initform
+                         (common-lisp:error ":id is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or configured-table-association-arn
+                                         common-lisp:null)
+                         :accessor %configured-table-association-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'configured-table-association
                     'make-configured-table-association))
+ (common-lisp:defun make-configured-table-association
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key update-time create-time description name
+                     role-arn membership-arn membership-id configured-table-arn
+                     configured-table-id id arn)
+   (common-lisp:apply #'common-lisp:make-instance 'configured-table-association
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1246,28 +1558,60 @@
 (common-lisp:deftype configured-table-association-identifier ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (configured-table-association-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configured-table-association-summary-"))
-   (configured-table-id (common-lisp:error ":configuredtableid is required")
-    :type (common-lisp:or uuid common-lisp:null))
-   (membership-id (common-lisp:error ":membershipid is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (membership-arn (common-lisp:error ":membershiparn is required") :type
-    (common-lisp:or membership-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or configured-table-association-arn common-lisp:null)))
+ (common-lisp:defclass configured-table-association-summary common-lisp:nil
+                       ((arn :initarg :|arn| :type
+                         (common-lisp:or configured-table-association-arn
+                                         common-lisp:null)
+                         :accessor %configured-table-association-summary-arn
+                         :initform (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %configured-table-association-summary-id :initform
+                         (common-lisp:error ":id is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-association-summary-update-time
+                         :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-association-summary-create-time
+                         :initform
+                         (common-lisp:error ":createtime is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %configured-table-association-summary-name
+                         :initform (common-lisp:error ":name is required"))
+                        (membership-arn :initarg :|membershipArn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor
+                         %configured-table-association-summary-membership-arn
+                         :initform
+                         (common-lisp:error ":membershiparn is required"))
+                        (membership-id :initarg :|membershipId| :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %configured-table-association-summary-membership-id
+                         :initform
+                         (common-lisp:error ":membershipid is required"))
+                        (configured-table-id :initarg :|configuredTableId|
+                         :type (common-lisp:or uuid common-lisp:null) :accessor
+                         %configured-table-association-summary-configured-table-id
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableid is required"))))
  (common-lisp:export
   (common-lisp:list 'configured-table-association-summary
                     'make-configured-table-association-summary))
+ (common-lisp:defun make-configured-table-association-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key arn id update-time create-time name
+                     membership-arn membership-id configured-table-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'configured-table-association-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1350,26 +1694,51 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype configured-table-identifier () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (configured-table-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configured-table-summary-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or configured-table-arn common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or display-name common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (analysis-rule-types (common-lisp:error ":analysisruletypes is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-type-list common-lisp:null))
-   (analysis-method (common-lisp:error ":analysismethod is required") :type
-    (common-lisp:or analysis-method common-lisp:null)))
+ (common-lisp:defclass configured-table-summary common-lisp:nil
+                       ((analysis-method :initarg :|analysisMethod| :type
+                         (common-lisp:or analysis-method common-lisp:null)
+                         :accessor %configured-table-summary-analysis-method
+                         :initform
+                         (common-lisp:error ":analysismethod is required"))
+                        (analysis-rule-types :initarg :|analysisRuleTypes|
+                         :type
+                         (common-lisp:or
+                          configured-table-analysis-rule-type-list
+                          common-lisp:null)
+                         :accessor
+                         %configured-table-summary-analysis-rule-types
+                         :initform
+                         (common-lisp:error ":analysisruletypes is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-summary-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %configured-table-summary-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %configured-table-summary-name :initform
+                         (common-lisp:error ":name is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or configured-table-arn common-lisp:null)
+                         :accessor %configured-table-summary-arn :initform
+                         (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor %configured-table-summary-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'configured-table-summary 'make-configured-table-summary))
+ (common-lisp:defun make-configured-table-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-method analysis-rule-types
+                     update-time create-time name arn id)
+   (common-lisp:apply #'common-lisp:make-instance 'configured-table-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1446,13 +1815,13 @@
 (common-lisp:progn
  (common-lisp:define-condition conflict-exception
      (cleanrooms-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        conflict-exception-message)
-      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+      (resource-id :initarg :|resourceId| :initform common-lisp:nil :reader
        conflict-exception-resource-id)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        conflict-exception-resource-type)
-      (reason :initarg :reason :initform common-lisp:nil :reader
+      (reason :initarg :|reason| :initform common-lisp:nil :reader
        conflict-exception-reason)))
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message
@@ -1461,28 +1830,64 @@
                     'conflict-exception-reason)))
 (common-lisp:deftype conflict-exception-reason () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-collaboration-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-collaboration-input-"))
-   (members (common-lisp:error ":members is required") :type
-    (common-lisp:or member-list common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or collaboration-name common-lisp:null))
-   (description (common-lisp:error ":description is required") :type
-    (common-lisp:or collaboration-description common-lisp:null))
-   (creator-member-abilities
-    (common-lisp:error ":creatormemberabilities is required") :type
-    (common-lisp:or member-abilities common-lisp:null))
-   (creator-display-name (common-lisp:error ":creatordisplayname is required")
-    :type (common-lisp:or display-name common-lisp:null))
-   (data-encryption-metadata common-lisp:nil :type
-    (common-lisp:or data-encryption-metadata common-lisp:null))
-   (query-log-status (common-lisp:error ":querylogstatus is required") :type
-    (common-lisp:or collaboration-query-log-status common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-collaboration-input common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-collaboration-input-tags :initform
+                         common-lisp:nil)
+                        (query-log-status :initarg :|queryLogStatus| :type
+                         (common-lisp:or collaboration-query-log-status
+                                         common-lisp:null)
+                         :accessor %create-collaboration-input-query-log-status
+                         :initform
+                         (common-lisp:error ":querylogstatus is required"))
+                        (data-encryption-metadata :initarg
+                         :|dataEncryptionMetadata| :type
+                         (common-lisp:or data-encryption-metadata
+                                         common-lisp:null)
+                         :accessor
+                         %create-collaboration-input-data-encryption-metadata
+                         :initform common-lisp:nil)
+                        (creator-display-name :initarg :|creatorDisplayName|
+                         :type (common-lisp:or display-name common-lisp:null)
+                         :accessor
+                         %create-collaboration-input-creator-display-name
+                         :initform
+                         (common-lisp:error ":creatordisplayname is required"))
+                        (creator-member-abilities :initarg
+                         :|creatorMemberAbilities| :type
+                         (common-lisp:or member-abilities common-lisp:null)
+                         :accessor
+                         %create-collaboration-input-creator-member-abilities
+                         :initform
+                         (common-lisp:error
+                          ":creatormemberabilities is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or collaboration-description
+                                         common-lisp:null)
+                         :accessor %create-collaboration-input-description
+                         :initform
+                         (common-lisp:error ":description is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or collaboration-name common-lisp:null)
+                         :accessor %create-collaboration-input-name :initform
+                         (common-lisp:error ":name is required"))
+                        (members :initarg :|members| :type
+                         (common-lisp:or member-list common-lisp:null)
+                         :accessor %create-collaboration-input-members
+                         :initform
+                         (common-lisp:error ":members is required"))))
  (common-lisp:export
   (common-lisp:list 'create-collaboration-input
                     'make-create-collaboration-input))
+ (common-lisp:defun make-create-collaboration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags query-log-status
+                     data-encryption-metadata creator-display-name
+                     creator-member-abilities description name members)
+   (common-lisp:apply #'common-lisp:make-instance 'create-collaboration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1558,14 +1963,21 @@
                           create-collaboration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-collaboration-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-collaboration-output-"))
-   (collaboration (common-lisp:error ":collaboration is required") :type
-    (common-lisp:or collaboration common-lisp:null)))
+ (common-lisp:defclass create-collaboration-output common-lisp:nil
+                       ((collaboration :initarg :|collaboration| :type
+                         (common-lisp:or collaboration common-lisp:null)
+                         :accessor %create-collaboration-output-collaboration
+                         :initform
+                         (common-lisp:error ":collaboration is required"))))
  (common-lisp:export
   (common-lisp:list 'create-collaboration-output
                     'make-create-collaboration-output))
+ (common-lisp:defun make-create-collaboration-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key collaboration)
+   (common-lisp:apply #'common-lisp:make-instance 'create-collaboration-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1589,21 +2001,43 @@
                           create-collaboration-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configured-table-analysis-rule-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configured-table-analysis-rule-input-"))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null))
-   (analysis-rule-type (common-lisp:error ":analysisruletype is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-type common-lisp:null))
-   (analysis-rule-policy (common-lisp:error ":analysisrulepolicy is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-policy common-lisp:null)))
+ (common-lisp:defclass create-configured-table-analysis-rule-input
+                       common-lisp:nil
+                       ((analysis-rule-policy :initarg :|analysisRulePolicy|
+                         :type
+                         (common-lisp:or configured-table-analysis-rule-policy
+                                         common-lisp:null)
+                         :accessor
+                         %create-configured-table-analysis-rule-input-analysis-rule-policy
+                         :initform
+                         (common-lisp:error ":analysisrulepolicy is required"))
+                        (analysis-rule-type :initarg :|analysisRuleType| :type
+                         (common-lisp:or configured-table-analysis-rule-type
+                                         common-lisp:null)
+                         :accessor
+                         %create-configured-table-analysis-rule-input-analysis-rule-type
+                         :initform
+                         (common-lisp:error ":analysisruletype is required"))
+                        (configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %create-configured-table-analysis-rule-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-analysis-rule-input
                     'make-create-configured-table-analysis-rule-input))
+ (common-lisp:defun make-create-configured-table-analysis-rule-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule-policy analysis-rule-type
+                     configured-table-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configured-table-analysis-rule-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1635,15 +2069,25 @@
                           create-configured-table-analysis-rule-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configured-table-analysis-rule-output (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-configured-table-analysis-rule-output-"))
-   (analysis-rule (common-lisp:error ":analysisrule is required") :type
-    (common-lisp:or configured-table-analysis-rule common-lisp:null)))
+ (common-lisp:defclass create-configured-table-analysis-rule-output
+                       common-lisp:nil
+                       ((analysis-rule :initarg :|analysisRule| :type
+                         (common-lisp:or configured-table-analysis-rule
+                                         common-lisp:null)
+                         :accessor
+                         %create-configured-table-analysis-rule-output-analysis-rule
+                         :initform
+                         (common-lisp:error ":analysisrule is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-analysis-rule-output
                     'make-create-configured-table-analysis-rule-output))
+ (common-lisp:defun make-create-configured-table-analysis-rule-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configured-table-analysis-rule-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1667,25 +2111,55 @@
                           create-configured-table-analysis-rule-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configured-table-association-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configured-table-association-input-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or table-description common-lisp:null))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null))
-   (role-arn (common-lisp:error ":rolearn is required") :type
-    (common-lisp:or role-arn common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-configured-table-association-input
+                       common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-configured-table-association-input-tags
+                         :initform common-lisp:nil)
+                        (role-arn :initarg :|roleArn| :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %create-configured-table-association-input-role-arn
+                         :initform (common-lisp:error ":rolearn is required"))
+                        (configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %create-configured-table-association-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %create-configured-table-association-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or table-description common-lisp:null)
+                         :accessor
+                         %create-configured-table-association-input-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor
+                         %create-configured-table-association-input-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-association-input
                     'make-create-configured-table-association-input))
+ (common-lisp:defun make-create-configured-table-association-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags role-arn configured-table-identifier
+                     membership-identifier description name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configured-table-association-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1738,15 +2212,27 @@
                           create-configured-table-association-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configured-table-association-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configured-table-association-output-"))
-   (configured-table-association
-    (common-lisp:error ":configuredtableassociation is required") :type
-    (common-lisp:or configured-table-association common-lisp:null)))
+ (common-lisp:defclass create-configured-table-association-output
+                       common-lisp:nil
+                       ((configured-table-association :initarg
+                         :|configuredTableAssociation| :type
+                         (common-lisp:or configured-table-association
+                                         common-lisp:null)
+                         :accessor
+                         %create-configured-table-association-output-configured-table-association
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableassociation is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-association-output
                     'make-create-configured-table-association-output))
+ (common-lisp:defun make-create-configured-table-association-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configured-table-association-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1771,23 +2257,48 @@
                           create-configured-table-association-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configured-table-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configured-table-input-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or display-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or table-description common-lisp:null))
-   (table-reference (common-lisp:error ":tablereference is required") :type
-    (common-lisp:or table-reference common-lisp:null))
-   (allowed-columns (common-lisp:error ":allowedcolumns is required") :type
-    (common-lisp:or allowed-column-list common-lisp:null))
-   (analysis-method (common-lisp:error ":analysismethod is required") :type
-    (common-lisp:or analysis-method common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-configured-table-input common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-configured-table-input-tags :initform
+                         common-lisp:nil)
+                        (analysis-method :initarg :|analysisMethod| :type
+                         (common-lisp:or analysis-method common-lisp:null)
+                         :accessor
+                         %create-configured-table-input-analysis-method
+                         :initform
+                         (common-lisp:error ":analysismethod is required"))
+                        (allowed-columns :initarg :|allowedColumns| :type
+                         (common-lisp:or allowed-column-list common-lisp:null)
+                         :accessor
+                         %create-configured-table-input-allowed-columns
+                         :initform
+                         (common-lisp:error ":allowedcolumns is required"))
+                        (table-reference :initarg :|tableReference| :type
+                         (common-lisp:or table-reference common-lisp:null)
+                         :accessor
+                         %create-configured-table-input-table-reference
+                         :initform
+                         (common-lisp:error ":tablereference is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or table-description common-lisp:null)
+                         :accessor %create-configured-table-input-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %create-configured-table-input-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-input
                     'make-create-configured-table-input))
+ (common-lisp:defun make-create-configured-table-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags analysis-method allowed-columns
+                     table-reference description name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configured-table-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1846,14 +2357,23 @@
                           create-configured-table-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configured-table-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configured-table-output-"))
-   (configured-table (common-lisp:error ":configuredtable is required") :type
-    (common-lisp:or configured-table common-lisp:null)))
+ (common-lisp:defclass create-configured-table-output common-lisp:nil
+                       ((configured-table :initarg :|configuredTable| :type
+                         (common-lisp:or configured-table common-lisp:null)
+                         :accessor
+                         %create-configured-table-output-configured-table
+                         :initform
+                         (common-lisp:error ":configuredtable is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configured-table-output
                     'make-create-configured-table-output))
+ (common-lisp:defun make-create-configured-table-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configured-table-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1877,17 +2397,35 @@
                           create-configured-table-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-membership-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-membership-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (query-log-status (common-lisp:error ":querylogstatus is required") :type
-    (common-lisp:or membership-query-log-status common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-membership-input common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-membership-input-tags :initform
+                         common-lisp:nil)
+                        (query-log-status :initarg :|queryLogStatus| :type
+                         (common-lisp:or membership-query-log-status
+                                         common-lisp:null)
+                         :accessor %create-membership-input-query-log-status
+                         :initform
+                         (common-lisp:error ":querylogstatus is required"))
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %create-membership-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'create-membership-input 'make-create-membership-input))
+ (common-lisp:defun make-create-membership-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags query-log-status
+                     collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'create-membership-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1926,13 +2464,19 @@
                           create-membership-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-membership-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-membership-output-"))
-   (membership (common-lisp:error ":membership is required") :type
-    (common-lisp:or membership common-lisp:null)))
+ (common-lisp:defclass create-membership-output common-lisp:nil
+                       ((membership :initarg :|membership| :type
+                         (common-lisp:or membership common-lisp:null) :accessor
+                         %create-membership-output-membership :initform
+                         (common-lisp:error ":membership is required"))))
  (common-lisp:export
   (common-lisp:list 'create-membership-output 'make-create-membership-output))
+ (common-lisp:defun make-create-membership-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership)
+   (common-lisp:apply #'common-lisp:make-instance 'create-membership-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1956,20 +2500,36 @@
                           create-membership-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (data-encryption-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-data-encryption-metadata-"))
-   (allow-cleartext (common-lisp:error ":allowcleartext is required") :type
-    (common-lisp:or boolean common-lisp:null))
-   (allow-duplicates (common-lisp:error ":allowduplicates is required") :type
-    (common-lisp:or boolean common-lisp:null))
-   (allow-joins-on-columns-with-different-names
-    (common-lisp:error ":allowjoinsoncolumnswithdifferentnames is required")
-    :type (common-lisp:or boolean common-lisp:null))
-   (preserve-nulls (common-lisp:error ":preservenulls is required") :type
-    (common-lisp:or boolean common-lisp:null)))
+ (common-lisp:defclass data-encryption-metadata common-lisp:nil
+                       ((preserve-nulls :initarg :|preserveNulls| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %data-encryption-metadata-preserve-nulls :initform
+                         (common-lisp:error ":preservenulls is required"))
+                        (allow-joins-on-columns-with-different-names :initarg
+                         :|allowJoinsOnColumnsWithDifferentNames| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %data-encryption-metadata-allow-joins-on-columns-with-different-names
+                         :initform
+                         (common-lisp:error
+                          ":allowjoinsoncolumnswithdifferentnames is required"))
+                        (allow-duplicates :initarg :|allowDuplicates| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %data-encryption-metadata-allow-duplicates :initform
+                         (common-lisp:error ":allowduplicates is required"))
+                        (allow-cleartext :initarg :|allowCleartext| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %data-encryption-metadata-allow-cleartext :initform
+                         (common-lisp:error ":allowcleartext is required"))))
  (common-lisp:export
   (common-lisp:list 'data-encryption-metadata 'make-data-encryption-metadata))
+ (common-lisp:defun make-data-encryption-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key preserve-nulls
+                     allow-joins-on-columns-with-different-names
+                     allow-duplicates allow-cleartext)
+   (common-lisp:apply #'common-lisp:make-instance 'data-encryption-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2015,15 +2575,25 @@
                           data-encryption-metadata))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-collaboration-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-collaboration-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null)))
+ (common-lisp:defclass delete-collaboration-input common-lisp:nil
+                       ((collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %delete-collaboration-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-collaboration-input
                     'make-delete-collaboration-input))
+ (common-lisp:defun make-delete-collaboration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-collaboration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2040,12 +2610,17 @@
                           delete-collaboration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-collaboration-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-collaboration-output-")))
+ (common-lisp:defclass delete-collaboration-output common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-collaboration-output
                     'make-delete-collaboration-output))
+ (common-lisp:defun make-delete-collaboration-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-collaboration-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2062,18 +2637,35 @@
                           delete-collaboration-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configured-table-analysis-rule-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-configured-table-analysis-rule-input-"))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null))
-   (analysis-rule-type (common-lisp:error ":analysisruletype is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-type common-lisp:null)))
+ (common-lisp:defclass delete-configured-table-analysis-rule-input
+                       common-lisp:nil
+                       ((analysis-rule-type :initarg :|analysisRuleType| :type
+                         (common-lisp:or configured-table-analysis-rule-type
+                                         common-lisp:null)
+                         :accessor
+                         %delete-configured-table-analysis-rule-input-analysis-rule-type
+                         :initform
+                         (common-lisp:error ":analysisruletype is required"))
+                        (configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %delete-configured-table-analysis-rule-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-configured-table-analysis-rule-input
                     'make-delete-configured-table-analysis-rule-input))
+ (common-lisp:defun make-delete-configured-table-analysis-rule-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule-type
+                     configured-table-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configured-table-analysis-rule-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2090,13 +2682,18 @@
                           delete-configured-table-analysis-rule-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configured-table-analysis-rule-output (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-configured-table-analysis-rule-output-")))
+ (common-lisp:defclass delete-configured-table-analysis-rule-output
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-configured-table-analysis-rule-output
                     'make-delete-configured-table-analysis-rule-output))
+ (common-lisp:defun make-delete-configured-table-analysis-rule-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configured-table-analysis-rule-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2113,19 +2710,38 @@
                           delete-configured-table-analysis-rule-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configured-table-association-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-configured-table-association-input-"))
-   (configured-table-association-identifier
-    (common-lisp:error ":configuredtableassociationidentifier is required")
-    :type
-    (common-lisp:or configured-table-association-identifier common-lisp:null))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null)))
+ (common-lisp:defclass delete-configured-table-association-input
+                       common-lisp:nil
+                       ((membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %delete-configured-table-association-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))
+                        (configured-table-association-identifier :initarg
+                         :|configuredTableAssociationIdentifier| :type
+                         (common-lisp:or
+                          configured-table-association-identifier
+                          common-lisp:null)
+                         :accessor
+                         %delete-configured-table-association-input-configured-table-association-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableassociationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-configured-table-association-input
                     'make-delete-configured-table-association-input))
+ (common-lisp:defun make-delete-configured-table-association-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership-identifier
+                     configured-table-association-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configured-table-association-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2142,12 +2758,18 @@
                           delete-configured-table-association-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configured-table-association-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-configured-table-association-output-")))
+ (common-lisp:defclass delete-configured-table-association-output
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-configured-table-association-output
                     'make-delete-configured-table-association-output))
+ (common-lisp:defun make-delete-configured-table-association-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configured-table-association-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2164,15 +2786,26 @@
                           delete-configured-table-association-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configured-table-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-configured-table-input-"))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null)))
+ (common-lisp:defclass delete-configured-table-input common-lisp:nil
+                       ((configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %delete-configured-table-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-configured-table-input
                     'make-delete-configured-table-input))
+ (common-lisp:defun make-delete-configured-table-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configured-table-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2189,12 +2822,18 @@
                           delete-configured-table-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-configured-table-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-configured-table-output-")))
+ (common-lisp:defclass delete-configured-table-output common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-configured-table-output
                     'make-delete-configured-table-output))
+ (common-lisp:defun make-delete-configured-table-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-configured-table-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2211,16 +2850,28 @@
                           delete-configured-table-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-member-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-member-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (account-id (common-lisp:error ":accountid is required") :type
-    (common-lisp:or account-id common-lisp:null)))
+ (common-lisp:defclass delete-member-input common-lisp:nil
+                       ((account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %delete-member-input-account-id :initform
+                         (common-lisp:error ":accountid is required"))
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %delete-member-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-member-input 'make-delete-member-input))
+ (common-lisp:defun make-delete-member-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-id collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-member-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-member-input))
    (common-lisp:append))
@@ -2231,11 +2882,15 @@
                         ((aws-sdk/generator/shape::input delete-member-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-member-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-member-output-")))
+ (common-lisp:defclass delete-member-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-member-output 'make-delete-member-output))
+ (common-lisp:defun make-delete-member-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-member-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-member-output))
    (common-lisp:append))
@@ -2246,14 +2901,24 @@
                         ((aws-sdk/generator/shape::input delete-member-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-membership-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-membership-input-"))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null)))
+ (common-lisp:defclass delete-membership-input common-lisp:nil
+                       ((membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %delete-membership-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-membership-input 'make-delete-membership-input))
+ (common-lisp:defun make-delete-membership-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-membership-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2270,11 +2935,16 @@
                           delete-membership-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-membership-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-membership-output-")))
+ (common-lisp:defclass delete-membership-output common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-membership-output 'make-delete-membership-output))
+ (common-lisp:defun make-delete-membership-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-membership-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2294,14 +2964,24 @@
 (common-lisp:deftype double () 'common-lisp:double-float)
 (common-lisp:deftype filterable-member-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-collaboration-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-collaboration-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null)))
+ (common-lisp:defclass get-collaboration-input common-lisp:nil
+                       ((collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-collaboration-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-collaboration-input 'make-get-collaboration-input))
+ (common-lisp:defun make-get-collaboration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-collaboration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2318,13 +2998,20 @@
                           get-collaboration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-collaboration-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-collaboration-output-"))
-   (collaboration (common-lisp:error ":collaboration is required") :type
-    (common-lisp:or collaboration common-lisp:null)))
+ (common-lisp:defclass get-collaboration-output common-lisp:nil
+                       ((collaboration :initarg :|collaboration| :type
+                         (common-lisp:or collaboration common-lisp:null)
+                         :accessor %get-collaboration-output-collaboration
+                         :initform
+                         (common-lisp:error ":collaboration is required"))))
  (common-lisp:export
   (common-lisp:list 'get-collaboration-output 'make-get-collaboration-output))
+ (common-lisp:defun make-get-collaboration-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key collaboration)
+   (common-lisp:apply #'common-lisp:make-instance 'get-collaboration-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2348,18 +3035,34 @@
                           get-collaboration-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configured-table-analysis-rule-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-configured-table-analysis-rule-input-"))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null))
-   (analysis-rule-type (common-lisp:error ":analysisruletype is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-type common-lisp:null)))
+ (common-lisp:defclass get-configured-table-analysis-rule-input common-lisp:nil
+                       ((analysis-rule-type :initarg :|analysisRuleType| :type
+                         (common-lisp:or configured-table-analysis-rule-type
+                                         common-lisp:null)
+                         :accessor
+                         %get-configured-table-analysis-rule-input-analysis-rule-type
+                         :initform
+                         (common-lisp:error ":analysisruletype is required"))
+                        (configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-configured-table-analysis-rule-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-configured-table-analysis-rule-input
                     'make-get-configured-table-analysis-rule-input))
+ (common-lisp:defun make-get-configured-table-analysis-rule-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule-type
+                     configured-table-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-configured-table-analysis-rule-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2376,14 +3079,25 @@
                           get-configured-table-analysis-rule-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configured-table-analysis-rule-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-configured-table-analysis-rule-output-"))
-   (analysis-rule (common-lisp:error ":analysisrule is required") :type
-    (common-lisp:or configured-table-analysis-rule common-lisp:null)))
+ (common-lisp:defclass get-configured-table-analysis-rule-output
+                       common-lisp:nil
+                       ((analysis-rule :initarg :|analysisRule| :type
+                         (common-lisp:or configured-table-analysis-rule
+                                         common-lisp:null)
+                         :accessor
+                         %get-configured-table-analysis-rule-output-analysis-rule
+                         :initform
+                         (common-lisp:error ":analysisrule is required"))))
  (common-lisp:export
   (common-lisp:list 'get-configured-table-analysis-rule-output
                     'make-get-configured-table-analysis-rule-output))
+ (common-lisp:defun make-get-configured-table-analysis-rule-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-configured-table-analysis-rule-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2407,19 +3121,37 @@
                           get-configured-table-analysis-rule-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configured-table-association-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-configured-table-association-input-"))
-   (configured-table-association-identifier
-    (common-lisp:error ":configuredtableassociationidentifier is required")
-    :type
-    (common-lisp:or configured-table-association-identifier common-lisp:null))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null)))
+ (common-lisp:defclass get-configured-table-association-input common-lisp:nil
+                       ((membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-configured-table-association-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))
+                        (configured-table-association-identifier :initarg
+                         :|configuredTableAssociationIdentifier| :type
+                         (common-lisp:or
+                          configured-table-association-identifier
+                          common-lisp:null)
+                         :accessor
+                         %get-configured-table-association-input-configured-table-association-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableassociationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-configured-table-association-input
                     'make-get-configured-table-association-input))
+ (common-lisp:defun make-get-configured-table-association-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership-identifier
+                     configured-table-association-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-configured-table-association-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2436,15 +3168,26 @@
                           get-configured-table-association-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configured-table-association-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-configured-table-association-output-"))
-   (configured-table-association
-    (common-lisp:error ":configuredtableassociation is required") :type
-    (common-lisp:or configured-table-association common-lisp:null)))
+ (common-lisp:defclass get-configured-table-association-output common-lisp:nil
+                       ((configured-table-association :initarg
+                         :|configuredTableAssociation| :type
+                         (common-lisp:or configured-table-association
+                                         common-lisp:null)
+                         :accessor
+                         %get-configured-table-association-output-configured-table-association
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableassociation is required"))))
  (common-lisp:export
   (common-lisp:list 'get-configured-table-association-output
                     'make-get-configured-table-association-output))
+ (common-lisp:defun make-get-configured-table-association-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-configured-table-association-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2469,15 +3212,25 @@
                           get-configured-table-association-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configured-table-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-configured-table-input-"))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null)))
+ (common-lisp:defclass get-configured-table-input common-lisp:nil
+                       ((configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-configured-table-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-configured-table-input
                     'make-get-configured-table-input))
+ (common-lisp:defun make-get-configured-table-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-configured-table-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2494,14 +3247,22 @@
                           get-configured-table-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-configured-table-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-configured-table-output-"))
-   (configured-table (common-lisp:error ":configuredtable is required") :type
-    (common-lisp:or configured-table common-lisp:null)))
+ (common-lisp:defclass get-configured-table-output common-lisp:nil
+                       ((configured-table :initarg :|configuredTable| :type
+                         (common-lisp:or configured-table common-lisp:null)
+                         :accessor
+                         %get-configured-table-output-configured-table
+                         :initform
+                         (common-lisp:error ":configuredtable is required"))))
  (common-lisp:export
   (common-lisp:list 'get-configured-table-output
                     'make-get-configured-table-output))
+ (common-lisp:defun make-get-configured-table-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table)
+   (common-lisp:apply #'common-lisp:make-instance 'get-configured-table-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2525,14 +3286,23 @@
                           get-configured-table-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-membership-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-membership-input-"))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null)))
+ (common-lisp:defclass get-membership-input common-lisp:nil
+                       ((membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor %get-membership-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-membership-input 'make-get-membership-input))
+ (common-lisp:defun make-get-membership-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-membership-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-membership-input))
    (common-lisp:append))
@@ -2543,13 +3313,19 @@
                         ((aws-sdk/generator/shape::input get-membership-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-membership-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-membership-output-"))
-   (membership (common-lisp:error ":membership is required") :type
-    (common-lisp:or membership common-lisp:null)))
+ (common-lisp:defclass get-membership-output common-lisp:nil
+                       ((membership :initarg :|membership| :type
+                         (common-lisp:or membership common-lisp:null) :accessor
+                         %get-membership-output-membership :initform
+                         (common-lisp:error ":membership is required"))))
  (common-lisp:export
   (common-lisp:list 'get-membership-output 'make-get-membership-output))
+ (common-lisp:defun make-get-membership-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership)
+   (common-lisp:apply #'common-lisp:make-instance 'get-membership-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2573,18 +3349,35 @@
                           get-membership-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-protected-query-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-protected-query-input-"))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (protected-query-identifier
-    (common-lisp:error ":protectedqueryidentifier is required") :type
-    (common-lisp:or protected-query-identifier common-lisp:null)))
+ (common-lisp:defclass get-protected-query-input common-lisp:nil
+                       ((protected-query-identifier :initarg
+                         :|protectedQueryIdentifier| :type
+                         (common-lisp:or protected-query-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-protected-query-input-protected-query-identifier
+                         :initform
+                         (common-lisp:error
+                          ":protectedqueryidentifier is required"))
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-protected-query-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-protected-query-input
                     'make-get-protected-query-input))
+ (common-lisp:defun make-get-protected-query-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key protected-query-identifier
+                     membership-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-protected-query-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2601,14 +3394,21 @@
                           get-protected-query-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-protected-query-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-protected-query-output-"))
-   (protected-query (common-lisp:error ":protectedquery is required") :type
-    (common-lisp:or protected-query common-lisp:null)))
+ (common-lisp:defclass get-protected-query-output common-lisp:nil
+                       ((protected-query :initarg :|protectedQuery| :type
+                         (common-lisp:or protected-query common-lisp:null)
+                         :accessor %get-protected-query-output-protected-query
+                         :initform
+                         (common-lisp:error ":protectedquery is required"))))
  (common-lisp:export
   (common-lisp:list 'get-protected-query-output
                     'make-get-protected-query-output))
+ (common-lisp:defun make-get-protected-query-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key protected-query)
+   (common-lisp:apply #'common-lisp:make-instance 'get-protected-query-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2632,19 +3432,34 @@
                           get-protected-query-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-schema-analysis-rule-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-schema-analysis-rule-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or analysis-rule-type common-lisp:null)))
+ (common-lisp:defclass get-schema-analysis-rule-input common-lisp:nil
+                       ((type :initarg :|type| :type
+                         (common-lisp:or analysis-rule-type common-lisp:null)
+                         :accessor %get-schema-analysis-rule-input-type
+                         :initform (common-lisp:error ":type is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %get-schema-analysis-rule-input-name
+                         :initform (common-lisp:error ":name is required"))
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %get-schema-analysis-rule-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-schema-analysis-rule-input
                     'make-get-schema-analysis-rule-input))
+ (common-lisp:defun make-get-schema-analysis-rule-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key type name collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-schema-analysis-rule-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2661,14 +3476,23 @@
                           get-schema-analysis-rule-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-schema-analysis-rule-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-schema-analysis-rule-output-"))
-   (analysis-rule (common-lisp:error ":analysisrule is required") :type
-    (common-lisp:or analysis-rule common-lisp:null)))
+ (common-lisp:defclass get-schema-analysis-rule-output common-lisp:nil
+                       ((analysis-rule :initarg :|analysisRule| :type
+                         (common-lisp:or analysis-rule common-lisp:null)
+                         :accessor
+                         %get-schema-analysis-rule-output-analysis-rule
+                         :initform
+                         (common-lisp:error ":analysisrule is required"))))
  (common-lisp:export
   (common-lisp:list 'get-schema-analysis-rule-output
                     'make-get-schema-analysis-rule-output))
+ (common-lisp:defun make-get-schema-analysis-rule-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-schema-analysis-rule-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2692,16 +3516,27 @@
                           get-schema-analysis-rule-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-schema-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-schema-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null)))
+ (common-lisp:defclass get-schema-input common-lisp:nil
+                       ((name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %get-schema-input-name :initform
+                         (common-lisp:error ":name is required"))
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor %get-schema-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-schema-input 'make-get-schema-input))
+ (common-lisp:defun make-get-schema-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-schema-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-schema-input))
    (common-lisp:append))
@@ -2712,13 +3547,19 @@
                         ((aws-sdk/generator/shape::input get-schema-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-schema-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-schema-output-"))
-   (schema (common-lisp:error ":schema is required") :type
-    (common-lisp:or schema common-lisp:null)))
+ (common-lisp:defclass get-schema-output common-lisp:nil
+                       ((schema :initarg :|schema| :type
+                         (common-lisp:or schema common-lisp:null) :accessor
+                         %get-schema-output-schema :initform
+                         (common-lisp:error ":schema is required"))))
  (common-lisp:export
   (common-lisp:list 'get-schema-output 'make-get-schema-output))
+ (common-lisp:defun make-get-schema-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key schema)
+   (common-lisp:apply #'common-lisp:make-instance 'get-schema-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-schema-output))
    (common-lisp:append))
@@ -2737,15 +3578,24 @@
    common-lisp:nil))
 (common-lisp:deftype glue-resource-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (glue-table-reference (:copier common-lisp:nil)
-      (:conc-name "struct-shape-glue-table-reference-"))
-   (table-name (common-lisp:error ":tablename is required") :type
-    (common-lisp:or glue-resource-name common-lisp:null))
-   (database-name (common-lisp:error ":databasename is required") :type
-    (common-lisp:or glue-resource-name common-lisp:null)))
+ (common-lisp:defclass glue-table-reference common-lisp:nil
+                       ((database-name :initarg :|databaseName| :type
+                         (common-lisp:or glue-resource-name common-lisp:null)
+                         :accessor %glue-table-reference-database-name
+                         :initform
+                         (common-lisp:error ":databasename is required"))
+                        (table-name :initarg :|tableName| :type
+                         (common-lisp:or glue-resource-name common-lisp:null)
+                         :accessor %glue-table-reference-table-name :initform
+                         (common-lisp:error ":tablename is required"))))
  (common-lisp:export
   (common-lisp:list 'glue-table-reference 'make-glue-table-reference))
+ (common-lisp:defun make-glue-table-reference
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key database-name table-name)
+   (common-lisp:apply #'common-lisp:make-instance 'glue-table-reference
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input glue-table-reference))
    (common-lisp:append))
@@ -2772,7 +3622,7 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (cleanrooms-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
@@ -2780,18 +3630,29 @@
 (common-lisp:deftype join-required-option () 'common-lisp:string)
 (common-lisp:deftype key-prefix () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-collaborations-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-collaborations-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (member-status common-lisp:nil :type
-    (common-lisp:or filterable-member-status common-lisp:null)))
+ (common-lisp:defclass list-collaborations-input common-lisp:nil
+                       ((member-status :initarg :|memberStatus| :type
+                         (common-lisp:or filterable-member-status
+                                         common-lisp:null)
+                         :accessor %list-collaborations-input-member-status
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-collaborations-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-collaborations-input-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-collaborations-input
                     'make-list-collaborations-input))
+ (common-lisp:defun make-list-collaborations-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key member-status max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-collaborations-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2808,16 +3669,27 @@
                           list-collaborations-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-collaborations-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-collaborations-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (collaboration-list (common-lisp:error ":collaborationlist is required")
-    :type (common-lisp:or collaboration-summary-list common-lisp:null)))
+ (common-lisp:defclass list-collaborations-output common-lisp:nil
+                       ((collaboration-list :initarg :|collaborationList| :type
+                         (common-lisp:or collaboration-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-collaborations-output-collaboration-list
+                         :initform
+                         (common-lisp:error ":collaborationlist is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-collaborations-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-collaborations-output
                     'make-list-collaborations-output))
+ (common-lisp:defun make-list-collaborations-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key collaboration-list next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-collaborations-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2848,19 +3720,37 @@
                           list-collaborations-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configured-table-associations-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configured-table-associations-input-"))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-configured-table-associations-input common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-configured-table-associations-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %list-configured-table-associations-input-next-token
+                         :initform common-lisp:nil)
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %list-configured-table-associations-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'list-configured-table-associations-input
                     'make-list-configured-table-associations-input))
+ (common-lisp:defun make-list-configured-table-associations-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token
+                     membership-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configured-table-associations-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2877,19 +3767,34 @@
                           list-configured-table-associations-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configured-table-associations-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configured-table-associations-output-"))
-   (configured-table-association-summaries
-    (common-lisp:error ":configuredtableassociationsummaries is required")
-    :type
-    (common-lisp:or configured-table-association-summary-list
-                    common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-configured-table-associations-output
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %list-configured-table-associations-output-next-token
+                         :initform common-lisp:nil)
+                        (configured-table-association-summaries :initarg
+                         :|configuredTableAssociationSummaries| :type
+                         (common-lisp:or
+                          configured-table-association-summary-list
+                          common-lisp:null)
+                         :accessor
+                         %list-configured-table-associations-output-configured-table-association-summaries
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableassociationsummaries is required"))))
  (common-lisp:export
   (common-lisp:list 'list-configured-table-associations-output
                     'make-list-configured-table-associations-output))
+ (common-lisp:defun make-list-configured-table-associations-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     configured-table-association-summaries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configured-table-associations-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2921,16 +3826,24 @@
                           list-configured-table-associations-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configured-tables-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configured-tables-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-configured-tables-input common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-configured-tables-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-configured-tables-input-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configured-tables-input
                     'make-list-configured-tables-input))
+ (common-lisp:defun make-list-configured-tables-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-configured-tables-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2947,17 +3860,30 @@
                           list-configured-tables-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configured-tables-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configured-tables-output-"))
-   (configured-table-summaries
-    (common-lisp:error ":configuredtablesummaries is required") :type
-    (common-lisp:or configured-table-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-configured-tables-output common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-configured-tables-output-next-token
+                         :initform common-lisp:nil)
+                        (configured-table-summaries :initarg
+                         :|configuredTableSummaries| :type
+                         (common-lisp:or configured-table-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-configured-tables-output-configured-table-summaries
+                         :initform
+                         (common-lisp:error
+                          ":configuredtablesummaries is required"))))
  (common-lisp:export
   (common-lisp:list 'list-configured-tables-output
                     'make-list-configured-tables-output))
+ (common-lisp:defun make-list-configured-tables-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token configured-table-summaries)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configured-tables-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2989,18 +3915,32 @@
                           list-configured-tables-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-members-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-members-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-members-input common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-members-input-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-members-input-next-token :initform
+                         common-lisp:nil)
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor %list-members-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'list-members-input 'make-list-members-input))
+ (common-lisp:defun make-list-members-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token
+                     collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'list-members-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-members-input))
    (common-lisp:append))
@@ -3011,15 +3951,24 @@
                         ((aws-sdk/generator/shape::input list-members-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-members-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-members-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (member-summaries (common-lisp:error ":membersummaries is required") :type
-    (common-lisp:or member-summary-list common-lisp:null)))
+ (common-lisp:defclass list-members-output common-lisp:nil
+                       ((member-summaries :initarg :|memberSummaries| :type
+                         (common-lisp:or member-summary-list common-lisp:null)
+                         :accessor %list-members-output-member-summaries
+                         :initform
+                         (common-lisp:error ":membersummaries is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-members-output-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-members-output 'make-list-members-output))
+ (common-lisp:defun make-list-members-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key member-summaries next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-members-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-members-output))
    (common-lisp:append))
@@ -3044,17 +3993,27 @@
                         ((aws-sdk/generator/shape::input list-members-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-memberships-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-memberships-input-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or membership-status common-lisp:null)))
+ (common-lisp:defclass list-memberships-input common-lisp:nil
+                       ((status :initarg :|status| :type
+                         (common-lisp:or membership-status common-lisp:null)
+                         :accessor %list-memberships-input-status :initform
+                         common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-memberships-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-memberships-input-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-memberships-input 'make-list-memberships-input))
+ (common-lisp:defun make-list-memberships-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-memberships-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3071,15 +4030,28 @@
                           list-memberships-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-memberships-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-memberships-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (membership-summaries (common-lisp:error ":membershipsummaries is required")
-    :type (common-lisp:or membership-summary-list common-lisp:null)))
+ (common-lisp:defclass list-memberships-output common-lisp:nil
+                       ((membership-summaries :initarg :|membershipSummaries|
+                         :type
+                         (common-lisp:or membership-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-memberships-output-membership-summaries
+                         :initform
+                         (common-lisp:error
+                          ":membershipsummaries is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-memberships-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-memberships-output 'make-list-memberships-output))
+ (common-lisp:defun make-list-memberships-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership-summaries next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-memberships-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3111,21 +4083,39 @@
                           list-memberships-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-protected-queries-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-protected-queries-input-"))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or protected-query-status common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-protected-queries-input common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-protected-queries-input-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-protected-queries-input-next-token
+                         :initform common-lisp:nil)
+                        (status :initarg :|status| :type
+                         (common-lisp:or protected-query-status
+                                         common-lisp:null)
+                         :accessor %list-protected-queries-input-status
+                         :initform common-lisp:nil)
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %list-protected-queries-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'list-protected-queries-input
                     'make-list-protected-queries-input))
+ (common-lisp:defun make-list-protected-queries-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token status
+                     membership-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'list-protected-queries-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3142,16 +4132,28 @@
                           list-protected-queries-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-protected-queries-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-protected-queries-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (protected-queries (common-lisp:error ":protectedqueries is required") :type
-    (common-lisp:or protected-query-summary-list common-lisp:null)))
+ (common-lisp:defclass list-protected-queries-output common-lisp:nil
+                       ((protected-queries :initarg :|protectedQueries| :type
+                         (common-lisp:or protected-query-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-protected-queries-output-protected-queries
+                         :initform
+                         (common-lisp:error ":protectedqueries is required"))
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-protected-queries-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-protected-queries-output
                     'make-list-protected-queries-output))
+ (common-lisp:defun make-list-protected-queries-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key protected-queries next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-protected-queries-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3182,20 +4184,36 @@
                           list-protected-queries-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-schemas-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-schemas-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (schema-type common-lisp:nil :type
-    (common-lisp:or schema-type common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-schemas-input common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-schemas-input-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-schemas-input-next-token :initform
+                         common-lisp:nil)
+                        (schema-type :initarg :|schemaType| :type
+                         (common-lisp:or schema-type common-lisp:null)
+                         :accessor %list-schemas-input-schema-type :initform
+                         common-lisp:nil)
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor %list-schemas-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'list-schemas-input 'make-list-schemas-input))
+ (common-lisp:defun make-list-schemas-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token schema-type
+                     collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'list-schemas-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-schemas-input))
    (common-lisp:append))
@@ -3206,15 +4224,24 @@
                         ((aws-sdk/generator/shape::input list-schemas-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-schemas-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-schemas-output-"))
-   (schema-summaries (common-lisp:error ":schemasummaries is required") :type
-    (common-lisp:or schema-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass list-schemas-output common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %list-schemas-output-next-token :initform
+                         common-lisp:nil)
+                        (schema-summaries :initarg :|schemaSummaries| :type
+                         (common-lisp:or schema-summary-list common-lisp:null)
+                         :accessor %list-schemas-output-schema-summaries
+                         :initform
+                         (common-lisp:error ":schemasummaries is required"))))
  (common-lisp:export
   (common-lisp:list 'list-schemas-output 'make-list-schemas-output))
+ (common-lisp:defun make-list-schemas-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token schema-summaries)
+   (common-lisp:apply #'common-lisp:make-instance 'list-schemas-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-schemas-output))
    (common-lisp:append))
@@ -3239,14 +4266,21 @@
                         ((aws-sdk/generator/shape::input list-schemas-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-input-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or cleanrooms-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-input common-lisp:nil
+                       ((resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or cleanrooms-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-input-resource-arn
+                         :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-input
                     'make-list-tags-for-resource-input))
+ (common-lisp:defun make-list-tags-for-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-tags-for-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3263,14 +4297,21 @@
                           list-tags-for-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-output-"))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-output common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-tags-for-resource-output-tags :initform
+                         (common-lisp:error ":tags is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-output
                     'make-list-tags-for-resource-output))
+ (common-lisp:defun make-list-tags-for-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3313,17 +4354,28 @@
                            (trivial-types:proper-list member-specification))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (member-specification (:copier common-lisp:nil)
-      (:conc-name "struct-shape-member-specification-"))
-   (account-id (common-lisp:error ":accountid is required") :type
-    (common-lisp:or account-id common-lisp:null))
-   (member-abilities (common-lisp:error ":memberabilities is required") :type
-    (common-lisp:or member-abilities common-lisp:null))
-   (display-name (common-lisp:error ":displayname is required") :type
-    (common-lisp:or display-name common-lisp:null)))
+ (common-lisp:defclass member-specification common-lisp:nil
+                       ((display-name :initarg :|displayName| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %member-specification-display-name :initform
+                         (common-lisp:error ":displayname is required"))
+                        (member-abilities :initarg :|memberAbilities| :type
+                         (common-lisp:or member-abilities common-lisp:null)
+                         :accessor %member-specification-member-abilities
+                         :initform
+                         (common-lisp:error ":memberabilities is required"))
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %member-specification-account-id :initform
+                         (common-lisp:error ":accountid is required"))))
  (common-lisp:export
   (common-lisp:list 'member-specification 'make-member-specification))
+ (common-lisp:defun make-member-specification
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key display-name member-abilities account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'member-specification
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input member-specification))
    (common-lisp:append))
@@ -3356,25 +4408,47 @@
    common-lisp:nil))
 (common-lisp:deftype member-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (member-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-member-summary-"))
-   (account-id (common-lisp:error ":accountid is required") :type
-    (common-lisp:or account-id common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or member-status common-lisp:null))
-   (display-name (common-lisp:error ":displayname is required") :type
-    (common-lisp:or display-name common-lisp:null))
-   (abilities (common-lisp:error ":abilities is required") :type
-    (common-lisp:or member-abilities common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (membership-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (membership-arn common-lisp:nil :type
-    (common-lisp:or membership-arn common-lisp:null)))
+ (common-lisp:defclass member-summary common-lisp:nil
+                       ((membership-arn :initarg :|membershipArn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %member-summary-membership-arn :initform
+                         common-lisp:nil)
+                        (membership-id :initarg :|membershipId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %member-summary-membership-id :initform
+                         common-lisp:nil)
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %member-summary-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %member-summary-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (abilities :initarg :|abilities| :type
+                         (common-lisp:or member-abilities common-lisp:null)
+                         :accessor %member-summary-abilities :initform
+                         (common-lisp:error ":abilities is required"))
+                        (display-name :initarg :|displayName| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %member-summary-display-name :initform
+                         (common-lisp:error ":displayname is required"))
+                        (status :initarg :|status| :type
+                         (common-lisp:or member-status common-lisp:null)
+                         :accessor %member-summary-status :initform
+                         (common-lisp:error ":status is required"))
+                        (account-id :initarg :|accountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %member-summary-account-id :initform
+                         (common-lisp:error ":accountid is required"))))
  (common-lisp:export (common-lisp:list 'member-summary 'make-member-summary))
+ (common-lisp:defun make-member-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership-arn membership-id update-time
+                     create-time abilities display-name status account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'member-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input member-summary))
    (common-lisp:append))
@@ -3449,36 +4523,73 @@
                            (trivial-types:proper-list member-summary))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (membership (:copier common-lisp:nil)
-      (:conc-name "struct-shape-membership-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or membership-arn common-lisp:null))
-   (collaboration-arn (common-lisp:error ":collaborationarn is required") :type
-    (common-lisp:or collaboration-arn common-lisp:null))
-   (collaboration-id (common-lisp:error ":collaborationid is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (collaboration-creator-account-id
-    (common-lisp:error ":collaborationcreatoraccountid is required") :type
-    (common-lisp:or account-id common-lisp:null))
-   (collaboration-creator-display-name
-    (common-lisp:error ":collaborationcreatordisplayname is required") :type
-    (common-lisp:or display-name common-lisp:null))
-   (collaboration-name (common-lisp:error ":collaborationname is required")
-    :type (common-lisp:or collaboration-name common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or membership-status common-lisp:null))
-   (member-abilities (common-lisp:error ":memberabilities is required") :type
-    (common-lisp:or member-abilities common-lisp:null))
-   (query-log-status (common-lisp:error ":querylogstatus is required") :type
-    (common-lisp:or membership-query-log-status common-lisp:null)))
+ (common-lisp:defclass membership common-lisp:nil
+                       ((query-log-status :initarg :|queryLogStatus| :type
+                         (common-lisp:or membership-query-log-status
+                                         common-lisp:null)
+                         :accessor %membership-query-log-status :initform
+                         (common-lisp:error ":querylogstatus is required"))
+                        (member-abilities :initarg :|memberAbilities| :type
+                         (common-lisp:or member-abilities common-lisp:null)
+                         :accessor %membership-member-abilities :initform
+                         (common-lisp:error ":memberabilities is required"))
+                        (status :initarg :|status| :type
+                         (common-lisp:or membership-status common-lisp:null)
+                         :accessor %membership-status :initform
+                         (common-lisp:error ":status is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %membership-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %membership-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (collaboration-name :initarg :|collaborationName| :type
+                         (common-lisp:or collaboration-name common-lisp:null)
+                         :accessor %membership-collaboration-name :initform
+                         (common-lisp:error ":collaborationname is required"))
+                        (collaboration-creator-display-name :initarg
+                         :|collaborationCreatorDisplayName| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor
+                         %membership-collaboration-creator-display-name
+                         :initform
+                         (common-lisp:error
+                          ":collaborationcreatordisplayname is required"))
+                        (collaboration-creator-account-id :initarg
+                         :|collaborationCreatorAccountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %membership-collaboration-creator-account-id :initform
+                         (common-lisp:error
+                          ":collaborationcreatoraccountid is required"))
+                        (collaboration-id :initarg :|collaborationId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %membership-collaboration-id :initform
+                         (common-lisp:error ":collaborationid is required"))
+                        (collaboration-arn :initarg :|collaborationArn| :type
+                         (common-lisp:or collaboration-arn common-lisp:null)
+                         :accessor %membership-collaboration-arn :initform
+                         (common-lisp:error ":collaborationarn is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %membership-arn :initform
+                         (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %membership-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export (common-lisp:list 'membership 'make-membership))
+ (common-lisp:defun make-membership
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key query-log-status member-abilities status
+                     update-time create-time collaboration-name
+                     collaboration-creator-display-name
+                     collaboration-creator-account-id collaboration-id
+                     collaboration-arn arn id)
+   (common-lisp:apply #'common-lisp:make-instance 'membership
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input membership))
    (common-lisp:append))
@@ -3579,35 +4690,75 @@
 (common-lisp:deftype membership-query-log-status () 'common-lisp:string)
 (common-lisp:deftype membership-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (membership-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-membership-summary-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or membership-arn common-lisp:null))
-   (collaboration-arn (common-lisp:error ":collaborationarn is required") :type
-    (common-lisp:or collaboration-arn common-lisp:null))
-   (collaboration-id (common-lisp:error ":collaborationid is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (collaboration-creator-account-id
-    (common-lisp:error ":collaborationcreatoraccountid is required") :type
-    (common-lisp:or account-id common-lisp:null))
-   (collaboration-creator-display-name
-    (common-lisp:error ":collaborationcreatordisplayname is required") :type
-    (common-lisp:or display-name common-lisp:null))
-   (collaboration-name (common-lisp:error ":collaborationname is required")
-    :type (common-lisp:or collaboration-name common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or membership-status common-lisp:null))
-   (member-abilities (common-lisp:error ":memberabilities is required") :type
-    (common-lisp:or member-abilities common-lisp:null)))
+ (common-lisp:defclass membership-summary common-lisp:nil
+                       ((member-abilities :initarg :|memberAbilities| :type
+                         (common-lisp:or member-abilities common-lisp:null)
+                         :accessor %membership-summary-member-abilities
+                         :initform
+                         (common-lisp:error ":memberabilities is required"))
+                        (status :initarg :|status| :type
+                         (common-lisp:or membership-status common-lisp:null)
+                         :accessor %membership-summary-status :initform
+                         (common-lisp:error ":status is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %membership-summary-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %membership-summary-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (collaboration-name :initarg :|collaborationName| :type
+                         (common-lisp:or collaboration-name common-lisp:null)
+                         :accessor %membership-summary-collaboration-name
+                         :initform
+                         (common-lisp:error ":collaborationname is required"))
+                        (collaboration-creator-display-name :initarg
+                         :|collaborationCreatorDisplayName| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor
+                         %membership-summary-collaboration-creator-display-name
+                         :initform
+                         (common-lisp:error
+                          ":collaborationcreatordisplayname is required"))
+                        (collaboration-creator-account-id :initarg
+                         :|collaborationCreatorAccountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %membership-summary-collaboration-creator-account-id
+                         :initform
+                         (common-lisp:error
+                          ":collaborationcreatoraccountid is required"))
+                        (collaboration-id :initarg :|collaborationId| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor %membership-summary-collaboration-id
+                         :initform
+                         (common-lisp:error ":collaborationid is required"))
+                        (collaboration-arn :initarg :|collaborationArn| :type
+                         (common-lisp:or collaboration-arn common-lisp:null)
+                         :accessor %membership-summary-collaboration-arn
+                         :initform
+                         (common-lisp:error ":collaborationarn is required"))
+                        (arn :initarg :|arn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %membership-summary-arn :initform
+                         (common-lisp:error ":arn is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %membership-summary-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'membership-summary 'make-membership-summary))
+ (common-lisp:defun make-membership-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key member-abilities status update-time
+                     create-time collaboration-name
+                     collaboration-creator-display-name
+                     collaboration-creator-account-id collaboration-id
+                     collaboration-arn arn id)
+   (common-lisp:apply #'common-lisp:make-instance 'membership-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input membership-summary))
    (common-lisp:append))
@@ -3706,31 +4857,65 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype pagination-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (membership-id (common-lisp:error ":membershipid is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (membership-arn (common-lisp:error ":membershiparn is required") :type
-    (common-lisp:or membership-arn common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (sql-parameters (common-lisp:error ":sqlparameters is required") :type
-    (common-lisp:or protected-query-sqlparameters common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or protected-query-status common-lisp:null))
-   (result-configuration (common-lisp:error ":resultconfiguration is required")
-    :type
-    (common-lisp:or protected-query-result-configuration common-lisp:null))
-   (statistics common-lisp:nil :type
-    (common-lisp:or protected-query-statistics common-lisp:null))
-   (result common-lisp:nil :type
-    (common-lisp:or protected-query-result common-lisp:null))
-   (error common-lisp:nil :type
-    (common-lisp:or protected-query-error common-lisp:null)))
+ (common-lisp:defclass protected-query common-lisp:nil
+                       ((error :initarg :|error| :type
+                         (common-lisp:or protected-query-error
+                                         common-lisp:null)
+                         :accessor %protected-query-error :initform
+                         common-lisp:nil)
+                        (result :initarg :|result| :type
+                         (common-lisp:or protected-query-result
+                                         common-lisp:null)
+                         :accessor %protected-query-result :initform
+                         common-lisp:nil)
+                        (statistics :initarg :|statistics| :type
+                         (common-lisp:or protected-query-statistics
+                                         common-lisp:null)
+                         :accessor %protected-query-statistics :initform
+                         common-lisp:nil)
+                        (result-configuration :initarg :|resultConfiguration|
+                         :type
+                         (common-lisp:or protected-query-result-configuration
+                                         common-lisp:null)
+                         :accessor %protected-query-result-configuration
+                         :initform
+                         (common-lisp:error
+                          ":resultconfiguration is required"))
+                        (status :initarg :|status| :type
+                         (common-lisp:or protected-query-status
+                                         common-lisp:null)
+                         :accessor %protected-query-status :initform
+                         (common-lisp:error ":status is required"))
+                        (sql-parameters :initarg :|sqlParameters| :type
+                         (common-lisp:or protected-query-sqlparameters
+                                         common-lisp:null)
+                         :accessor %protected-query-sql-parameters :initform
+                         (common-lisp:error ":sqlparameters is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %protected-query-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (membership-arn :initarg :|membershipArn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %protected-query-membership-arn :initform
+                         (common-lisp:error ":membershiparn is required"))
+                        (membership-id :initarg :|membershipId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %protected-query-membership-id :initform
+                         (common-lisp:error ":membershipid is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %protected-query-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export (common-lisp:list 'protected-query 'make-protected-query))
+ (common-lisp:defun make-protected-query
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key error result statistics
+                     result-configuration status sql-parameters create-time
+                     membership-arn membership-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-query
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input protected-query))
    (common-lisp:append))
@@ -3812,15 +4997,23 @@
                         ((aws-sdk/generator/shape::input protected-query))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-error (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-error-"))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or string common-lisp:null))
-   (code (common-lisp:error ":code is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass protected-query-error common-lisp:nil
+                       ((code :initarg :|code| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %protected-query-error-code :initform
+                         (common-lisp:error ":code is required"))
+                        (message :initarg :|message| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %protected-query-error-message :initform
+                         (common-lisp:error ":message is required"))))
  (common-lisp:export
   (common-lisp:list 'protected-query-error 'make-protected-query-error))
+ (common-lisp:defun make-protected-query-error
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key code message)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-query-error
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3852,13 +5045,20 @@
    common-lisp:nil))
 (common-lisp:deftype protected-query-identifier () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-output-"))
-   (s3 common-lisp:nil :type
-    (common-lisp:or protected-query-s3output common-lisp:null)))
+ (common-lisp:defclass protected-query-output common-lisp:nil
+                       ((s3 :initarg :|s3| :type
+                         (common-lisp:or protected-query-s3output
+                                         common-lisp:null)
+                         :accessor %protected-query-output-s3 :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'protected-query-output 'make-protected-query-output))
+ (common-lisp:defun make-protected-query-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-query-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3882,14 +5082,22 @@
                           protected-query-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-output-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-output-configuration-"))
-   (s3 common-lisp:nil :type
-    (common-lisp:or protected-query-s3output-configuration common-lisp:null)))
+ (common-lisp:defclass protected-query-output-configuration common-lisp:nil
+                       ((s3 :initarg :|s3| :type
+                         (common-lisp:or protected-query-s3output-configuration
+                                         common-lisp:null)
+                         :accessor %protected-query-output-configuration-s3
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'protected-query-output-configuration
                     'make-protected-query-output-configuration))
+ (common-lisp:defun make-protected-query-output-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key s3)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'protected-query-output-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3913,13 +5121,20 @@
                           protected-query-output-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-result-"))
-   (output (common-lisp:error ":output is required") :type
-    (common-lisp:or protected-query-output common-lisp:null)))
+ (common-lisp:defclass protected-query-result common-lisp:nil
+                       ((output :initarg :|output| :type
+                         (common-lisp:or protected-query-output
+                                         common-lisp:null)
+                         :accessor %protected-query-result-output :initform
+                         (common-lisp:error ":output is required"))))
  (common-lisp:export
   (common-lisp:list 'protected-query-result 'make-protected-query-result))
+ (common-lisp:defun make-protected-query-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-query-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3943,15 +5158,26 @@
                           protected-query-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-result-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-result-configuration-"))
-   (output-configuration (common-lisp:error ":outputconfiguration is required")
-    :type
-    (common-lisp:or protected-query-output-configuration common-lisp:null)))
+ (common-lisp:defclass protected-query-result-configuration common-lisp:nil
+                       ((output-configuration :initarg :|outputConfiguration|
+                         :type
+                         (common-lisp:or protected-query-output-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %protected-query-result-configuration-output-configuration
+                         :initform
+                         (common-lisp:error
+                          ":outputconfiguration is required"))))
  (common-lisp:export
   (common-lisp:list 'protected-query-result-configuration
                     'make-protected-query-result-configuration))
+ (common-lisp:defun make-protected-query-result-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key output-configuration)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'protected-query-result-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3976,13 +5202,19 @@
                           protected-query-result-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-s3output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-s3output-"))
-   (location (common-lisp:error ":location is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass protected-query-s3output common-lisp:nil
+                       ((location :initarg :|location| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %protected-query-s3output-location :initform
+                         (common-lisp:error ":location is required"))))
  (common-lisp:export
   (common-lisp:list 'protected-query-s3output 'make-protected-query-s3output))
+ (common-lisp:defun make-protected-query-s3output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key location)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-query-s3output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4006,19 +5238,34 @@
                           protected-query-s3output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-s3output-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-s3output-configuration-"))
-   (result-format (common-lisp:error ":resultformat is required") :type
-    (common-lisp:or result-format common-lisp:null))
-   (bucket (common-lisp:error ":bucket is required") :type
-    (common-lisp:or protected-query-s3output-configuration-bucket-string
-                    common-lisp:null))
-   (key-prefix common-lisp:nil :type
-    (common-lisp:or key-prefix common-lisp:null)))
+ (common-lisp:defclass protected-query-s3output-configuration common-lisp:nil
+                       ((key-prefix :initarg :|keyPrefix| :type
+                         (common-lisp:or key-prefix common-lisp:null) :accessor
+                         %protected-query-s3output-configuration-key-prefix
+                         :initform common-lisp:nil)
+                        (bucket :initarg :|bucket| :type
+                         (common-lisp:or
+                          protected-query-s3output-configuration-bucket-string
+                          common-lisp:null)
+                         :accessor
+                         %protected-query-s3output-configuration-bucket
+                         :initform (common-lisp:error ":bucket is required"))
+                        (result-format :initarg :|resultFormat| :type
+                         (common-lisp:or result-format common-lisp:null)
+                         :accessor
+                         %protected-query-s3output-configuration-result-format
+                         :initform
+                         (common-lisp:error ":resultformat is required"))))
  (common-lisp:export
   (common-lisp:list 'protected-query-s3output-configuration
                     'make-protected-query-s3output-configuration))
+ (common-lisp:defun make-protected-query-s3output-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key key-prefix bucket result-format)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'protected-query-s3output-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4058,15 +5305,24 @@
 (common-lisp:deftype protected-query-s3output-configuration-bucket-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-sqlparameters (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-sqlparameters-"))
-   (query-string (common-lisp:error ":querystring is required") :type
-    (common-lisp:or protected-query-sqlparameters-query-string-string
-                    common-lisp:null)))
+ (common-lisp:defclass protected-query-sqlparameters common-lisp:nil
+                       ((query-string :initarg :|queryString| :type
+                         (common-lisp:or
+                          protected-query-sqlparameters-query-string-string
+                          common-lisp:null)
+                         :accessor %protected-query-sqlparameters-query-string
+                         :initform
+                         (common-lisp:error ":querystring is required"))))
  (common-lisp:export
   (common-lisp:list 'protected-query-sqlparameters
                     'make-protected-query-sqlparameters))
+ (common-lisp:defun make-protected-query-sqlparameters
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key query-string)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'protected-query-sqlparameters
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4092,14 +5348,21 @@
 (common-lisp:deftype protected-query-sqlparameters-query-string-string ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-statistics (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-statistics-"))
-   (total-duration-in-millis common-lisp:nil :type
-    (common-lisp:or long common-lisp:null)))
+ (common-lisp:defclass protected-query-statistics common-lisp:nil
+                       ((total-duration-in-millis :initarg
+                         :|totalDurationInMillis| :type
+                         (common-lisp:or long common-lisp:null) :accessor
+                         %protected-query-statistics-total-duration-in-millis
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'protected-query-statistics
                     'make-protected-query-statistics))
+ (common-lisp:defun make-protected-query-statistics
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key total-duration-in-millis)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-query-statistics
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4125,21 +5388,38 @@
    common-lisp:nil))
 (common-lisp:deftype protected-query-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (protected-query-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-protected-query-summary-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (membership-id (common-lisp:error ":membershipid is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (membership-arn (common-lisp:error ":membershiparn is required") :type
-    (common-lisp:or membership-arn common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or protected-query-status common-lisp:null)))
+ (common-lisp:defclass protected-query-summary common-lisp:nil
+                       ((status :initarg :|status| :type
+                         (common-lisp:or protected-query-status
+                                         common-lisp:null)
+                         :accessor %protected-query-summary-status :initform
+                         (common-lisp:error ":status is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %protected-query-summary-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (membership-arn :initarg :|membershipArn| :type
+                         (common-lisp:or membership-arn common-lisp:null)
+                         :accessor %protected-query-summary-membership-arn
+                         :initform
+                         (common-lisp:error ":membershiparn is required"))
+                        (membership-id :initarg :|membershipId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %protected-query-summary-membership-id :initform
+                         (common-lisp:error ":membershipid is required"))
+                        (id :initarg :|id| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %protected-query-summary-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'protected-query-summary 'make-protected-query-summary))
+ (common-lisp:defun make-protected-query-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status create-time membership-arn
+                     membership-id id)
+   (common-lisp:apply #'common-lisp:make-instance 'protected-query-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4202,11 +5482,11 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (cleanrooms-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)
-      (resource-id :initarg :resource-id :initform common-lisp:nil :reader
+      (resource-id :initarg :|resourceId| :initform common-lisp:nil :reader
        resource-not-found-exception-resource-id)
-      (resource-type :initarg :resource-type :initform common-lisp:nil :reader
+      (resource-type :initarg :|resourceType| :initform common-lisp:nil :reader
        resource-not-found-exception-resource-type)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
@@ -4226,33 +5506,67 @@
                            (trivial-types:proper-list scalar-functions))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (schema (:copier common-lisp:nil) (:conc-name "struct-shape-schema-"))
-   (columns (common-lisp:error ":columns is required") :type
-    (common-lisp:or column-list common-lisp:null))
-   (partition-keys (common-lisp:error ":partitionkeys is required") :type
-    (common-lisp:or column-list common-lisp:null))
-   (analysis-rule-types (common-lisp:error ":analysisruletypes is required")
-    :type (common-lisp:or analysis-rule-type-list common-lisp:null))
-   (analysis-method common-lisp:nil :type
-    (common-lisp:or analysis-method common-lisp:null))
-   (creator-account-id (common-lisp:error ":creatoraccountid is required")
-    :type (common-lisp:or account-id common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (collaboration-id (common-lisp:error ":collaborationid is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (collaboration-arn (common-lisp:error ":collaborationarn is required") :type
-    (common-lisp:or collaboration-arn common-lisp:null))
-   (description (common-lisp:error ":description is required") :type
-    (common-lisp:or table-description common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or schema-type common-lisp:null)))
+ (common-lisp:defclass schema common-lisp:nil
+                       ((type :initarg :|type| :type
+                         (common-lisp:or schema-type common-lisp:null)
+                         :accessor %schema-type :initform
+                         (common-lisp:error ":type is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %schema-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %schema-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (description :initarg :|description| :type
+                         (common-lisp:or table-description common-lisp:null)
+                         :accessor %schema-description :initform
+                         (common-lisp:error ":description is required"))
+                        (collaboration-arn :initarg :|collaborationArn| :type
+                         (common-lisp:or collaboration-arn common-lisp:null)
+                         :accessor %schema-collaboration-arn :initform
+                         (common-lisp:error ":collaborationarn is required"))
+                        (collaboration-id :initarg :|collaborationId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %schema-collaboration-id :initform
+                         (common-lisp:error ":collaborationid is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %schema-name :initform
+                         (common-lisp:error ":name is required"))
+                        (creator-account-id :initarg :|creatorAccountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %schema-creator-account-id :initform
+                         (common-lisp:error ":creatoraccountid is required"))
+                        (analysis-method :initarg :|analysisMethod| :type
+                         (common-lisp:or analysis-method common-lisp:null)
+                         :accessor %schema-analysis-method :initform
+                         common-lisp:nil)
+                        (analysis-rule-types :initarg :|analysisRuleTypes|
+                         :type
+                         (common-lisp:or analysis-rule-type-list
+                                         common-lisp:null)
+                         :accessor %schema-analysis-rule-types :initform
+                         (common-lisp:error ":analysisruletypes is required"))
+                        (partition-keys :initarg :|partitionKeys| :type
+                         (common-lisp:or column-list common-lisp:null)
+                         :accessor %schema-partition-keys :initform
+                         (common-lisp:error ":partitionkeys is required"))
+                        (columns :initarg :|columns| :type
+                         (common-lisp:or column-list common-lisp:null)
+                         :accessor %schema-columns :initform
+                         (common-lisp:error ":columns is required"))))
  (common-lisp:export (common-lisp:list 'schema 'make-schema))
+ (common-lisp:defun make-schema
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key type update-time create-time description
+                     collaboration-arn collaboration-id name creator-account-id
+                     analysis-method analysis-rule-types partition-keys
+                     columns)
+   (common-lisp:apply #'common-lisp:make-instance 'schema
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input schema))
    (common-lisp:append))
@@ -4354,28 +5668,55 @@
                            (trivial-types:proper-list schema))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (schema-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-schema-summary-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or table-alias common-lisp:null))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or schema-type common-lisp:null))
-   (creator-account-id (common-lisp:error ":creatoraccountid is required")
-    :type (common-lisp:or account-id common-lisp:null))
-   (create-time (common-lisp:error ":createtime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (update-time (common-lisp:error ":updatetime is required") :type
-    (common-lisp:or timestamp common-lisp:null))
-   (collaboration-id (common-lisp:error ":collaborationid is required") :type
-    (common-lisp:or uuid common-lisp:null))
-   (collaboration-arn (common-lisp:error ":collaborationarn is required") :type
-    (common-lisp:or collaboration-arn common-lisp:null))
-   (analysis-rule-types (common-lisp:error ":analysisruletypes is required")
-    :type (common-lisp:or analysis-rule-type-list common-lisp:null))
-   (analysis-method common-lisp:nil :type
-    (common-lisp:or analysis-method common-lisp:null)))
+ (common-lisp:defclass schema-summary common-lisp:nil
+                       ((analysis-method :initarg :|analysisMethod| :type
+                         (common-lisp:or analysis-method common-lisp:null)
+                         :accessor %schema-summary-analysis-method :initform
+                         common-lisp:nil)
+                        (analysis-rule-types :initarg :|analysisRuleTypes|
+                         :type
+                         (common-lisp:or analysis-rule-type-list
+                                         common-lisp:null)
+                         :accessor %schema-summary-analysis-rule-types
+                         :initform
+                         (common-lisp:error ":analysisruletypes is required"))
+                        (collaboration-arn :initarg :|collaborationArn| :type
+                         (common-lisp:or collaboration-arn common-lisp:null)
+                         :accessor %schema-summary-collaboration-arn :initform
+                         (common-lisp:error ":collaborationarn is required"))
+                        (collaboration-id :initarg :|collaborationId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %schema-summary-collaboration-id :initform
+                         (common-lisp:error ":collaborationid is required"))
+                        (update-time :initarg :|updateTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %schema-summary-update-time :initform
+                         (common-lisp:error ":updatetime is required"))
+                        (create-time :initarg :|createTime| :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %schema-summary-create-time :initform
+                         (common-lisp:error ":createtime is required"))
+                        (creator-account-id :initarg :|creatorAccountId| :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %schema-summary-creator-account-id :initform
+                         (common-lisp:error ":creatoraccountid is required"))
+                        (type :initarg :|type| :type
+                         (common-lisp:or schema-type common-lisp:null)
+                         :accessor %schema-summary-type :initform
+                         (common-lisp:error ":type is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or table-alias common-lisp:null)
+                         :accessor %schema-summary-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export (common-lisp:list 'schema-summary 'make-schema-summary))
+ (common-lisp:defun make-schema-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-method analysis-rule-types
+                     collaboration-arn collaboration-id update-time create-time
+                     creator-account-id type name)
+   (common-lisp:apply #'common-lisp:make-instance 'schema-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input schema-summary))
    (common-lisp:append))
@@ -4460,11 +5801,11 @@
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (cleanrooms-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-message)
-      (quota-name :initarg :quota-name :initform common-lisp:nil :reader
+      (quota-name :initarg :|quotaName| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-quota-name)
-      (quota-value :initarg :quota-value :initform common-lisp:nil :reader
+      (quota-value :initarg :|quotaValue| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-quota-value)))
  (common-lisp:export
   (common-lisp:list 'service-quota-exceeded-exception
@@ -4472,22 +5813,45 @@
                     'service-quota-exceeded-exception-quota-name
                     'service-quota-exceeded-exception-quota-value)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-protected-query-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-protected-query-input-"))
-   (type (common-lisp:error ":type is required") :type
-    (common-lisp:or protected-query-type common-lisp:null))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (sql-parameters (common-lisp:error ":sqlparameters is required") :type
-    (common-lisp:or protected-query-sqlparameters common-lisp:null))
-   (result-configuration (common-lisp:error ":resultconfiguration is required")
-    :type
-    (common-lisp:or protected-query-result-configuration common-lisp:null)))
+ (common-lisp:defclass start-protected-query-input common-lisp:nil
+                       ((result-configuration :initarg :|resultConfiguration|
+                         :type
+                         (common-lisp:or protected-query-result-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %start-protected-query-input-result-configuration
+                         :initform
+                         (common-lisp:error
+                          ":resultconfiguration is required"))
+                        (sql-parameters :initarg :|sqlParameters| :type
+                         (common-lisp:or protected-query-sqlparameters
+                                         common-lisp:null)
+                         :accessor %start-protected-query-input-sql-parameters
+                         :initform
+                         (common-lisp:error ":sqlparameters is required"))
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %start-protected-query-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))
+                        (type :initarg :|type| :type
+                         (common-lisp:or protected-query-type common-lisp:null)
+                         :accessor %start-protected-query-input-type :initform
+                         (common-lisp:error ":type is required"))))
  (common-lisp:export
   (common-lisp:list 'start-protected-query-input
                     'make-start-protected-query-input))
+ (common-lisp:defun make-start-protected-query-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key result-configuration sql-parameters
+                     membership-identifier type)
+   (common-lisp:apply #'common-lisp:make-instance 'start-protected-query-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4526,14 +5890,22 @@
                           start-protected-query-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-protected-query-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-protected-query-output-"))
-   (protected-query (common-lisp:error ":protectedquery is required") :type
-    (common-lisp:or protected-query common-lisp:null)))
+ (common-lisp:defclass start-protected-query-output common-lisp:nil
+                       ((protected-query :initarg :|protectedQuery| :type
+                         (common-lisp:or protected-query common-lisp:null)
+                         :accessor
+                         %start-protected-query-output-protected-query
+                         :initform
+                         (common-lisp:error ":protectedquery is required"))))
  (common-lisp:export
   (common-lisp:list 'start-protected-query-output
                     'make-start-protected-query-output))
+ (common-lisp:defun make-start-protected-query-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key protected-query)
+   (common-lisp:apply #'common-lisp:make-instance 'start-protected-query-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4568,12 +5940,18 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype table-description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (table-reference (:copier common-lisp:nil)
-      (:conc-name "struct-shape-table-reference-"))
-   (glue common-lisp:nil :type
-    (common-lisp:or glue-table-reference common-lisp:null)))
+ (common-lisp:defclass table-reference common-lisp:nil
+                       ((glue :initarg :|glue| :type
+                         (common-lisp:or glue-table-reference common-lisp:null)
+                         :accessor %table-reference-glue :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'table-reference 'make-table-reference))
+ (common-lisp:defun make-table-reference
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key glue)
+   (common-lisp:apply #'common-lisp:make-instance 'table-reference
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input table-reference))
    (common-lisp:append))
@@ -4606,15 +5984,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-input-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or cleanrooms-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-resource-input common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-resource-input-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or cleanrooms-arn common-lisp:null)
+                         :accessor %tag-resource-input-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-input 'make-tag-resource-input))
+ (common-lisp:defun make-tag-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-input))
    (common-lisp:append))
@@ -4632,11 +6018,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-output-")))
+ (common-lisp:defclass tag-resource-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-output 'make-tag-resource-output))
+ (common-lisp:defun make-tag-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-output))
    (common-lisp:append))
@@ -4651,22 +6041,30 @@
 (common-lisp:progn
  (common-lisp:define-condition throttling-exception
      (cleanrooms-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        throttling-exception-message)))
  (common-lisp:export
   (common-lisp:list 'throttling-exception 'throttling-exception-message)))
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:deftype uuid () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-input-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or cleanrooms-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tagkeys is required") :type
-    (common-lisp:or tag-keys common-lisp:null)))
+ (common-lisp:defclass untag-resource-input common-lisp:nil
+                       ((tag-keys :initarg :|tagKeys| :type
+                         (common-lisp:or tag-keys common-lisp:null) :accessor
+                         %untag-resource-input-tag-keys :initform
+                         (common-lisp:error ":tagkeys is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or cleanrooms-arn common-lisp:null)
+                         :accessor %untag-resource-input-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-input 'make-untag-resource-input))
+ (common-lisp:defun make-untag-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input untag-resource-input))
    (common-lisp:append))
@@ -4677,11 +6075,15 @@
                         ((aws-sdk/generator/shape::input untag-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-output-")))
+ (common-lisp:defclass untag-resource-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-output 'make-untag-resource-output))
+ (common-lisp:defun make-untag-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4698,19 +6100,35 @@
                           untag-resource-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-collaboration-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-collaboration-input-"))
-   (collaboration-identifier
-    (common-lisp:error ":collaborationidentifier is required") :type
-    (common-lisp:or collaboration-identifier common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or collaboration-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or collaboration-description common-lisp:null)))
+ (common-lisp:defclass update-collaboration-input common-lisp:nil
+                       ((description :initarg :|description| :type
+                         (common-lisp:or collaboration-description
+                                         common-lisp:null)
+                         :accessor %update-collaboration-input-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or collaboration-name common-lisp:null)
+                         :accessor %update-collaboration-input-name :initform
+                         common-lisp:nil)
+                        (collaboration-identifier :initarg
+                         :|collaborationIdentifier| :type
+                         (common-lisp:or collaboration-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %update-collaboration-input-collaboration-identifier
+                         :initform
+                         (common-lisp:error
+                          ":collaborationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'update-collaboration-input
                     'make-update-collaboration-input))
+ (common-lisp:defun make-update-collaboration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description name
+                     collaboration-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'update-collaboration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4741,14 +6159,21 @@
                           update-collaboration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-collaboration-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-collaboration-output-"))
-   (collaboration (common-lisp:error ":collaboration is required") :type
-    (common-lisp:or collaboration common-lisp:null)))
+ (common-lisp:defclass update-collaboration-output common-lisp:nil
+                       ((collaboration :initarg :|collaboration| :type
+                         (common-lisp:or collaboration common-lisp:null)
+                         :accessor %update-collaboration-output-collaboration
+                         :initform
+                         (common-lisp:error ":collaboration is required"))))
  (common-lisp:export
   (common-lisp:list 'update-collaboration-output
                     'make-update-collaboration-output))
+ (common-lisp:defun make-update-collaboration-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key collaboration)
+   (common-lisp:apply #'common-lisp:make-instance 'update-collaboration-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4772,21 +6197,43 @@
                           update-collaboration-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configured-table-analysis-rule-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configured-table-analysis-rule-input-"))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null))
-   (analysis-rule-type (common-lisp:error ":analysisruletype is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-type common-lisp:null))
-   (analysis-rule-policy (common-lisp:error ":analysisrulepolicy is required")
-    :type
-    (common-lisp:or configured-table-analysis-rule-policy common-lisp:null)))
+ (common-lisp:defclass update-configured-table-analysis-rule-input
+                       common-lisp:nil
+                       ((analysis-rule-policy :initarg :|analysisRulePolicy|
+                         :type
+                         (common-lisp:or configured-table-analysis-rule-policy
+                                         common-lisp:null)
+                         :accessor
+                         %update-configured-table-analysis-rule-input-analysis-rule-policy
+                         :initform
+                         (common-lisp:error ":analysisrulepolicy is required"))
+                        (analysis-rule-type :initarg :|analysisRuleType| :type
+                         (common-lisp:or configured-table-analysis-rule-type
+                                         common-lisp:null)
+                         :accessor
+                         %update-configured-table-analysis-rule-input-analysis-rule-type
+                         :initform
+                         (common-lisp:error ":analysisruletype is required"))
+                        (configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %update-configured-table-analysis-rule-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configured-table-analysis-rule-input
                     'make-update-configured-table-analysis-rule-input))
+ (common-lisp:defun make-update-configured-table-analysis-rule-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule-policy analysis-rule-type
+                     configured-table-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configured-table-analysis-rule-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4811,15 +6258,25 @@
                           update-configured-table-analysis-rule-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configured-table-analysis-rule-output (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-configured-table-analysis-rule-output-"))
-   (analysis-rule (common-lisp:error ":analysisrule is required") :type
-    (common-lisp:or configured-table-analysis-rule common-lisp:null)))
+ (common-lisp:defclass update-configured-table-analysis-rule-output
+                       common-lisp:nil
+                       ((analysis-rule :initarg :|analysisRule| :type
+                         (common-lisp:or configured-table-analysis-rule
+                                         common-lisp:null)
+                         :accessor
+                         %update-configured-table-analysis-rule-output-analysis-rule
+                         :initform
+                         (common-lisp:error ":analysisrule is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configured-table-analysis-rule-output
                     'make-update-configured-table-analysis-rule-output))
+ (common-lisp:defun make-update-configured-table-analysis-rule-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key analysis-rule)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configured-table-analysis-rule-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4843,22 +6300,48 @@
                           update-configured-table-analysis-rule-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configured-table-association-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configured-table-association-input-"))
-   (configured-table-association-identifier
-    (common-lisp:error ":configuredtableassociationidentifier is required")
-    :type
-    (common-lisp:or configured-table-association-identifier common-lisp:null))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or table-description common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null)))
+ (common-lisp:defclass update-configured-table-association-input
+                       common-lisp:nil
+                       ((role-arn :initarg :|roleArn| :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %update-configured-table-association-input-role-arn
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or table-description common-lisp:null)
+                         :accessor
+                         %update-configured-table-association-input-description
+                         :initform common-lisp:nil)
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %update-configured-table-association-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))
+                        (configured-table-association-identifier :initarg
+                         :|configuredTableAssociationIdentifier| :type
+                         (common-lisp:or
+                          configured-table-association-identifier
+                          common-lisp:null)
+                         :accessor
+                         %update-configured-table-association-input-configured-table-association-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableassociationidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configured-table-association-input
                     'make-update-configured-table-association-input))
+ (common-lisp:defun make-update-configured-table-association-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key role-arn description
+                     membership-identifier
+                     configured-table-association-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configured-table-association-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4889,15 +6372,27 @@
                           update-configured-table-association-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configured-table-association-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configured-table-association-output-"))
-   (configured-table-association
-    (common-lisp:error ":configuredtableassociation is required") :type
-    (common-lisp:or configured-table-association common-lisp:null)))
+ (common-lisp:defclass update-configured-table-association-output
+                       common-lisp:nil
+                       ((configured-table-association :initarg
+                         :|configuredTableAssociation| :type
+                         (common-lisp:or configured-table-association
+                                         common-lisp:null)
+                         :accessor
+                         %update-configured-table-association-output-configured-table-association
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableassociation is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configured-table-association-output
                     'make-update-configured-table-association-output))
+ (common-lisp:defun make-update-configured-table-association-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table-association)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configured-table-association-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4922,18 +6417,35 @@
                           update-configured-table-association-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configured-table-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configured-table-input-"))
-   (configured-table-identifier
-    (common-lisp:error ":configuredtableidentifier is required") :type
-    (common-lisp:or configured-table-identifier common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or display-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or table-description common-lisp:null)))
+ (common-lisp:defclass update-configured-table-input common-lisp:nil
+                       ((description :initarg :|description| :type
+                         (common-lisp:or table-description common-lisp:null)
+                         :accessor %update-configured-table-input-description
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or display-name common-lisp:null)
+                         :accessor %update-configured-table-input-name
+                         :initform common-lisp:nil)
+                        (configured-table-identifier :initarg
+                         :|configuredTableIdentifier| :type
+                         (common-lisp:or configured-table-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %update-configured-table-input-configured-table-identifier
+                         :initform
+                         (common-lisp:error
+                          ":configuredtableidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configured-table-input
                     'make-update-configured-table-input))
+ (common-lisp:defun make-update-configured-table-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description name
+                     configured-table-identifier)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configured-table-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4964,14 +6476,23 @@
                           update-configured-table-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configured-table-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configured-table-output-"))
-   (configured-table (common-lisp:error ":configuredtable is required") :type
-    (common-lisp:or configured-table common-lisp:null)))
+ (common-lisp:defclass update-configured-table-output common-lisp:nil
+                       ((configured-table :initarg :|configuredTable| :type
+                         (common-lisp:or configured-table common-lisp:null)
+                         :accessor
+                         %update-configured-table-output-configured-table
+                         :initform
+                         (common-lisp:error ":configuredtable is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configured-table-output
                     'make-update-configured-table-output))
+ (common-lisp:defun make-update-configured-table-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configured-table)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configured-table-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4995,16 +6516,29 @@
                           update-configured-table-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-membership-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-membership-input-"))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (query-log-status common-lisp:nil :type
-    (common-lisp:or membership-query-log-status common-lisp:null)))
+ (common-lisp:defclass update-membership-input common-lisp:nil
+                       ((query-log-status :initarg :|queryLogStatus| :type
+                         (common-lisp:or membership-query-log-status
+                                         common-lisp:null)
+                         :accessor %update-membership-input-query-log-status
+                         :initform common-lisp:nil)
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %update-membership-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'update-membership-input 'make-update-membership-input))
+ (common-lisp:defun make-update-membership-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key query-log-status membership-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'update-membership-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5028,13 +6562,19 @@
                           update-membership-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-membership-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-membership-output-"))
-   (membership (common-lisp:error ":membership is required") :type
-    (common-lisp:or membership common-lisp:null)))
+ (common-lisp:defclass update-membership-output common-lisp:nil
+                       ((membership :initarg :|membership| :type
+                         (common-lisp:or membership common-lisp:null) :accessor
+                         %update-membership-output-membership :initform
+                         (common-lisp:error ":membership is required"))))
  (common-lisp:export
   (common-lisp:list 'update-membership-output 'make-update-membership-output))
+ (common-lisp:defun make-update-membership-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key membership)
+   (common-lisp:apply #'common-lisp:make-instance 'update-membership-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5058,20 +6598,41 @@
                           update-membership-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-protected-query-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-protected-query-input-"))
-   (membership-identifier
-    (common-lisp:error ":membershipidentifier is required") :type
-    (common-lisp:or membership-identifier common-lisp:null))
-   (protected-query-identifier
-    (common-lisp:error ":protectedqueryidentifier is required") :type
-    (common-lisp:or protected-query-identifier common-lisp:null))
-   (target-status (common-lisp:error ":targetstatus is required") :type
-    (common-lisp:or target-protected-query-status common-lisp:null)))
+ (common-lisp:defclass update-protected-query-input common-lisp:nil
+                       ((target-status :initarg :|targetStatus| :type
+                         (common-lisp:or target-protected-query-status
+                                         common-lisp:null)
+                         :accessor %update-protected-query-input-target-status
+                         :initform
+                         (common-lisp:error ":targetstatus is required"))
+                        (protected-query-identifier :initarg
+                         :|protectedQueryIdentifier| :type
+                         (common-lisp:or protected-query-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %update-protected-query-input-protected-query-identifier
+                         :initform
+                         (common-lisp:error
+                          ":protectedqueryidentifier is required"))
+                        (membership-identifier :initarg :|membershipIdentifier|
+                         :type
+                         (common-lisp:or membership-identifier
+                                         common-lisp:null)
+                         :accessor
+                         %update-protected-query-input-membership-identifier
+                         :initform
+                         (common-lisp:error
+                          ":membershipidentifier is required"))))
  (common-lisp:export
   (common-lisp:list 'update-protected-query-input
                     'make-update-protected-query-input))
+ (common-lisp:defun make-update-protected-query-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-status protected-query-identifier
+                     membership-identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'update-protected-query-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5095,14 +6656,23 @@
                           update-protected-query-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-protected-query-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-protected-query-output-"))
-   (protected-query (common-lisp:error ":protectedquery is required") :type
-    (common-lisp:or protected-query common-lisp:null)))
+ (common-lisp:defclass update-protected-query-output common-lisp:nil
+                       ((protected-query :initarg :|protectedQuery| :type
+                         (common-lisp:or protected-query common-lisp:null)
+                         :accessor
+                         %update-protected-query-output-protected-query
+                         :initform
+                         (common-lisp:error ":protectedquery is required"))))
  (common-lisp:export
   (common-lisp:list 'update-protected-query-output
                     'make-update-protected-query-output))
+ (common-lisp:defun make-update-protected-query-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key protected-query)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-protected-query-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -5128,27 +6698,35 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (cleanrooms-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)
-      (reason :initarg :reason :initform common-lisp:nil :reader
+      (reason :initarg :|reason| :initform common-lisp:nil :reader
        validation-exception-reason)
-      (field-list :initarg :field-list :initform common-lisp:nil :reader
+      (field-list :initarg :|fieldList| :initform common-lisp:nil :reader
        validation-exception-field-list)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message
                     'validation-exception-reason
                     'validation-exception-field-list)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validation-exception-field (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validation-exception-field-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or string common-lisp:null))
-   (message (common-lisp:error ":message is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass validation-exception-field common-lisp:nil
+                       ((message :initarg :|message| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-exception-field-message :initform
+                         (common-lisp:error ":message is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-exception-field-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'validation-exception-field
                     'make-validation-exception-field))
+ (common-lisp:defun make-validation-exception-field
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message name)
+   (common-lisp:apply #'common-lisp:make-instance 'validation-exception-field
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

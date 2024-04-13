@@ -26,14 +26,23 @@
     ("NotFoundException" . not-found-exception)
     ("UnauthorizedException" . unauthorized-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (action-required (:copier common-lisp:nil)
-      (:conc-name "struct-shape-action-required-"))
-   (action-required-code common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (action-required-info common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass action-required common-lisp:nil
+                       ((action-required-info :initarg :action-required-info
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor %action-required-action-required-info
+                         :initform common-lisp:nil)
+                        (action-required-code :initarg :action-required-code
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor %action-required-action-required-code
+                         :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'action-required 'make-action-required))
+ (common-lisp:defun make-action-required
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key action-required-info
+                     action-required-code)
+   (common-lisp:apply #'common-lisp:make-instance 'action-required
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input action-required))
    (common-lisp:append))
@@ -61,12 +70,18 @@
    common-lisp:nil))
 (common-lisp:deftype authentication-strategy () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (availability-zone (:copier common-lisp:nil)
-      (:conc-name "struct-shape-availability-zone-"))
-   (name common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass availability-zone common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %availability-zone-name :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'availability-zone 'make-availability-zone))
+ (common-lisp:defun make-availability-zone
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'availability-zone
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input availability-zone))
    (common-lisp:append))
@@ -95,15 +110,24 @@
                     'bad-request-exception-error-attribute
                     'bad-request-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (broker-engine-type (:copier common-lisp:nil)
-      (:conc-name "struct-shape-broker-engine-type-"))
-   (engine-type common-lisp:nil :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-versions common-lisp:nil :type
-    (common-lisp:or |__listOfEngineVersion| common-lisp:null)))
+ (common-lisp:defclass broker-engine-type common-lisp:nil
+                       ((engine-versions :initarg :engine-versions :type
+                         (common-lisp:or |__listOfEngineVersion|
+                                         common-lisp:null)
+                         :accessor %broker-engine-type-engine-versions
+                         :initform common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %broker-engine-type-engine-type :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'broker-engine-type 'make-broker-engine-type))
+ (common-lisp:defun make-broker-engine-type
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key engine-versions engine-type)
+   (common-lisp:apply #'common-lisp:make-instance 'broker-engine-type
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input broker-engine-type))
    (common-lisp:append))
@@ -128,18 +152,34 @@
                         ((aws-sdk/generator/shape::input broker-engine-type))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (broker-engine-type-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-broker-engine-type-output-"))
-   (broker-engine-types common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerEngineType| common-lisp:null))
-   (max-results (common-lisp:error ":max-results is required") :type
-    (common-lisp:or |__integerMin5Max100| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass broker-engine-type-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-engine-type-output-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin5Max100|
+                                         common-lisp:null)
+                         :accessor %broker-engine-type-output-max-results
+                         :initform
+                         (common-lisp:error ":max-results is required"))
+                        (broker-engine-types :initarg :broker-engine-types
+                         :type
+                         (common-lisp:or |__listOfBrokerEngineType|
+                                         common-lisp:null)
+                         :accessor
+                         %broker-engine-type-output-broker-engine-types
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'broker-engine-type-output
                     'make-broker-engine-type-output))
+ (common-lisp:defun make-broker-engine-type-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     broker-engine-types)
+   (common-lisp:apply #'common-lisp:make-instance 'broker-engine-type-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -177,16 +217,25 @@
                           broker-engine-type-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (broker-instance (:copier common-lisp:nil)
-      (:conc-name "struct-shape-broker-instance-"))
-   (console-url common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (endpoints common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (ip-address common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass broker-instance common-lisp:nil
+                       ((ip-address :initarg :ip-address :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-instance-ip-address :initform common-lisp:nil)
+                        (endpoints :initarg :endpoints :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %broker-instance-endpoints :initform
+                         common-lisp:nil)
+                        (console-url :initarg :console-url :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-instance-console-url :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'broker-instance 'make-broker-instance))
+ (common-lisp:defun make-broker-instance
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ip-address endpoints console-url)
+   (common-lisp:apply #'common-lisp:make-instance 'broker-instance
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input broker-instance))
    (common-lisp:append))
@@ -218,23 +267,47 @@
                         ((aws-sdk/generator/shape::input broker-instance))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (broker-instance-option (:copier common-lisp:nil)
-      (:conc-name "struct-shape-broker-instance-option-"))
-   (availability-zones common-lisp:nil :type
-    (common-lisp:or |__listOfAvailabilityZone| common-lisp:null))
-   (engine-type common-lisp:nil :type
-    (common-lisp:or engine-type common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (storage-type common-lisp:nil :type
-    (common-lisp:or broker-storage-type common-lisp:null))
-   (supported-deployment-modes common-lisp:nil :type
-    (common-lisp:or |__listOfDeploymentMode| common-lisp:null))
-   (supported-engine-versions common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null)))
+ (common-lisp:defclass broker-instance-option common-lisp:nil
+                       ((supported-engine-versions :initarg
+                         :supported-engine-versions :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor
+                         %broker-instance-option-supported-engine-versions
+                         :initform common-lisp:nil)
+                        (supported-deployment-modes :initarg
+                         :supported-deployment-modes :type
+                         (common-lisp:or |__listOfDeploymentMode|
+                                         common-lisp:null)
+                         :accessor
+                         %broker-instance-option-supported-deployment-modes
+                         :initform common-lisp:nil)
+                        (storage-type :initarg :storage-type :type
+                         (common-lisp:or broker-storage-type common-lisp:null)
+                         :accessor %broker-instance-option-storage-type
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-instance-option-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %broker-instance-option-engine-type
+                         :initform common-lisp:nil)
+                        (availability-zones :initarg :availability-zones :type
+                         (common-lisp:or |__listOfAvailabilityZone|
+                                         common-lisp:null)
+                         :accessor %broker-instance-option-availability-zones
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'broker-instance-option 'make-broker-instance-option))
+ (common-lisp:defun make-broker-instance-option
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key supported-engine-versions
+                     supported-deployment-modes storage-type host-instance-type
+                     engine-type availability-zones)
+   (common-lisp:apply #'common-lisp:make-instance 'broker-instance-option
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -295,18 +368,35 @@
                           broker-instance-option))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (broker-instance-options-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-broker-instance-options-output-"))
-   (broker-instance-options common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerInstanceOption| common-lisp:null))
-   (max-results (common-lisp:error ":max-results is required") :type
-    (common-lisp:or |__integerMin5Max100| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass broker-instance-options-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-instance-options-output-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin5Max100|
+                                         common-lisp:null)
+                         :accessor %broker-instance-options-output-max-results
+                         :initform
+                         (common-lisp:error ":max-results is required"))
+                        (broker-instance-options :initarg
+                         :broker-instance-options :type
+                         (common-lisp:or |__listOfBrokerInstanceOption|
+                                         common-lisp:null)
+                         :accessor
+                         %broker-instance-options-output-broker-instance-options
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'broker-instance-options-output
                     'make-broker-instance-options-output))
+ (common-lisp:defun make-broker-instance-options-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     broker-instance-options)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'broker-instance-options-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -347,26 +437,46 @@
 (common-lisp:deftype broker-state () 'common-lisp:string)
 (common-lisp:deftype broker-storage-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (broker-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-broker-summary-"))
-   (broker-arn common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-state common-lisp:nil :type
-    (common-lisp:or broker-state common-lisp:null))
-   (created common-lisp:nil :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (deployment-mode (common-lisp:error ":deployment-mode is required") :type
-    (common-lisp:or deployment-mode common-lisp:null))
-   (engine-type (common-lisp:error ":engine-type is required") :type
-    (common-lisp:or engine-type common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass broker-summary common-lisp:nil
+                       ((host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-summary-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %broker-summary-engine-type :initform
+                         (common-lisp:error ":engine-type is required"))
+                        (deployment-mode :initarg :deployment-mode :type
+                         (common-lisp:or deployment-mode common-lisp:null)
+                         :accessor %broker-summary-deployment-mode :initform
+                         (common-lisp:error ":deployment-mode is required"))
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %broker-summary-created :initform
+                         common-lisp:nil)
+                        (broker-state :initarg :broker-state :type
+                         (common-lisp:or broker-state common-lisp:null)
+                         :accessor %broker-summary-broker-state :initform
+                         common-lisp:nil)
+                        (broker-name :initarg :broker-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-summary-broker-name :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-summary-broker-id :initform common-lisp:nil)
+                        (broker-arn :initarg :broker-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %broker-summary-broker-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'broker-summary 'make-broker-summary))
+ (common-lisp:defun make-broker-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key host-instance-type engine-type
+                     deployment-mode created broker-state broker-name broker-id
+                     broker-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'broker-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input broker-summary))
    (common-lisp:append))
@@ -434,31 +544,61 @@
    common-lisp:nil))
 (common-lisp:deftype change-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configuration-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (authentication-strategy
-    (common-lisp:error ":authentication-strategy is required") :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (created (common-lisp:error ":created is required") :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (description (common-lisp:error ":description is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (engine-type (common-lisp:error ":engine-type is required") :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version (common-lisp:error ":engine-version is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (latest-revision (common-lisp:error ":latest-revision is required") :type
-    (common-lisp:or configuration-revision common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass configuration common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %configuration-tags :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %configuration-name :initform
+                         (common-lisp:error ":name is required"))
+                        (latest-revision :initarg :latest-revision :type
+                         (common-lisp:or configuration-revision
+                                         common-lisp:null)
+                         :accessor %configuration-latest-revision :initform
+                         (common-lisp:error ":latest-revision is required"))
+                        (id :initarg :id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %configuration-id :initform
+                         (common-lisp:error ":id is required"))
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %configuration-engine-version :initform
+                         (common-lisp:error ":engine-version is required"))
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %configuration-engine-type :initform
+                         (common-lisp:error ":engine-type is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %configuration-description :initform
+                         (common-lisp:error ":description is required"))
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %configuration-created :initform
+                         (common-lisp:error ":created is required"))
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor %configuration-authentication-strategy
+                         :initform
+                         (common-lisp:error
+                          ":authentication-strategy is required"))
+                        (arn :initarg :arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %configuration-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export (common-lisp:list 'configuration 'make-configuration))
+ (common-lisp:defun make-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags name latest-revision id
+                     engine-version engine-type description created
+                     authentication-strategy arn)
+   (common-lisp:apply #'common-lisp:make-instance 'configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input configuration))
    (common-lisp:append))
@@ -540,15 +680,23 @@
                         ((aws-sdk/generator/shape::input configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (configuration-id (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configuration-id-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (revision common-lisp:nil :type
-    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:defclass configuration-id common-lisp:nil
+                       ((revision :initarg :revision :type
+                         (common-lisp:or |__integer| common-lisp:null)
+                         :accessor %configuration-id-revision :initform
+                         common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %configuration-id-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'configuration-id 'make-configuration-id))
+ (common-lisp:defun make-configuration-id
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key revision id)
+   (common-lisp:apply #'common-lisp:make-instance 'configuration-id
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input configuration-id))
    (common-lisp:append))
@@ -573,17 +721,27 @@
                         ((aws-sdk/generator/shape::input configuration-id))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (configuration-revision (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configuration-revision-"))
-   (created (common-lisp:error ":created is required") :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (revision (common-lisp:error ":revision is required") :type
-    (common-lisp:or |__integer| common-lisp:null)))
+ (common-lisp:defclass configuration-revision common-lisp:nil
+                       ((revision :initarg :revision :type
+                         (common-lisp:or |__integer| common-lisp:null)
+                         :accessor %configuration-revision-revision :initform
+                         (common-lisp:error ":revision is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %configuration-revision-description :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %configuration-revision-created :initform
+                         (common-lisp:error ":created is required"))))
  (common-lisp:export
   (common-lisp:list 'configuration-revision 'make-configuration-revision))
+ (common-lisp:defun make-configuration-revision
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key revision description created)
+   (common-lisp:apply #'common-lisp:make-instance 'configuration-revision
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -621,16 +779,27 @@
                           configuration-revision))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (configurations (:copier common-lisp:nil)
-      (:conc-name "struct-shape-configurations-"))
-   (current common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (history common-lisp:nil :type
-    (common-lisp:or |__listOfConfigurationId| common-lisp:null))
-   (pending common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null)))
+ (common-lisp:defclass configurations common-lisp:nil
+                       ((pending :initarg :pending :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %configurations-pending :initform
+                         common-lisp:nil)
+                        (history :initarg :history :type
+                         (common-lisp:or |__listOfConfigurationId|
+                                         common-lisp:null)
+                         :accessor %configurations-history :initform
+                         common-lisp:nil)
+                        (current :initarg :current :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %configurations-current :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'configurations 'make-configurations))
+ (common-lisp:defun make-configurations
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pending history current)
+   (common-lisp:apply #'common-lisp:make-instance 'configurations
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input configurations))
    (common-lisp:append))
@@ -672,49 +841,109 @@
   (common-lisp:list 'conflict-exception 'conflict-exception-error-attribute
                     'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-broker-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-broker-input-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade
-    (common-lisp:error ":auto-minor-version-upgrade is required") :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (broker-name (common-lisp:error ":broker-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (configuration common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (deployment-mode (common-lisp:error ":deployment-mode is required") :type
-    (common-lisp:or deployment-mode common-lisp:null))
-   (encryption-options common-lisp:nil :type
-    (common-lisp:or encryption-options common-lisp:null))
-   (engine-type (common-lisp:error ":engine-type is required") :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version (common-lisp:error ":engine-version is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type (common-lisp:error ":host-instance-type is required")
-    :type (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-input common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (publicly-accessible (common-lisp:error ":publicly-accessible is required")
-    :type (common-lisp:or |__boolean| common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (storage-type common-lisp:nil :type
-    (common-lisp:or broker-storage-type common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null))
-   (users (common-lisp:error ":users is required") :type
-    (common-lisp:or |__listOfUser| common-lisp:null)))
+ (common-lisp:defclass create-broker-input common-lisp:nil
+                       ((users :initarg :users :type
+                         (common-lisp:or |__listOfUser| common-lisp:null)
+                         :accessor %create-broker-input-users :initform
+                         (common-lisp:error ":users is required"))
+                        (tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %create-broker-input-tags :initform
+                         common-lisp:nil)
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %create-broker-input-subnet-ids :initform
+                         common-lisp:nil)
+                        (storage-type :initarg :storage-type :type
+                         (common-lisp:or broker-storage-type common-lisp:null)
+                         :accessor %create-broker-input-storage-type :initform
+                         common-lisp:nil)
+                        (security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %create-broker-input-security-groups
+                         :initform common-lisp:nil)
+                        (publicly-accessible :initarg :publicly-accessible
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %create-broker-input-publicly-accessible
+                         :initform
+                         (common-lisp:error
+                          ":publicly-accessible is required"))
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %create-broker-input-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs common-lisp:null) :accessor
+                         %create-broker-input-logs :initform common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-input
+                                         common-lisp:null)
+                         :accessor %create-broker-input-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-input-host-instance-type :initform
+                         (common-lisp:error ":host-instance-type is required"))
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-input-engine-version :initform
+                         (common-lisp:error ":engine-version is required"))
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %create-broker-input-engine-type :initform
+                         (common-lisp:error ":engine-type is required"))
+                        (encryption-options :initarg :encryption-options :type
+                         (common-lisp:or encryption-options common-lisp:null)
+                         :accessor %create-broker-input-encryption-options
+                         :initform common-lisp:nil)
+                        (deployment-mode :initarg :deployment-mode :type
+                         (common-lisp:or deployment-mode common-lisp:null)
+                         :accessor %create-broker-input-deployment-mode
+                         :initform
+                         (common-lisp:error ":deployment-mode is required"))
+                        (creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-input-creator-request-id :initform
+                         common-lisp:nil)
+                        (configuration :initarg :configuration :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %create-broker-input-configuration :initform
+                         common-lisp:nil)
+                        (broker-name :initarg :broker-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-input-broker-name :initform
+                         (common-lisp:error ":broker-name is required"))
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %create-broker-input-auto-minor-version-upgrade
+                         :initform
+                         (common-lisp:error
+                          ":auto-minor-version-upgrade is required"))
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor %create-broker-input-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-broker-input 'make-create-broker-input))
+ (common-lisp:defun make-create-broker-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key users tags subnet-ids storage-type
+                     security-groups publicly-accessible
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version engine-type
+                     encryption-options deployment-mode creator-request-id
+                     configuration broker-name auto-minor-version-upgrade
+                     authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'create-broker-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-broker-input))
    (common-lisp:append))
@@ -862,15 +1091,23 @@
                         ((aws-sdk/generator/shape::input create-broker-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-broker-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-broker-output-"))
-   (broker-arn common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-broker-output common-lisp:nil
+                       ((broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-output-broker-id :initform
+                         common-lisp:nil)
+                        (broker-arn :initarg :broker-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-output-broker-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-broker-output 'make-create-broker-output))
+ (common-lisp:defun make-create-broker-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key broker-id broker-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-broker-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-broker-output))
    (common-lisp:append))
@@ -895,49 +1132,110 @@
                         ((aws-sdk/generator/shape::input create-broker-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-broker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-broker-request-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade
-    (common-lisp:error ":auto-minor-version-upgrade is required") :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (broker-name (common-lisp:error ":broker-name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (configuration common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (creator-request-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (deployment-mode (common-lisp:error ":deployment-mode is required") :type
-    (common-lisp:or deployment-mode common-lisp:null))
-   (encryption-options common-lisp:nil :type
-    (common-lisp:or encryption-options common-lisp:null))
-   (engine-type (common-lisp:error ":engine-type is required") :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version (common-lisp:error ":engine-version is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type (common-lisp:error ":host-instance-type is required")
-    :type (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-input common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (publicly-accessible (common-lisp:error ":publicly-accessible is required")
-    :type (common-lisp:or |__boolean| common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (storage-type common-lisp:nil :type
-    (common-lisp:or broker-storage-type common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null))
-   (users (common-lisp:error ":users is required") :type
-    (common-lisp:or |__listOfUser| common-lisp:null)))
+ (common-lisp:defclass create-broker-request common-lisp:nil
+                       ((users :initarg :users :type
+                         (common-lisp:or |__listOfUser| common-lisp:null)
+                         :accessor %create-broker-request-users :initform
+                         (common-lisp:error ":users is required"))
+                        (tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %create-broker-request-tags :initform
+                         common-lisp:nil)
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %create-broker-request-subnet-ids :initform
+                         common-lisp:nil)
+                        (storage-type :initarg :storage-type :type
+                         (common-lisp:or broker-storage-type common-lisp:null)
+                         :accessor %create-broker-request-storage-type
+                         :initform common-lisp:nil)
+                        (security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %create-broker-request-security-groups
+                         :initform common-lisp:nil)
+                        (publicly-accessible :initarg :publicly-accessible
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %create-broker-request-publicly-accessible
+                         :initform
+                         (common-lisp:error
+                          ":publicly-accessible is required"))
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %create-broker-request-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs common-lisp:null) :accessor
+                         %create-broker-request-logs :initform common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-input
+                                         common-lisp:null)
+                         :accessor %create-broker-request-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-request-host-instance-type :initform
+                         (common-lisp:error ":host-instance-type is required"))
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-request-engine-version :initform
+                         (common-lisp:error ":engine-version is required"))
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %create-broker-request-engine-type :initform
+                         (common-lisp:error ":engine-type is required"))
+                        (encryption-options :initarg :encryption-options :type
+                         (common-lisp:or encryption-options common-lisp:null)
+                         :accessor %create-broker-request-encryption-options
+                         :initform common-lisp:nil)
+                        (deployment-mode :initarg :deployment-mode :type
+                         (common-lisp:or deployment-mode common-lisp:null)
+                         :accessor %create-broker-request-deployment-mode
+                         :initform
+                         (common-lisp:error ":deployment-mode is required"))
+                        (creator-request-id :initarg :creator-request-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-request-creator-request-id :initform
+                         common-lisp:nil)
+                        (configuration :initarg :configuration :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %create-broker-request-configuration
+                         :initform common-lisp:nil)
+                        (broker-name :initarg :broker-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-request-broker-name :initform
+                         (common-lisp:error ":broker-name is required"))
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %create-broker-request-auto-minor-version-upgrade
+                         :initform
+                         (common-lisp:error
+                          ":auto-minor-version-upgrade is required"))
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %create-broker-request-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-broker-request 'make-create-broker-request))
+ (common-lisp:defun make-create-broker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key users tags subnet-ids storage-type
+                     security-groups publicly-accessible
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version engine-type
+                     encryption-options deployment-mode creator-request-id
+                     configuration broker-name auto-minor-version-upgrade
+                     authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'create-broker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1091,15 +1389,23 @@
                           create-broker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-broker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-broker-response-"))
-   (broker-arn common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-broker-response common-lisp:nil
+                       ((broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-response-broker-id :initform
+                         common-lisp:nil)
+                        (broker-arn :initarg :broker-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-broker-response-broker-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-broker-response 'make-create-broker-response))
+ (common-lisp:defun make-create-broker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key broker-id broker-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-broker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1130,22 +1436,41 @@
                           create-broker-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configuration-input-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (engine-type (common-lisp:error ":engine-type is required") :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version (common-lisp:error ":engine-version is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass create-configuration-input common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %create-configuration-input-tags :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-input-name :initform
+                         (common-lisp:error ":name is required"))
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-input-engine-version :initform
+                         (common-lisp:error ":engine-version is required"))
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %create-configuration-input-engine-type
+                         :initform
+                         (common-lisp:error ":engine-type is required"))
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %create-configuration-input-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-configuration-input
                     'make-create-configuration-input))
+ (common-lisp:defun make-create-configuration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags name engine-version engine-type
+                     authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'create-configuration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1198,25 +1523,47 @@
                           create-configuration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configuration-output-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (authentication-strategy
-    (common-lisp:error ":authentication-strategy is required") :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (created (common-lisp:error ":created is required") :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (latest-revision common-lisp:nil :type
-    (common-lisp:or configuration-revision common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-configuration-output common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-output-name :initform
+                         (common-lisp:error ":name is required"))
+                        (latest-revision :initarg :latest-revision :type
+                         (common-lisp:or configuration-revision
+                                         common-lisp:null)
+                         :accessor %create-configuration-output-latest-revision
+                         :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-output-id :initform
+                         (common-lisp:error ":id is required"))
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %create-configuration-output-created
+                         :initform (common-lisp:error ":created is required"))
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %create-configuration-output-authentication-strategy
+                         :initform
+                         (common-lisp:error
+                          ":authentication-strategy is required"))
+                        (arn :initarg :arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-output-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-configuration-output
                     'make-create-configuration-output))
+ (common-lisp:defun make-create-configuration-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name latest-revision id created
+                     authentication-strategy arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-configuration-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1276,22 +1623,41 @@
                           create-configuration-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configuration-request-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (engine-type (common-lisp:error ":engine-type is required") :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version (common-lisp:error ":engine-version is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass create-configuration-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %create-configuration-request-tags :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-request-name :initform
+                         (common-lisp:error ":name is required"))
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-request-engine-version :initform
+                         (common-lisp:error ":engine-version is required"))
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %create-configuration-request-engine-type
+                         :initform
+                         (common-lisp:error ":engine-type is required"))
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %create-configuration-request-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-configuration-request
                     'make-create-configuration-request))
+ (common-lisp:defun make-create-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags name engine-version engine-type
+                     authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'create-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1344,21 +1710,47 @@
                           create-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-configuration-response-"))
-   (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (created common-lisp:nil :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (latest-revision common-lisp:nil :type
-    (common-lisp:or configuration-revision common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-configuration-response common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-response-name :initform
+                         common-lisp:nil)
+                        (latest-revision :initarg :latest-revision :type
+                         (common-lisp:or configuration-revision
+                                         common-lisp:null)
+                         :accessor
+                         %create-configuration-response-latest-revision
+                         :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-response-id :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %create-configuration-response-created
+                         :initform common-lisp:nil)
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %create-configuration-response-authentication-strategy
+                         :initform common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-configuration-response-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-configuration-response
                     'make-create-configuration-response))
+ (common-lisp:defun make-create-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name latest-revision id created
+                     authentication-strategy arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1418,15 +1810,23 @@
                           create-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-tags-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-tags-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass create-tags-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %create-tags-request-tags :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-tags-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-tags-request 'make-create-tags-request))
+ (common-lisp:defun make-create-tags-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'create-tags-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-tags-request))
    (common-lisp:append))
@@ -1444,17 +1844,27 @@
                         ((aws-sdk/generator/shape::input create-tags-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-user-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-user-input-"))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (password (common-lisp:error ":password is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-user-input common-lisp:nil
+                       ((password :initarg :password :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-user-input-password :initform
+                         (common-lisp:error ":password is required"))
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %create-user-input-groups :initform
+                         common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %create-user-input-console-access :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-user-input 'make-create-user-input))
+ (common-lisp:defun make-create-user-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key password groups console-access)
+   (common-lisp:apply #'common-lisp:make-instance 'create-user-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-user-input))
    (common-lisp:append))
@@ -1486,21 +1896,36 @@
                         ((aws-sdk/generator/shape::input create-user-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-user-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-user-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (password (common-lisp:error ":password is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass create-user-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-user-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (password :initarg :password :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-user-request-password :initform
+                         (common-lisp:error ":password is required"))
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %create-user-request-groups :initform
+                         common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %create-user-request-console-access
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %create-user-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'create-user-request 'make-create-user-request))
+ (common-lisp:defun make-create-user-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username password groups console-access
+                     broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-user-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-user-request))
    (common-lisp:append))
@@ -1532,11 +1957,15 @@
                         ((aws-sdk/generator/shape::input create-user-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-user-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-user-response-")))
+ (common-lisp:defclass create-user-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'create-user-response 'make-create-user-response))
+ (common-lisp:defun make-create-user-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'create-user-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-user-response))
    (common-lisp:append))
@@ -1548,13 +1977,19 @@
    common-lisp:nil))
 (common-lisp:deftype day-of-week () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-broker-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-broker-output-"))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-broker-output common-lisp:nil
+                       ((broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-broker-output-broker-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-broker-output 'make-delete-broker-output))
+ (common-lisp:defun make-delete-broker-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-broker-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-broker-output))
    (common-lisp:append))
@@ -1572,13 +2007,19 @@
                         ((aws-sdk/generator/shape::input delete-broker-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-broker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-broker-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-broker-request common-lisp:nil
+                       ((broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-broker-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-broker-request 'make-delete-broker-request))
+ (common-lisp:defun make-delete-broker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-broker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1595,13 +2036,19 @@
                           delete-broker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-broker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-broker-response-"))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-broker-response common-lisp:nil
+                       ((broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-broker-response-broker-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-broker-response 'make-delete-broker-response))
+ (common-lisp:defun make-delete-broker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-broker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1625,15 +2072,23 @@
                           delete-broker-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-tags-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-tags-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or |__listOf__string| common-lisp:null)))
+ (common-lisp:defclass delete-tags-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %delete-tags-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-tags-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-tags-request 'make-delete-tags-request))
+ (common-lisp:defun make-delete-tags-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-tags-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-tags-request))
    (common-lisp:append))
@@ -1644,15 +2099,23 @@
                         ((aws-sdk/generator/shape::input delete-tags-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-user-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-user-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass delete-user-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-user-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %delete-user-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-user-request 'make-delete-user-request))
+ (common-lisp:defun make-delete-user-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-user-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-user-request))
    (common-lisp:append))
@@ -1663,11 +2126,15 @@
                         ((aws-sdk/generator/shape::input delete-user-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-user-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-user-response-")))
+ (common-lisp:defclass delete-user-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-user-response 'make-delete-user-response))
+ (common-lisp:defun make-delete-user-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-user-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-user-response))
    (common-lisp:append))
@@ -1679,18 +2146,30 @@
    common-lisp:nil))
 (common-lisp:deftype deployment-mode () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-broker-engine-types-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-broker-engine-types-request-"))
-   (engine-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-broker-engine-types-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-engine-types-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %describe-broker-engine-types-request-max-results
+                         :initform common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-engine-types-request-engine-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-broker-engine-types-request
                     'make-describe-broker-engine-types-request))
+ (common-lisp:defun make-describe-broker-engine-types-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results engine-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-broker-engine-types-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1707,18 +2186,35 @@
                           describe-broker-engine-types-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-broker-engine-types-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-broker-engine-types-response-"))
-   (broker-engine-types common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerEngineType| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integerMin5Max100| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-broker-engine-types-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-engine-types-response-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin5Max100|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-engine-types-response-max-results
+                         :initform common-lisp:nil)
+                        (broker-engine-types :initarg :broker-engine-types
+                         :type
+                         (common-lisp:or |__listOfBrokerEngineType|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-engine-types-response-broker-engine-types
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-broker-engine-types-response
                     'make-describe-broker-engine-types-response))
+ (common-lisp:defun make-describe-broker-engine-types-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     broker-engine-types)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-broker-engine-types-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1756,22 +2252,39 @@
                           describe-broker-engine-types-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-broker-instance-options-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-broker-instance-options-request-"))
-   (engine-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (storage-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-broker-instance-options-request common-lisp:nil
+                       ((storage-type :initarg :storage-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-instance-options-request-storage-type
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-instance-options-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %describe-broker-instance-options-request-max-results
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-instance-options-request-host-instance-type
+                         :initform common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-instance-options-request-engine-type
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-broker-instance-options-request
                     'make-describe-broker-instance-options-request))
+ (common-lisp:defun make-describe-broker-instance-options-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key storage-type next-token max-results
+                     host-instance-type engine-type)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-broker-instance-options-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1788,18 +2301,36 @@
                           describe-broker-instance-options-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-broker-instance-options-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-broker-instance-options-response-"))
-   (broker-instance-options common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerInstanceOption| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integerMin5Max100| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-broker-instance-options-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-instance-options-response-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin5Max100|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-instance-options-response-max-results
+                         :initform common-lisp:nil)
+                        (broker-instance-options :initarg
+                         :broker-instance-options :type
+                         (common-lisp:or |__listOfBrokerInstanceOption|
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-instance-options-response-broker-instance-options
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-broker-instance-options-response
                     'make-describe-broker-instance-options-response))
+ (common-lisp:defun make-describe-broker-instance-options-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     broker-instance-options)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-broker-instance-options-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1838,69 +2369,169 @@
                           describe-broker-instance-options-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-broker-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-broker-output-"))
-   (actions-required common-lisp:nil :type
-    (common-lisp:or |__listOfActionRequired| common-lisp:null))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade
-    (common-lisp:error ":auto-minor-version-upgrade is required") :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (broker-arn common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-instances common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerInstance| common-lisp:null))
-   (broker-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-state common-lisp:nil :type
-    (common-lisp:or broker-state common-lisp:null))
-   (configurations common-lisp:nil :type
-    (common-lisp:or configurations common-lisp:null))
-   (created common-lisp:nil :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (deployment-mode (common-lisp:error ":deployment-mode is required") :type
-    (common-lisp:or deployment-mode common-lisp:null))
-   (encryption-options common-lisp:nil :type
-    (common-lisp:or encryption-options common-lisp:null))
-   (engine-type (common-lisp:error ":engine-type is required") :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-output common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs-summary common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (pending-authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (pending-engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (pending-host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (pending-ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-output common-lisp:null))
-   (pending-security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (publicly-accessible (common-lisp:error ":publicly-accessible is required")
-    :type (common-lisp:or |__boolean| common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (storage-type common-lisp:nil :type
-    (common-lisp:or broker-storage-type common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null))
-   (users common-lisp:nil :type
-    (common-lisp:or |__listOfUserSummary| common-lisp:null)))
+ (common-lisp:defclass describe-broker-output common-lisp:nil
+                       ((users :initarg :users :type
+                         (common-lisp:or |__listOfUserSummary|
+                                         common-lisp:null)
+                         :accessor %describe-broker-output-users :initform
+                         common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %describe-broker-output-tags :initform
+                         common-lisp:nil)
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %describe-broker-output-subnet-ids :initform
+                         common-lisp:nil)
+                        (storage-type :initarg :storage-type :type
+                         (common-lisp:or broker-storage-type common-lisp:null)
+                         :accessor %describe-broker-output-storage-type
+                         :initform common-lisp:nil)
+                        (security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %describe-broker-output-security-groups
+                         :initform common-lisp:nil)
+                        (publicly-accessible :initarg :publicly-accessible
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %describe-broker-output-publicly-accessible
+                         :initform
+                         (common-lisp:error
+                          ":publicly-accessible is required"))
+                        (pending-security-groups :initarg
+                         :pending-security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor
+                         %describe-broker-output-pending-security-groups
+                         :initform common-lisp:nil)
+                        (pending-ldap-server-metadata :initarg
+                         :pending-ldap-server-metadata :type
+                         (common-lisp:or ldap-server-metadata-output
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-output-pending-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (pending-host-instance-type :initarg
+                         :pending-host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-output-pending-host-instance-type
+                         :initform common-lisp:nil)
+                        (pending-engine-version :initarg
+                         :pending-engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-output-pending-engine-version
+                         :initform common-lisp:nil)
+                        (pending-authentication-strategy :initarg
+                         :pending-authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-output-pending-authentication-strategy
+                         :initform common-lisp:nil)
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %describe-broker-output-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs-summary common-lisp:null)
+                         :accessor %describe-broker-output-logs :initform
+                         common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-output
+                                         common-lisp:null)
+                         :accessor %describe-broker-output-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-output-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-output-engine-version :initform
+                         common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %describe-broker-output-engine-type
+                         :initform
+                         (common-lisp:error ":engine-type is required"))
+                        (encryption-options :initarg :encryption-options :type
+                         (common-lisp:or encryption-options common-lisp:null)
+                         :accessor %describe-broker-output-encryption-options
+                         :initform common-lisp:nil)
+                        (deployment-mode :initarg :deployment-mode :type
+                         (common-lisp:or deployment-mode common-lisp:null)
+                         :accessor %describe-broker-output-deployment-mode
+                         :initform
+                         (common-lisp:error ":deployment-mode is required"))
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %describe-broker-output-created :initform
+                         common-lisp:nil)
+                        (configurations :initarg :configurations :type
+                         (common-lisp:or configurations common-lisp:null)
+                         :accessor %describe-broker-output-configurations
+                         :initform common-lisp:nil)
+                        (broker-state :initarg :broker-state :type
+                         (common-lisp:or broker-state common-lisp:null)
+                         :accessor %describe-broker-output-broker-state
+                         :initform common-lisp:nil)
+                        (broker-name :initarg :broker-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-output-broker-name :initform
+                         common-lisp:nil)
+                        (broker-instances :initarg :broker-instances :type
+                         (common-lisp:or |__listOfBrokerInstance|
+                                         common-lisp:null)
+                         :accessor %describe-broker-output-broker-instances
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-output-broker-id :initform
+                         common-lisp:nil)
+                        (broker-arn :initarg :broker-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-output-broker-arn :initform
+                         common-lisp:nil)
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %describe-broker-output-auto-minor-version-upgrade
+                         :initform
+                         (common-lisp:error
+                          ":auto-minor-version-upgrade is required"))
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-output-authentication-strategy
+                         :initform common-lisp:nil)
+                        (actions-required :initarg :actions-required :type
+                         (common-lisp:or |__listOfActionRequired|
+                                         common-lisp:null)
+                         :accessor %describe-broker-output-actions-required
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-broker-output 'make-describe-broker-output))
+ (common-lisp:defun make-describe-broker-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key users tags subnet-ids storage-type
+                     security-groups publicly-accessible
+                     pending-security-groups pending-ldap-server-metadata
+                     pending-host-instance-type pending-engine-version
+                     pending-authentication-strategy
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version engine-type
+                     encryption-options deployment-mode created configurations
+                     broker-state broker-name broker-instances broker-id
+                     broker-arn auto-minor-version-upgrade
+                     authentication-strategy actions-required)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-broker-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2129,13 +2760,19 @@
                           describe-broker-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-broker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-broker-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-broker-request common-lisp:nil
+                       ((broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-broker-request 'make-describe-broker-request))
+ (common-lisp:defun make-describe-broker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-broker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2152,68 +2789,165 @@
                           describe-broker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-broker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-broker-response-"))
-   (actions-required common-lisp:nil :type
-    (common-lisp:or |__listOfActionRequired| common-lisp:null))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (broker-arn common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-instances common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerInstance| common-lisp:null))
-   (broker-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (broker-state common-lisp:nil :type
-    (common-lisp:or broker-state common-lisp:null))
-   (configurations common-lisp:nil :type
-    (common-lisp:or configurations common-lisp:null))
-   (created common-lisp:nil :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (deployment-mode common-lisp:nil :type
-    (common-lisp:or deployment-mode common-lisp:null))
-   (encryption-options common-lisp:nil :type
-    (common-lisp:or encryption-options common-lisp:null))
-   (engine-type common-lisp:nil :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-output common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs-summary common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (pending-authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (pending-engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (pending-host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (pending-ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-output common-lisp:null))
-   (pending-security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (publicly-accessible common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (storage-type common-lisp:nil :type
-    (common-lisp:or broker-storage-type common-lisp:null))
-   (subnet-ids common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null))
-   (users common-lisp:nil :type
-    (common-lisp:or |__listOfUserSummary| common-lisp:null)))
+ (common-lisp:defclass describe-broker-response common-lisp:nil
+                       ((users :initarg :users :type
+                         (common-lisp:or |__listOfUserSummary|
+                                         common-lisp:null)
+                         :accessor %describe-broker-response-users :initform
+                         common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %describe-broker-response-tags :initform
+                         common-lisp:nil)
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %describe-broker-response-subnet-ids
+                         :initform common-lisp:nil)
+                        (storage-type :initarg :storage-type :type
+                         (common-lisp:or broker-storage-type common-lisp:null)
+                         :accessor %describe-broker-response-storage-type
+                         :initform common-lisp:nil)
+                        (security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %describe-broker-response-security-groups
+                         :initform common-lisp:nil)
+                        (publicly-accessible :initarg :publicly-accessible
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %describe-broker-response-publicly-accessible
+                         :initform common-lisp:nil)
+                        (pending-security-groups :initarg
+                         :pending-security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor
+                         %describe-broker-response-pending-security-groups
+                         :initform common-lisp:nil)
+                        (pending-ldap-server-metadata :initarg
+                         :pending-ldap-server-metadata :type
+                         (common-lisp:or ldap-server-metadata-output
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-response-pending-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (pending-host-instance-type :initarg
+                         :pending-host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-response-pending-host-instance-type
+                         :initform common-lisp:nil)
+                        (pending-engine-version :initarg
+                         :pending-engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-response-pending-engine-version
+                         :initform common-lisp:nil)
+                        (pending-authentication-strategy :initarg
+                         :pending-authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-response-pending-authentication-strategy
+                         :initform common-lisp:nil)
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %describe-broker-response-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs-summary common-lisp:null)
+                         :accessor %describe-broker-response-logs :initform
+                         common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-output
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-response-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-response-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-response-engine-version :initform
+                         common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %describe-broker-response-engine-type
+                         :initform common-lisp:nil)
+                        (encryption-options :initarg :encryption-options :type
+                         (common-lisp:or encryption-options common-lisp:null)
+                         :accessor %describe-broker-response-encryption-options
+                         :initform common-lisp:nil)
+                        (deployment-mode :initarg :deployment-mode :type
+                         (common-lisp:or deployment-mode common-lisp:null)
+                         :accessor %describe-broker-response-deployment-mode
+                         :initform common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %describe-broker-response-created :initform
+                         common-lisp:nil)
+                        (configurations :initarg :configurations :type
+                         (common-lisp:or configurations common-lisp:null)
+                         :accessor %describe-broker-response-configurations
+                         :initform common-lisp:nil)
+                        (broker-state :initarg :broker-state :type
+                         (common-lisp:or broker-state common-lisp:null)
+                         :accessor %describe-broker-response-broker-state
+                         :initform common-lisp:nil)
+                        (broker-name :initarg :broker-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-response-broker-name :initform
+                         common-lisp:nil)
+                        (broker-instances :initarg :broker-instances :type
+                         (common-lisp:or |__listOfBrokerInstance|
+                                         common-lisp:null)
+                         :accessor %describe-broker-response-broker-instances
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-response-broker-id :initform
+                         common-lisp:nil)
+                        (broker-arn :initarg :broker-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-broker-response-broker-arn :initform
+                         common-lisp:nil)
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %describe-broker-response-auto-minor-version-upgrade
+                         :initform common-lisp:nil)
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %describe-broker-response-authentication-strategy
+                         :initform common-lisp:nil)
+                        (actions-required :initarg :actions-required :type
+                         (common-lisp:or |__listOfActionRequired|
+                                         common-lisp:null)
+                         :accessor %describe-broker-response-actions-required
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-broker-response 'make-describe-broker-response))
+ (common-lisp:defun make-describe-broker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key users tags subnet-ids storage-type
+                     security-groups publicly-accessible
+                     pending-security-groups pending-ldap-server-metadata
+                     pending-host-instance-type pending-engine-version
+                     pending-authentication-strategy
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version engine-type
+                     encryption-options deployment-mode created configurations
+                     broker-state broker-name broker-instances broker-id
+                     broker-arn auto-minor-version-upgrade
+                     authentication-strategy actions-required)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-broker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2442,14 +3176,22 @@
                           describe-broker-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-configuration-request-"))
-   (configuration-id (common-lisp:error ":configuration-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-configuration-request common-lisp:nil
+                       ((configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-request-configuration-id
+                         :initform
+                         (common-lisp:error ":configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-configuration-request
                     'make-describe-configuration-request))
+ (common-lisp:defun make-describe-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2466,29 +3208,64 @@
                           describe-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-configuration-response-"))
-   (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (created common-lisp:nil :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (engine-type common-lisp:nil :type
-    (common-lisp:or engine-type common-lisp:null))
-   (engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (latest-revision common-lisp:nil :type
-    (common-lisp:or configuration-revision common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass describe-configuration-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %describe-configuration-response-tags
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-response-name :initform
+                         common-lisp:nil)
+                        (latest-revision :initarg :latest-revision :type
+                         (common-lisp:or configuration-revision
+                                         common-lisp:null)
+                         :accessor
+                         %describe-configuration-response-latest-revision
+                         :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-response-id :initform
+                         common-lisp:nil)
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-response-engine-version
+                         :initform common-lisp:nil)
+                        (engine-type :initarg :engine-type :type
+                         (common-lisp:or engine-type common-lisp:null)
+                         :accessor %describe-configuration-response-engine-type
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-response-description :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %describe-configuration-response-created
+                         :initform common-lisp:nil)
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %describe-configuration-response-authentication-strategy
+                         :initform common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-response-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-configuration-response
                     'make-describe-configuration-response))
+ (common-lisp:defun make-describe-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags name latest-revision id
+                     engine-version engine-type description created
+                     authentication-strategy arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2576,20 +3353,36 @@
                           describe-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-configuration-revision-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-configuration-revision-output-"))
-   (configuration-id (common-lisp:error ":configuration-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (created (common-lisp:error ":created is required") :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (data (common-lisp:error ":data is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-configuration-revision-output common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-output-description
+                         :initform common-lisp:nil)
+                        (data :initarg :data :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-output-data :initform
+                         (common-lisp:error ":data is required"))
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor
+                         %describe-configuration-revision-output-created
+                         :initform (common-lisp:error ":created is required"))
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-output-configuration-id
+                         :initform
+                         (common-lisp:error ":configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-configuration-revision-output
                     'make-describe-configuration-revision-output))
+ (common-lisp:defun make-describe-configuration-revision-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description data created
+                     configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-configuration-revision-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2634,17 +3427,29 @@
                           describe-configuration-revision-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-configuration-revision-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-configuration-revision-request-"))
-   (configuration-id (common-lisp:error ":configuration-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (configuration-revision
-    (common-lisp:error ":configuration-revision is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-configuration-revision-request common-lisp:nil
+                       ((configuration-revision :initarg
+                         :configuration-revision :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-request-configuration-revision
+                         :initform
+                         (common-lisp:error
+                          ":configuration-revision is required"))
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-request-configuration-id
+                         :initform
+                         (common-lisp:error ":configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-configuration-revision-request
                     'make-describe-configuration-revision-request))
+ (common-lisp:defun make-describe-configuration-revision-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key configuration-revision configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-configuration-revision-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2661,19 +3466,35 @@
                           describe-configuration-revision-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-configuration-revision-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-configuration-revision-response-"))
-   (configuration-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (created common-lisp:nil :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (data common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-configuration-revision-response common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-response-description
+                         :initform common-lisp:nil)
+                        (data :initarg :data :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-response-data
+                         :initform common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor
+                         %describe-configuration-revision-response-created
+                         :initform common-lisp:nil)
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-configuration-revision-response-configuration-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-configuration-revision-response
                     'make-describe-configuration-revision-response))
+ (common-lisp:defun make-describe-configuration-revision-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description data created
+                     configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-configuration-revision-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2718,21 +3539,36 @@
                           describe-configuration-revision-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-user-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-user-output-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (pending common-lisp:nil :type
-    (common-lisp:or user-pending-changes common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-user-output common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-user-output-username :initform
+                         (common-lisp:error ":username is required"))
+                        (pending :initarg :pending :type
+                         (common-lisp:or user-pending-changes common-lisp:null)
+                         :accessor %describe-user-output-pending :initform
+                         common-lisp:nil)
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %describe-user-output-groups :initform
+                         common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %describe-user-output-console-access
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-user-output-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-user-output 'make-describe-user-output))
+ (common-lisp:defun make-describe-user-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username pending groups console-access
+                     broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-user-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input describe-user-output))
    (common-lisp:append))
@@ -2778,15 +3614,23 @@
                         ((aws-sdk/generator/shape::input describe-user-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-user-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-user-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-user-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-user-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-user-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-user-request 'make-describe-user-request))
+ (common-lisp:defun make-describe-user-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-user-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2803,21 +3647,36 @@
                           describe-user-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-user-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-user-response-"))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (pending common-lisp:nil :type
-    (common-lisp:or user-pending-changes common-lisp:null))
-   (username common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass describe-user-response common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-user-response-username :initform
+                         common-lisp:nil)
+                        (pending :initarg :pending :type
+                         (common-lisp:or user-pending-changes common-lisp:null)
+                         :accessor %describe-user-response-pending :initform
+                         common-lisp:nil)
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %describe-user-response-groups :initform
+                         common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %describe-user-response-console-access
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %describe-user-response-broker-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-user-response 'make-describe-user-response))
+ (common-lisp:defun make-describe-user-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username pending groups console-access
+                     broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-user-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2869,15 +3728,24 @@
                           describe-user-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (encryption-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-encryption-options-"))
-   (kms-key-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (use-aws-owned-key (common-lisp:error ":use-aws-owned-key is required")
-    :type (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass encryption-options common-lisp:nil
+                       ((use-aws-owned-key :initarg :use-aws-owned-key :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %encryption-options-use-aws-owned-key
+                         :initform
+                         (common-lisp:error ":use-aws-owned-key is required"))
+                        (kms-key-id :initarg :kms-key-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %encryption-options-kms-key-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'encryption-options 'make-encryption-options))
+ (common-lisp:defun make-encryption-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key use-aws-owned-key kms-key-id)
+   (common-lisp:apply #'common-lisp:make-instance 'encryption-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input encryption-options))
    (common-lisp:append))
@@ -2903,11 +3771,17 @@
    common-lisp:nil))
 (common-lisp:deftype engine-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (engine-version (:copier common-lisp:nil)
-      (:conc-name "struct-shape-engine-version-"))
-   (name common-lisp:nil :type (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass engine-version common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %engine-version-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'engine-version 'make-engine-version))
+ (common-lisp:defun make-engine-version
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name)
+   (common-lisp:apply #'common-lisp:make-instance 'engine-version
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input engine-version))
    (common-lisp:append))
@@ -2925,13 +3799,20 @@
                         ((aws-sdk/generator/shape::input engine-version))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (error (:copier common-lisp:nil) (:conc-name "struct-shape-error-"))
-   (error-attribute common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (message common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass error common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %error-message :initform common-lisp:nil)
+                        (error-attribute :initarg :error-attribute :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %error-error-attribute :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'error 'make-error))
+ (common-lisp:defun make-error
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message error-attribute)
+   (common-lisp:apply #'common-lisp:make-instance 'error
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input error))
    (common-lisp:append))
@@ -2977,38 +3858,77 @@
                     'internal-server-error-exception-error-attribute
                     'internal-server-error-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ldap-server-metadata-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ldap-server-metadata-input-"))
-   (hosts (common-lisp:error ":hosts is required") :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (role-base (common-lisp:error ":role-base is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (role-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (role-search-matching
-    (common-lisp:error ":role-search-matching is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (role-search-subtree common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (service-account-password
-    (common-lisp:error ":service-account-password is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (service-account-username
-    (common-lisp:error ":service-account-username is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-base (common-lisp:error ":user-base is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-role-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-search-matching
-    (common-lisp:error ":user-search-matching is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-search-subtree common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass ldap-server-metadata-input common-lisp:nil
+                       ((user-search-subtree :initarg :user-search-subtree
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-input-user-search-subtree
+                         :initform common-lisp:nil)
+                        (user-search-matching :initarg :user-search-matching
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-input-user-search-matching
+                         :initform
+                         (common-lisp:error
+                          ":user-search-matching is required"))
+                        (user-role-name :initarg :user-role-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-input-user-role-name :initform
+                         common-lisp:nil)
+                        (user-base :initarg :user-base :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-input-user-base :initform
+                         (common-lisp:error ":user-base is required"))
+                        (service-account-username :initarg
+                         :service-account-username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-input-service-account-username
+                         :initform
+                         (common-lisp:error
+                          ":service-account-username is required"))
+                        (service-account-password :initarg
+                         :service-account-password :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-input-service-account-password
+                         :initform
+                         (common-lisp:error
+                          ":service-account-password is required"))
+                        (role-search-subtree :initarg :role-search-subtree
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-input-role-search-subtree
+                         :initform common-lisp:nil)
+                        (role-search-matching :initarg :role-search-matching
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-input-role-search-matching
+                         :initform
+                         (common-lisp:error
+                          ":role-search-matching is required"))
+                        (role-name :initarg :role-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-input-role-name :initform
+                         common-lisp:nil)
+                        (role-base :initarg :role-base :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-input-role-base :initform
+                         (common-lisp:error ":role-base is required"))
+                        (hosts :initarg :hosts :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %ldap-server-metadata-input-hosts :initform
+                         (common-lisp:error ":hosts is required"))))
  (common-lisp:export
   (common-lisp:list 'ldap-server-metadata-input
                     'make-ldap-server-metadata-input))
+ (common-lisp:defun make-ldap-server-metadata-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key user-search-subtree user-search-matching
+                     user-role-name user-base service-account-username
+                     service-account-password role-search-subtree
+                     role-search-matching role-name role-base hosts)
+   (common-lisp:apply #'common-lisp:make-instance 'ldap-server-metadata-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3106,35 +4026,70 @@
                           ldap-server-metadata-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (ldap-server-metadata-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-ldap-server-metadata-output-"))
-   (hosts (common-lisp:error ":hosts is required") :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (role-base (common-lisp:error ":role-base is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (role-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (role-search-matching
-    (common-lisp:error ":role-search-matching is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (role-search-subtree common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (service-account-username
-    (common-lisp:error ":service-account-username is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-base (common-lisp:error ":user-base is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-role-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-search-matching
-    (common-lisp:error ":user-search-matching is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (user-search-subtree common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass ldap-server-metadata-output common-lisp:nil
+                       ((user-search-subtree :initarg :user-search-subtree
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-output-user-search-subtree
+                         :initform common-lisp:nil)
+                        (user-search-matching :initarg :user-search-matching
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-output-user-search-matching
+                         :initform
+                         (common-lisp:error
+                          ":user-search-matching is required"))
+                        (user-role-name :initarg :user-role-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-output-user-role-name :initform
+                         common-lisp:nil)
+                        (user-base :initarg :user-base :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-output-user-base :initform
+                         (common-lisp:error ":user-base is required"))
+                        (service-account-username :initarg
+                         :service-account-username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-output-service-account-username
+                         :initform
+                         (common-lisp:error
+                          ":service-account-username is required"))
+                        (role-search-subtree :initarg :role-search-subtree
+                         :type (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-output-role-search-subtree
+                         :initform common-lisp:nil)
+                        (role-search-matching :initarg :role-search-matching
+                         :type (common-lisp:or |__string| common-lisp:null)
+                         :accessor
+                         %ldap-server-metadata-output-role-search-matching
+                         :initform
+                         (common-lisp:error
+                          ":role-search-matching is required"))
+                        (role-name :initarg :role-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-output-role-name :initform
+                         common-lisp:nil)
+                        (role-base :initarg :role-base :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %ldap-server-metadata-output-role-base :initform
+                         (common-lisp:error ":role-base is required"))
+                        (hosts :initarg :hosts :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %ldap-server-metadata-output-hosts :initform
+                         (common-lisp:error ":hosts is required"))))
  (common-lisp:export
   (common-lisp:list 'ldap-server-metadata-output
                     'make-ldap-server-metadata-output))
+ (common-lisp:defun make-ldap-server-metadata-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key user-search-subtree user-search-matching
+                     user-role-name user-base service-account-username
+                     role-search-subtree role-search-matching role-name
+                     role-base hosts)
+   (common-lisp:apply #'common-lisp:make-instance 'ldap-server-metadata-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3224,15 +4179,24 @@
                           ldap-server-metadata-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-brokers-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-brokers-output-"))
-   (broker-summaries common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerSummary| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-brokers-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-brokers-output-next-token :initform
+                         common-lisp:nil)
+                        (broker-summaries :initarg :broker-summaries :type
+                         (common-lisp:or |__listOfBrokerSummary|
+                                         common-lisp:null)
+                         :accessor %list-brokers-output-broker-summaries
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-brokers-output 'make-list-brokers-output))
+ (common-lisp:defun make-list-brokers-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token broker-summaries)
+   (common-lisp:apply #'common-lisp:make-instance 'list-brokers-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-brokers-output))
    (common-lisp:append))
@@ -3257,15 +4221,23 @@
                         ((aws-sdk/generator/shape::input list-brokers-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-brokers-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-brokers-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-brokers-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-brokers-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-brokers-request-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-brokers-request 'make-list-brokers-request))
+ (common-lisp:defun make-list-brokers-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-brokers-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-brokers-request))
    (common-lisp:append))
@@ -3276,15 +4248,24 @@
                         ((aws-sdk/generator/shape::input list-brokers-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-brokers-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-brokers-response-"))
-   (broker-summaries common-lisp:nil :type
-    (common-lisp:or |__listOfBrokerSummary| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-brokers-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-brokers-response-next-token :initform
+                         common-lisp:nil)
+                        (broker-summaries :initarg :broker-summaries :type
+                         (common-lisp:or |__listOfBrokerSummary|
+                                         common-lisp:null)
+                         :accessor %list-brokers-response-broker-summaries
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-brokers-response 'make-list-brokers-response))
+ (common-lisp:defun make-list-brokers-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token broker-summaries)
+   (common-lisp:apply #'common-lisp:make-instance 'list-brokers-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3315,20 +4296,37 @@
                           list-brokers-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configuration-revisions-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configuration-revisions-output-"))
-   (configuration-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integer| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (revisions common-lisp:nil :type
-    (common-lisp:or |__listOfConfigurationRevision| common-lisp:null)))
+ (common-lisp:defclass list-configuration-revisions-output common-lisp:nil
+                       ((revisions :initarg :revisions :type
+                         (common-lisp:or |__listOfConfigurationRevision|
+                                         common-lisp:null)
+                         :accessor
+                         %list-configuration-revisions-output-revisions
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-revisions-output-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integer| common-lisp:null)
+                         :accessor
+                         %list-configuration-revisions-output-max-results
+                         :initform common-lisp:nil)
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-revisions-output-configuration-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configuration-revisions-output
                     'make-list-configuration-revisions-output))
+ (common-lisp:defun make-list-configuration-revisions-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key revisions next-token max-results
+                     configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configuration-revisions-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3373,18 +4371,31 @@
                           list-configuration-revisions-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configuration-revisions-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configuration-revisions-request-"))
-   (configuration-id (common-lisp:error ":configuration-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-configuration-revisions-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-revisions-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-configuration-revisions-request-max-results
+                         :initform common-lisp:nil)
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-revisions-request-configuration-id
+                         :initform
+                         (common-lisp:error ":configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-configuration-revisions-request
                     'make-list-configuration-revisions-request))
+ (common-lisp:defun make-list-configuration-revisions-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configuration-revisions-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3401,20 +4412,37 @@
                           list-configuration-revisions-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configuration-revisions-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configuration-revisions-response-"))
-   (configuration-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integer| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (revisions common-lisp:nil :type
-    (common-lisp:or |__listOfConfigurationRevision| common-lisp:null)))
+ (common-lisp:defclass list-configuration-revisions-response common-lisp:nil
+                       ((revisions :initarg :revisions :type
+                         (common-lisp:or |__listOfConfigurationRevision|
+                                         common-lisp:null)
+                         :accessor
+                         %list-configuration-revisions-response-revisions
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-revisions-response-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integer| common-lisp:null)
+                         :accessor
+                         %list-configuration-revisions-response-max-results
+                         :initform common-lisp:nil)
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configuration-revisions-response-configuration-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configuration-revisions-response
                     'make-list-configuration-revisions-response))
+ (common-lisp:defun make-list-configuration-revisions-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key revisions next-token max-results
+                     configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-configuration-revisions-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3459,18 +4487,29 @@
                           list-configuration-revisions-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configurations-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configurations-output-"))
-   (configurations common-lisp:nil :type
-    (common-lisp:or |__listOfConfiguration| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integer| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-configurations-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configurations-output-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integer| common-lisp:null)
+                         :accessor %list-configurations-output-max-results
+                         :initform common-lisp:nil)
+                        (configurations :initarg :configurations :type
+                         (common-lisp:or |__listOfConfiguration|
+                                         common-lisp:null)
+                         :accessor %list-configurations-output-configurations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configurations-output
                     'make-list-configurations-output))
+ (common-lisp:defun make-list-configurations-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results configurations)
+   (common-lisp:apply #'common-lisp:make-instance 'list-configurations-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3508,16 +4547,24 @@
                           list-configurations-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configurations-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configurations-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-configurations-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configurations-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-configurations-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configurations-request
                     'make-list-configurations-request))
+ (common-lisp:defun make-list-configurations-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-configurations-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3534,18 +4581,29 @@
                           list-configurations-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-configurations-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-configurations-response-"))
-   (configurations common-lisp:nil :type
-    (common-lisp:or |__listOfConfiguration| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integer| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-configurations-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-configurations-response-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integer| common-lisp:null)
+                         :accessor %list-configurations-response-max-results
+                         :initform common-lisp:nil)
+                        (configurations :initarg :configurations :type
+                         (common-lisp:or |__listOfConfiguration|
+                                         common-lisp:null)
+                         :accessor %list-configurations-response-configurations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-configurations-response
                     'make-list-configurations-response))
+ (common-lisp:defun make-list-configurations-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results configurations)
+   (common-lisp:apply #'common-lisp:make-instance 'list-configurations-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3583,13 +4641,19 @@
                           list-configurations-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-tags-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-tags-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-request 'make-list-tags-request))
+ (common-lisp:defun make-list-tags-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-tags-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-tags-request))
    (common-lisp:append))
@@ -3600,13 +4664,19 @@
                         ((aws-sdk/generator/shape::input list-tags-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-response-"))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass list-tags-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %list-tags-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-response 'make-list-tags-response))
+ (common-lisp:defun make-list-tags-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance 'list-tags-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-tags-response))
    (common-lisp:append))
@@ -3624,19 +4694,33 @@
                         ((aws-sdk/generator/shape::input list-tags-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-users-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-users-output-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results (common-lisp:error ":max-results is required") :type
-    (common-lisp:or |__integerMin5Max100| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (users (common-lisp:error ":users is required") :type
-    (common-lisp:or |__listOfUserSummary| common-lisp:null)))
+ (common-lisp:defclass list-users-output common-lisp:nil
+                       ((users :initarg :users :type
+                         (common-lisp:or |__listOfUserSummary|
+                                         common-lisp:null)
+                         :accessor %list-users-output-users :initform
+                         (common-lisp:error ":users is required"))
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-users-output-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin5Max100|
+                                         common-lisp:null)
+                         :accessor %list-users-output-max-results :initform
+                         (common-lisp:error ":max-results is required"))
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-users-output-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-users-output 'make-list-users-output))
+ (common-lisp:defun make-list-users-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key users next-token max-results broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-users-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-users-output))
    (common-lisp:append))
@@ -3675,17 +4759,27 @@
                         ((aws-sdk/generator/shape::input list-users-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-users-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-users-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass list-users-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-users-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-users-request-max-results :initform
+                         common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-users-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-users-request 'make-list-users-request))
+ (common-lisp:defun make-list-users-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-users-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-users-request))
    (common-lisp:append))
@@ -3696,19 +4790,33 @@
                         ((aws-sdk/generator/shape::input list-users-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-users-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-users-response-"))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or |__integerMin5Max100| common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (users common-lisp:nil :type
-    (common-lisp:or |__listOfUserSummary| common-lisp:null)))
+ (common-lisp:defclass list-users-response common-lisp:nil
+                       ((users :initarg :users :type
+                         (common-lisp:or |__listOfUserSummary|
+                                         common-lisp:null)
+                         :accessor %list-users-response-users :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-users-response-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or |__integerMin5Max100|
+                                         common-lisp:null)
+                         :accessor %list-users-response-max-results :initform
+                         common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %list-users-response-broker-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-users-response 'make-list-users-response))
+ (common-lisp:defun make-list-users-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key users next-token max-results broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-users-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-users-response))
    (common-lisp:append))
@@ -3747,12 +4855,20 @@
                         ((aws-sdk/generator/shape::input list-users-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (logs (:copier common-lisp:nil) (:conc-name "struct-shape-logs-"))
-   (audit common-lisp:nil :type (common-lisp:or |__boolean| common-lisp:null))
-   (general common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass logs common-lisp:nil
+                       ((general :initarg :general :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %logs-general :initform common-lisp:nil)
+                        (audit :initarg :audit :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %logs-audit :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'logs 'make-logs))
+ (common-lisp:defun make-logs
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key general audit)
+   (common-lisp:apply #'common-lisp:make-instance 'logs
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input logs))
    (common-lisp:append))
@@ -3777,19 +4893,35 @@
                         ((aws-sdk/generator/shape::input logs))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (logs-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-logs-summary-"))
-   (audit common-lisp:nil :type (common-lisp:or |__boolean| common-lisp:null))
-   (audit-log-group common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (general (common-lisp:error ":general is required") :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (general-log-group (common-lisp:error ":general-log-group is required")
-    :type (common-lisp:or |__string| common-lisp:null))
-   (pending common-lisp:nil :type
-    (common-lisp:or pending-logs common-lisp:null)))
+ (common-lisp:defclass logs-summary common-lisp:nil
+                       ((pending :initarg :pending :type
+                         (common-lisp:or pending-logs common-lisp:null)
+                         :accessor %logs-summary-pending :initform
+                         common-lisp:nil)
+                        (general-log-group :initarg :general-log-group :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %logs-summary-general-log-group :initform
+                         (common-lisp:error ":general-log-group is required"))
+                        (general :initarg :general :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %logs-summary-general :initform
+                         (common-lisp:error ":general is required"))
+                        (audit-log-group :initarg :audit-log-group :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %logs-summary-audit-log-group :initform
+                         common-lisp:nil)
+                        (audit :initarg :audit :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %logs-summary-audit :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'logs-summary 'make-logs-summary))
+ (common-lisp:defun make-logs-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pending general-log-group general
+                     audit-log-group audit)
+   (common-lisp:apply #'common-lisp:make-instance 'logs-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input logs-summary))
    (common-lisp:append))
@@ -3846,13 +4978,22 @@
   (common-lisp:list 'not-found-exception 'not-found-exception-error-attribute
                     'not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (pending-logs (:copier common-lisp:nil)
-      (:conc-name "struct-shape-pending-logs-"))
-   (audit common-lisp:nil :type (common-lisp:or |__boolean| common-lisp:null))
-   (general common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null)))
+ (common-lisp:defclass pending-logs common-lisp:nil
+                       ((general :initarg :general :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %pending-logs-general :initform
+                         common-lisp:nil)
+                        (audit :initarg :audit :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %pending-logs-audit :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'pending-logs 'make-pending-logs))
+ (common-lisp:defun make-pending-logs
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key general audit)
+   (common-lisp:apply #'common-lisp:make-instance 'pending-logs
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input pending-logs))
    (common-lisp:append))
@@ -3877,13 +5018,19 @@
                         ((aws-sdk/generator/shape::input pending-logs))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (reboot-broker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reboot-broker-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass reboot-broker-request common-lisp:nil
+                       ((broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %reboot-broker-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'reboot-broker-request 'make-reboot-broker-request))
+ (common-lisp:defun make-reboot-broker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'reboot-broker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3900,11 +5047,15 @@
                           reboot-broker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (reboot-broker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-reboot-broker-response-")))
+ (common-lisp:defclass reboot-broker-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'reboot-broker-response 'make-reboot-broker-response))
+ (common-lisp:defun make-reboot-broker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'reboot-broker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3921,17 +5072,28 @@
                           reboot-broker-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (sanitization-warning (:copier common-lisp:nil)
-      (:conc-name "struct-shape-sanitization-warning-"))
-   (attribute-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (element-name common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (reason (common-lisp:error ":reason is required") :type
-    (common-lisp:or sanitization-warning-reason common-lisp:null)))
+ (common-lisp:defclass sanitization-warning common-lisp:nil
+                       ((reason :initarg :reason :type
+                         (common-lisp:or sanitization-warning-reason
+                                         common-lisp:null)
+                         :accessor %sanitization-warning-reason :initform
+                         (common-lisp:error ":reason is required"))
+                        (element-name :initarg :element-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %sanitization-warning-element-name :initform
+                         common-lisp:nil)
+                        (attribute-name :initarg :attribute-name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %sanitization-warning-attribute-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'sanitization-warning 'make-sanitization-warning))
+ (common-lisp:defun make-sanitization-warning
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key reason element-name attribute-name)
+   (common-lisp:apply #'common-lisp:make-instance 'sanitization-warning
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input sanitization-warning))
    (common-lisp:append))
@@ -3964,11 +5126,17 @@
    common-lisp:nil))
 (common-lisp:deftype sanitization-warning-reason () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (tags (:copier common-lisp:nil) (:conc-name "struct-shape-tags-"))
-   (tags common-lisp:nil :type
-    (common-lisp:or |__mapOf__string| common-lisp:null)))
+ (common-lisp:defclass tags common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or |__mapOf__string| common-lisp:null)
+                         :accessor %tags-tags :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'tags 'make-tags))
+ (common-lisp:defun make-tags
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance 'tags
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tags))
    (common-lisp:append))
@@ -3997,28 +5165,61 @@
                     'unauthorized-exception-error-attribute
                     'unauthorized-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-broker-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-broker-input-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (configuration common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-input common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null)))
+ (common-lisp:defclass update-broker-input common-lisp:nil
+                       ((security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %update-broker-input-security-groups
+                         :initform common-lisp:nil)
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %update-broker-input-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs common-lisp:null) :accessor
+                         %update-broker-input-logs :initform common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-input
+                                         common-lisp:null)
+                         :accessor %update-broker-input-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-input-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-input-engine-version :initform
+                         common-lisp:nil)
+                        (configuration :initarg :configuration :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %update-broker-input-configuration :initform
+                         common-lisp:nil)
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %update-broker-input-auto-minor-version-upgrade
+                         :initform common-lisp:nil)
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor %update-broker-input-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-broker-input 'make-update-broker-input))
+ (common-lisp:defun make-update-broker-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-groups
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version configuration
+                     auto-minor-version-upgrade authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'update-broker-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-broker-input))
    (common-lisp:append))
@@ -4096,30 +5297,66 @@
                         ((aws-sdk/generator/shape::input update-broker-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-broker-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-broker-output-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (configuration common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-output common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null)))
+ (common-lisp:defclass update-broker-output common-lisp:nil
+                       ((security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %update-broker-output-security-groups
+                         :initform common-lisp:nil)
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %update-broker-output-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs common-lisp:null) :accessor
+                         %update-broker-output-logs :initform common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-output
+                                         common-lisp:null)
+                         :accessor %update-broker-output-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-output-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-output-engine-version :initform
+                         common-lisp:nil)
+                        (configuration :initarg :configuration :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %update-broker-output-configuration
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-output-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %update-broker-output-auto-minor-version-upgrade
+                         :initform common-lisp:nil)
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %update-broker-output-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-broker-output 'make-update-broker-output))
+ (common-lisp:defun make-update-broker-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-groups
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version configuration broker-id
+                     auto-minor-version-upgrade authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'update-broker-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-broker-output))
    (common-lisp:append))
@@ -4204,30 +5441,66 @@
                         ((aws-sdk/generator/shape::input update-broker-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-broker-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-broker-request-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (configuration common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-input common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null)))
+ (common-lisp:defclass update-broker-request common-lisp:nil
+                       ((security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %update-broker-request-security-groups
+                         :initform common-lisp:nil)
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %update-broker-request-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs common-lisp:null) :accessor
+                         %update-broker-request-logs :initform common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-input
+                                         common-lisp:null)
+                         :accessor %update-broker-request-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-request-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-request-engine-version :initform
+                         common-lisp:nil)
+                        (configuration :initarg :configuration :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %update-broker-request-configuration
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %update-broker-request-auto-minor-version-upgrade
+                         :initform common-lisp:nil)
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %update-broker-request-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-broker-request 'make-update-broker-request))
+ (common-lisp:defun make-update-broker-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-groups
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version configuration broker-id
+                     auto-minor-version-upgrade authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'update-broker-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4311,30 +5584,67 @@
                           update-broker-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-broker-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-broker-response-"))
-   (authentication-strategy common-lisp:nil :type
-    (common-lisp:or authentication-strategy common-lisp:null))
-   (auto-minor-version-upgrade common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (broker-id common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (configuration common-lisp:nil :type
-    (common-lisp:or configuration-id common-lisp:null))
-   (engine-version common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (host-instance-type common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (ldap-server-metadata common-lisp:nil :type
-    (common-lisp:or ldap-server-metadata-output common-lisp:null))
-   (logs common-lisp:nil :type (common-lisp:or logs common-lisp:null))
-   (maintenance-window-start-time common-lisp:nil :type
-    (common-lisp:or weekly-start-time common-lisp:null))
-   (security-groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null)))
+ (common-lisp:defclass update-broker-response common-lisp:nil
+                       ((security-groups :initarg :security-groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %update-broker-response-security-groups
+                         :initform common-lisp:nil)
+                        (maintenance-window-start-time :initarg
+                         :maintenance-window-start-time :type
+                         (common-lisp:or weekly-start-time common-lisp:null)
+                         :accessor
+                         %update-broker-response-maintenance-window-start-time
+                         :initform common-lisp:nil)
+                        (logs :initarg :logs :type
+                         (common-lisp:or logs common-lisp:null) :accessor
+                         %update-broker-response-logs :initform
+                         common-lisp:nil)
+                        (ldap-server-metadata :initarg :ldap-server-metadata
+                         :type
+                         (common-lisp:or ldap-server-metadata-output
+                                         common-lisp:null)
+                         :accessor %update-broker-response-ldap-server-metadata
+                         :initform common-lisp:nil)
+                        (host-instance-type :initarg :host-instance-type :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-response-host-instance-type :initform
+                         common-lisp:nil)
+                        (engine-version :initarg :engine-version :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-response-engine-version :initform
+                         common-lisp:nil)
+                        (configuration :initarg :configuration :type
+                         (common-lisp:or configuration-id common-lisp:null)
+                         :accessor %update-broker-response-configuration
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-broker-response-broker-id :initform
+                         common-lisp:nil)
+                        (auto-minor-version-upgrade :initarg
+                         :auto-minor-version-upgrade :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor
+                         %update-broker-response-auto-minor-version-upgrade
+                         :initform common-lisp:nil)
+                        (authentication-strategy :initarg
+                         :authentication-strategy :type
+                         (common-lisp:or authentication-strategy
+                                         common-lisp:null)
+                         :accessor
+                         %update-broker-response-authentication-strategy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-broker-response 'make-update-broker-response))
+ (common-lisp:defun make-update-broker-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-groups
+                     maintenance-window-start-time logs ldap-server-metadata
+                     host-instance-type engine-version configuration broker-id
+                     auto-minor-version-upgrade authentication-strategy)
+   (common-lisp:apply #'common-lisp:make-instance 'update-broker-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4425,16 +5735,24 @@
                           update-broker-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configuration-input-"))
-   (data (common-lisp:error ":data is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-configuration-input common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-input-description :initform
+                         common-lisp:nil)
+                        (data :initarg :data :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-input-data :initform
+                         (common-lisp:error ":data is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configuration-input
                     'make-update-configuration-input))
+ (common-lisp:defun make-update-configuration-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description data)
+   (common-lisp:apply #'common-lisp:make-instance 'update-configuration-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4465,24 +5783,43 @@
                           update-configuration-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configuration-output-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (created (common-lisp:error ":created is required") :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (latest-revision common-lisp:nil :type
-    (common-lisp:or configuration-revision common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (warnings common-lisp:nil :type
-    (common-lisp:or |__listOfSanitizationWarning| common-lisp:null)))
+ (common-lisp:defclass update-configuration-output common-lisp:nil
+                       ((warnings :initarg :warnings :type
+                         (common-lisp:or |__listOfSanitizationWarning|
+                                         common-lisp:null)
+                         :accessor %update-configuration-output-warnings
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-output-name :initform
+                         (common-lisp:error ":name is required"))
+                        (latest-revision :initarg :latest-revision :type
+                         (common-lisp:or configuration-revision
+                                         common-lisp:null)
+                         :accessor %update-configuration-output-latest-revision
+                         :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-output-id :initform
+                         (common-lisp:error ":id is required"))
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %update-configuration-output-created
+                         :initform (common-lisp:error ":created is required"))
+                        (arn :initarg :arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-output-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configuration-output
                     'make-update-configuration-output))
+ (common-lisp:defun make-update-configuration-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key warnings name latest-revision id created
+                     arn)
+   (common-lisp:apply #'common-lisp:make-instance 'update-configuration-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4541,18 +5878,29 @@
                           update-configuration-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configuration-request-"))
-   (configuration-id (common-lisp:error ":configuration-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (data (common-lisp:error ":data is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-configuration-request common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-request-description :initform
+                         common-lisp:nil)
+                        (data :initarg :data :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-request-data :initform
+                         (common-lisp:error ":data is required"))
+                        (configuration-id :initarg :configuration-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-request-configuration-id
+                         :initform
+                         (common-lisp:error ":configuration-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-configuration-request
                     'make-update-configuration-request))
+ (common-lisp:defun make-update-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description data configuration-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4583,21 +5931,45 @@
                           update-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-configuration-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-configuration-response-"))
-   (arn common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (created common-lisp:nil :type
-    (common-lisp:or |__timestampIso8601| common-lisp:null))
-   (id common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (latest-revision common-lisp:nil :type
-    (common-lisp:or configuration-revision common-lisp:null))
-   (name common-lisp:nil :type (common-lisp:or |__string| common-lisp:null))
-   (warnings common-lisp:nil :type
-    (common-lisp:or |__listOfSanitizationWarning| common-lisp:null)))
+ (common-lisp:defclass update-configuration-response common-lisp:nil
+                       ((warnings :initarg :warnings :type
+                         (common-lisp:or |__listOfSanitizationWarning|
+                                         common-lisp:null)
+                         :accessor %update-configuration-response-warnings
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-response-name :initform
+                         common-lisp:nil)
+                        (latest-revision :initarg :latest-revision :type
+                         (common-lisp:or configuration-revision
+                                         common-lisp:null)
+                         :accessor
+                         %update-configuration-response-latest-revision
+                         :initform common-lisp:nil)
+                        (id :initarg :id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-response-id :initform
+                         common-lisp:nil)
+                        (created :initarg :created :type
+                         (common-lisp:or |__timestampIso8601| common-lisp:null)
+                         :accessor %update-configuration-response-created
+                         :initform common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-configuration-response-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-configuration-response
                     'make-update-configuration-response))
+ (common-lisp:defun make-update-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key warnings name latest-revision id created
+                     arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -4656,17 +6028,26 @@
                           update-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-user-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-user-input-"))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (password common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-user-input common-lisp:nil
+                       ((password :initarg :password :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-user-input-password :initform common-lisp:nil)
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %update-user-input-groups :initform
+                         common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %update-user-input-console-access :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-user-input 'make-update-user-input))
+ (common-lisp:defun make-update-user-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key password groups console-access)
+   (common-lisp:apply #'common-lisp:make-instance 'update-user-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-user-input))
    (common-lisp:append))
@@ -4698,21 +6079,36 @@
                         ((aws-sdk/generator/shape::input update-user-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-user-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-user-request-"))
-   (broker-id (common-lisp:error ":broker-id is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (password common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass update-user-request common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-user-request-username :initform
+                         (common-lisp:error ":username is required"))
+                        (password :initarg :password :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-user-request-password :initform
+                         common-lisp:nil)
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %update-user-request-groups :initform
+                         common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %update-user-request-console-access
+                         :initform common-lisp:nil)
+                        (broker-id :initarg :broker-id :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %update-user-request-broker-id :initform
+                         (common-lisp:error ":broker-id is required"))))
  (common-lisp:export
   (common-lisp:list 'update-user-request 'make-update-user-request))
+ (common-lisp:defun make-update-user-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username password groups console-access
+                     broker-id)
+   (common-lisp:apply #'common-lisp:make-instance 'update-user-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-user-request))
    (common-lisp:append))
@@ -4744,11 +6140,15 @@
                         ((aws-sdk/generator/shape::input update-user-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-user-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-user-response-")))
+ (common-lisp:defclass update-user-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-user-response 'make-update-user-response))
+ (common-lisp:defun make-update-user-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'update-user-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-user-response))
    (common-lisp:append))
@@ -4759,17 +6159,29 @@
                         ((aws-sdk/generator/shape::input update-user-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (user (:copier common-lisp:nil) (:conc-name "struct-shape-user-"))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (password (common-lisp:error ":password is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass user common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %user-username :initform
+                         (common-lisp:error ":username is required"))
+                        (password :initarg :password :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %user-password :initform
+                         (common-lisp:error ":password is required"))
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %user-groups :initform common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %user-console-access :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'user 'make-user))
+ (common-lisp:defun make-user
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username password groups console-access)
+   (common-lisp:apply #'common-lisp:make-instance 'user
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input user))
    (common-lisp:append))
@@ -4808,17 +6220,28 @@
                         ((aws-sdk/generator/shape::input user))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (user-pending-changes (:copier common-lisp:nil)
-      (:conc-name "struct-shape-user-pending-changes-"))
-   (console-access common-lisp:nil :type
-    (common-lisp:or |__boolean| common-lisp:null))
-   (groups common-lisp:nil :type
-    (common-lisp:or |__listOf__string| common-lisp:null))
-   (pending-change (common-lisp:error ":pending-change is required") :type
-    (common-lisp:or change-type common-lisp:null)))
+ (common-lisp:defclass user-pending-changes common-lisp:nil
+                       ((pending-change :initarg :pending-change :type
+                         (common-lisp:or change-type common-lisp:null)
+                         :accessor %user-pending-changes-pending-change
+                         :initform
+                         (common-lisp:error ":pending-change is required"))
+                        (groups :initarg :groups :type
+                         (common-lisp:or |__listOf__string| common-lisp:null)
+                         :accessor %user-pending-changes-groups :initform
+                         common-lisp:nil)
+                        (console-access :initarg :console-access :type
+                         (common-lisp:or |__boolean| common-lisp:null)
+                         :accessor %user-pending-changes-console-access
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'user-pending-changes 'make-user-pending-changes))
+ (common-lisp:defun make-user-pending-changes
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pending-change groups console-access)
+   (common-lisp:apply #'common-lisp:make-instance 'user-pending-changes
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input user-pending-changes))
    (common-lisp:append))
@@ -4850,14 +6273,22 @@
                         ((aws-sdk/generator/shape::input user-pending-changes))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (user-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-user-summary-"))
-   (pending-change common-lisp:nil :type
-    (common-lisp:or change-type common-lisp:null))
-   (username (common-lisp:error ":username is required") :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass user-summary common-lisp:nil
+                       ((username :initarg :username :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %user-summary-username :initform
+                         (common-lisp:error ":username is required"))
+                        (pending-change :initarg :pending-change :type
+                         (common-lisp:or change-type common-lisp:null)
+                         :accessor %user-summary-pending-change :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'user-summary 'make-user-summary))
+ (common-lisp:defun make-user-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key username pending-change)
+   (common-lisp:apply #'common-lisp:make-instance 'user-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input user-summary))
    (common-lisp:append))
@@ -4882,17 +6313,27 @@
                         ((aws-sdk/generator/shape::input user-summary))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (weekly-start-time (:copier common-lisp:nil)
-      (:conc-name "struct-shape-weekly-start-time-"))
-   (day-of-week (common-lisp:error ":day-of-week is required") :type
-    (common-lisp:or day-of-week common-lisp:null))
-   (time-of-day (common-lisp:error ":time-of-day is required") :type
-    (common-lisp:or |__string| common-lisp:null))
-   (time-zone common-lisp:nil :type
-    (common-lisp:or |__string| common-lisp:null)))
+ (common-lisp:defclass weekly-start-time common-lisp:nil
+                       ((time-zone :initarg :time-zone :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %weekly-start-time-time-zone :initform
+                         common-lisp:nil)
+                        (time-of-day :initarg :time-of-day :type
+                         (common-lisp:or |__string| common-lisp:null) :accessor
+                         %weekly-start-time-time-of-day :initform
+                         (common-lisp:error ":time-of-day is required"))
+                        (day-of-week :initarg :day-of-week :type
+                         (common-lisp:or day-of-week common-lisp:null)
+                         :accessor %weekly-start-time-day-of-week :initform
+                         (common-lisp:error ":day-of-week is required"))))
  (common-lisp:export
   (common-lisp:list 'weekly-start-time 'make-weekly-start-time))
+ (common-lisp:defun make-weekly-start-time
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key time-zone time-of-day day-of-week)
+   (common-lisp:apply #'common-lisp:make-instance 'weekly-start-time
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input weekly-start-time))
    (common-lisp:append))

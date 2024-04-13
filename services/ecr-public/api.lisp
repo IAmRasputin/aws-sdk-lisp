@@ -61,15 +61,23 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (authorization-data (:copier common-lisp:nil)
-      (:conc-name "struct-shape-authorization-data-"))
-   (authorization-token common-lisp:nil :type
-    (common-lisp:or base64 common-lisp:null))
-   (expires-at common-lisp:nil :type
-    (common-lisp:or expiration-timestamp common-lisp:null)))
+ (common-lisp:defclass authorization-data common-lisp:nil
+                       ((expires-at :initarg :|expiresAt| :type
+                         (common-lisp:or expiration-timestamp common-lisp:null)
+                         :accessor %authorization-data-expires-at :initform
+                         common-lisp:nil)
+                        (authorization-token :initarg :|authorizationToken|
+                         :type (common-lisp:or base64 common-lisp:null)
+                         :accessor %authorization-data-authorization-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'authorization-data 'make-authorization-data))
+ (common-lisp:defun make-authorization-data
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key expires-at authorization-token)
+   (common-lisp:apply #'common-lisp:make-instance 'authorization-data
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input authorization-data))
    (common-lisp:append))
@@ -95,18 +103,36 @@
    common-lisp:nil))
 (common-lisp:deftype base64 () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-check-layer-availability-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-check-layer-availability-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id-or-alias common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (layer-digests (common-lisp:error ":layerdigests is required") :type
-    (common-lisp:or batched-operation-layer-digest-list common-lisp:null)))
+ (common-lisp:defclass batch-check-layer-availability-request common-lisp:nil
+                       ((layer-digests :initarg :|layerDigests| :type
+                         (common-lisp:or batched-operation-layer-digest-list
+                                         common-lisp:null)
+                         :accessor
+                         %batch-check-layer-availability-request-layer-digests
+                         :initform
+                         (common-lisp:error ":layerdigests is required"))
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %batch-check-layer-availability-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id-or-alias common-lisp:null)
+                         :accessor
+                         %batch-check-layer-availability-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'batch-check-layer-availability-request
                     'make-batch-check-layer-availability-request))
+ (common-lisp:defun make-batch-check-layer-availability-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key layer-digests repository-name
+                     registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-check-layer-availability-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -144,15 +170,26 @@
                           batch-check-layer-availability-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-check-layer-availability-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-check-layer-availability-response-"))
-   (layers common-lisp:nil :type (common-lisp:or layer-list common-lisp:null))
-   (failures common-lisp:nil :type
-    (common-lisp:or layer-failure-list common-lisp:null)))
+ (common-lisp:defclass batch-check-layer-availability-response common-lisp:nil
+                       ((failures :initarg :|failures| :type
+                         (common-lisp:or layer-failure-list common-lisp:null)
+                         :accessor
+                         %batch-check-layer-availability-response-failures
+                         :initform common-lisp:nil)
+                        (layers :initarg :|layers| :type
+                         (common-lisp:or layer-list common-lisp:null) :accessor
+                         %batch-check-layer-availability-response-layers
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'batch-check-layer-availability-response
                     'make-batch-check-layer-availability-response))
+ (common-lisp:defun make-batch-check-layer-availability-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failures layers)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'batch-check-layer-availability-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -183,18 +220,30 @@
                           batch-check-layer-availability-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-delete-image-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-delete-image-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id-or-alias common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (image-ids (common-lisp:error ":imageids is required") :type
-    (common-lisp:or image-identifier-list common-lisp:null)))
+ (common-lisp:defclass batch-delete-image-request common-lisp:nil
+                       ((image-ids :initarg :|imageIds| :type
+                         (common-lisp:or image-identifier-list
+                                         common-lisp:null)
+                         :accessor %batch-delete-image-request-image-ids
+                         :initform (common-lisp:error ":imageids is required"))
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %batch-delete-image-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id-or-alias common-lisp:null)
+                         :accessor %batch-delete-image-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'batch-delete-image-request
                     'make-batch-delete-image-request))
+ (common-lisp:defun make-batch-delete-image-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key image-ids repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'batch-delete-image-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -232,16 +281,25 @@
                           batch-delete-image-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-delete-image-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-delete-image-response-"))
-   (image-ids common-lisp:nil :type
-    (common-lisp:or image-identifier-list common-lisp:null))
-   (failures common-lisp:nil :type
-    (common-lisp:or image-failure-list common-lisp:null)))
+ (common-lisp:defclass batch-delete-image-response common-lisp:nil
+                       ((failures :initarg :|failures| :type
+                         (common-lisp:or image-failure-list common-lisp:null)
+                         :accessor %batch-delete-image-response-failures
+                         :initform common-lisp:nil)
+                        (image-ids :initarg :|imageIds| :type
+                         (common-lisp:or image-identifier-list
+                                         common-lisp:null)
+                         :accessor %batch-delete-image-response-image-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'batch-delete-image-response
                     'make-batch-delete-image-response))
+ (common-lisp:defun make-batch-delete-image-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failures image-ids)
+   (common-lisp:apply #'common-lisp:make-instance 'batch-delete-image-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -282,20 +340,37 @@
                             batched-operation-layer-digest))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (complete-layer-upload-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-complete-layer-upload-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id-or-alias common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (upload-id (common-lisp:error ":uploadid is required") :type
-    (common-lisp:or upload-id common-lisp:null))
-   (layer-digests (common-lisp:error ":layerdigests is required") :type
-    (common-lisp:or layer-digest-list common-lisp:null)))
+ (common-lisp:defclass complete-layer-upload-request common-lisp:nil
+                       ((layer-digests :initarg :|layerDigests| :type
+                         (common-lisp:or layer-digest-list common-lisp:null)
+                         :accessor %complete-layer-upload-request-layer-digests
+                         :initform
+                         (common-lisp:error ":layerdigests is required"))
+                        (upload-id :initarg :|uploadId| :type
+                         (common-lisp:or upload-id common-lisp:null) :accessor
+                         %complete-layer-upload-request-upload-id :initform
+                         (common-lisp:error ":uploadid is required"))
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %complete-layer-upload-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id-or-alias common-lisp:null)
+                         :accessor %complete-layer-upload-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'complete-layer-upload-request
                     'make-complete-layer-upload-request))
+ (common-lisp:defun make-complete-layer-upload-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key layer-digests upload-id repository-name
+                     registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'complete-layer-upload-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -340,20 +415,35 @@
                           complete-layer-upload-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (complete-layer-upload-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-complete-layer-upload-response-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (upload-id common-lisp:nil :type
-    (common-lisp:or upload-id common-lisp:null))
-   (layer-digest common-lisp:nil :type
-    (common-lisp:or layer-digest common-lisp:null)))
+ (common-lisp:defclass complete-layer-upload-response common-lisp:nil
+                       ((layer-digest :initarg :|layerDigest| :type
+                         (common-lisp:or layer-digest common-lisp:null)
+                         :accessor %complete-layer-upload-response-layer-digest
+                         :initform common-lisp:nil)
+                        (upload-id :initarg :|uploadId| :type
+                         (common-lisp:or upload-id common-lisp:null) :accessor
+                         %complete-layer-upload-response-upload-id :initform
+                         common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %complete-layer-upload-response-repository-name
+                         :initform common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %complete-layer-upload-response-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'complete-layer-upload-response
                     'make-complete-layer-upload-response))
+ (common-lisp:defun make-complete-layer-upload-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key layer-digest upload-id repository-name
+                     registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'complete-layer-upload-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -398,17 +488,30 @@
                           complete-layer-upload-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-repository-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-repository-request-"))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (catalog-data common-lisp:nil :type
-    (common-lisp:or repository-catalog-data-input common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-repository-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-repository-request-tags :initform
+                         common-lisp:nil)
+                        (catalog-data :initarg :|catalogData| :type
+                         (common-lisp:or repository-catalog-data-input
+                                         common-lisp:null)
+                         :accessor %create-repository-request-catalog-data
+                         :initform common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %create-repository-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))))
  (common-lisp:export
   (common-lisp:list 'create-repository-request
                     'make-create-repository-request))
+ (common-lisp:defun make-create-repository-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags catalog-data repository-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-repository-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -446,16 +549,25 @@
                           create-repository-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-repository-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-repository-response-"))
-   (repository common-lisp:nil :type
-    (common-lisp:or repository common-lisp:null))
-   (catalog-data common-lisp:nil :type
-    (common-lisp:or repository-catalog-data common-lisp:null)))
+ (common-lisp:defclass create-repository-response common-lisp:nil
+                       ((catalog-data :initarg :|catalogData| :type
+                         (common-lisp:or repository-catalog-data
+                                         common-lisp:null)
+                         :accessor %create-repository-response-catalog-data
+                         :initform common-lisp:nil)
+                        (repository :initarg :|repository| :type
+                         (common-lisp:or repository common-lisp:null) :accessor
+                         %create-repository-response-repository :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-repository-response
                     'make-create-repository-response))
+ (common-lisp:defun make-create-repository-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key catalog-data repository)
+   (common-lisp:apply #'common-lisp:make-instance 'create-repository-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -488,16 +600,28 @@
 (common-lisp:deftype creation-timestamp () 'common-lisp:string)
 (common-lisp:deftype default-registry-alias-flag () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-repository-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-repository-policy-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null)))
+ (common-lisp:defclass delete-repository-policy-request common-lisp:nil
+                       ((repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %delete-repository-policy-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor
+                         %delete-repository-policy-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-repository-policy-request
                     'make-delete-repository-policy-request))
+ (common-lisp:defun make-delete-repository-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-repository-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -528,18 +652,33 @@
                           delete-repository-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-repository-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-repository-policy-response-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (policy-text common-lisp:nil :type
-    (common-lisp:or repository-policy-text common-lisp:null)))
+ (common-lisp:defclass delete-repository-policy-response common-lisp:nil
+                       ((policy-text :initarg :|policyText| :type
+                         (common-lisp:or repository-policy-text
+                                         common-lisp:null)
+                         :accessor
+                         %delete-repository-policy-response-policy-text
+                         :initform common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %delete-repository-policy-response-repository-name
+                         :initform common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor
+                         %delete-repository-policy-response-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-repository-policy-response
                     'make-delete-repository-policy-response))
+ (common-lisp:defun make-delete-repository-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-text repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-repository-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -577,17 +716,29 @@
                           delete-repository-policy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-repository-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-repository-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (force common-lisp:nil :type (common-lisp:or force-flag common-lisp:null)))
+ (common-lisp:defclass delete-repository-request common-lisp:nil
+                       ((force :initarg :|force| :type
+                         (common-lisp:or force-flag common-lisp:null) :accessor
+                         %delete-repository-request-force :initform
+                         common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %delete-repository-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %delete-repository-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-repository-request
                     'make-delete-repository-request))
+ (common-lisp:defun make-delete-repository-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key force repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-repository-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -625,14 +776,20 @@
                           delete-repository-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-repository-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-repository-response-"))
-   (repository common-lisp:nil :type
-    (common-lisp:or repository common-lisp:null)))
+ (common-lisp:defclass delete-repository-response common-lisp:nil
+                       ((repository :initarg :|repository| :type
+                         (common-lisp:or repository common-lisp:null) :accessor
+                         %delete-repository-response-repository :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-repository-response
                     'make-delete-repository-response))
+ (common-lisp:defun make-delete-repository-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key repository)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-repository-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -656,20 +813,34 @@
                           delete-repository-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-image-tags-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-image-tags-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass describe-image-tags-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %describe-image-tags-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-image-tags-request-next-token :initform
+                         common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %describe-image-tags-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %describe-image-tags-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-image-tags-request
                     'make-describe-image-tags-request))
+ (common-lisp:defun make-describe-image-tags-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token repository-name
+                     registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-image-tags-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -714,16 +885,26 @@
                           describe-image-tags-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-image-tags-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-image-tags-response-"))
-   (image-tag-details common-lisp:nil :type
-    (common-lisp:or image-tag-detail-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-image-tags-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-image-tags-response-next-token :initform
+                         common-lisp:nil)
+                        (image-tag-details :initarg :|imageTagDetails| :type
+                         (common-lisp:or image-tag-detail-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-image-tags-response-image-tag-details
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-image-tags-response
                     'make-describe-image-tags-response))
+ (common-lisp:defun make-describe-image-tags-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token image-tag-details)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-image-tags-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -754,21 +935,38 @@
                           describe-image-tags-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-images-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-images-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (image-ids common-lisp:nil :type
-    (common-lisp:or image-identifier-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass describe-images-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %describe-images-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-images-request-next-token :initform
+                         common-lisp:nil)
+                        (image-ids :initarg :|imageIds| :type
+                         (common-lisp:or image-identifier-list
+                                         common-lisp:null)
+                         :accessor %describe-images-request-image-ids :initform
+                         common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %describe-images-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %describe-images-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-images-request 'make-describe-images-request))
+ (common-lisp:defun make-describe-images-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token image-ids
+                     repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-images-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -820,15 +1018,23 @@
                           describe-images-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-images-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-images-response-"))
-   (image-details common-lisp:nil :type
-    (common-lisp:or image-detail-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-images-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-images-response-next-token :initform
+                         common-lisp:nil)
+                        (image-details :initarg :|imageDetails| :type
+                         (common-lisp:or image-detail-list common-lisp:null)
+                         :accessor %describe-images-response-image-details
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-images-response 'make-describe-images-response))
+ (common-lisp:defun make-describe-images-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token image-details)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-images-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -859,16 +1065,24 @@
                           describe-images-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-registries-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-registries-request-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass describe-registries-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %describe-registries-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-registries-request-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-registries-request
                     'make-describe-registries-request))
+ (common-lisp:defun make-describe-registries-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-registries-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -899,16 +1113,25 @@
                           describe-registries-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-registries-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-registries-response-"))
-   (registries (common-lisp:error ":registries is required") :type
-    (common-lisp:or registry-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-registries-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-registries-response-next-token :initform
+                         common-lisp:nil)
+                        (registries :initarg :|registries| :type
+                         (common-lisp:or registry-list common-lisp:null)
+                         :accessor %describe-registries-response-registries
+                         :initform
+                         (common-lisp:error ":registries is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-registries-response
                     'make-describe-registries-response))
+ (common-lisp:defun make-describe-registries-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token registries)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-registries-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -939,20 +1162,35 @@
                           describe-registries-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-repositories-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-repositories-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-names common-lisp:nil :type
-    (common-lisp:or repository-name-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass describe-repositories-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %describe-repositories-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-repositories-request-next-token :initform
+                         common-lisp:nil)
+                        (repository-names :initarg :|repositoryNames| :type
+                         (common-lisp:or repository-name-list common-lisp:null)
+                         :accessor
+                         %describe-repositories-request-repository-names
+                         :initform common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %describe-repositories-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-repositories-request
                     'make-describe-repositories-request))
+ (common-lisp:defun make-describe-repositories-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token repository-names
+                     registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-repositories-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -997,16 +1235,25 @@
                           describe-repositories-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-repositories-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-repositories-response-"))
-   (repositories common-lisp:nil :type
-    (common-lisp:or repository-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass describe-repositories-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %describe-repositories-response-next-token :initform
+                         common-lisp:nil)
+                        (repositories :initarg :|repositories| :type
+                         (common-lisp:or repository-list common-lisp:null)
+                         :accessor %describe-repositories-response-repositories
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-repositories-response
                     'make-describe-repositories-response))
+ (common-lisp:defun make-describe-repositories-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token repositories)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-repositories-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1039,7 +1286,7 @@
 (common-lisp:progn
  (common-lisp:define-condition empty-upload-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        empty-upload-exception-message)))
  (common-lisp:export
   (common-lisp:list 'empty-upload-exception 'empty-upload-exception-message)))
@@ -1047,12 +1294,18 @@
 (common-lisp:deftype expiration-timestamp () 'common-lisp:string)
 (common-lisp:deftype force-flag () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-authorization-token-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-authorization-token-request-")))
+ (common-lisp:defclass get-authorization-token-request common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'get-authorization-token-request
                     'make-get-authorization-token-request))
+ (common-lisp:defun make-get-authorization-token-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-authorization-token-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1069,14 +1322,22 @@
                           get-authorization-token-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-authorization-token-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-authorization-token-response-"))
-   (authorization-data common-lisp:nil :type
-    (common-lisp:or authorization-data common-lisp:null)))
+ (common-lisp:defclass get-authorization-token-response common-lisp:nil
+                       ((authorization-data :initarg :|authorizationData| :type
+                         (common-lisp:or authorization-data common-lisp:null)
+                         :accessor
+                         %get-authorization-token-response-authorization-data
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-authorization-token-response
                     'make-get-authorization-token-response))
+ (common-lisp:defun make-get-authorization-token-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key authorization-data)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-authorization-token-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1100,12 +1361,18 @@
                           get-authorization-token-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-registry-catalog-data-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-registry-catalog-data-request-")))
+ (common-lisp:defclass get-registry-catalog-data-request common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'get-registry-catalog-data-request
                     'make-get-registry-catalog-data-request))
+ (common-lisp:defun make-get-registry-catalog-data-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-registry-catalog-data-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1122,15 +1389,26 @@
                           get-registry-catalog-data-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-registry-catalog-data-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-registry-catalog-data-response-"))
-   (registry-catalog-data
-    (common-lisp:error ":registrycatalogdata is required") :type
-    (common-lisp:or registry-catalog-data common-lisp:null)))
+ (common-lisp:defclass get-registry-catalog-data-response common-lisp:nil
+                       ((registry-catalog-data :initarg :|registryCatalogData|
+                         :type
+                         (common-lisp:or registry-catalog-data
+                                         common-lisp:null)
+                         :accessor
+                         %get-registry-catalog-data-response-registry-catalog-data
+                         :initform
+                         (common-lisp:error
+                          ":registrycatalogdata is required"))))
  (common-lisp:export
   (common-lisp:list 'get-registry-catalog-data-response
                     'make-get-registry-catalog-data-response))
+ (common-lisp:defun make-get-registry-catalog-data-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key registry-catalog-data)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-registry-catalog-data-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1155,16 +1433,28 @@
                           get-registry-catalog-data-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-repository-catalog-data-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-repository-catalog-data-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null)))
+ (common-lisp:defclass get-repository-catalog-data-request common-lisp:nil
+                       ((repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %get-repository-catalog-data-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor
+                         %get-repository-catalog-data-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-repository-catalog-data-request
                     'make-get-repository-catalog-data-request))
+ (common-lisp:defun make-get-repository-catalog-data-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-repository-catalog-data-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1195,14 +1485,23 @@
                           get-repository-catalog-data-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-repository-catalog-data-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-repository-catalog-data-response-"))
-   (catalog-data common-lisp:nil :type
-    (common-lisp:or repository-catalog-data common-lisp:null)))
+ (common-lisp:defclass get-repository-catalog-data-response common-lisp:nil
+                       ((catalog-data :initarg :|catalogData| :type
+                         (common-lisp:or repository-catalog-data
+                                         common-lisp:null)
+                         :accessor
+                         %get-repository-catalog-data-response-catalog-data
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-repository-catalog-data-response
                     'make-get-repository-catalog-data-response))
+ (common-lisp:defun make-get-repository-catalog-data-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key catalog-data)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-repository-catalog-data-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1226,16 +1525,27 @@
                           get-repository-catalog-data-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-repository-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-repository-policy-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null)))
+ (common-lisp:defclass get-repository-policy-request common-lisp:nil
+                       ((repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %get-repository-policy-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %get-repository-policy-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-repository-policy-request
                     'make-get-repository-policy-request))
+ (common-lisp:defun make-get-repository-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-repository-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1266,18 +1576,31 @@
                           get-repository-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-repository-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-repository-policy-response-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (policy-text common-lisp:nil :type
-    (common-lisp:or repository-policy-text common-lisp:null)))
+ (common-lisp:defclass get-repository-policy-response common-lisp:nil
+                       ((policy-text :initarg :|policyText| :type
+                         (common-lisp:or repository-policy-text
+                                         common-lisp:null)
+                         :accessor %get-repository-policy-response-policy-text
+                         :initform common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %get-repository-policy-response-repository-name
+                         :initform common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %get-repository-policy-response-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-repository-policy-response
                     'make-get-repository-policy-response))
+ (common-lisp:defun make-get-repository-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-text repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-repository-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1315,19 +1638,35 @@
                           get-repository-policy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (image (:copier common-lisp:nil) (:conc-name "struct-shape-image-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id-or-alias common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (image-id common-lisp:nil :type
-    (common-lisp:or image-identifier common-lisp:null))
-   (image-manifest common-lisp:nil :type
-    (common-lisp:or image-manifest common-lisp:null))
-   (image-manifest-media-type common-lisp:nil :type
-    (common-lisp:or media-type common-lisp:null)))
+ (common-lisp:defclass image common-lisp:nil
+                       ((image-manifest-media-type :initarg
+                         :|imageManifestMediaType| :type
+                         (common-lisp:or media-type common-lisp:null) :accessor
+                         %image-image-manifest-media-type :initform
+                         common-lisp:nil)
+                        (image-manifest :initarg :|imageManifest| :type
+                         (common-lisp:or image-manifest common-lisp:null)
+                         :accessor %image-image-manifest :initform
+                         common-lisp:nil)
+                        (image-id :initarg :|imageId| :type
+                         (common-lisp:or image-identifier common-lisp:null)
+                         :accessor %image-image-id :initform common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %image-repository-name :initform
+                         common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id-or-alias common-lisp:null)
+                         :accessor %image-registry-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'image 'make-image))
+ (common-lisp:defun make-image
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key image-manifest-media-type image-manifest
+                     image-id repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'image
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input image))
    (common-lisp:append))
@@ -1376,32 +1715,56 @@
 (common-lisp:progn
  (common-lisp:define-condition image-already-exists-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        image-already-exists-exception-message)))
  (common-lisp:export
   (common-lisp:list 'image-already-exists-exception
                     'image-already-exists-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (image-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-image-detail-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (image-digest common-lisp:nil :type
-    (common-lisp:or image-digest common-lisp:null))
-   (image-tags common-lisp:nil :type
-    (common-lisp:or image-tag-list common-lisp:null))
-   (image-size-in-bytes common-lisp:nil :type
-    (common-lisp:or image-size-in-bytes common-lisp:null))
-   (image-pushed-at common-lisp:nil :type
-    (common-lisp:or push-timestamp common-lisp:null))
-   (image-manifest-media-type common-lisp:nil :type
-    (common-lisp:or media-type common-lisp:null))
-   (artifact-media-type common-lisp:nil :type
-    (common-lisp:or media-type common-lisp:null)))
+ (common-lisp:defclass image-detail common-lisp:nil
+                       ((artifact-media-type :initarg :|artifactMediaType|
+                         :type (common-lisp:or media-type common-lisp:null)
+                         :accessor %image-detail-artifact-media-type :initform
+                         common-lisp:nil)
+                        (image-manifest-media-type :initarg
+                         :|imageManifestMediaType| :type
+                         (common-lisp:or media-type common-lisp:null) :accessor
+                         %image-detail-image-manifest-media-type :initform
+                         common-lisp:nil)
+                        (image-pushed-at :initarg :|imagePushedAt| :type
+                         (common-lisp:or push-timestamp common-lisp:null)
+                         :accessor %image-detail-image-pushed-at :initform
+                         common-lisp:nil)
+                        (image-size-in-bytes :initarg :|imageSizeInBytes| :type
+                         (common-lisp:or image-size-in-bytes common-lisp:null)
+                         :accessor %image-detail-image-size-in-bytes :initform
+                         common-lisp:nil)
+                        (image-tags :initarg :|imageTags| :type
+                         (common-lisp:or image-tag-list common-lisp:null)
+                         :accessor %image-detail-image-tags :initform
+                         common-lisp:nil)
+                        (image-digest :initarg :|imageDigest| :type
+                         (common-lisp:or image-digest common-lisp:null)
+                         :accessor %image-detail-image-digest :initform
+                         common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %image-detail-repository-name :initform
+                         common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %image-detail-registry-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'image-detail 'make-image-detail))
+ (common-lisp:defun make-image-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key artifact-media-type
+                     image-manifest-media-type image-pushed-at
+                     image-size-in-bytes image-tags image-digest
+                     repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'image-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input image-detail))
    (common-lisp:append))
@@ -1480,22 +1843,32 @@
 (common-lisp:progn
  (common-lisp:define-condition image-digest-does-not-match-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        image-digest-does-not-match-exception-message)))
  (common-lisp:export
   (common-lisp:list 'image-digest-does-not-match-exception
                     'image-digest-does-not-match-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (image-failure (:copier common-lisp:nil)
-      (:conc-name "struct-shape-image-failure-"))
-   (image-id common-lisp:nil :type
-    (common-lisp:or image-identifier common-lisp:null))
-   (failure-code common-lisp:nil :type
-    (common-lisp:or image-failure-code common-lisp:null))
-   (failure-reason common-lisp:nil :type
-    (common-lisp:or image-failure-reason common-lisp:null)))
+ (common-lisp:defclass image-failure common-lisp:nil
+                       ((failure-reason :initarg :|failureReason| :type
+                         (common-lisp:or image-failure-reason common-lisp:null)
+                         :accessor %image-failure-failure-reason :initform
+                         common-lisp:nil)
+                        (failure-code :initarg :|failureCode| :type
+                         (common-lisp:or image-failure-code common-lisp:null)
+                         :accessor %image-failure-failure-code :initform
+                         common-lisp:nil)
+                        (image-id :initarg :|imageId| :type
+                         (common-lisp:or image-identifier common-lisp:null)
+                         :accessor %image-failure-image-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'image-failure 'make-image-failure))
+ (common-lisp:defun make-image-failure
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failure-reason failure-code image-id)
+   (common-lisp:apply #'common-lisp:make-instance 'image-failure
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input image-failure))
    (common-lisp:append))
@@ -1537,15 +1910,22 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype image-failure-reason () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (image-identifier (:copier common-lisp:nil)
-      (:conc-name "struct-shape-image-identifier-"))
-   (image-digest common-lisp:nil :type
-    (common-lisp:or image-digest common-lisp:null))
-   (image-tag common-lisp:nil :type
-    (common-lisp:or image-tag common-lisp:null)))
+ (common-lisp:defclass image-identifier common-lisp:nil
+                       ((image-tag :initarg :|imageTag| :type
+                         (common-lisp:or image-tag common-lisp:null) :accessor
+                         %image-identifier-image-tag :initform common-lisp:nil)
+                        (image-digest :initarg :|imageDigest| :type
+                         (common-lisp:or image-digest common-lisp:null)
+                         :accessor %image-identifier-image-digest :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'image-identifier 'make-image-identifier))
+ (common-lisp:defun make-image-identifier
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key image-tag image-digest)
+   (common-lisp:apply #'common-lisp:make-instance 'image-identifier
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input image-identifier))
    (common-lisp:append))
@@ -1581,7 +1961,7 @@
 (common-lisp:progn
  (common-lisp:define-condition image-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        image-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'image-not-found-exception
@@ -1591,23 +1971,34 @@
 (common-lisp:progn
  (common-lisp:define-condition image-tag-already-exists-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        image-tag-already-exists-exception-message)))
  (common-lisp:export
   (common-lisp:list 'image-tag-already-exists-exception
                     'image-tag-already-exists-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (image-tag-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-image-tag-detail-"))
-   (image-tag common-lisp:nil :type
-    (common-lisp:or image-tag common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or creation-timestamp common-lisp:null))
-   (image-detail common-lisp:nil :type
-    (common-lisp:or referenced-image-detail common-lisp:null)))
+ (common-lisp:defclass image-tag-detail common-lisp:nil
+                       ((image-detail :initarg :|imageDetail| :type
+                         (common-lisp:or referenced-image-detail
+                                         common-lisp:null)
+                         :accessor %image-tag-detail-image-detail :initform
+                         common-lisp:nil)
+                        (created-at :initarg :|createdAt| :type
+                         (common-lisp:or creation-timestamp common-lisp:null)
+                         :accessor %image-tag-detail-created-at :initform
+                         common-lisp:nil)
+                        (image-tag :initarg :|imageTag| :type
+                         (common-lisp:or image-tag common-lisp:null) :accessor
+                         %image-tag-detail-image-tag :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'image-tag-detail 'make-image-tag-detail))
+ (common-lisp:defun make-image-tag-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key image-detail created-at image-tag)
+   (common-lisp:apply #'common-lisp:make-instance 'image-tag-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input image-tag-detail))
    (common-lisp:append))
@@ -1654,16 +2045,27 @@
                            (trivial-types:proper-list image-tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (initiate-layer-upload-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-initiate-layer-upload-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id-or-alias common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null)))
+ (common-lisp:defclass initiate-layer-upload-request common-lisp:nil
+                       ((repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %initiate-layer-upload-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id-or-alias common-lisp:null)
+                         :accessor %initiate-layer-upload-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'initiate-layer-upload-request
                     'make-initiate-layer-upload-request))
+ (common-lisp:defun make-initiate-layer-upload-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'initiate-layer-upload-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1694,16 +2096,25 @@
                           initiate-layer-upload-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (initiate-layer-upload-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-initiate-layer-upload-response-"))
-   (upload-id common-lisp:nil :type
-    (common-lisp:or upload-id common-lisp:null))
-   (part-size common-lisp:nil :type
-    (common-lisp:or part-size common-lisp:null)))
+ (common-lisp:defclass initiate-layer-upload-response common-lisp:nil
+                       ((part-size :initarg :|partSize| :type
+                         (common-lisp:or part-size common-lisp:null) :accessor
+                         %initiate-layer-upload-response-part-size :initform
+                         common-lisp:nil)
+                        (upload-id :initarg :|uploadId| :type
+                         (common-lisp:or upload-id common-lisp:null) :accessor
+                         %initiate-layer-upload-response-upload-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'initiate-layer-upload-response
                     'make-initiate-layer-upload-response))
+ (common-lisp:defun make-initiate-layer-upload-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key part-size upload-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'initiate-layer-upload-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1736,23 +2147,23 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-layer-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-layer-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-layer-exception 'invalid-layer-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition invalid-layer-part-exception
      (ecr-public-error)
-     ((registry-id :initarg :registry-id :initform common-lisp:nil :reader
+     ((registry-id :initarg :|registryId| :initform common-lisp:nil :reader
        invalid-layer-part-exception-registry-id)
-      (repository-name :initarg :repository-name :initform common-lisp:nil
+      (repository-name :initarg :|repositoryName| :initform common-lisp:nil
        :reader invalid-layer-part-exception-repository-name)
-      (upload-id :initarg :upload-id :initform common-lisp:nil :reader
+      (upload-id :initarg :|uploadId| :initform common-lisp:nil :reader
        invalid-layer-part-exception-upload-id)
-      (last-valid-byte-received :initarg :last-valid-byte-received :initform
+      (last-valid-byte-received :initarg :|lastValidByteReceived| :initform
        common-lisp:nil :reader
        invalid-layer-part-exception-last-valid-byte-received)
-      (message :initarg :message :initform common-lisp:nil :reader
+      (message :initarg :|message| :initform common-lisp:nil :reader
        invalid-layer-part-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-layer-part-exception
@@ -1764,7 +2175,7 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-parameter-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-parameter-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-parameter-exception
@@ -1772,23 +2183,35 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-tag-parameter-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-tag-parameter-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-tag-parameter-exception
                     'invalid-tag-parameter-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (layer (:copier common-lisp:nil) (:conc-name "struct-shape-layer-"))
-   (layer-digest common-lisp:nil :type
-    (common-lisp:or layer-digest common-lisp:null))
-   (layer-availability common-lisp:nil :type
-    (common-lisp:or layer-availability common-lisp:null))
-   (layer-size common-lisp:nil :type
-    (common-lisp:or layer-size-in-bytes common-lisp:null))
-   (media-type common-lisp:nil :type
-    (common-lisp:or media-type common-lisp:null)))
+ (common-lisp:defclass layer common-lisp:nil
+                       ((media-type :initarg :|mediaType| :type
+                         (common-lisp:or media-type common-lisp:null) :accessor
+                         %layer-media-type :initform common-lisp:nil)
+                        (layer-size :initarg :|layerSize| :type
+                         (common-lisp:or layer-size-in-bytes common-lisp:null)
+                         :accessor %layer-layer-size :initform common-lisp:nil)
+                        (layer-availability :initarg :|layerAvailability| :type
+                         (common-lisp:or layer-availability common-lisp:null)
+                         :accessor %layer-layer-availability :initform
+                         common-lisp:nil)
+                        (layer-digest :initarg :|layerDigest| :type
+                         (common-lisp:or layer-digest common-lisp:null)
+                         :accessor %layer-layer-digest :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'layer 'make-layer))
+ (common-lisp:defun make-layer
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key media-type layer-size layer-availability
+                     layer-digest)
+   (common-lisp:apply #'common-lisp:make-instance 'layer
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input layer))
    (common-lisp:append))
@@ -1829,7 +2252,7 @@
 (common-lisp:progn
  (common-lisp:define-condition layer-already-exists-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        layer-already-exists-exception-message)))
  (common-lisp:export
   (common-lisp:list 'layer-already-exists-exception
@@ -1845,16 +2268,27 @@
                            (trivial-types:proper-list layer-digest))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (layer-failure (:copier common-lisp:nil)
-      (:conc-name "struct-shape-layer-failure-"))
-   (layer-digest common-lisp:nil :type
-    (common-lisp:or batched-operation-layer-digest common-lisp:null))
-   (failure-code common-lisp:nil :type
-    (common-lisp:or layer-failure-code common-lisp:null))
-   (failure-reason common-lisp:nil :type
-    (common-lisp:or layer-failure-reason common-lisp:null)))
+ (common-lisp:defclass layer-failure common-lisp:nil
+                       ((failure-reason :initarg :|failureReason| :type
+                         (common-lisp:or layer-failure-reason common-lisp:null)
+                         :accessor %layer-failure-failure-reason :initform
+                         common-lisp:nil)
+                        (failure-code :initarg :|failureCode| :type
+                         (common-lisp:or layer-failure-code common-lisp:null)
+                         :accessor %layer-failure-failure-code :initform
+                         common-lisp:nil)
+                        (layer-digest :initarg :|layerDigest| :type
+                         (common-lisp:or batched-operation-layer-digest
+                                         common-lisp:null)
+                         :accessor %layer-failure-layer-digest :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'layer-failure 'make-layer-failure))
+ (common-lisp:defun make-layer-failure
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failure-reason failure-code layer-digest)
+   (common-lisp:apply #'common-lisp:make-instance 'layer-failure
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input layer-failure))
    (common-lisp:append))
@@ -1907,7 +2341,7 @@
 (common-lisp:progn
  (common-lisp:define-condition layer-part-too-small-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        layer-part-too-small-exception-message)))
  (common-lisp:export
   (common-lisp:list 'layer-part-too-small-exception
@@ -1916,7 +2350,7 @@
 (common-lisp:progn
  (common-lisp:define-condition layers-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        layers-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'layers-not-found-exception
@@ -1924,20 +2358,27 @@
 (common-lisp:progn
  (common-lisp:define-condition limit-exceeded-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        limit-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'limit-exceeded-exception
                     'limit-exceeded-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %list-tags-for-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1961,13 +2402,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2009,23 +2458,42 @@
 (common-lisp:deftype primary-registry-alias-flag () 'common-lisp:boolean)
 (common-lisp:deftype push-timestamp () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-image-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-image-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id-or-alias common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (image-manifest (common-lisp:error ":imagemanifest is required") :type
-    (common-lisp:or image-manifest common-lisp:null))
-   (image-manifest-media-type common-lisp:nil :type
-    (common-lisp:or media-type common-lisp:null))
-   (image-tag common-lisp:nil :type
-    (common-lisp:or image-tag common-lisp:null))
-   (image-digest common-lisp:nil :type
-    (common-lisp:or image-digest common-lisp:null)))
+ (common-lisp:defclass put-image-request common-lisp:nil
+                       ((image-digest :initarg :|imageDigest| :type
+                         (common-lisp:or image-digest common-lisp:null)
+                         :accessor %put-image-request-image-digest :initform
+                         common-lisp:nil)
+                        (image-tag :initarg :|imageTag| :type
+                         (common-lisp:or image-tag common-lisp:null) :accessor
+                         %put-image-request-image-tag :initform
+                         common-lisp:nil)
+                        (image-manifest-media-type :initarg
+                         :|imageManifestMediaType| :type
+                         (common-lisp:or media-type common-lisp:null) :accessor
+                         %put-image-request-image-manifest-media-type :initform
+                         common-lisp:nil)
+                        (image-manifest :initarg :|imageManifest| :type
+                         (common-lisp:or image-manifest common-lisp:null)
+                         :accessor %put-image-request-image-manifest :initform
+                         (common-lisp:error ":imagemanifest is required"))
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %put-image-request-repository-name :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id-or-alias common-lisp:null)
+                         :accessor %put-image-request-registry-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-image-request 'make-put-image-request))
+ (common-lisp:defun make-put-image-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key image-digest image-tag
+                     image-manifest-media-type image-manifest repository-name
+                     registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'put-image-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-image-request))
    (common-lisp:append))
@@ -2079,12 +2547,18 @@
                         ((aws-sdk/generator/shape::input put-image-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-image-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-image-response-"))
-   (image common-lisp:nil :type (common-lisp:or image common-lisp:null)))
+ (common-lisp:defclass put-image-response common-lisp:nil
+                       ((image :initarg :|image| :type
+                         (common-lisp:or image common-lisp:null) :accessor
+                         %put-image-response-image :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-image-response 'make-put-image-response))
+ (common-lisp:defun make-put-image-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key image)
+   (common-lisp:apply #'common-lisp:make-instance 'put-image-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-image-response))
    (common-lisp:append))
@@ -2102,14 +2576,23 @@
                         ((aws-sdk/generator/shape::input put-image-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-registry-catalog-data-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-registry-catalog-data-request-"))
-   (display-name common-lisp:nil :type
-    (common-lisp:or registry-display-name common-lisp:null)))
+ (common-lisp:defclass put-registry-catalog-data-request common-lisp:nil
+                       ((display-name :initarg :|displayName| :type
+                         (common-lisp:or registry-display-name
+                                         common-lisp:null)
+                         :accessor
+                         %put-registry-catalog-data-request-display-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-registry-catalog-data-request
                     'make-put-registry-catalog-data-request))
+ (common-lisp:defun make-put-registry-catalog-data-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key display-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-registry-catalog-data-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2133,15 +2616,26 @@
                           put-registry-catalog-data-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-registry-catalog-data-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-registry-catalog-data-response-"))
-   (registry-catalog-data
-    (common-lisp:error ":registrycatalogdata is required") :type
-    (common-lisp:or registry-catalog-data common-lisp:null)))
+ (common-lisp:defclass put-registry-catalog-data-response common-lisp:nil
+                       ((registry-catalog-data :initarg :|registryCatalogData|
+                         :type
+                         (common-lisp:or registry-catalog-data
+                                         common-lisp:null)
+                         :accessor
+                         %put-registry-catalog-data-response-registry-catalog-data
+                         :initform
+                         (common-lisp:error
+                          ":registrycatalogdata is required"))))
  (common-lisp:export
   (common-lisp:list 'put-registry-catalog-data-response
                     'make-put-registry-catalog-data-response))
+ (common-lisp:defun make-put-registry-catalog-data-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key registry-catalog-data)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-registry-catalog-data-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2166,18 +2660,35 @@
                           put-registry-catalog-data-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-repository-catalog-data-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-repository-catalog-data-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (catalog-data (common-lisp:error ":catalogdata is required") :type
-    (common-lisp:or repository-catalog-data-input common-lisp:null)))
+ (common-lisp:defclass put-repository-catalog-data-request common-lisp:nil
+                       ((catalog-data :initarg :|catalogData| :type
+                         (common-lisp:or repository-catalog-data-input
+                                         common-lisp:null)
+                         :accessor
+                         %put-repository-catalog-data-request-catalog-data
+                         :initform
+                         (common-lisp:error ":catalogdata is required"))
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %put-repository-catalog-data-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor
+                         %put-repository-catalog-data-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-repository-catalog-data-request
                     'make-put-repository-catalog-data-request))
+ (common-lisp:defun make-put-repository-catalog-data-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key catalog-data repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-repository-catalog-data-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2215,14 +2726,23 @@
                           put-repository-catalog-data-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-repository-catalog-data-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-repository-catalog-data-response-"))
-   (catalog-data common-lisp:nil :type
-    (common-lisp:or repository-catalog-data common-lisp:null)))
+ (common-lisp:defclass put-repository-catalog-data-response common-lisp:nil
+                       ((catalog-data :initarg :|catalogData| :type
+                         (common-lisp:or repository-catalog-data
+                                         common-lisp:null)
+                         :accessor
+                         %put-repository-catalog-data-response-catalog-data
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'put-repository-catalog-data-response
                     'make-put-repository-catalog-data-response))
+ (common-lisp:defun make-put-repository-catalog-data-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key catalog-data)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-repository-catalog-data-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2246,21 +2766,38 @@
                           put-repository-catalog-data-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (referenced-image-detail (:copier common-lisp:nil)
-      (:conc-name "struct-shape-referenced-image-detail-"))
-   (image-digest common-lisp:nil :type
-    (common-lisp:or image-digest common-lisp:null))
-   (image-size-in-bytes common-lisp:nil :type
-    (common-lisp:or image-size-in-bytes common-lisp:null))
-   (image-pushed-at common-lisp:nil :type
-    (common-lisp:or push-timestamp common-lisp:null))
-   (image-manifest-media-type common-lisp:nil :type
-    (common-lisp:or media-type common-lisp:null))
-   (artifact-media-type common-lisp:nil :type
-    (common-lisp:or media-type common-lisp:null)))
+ (common-lisp:defclass referenced-image-detail common-lisp:nil
+                       ((artifact-media-type :initarg :|artifactMediaType|
+                         :type (common-lisp:or media-type common-lisp:null)
+                         :accessor %referenced-image-detail-artifact-media-type
+                         :initform common-lisp:nil)
+                        (image-manifest-media-type :initarg
+                         :|imageManifestMediaType| :type
+                         (common-lisp:or media-type common-lisp:null) :accessor
+                         %referenced-image-detail-image-manifest-media-type
+                         :initform common-lisp:nil)
+                        (image-pushed-at :initarg :|imagePushedAt| :type
+                         (common-lisp:or push-timestamp common-lisp:null)
+                         :accessor %referenced-image-detail-image-pushed-at
+                         :initform common-lisp:nil)
+                        (image-size-in-bytes :initarg :|imageSizeInBytes| :type
+                         (common-lisp:or image-size-in-bytes common-lisp:null)
+                         :accessor %referenced-image-detail-image-size-in-bytes
+                         :initform common-lisp:nil)
+                        (image-digest :initarg :|imageDigest| :type
+                         (common-lisp:or image-digest common-lisp:null)
+                         :accessor %referenced-image-detail-image-digest
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'referenced-image-detail 'make-referenced-image-detail))
+ (common-lisp:defun make-referenced-image-detail
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key artifact-media-type
+                     image-manifest-media-type image-pushed-at
+                     image-size-in-bytes image-digest)
+   (common-lisp:apply #'common-lisp:make-instance 'referenced-image-detail
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2315,25 +2852,41 @@
 (common-lisp:progn
  (common-lisp:define-condition referenced-images-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        referenced-images-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'referenced-images-not-found-exception
                     'referenced-images-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (registry (:copier common-lisp:nil) (:conc-name "struct-shape-registry-"))
-   (registry-id (common-lisp:error ":registryid is required") :type
-    (common-lisp:or registry-id common-lisp:null))
-   (registry-arn (common-lisp:error ":registryarn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (registry-uri (common-lisp:error ":registryuri is required") :type
-    (common-lisp:or url common-lisp:null))
-   (verified (common-lisp:error ":verified is required") :type
-    (common-lisp:or registry-verified common-lisp:null))
-   (aliases (common-lisp:error ":aliases is required") :type
-    (common-lisp:or registry-alias-list common-lisp:null)))
+ (common-lisp:defclass registry common-lisp:nil
+                       ((aliases :initarg :|aliases| :type
+                         (common-lisp:or registry-alias-list common-lisp:null)
+                         :accessor %registry-aliases :initform
+                         (common-lisp:error ":aliases is required"))
+                        (verified :initarg :|verified| :type
+                         (common-lisp:or registry-verified common-lisp:null)
+                         :accessor %registry-verified :initform
+                         (common-lisp:error ":verified is required"))
+                        (registry-uri :initarg :|registryUri| :type
+                         (common-lisp:or url common-lisp:null) :accessor
+                         %registry-registry-uri :initform
+                         (common-lisp:error ":registryuri is required"))
+                        (registry-arn :initarg :|registryArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %registry-registry-arn :initform
+                         (common-lisp:error ":registryarn is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %registry-registry-id :initform
+                         (common-lisp:error ":registryid is required"))))
  (common-lisp:export (common-lisp:list 'registry 'make-registry))
+ (common-lisp:defun make-registry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key aliases verified registry-uri
+                     registry-arn registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'registry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input registry))
    (common-lisp:append))
@@ -2379,20 +2932,40 @@
                         ((aws-sdk/generator/shape::input registry))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (registry-alias (:copier common-lisp:nil)
-      (:conc-name "struct-shape-registry-alias-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or registry-alias-name common-lisp:null))
-   (status (common-lisp:error ":status is required") :type
-    (common-lisp:or registry-alias-status common-lisp:null))
-   (primary-registry-alias
-    (common-lisp:error ":primaryregistryalias is required") :type
-    (common-lisp:or primary-registry-alias-flag common-lisp:null))
-   (default-registry-alias
-    (common-lisp:error ":defaultregistryalias is required") :type
-    (common-lisp:or default-registry-alias-flag common-lisp:null)))
+ (common-lisp:defclass registry-alias common-lisp:nil
+                       ((default-registry-alias :initarg
+                         :|defaultRegistryAlias| :type
+                         (common-lisp:or default-registry-alias-flag
+                                         common-lisp:null)
+                         :accessor %registry-alias-default-registry-alias
+                         :initform
+                         (common-lisp:error
+                          ":defaultregistryalias is required"))
+                        (primary-registry-alias :initarg
+                         :|primaryRegistryAlias| :type
+                         (common-lisp:or primary-registry-alias-flag
+                                         common-lisp:null)
+                         :accessor %registry-alias-primary-registry-alias
+                         :initform
+                         (common-lisp:error
+                          ":primaryregistryalias is required"))
+                        (status :initarg :|status| :type
+                         (common-lisp:or registry-alias-status
+                                         common-lisp:null)
+                         :accessor %registry-alias-status :initform
+                         (common-lisp:error ":status is required"))
+                        (name :initarg :|name| :type
+                         (common-lisp:or registry-alias-name common-lisp:null)
+                         :accessor %registry-alias-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export (common-lisp:list 'registry-alias 'make-registry-alias))
+ (common-lisp:defun make-registry-alias
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key default-registry-alias
+                     primary-registry-alias status name)
+   (common-lisp:apply #'common-lisp:make-instance 'registry-alias
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input registry-alias))
    (common-lisp:append))
@@ -2443,13 +3016,20 @@
 (common-lisp:deftype registry-alias-name () 'common-lisp:string)
 (common-lisp:deftype registry-alias-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (registry-catalog-data (:copier common-lisp:nil)
-      (:conc-name "struct-shape-registry-catalog-data-"))
-   (display-name common-lisp:nil :type
-    (common-lisp:or registry-display-name common-lisp:null)))
+ (common-lisp:defclass registry-catalog-data common-lisp:nil
+                       ((display-name :initarg :|displayName| :type
+                         (common-lisp:or registry-display-name
+                                         common-lisp:null)
+                         :accessor %registry-catalog-data-display-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'registry-catalog-data 'make-registry-catalog-data))
+ (common-lisp:defun make-registry-catalog-data
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key display-name)
+   (common-lisp:apply #'common-lisp:make-instance 'registry-catalog-data
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2485,25 +3065,41 @@
 (common-lisp:progn
  (common-lisp:define-condition registry-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        registry-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'registry-not-found-exception
                     'registry-not-found-exception-message)))
 (common-lisp:deftype registry-verified () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (repository (:copier common-lisp:nil)
-      (:conc-name "struct-shape-repository-"))
-   (repository-arn common-lisp:nil :type (common-lisp:or arn common-lisp:null))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (repository-uri common-lisp:nil :type (common-lisp:or url common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or creation-timestamp common-lisp:null)))
+ (common-lisp:defclass repository common-lisp:nil
+                       ((created-at :initarg :|createdAt| :type
+                         (common-lisp:or creation-timestamp common-lisp:null)
+                         :accessor %repository-created-at :initform
+                         common-lisp:nil)
+                        (repository-uri :initarg :|repositoryUri| :type
+                         (common-lisp:or url common-lisp:null) :accessor
+                         %repository-repository-uri :initform common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %repository-repository-name :initform
+                         common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %repository-registry-id :initform
+                         common-lisp:nil)
+                        (repository-arn :initarg :|repositoryArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %repository-repository-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'repository 'make-repository))
+ (common-lisp:defun make-repository
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-at repository-uri repository-name
+                     registry-id repository-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'repository
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input repository))
    (common-lisp:append))
@@ -2551,31 +3147,56 @@
 (common-lisp:progn
  (common-lisp:define-condition repository-already-exists-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        repository-already-exists-exception-message)))
  (common-lisp:export
   (common-lisp:list 'repository-already-exists-exception
                     'repository-already-exists-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (repository-catalog-data (:copier common-lisp:nil)
-      (:conc-name "struct-shape-repository-catalog-data-"))
-   (description common-lisp:nil :type
-    (common-lisp:or repository-description common-lisp:null))
-   (architectures common-lisp:nil :type
-    (common-lisp:or architecture-list common-lisp:null))
-   (operating-systems common-lisp:nil :type
-    (common-lisp:or operating-system-list common-lisp:null))
-   (logo-url common-lisp:nil :type
-    (common-lisp:or resource-url common-lisp:null))
-   (about-text common-lisp:nil :type
-    (common-lisp:or about-text common-lisp:null))
-   (usage-text common-lisp:nil :type
-    (common-lisp:or usage-text common-lisp:null))
-   (marketplace-certified common-lisp:nil :type
-    (common-lisp:or marketplace-certified common-lisp:null)))
+ (common-lisp:defclass repository-catalog-data common-lisp:nil
+                       ((marketplace-certified :initarg :|marketplaceCertified|
+                         :type
+                         (common-lisp:or marketplace-certified
+                                         common-lisp:null)
+                         :accessor
+                         %repository-catalog-data-marketplace-certified
+                         :initform common-lisp:nil)
+                        (usage-text :initarg :|usageText| :type
+                         (common-lisp:or usage-text common-lisp:null) :accessor
+                         %repository-catalog-data-usage-text :initform
+                         common-lisp:nil)
+                        (about-text :initarg :|aboutText| :type
+                         (common-lisp:or about-text common-lisp:null) :accessor
+                         %repository-catalog-data-about-text :initform
+                         common-lisp:nil)
+                        (logo-url :initarg :|logoUrl| :type
+                         (common-lisp:or resource-url common-lisp:null)
+                         :accessor %repository-catalog-data-logo-url :initform
+                         common-lisp:nil)
+                        (operating-systems :initarg :|operatingSystems| :type
+                         (common-lisp:or operating-system-list
+                                         common-lisp:null)
+                         :accessor %repository-catalog-data-operating-systems
+                         :initform common-lisp:nil)
+                        (architectures :initarg :|architectures| :type
+                         (common-lisp:or architecture-list common-lisp:null)
+                         :accessor %repository-catalog-data-architectures
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or repository-description
+                                         common-lisp:null)
+                         :accessor %repository-catalog-data-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'repository-catalog-data 'make-repository-catalog-data))
+ (common-lisp:defun make-repository-catalog-data
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key marketplace-certified usage-text
+                     about-text logo-url operating-systems architectures
+                     description)
+   (common-lisp:apply #'common-lisp:make-instance 'repository-catalog-data
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2642,24 +3263,46 @@
                           repository-catalog-data))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (repository-catalog-data-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-repository-catalog-data-input-"))
-   (description common-lisp:nil :type
-    (common-lisp:or repository-description common-lisp:null))
-   (architectures common-lisp:nil :type
-    (common-lisp:or architecture-list common-lisp:null))
-   (operating-systems common-lisp:nil :type
-    (common-lisp:or operating-system-list common-lisp:null))
-   (logo-image-blob common-lisp:nil :type
-    (common-lisp:or logo-image-blob common-lisp:null))
-   (about-text common-lisp:nil :type
-    (common-lisp:or about-text common-lisp:null))
-   (usage-text common-lisp:nil :type
-    (common-lisp:or usage-text common-lisp:null)))
+ (common-lisp:defclass repository-catalog-data-input common-lisp:nil
+                       ((usage-text :initarg :|usageText| :type
+                         (common-lisp:or usage-text common-lisp:null) :accessor
+                         %repository-catalog-data-input-usage-text :initform
+                         common-lisp:nil)
+                        (about-text :initarg :|aboutText| :type
+                         (common-lisp:or about-text common-lisp:null) :accessor
+                         %repository-catalog-data-input-about-text :initform
+                         common-lisp:nil)
+                        (logo-image-blob :initarg :|logoImageBlob| :type
+                         (common-lisp:or logo-image-blob common-lisp:null)
+                         :accessor
+                         %repository-catalog-data-input-logo-image-blob
+                         :initform common-lisp:nil)
+                        (operating-systems :initarg :|operatingSystems| :type
+                         (common-lisp:or operating-system-list
+                                         common-lisp:null)
+                         :accessor
+                         %repository-catalog-data-input-operating-systems
+                         :initform common-lisp:nil)
+                        (architectures :initarg :|architectures| :type
+                         (common-lisp:or architecture-list common-lisp:null)
+                         :accessor %repository-catalog-data-input-architectures
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or repository-description
+                                         common-lisp:null)
+                         :accessor %repository-catalog-data-input-description
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'repository-catalog-data-input
                     'make-repository-catalog-data-input))
+ (common-lisp:defun make-repository-catalog-data-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key usage-text about-text logo-image-blob
+                     operating-systems architectures description)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'repository-catalog-data-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2720,7 +3363,7 @@
 (common-lisp:progn
  (common-lisp:define-condition repository-catalog-data-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        repository-catalog-data-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'repository-catalog-data-not-found-exception
@@ -2746,7 +3389,7 @@
 (common-lisp:progn
  (common-lisp:define-condition repository-not-empty-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        repository-not-empty-exception-message)))
  (common-lisp:export
   (common-lisp:list 'repository-not-empty-exception
@@ -2754,7 +3397,7 @@
 (common-lisp:progn
  (common-lisp:define-condition repository-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        repository-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'repository-not-found-exception
@@ -2762,7 +3405,7 @@
 (common-lisp:progn
  (common-lisp:define-condition repository-policy-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        repository-policy-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'repository-policy-not-found-exception
@@ -2772,24 +3415,43 @@
 (common-lisp:progn
  (common-lisp:define-condition server-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'server-exception 'server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (set-repository-policy-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-set-repository-policy-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (policy-text (common-lisp:error ":policytext is required") :type
-    (common-lisp:or repository-policy-text common-lisp:null))
-   (force common-lisp:nil :type (common-lisp:or force-flag common-lisp:null)))
+ (common-lisp:defclass set-repository-policy-request common-lisp:nil
+                       ((force :initarg :|force| :type
+                         (common-lisp:or force-flag common-lisp:null) :accessor
+                         %set-repository-policy-request-force :initform
+                         common-lisp:nil)
+                        (policy-text :initarg :|policyText| :type
+                         (common-lisp:or repository-policy-text
+                                         common-lisp:null)
+                         :accessor %set-repository-policy-request-policy-text
+                         :initform
+                         (common-lisp:error ":policytext is required"))
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %set-repository-policy-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %set-repository-policy-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'set-repository-policy-request
                     'make-set-repository-policy-request))
+ (common-lisp:defun make-set-repository-policy-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key force policy-text repository-name
+                     registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'set-repository-policy-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2834,18 +3496,31 @@
                           set-repository-policy-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (set-repository-policy-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-set-repository-policy-response-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (policy-text common-lisp:nil :type
-    (common-lisp:or repository-policy-text common-lisp:null)))
+ (common-lisp:defclass set-repository-policy-response common-lisp:nil
+                       ((policy-text :initarg :|policyText| :type
+                         (common-lisp:or repository-policy-text
+                                         common-lisp:null)
+                         :accessor %set-repository-policy-response-policy-text
+                         :initform common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor
+                         %set-repository-policy-response-repository-name
+                         :initform common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %set-repository-policy-response-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'set-repository-policy-response
                     'make-set-repository-policy-response))
+ (common-lisp:defun make-set-repository-policy-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key policy-text repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'set-repository-policy-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2883,11 +3558,20 @@
                           set-repository-policy-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key common-lisp:nil :type (common-lisp:or tag-key common-lisp:null))
-   (value common-lisp:nil :type (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform common-lisp:nil)
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -2927,15 +3611,23 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -2960,11 +3652,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2984,28 +3680,36 @@
 (common-lisp:progn
  (common-lisp:define-condition too-many-tags-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        too-many-tags-exception-message)))
  (common-lisp:export
   (common-lisp:list 'too-many-tags-exception 'too-many-tags-exception-message)))
 (common-lisp:progn
  (common-lisp:define-condition unsupported-command-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        unsupported-command-exception-message)))
  (common-lisp:export
   (common-lisp:list 'unsupported-command-exception
                     'unsupported-command-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tagkeys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :|tagKeys| :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tagkeys is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %untag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3036,11 +3740,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3058,24 +3766,43 @@
    common-lisp:nil))
 (common-lisp:deftype upload-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (upload-layer-part-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-upload-layer-part-request-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id-or-alias common-lisp:null))
-   (repository-name (common-lisp:error ":repositoryname is required") :type
-    (common-lisp:or repository-name common-lisp:null))
-   (upload-id (common-lisp:error ":uploadid is required") :type
-    (common-lisp:or upload-id common-lisp:null))
-   (part-first-byte (common-lisp:error ":partfirstbyte is required") :type
-    (common-lisp:or part-size common-lisp:null))
-   (part-last-byte (common-lisp:error ":partlastbyte is required") :type
-    (common-lisp:or part-size common-lisp:null))
-   (layer-part-blob (common-lisp:error ":layerpartblob is required") :type
-    (common-lisp:or layer-part-blob common-lisp:null)))
+ (common-lisp:defclass upload-layer-part-request common-lisp:nil
+                       ((layer-part-blob :initarg :|layerPartBlob| :type
+                         (common-lisp:or layer-part-blob common-lisp:null)
+                         :accessor %upload-layer-part-request-layer-part-blob
+                         :initform
+                         (common-lisp:error ":layerpartblob is required"))
+                        (part-last-byte :initarg :|partLastByte| :type
+                         (common-lisp:or part-size common-lisp:null) :accessor
+                         %upload-layer-part-request-part-last-byte :initform
+                         (common-lisp:error ":partlastbyte is required"))
+                        (part-first-byte :initarg :|partFirstByte| :type
+                         (common-lisp:or part-size common-lisp:null) :accessor
+                         %upload-layer-part-request-part-first-byte :initform
+                         (common-lisp:error ":partfirstbyte is required"))
+                        (upload-id :initarg :|uploadId| :type
+                         (common-lisp:or upload-id common-lisp:null) :accessor
+                         %upload-layer-part-request-upload-id :initform
+                         (common-lisp:error ":uploadid is required"))
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %upload-layer-part-request-repository-name
+                         :initform
+                         (common-lisp:error ":repositoryname is required"))
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id-or-alias common-lisp:null)
+                         :accessor %upload-layer-part-request-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'upload-layer-part-request
                     'make-upload-layer-part-request))
+ (common-lisp:defun make-upload-layer-part-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key layer-part-blob part-last-byte
+                     part-first-byte upload-id repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'upload-layer-part-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3134,20 +3861,33 @@
                           upload-layer-part-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (upload-layer-part-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-upload-layer-part-response-"))
-   (registry-id common-lisp:nil :type
-    (common-lisp:or registry-id common-lisp:null))
-   (repository-name common-lisp:nil :type
-    (common-lisp:or repository-name common-lisp:null))
-   (upload-id common-lisp:nil :type
-    (common-lisp:or upload-id common-lisp:null))
-   (last-byte-received common-lisp:nil :type
-    (common-lisp:or part-size common-lisp:null)))
+ (common-lisp:defclass upload-layer-part-response common-lisp:nil
+                       ((last-byte-received :initarg :|lastByteReceived| :type
+                         (common-lisp:or part-size common-lisp:null) :accessor
+                         %upload-layer-part-response-last-byte-received
+                         :initform common-lisp:nil)
+                        (upload-id :initarg :|uploadId| :type
+                         (common-lisp:or upload-id common-lisp:null) :accessor
+                         %upload-layer-part-response-upload-id :initform
+                         common-lisp:nil)
+                        (repository-name :initarg :|repositoryName| :type
+                         (common-lisp:or repository-name common-lisp:null)
+                         :accessor %upload-layer-part-response-repository-name
+                         :initform common-lisp:nil)
+                        (registry-id :initarg :|registryId| :type
+                         (common-lisp:or registry-id common-lisp:null)
+                         :accessor %upload-layer-part-response-registry-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'upload-layer-part-response
                     'make-upload-layer-part-response))
+ (common-lisp:defun make-upload-layer-part-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-byte-received upload-id
+                     repository-name registry-id)
+   (common-lisp:apply #'common-lisp:make-instance 'upload-layer-part-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3194,7 +3934,7 @@
 (common-lisp:progn
  (common-lisp:define-condition upload-not-found-exception
      (ecr-public-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        upload-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'upload-not-found-exception

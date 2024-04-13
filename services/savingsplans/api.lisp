@@ -28,24 +28,48 @@
 (common-lisp:deftype amount () 'common-lisp:string)
 (common-lisp:deftype client-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-savings-plan-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-savings-plan-request-"))
-   (savings-plan-offering-id
-    (common-lisp:error ":savingsplanofferingid is required") :type
-    (common-lisp:or savings-plan-offering-id common-lisp:null))
-   (commitment (common-lisp:error ":commitment is required") :type
-    (common-lisp:or amount common-lisp:null))
-   (upfront-payment-amount common-lisp:nil :type
-    (common-lisp:or amount common-lisp:null))
-   (purchase-time common-lisp:nil :type
-    (common-lisp:or date-time common-lisp:null))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-savings-plan-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-savings-plan-request-tags :initform
+                         common-lisp:nil)
+                        (client-token :initarg :|clientToken| :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %create-savings-plan-request-client-token
+                         :initform common-lisp:nil)
+                        (purchase-time :initarg :|purchaseTime| :type
+                         (common-lisp:or date-time common-lisp:null) :accessor
+                         %create-savings-plan-request-purchase-time :initform
+                         common-lisp:nil)
+                        (upfront-payment-amount :initarg
+                         :|upfrontPaymentAmount| :type
+                         (common-lisp:or amount common-lisp:null) :accessor
+                         %create-savings-plan-request-upfront-payment-amount
+                         :initform common-lisp:nil)
+                        (commitment :initarg :|commitment| :type
+                         (common-lisp:or amount common-lisp:null) :accessor
+                         %create-savings-plan-request-commitment :initform
+                         (common-lisp:error ":commitment is required"))
+                        (savings-plan-offering-id :initarg
+                         :|savingsPlanOfferingId| :type
+                         (common-lisp:or savings-plan-offering-id
+                                         common-lisp:null)
+                         :accessor
+                         %create-savings-plan-request-savings-plan-offering-id
+                         :initform
+                         (common-lisp:error
+                          ":savingsplanofferingid is required"))))
  (common-lisp:export
   (common-lisp:list 'create-savings-plan-request
                     'make-create-savings-plan-request))
+ (common-lisp:defun make-create-savings-plan-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags client-token purchase-time
+                     upfront-payment-amount commitment
+                     savings-plan-offering-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-savings-plan-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -106,14 +130,21 @@
                           create-savings-plan-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-savings-plan-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-savings-plan-response-"))
-   (savings-plan-id common-lisp:nil :type
-    (common-lisp:or savings-plan-id common-lisp:null)))
+ (common-lisp:defclass create-savings-plan-response common-lisp:nil
+                       ((savings-plan-id :initarg :|savingsPlanId| :type
+                         (common-lisp:or savings-plan-id common-lisp:null)
+                         :accessor
+                         %create-savings-plan-response-savings-plan-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-savings-plan-response
                     'make-create-savings-plan-response))
+ (common-lisp:defun make-create-savings-plan-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key savings-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance 'create-savings-plan-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -147,14 +178,23 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype date-time () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-queued-savings-plan-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-queued-savings-plan-request-"))
-   (savings-plan-id (common-lisp:error ":savingsplanid is required") :type
-    (common-lisp:or savings-plan-id common-lisp:null)))
+ (common-lisp:defclass delete-queued-savings-plan-request common-lisp:nil
+                       ((savings-plan-id :initarg :|savingsPlanId| :type
+                         (common-lisp:or savings-plan-id common-lisp:null)
+                         :accessor
+                         %delete-queued-savings-plan-request-savings-plan-id
+                         :initform
+                         (common-lisp:error ":savingsplanid is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-queued-savings-plan-request
                     'make-delete-queued-savings-plan-request))
+ (common-lisp:defun make-delete-queued-savings-plan-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key savings-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-queued-savings-plan-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -178,12 +218,18 @@
                           delete-queued-savings-plan-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-queued-savings-plan-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-queued-savings-plan-response-")))
+ (common-lisp:defclass delete-queued-savings-plan-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-queued-savings-plan-response
                     'make-delete-queued-savings-plan-response))
+ (common-lisp:defun make-delete-queued-savings-plan-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-queued-savings-plan-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -200,20 +246,39 @@
                           delete-queued-savings-plan-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plan-rates-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-savings-plan-rates-request-"))
-   (savings-plan-id (common-lisp:error ":savingsplanid is required") :type
-    (common-lisp:or savings-plan-id common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-filter-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass describe-savings-plan-rates-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %describe-savings-plan-rates-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %describe-savings-plan-rates-request-next-token
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or savings-plan-rate-filter-list
+                                         common-lisp:null)
+                         :accessor %describe-savings-plan-rates-request-filters
+                         :initform common-lisp:nil)
+                        (savings-plan-id :initarg :|savingsPlanId| :type
+                         (common-lisp:or savings-plan-id common-lisp:null)
+                         :accessor
+                         %describe-savings-plan-rates-request-savings-plan-id
+                         :initform
+                         (common-lisp:error ":savingsplanid is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plan-rates-request
                     'make-describe-savings-plan-rates-request))
+ (common-lisp:defun make-describe-savings-plan-rates-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token filters
+                     savings-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plan-rates-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -258,18 +323,34 @@
                           describe-savings-plan-rates-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plan-rates-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-savings-plan-rates-response-"))
-   (savings-plan-id common-lisp:nil :type
-    (common-lisp:or savings-plan-id common-lisp:null))
-   (search-results common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass describe-savings-plan-rates-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %describe-savings-plan-rates-response-next-token
+                         :initform common-lisp:nil)
+                        (search-results :initarg :|searchResults| :type
+                         (common-lisp:or savings-plan-rate-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plan-rates-response-search-results
+                         :initform common-lisp:nil)
+                        (savings-plan-id :initarg :|savingsPlanId| :type
+                         (common-lisp:or savings-plan-id common-lisp:null)
+                         :accessor
+                         %describe-savings-plan-rates-response-savings-plan-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plan-rates-response
                     'make-describe-savings-plan-rates-response))
+ (common-lisp:defun make-describe-savings-plan-rates-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token search-results
+                     savings-plan-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plan-rates-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -307,33 +388,78 @@
                           describe-savings-plan-rates-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plans-offering-rates-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-savings-plans-offering-rates-request-"))
-   (savings-plan-offering-ids common-lisp:nil :type
-    (common-lisp:or uuids common-lisp:null))
-   (savings-plan-payment-options common-lisp:nil :type
-    (common-lisp:or savings-plan-payment-option-list common-lisp:null))
-   (savings-plan-types common-lisp:nil :type
-    (common-lisp:or savings-plan-type-list common-lisp:null))
-   (products common-lisp:nil :type
-    (common-lisp:or savings-plan-product-type-list common-lisp:null))
-   (service-codes common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-service-code-list common-lisp:null))
-   (usage-types common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-usage-type-list common-lisp:null))
-   (operations common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-operation-list common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-rate-filters-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or page-size common-lisp:null)))
+ (common-lisp:defclass describe-savings-plans-offering-rates-request
+                       common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or page-size common-lisp:null) :accessor
+                         %describe-savings-plans-offering-rates-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-next-token
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or
+                          savings-plan-offering-rate-filters-list
+                          common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-filters
+                         :initform common-lisp:nil)
+                        (operations :initarg :|operations| :type
+                         (common-lisp:or savings-plan-rate-operation-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-operations
+                         :initform common-lisp:nil)
+                        (usage-types :initarg :|usageTypes| :type
+                         (common-lisp:or savings-plan-rate-usage-type-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-usage-types
+                         :initform common-lisp:nil)
+                        (service-codes :initarg :|serviceCodes| :type
+                         (common-lisp:or savings-plan-rate-service-code-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-service-codes
+                         :initform common-lisp:nil)
+                        (products :initarg :|products| :type
+                         (common-lisp:or savings-plan-product-type-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-products
+                         :initform common-lisp:nil)
+                        (savings-plan-types :initarg :|savingsPlanTypes| :type
+                         (common-lisp:or savings-plan-type-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-savings-plan-types
+                         :initform common-lisp:nil)
+                        (savings-plan-payment-options :initarg
+                         :|savingsPlanPaymentOptions| :type
+                         (common-lisp:or savings-plan-payment-option-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-request-savings-plan-payment-options
+                         :initform common-lisp:nil)
+                        (savings-plan-offering-ids :initarg
+                         :|savingsPlanOfferingIds| :type
+                         (common-lisp:or uuids common-lisp:null) :accessor
+                         %describe-savings-plans-offering-rates-request-savings-plan-offering-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plans-offering-rates-request
                     'make-describe-savings-plans-offering-rates-request))
+ (common-lisp:defun make-describe-savings-plans-offering-rates-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token filters operations
+                     usage-types service-codes products savings-plan-types
+                     savings-plan-payment-options savings-plan-offering-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plans-offering-rates-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -422,17 +548,29 @@
                           describe-savings-plans-offering-rates-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plans-offering-rates-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-savings-plans-offering-rates-response-"))
-   (search-results common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-rates-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass describe-savings-plans-offering-rates-response
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-response-next-token
+                         :initform common-lisp:nil)
+                        (search-results :initarg :|searchResults| :type
+                         (common-lisp:or savings-plan-offering-rates-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offering-rates-response-search-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plans-offering-rates-response
                     'make-describe-savings-plans-offering-rates-response))
+ (common-lisp:defun make-describe-savings-plans-offering-rates-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token search-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plans-offering-rates-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -463,37 +601,91 @@
                           describe-savings-plans-offering-rates-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plans-offerings-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-savings-plans-offerings-request-"))
-   (offering-ids common-lisp:nil :type (common-lisp:or uuids common-lisp:null))
-   (payment-options common-lisp:nil :type
-    (common-lisp:or savings-plan-payment-option-list common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or savings-plan-product-type common-lisp:null))
-   (plan-types common-lisp:nil :type
-    (common-lisp:or savings-plan-type-list common-lisp:null))
-   (durations common-lisp:nil :type
-    (common-lisp:or durations-list common-lisp:null))
-   (currencies common-lisp:nil :type
-    (common-lisp:or currency-list common-lisp:null))
-   (descriptions common-lisp:nil :type
-    (common-lisp:or savings-plan-descriptions-list common-lisp:null))
-   (service-codes common-lisp:nil :type
-    (common-lisp:or savings-plan-service-code-list common-lisp:null))
-   (usage-types common-lisp:nil :type
-    (common-lisp:or savings-plan-usage-type-list common-lisp:null))
-   (operations common-lisp:nil :type
-    (common-lisp:or savings-plan-operation-list common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-filters-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or page-size common-lisp:null)))
+ (common-lisp:defclass describe-savings-plans-offerings-request common-lisp:nil
+                       ((max-results :initarg :|maxResults| :type
+                         (common-lisp:or page-size common-lisp:null) :accessor
+                         %describe-savings-plans-offerings-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-next-token
+                         :initform common-lisp:nil)
+                        (filters :initarg :|filters| :type
+                         (common-lisp:or savings-plan-offering-filters-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-filters
+                         :initform common-lisp:nil)
+                        (operations :initarg :|operations| :type
+                         (common-lisp:or savings-plan-operation-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-operations
+                         :initform common-lisp:nil)
+                        (usage-types :initarg :|usageTypes| :type
+                         (common-lisp:or savings-plan-usage-type-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-usage-types
+                         :initform common-lisp:nil)
+                        (service-codes :initarg :|serviceCodes| :type
+                         (common-lisp:or savings-plan-service-code-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-service-codes
+                         :initform common-lisp:nil)
+                        (descriptions :initarg :|descriptions| :type
+                         (common-lisp:or savings-plan-descriptions-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-descriptions
+                         :initform common-lisp:nil)
+                        (currencies :initarg :|currencies| :type
+                         (common-lisp:or currency-list common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-currencies
+                         :initform common-lisp:nil)
+                        (durations :initarg :|durations| :type
+                         (common-lisp:or durations-list common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-durations
+                         :initform common-lisp:nil)
+                        (plan-types :initarg :|planTypes| :type
+                         (common-lisp:or savings-plan-type-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-plan-types
+                         :initform common-lisp:nil)
+                        (product-type :initarg :|productType| :type
+                         (common-lisp:or savings-plan-product-type
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-product-type
+                         :initform common-lisp:nil)
+                        (payment-options :initarg :|paymentOptions| :type
+                         (common-lisp:or savings-plan-payment-option-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-request-payment-options
+                         :initform common-lisp:nil)
+                        (offering-ids :initarg :|offeringIds| :type
+                         (common-lisp:or uuids common-lisp:null) :accessor
+                         %describe-savings-plans-offerings-request-offering-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plans-offerings-request
                     'make-describe-savings-plans-offerings-request))
+ (common-lisp:defun make-describe-savings-plans-offerings-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token filters operations
+                     usage-types service-codes descriptions currencies
+                     durations plan-types product-type payment-options
+                     offering-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plans-offerings-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -601,16 +793,29 @@
                           describe-savings-plans-offerings-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plans-offerings-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-savings-plans-offerings-response-"))
-   (search-results common-lisp:nil :type
-    (common-lisp:or savings-plan-offerings-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass describe-savings-plans-offerings-response
+                       common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-response-next-token
+                         :initform common-lisp:nil)
+                        (search-results :initarg :|searchResults| :type
+                         (common-lisp:or savings-plan-offerings-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-offerings-response-search-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plans-offerings-response
                     'make-describe-savings-plans-offerings-response))
+ (common-lisp:defun make-describe-savings-plans-offerings-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token search-results)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plans-offerings-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -641,24 +846,47 @@
                           describe-savings-plans-offerings-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plans-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-savings-plans-request-"))
-   (savings-plan-arns common-lisp:nil :type
-    (common-lisp:or savings-plan-arn-list common-lisp:null))
-   (savings-plan-ids common-lisp:nil :type
-    (common-lisp:or savings-plan-id-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (states common-lisp:nil :type
-    (common-lisp:or savings-plan-state-list common-lisp:null))
-   (filters common-lisp:nil :type
-    (common-lisp:or savings-plan-filter-list common-lisp:null)))
+ (common-lisp:defclass describe-savings-plans-request common-lisp:nil
+                       ((filters :initarg :|filters| :type
+                         (common-lisp:or savings-plan-filter-list
+                                         common-lisp:null)
+                         :accessor %describe-savings-plans-request-filters
+                         :initform common-lisp:nil)
+                        (states :initarg :|states| :type
+                         (common-lisp:or savings-plan-state-list
+                                         common-lisp:null)
+                         :accessor %describe-savings-plans-request-states
+                         :initform common-lisp:nil)
+                        (max-results :initarg :|maxResults| :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %describe-savings-plans-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %describe-savings-plans-request-next-token
+                         :initform common-lisp:nil)
+                        (savings-plan-ids :initarg :|savingsPlanIds| :type
+                         (common-lisp:or savings-plan-id-list common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-request-savings-plan-ids
+                         :initform common-lisp:nil)
+                        (savings-plan-arns :initarg :|savingsPlanArns| :type
+                         (common-lisp:or savings-plan-arn-list
+                                         common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-request-savings-plan-arns
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plans-request
                     'make-describe-savings-plans-request))
+ (common-lisp:defun make-describe-savings-plans-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key filters states max-results next-token
+                     savings-plan-ids savings-plan-arns)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plans-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -717,16 +945,26 @@
                           describe-savings-plans-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-savings-plans-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-savings-plans-response-"))
-   (savings-plans common-lisp:nil :type
-    (common-lisp:or savings-plan-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or pagination-token common-lisp:null)))
+ (common-lisp:defclass describe-savings-plans-response common-lisp:nil
+                       ((next-token :initarg :|nextToken| :type
+                         (common-lisp:or pagination-token common-lisp:null)
+                         :accessor %describe-savings-plans-response-next-token
+                         :initform common-lisp:nil)
+                        (savings-plans :initarg :|savingsPlans| :type
+                         (common-lisp:or savings-plan-list common-lisp:null)
+                         :accessor
+                         %describe-savings-plans-response-savings-plans
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-savings-plans-response
                     'make-describe-savings-plans-response))
+ (common-lisp:defun make-describe-savings-plans-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token savings-plans)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-savings-plans-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -777,7 +1015,7 @@
 (common-lisp:progn
  (common-lisp:define-condition internal-server-exception
      (savingsplans-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        internal-server-exception-message)))
  (common-lisp:export
   (common-lisp:list 'internal-server-exception
@@ -791,14 +1029,22 @@
                            (trivial-types:proper-list string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or savings-plan-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or savings-plan-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -822,13 +1068,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -855,23 +1109,46 @@
 (common-lisp:deftype page-size () 'common-lisp:integer)
 (common-lisp:deftype pagination-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (parent-savings-plan-offering (:copier common-lisp:nil)
-      (:conc-name "struct-shape-parent-savings-plan-offering-"))
-   (offering-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (payment-option common-lisp:nil :type
-    (common-lisp:or savings-plan-payment-option common-lisp:null))
-   (plan-type common-lisp:nil :type
-    (common-lisp:or savings-plan-type common-lisp:null))
-   (duration-seconds common-lisp:nil :type
-    (common-lisp:or savings-plans-duration common-lisp:null))
-   (currency common-lisp:nil :type
-    (common-lisp:or currency-code common-lisp:null))
-   (plan-description common-lisp:nil :type
-    (common-lisp:or savings-plan-description common-lisp:null)))
+ (common-lisp:defclass parent-savings-plan-offering common-lisp:nil
+                       ((plan-description :initarg :|planDescription| :type
+                         (common-lisp:or savings-plan-description
+                                         common-lisp:null)
+                         :accessor
+                         %parent-savings-plan-offering-plan-description
+                         :initform common-lisp:nil)
+                        (currency :initarg :|currency| :type
+                         (common-lisp:or currency-code common-lisp:null)
+                         :accessor %parent-savings-plan-offering-currency
+                         :initform common-lisp:nil)
+                        (duration-seconds :initarg :|durationSeconds| :type
+                         (common-lisp:or savings-plans-duration
+                                         common-lisp:null)
+                         :accessor
+                         %parent-savings-plan-offering-duration-seconds
+                         :initform common-lisp:nil)
+                        (plan-type :initarg :|planType| :type
+                         (common-lisp:or savings-plan-type common-lisp:null)
+                         :accessor %parent-savings-plan-offering-plan-type
+                         :initform common-lisp:nil)
+                        (payment-option :initarg :|paymentOption| :type
+                         (common-lisp:or savings-plan-payment-option
+                                         common-lisp:null)
+                         :accessor %parent-savings-plan-offering-payment-option
+                         :initform common-lisp:nil)
+                        (offering-id :initarg :|offeringId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %parent-savings-plan-offering-offering-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'parent-savings-plan-offering
                     'make-parent-savings-plan-offering))
+ (common-lisp:defun make-parent-savings-plan-offering
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key plan-description currency
+                     duration-seconds plan-type payment-option offering-id)
+   (common-lisp:apply #'common-lisp:make-instance 'parent-savings-plan-offering
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -933,46 +1210,97 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (savingsplans-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-"))
-   (offering-id common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-id common-lisp:null))
-   (savings-plan-id common-lisp:nil :type
-    (common-lisp:or savings-plan-id common-lisp:null))
-   (savings-plan-arn common-lisp:nil :type
-    (common-lisp:or savings-plan-arn common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (start common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (end common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (state common-lisp:nil :type
-    (common-lisp:or savings-plan-state common-lisp:null))
-   (region common-lisp:nil :type (common-lisp:or region common-lisp:null))
-   (ec2instance-family common-lisp:nil :type
-    (common-lisp:or ec2instance-family common-lisp:null))
-   (savings-plan-type common-lisp:nil :type
-    (common-lisp:or savings-plan-type common-lisp:null))
-   (payment-option common-lisp:nil :type
-    (common-lisp:or savings-plan-payment-option common-lisp:null))
-   (product-types common-lisp:nil :type
-    (common-lisp:or savings-plan-product-type-list common-lisp:null))
-   (currency common-lisp:nil :type
-    (common-lisp:or currency-code common-lisp:null))
-   (commitment common-lisp:nil :type (common-lisp:or amount common-lisp:null))
-   (upfront-payment-amount common-lisp:nil :type
-    (common-lisp:or amount common-lisp:null))
-   (recurring-payment-amount common-lisp:nil :type
-    (common-lisp:or amount common-lisp:null))
-   (term-duration-in-seconds common-lisp:nil :type
-    (common-lisp:or term-duration-in-seconds common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass savings-plan common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %savings-plan-tags :initform common-lisp:nil)
+                        (term-duration-in-seconds :initarg
+                         :|termDurationInSeconds| :type
+                         (common-lisp:or term-duration-in-seconds
+                                         common-lisp:null)
+                         :accessor %savings-plan-term-duration-in-seconds
+                         :initform common-lisp:nil)
+                        (recurring-payment-amount :initarg
+                         :|recurringPaymentAmount| :type
+                         (common-lisp:or amount common-lisp:null) :accessor
+                         %savings-plan-recurring-payment-amount :initform
+                         common-lisp:nil)
+                        (upfront-payment-amount :initarg
+                         :|upfrontPaymentAmount| :type
+                         (common-lisp:or amount common-lisp:null) :accessor
+                         %savings-plan-upfront-payment-amount :initform
+                         common-lisp:nil)
+                        (commitment :initarg :|commitment| :type
+                         (common-lisp:or amount common-lisp:null) :accessor
+                         %savings-plan-commitment :initform common-lisp:nil)
+                        (currency :initarg :|currency| :type
+                         (common-lisp:or currency-code common-lisp:null)
+                         :accessor %savings-plan-currency :initform
+                         common-lisp:nil)
+                        (product-types :initarg :|productTypes| :type
+                         (common-lisp:or savings-plan-product-type-list
+                                         common-lisp:null)
+                         :accessor %savings-plan-product-types :initform
+                         common-lisp:nil)
+                        (payment-option :initarg :|paymentOption| :type
+                         (common-lisp:or savings-plan-payment-option
+                                         common-lisp:null)
+                         :accessor %savings-plan-payment-option :initform
+                         common-lisp:nil)
+                        (savings-plan-type :initarg :|savingsPlanType| :type
+                         (common-lisp:or savings-plan-type common-lisp:null)
+                         :accessor %savings-plan-savings-plan-type :initform
+                         common-lisp:nil)
+                        (ec2instance-family :initarg :|ec2InstanceFamily| :type
+                         (common-lisp:or ec2instance-family common-lisp:null)
+                         :accessor %savings-plan-ec2instance-family :initform
+                         common-lisp:nil)
+                        (region :initarg :|region| :type
+                         (common-lisp:or region common-lisp:null) :accessor
+                         %savings-plan-region :initform common-lisp:nil)
+                        (state :initarg :|state| :type
+                         (common-lisp:or savings-plan-state common-lisp:null)
+                         :accessor %savings-plan-state :initform
+                         common-lisp:nil)
+                        (end :initarg :|end| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %savings-plan-end :initform common-lisp:nil)
+                        (start :initarg :|start| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %savings-plan-start :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %savings-plan-description :initform common-lisp:nil)
+                        (savings-plan-arn :initarg :|savingsPlanArn| :type
+                         (common-lisp:or savings-plan-arn common-lisp:null)
+                         :accessor %savings-plan-savings-plan-arn :initform
+                         common-lisp:nil)
+                        (savings-plan-id :initarg :|savingsPlanId| :type
+                         (common-lisp:or savings-plan-id common-lisp:null)
+                         :accessor %savings-plan-savings-plan-id :initform
+                         common-lisp:nil)
+                        (offering-id :initarg :|offeringId| :type
+                         (common-lisp:or savings-plan-offering-id
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'savings-plan 'make-savings-plan))
+ (common-lisp:defun make-savings-plan
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags term-duration-in-seconds
+                     recurring-payment-amount upfront-payment-amount commitment
+                     currency product-types payment-option savings-plan-type
+                     ec2instance-family region state end start description
+                     savings-plan-arn savings-plan-id offering-id)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-plan
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input savings-plan))
    (common-lisp:append))
@@ -1131,15 +1459,24 @@
                             savings-plan-description))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-filter-"))
-   (name common-lisp:nil :type
-    (common-lisp:or savings-plans-filter-name common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or list-of-strings common-lisp:null)))
+ (common-lisp:defclass savings-plan-filter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or list-of-strings common-lisp:null)
+                         :accessor %savings-plan-filter-values :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or savings-plans-filter-name
+                                         common-lisp:null)
+                         :accessor %savings-plan-filter-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-filter 'make-savings-plan-filter))
+ (common-lisp:defun make-savings-plan-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-plan-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input savings-plan-filter))
    (common-lisp:append))
@@ -1189,32 +1526,69 @@
                            (trivial-types:proper-list savings-plan))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-offering (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-offering-"))
-   (offering-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (product-types common-lisp:nil :type
-    (common-lisp:or savings-plan-product-type-list common-lisp:null))
-   (plan-type common-lisp:nil :type
-    (common-lisp:or savings-plan-type common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or savings-plan-description common-lisp:null))
-   (payment-option common-lisp:nil :type
-    (common-lisp:or savings-plan-payment-option common-lisp:null))
-   (duration-seconds common-lisp:nil :type
-    (common-lisp:or savings-plans-duration common-lisp:null))
-   (currency common-lisp:nil :type
-    (common-lisp:or currency-code common-lisp:null))
-   (service-code common-lisp:nil :type
-    (common-lisp:or savings-plan-service-code common-lisp:null))
-   (usage-type common-lisp:nil :type
-    (common-lisp:or savings-plan-usage-type common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or savings-plan-operation common-lisp:null))
-   (properties common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-property-list common-lisp:null)))
+ (common-lisp:defclass savings-plan-offering common-lisp:nil
+                       ((properties :initarg :|properties| :type
+                         (common-lisp:or savings-plan-offering-property-list
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-properties :initform
+                         common-lisp:nil)
+                        (operation :initarg :|operation| :type
+                         (common-lisp:or savings-plan-operation
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-operation :initform
+                         common-lisp:nil)
+                        (usage-type :initarg :|usageType| :type
+                         (common-lisp:or savings-plan-usage-type
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-usage-type :initform
+                         common-lisp:nil)
+                        (service-code :initarg :|serviceCode| :type
+                         (common-lisp:or savings-plan-service-code
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-service-code
+                         :initform common-lisp:nil)
+                        (currency :initarg :|currency| :type
+                         (common-lisp:or currency-code common-lisp:null)
+                         :accessor %savings-plan-offering-currency :initform
+                         common-lisp:nil)
+                        (duration-seconds :initarg :|durationSeconds| :type
+                         (common-lisp:or savings-plans-duration
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-duration-seconds
+                         :initform common-lisp:nil)
+                        (payment-option :initarg :|paymentOption| :type
+                         (common-lisp:or savings-plan-payment-option
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-payment-option
+                         :initform common-lisp:nil)
+                        (description :initarg :|description| :type
+                         (common-lisp:or savings-plan-description
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-description :initform
+                         common-lisp:nil)
+                        (plan-type :initarg :|planType| :type
+                         (common-lisp:or savings-plan-type common-lisp:null)
+                         :accessor %savings-plan-offering-plan-type :initform
+                         common-lisp:nil)
+                        (product-types :initarg :|productTypes| :type
+                         (common-lisp:or savings-plan-product-type-list
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-product-types
+                         :initform common-lisp:nil)
+                        (offering-id :initarg :|offeringId| :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %savings-plan-offering-offering-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-offering 'make-savings-plan-offering))
+ (common-lisp:defun make-savings-plan-offering
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key properties operation usage-type
+                     service-code currency duration-seconds payment-option
+                     description plan-type product-types offering-id)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-plan-offering
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1310,16 +1684,26 @@
 (common-lisp:deftype savings-plan-offering-filter-attribute ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-offering-filter-element (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-offering-filter-element-"))
-   (name common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-filter-attribute common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values-list common-lisp:null)))
+ (common-lisp:defclass savings-plan-offering-filter-element common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values-list common-lisp:null)
+                         :accessor %savings-plan-offering-filter-element-values
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or savings-plan-offering-filter-attribute
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-filter-element-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-offering-filter-element
                     'make-savings-plan-offering-filter-element))
+ (common-lisp:defun make-savings-plan-offering-filter-element
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'savings-plan-offering-filter-element
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1360,16 +1744,27 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype savings-plan-offering-id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-offering-property (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-offering-property-"))
-   (name common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-property-key common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or json-safe-filter-value-string common-lisp:null)))
+ (common-lisp:defclass savings-plan-offering-property common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or json-safe-filter-value-string
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-property-value
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or savings-plan-offering-property-key
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-property-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-offering-property
                     'make-savings-plan-offering-property))
+ (common-lisp:defun make-savings-plan-offering-property
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'savings-plan-offering-property
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1410,29 +1805,60 @@
                             savings-plan-offering-property))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-offering-rate (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-offering-rate-"))
-   (savings-plan-offering common-lisp:nil :type
-    (common-lisp:or parent-savings-plan-offering common-lisp:null))
-   (rate common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-price-per-unit common-lisp:null))
-   (unit common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-unit common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or savings-plan-product-type common-lisp:null))
-   (service-code common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-service-code common-lisp:null))
-   (usage-type common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-usage-type common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-operation common-lisp:null))
-   (properties common-lisp:nil :type
-    (common-lisp:or savings-plan-offering-rate-property-list
-                    common-lisp:null)))
+ (common-lisp:defclass savings-plan-offering-rate common-lisp:nil
+                       ((properties :initarg :|properties| :type
+                         (common-lisp:or
+                          savings-plan-offering-rate-property-list
+                          common-lisp:null)
+                         :accessor %savings-plan-offering-rate-properties
+                         :initform common-lisp:nil)
+                        (operation :initarg :|operation| :type
+                         (common-lisp:or savings-plan-rate-operation
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-operation
+                         :initform common-lisp:nil)
+                        (usage-type :initarg :|usageType| :type
+                         (common-lisp:or savings-plan-rate-usage-type
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-usage-type
+                         :initform common-lisp:nil)
+                        (service-code :initarg :|serviceCode| :type
+                         (common-lisp:or savings-plan-rate-service-code
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-service-code
+                         :initform common-lisp:nil)
+                        (product-type :initarg :|productType| :type
+                         (common-lisp:or savings-plan-product-type
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-product-type
+                         :initform common-lisp:nil)
+                        (unit :initarg :|unit| :type
+                         (common-lisp:or savings-plan-rate-unit
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-unit :initform
+                         common-lisp:nil)
+                        (rate :initarg :|rate| :type
+                         (common-lisp:or savings-plan-rate-price-per-unit
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-rate :initform
+                         common-lisp:nil)
+                        (savings-plan-offering :initarg :|savingsPlanOffering|
+                         :type
+                         (common-lisp:or parent-savings-plan-offering
+                                         common-lisp:null)
+                         :accessor
+                         %savings-plan-offering-rate-savings-plan-offering
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-offering-rate
                     'make-savings-plan-offering-rate))
+ (common-lisp:defun make-savings-plan-offering-rate
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key properties operation usage-type
+                     service-code product-type unit rate savings-plan-offering)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-plan-offering-rate
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1506,16 +1932,29 @@
                           savings-plan-offering-rate))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-offering-rate-filter-element (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-offering-rate-filter-element-"))
-   (name common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-filter-attribute common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or filter-values-list common-lisp:null)))
+ (common-lisp:defclass savings-plan-offering-rate-filter-element
+                       common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or filter-values-list common-lisp:null)
+                         :accessor
+                         %savings-plan-offering-rate-filter-element-values
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or savings-plan-rate-filter-attribute
+                                         common-lisp:null)
+                         :accessor
+                         %savings-plan-offering-rate-filter-element-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-offering-rate-filter-element
                     'make-savings-plan-offering-rate-filter-element))
+ (common-lisp:defun make-savings-plan-offering-rate-filter-element
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'savings-plan-offering-rate-filter-element
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1555,16 +1994,27 @@
                             savings-plan-offering-rate-filter-element))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-offering-rate-property (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-offering-rate-property-"))
-   (name common-lisp:nil :type
-    (common-lisp:or json-safe-filter-value-string common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or json-safe-filter-value-string common-lisp:null)))
+ (common-lisp:defclass savings-plan-offering-rate-property common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or json-safe-filter-value-string
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-property-value
+                         :initform common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or json-safe-filter-value-string
+                                         common-lisp:null)
+                         :accessor %savings-plan-offering-rate-property-name
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-offering-rate-property
                     'make-savings-plan-offering-rate-property))
+ (common-lisp:defun make-savings-plan-offering-rate-property
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'savings-plan-offering-rate-property
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1650,26 +2100,53 @@
                             savings-plan-product-type))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-rate (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-rate-"))
-   (rate common-lisp:nil :type (common-lisp:or amount common-lisp:null))
-   (currency common-lisp:nil :type
-    (common-lisp:or currency-code common-lisp:null))
-   (unit common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-unit common-lisp:null))
-   (product-type common-lisp:nil :type
-    (common-lisp:or savings-plan-product-type common-lisp:null))
-   (service-code common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-service-code common-lisp:null))
-   (usage-type common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-usage-type common-lisp:null))
-   (operation common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-operation common-lisp:null))
-   (properties common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-property-list common-lisp:null)))
+ (common-lisp:defclass savings-plan-rate common-lisp:nil
+                       ((properties :initarg :|properties| :type
+                         (common-lisp:or savings-plan-rate-property-list
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-properties :initform
+                         common-lisp:nil)
+                        (operation :initarg :|operation| :type
+                         (common-lisp:or savings-plan-rate-operation
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-operation :initform
+                         common-lisp:nil)
+                        (usage-type :initarg :|usageType| :type
+                         (common-lisp:or savings-plan-rate-usage-type
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-usage-type :initform
+                         common-lisp:nil)
+                        (service-code :initarg :|serviceCode| :type
+                         (common-lisp:or savings-plan-rate-service-code
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-service-code :initform
+                         common-lisp:nil)
+                        (product-type :initarg :|productType| :type
+                         (common-lisp:or savings-plan-product-type
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-product-type :initform
+                         common-lisp:nil)
+                        (unit :initarg :|unit| :type
+                         (common-lisp:or savings-plan-rate-unit
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-unit :initform
+                         common-lisp:nil)
+                        (currency :initarg :|currency| :type
+                         (common-lisp:or currency-code common-lisp:null)
+                         :accessor %savings-plan-rate-currency :initform
+                         common-lisp:nil)
+                        (rate :initarg :|rate| :type
+                         (common-lisp:or amount common-lisp:null) :accessor
+                         %savings-plan-rate-rate :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-rate 'make-savings-plan-rate))
+ (common-lisp:defun make-savings-plan-rate
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key properties operation usage-type
+                     service-code product-type unit currency rate)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-plan-rate
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input savings-plan-rate))
    (common-lisp:append))
@@ -1736,15 +2213,24 @@
                         ((aws-sdk/generator/shape::input savings-plan-rate))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-rate-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-rate-filter-"))
-   (name common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-filter-name common-lisp:null))
-   (values common-lisp:nil :type
-    (common-lisp:or list-of-strings common-lisp:null)))
+ (common-lisp:defclass savings-plan-rate-filter common-lisp:nil
+                       ((values :initarg :|values| :type
+                         (common-lisp:or list-of-strings common-lisp:null)
+                         :accessor %savings-plan-rate-filter-values :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or savings-plan-rate-filter-name
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-filter-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-rate-filter 'make-savings-plan-rate-filter))
+ (common-lisp:defun make-savings-plan-rate-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key values name)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-plan-rate-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1805,16 +2291,26 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype savings-plan-rate-price-per-unit () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (savings-plan-rate-property (:copier common-lisp:nil)
-      (:conc-name "struct-shape-savings-plan-rate-property-"))
-   (name common-lisp:nil :type
-    (common-lisp:or savings-plan-rate-property-key common-lisp:null))
-   (value common-lisp:nil :type
-    (common-lisp:or json-safe-filter-value-string common-lisp:null)))
+ (common-lisp:defclass savings-plan-rate-property common-lisp:nil
+                       ((value :initarg :|value| :type
+                         (common-lisp:or json-safe-filter-value-string
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-property-value :initform
+                         common-lisp:nil)
+                        (name :initarg :|name| :type
+                         (common-lisp:or savings-plan-rate-property-key
+                                         common-lisp:null)
+                         :accessor %savings-plan-rate-property-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'savings-plan-rate-property
                     'make-savings-plan-rate-property))
+ (common-lisp:defun make-savings-plan-rate-property
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value name)
+   (common-lisp:apply #'common-lisp:make-instance 'savings-plan-rate-property
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1917,7 +2413,7 @@
 (common-lisp:progn
  (common-lisp:define-condition service-quota-exceeded-exception
      (savingsplans-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        service-quota-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'service-quota-exceeded-exception
@@ -1939,15 +2435,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or savings-plan-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or savings-plan-arn common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -1972,11 +2476,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2003,15 +2511,24 @@
                            (trivial-types:proper-list uuid))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resourcearn is required") :type
-    (common-lisp:or savings-plan-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tagkeys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :|tagKeys| :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tagkeys is required"))
+                        (resource-arn :initarg :|resourceArn| :type
+                         (common-lisp:or savings-plan-arn common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resourcearn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2042,11 +2559,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2065,7 +2586,7 @@
 (common-lisp:progn
  (common-lisp:define-condition validation-exception
      (savingsplans-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        validation-exception-message)))
  (common-lisp:export
   (common-lisp:list 'validation-exception 'validation-exception-message)))

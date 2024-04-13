@@ -50,19 +50,32 @@
                            (trivial-types:proper-list string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (add-permission-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-add-permission-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (label (common-lisp:error ":label is required") :type
-    (common-lisp:or string common-lisp:null))
-   (awsaccount-ids (common-lisp:error ":awsaccount-ids is required") :type
-    (common-lisp:or awsaccount-id-list common-lisp:null))
-   (actions (common-lisp:error ":actions is required") :type
-    (common-lisp:or action-name-list common-lisp:null)))
+ (common-lisp:defclass add-permission-request common-lisp:nil
+                       ((actions :initarg :actions :type
+                         (common-lisp:or action-name-list common-lisp:null)
+                         :accessor %add-permission-request-actions :initform
+                         (common-lisp:error ":actions is required"))
+                        (awsaccount-ids :initarg :awsaccount-ids :type
+                         (common-lisp:or awsaccount-id-list common-lisp:null)
+                         :accessor %add-permission-request-awsaccount-ids
+                         :initform
+                         (common-lisp:error ":awsaccount-ids is required"))
+                        (label :initarg :label :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %add-permission-request-label :initform
+                         (common-lisp:error ":label is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %add-permission-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'add-permission-request 'make-add-permission-request))
+ (common-lisp:defun make-add-permission-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key actions awsaccount-ids label queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'add-permission-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -125,18 +138,31 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'batch-request-too-long)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (batch-result-error-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-batch-result-error-entry-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (sender-fault (common-lisp:error ":sender-fault is required") :type
-    (common-lisp:or boolean common-lisp:null))
-   (code (common-lisp:error ":code is required") :type
-    (common-lisp:or string common-lisp:null))
-   (message common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass batch-result-error-entry common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %batch-result-error-entry-message :initform
+                         common-lisp:nil)
+                        (code :initarg :code :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %batch-result-error-entry-code :initform
+                         (common-lisp:error ":code is required"))
+                        (sender-fault :initarg :sender-fault :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %batch-result-error-entry-sender-fault :initform
+                         (common-lisp:error ":sender-fault is required"))
+                        (id :initarg :id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %batch-result-error-entry-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'batch-result-error-entry 'make-batch-result-error-entry))
+ (common-lisp:defun make-batch-result-error-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message code sender-fault id)
+   (common-lisp:apply #'common-lisp:make-instance 'batch-result-error-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -201,17 +227,29 @@
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:deftype boxed-integer () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (change-message-visibility-batch-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-change-message-visibility-batch-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (entries (common-lisp:error ":entries is required") :type
-    (common-lisp:or change-message-visibility-batch-request-entry-list
-                    common-lisp:null)))
+ (common-lisp:defclass change-message-visibility-batch-request common-lisp:nil
+                       ((entries :initarg :entries :type
+                         (common-lisp:or
+                          change-message-visibility-batch-request-entry-list
+                          common-lisp:null)
+                         :accessor
+                         %change-message-visibility-batch-request-entries
+                         :initform (common-lisp:error ":entries is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-message-visibility-batch-request-queue-url
+                         :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'change-message-visibility-batch-request
                     'make-change-message-visibility-batch-request))
+ (common-lisp:defun make-change-message-visibility-batch-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key entries queue-url)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'change-message-visibility-batch-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -242,19 +280,31 @@
                           change-message-visibility-batch-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (change-message-visibility-batch-request-entry (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-change-message-visibility-batch-request-entry-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (receipt-handle (common-lisp:error ":receipt-handle is required") :type
-    (common-lisp:or string common-lisp:null))
-   (visibility-timeout common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass change-message-visibility-batch-request-entry
+                       common-lisp:nil
+                       ((visibility-timeout :initarg :visibility-timeout :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %change-message-visibility-batch-request-entry-visibility-timeout
+                         :initform common-lisp:nil)
+                        (receipt-handle :initarg :receipt-handle :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-message-visibility-batch-request-entry-receipt-handle
+                         :initform
+                         (common-lisp:error ":receipt-handle is required"))
+                        (id :initarg :id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-message-visibility-batch-request-entry-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'change-message-visibility-batch-request-entry
                     'make-change-message-visibility-batch-request-entry))
+ (common-lisp:defun make-change-message-visibility-batch-request-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key visibility-timeout receipt-handle id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'change-message-visibility-batch-request-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -301,17 +351,31 @@
                             change-message-visibility-batch-request-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (change-message-visibility-batch-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-change-message-visibility-batch-result-"))
-   (successful (common-lisp:error ":successful is required") :type
-    (common-lisp:or change-message-visibility-batch-result-entry-list
-                    common-lisp:null))
-   (failed (common-lisp:error ":failed is required") :type
-    (common-lisp:or batch-result-error-entry-list common-lisp:null)))
+ (common-lisp:defclass change-message-visibility-batch-result common-lisp:nil
+                       ((failed :initarg :failed :type
+                         (common-lisp:or batch-result-error-entry-list
+                                         common-lisp:null)
+                         :accessor
+                         %change-message-visibility-batch-result-failed
+                         :initform (common-lisp:error ":failed is required"))
+                        (successful :initarg :successful :type
+                         (common-lisp:or
+                          change-message-visibility-batch-result-entry-list
+                          common-lisp:null)
+                         :accessor
+                         %change-message-visibility-batch-result-successful
+                         :initform
+                         (common-lisp:error ":successful is required"))))
  (common-lisp:export
   (common-lisp:list 'change-message-visibility-batch-result
                     'make-change-message-visibility-batch-result))
+ (common-lisp:defun make-change-message-visibility-batch-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed successful)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'change-message-visibility-batch-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -342,15 +406,22 @@
                           change-message-visibility-batch-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (change-message-visibility-batch-result-entry (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-change-message-visibility-batch-result-entry-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass change-message-visibility-batch-result-entry
+                       common-lisp:nil
+                       ((id :initarg :id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-message-visibility-batch-result-entry-id
+                         :initform (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'change-message-visibility-batch-result-entry
                     'make-change-message-visibility-batch-result-entry))
+ (common-lisp:defun make-change-message-visibility-batch-result-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'change-message-visibility-batch-result-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -383,18 +454,32 @@
                             change-message-visibility-batch-result-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (change-message-visibility-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-change-message-visibility-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (receipt-handle (common-lisp:error ":receipt-handle is required") :type
-    (common-lisp:or string common-lisp:null))
-   (visibility-timeout (common-lisp:error ":visibility-timeout is required")
-    :type (common-lisp:or integer common-lisp:null)))
+ (common-lisp:defclass change-message-visibility-request common-lisp:nil
+                       ((visibility-timeout :initarg :visibility-timeout :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %change-message-visibility-request-visibility-timeout
+                         :initform
+                         (common-lisp:error ":visibility-timeout is required"))
+                        (receipt-handle :initarg :receipt-handle :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-message-visibility-request-receipt-handle
+                         :initform
+                         (common-lisp:error ":receipt-handle is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-message-visibility-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'change-message-visibility-request
                     'make-change-message-visibility-request))
+ (common-lisp:defun make-change-message-visibility-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key visibility-timeout receipt-handle
+                     queue-url)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'change-message-visibility-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -432,16 +517,26 @@
                           change-message-visibility-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-queue-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-queue-request-"))
-   (queue-name (common-lisp:error ":queue-name is required") :type
-    (common-lisp:or string common-lisp:null))
-   (attributes common-lisp:nil :type
-    (common-lisp:or queue-attribute-map common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass create-queue-request common-lisp:nil
+                       ((tags :initarg :|tags| :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %create-queue-request-tags :initform common-lisp:nil)
+                        (attributes :initarg :attributes :type
+                         (common-lisp:or queue-attribute-map common-lisp:null)
+                         :accessor %create-queue-request-attributes :initform
+                         common-lisp:nil)
+                        (queue-name :initarg :queue-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-queue-request-queue-name :initform
+                         (common-lisp:error ":queue-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-queue-request 'make-create-queue-request))
+ (common-lisp:defun make-create-queue-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags attributes queue-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-queue-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-queue-request))
    (common-lisp:append))
@@ -473,12 +568,19 @@
                         ((aws-sdk/generator/shape::input create-queue-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-queue-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-queue-result-"))
-   (queue-url common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass create-queue-result common-lisp:nil
+                       ((queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %create-queue-result-queue-url :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-queue-result 'make-create-queue-result))
+ (common-lisp:defun make-create-queue-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'create-queue-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-queue-result))
    (common-lisp:append))
@@ -496,16 +598,26 @@
                         ((aws-sdk/generator/shape::input create-queue-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-message-batch-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-message-batch-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (entries (common-lisp:error ":entries is required") :type
-    (common-lisp:or delete-message-batch-request-entry-list common-lisp:null)))
+ (common-lisp:defclass delete-message-batch-request common-lisp:nil
+                       ((entries :initarg :entries :type
+                         (common-lisp:or
+                          delete-message-batch-request-entry-list
+                          common-lisp:null)
+                         :accessor %delete-message-batch-request-entries
+                         :initform (common-lisp:error ":entries is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-message-batch-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-message-batch-request
                     'make-delete-message-batch-request))
+ (common-lisp:defun make-delete-message-batch-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key entries queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-message-batch-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -536,16 +648,26 @@
                           delete-message-batch-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-message-batch-request-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-message-batch-request-entry-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (receipt-handle (common-lisp:error ":receipt-handle is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass delete-message-batch-request-entry common-lisp:nil
+                       ((receipt-handle :initarg :receipt-handle :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-message-batch-request-entry-receipt-handle
+                         :initform
+                         (common-lisp:error ":receipt-handle is required"))
+                        (id :initarg :id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-message-batch-request-entry-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-message-batch-request-entry
                     'make-delete-message-batch-request-entry))
+ (common-lisp:defun make-delete-message-batch-request-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key receipt-handle id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-message-batch-request-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -585,16 +707,27 @@
                             delete-message-batch-request-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-message-batch-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-message-batch-result-"))
-   (successful (common-lisp:error ":successful is required") :type
-    (common-lisp:or delete-message-batch-result-entry-list common-lisp:null))
-   (failed (common-lisp:error ":failed is required") :type
-    (common-lisp:or batch-result-error-entry-list common-lisp:null)))
+ (common-lisp:defclass delete-message-batch-result common-lisp:nil
+                       ((failed :initarg :failed :type
+                         (common-lisp:or batch-result-error-entry-list
+                                         common-lisp:null)
+                         :accessor %delete-message-batch-result-failed
+                         :initform (common-lisp:error ":failed is required"))
+                        (successful :initarg :successful :type
+                         (common-lisp:or delete-message-batch-result-entry-list
+                                         common-lisp:null)
+                         :accessor %delete-message-batch-result-successful
+                         :initform
+                         (common-lisp:error ":successful is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-message-batch-result
                     'make-delete-message-batch-result))
+ (common-lisp:defun make-delete-message-batch-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed successful)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-message-batch-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -625,14 +758,21 @@
                           delete-message-batch-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-message-batch-result-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-message-batch-result-entry-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass delete-message-batch-result-entry common-lisp:nil
+                       ((id :initarg :id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-message-batch-result-entry-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-message-batch-result-entry
                     'make-delete-message-batch-result-entry))
+ (common-lisp:defun make-delete-message-batch-result-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-message-batch-result-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -665,15 +805,23 @@
                             delete-message-batch-result-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-message-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-message-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (receipt-handle (common-lisp:error ":receipt-handle is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass delete-message-request common-lisp:nil
+                       ((receipt-handle :initarg :receipt-handle :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-message-request-receipt-handle :initform
+                         (common-lisp:error ":receipt-handle is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-message-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-message-request 'make-delete-message-request))
+ (common-lisp:defun make-delete-message-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key receipt-handle queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-message-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -704,13 +852,19 @@
                           delete-message-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-queue-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-queue-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass delete-queue-request common-lisp:nil
+                       ((queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %delete-queue-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-queue-request 'make-delete-queue-request))
+ (common-lisp:defun make-delete-queue-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-queue-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-queue-request))
    (common-lisp:append))
@@ -733,16 +887,25 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'empty-batch-request)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-queue-attributes-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-queue-attributes-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (attribute-names common-lisp:nil :type
-    (common-lisp:or attribute-name-list common-lisp:null)))
+ (common-lisp:defclass get-queue-attributes-request common-lisp:nil
+                       ((attribute-names :initarg :attribute-names :type
+                         (common-lisp:or attribute-name-list common-lisp:null)
+                         :accessor
+                         %get-queue-attributes-request-attribute-names
+                         :initform common-lisp:nil)
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-queue-attributes-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'get-queue-attributes-request
                     'make-get-queue-attributes-request))
+ (common-lisp:defun make-get-queue-attributes-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attribute-names queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'get-queue-attributes-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -773,14 +936,20 @@
                           get-queue-attributes-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-queue-attributes-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-queue-attributes-result-"))
-   (attributes common-lisp:nil :type
-    (common-lisp:or queue-attribute-map common-lisp:null)))
+ (common-lisp:defclass get-queue-attributes-result common-lisp:nil
+                       ((attributes :initarg :attributes :type
+                         (common-lisp:or queue-attribute-map common-lisp:null)
+                         :accessor %get-queue-attributes-result-attributes
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-queue-attributes-result
                     'make-get-queue-attributes-result))
+ (common-lisp:defun make-get-queue-attributes-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attributes)
+   (common-lisp:apply #'common-lisp:make-instance 'get-queue-attributes-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -804,15 +973,24 @@
                           get-queue-attributes-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-queue-url-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-queue-url-request-"))
-   (queue-name (common-lisp:error ":queue-name is required") :type
-    (common-lisp:or string common-lisp:null))
-   (queue-owner-awsaccount-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass get-queue-url-request common-lisp:nil
+                       ((queue-owner-awsaccount-id :initarg
+                         :queue-owner-awsaccount-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-queue-url-request-queue-owner-awsaccount-id
+                         :initform common-lisp:nil)
+                        (queue-name :initarg :queue-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-queue-url-request-queue-name :initform
+                         (common-lisp:error ":queue-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-queue-url-request 'make-get-queue-url-request))
+ (common-lisp:defun make-get-queue-url-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key queue-owner-awsaccount-id queue-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-queue-url-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -844,12 +1022,19 @@
                           get-queue-url-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-queue-url-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-queue-url-result-"))
-   (queue-url common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass get-queue-url-result common-lisp:nil
+                       ((queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-queue-url-result-queue-url :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-queue-url-result 'make-get-queue-url-result))
+ (common-lisp:defun make-get-queue-url-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'get-queue-url-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-queue-url-result))
    (common-lisp:append))
@@ -888,17 +1073,31 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'invalid-message-contents)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-dead-letter-source-queues-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-dead-letter-source-queues-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or boxed-integer common-lisp:null)))
+ (common-lisp:defclass list-dead-letter-source-queues-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or boxed-integer common-lisp:null)
+                         :accessor
+                         %list-dead-letter-source-queues-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-dead-letter-source-queues-request-next-token
+                         :initform common-lisp:nil)
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-dead-letter-source-queues-request-queue-url
+                         :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'list-dead-letter-source-queues-request
                     'make-list-dead-letter-source-queues-request))
+ (common-lisp:defun make-list-dead-letter-source-queues-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token queue-url)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-dead-letter-source-queues-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -936,15 +1135,27 @@
                           list-dead-letter-source-queues-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-dead-letter-source-queues-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-dead-letter-source-queues-result-"))
-   (queue-urls (common-lisp:error ":queueurls is required") :type
-    (common-lisp:or queue-url-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-dead-letter-source-queues-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-dead-letter-source-queues-result-next-token
+                         :initform common-lisp:nil)
+                        (queue-urls :initarg :|queueUrls| :type
+                         (common-lisp:or queue-url-list common-lisp:null)
+                         :accessor
+                         %list-dead-letter-source-queues-result-queue-urls
+                         :initform
+                         (common-lisp:error ":queueurls is required"))))
  (common-lisp:export
   (common-lisp:list 'list-dead-letter-source-queues-result
                     'make-list-dead-letter-source-queues-result))
+ (common-lisp:defun make-list-dead-letter-source-queues-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token queue-urls)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-dead-letter-source-queues-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -975,13 +1186,19 @@
                           list-dead-letter-source-queues-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-queue-tags-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-queue-tags-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass list-queue-tags-request common-lisp:nil
+                       ((queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-queue-tags-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'list-queue-tags-request 'make-list-queue-tags-request))
+ (common-lisp:defun make-list-queue-tags-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'list-queue-tags-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1005,12 +1222,19 @@
                           list-queue-tags-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-queue-tags-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-queue-tags-result-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-queue-tags-result common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-queue-tags-result-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-queue-tags-result 'make-list-queue-tags-result))
+ (common-lisp:defun make-list-queue-tags-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance 'list-queue-tags-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1034,16 +1258,27 @@
                           list-queue-tags-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-queues-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-queues-request-"))
-   (queue-name-prefix common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or boxed-integer common-lisp:null)))
+ (common-lisp:defclass list-queues-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or boxed-integer common-lisp:null)
+                         :accessor %list-queues-request-max-results :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-queues-request-next-token :initform
+                         common-lisp:nil)
+                        (queue-name-prefix :initarg :queue-name-prefix :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %list-queues-request-queue-name-prefix :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-queues-request 'make-list-queues-request))
+ (common-lisp:defun make-list-queues-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token queue-name-prefix)
+   (common-lisp:apply #'common-lisp:make-instance 'list-queues-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-queues-request))
    (common-lisp:append))
@@ -1075,14 +1310,23 @@
                         ((aws-sdk/generator/shape::input list-queues-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-queues-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-queues-result-"))
-   (queue-urls common-lisp:nil :type
-    (common-lisp:or queue-url-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-queues-result common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-queues-result-next-token :initform
+                         common-lisp:nil)
+                        (queue-urls :initarg :queue-urls :type
+                         (common-lisp:or queue-url-list common-lisp:null)
+                         :accessor %list-queues-result-queue-urls :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-queues-result 'make-list-queues-result))
+ (common-lisp:defun make-list-queues-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token queue-urls)
+   (common-lisp:apply #'common-lisp:make-instance 'list-queues-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-queues-result))
    (common-lisp:append))
@@ -1107,20 +1351,43 @@
                         ((aws-sdk/generator/shape::input list-queues-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (message (:copier common-lisp:nil) (:conc-name "struct-shape-message-"))
-   (message-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (receipt-handle common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (md5of-body common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (body common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (attributes common-lisp:nil :type
-    (common-lisp:or message-system-attribute-map common-lisp:null))
-   (md5of-message-attributes common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (message-attributes common-lisp:nil :type
-    (common-lisp:or message-body-attribute-map common-lisp:null)))
+ (common-lisp:defclass message common-lisp:nil
+                       ((message-attributes :initarg :message-attributes :type
+                         (common-lisp:or message-body-attribute-map
+                                         common-lisp:null)
+                         :accessor %message-message-attributes :initform
+                         common-lisp:nil)
+                        (md5of-message-attributes :initarg
+                         :md5of-message-attributes :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-md5of-message-attributes :initform
+                         common-lisp:nil)
+                        (attributes :initarg :attributes :type
+                         (common-lisp:or message-system-attribute-map
+                                         common-lisp:null)
+                         :accessor %message-attributes :initform
+                         common-lisp:nil)
+                        (body :initarg :body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-body :initform common-lisp:nil)
+                        (md5of-body :initarg :md5of-body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-md5of-body :initform common-lisp:nil)
+                        (receipt-handle :initarg :receipt-handle :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-receipt-handle :initform common-lisp:nil)
+                        (message-id :initarg :message-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-message-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'message 'make-message))
+ (common-lisp:defun make-message
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message-attributes
+                     md5of-message-attributes attributes body md5of-body
+                     receipt-handle message-id)
+   (common-lisp:apply #'common-lisp:make-instance 'message
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input message))
    (common-lisp:append))
@@ -1190,21 +1457,36 @@
                            (trivial-types:proper-list message-attribute-name))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (message-attribute-value (:copier common-lisp:nil)
-      (:conc-name "struct-shape-message-attribute-value-"))
-   (string-value common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (binary-value common-lisp:nil :type
-    (common-lisp:or binary common-lisp:null))
-   (string-list-values common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (binary-list-values common-lisp:nil :type
-    (common-lisp:or binary-list common-lisp:null))
-   (data-type (common-lisp:error ":data-type is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass message-attribute-value common-lisp:nil
+                       ((data-type :initarg :data-type :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-attribute-value-data-type :initform
+                         (common-lisp:error ":data-type is required"))
+                        (binary-list-values :initarg :binary-list-values :type
+                         (common-lisp:or binary-list common-lisp:null)
+                         :accessor %message-attribute-value-binary-list-values
+                         :initform common-lisp:nil)
+                        (string-list-values :initarg :string-list-values :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %message-attribute-value-string-list-values
+                         :initform common-lisp:nil)
+                        (binary-value :initarg :binary-value :type
+                         (common-lisp:or binary common-lisp:null) :accessor
+                         %message-attribute-value-binary-value :initform
+                         common-lisp:nil)
+                        (string-value :initarg :string-value :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-attribute-value-string-value :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'message-attribute-value 'make-message-attribute-value))
+ (common-lisp:defun make-message-attribute-value
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key data-type binary-list-values
+                     string-list-values binary-value string-value)
+   (common-lisp:apply #'common-lisp:make-instance 'message-attribute-value
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1296,22 +1578,40 @@
 (common-lisp:deftype message-system-attribute-name-for-sends ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (message-system-attribute-value (:copier common-lisp:nil)
-      (:conc-name "struct-shape-message-system-attribute-value-"))
-   (string-value common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (binary-value common-lisp:nil :type
-    (common-lisp:or binary common-lisp:null))
-   (string-list-values common-lisp:nil :type
-    (common-lisp:or string-list common-lisp:null))
-   (binary-list-values common-lisp:nil :type
-    (common-lisp:or binary-list common-lisp:null))
-   (data-type (common-lisp:error ":data-type is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass message-system-attribute-value common-lisp:nil
+                       ((data-type :initarg :data-type :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-system-attribute-value-data-type :initform
+                         (common-lisp:error ":data-type is required"))
+                        (binary-list-values :initarg :binary-list-values :type
+                         (common-lisp:or binary-list common-lisp:null)
+                         :accessor
+                         %message-system-attribute-value-binary-list-values
+                         :initform common-lisp:nil)
+                        (string-list-values :initarg :string-list-values :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor
+                         %message-system-attribute-value-string-list-values
+                         :initform common-lisp:nil)
+                        (binary-value :initarg :binary-value :type
+                         (common-lisp:or binary common-lisp:null) :accessor
+                         %message-system-attribute-value-binary-value :initform
+                         common-lisp:nil)
+                        (string-value :initarg :string-value :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %message-system-attribute-value-string-value :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'message-system-attribute-value
                     'make-message-system-attribute-value))
+ (common-lisp:defun make-message-system-attribute-value
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key data-type binary-list-values
+                     string-list-values binary-value string-value)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'message-system-attribute-value
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1373,13 +1673,19 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'purge-queue-in-progress)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (purge-queue-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-purge-queue-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass purge-queue-request common-lisp:nil
+                       ((queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %purge-queue-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'purge-queue-request 'make-purge-queue-request))
+ (common-lisp:defun make-purge-queue-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'purge-queue-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input purge-queue-request))
    (common-lisp:append))
@@ -1433,25 +1739,51 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'receipt-handle-is-invalid)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (receive-message-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-receive-message-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (attribute-names common-lisp:nil :type
-    (common-lisp:or attribute-name-list common-lisp:null))
-   (message-attribute-names common-lisp:nil :type
-    (common-lisp:or message-attribute-name-list common-lisp:null))
-   (max-number-of-messages common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (visibility-timeout common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (wait-time-seconds common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (receive-request-attempt-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass receive-message-request common-lisp:nil
+                       ((receive-request-attempt-id :initarg
+                         :receive-request-attempt-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %receive-message-request-receive-request-attempt-id
+                         :initform common-lisp:nil)
+                        (wait-time-seconds :initarg :wait-time-seconds :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %receive-message-request-wait-time-seconds :initform
+                         common-lisp:nil)
+                        (visibility-timeout :initarg :visibility-timeout :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %receive-message-request-visibility-timeout :initform
+                         common-lisp:nil)
+                        (max-number-of-messages :initarg
+                         :max-number-of-messages :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %receive-message-request-max-number-of-messages
+                         :initform common-lisp:nil)
+                        (message-attribute-names :initarg
+                         :message-attribute-names :type
+                         (common-lisp:or message-attribute-name-list
+                                         common-lisp:null)
+                         :accessor
+                         %receive-message-request-message-attribute-names
+                         :initform common-lisp:nil)
+                        (attribute-names :initarg :attribute-names :type
+                         (common-lisp:or attribute-name-list common-lisp:null)
+                         :accessor %receive-message-request-attribute-names
+                         :initform common-lisp:nil)
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %receive-message-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'receive-message-request 'make-receive-message-request))
+ (common-lisp:defun make-receive-message-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key receive-request-attempt-id
+                     wait-time-seconds visibility-timeout
+                     max-number-of-messages message-attribute-names
+                     attribute-names queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'receive-message-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1520,13 +1852,19 @@
                           receive-message-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (receive-message-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-receive-message-result-"))
-   (messages common-lisp:nil :type
-    (common-lisp:or message-list common-lisp:null)))
+ (common-lisp:defclass receive-message-result common-lisp:nil
+                       ((messages :initarg :messages :type
+                         (common-lisp:or message-list common-lisp:null)
+                         :accessor %receive-message-result-messages :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'receive-message-result 'make-receive-message-result))
+ (common-lisp:defun make-receive-message-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key messages)
+   (common-lisp:apply #'common-lisp:make-instance 'receive-message-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1550,16 +1888,24 @@
                           receive-message-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (remove-permission-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-remove-permission-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (label (common-lisp:error ":label is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass remove-permission-request common-lisp:nil
+                       ((label :initarg :label :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %remove-permission-request-label :initform
+                         (common-lisp:error ":label is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %remove-permission-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'remove-permission-request
                     'make-remove-permission-request))
+ (common-lisp:defun make-remove-permission-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key label queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'remove-permission-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1590,16 +1936,25 @@
                           remove-permission-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-batch-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-batch-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (entries (common-lisp:error ":entries is required") :type
-    (common-lisp:or send-message-batch-request-entry-list common-lisp:null)))
+ (common-lisp:defclass send-message-batch-request common-lisp:nil
+                       ((entries :initarg :entries :type
+                         (common-lisp:or send-message-batch-request-entry-list
+                                         common-lisp:null)
+                         :accessor %send-message-batch-request-entries
+                         :initform (common-lisp:error ":entries is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'send-message-batch-request
                     'make-send-message-batch-request))
+ (common-lisp:defun make-send-message-batch-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key entries queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'send-message-batch-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1630,26 +1985,54 @@
                           send-message-batch-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-batch-request-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-batch-request-entry-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (message-body (common-lisp:error ":message-body is required") :type
-    (common-lisp:or string common-lisp:null))
-   (delay-seconds common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (message-attributes common-lisp:nil :type
-    (common-lisp:or message-body-attribute-map common-lisp:null))
-   (message-system-attributes common-lisp:nil :type
-    (common-lisp:or message-body-system-attribute-map common-lisp:null))
-   (message-deduplication-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (message-group-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass send-message-batch-request-entry common-lisp:nil
+                       ((message-group-id :initarg :message-group-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-request-entry-message-group-id
+                         :initform common-lisp:nil)
+                        (message-deduplication-id :initarg
+                         :message-deduplication-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-request-entry-message-deduplication-id
+                         :initform common-lisp:nil)
+                        (message-system-attributes :initarg
+                         :message-system-attributes :type
+                         (common-lisp:or message-body-system-attribute-map
+                                         common-lisp:null)
+                         :accessor
+                         %send-message-batch-request-entry-message-system-attributes
+                         :initform common-lisp:nil)
+                        (message-attributes :initarg :message-attributes :type
+                         (common-lisp:or message-body-attribute-map
+                                         common-lisp:null)
+                         :accessor
+                         %send-message-batch-request-entry-message-attributes
+                         :initform common-lisp:nil)
+                        (delay-seconds :initarg :delay-seconds :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %send-message-batch-request-entry-delay-seconds
+                         :initform common-lisp:nil)
+                        (message-body :initarg :message-body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-request-entry-message-body
+                         :initform
+                         (common-lisp:error ":message-body is required"))
+                        (id :initarg :id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-request-entry-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'send-message-batch-request-entry
                     'make-send-message-batch-request-entry))
+ (common-lisp:defun make-send-message-batch-request-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message-group-id message-deduplication-id
+                     message-system-attributes message-attributes delay-seconds
+                     message-body id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'send-message-batch-request-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1726,16 +2109,27 @@
                             send-message-batch-request-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-batch-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-batch-result-"))
-   (successful (common-lisp:error ":successful is required") :type
-    (common-lisp:or send-message-batch-result-entry-list common-lisp:null))
-   (failed (common-lisp:error ":failed is required") :type
-    (common-lisp:or batch-result-error-entry-list common-lisp:null)))
+ (common-lisp:defclass send-message-batch-result common-lisp:nil
+                       ((failed :initarg :failed :type
+                         (common-lisp:or batch-result-error-entry-list
+                                         common-lisp:null)
+                         :accessor %send-message-batch-result-failed :initform
+                         (common-lisp:error ":failed is required"))
+                        (successful :initarg :successful :type
+                         (common-lisp:or send-message-batch-result-entry-list
+                                         common-lisp:null)
+                         :accessor %send-message-batch-result-successful
+                         :initform
+                         (common-lisp:error ":successful is required"))))
  (common-lisp:export
   (common-lisp:list 'send-message-batch-result
                     'make-send-message-batch-result))
+ (common-lisp:defun make-send-message-batch-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key failed successful)
+   (common-lisp:apply #'common-lisp:make-instance 'send-message-batch-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1766,24 +2160,46 @@
                           send-message-batch-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-batch-result-entry (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-batch-result-entry-"))
-   (id (common-lisp:error ":id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (message-id (common-lisp:error ":message-id is required") :type
-    (common-lisp:or string common-lisp:null))
-   (md5of-message-body (common-lisp:error ":md5of-message-body is required")
-    :type (common-lisp:or string common-lisp:null))
-   (md5of-message-attributes common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (md5of-message-system-attributes common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (sequence-number common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass send-message-batch-result-entry common-lisp:nil
+                       ((sequence-number :initarg :sequence-number :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-result-entry-sequence-number
+                         :initform common-lisp:nil)
+                        (md5of-message-system-attributes :initarg
+                         :md5of-message-system-attributes :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-result-entry-md5of-message-system-attributes
+                         :initform common-lisp:nil)
+                        (md5of-message-attributes :initarg
+                         :md5of-message-attributes :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-result-entry-md5of-message-attributes
+                         :initform common-lisp:nil)
+                        (md5of-message-body :initarg :md5of-message-body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-result-entry-md5of-message-body
+                         :initform
+                         (common-lisp:error ":md5of-message-body is required"))
+                        (message-id :initarg :message-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-result-entry-message-id :initform
+                         (common-lisp:error ":message-id is required"))
+                        (id :initarg :id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-batch-result-entry-id :initform
+                         (common-lisp:error ":id is required"))))
  (common-lisp:export
   (common-lisp:list 'send-message-batch-result-entry
                     'make-send-message-batch-result-entry))
+ (common-lisp:defun make-send-message-batch-result-entry
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sequence-number
+                     md5of-message-system-attributes md5of-message-attributes
+                     md5of-message-body message-id id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'send-message-batch-result-entry
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1853,25 +2269,50 @@
                             send-message-batch-result-entry))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (message-body (common-lisp:error ":message-body is required") :type
-    (common-lisp:or string common-lisp:null))
-   (delay-seconds common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (message-attributes common-lisp:nil :type
-    (common-lisp:or message-body-attribute-map common-lisp:null))
-   (message-system-attributes common-lisp:nil :type
-    (common-lisp:or message-body-system-attribute-map common-lisp:null))
-   (message-deduplication-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (message-group-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass send-message-request common-lisp:nil
+                       ((message-group-id :initarg :message-group-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-request-message-group-id :initform
+                         common-lisp:nil)
+                        (message-deduplication-id :initarg
+                         :message-deduplication-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-request-message-deduplication-id
+                         :initform common-lisp:nil)
+                        (message-system-attributes :initarg
+                         :message-system-attributes :type
+                         (common-lisp:or message-body-system-attribute-map
+                                         common-lisp:null)
+                         :accessor
+                         %send-message-request-message-system-attributes
+                         :initform common-lisp:nil)
+                        (message-attributes :initarg :message-attributes :type
+                         (common-lisp:or message-body-attribute-map
+                                         common-lisp:null)
+                         :accessor %send-message-request-message-attributes
+                         :initform common-lisp:nil)
+                        (delay-seconds :initarg :delay-seconds :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %send-message-request-delay-seconds :initform
+                         common-lisp:nil)
+                        (message-body :initarg :message-body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-request-message-body :initform
+                         (common-lisp:error ":message-body is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'send-message-request 'make-send-message-request))
+ (common-lisp:defun make-send-message-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message-group-id message-deduplication-id
+                     message-system-attributes message-attributes delay-seconds
+                     message-body queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'send-message-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input send-message-request))
    (common-lisp:append))
@@ -1933,20 +2374,39 @@
                         ((aws-sdk/generator/shape::input send-message-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-message-result (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-message-result-"))
-   (md5of-message-body common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (md5of-message-attributes common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (md5of-message-system-attributes common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (message-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (sequence-number common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass send-message-result common-lisp:nil
+                       ((sequence-number :initarg :sequence-number :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-result-sequence-number :initform
+                         common-lisp:nil)
+                        (message-id :initarg :message-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-result-message-id :initform
+                         common-lisp:nil)
+                        (md5of-message-system-attributes :initarg
+                         :md5of-message-system-attributes :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-result-md5of-message-system-attributes
+                         :initform common-lisp:nil)
+                        (md5of-message-attributes :initarg
+                         :md5of-message-attributes :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-result-md5of-message-attributes
+                         :initform common-lisp:nil)
+                        (md5of-message-body :initarg :md5of-message-body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %send-message-result-md5of-message-body :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'send-message-result 'make-send-message-result))
+ (common-lisp:defun make-send-message-result
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sequence-number message-id
+                     md5of-message-system-attributes md5of-message-attributes
+                     md5of-message-body)
+   (common-lisp:apply #'common-lisp:make-instance 'send-message-result
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input send-message-result))
    (common-lisp:append))
@@ -1994,16 +2454,25 @@
                         ((aws-sdk/generator/shape::input send-message-result))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (set-queue-attributes-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-set-queue-attributes-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (attributes (common-lisp:error ":attributes is required") :type
-    (common-lisp:or queue-attribute-map common-lisp:null)))
+ (common-lisp:defclass set-queue-attributes-request common-lisp:nil
+                       ((attributes :initarg :attributes :type
+                         (common-lisp:or queue-attribute-map common-lisp:null)
+                         :accessor %set-queue-attributes-request-attributes
+                         :initform
+                         (common-lisp:error ":attributes is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %set-queue-attributes-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'set-queue-attributes-request
                     'make-set-queue-attributes-request))
+ (common-lisp:defun make-set-queue-attributes-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key attributes queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'set-queue-attributes-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2057,15 +2526,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-queue-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-queue-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-queue-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-queue-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %tag-queue-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-queue-request 'make-tag-queue-request))
+ (common-lisp:defun make-tag-queue-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-queue-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-queue-request))
    (common-lisp:append))
@@ -2102,15 +2579,23 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'unsupported-operation)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-queue-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-queue-request-"))
-   (queue-url (common-lisp:error ":queue-url is required") :type
-    (common-lisp:or string common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-queue-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-queue-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (queue-url :initarg :queue-url :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %untag-queue-request-queue-url :initform
+                         (common-lisp:error ":queue-url is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-queue-request 'make-untag-queue-request))
+ (common-lisp:defun make-untag-queue-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys queue-url)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-queue-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input untag-queue-request))
    (common-lisp:append))

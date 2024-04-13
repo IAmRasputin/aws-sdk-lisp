@@ -35,17 +35,32 @@
  (common-lisp:export (common-lisp:list 'access-denied-exception)))
 (common-lisp:deftype boolean () 'common-lisp:boolean)
 (common-lisp:progn
- (common-lisp:defstruct
-     (change-progress-stage (:copier common-lisp:nil)
-      (:conc-name "struct-shape-change-progress-stage-"))
-   (name common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or change-progress-stage-statuses common-lisp:null))
-   (description common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (last-updated-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass change-progress-stage common-lisp:nil
+                       ((last-updated-at :initarg :last-updated-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %change-progress-stage-last-updated-at :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-progress-stage-description :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or change-progress-stage-statuses
+                                         common-lisp:null)
+                         :accessor %change-progress-stage-status :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %change-progress-stage-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'change-progress-stage 'make-change-progress-stage))
+ (common-lisp:defun make-change-progress-stage
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-updated-at description status name)
+   (common-lisp:apply #'common-lisp:make-instance 'change-progress-stage
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -99,19 +114,37 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype change-progress-stage-statuses () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (change-progress-status (:copier common-lisp:nil)
-      (:conc-name "struct-shape-change-progress-status-"))
-   (start-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or change-progress-statuses common-lisp:null))
-   (total-number-of-stages common-lisp:nil :type
-    (common-lisp:or integer common-lisp:null))
-   (change-progress-stages common-lisp:nil :type
-    (common-lisp:or change-progress-stage-list common-lisp:null)))
+ (common-lisp:defclass change-progress-status common-lisp:nil
+                       ((change-progress-stages :initarg
+                         :change-progress-stages :type
+                         (common-lisp:or change-progress-stage-list
+                                         common-lisp:null)
+                         :accessor
+                         %change-progress-status-change-progress-stages
+                         :initform common-lisp:nil)
+                        (total-number-of-stages :initarg
+                         :total-number-of-stages :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %change-progress-status-total-number-of-stages
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or change-progress-statuses
+                                         common-lisp:null)
+                         :accessor %change-progress-status-status :initform
+                         common-lisp:nil)
+                        (start-time :initarg :start-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %change-progress-status-start-time :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'change-progress-status 'make-change-progress-status))
+ (common-lisp:defun make-change-progress-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key change-progress-stages
+                     total-number-of-stages status start-time)
+   (common-lisp:apply #'common-lisp:make-instance 'change-progress-status
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -167,14 +200,20 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype change-progress-statuses () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (cloud-watch-log-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cloud-watch-log-destination-"))
-   (log-group (common-lisp:error ":log-group is required") :type
-    (common-lisp:or log-group common-lisp:null)))
+ (common-lisp:defclass cloud-watch-log-destination common-lisp:nil
+                       ((log-group :initarg :log-group :type
+                         (common-lisp:or log-group common-lisp:null) :accessor
+                         %cloud-watch-log-destination-log-group :initform
+                         (common-lisp:error ":log-group is required"))))
  (common-lisp:export
   (common-lisp:list 'cloud-watch-log-destination
                     'make-cloud-watch-log-destination))
+ (common-lisp:defun make-cloud-watch-log-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-group)
+   (common-lisp:apply #'common-lisp:make-instance 'cloud-watch-log-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -203,25 +242,54 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'conflict-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-pipeline-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-pipeline-request-"))
-   (pipeline-name (common-lisp:error ":pipeline-name is required") :type
-    (common-lisp:or pipeline-name common-lisp:null))
-   (min-units (common-lisp:error ":min-units is required") :type
-    (common-lisp:or pipeline-units common-lisp:null))
-   (max-units (common-lisp:error ":max-units is required") :type
-    (common-lisp:or pipeline-units common-lisp:null))
-   (pipeline-configuration-body
-    (common-lisp:error ":pipeline-configuration-body is required") :type
-    (common-lisp:or pipeline-configuration-body common-lisp:null))
-   (log-publishing-options common-lisp:nil :type
-    (common-lisp:or log-publishing-options common-lisp:null))
-   (vpc-options common-lisp:nil :type
-    (common-lisp:or vpc-options common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-pipeline-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-pipeline-request-tags :initform
+                         common-lisp:nil)
+                        (vpc-options :initarg :vpc-options :type
+                         (common-lisp:or vpc-options common-lisp:null)
+                         :accessor %create-pipeline-request-vpc-options
+                         :initform common-lisp:nil)
+                        (log-publishing-options :initarg
+                         :log-publishing-options :type
+                         (common-lisp:or log-publishing-options
+                                         common-lisp:null)
+                         :accessor
+                         %create-pipeline-request-log-publishing-options
+                         :initform common-lisp:nil)
+                        (pipeline-configuration-body :initarg
+                         :pipeline-configuration-body :type
+                         (common-lisp:or pipeline-configuration-body
+                                         common-lisp:null)
+                         :accessor
+                         %create-pipeline-request-pipeline-configuration-body
+                         :initform
+                         (common-lisp:error
+                          ":pipeline-configuration-body is required"))
+                        (max-units :initarg :max-units :type
+                         (common-lisp:or pipeline-units common-lisp:null)
+                         :accessor %create-pipeline-request-max-units :initform
+                         (common-lisp:error ":max-units is required"))
+                        (min-units :initarg :min-units :type
+                         (common-lisp:or pipeline-units common-lisp:null)
+                         :accessor %create-pipeline-request-min-units :initform
+                         (common-lisp:error ":min-units is required"))
+                        (pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor %create-pipeline-request-pipeline-name
+                         :initform
+                         (common-lisp:error ":pipeline-name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-pipeline-request 'make-create-pipeline-request))
+ (common-lisp:defun make-create-pipeline-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags vpc-options log-publishing-options
+                     pipeline-configuration-body max-units min-units
+                     pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance 'create-pipeline-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -289,12 +357,19 @@
                           create-pipeline-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-pipeline-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-pipeline-response-"))
-   (pipeline common-lisp:nil :type (common-lisp:or pipeline common-lisp:null)))
+ (common-lisp:defclass create-pipeline-response common-lisp:nil
+                       ((pipeline :initarg :pipeline :type
+                         (common-lisp:or pipeline common-lisp:null) :accessor
+                         %create-pipeline-response-pipeline :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-pipeline-response 'make-create-pipeline-response))
+ (common-lisp:defun make-create-pipeline-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline)
+   (common-lisp:apply #'common-lisp:make-instance 'create-pipeline-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -318,13 +393,20 @@
                           create-pipeline-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-pipeline-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-pipeline-request-"))
-   (pipeline-name (common-lisp:error ":pipeline-name is required") :type
-    (common-lisp:or pipeline-name common-lisp:null)))
+ (common-lisp:defclass delete-pipeline-request common-lisp:nil
+                       ((pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor %delete-pipeline-request-pipeline-name
+                         :initform
+                         (common-lisp:error ":pipeline-name is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-pipeline-request 'make-delete-pipeline-request))
+ (common-lisp:defun make-delete-pipeline-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-pipeline-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -341,11 +423,16 @@
                           delete-pipeline-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-pipeline-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-pipeline-response-")))
+ (common-lisp:defclass delete-pipeline-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-pipeline-response 'make-delete-pipeline-response))
+ (common-lisp:defun make-delete-pipeline-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-pipeline-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -362,14 +449,22 @@
                           delete-pipeline-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-pipeline-blueprint-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-pipeline-blueprint-request-"))
-   (blueprint-name (common-lisp:error ":blueprint-name is required") :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass get-pipeline-blueprint-request common-lisp:nil
+                       ((blueprint-name :initarg :blueprint-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %get-pipeline-blueprint-request-blueprint-name
+                         :initform
+                         (common-lisp:error ":blueprint-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-pipeline-blueprint-request
                     'make-get-pipeline-blueprint-request))
+ (common-lisp:defun make-get-pipeline-blueprint-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key blueprint-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-pipeline-blueprint-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -386,14 +481,21 @@
                           get-pipeline-blueprint-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-pipeline-blueprint-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-pipeline-blueprint-response-"))
-   (blueprint common-lisp:nil :type
-    (common-lisp:or pipeline-blueprint common-lisp:null)))
+ (common-lisp:defclass get-pipeline-blueprint-response common-lisp:nil
+                       ((blueprint :initarg :blueprint :type
+                         (common-lisp:or pipeline-blueprint common-lisp:null)
+                         :accessor %get-pipeline-blueprint-response-blueprint
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-pipeline-blueprint-response
                     'make-get-pipeline-blueprint-response))
+ (common-lisp:defun make-get-pipeline-blueprint-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key blueprint)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-pipeline-blueprint-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -417,14 +519,23 @@
                           get-pipeline-blueprint-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-pipeline-change-progress-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-pipeline-change-progress-request-"))
-   (pipeline-name (common-lisp:error ":pipeline-name is required") :type
-    (common-lisp:or pipeline-name common-lisp:null)))
+ (common-lisp:defclass get-pipeline-change-progress-request common-lisp:nil
+                       ((pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor
+                         %get-pipeline-change-progress-request-pipeline-name
+                         :initform
+                         (common-lisp:error ":pipeline-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-pipeline-change-progress-request
                     'make-get-pipeline-change-progress-request))
+ (common-lisp:defun make-get-pipeline-change-progress-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-pipeline-change-progress-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -441,14 +552,24 @@
                           get-pipeline-change-progress-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-pipeline-change-progress-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-pipeline-change-progress-response-"))
-   (change-progress-statuses common-lisp:nil :type
-    (common-lisp:or change-progress-status-list common-lisp:null)))
+ (common-lisp:defclass get-pipeline-change-progress-response common-lisp:nil
+                       ((change-progress-statuses :initarg
+                         :change-progress-statuses :type
+                         (common-lisp:or change-progress-status-list
+                                         common-lisp:null)
+                         :accessor
+                         %get-pipeline-change-progress-response-change-progress-statuses
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-pipeline-change-progress-response
                     'make-get-pipeline-change-progress-response))
+ (common-lisp:defun make-get-pipeline-change-progress-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key change-progress-statuses)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-pipeline-change-progress-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -473,13 +594,20 @@
                           get-pipeline-change-progress-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-pipeline-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-pipeline-request-"))
-   (pipeline-name (common-lisp:error ":pipeline-name is required") :type
-    (common-lisp:or pipeline-name common-lisp:null)))
+ (common-lisp:defclass get-pipeline-request common-lisp:nil
+                       ((pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor %get-pipeline-request-pipeline-name
+                         :initform
+                         (common-lisp:error ":pipeline-name is required"))))
  (common-lisp:export
   (common-lisp:list 'get-pipeline-request 'make-get-pipeline-request))
+ (common-lisp:defun make-get-pipeline-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance 'get-pipeline-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-pipeline-request))
    (common-lisp:append))
@@ -490,12 +618,19 @@
                         ((aws-sdk/generator/shape::input get-pipeline-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-pipeline-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-pipeline-response-"))
-   (pipeline common-lisp:nil :type (common-lisp:or pipeline common-lisp:null)))
+ (common-lisp:defclass get-pipeline-response common-lisp:nil
+                       ((pipeline :initarg :pipeline :type
+                         (common-lisp:or pipeline common-lisp:null) :accessor
+                         %get-pipeline-response-pipeline :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-pipeline-response 'make-get-pipeline-response))
+ (common-lisp:defun make-get-pipeline-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline)
+   (common-lisp:apply #'common-lisp:make-instance 'get-pipeline-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -543,12 +678,18 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'limit-exceeded-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-pipeline-blueprints-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-pipeline-blueprints-request-")))
+ (common-lisp:defclass list-pipeline-blueprints-request common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'list-pipeline-blueprints-request
                     'make-list-pipeline-blueprints-request))
+ (common-lisp:defun make-list-pipeline-blueprints-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-pipeline-blueprints-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -565,14 +706,23 @@
                           list-pipeline-blueprints-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-pipeline-blueprints-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-pipeline-blueprints-response-"))
-   (blueprints common-lisp:nil :type
-    (common-lisp:or pipeline-blueprints-summary-list common-lisp:null)))
+ (common-lisp:defclass list-pipeline-blueprints-response common-lisp:nil
+                       ((blueprints :initarg :blueprints :type
+                         (common-lisp:or pipeline-blueprints-summary-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-pipeline-blueprints-response-blueprints
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-pipeline-blueprints-response
                     'make-list-pipeline-blueprints-response))
+ (common-lisp:defun make-list-pipeline-blueprints-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key blueprints)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-pipeline-blueprints-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -596,15 +746,23 @@
                           list-pipeline-blueprints-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-pipelines-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-pipelines-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-pipelines-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-pipelines-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-pipelines-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-pipelines-request 'make-list-pipelines-request))
+ (common-lisp:defun make-list-pipelines-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-pipelines-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -621,15 +779,24 @@
                           list-pipelines-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-pipelines-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-pipelines-response-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (pipelines common-lisp:nil :type
-    (common-lisp:or pipeline-summary-list common-lisp:null)))
+ (common-lisp:defclass list-pipelines-response common-lisp:nil
+                       ((pipelines :initarg :pipelines :type
+                         (common-lisp:or pipeline-summary-list
+                                         common-lisp:null)
+                         :accessor %list-pipelines-response-pipelines :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-pipelines-response-next-token :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-pipelines-response 'make-list-pipelines-response))
+ (common-lisp:defun make-list-pipelines-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipelines next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-pipelines-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -660,14 +827,21 @@
                           list-pipelines-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or pipeline-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((arn :initarg :arn :type
+                         (common-lisp:or pipeline-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-request-arn
+                         :initform (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -684,13 +858,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -715,15 +897,27 @@
    common-lisp:nil))
 (common-lisp:deftype log-group () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (log-publishing-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-log-publishing-options-"))
-   (is-logging-enabled common-lisp:nil :type
-    (common-lisp:or boolean common-lisp:null))
-   (cloud-watch-log-destination common-lisp:nil :type
-    (common-lisp:or cloud-watch-log-destination common-lisp:null)))
+ (common-lisp:defclass log-publishing-options common-lisp:nil
+                       ((cloud-watch-log-destination :initarg
+                         :cloud-watch-log-destination :type
+                         (common-lisp:or cloud-watch-log-destination
+                                         common-lisp:null)
+                         :accessor
+                         %log-publishing-options-cloud-watch-log-destination
+                         :initform common-lisp:nil)
+                        (is-logging-enabled :initarg :is-logging-enabled :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %log-publishing-options-is-logging-enabled :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'log-publishing-options 'make-log-publishing-options))
+ (common-lisp:defun make-log-publishing-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cloud-watch-log-destination
+                     is-logging-enabled)
+   (common-lisp:apply #'common-lisp:make-instance 'log-publishing-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -757,31 +951,64 @@
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype next-token () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (pipeline (:copier common-lisp:nil) (:conc-name "struct-shape-pipeline-"))
-   (pipeline-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (pipeline-arn common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (min-units common-lisp:nil :type (common-lisp:or integer common-lisp:null))
-   (max-units common-lisp:nil :type (common-lisp:or integer common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or pipeline-status common-lisp:null))
-   (status-reason common-lisp:nil :type
-    (common-lisp:or pipeline-status-reason common-lisp:null))
-   (pipeline-configuration-body common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-updated-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (ingest-endpoint-urls common-lisp:nil :type
-    (common-lisp:or ingest-endpoint-urls-list common-lisp:null))
-   (log-publishing-options common-lisp:nil :type
-    (common-lisp:or log-publishing-options common-lisp:null))
-   (vpc-endpoints common-lisp:nil :type
-    (common-lisp:or vpc-endpoints-list common-lisp:null)))
+ (common-lisp:defclass pipeline common-lisp:nil
+                       ((vpc-endpoints :initarg :vpc-endpoints :type
+                         (common-lisp:or vpc-endpoints-list common-lisp:null)
+                         :accessor %pipeline-vpc-endpoints :initform
+                         common-lisp:nil)
+                        (log-publishing-options :initarg
+                         :log-publishing-options :type
+                         (common-lisp:or log-publishing-options
+                                         common-lisp:null)
+                         :accessor %pipeline-log-publishing-options :initform
+                         common-lisp:nil)
+                        (ingest-endpoint-urls :initarg :ingest-endpoint-urls
+                         :type
+                         (common-lisp:or ingest-endpoint-urls-list
+                                         common-lisp:null)
+                         :accessor %pipeline-ingest-endpoint-urls :initform
+                         common-lisp:nil)
+                        (last-updated-at :initarg :last-updated-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %pipeline-last-updated-at :initform common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %pipeline-created-at :initform common-lisp:nil)
+                        (pipeline-configuration-body :initarg
+                         :pipeline-configuration-body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %pipeline-pipeline-configuration-body :initform
+                         common-lisp:nil)
+                        (status-reason :initarg :status-reason :type
+                         (common-lisp:or pipeline-status-reason
+                                         common-lisp:null)
+                         :accessor %pipeline-status-reason :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or pipeline-status common-lisp:null)
+                         :accessor %pipeline-status :initform common-lisp:nil)
+                        (max-units :initarg :max-units :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %pipeline-max-units :initform common-lisp:nil)
+                        (min-units :initarg :min-units :type
+                         (common-lisp:or integer common-lisp:null) :accessor
+                         %pipeline-min-units :initform common-lisp:nil)
+                        (pipeline-arn :initarg :pipeline-arn :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %pipeline-pipeline-arn :initform common-lisp:nil)
+                        (pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %pipeline-pipeline-name :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'pipeline 'make-pipeline))
+ (common-lisp:defun make-pipeline
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-endpoints log-publishing-options
+                     ingest-endpoint-urls last-updated-at created-at
+                     pipeline-configuration-body status-reason status max-units
+                     min-units pipeline-arn pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance 'pipeline
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input pipeline))
    (common-lisp:append))
@@ -880,15 +1107,25 @@
    common-lisp:nil))
 (common-lisp:deftype pipeline-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (pipeline-blueprint (:copier common-lisp:nil)
-      (:conc-name "struct-shape-pipeline-blueprint-"))
-   (blueprint-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (pipeline-configuration-body common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass pipeline-blueprint common-lisp:nil
+                       ((pipeline-configuration-body :initarg
+                         :pipeline-configuration-body :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %pipeline-blueprint-pipeline-configuration-body
+                         :initform common-lisp:nil)
+                        (blueprint-name :initarg :blueprint-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %pipeline-blueprint-blueprint-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'pipeline-blueprint 'make-pipeline-blueprint))
+ (common-lisp:defun make-pipeline-blueprint
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline-configuration-body
+                     blueprint-name)
+   (common-lisp:apply #'common-lisp:make-instance 'pipeline-blueprint
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input pipeline-blueprint))
    (common-lisp:append))
@@ -914,14 +1151,20 @@
                         ((aws-sdk/generator/shape::input pipeline-blueprint))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (pipeline-blueprint-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-pipeline-blueprint-summary-"))
-   (blueprint-name common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass pipeline-blueprint-summary common-lisp:nil
+                       ((blueprint-name :initarg :blueprint-name :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %pipeline-blueprint-summary-blueprint-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'pipeline-blueprint-summary
                     'make-pipeline-blueprint-summary))
+ (common-lisp:defun make-pipeline-blueprint-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key blueprint-name)
+   (common-lisp:apply #'common-lisp:make-instance 'pipeline-blueprint-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -957,13 +1200,19 @@
 (common-lisp:deftype pipeline-name () 'common-lisp:string)
 (common-lisp:deftype pipeline-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (pipeline-status-reason (:copier common-lisp:nil)
-      (:conc-name "struct-shape-pipeline-status-reason-"))
-   (description common-lisp:nil :type
-    (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass pipeline-status-reason common-lisp:nil
+                       ((description :initarg :description :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %pipeline-status-reason-description :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'pipeline-status-reason 'make-pipeline-status-reason))
+ (common-lisp:defun make-pipeline-status-reason
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key description)
+   (common-lisp:apply #'common-lisp:make-instance 'pipeline-status-reason
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -987,27 +1236,49 @@
                           pipeline-status-reason))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (pipeline-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-pipeline-summary-"))
-   (status common-lisp:nil :type
-    (common-lisp:or pipeline-status common-lisp:null))
-   (status-reason common-lisp:nil :type
-    (common-lisp:or pipeline-status-reason common-lisp:null))
-   (pipeline-name common-lisp:nil :type
-    (common-lisp:or pipeline-name common-lisp:null))
-   (pipeline-arn common-lisp:nil :type
-    (common-lisp:or pipeline-arn common-lisp:null))
-   (min-units common-lisp:nil :type
-    (common-lisp:or pipeline-units common-lisp:null))
-   (max-units common-lisp:nil :type
-    (common-lisp:or pipeline-units common-lisp:null))
-   (created-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (last-updated-at common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null)))
+ (common-lisp:defclass pipeline-summary common-lisp:nil
+                       ((last-updated-at :initarg :last-updated-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %pipeline-summary-last-updated-at :initform
+                         common-lisp:nil)
+                        (created-at :initarg :created-at :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %pipeline-summary-created-at :initform
+                         common-lisp:nil)
+                        (max-units :initarg :max-units :type
+                         (common-lisp:or pipeline-units common-lisp:null)
+                         :accessor %pipeline-summary-max-units :initform
+                         common-lisp:nil)
+                        (min-units :initarg :min-units :type
+                         (common-lisp:or pipeline-units common-lisp:null)
+                         :accessor %pipeline-summary-min-units :initform
+                         common-lisp:nil)
+                        (pipeline-arn :initarg :pipeline-arn :type
+                         (common-lisp:or pipeline-arn common-lisp:null)
+                         :accessor %pipeline-summary-pipeline-arn :initform
+                         common-lisp:nil)
+                        (pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor %pipeline-summary-pipeline-name :initform
+                         common-lisp:nil)
+                        (status-reason :initarg :status-reason :type
+                         (common-lisp:or pipeline-status-reason
+                                         common-lisp:null)
+                         :accessor %pipeline-summary-status-reason :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or pipeline-status common-lisp:null)
+                         :accessor %pipeline-summary-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'pipeline-summary 'make-pipeline-summary))
+ (common-lisp:defun make-pipeline-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key last-updated-at created-at max-units
+                     min-units pipeline-arn pipeline-name status-reason status)
+   (common-lisp:apply #'common-lisp:make-instance 'pipeline-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input pipeline-summary))
    (common-lisp:append))
@@ -1102,13 +1373,20 @@
                            (trivial-types:proper-list security-group-id))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-pipeline-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-pipeline-request-"))
-   (pipeline-name (common-lisp:error ":pipeline-name is required") :type
-    (common-lisp:or pipeline-name common-lisp:null)))
+ (common-lisp:defclass start-pipeline-request common-lisp:nil
+                       ((pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor %start-pipeline-request-pipeline-name
+                         :initform
+                         (common-lisp:error ":pipeline-name is required"))))
  (common-lisp:export
   (common-lisp:list 'start-pipeline-request 'make-start-pipeline-request))
+ (common-lisp:defun make-start-pipeline-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance 'start-pipeline-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1125,12 +1403,19 @@
                           start-pipeline-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-pipeline-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-pipeline-response-"))
-   (pipeline common-lisp:nil :type (common-lisp:or pipeline common-lisp:null)))
+ (common-lisp:defclass start-pipeline-response common-lisp:nil
+                       ((pipeline :initarg :pipeline :type
+                         (common-lisp:or pipeline common-lisp:null) :accessor
+                         %start-pipeline-response-pipeline :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-pipeline-response 'make-start-pipeline-response))
+ (common-lisp:defun make-start-pipeline-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline)
+   (common-lisp:apply #'common-lisp:make-instance 'start-pipeline-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1154,13 +1439,20 @@
                           start-pipeline-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-pipeline-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-pipeline-request-"))
-   (pipeline-name (common-lisp:error ":pipeline-name is required") :type
-    (common-lisp:or pipeline-name common-lisp:null)))
+ (common-lisp:defclass stop-pipeline-request common-lisp:nil
+                       ((pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor %stop-pipeline-request-pipeline-name
+                         :initform
+                         (common-lisp:error ":pipeline-name is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-pipeline-request 'make-stop-pipeline-request))
+ (common-lisp:defun make-stop-pipeline-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-pipeline-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1177,12 +1469,19 @@
                           stop-pipeline-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-pipeline-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-pipeline-response-"))
-   (pipeline common-lisp:nil :type (common-lisp:or pipeline common-lisp:null)))
+ (common-lisp:defclass stop-pipeline-response common-lisp:nil
+                       ((pipeline :initarg :pipeline :type
+                         (common-lisp:or pipeline common-lisp:null) :accessor
+                         %stop-pipeline-response-pipeline :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'stop-pipeline-response 'make-stop-pipeline-response))
+ (common-lisp:defun make-stop-pipeline-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-pipeline-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1222,13 +1521,22 @@
                            (trivial-types:proper-list subnet-id))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform
+                         (common-lisp:error ":value is required"))
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -1261,15 +1569,23 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or pipeline-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (arn :initarg :arn :type
+                         (common-lisp:or pipeline-arn common-lisp:null)
+                         :accessor %tag-resource-request-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -1287,11 +1603,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1310,15 +1630,23 @@
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype timestamp () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (arn (common-lisp:error ":arn is required") :type
-    (common-lisp:or pipeline-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or string-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or string-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (arn :initarg :arn :type
+                         (common-lisp:or pipeline-arn common-lisp:null)
+                         :accessor %untag-resource-request-arn :initform
+                         (common-lisp:error ":arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1342,11 +1670,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1363,21 +1695,44 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-pipeline-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-pipeline-request-"))
-   (pipeline-name (common-lisp:error ":pipeline-name is required") :type
-    (common-lisp:or pipeline-name common-lisp:null))
-   (min-units common-lisp:nil :type
-    (common-lisp:or pipeline-units common-lisp:null))
-   (max-units common-lisp:nil :type
-    (common-lisp:or pipeline-units common-lisp:null))
-   (pipeline-configuration-body common-lisp:nil :type
-    (common-lisp:or pipeline-configuration-body common-lisp:null))
-   (log-publishing-options common-lisp:nil :type
-    (common-lisp:or log-publishing-options common-lisp:null)))
+ (common-lisp:defclass update-pipeline-request common-lisp:nil
+                       ((log-publishing-options :initarg
+                         :log-publishing-options :type
+                         (common-lisp:or log-publishing-options
+                                         common-lisp:null)
+                         :accessor
+                         %update-pipeline-request-log-publishing-options
+                         :initform common-lisp:nil)
+                        (pipeline-configuration-body :initarg
+                         :pipeline-configuration-body :type
+                         (common-lisp:or pipeline-configuration-body
+                                         common-lisp:null)
+                         :accessor
+                         %update-pipeline-request-pipeline-configuration-body
+                         :initform common-lisp:nil)
+                        (max-units :initarg :max-units :type
+                         (common-lisp:or pipeline-units common-lisp:null)
+                         :accessor %update-pipeline-request-max-units :initform
+                         common-lisp:nil)
+                        (min-units :initarg :min-units :type
+                         (common-lisp:or pipeline-units common-lisp:null)
+                         :accessor %update-pipeline-request-min-units :initform
+                         common-lisp:nil)
+                        (pipeline-name :initarg :pipeline-name :type
+                         (common-lisp:or pipeline-name common-lisp:null)
+                         :accessor %update-pipeline-request-pipeline-name
+                         :initform
+                         (common-lisp:error ":pipeline-name is required"))))
  (common-lisp:export
   (common-lisp:list 'update-pipeline-request 'make-update-pipeline-request))
+ (common-lisp:defun make-update-pipeline-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-publishing-options
+                     pipeline-configuration-body max-units min-units
+                     pipeline-name)
+   (common-lisp:apply #'common-lisp:make-instance 'update-pipeline-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1424,12 +1779,19 @@
                           update-pipeline-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-pipeline-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-pipeline-response-"))
-   (pipeline common-lisp:nil :type (common-lisp:or pipeline common-lisp:null)))
+ (common-lisp:defclass update-pipeline-response common-lisp:nil
+                       ((pipeline :initarg :pipeline :type
+                         (common-lisp:or pipeline common-lisp:null) :accessor
+                         %update-pipeline-response-pipeline :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-pipeline-response 'make-update-pipeline-response))
+ (common-lisp:defun make-update-pipeline-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline)
+   (common-lisp:apply #'common-lisp:make-instance 'update-pipeline-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1453,15 +1815,25 @@
                           update-pipeline-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validate-pipeline-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validate-pipeline-request-"))
-   (pipeline-configuration-body
-    (common-lisp:error ":pipeline-configuration-body is required") :type
-    (common-lisp:or pipeline-configuration-body common-lisp:null)))
+ (common-lisp:defclass validate-pipeline-request common-lisp:nil
+                       ((pipeline-configuration-body :initarg
+                         :pipeline-configuration-body :type
+                         (common-lisp:or pipeline-configuration-body
+                                         common-lisp:null)
+                         :accessor
+                         %validate-pipeline-request-pipeline-configuration-body
+                         :initform
+                         (common-lisp:error
+                          ":pipeline-configuration-body is required"))))
  (common-lisp:export
   (common-lisp:list 'validate-pipeline-request
                     'make-validate-pipeline-request))
+ (common-lisp:defun make-validate-pipeline-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key pipeline-configuration-body)
+   (common-lisp:apply #'common-lisp:make-instance 'validate-pipeline-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1486,15 +1858,25 @@
                           validate-pipeline-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validate-pipeline-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validate-pipeline-response-"))
-   (is-valid common-lisp:nil :type (common-lisp:or boolean common-lisp:null))
-   (errors common-lisp:nil :type
-    (common-lisp:or validation-message-list common-lisp:null)))
+ (common-lisp:defclass validate-pipeline-response common-lisp:nil
+                       ((errors :initarg :errors :type
+                         (common-lisp:or validation-message-list
+                                         common-lisp:null)
+                         :accessor %validate-pipeline-response-errors :initform
+                         common-lisp:nil)
+                        (is-valid :initarg :|isValid| :type
+                         (common-lisp:or boolean common-lisp:null) :accessor
+                         %validate-pipeline-response-is-valid :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'validate-pipeline-response
                     'make-validate-pipeline-response))
+ (common-lisp:defun make-validate-pipeline-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key errors is-valid)
+   (common-lisp:apply #'common-lisp:make-instance 'validate-pipeline-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1530,12 +1912,19 @@
      common-lisp:nil)
  (common-lisp:export (common-lisp:list 'validation-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (validation-message (:copier common-lisp:nil)
-      (:conc-name "struct-shape-validation-message-"))
-   (message common-lisp:nil :type (common-lisp:or string common-lisp:null)))
+ (common-lisp:defclass validation-message common-lisp:nil
+                       ((message :initarg :message :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %validation-message-message :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'validation-message 'make-validation-message))
+ (common-lisp:defun make-validation-message
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key message)
+   (common-lisp:apply #'common-lisp:make-instance 'validation-message
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input validation-message))
    (common-lisp:append))
@@ -1561,15 +1950,25 @@
                            (trivial-types:proper-list validation-message))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (vpc-endpoint (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vpc-endpoint-"))
-   (vpc-endpoint-id common-lisp:nil :type
-    (common-lisp:or string common-lisp:null))
-   (vpc-id common-lisp:nil :type (common-lisp:or string common-lisp:null))
-   (vpc-options common-lisp:nil :type
-    (common-lisp:or vpc-options common-lisp:null)))
+ (common-lisp:defclass vpc-endpoint common-lisp:nil
+                       ((vpc-options :initarg :vpc-options :type
+                         (common-lisp:or vpc-options common-lisp:null)
+                         :accessor %vpc-endpoint-vpc-options :initform
+                         common-lisp:nil)
+                        (vpc-id :initarg :vpc-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %vpc-endpoint-vpc-id :initform common-lisp:nil)
+                        (vpc-endpoint-id :initarg :vpc-endpoint-id :type
+                         (common-lisp:or string common-lisp:null) :accessor
+                         %vpc-endpoint-vpc-endpoint-id :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'vpc-endpoint 'make-vpc-endpoint))
+ (common-lisp:defun make-vpc-endpoint
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key vpc-options vpc-id vpc-endpoint-id)
+   (common-lisp:apply #'common-lisp:make-instance 'vpc-endpoint
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input vpc-endpoint))
    (common-lisp:append))
@@ -1609,14 +2008,22 @@
                            (trivial-types:proper-list vpc-endpoint))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (vpc-options (:copier common-lisp:nil)
-      (:conc-name "struct-shape-vpc-options-"))
-   (subnet-ids (common-lisp:error ":subnet-ids is required") :type
-    (common-lisp:or subnet-ids common-lisp:null))
-   (security-group-ids common-lisp:nil :type
-    (common-lisp:or security-group-ids common-lisp:null)))
+ (common-lisp:defclass vpc-options common-lisp:nil
+                       ((security-group-ids :initarg :security-group-ids :type
+                         (common-lisp:or security-group-ids common-lisp:null)
+                         :accessor %vpc-options-security-group-ids :initform
+                         common-lisp:nil)
+                        (subnet-ids :initarg :subnet-ids :type
+                         (common-lisp:or subnet-ids common-lisp:null) :accessor
+                         %vpc-options-subnet-ids :initform
+                         (common-lisp:error ":subnet-ids is required"))))
  (common-lisp:export (common-lisp:list 'vpc-options 'make-vpc-options))
+ (common-lisp:defun make-vpc-options
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key security-group-ids subnet-ids)
+   (common-lisp:apply #'common-lisp:make-instance 'vpc-options
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input vpc-options))
    (common-lisp:append))

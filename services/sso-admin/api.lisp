@@ -29,15 +29,25 @@
     ("ThrottlingException" . throttling-exception)
     ("ValidationException" . validation-exception)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (access-control-attribute (:copier common-lisp:nil)
-      (:conc-name "struct-shape-access-control-attribute-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or access-control-attribute-key common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or access-control-attribute-value common-lisp:null)))
+ (common-lisp:defclass access-control-attribute common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or access-control-attribute-value
+                                         common-lisp:null)
+                         :accessor %access-control-attribute-value :initform
+                         (common-lisp:error ":value is required"))
+                        (key :initarg :key :type
+                         (common-lisp:or access-control-attribute-key
+                                         common-lisp:null)
+                         :accessor %access-control-attribute-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export
   (common-lisp:list 'access-control-attribute 'make-access-control-attribute))
+ (common-lisp:defun make-access-control-attribute
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'access-control-attribute
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -78,15 +88,23 @@
                             access-control-attribute))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (access-control-attribute-value (:copier common-lisp:nil)
-      (:conc-name "struct-shape-access-control-attribute-value-"))
-   (source (common-lisp:error ":source is required") :type
-    (common-lisp:or access-control-attribute-value-source-list
-                    common-lisp:null)))
+ (common-lisp:defclass access-control-attribute-value common-lisp:nil
+                       ((source :initarg :source :type
+                         (common-lisp:or
+                          access-control-attribute-value-source-list
+                          common-lisp:null)
+                         :accessor %access-control-attribute-value-source
+                         :initform (common-lisp:error ":source is required"))))
  (common-lisp:export
   (common-lisp:list 'access-control-attribute-value
                     'make-access-control-attribute-value))
+ (common-lisp:defun make-access-control-attribute-value
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key source)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'access-control-attribute-value
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -129,19 +147,32 @@
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:deftype access-denied-exception-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (account-assignment (:copier common-lisp:nil)
-      (:conc-name "struct-shape-account-assignment-"))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (permission-set-arn common-lisp:nil :type
-    (common-lisp:or permission-set-arn common-lisp:null))
-   (principal-type common-lisp:nil :type
-    (common-lisp:or principal-type common-lisp:null))
-   (principal-id common-lisp:nil :type
-    (common-lisp:or principal-id common-lisp:null)))
+ (common-lisp:defclass account-assignment common-lisp:nil
+                       ((principal-id :initarg :principal-id :type
+                         (common-lisp:or principal-id common-lisp:null)
+                         :accessor %account-assignment-principal-id :initform
+                         common-lisp:nil)
+                        (principal-type :initarg :principal-type :type
+                         (common-lisp:or principal-type common-lisp:null)
+                         :accessor %account-assignment-principal-type :initform
+                         common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor %account-assignment-permission-set-arn
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %account-assignment-account-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'account-assignment 'make-account-assignment))
+ (common-lisp:defun make-account-assignment
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key principal-id principal-type
+                     permission-set-arn account-id)
+   (common-lisp:apply #'common-lisp:make-instance 'account-assignment
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input account-assignment))
    (common-lisp:append))
@@ -188,28 +219,59 @@
                            (trivial-types:proper-list account-assignment))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (account-assignment-operation-status (:copier common-lisp:nil)
-      (:conc-name "struct-shape-account-assignment-operation-status-"))
-   (status common-lisp:nil :type
-    (common-lisp:or status-values common-lisp:null))
-   (request-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (failure-reason common-lisp:nil :type
-    (common-lisp:or reason common-lisp:null))
-   (target-id common-lisp:nil :type
-    (common-lisp:or target-id common-lisp:null))
-   (target-type common-lisp:nil :type
-    (common-lisp:or target-type common-lisp:null))
-   (permission-set-arn common-lisp:nil :type
-    (common-lisp:or permission-set-arn common-lisp:null))
-   (principal-type common-lisp:nil :type
-    (common-lisp:or principal-type common-lisp:null))
-   (principal-id common-lisp:nil :type
-    (common-lisp:or principal-id common-lisp:null))
-   (created-date common-lisp:nil :type (common-lisp:or date common-lisp:null)))
+ (common-lisp:defclass account-assignment-operation-status common-lisp:nil
+                       ((created-date :initarg :created-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %account-assignment-operation-status-created-date
+                         :initform common-lisp:nil)
+                        (principal-id :initarg :principal-id :type
+                         (common-lisp:or principal-id common-lisp:null)
+                         :accessor
+                         %account-assignment-operation-status-principal-id
+                         :initform common-lisp:nil)
+                        (principal-type :initarg :principal-type :type
+                         (common-lisp:or principal-type common-lisp:null)
+                         :accessor
+                         %account-assignment-operation-status-principal-type
+                         :initform common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %account-assignment-operation-status-permission-set-arn
+                         :initform common-lisp:nil)
+                        (target-type :initarg :target-type :type
+                         (common-lisp:or target-type common-lisp:null)
+                         :accessor
+                         %account-assignment-operation-status-target-type
+                         :initform common-lisp:nil)
+                        (target-id :initarg :target-id :type
+                         (common-lisp:or target-id common-lisp:null) :accessor
+                         %account-assignment-operation-status-target-id
+                         :initform common-lisp:nil)
+                        (failure-reason :initarg :failure-reason :type
+                         (common-lisp:or reason common-lisp:null) :accessor
+                         %account-assignment-operation-status-failure-reason
+                         :initform common-lisp:nil)
+                        (request-id :initarg :request-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %account-assignment-operation-status-request-id
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status-values common-lisp:null)
+                         :accessor %account-assignment-operation-status-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'account-assignment-operation-status
                     'make-account-assignment-operation-status))
+ (common-lisp:defun make-account-assignment-operation-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-date principal-id principal-type
+                     permission-set-arn target-type target-id failure-reason
+                     request-id status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'account-assignment-operation-status
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -298,17 +360,31 @@
                             account-assignment-operation-status-metadata))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (account-assignment-operation-status-metadata (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-account-assignment-operation-status-metadata-"))
-   (status common-lisp:nil :type
-    (common-lisp:or status-values common-lisp:null))
-   (request-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (created-date common-lisp:nil :type (common-lisp:or date common-lisp:null)))
+ (common-lisp:defclass account-assignment-operation-status-metadata
+                       common-lisp:nil
+                       ((created-date :initarg :created-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %account-assignment-operation-status-metadata-created-date
+                         :initform common-lisp:nil)
+                        (request-id :initarg :request-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %account-assignment-operation-status-metadata-request-id
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status-values common-lisp:null)
+                         :accessor
+                         %account-assignment-operation-status-metadata-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'account-assignment-operation-status-metadata
                     'make-account-assignment-operation-status-metadata))
+ (common-lisp:defun make-account-assignment-operation-status-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-date request-id status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'account-assignment-operation-status-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -354,22 +430,36 @@
                            (trivial-types:proper-list account-id))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attach-customer-managed-policy-reference-to-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-attach-customer-managed-policy-reference-to-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (customer-managed-policy-reference
-    (common-lisp:error ":customer-managed-policy-reference is required") :type
-    (common-lisp:or customer-managed-policy-reference common-lisp:null)))
+ (common-lisp:defclass
+  attach-customer-managed-policy-reference-to-permission-set-request
+  common-lisp:nil
+  ((customer-managed-policy-reference :initarg
+    :customer-managed-policy-reference :type
+    (common-lisp:or customer-managed-policy-reference common-lisp:null)
+    :accessor
+    %attach-customer-managed-policy-reference-to-permission-set-request-customer-managed-policy-reference
+    :initform
+    (common-lisp:error ":customer-managed-policy-reference is required"))
+   (permission-set-arn :initarg :permission-set-arn :type
+    (common-lisp:or permission-set-arn common-lisp:null) :accessor
+    %attach-customer-managed-policy-reference-to-permission-set-request-permission-set-arn
+    :initform (common-lisp:error ":permission-set-arn is required"))
+   (instance-arn :initarg :instance-arn :type
+    (common-lisp:or instance-arn common-lisp:null) :accessor
+    %attach-customer-managed-policy-reference-to-permission-set-request-instance-arn
+    :initform (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list
    'attach-customer-managed-policy-reference-to-permission-set-request
    'make-attach-customer-managed-policy-reference-to-permission-set-request))
+ (common-lisp:defun make-attach-customer-managed-policy-reference-to-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-managed-policy-reference
+                     permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'attach-customer-managed-policy-reference-to-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -408,15 +498,20 @@
                           attach-customer-managed-policy-reference-to-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attach-customer-managed-policy-reference-to-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-attach-customer-managed-policy-reference-to-permission-set-response-")))
+ (common-lisp:defclass
+  attach-customer-managed-policy-reference-to-permission-set-response
+  common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list
    'attach-customer-managed-policy-reference-to-permission-set-response
    'make-attach-customer-managed-policy-reference-to-permission-set-response))
+ (common-lisp:defun make-attach-customer-managed-policy-reference-to-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'attach-customer-managed-policy-reference-to-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -433,19 +528,37 @@
                           attach-customer-managed-policy-reference-to-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attach-managed-policy-to-permission-set-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-attach-managed-policy-to-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (managed-policy-arn (common-lisp:error ":managed-policy-arn is required")
-    :type (common-lisp:or managed-policy-arn common-lisp:null)))
+ (common-lisp:defclass attach-managed-policy-to-permission-set-request
+                       common-lisp:nil
+                       ((managed-policy-arn :initarg :managed-policy-arn :type
+                         (common-lisp:or managed-policy-arn common-lisp:null)
+                         :accessor
+                         %attach-managed-policy-to-permission-set-request-managed-policy-arn
+                         :initform
+                         (common-lisp:error ":managed-policy-arn is required"))
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %attach-managed-policy-to-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %attach-managed-policy-to-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'attach-managed-policy-to-permission-set-request
                     'make-attach-managed-policy-to-permission-set-request))
+ (common-lisp:defun make-attach-managed-policy-to-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key managed-policy-arn permission-set-arn
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'attach-managed-policy-to-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -483,14 +596,18 @@
                           attach-managed-policy-to-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attach-managed-policy-to-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-attach-managed-policy-to-permission-set-response-")))
+ (common-lisp:defclass attach-managed-policy-to-permission-set-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'attach-managed-policy-to-permission-set-response
                     'make-attach-managed-policy-to-permission-set-response))
+ (common-lisp:defun make-attach-managed-policy-to-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'attach-managed-policy-to-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -507,14 +624,23 @@
                           attach-managed-policy-to-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (attached-managed-policy (:copier common-lisp:nil)
-      (:conc-name "struct-shape-attached-managed-policy-"))
-   (name common-lisp:nil :type (common-lisp:or name common-lisp:null))
-   (arn common-lisp:nil :type
-    (common-lisp:or managed-policy-arn common-lisp:null)))
+ (common-lisp:defclass attached-managed-policy common-lisp:nil
+                       ((arn :initarg :arn :type
+                         (common-lisp:or managed-policy-arn common-lisp:null)
+                         :accessor %attached-managed-policy-arn :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or name common-lisp:null) :accessor
+                         %attached-managed-policy-name :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'attached-managed-policy 'make-attached-managed-policy))
+ (common-lisp:defun make-attached-managed-policy
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key arn name)
+   (common-lisp:apply #'common-lisp:make-instance 'attached-managed-policy
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -561,24 +687,52 @@
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:deftype conflict-exception-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-account-assignment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-account-assignment-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (target-id (common-lisp:error ":target-id is required") :type
-    (common-lisp:or target-id common-lisp:null))
-   (target-type (common-lisp:error ":target-type is required") :type
-    (common-lisp:or target-type common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (principal-type (common-lisp:error ":principal-type is required") :type
-    (common-lisp:or principal-type common-lisp:null))
-   (principal-id (common-lisp:error ":principal-id is required") :type
-    (common-lisp:or principal-id common-lisp:null)))
+ (common-lisp:defclass create-account-assignment-request common-lisp:nil
+                       ((principal-id :initarg :principal-id :type
+                         (common-lisp:or principal-id common-lisp:null)
+                         :accessor
+                         %create-account-assignment-request-principal-id
+                         :initform
+                         (common-lisp:error ":principal-id is required"))
+                        (principal-type :initarg :principal-type :type
+                         (common-lisp:or principal-type common-lisp:null)
+                         :accessor
+                         %create-account-assignment-request-principal-type
+                         :initform
+                         (common-lisp:error ":principal-type is required"))
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %create-account-assignment-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (target-type :initarg :target-type :type
+                         (common-lisp:or target-type common-lisp:null)
+                         :accessor
+                         %create-account-assignment-request-target-type
+                         :initform
+                         (common-lisp:error ":target-type is required"))
+                        (target-id :initarg :target-id :type
+                         (common-lisp:or target-id common-lisp:null) :accessor
+                         %create-account-assignment-request-target-id :initform
+                         (common-lisp:error ":target-id is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %create-account-assignment-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'create-account-assignment-request
                     'make-create-account-assignment-request))
+ (common-lisp:defun make-create-account-assignment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key principal-id principal-type
+                     permission-set-arn target-type target-id instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-account-assignment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -637,14 +791,24 @@
                           create-account-assignment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-account-assignment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-account-assignment-response-"))
-   (account-assignment-creation-status common-lisp:nil :type
-    (common-lisp:or account-assignment-operation-status common-lisp:null)))
+ (common-lisp:defclass create-account-assignment-response common-lisp:nil
+                       ((account-assignment-creation-status :initarg
+                         :account-assignment-creation-status :type
+                         (common-lisp:or account-assignment-operation-status
+                                         common-lisp:null)
+                         :accessor
+                         %create-account-assignment-response-account-assignment-creation-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-account-assignment-response
                     'make-create-account-assignment-response))
+ (common-lisp:defun make-create-account-assignment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-assignment-creation-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-account-assignment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -669,23 +833,35 @@
                           create-account-assignment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-instance-access-control-attribute-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-instance-access-control-attribute-configuration-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (instance-access-control-attribute-configuration
-    (common-lisp:error
-     ":instance-access-control-attribute-configuration is required")
-    :type
+ (common-lisp:defclass
+  create-instance-access-control-attribute-configuration-request
+  common-lisp:nil
+  ((instance-access-control-attribute-configuration :initarg
+    :instance-access-control-attribute-configuration :type
     (common-lisp:or instance-access-control-attribute-configuration
-                    common-lisp:null)))
+                    common-lisp:null)
+    :accessor
+    %create-instance-access-control-attribute-configuration-request-instance-access-control-attribute-configuration
+    :initform
+    (common-lisp:error
+     ":instance-access-control-attribute-configuration is required"))
+   (instance-arn :initarg :instance-arn :type
+    (common-lisp:or instance-arn common-lisp:null) :accessor
+    %create-instance-access-control-attribute-configuration-request-instance-arn
+    :initform (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list
    'create-instance-access-control-attribute-configuration-request
    'make-create-instance-access-control-attribute-configuration-request))
+ (common-lisp:defun make-create-instance-access-control-attribute-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     instance-access-control-attribute-configuration
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-instance-access-control-attribute-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -717,15 +893,20 @@
                           create-instance-access-control-attribute-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-instance-access-control-attribute-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-create-instance-access-control-attribute-configuration-response-")))
+ (common-lisp:defclass
+  create-instance-access-control-attribute-configuration-response
+  common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list
    'create-instance-access-control-attribute-configuration-response
    'make-create-instance-access-control-attribute-configuration-response))
+ (common-lisp:defun make-create-instance-access-control-attribute-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-instance-access-control-attribute-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -742,23 +923,44 @@
                           create-instance-access-control-attribute-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-permission-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-permission-set-request-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or permission-set-name common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or permission-set-description common-lisp:null))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (session-duration common-lisp:nil :type
-    (common-lisp:or duration common-lisp:null))
-   (relay-state common-lisp:nil :type
-    (common-lisp:or relay-state common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass create-permission-set-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-permission-set-request-tags :initform
+                         common-lisp:nil)
+                        (relay-state :initarg :relay-state :type
+                         (common-lisp:or relay-state common-lisp:null)
+                         :accessor %create-permission-set-request-relay-state
+                         :initform common-lisp:nil)
+                        (session-duration :initarg :session-duration :type
+                         (common-lisp:or duration common-lisp:null) :accessor
+                         %create-permission-set-request-session-duration
+                         :initform common-lisp:nil)
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %create-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or permission-set-description
+                                         common-lisp:null)
+                         :accessor %create-permission-set-request-description
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or permission-set-name common-lisp:null)
+                         :accessor %create-permission-set-request-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'create-permission-set-request
                     'make-create-permission-set-request))
+ (common-lisp:defun make-create-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags relay-state session-duration
+                     instance-arn description name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -817,14 +1019,22 @@
                           create-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-permission-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-permission-set-response-"))
-   (permission-set common-lisp:nil :type
-    (common-lisp:or permission-set common-lisp:null)))
+ (common-lisp:defclass create-permission-set-response common-lisp:nil
+                       ((permission-set :initarg :permission-set :type
+                         (common-lisp:or permission-set common-lisp:null)
+                         :accessor
+                         %create-permission-set-response-permission-set
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-permission-set-response
                     'make-create-permission-set-response))
+ (common-lisp:defun make-create-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'create-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -848,16 +1058,25 @@
                           create-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (customer-managed-policy-reference (:copier common-lisp:nil)
-      (:conc-name "struct-shape-customer-managed-policy-reference-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or managed-policy-name common-lisp:null))
-   (path common-lisp:nil :type
-    (common-lisp:or managed-policy-path common-lisp:null)))
+ (common-lisp:defclass customer-managed-policy-reference common-lisp:nil
+                       ((path :initarg :path :type
+                         (common-lisp:or managed-policy-path common-lisp:null)
+                         :accessor %customer-managed-policy-reference-path
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or managed-policy-name common-lisp:null)
+                         :accessor %customer-managed-policy-reference-name
+                         :initform (common-lisp:error ":name is required"))))
  (common-lisp:export
   (common-lisp:list 'customer-managed-policy-reference
                     'make-customer-managed-policy-reference))
+ (common-lisp:defun make-customer-managed-policy-reference
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key path name)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'customer-managed-policy-reference
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -898,24 +1117,52 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype date () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-account-assignment-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-account-assignment-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (target-id (common-lisp:error ":target-id is required") :type
-    (common-lisp:or target-id common-lisp:null))
-   (target-type (common-lisp:error ":target-type is required") :type
-    (common-lisp:or target-type common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (principal-type (common-lisp:error ":principal-type is required") :type
-    (common-lisp:or principal-type common-lisp:null))
-   (principal-id (common-lisp:error ":principal-id is required") :type
-    (common-lisp:or principal-id common-lisp:null)))
+ (common-lisp:defclass delete-account-assignment-request common-lisp:nil
+                       ((principal-id :initarg :principal-id :type
+                         (common-lisp:or principal-id common-lisp:null)
+                         :accessor
+                         %delete-account-assignment-request-principal-id
+                         :initform
+                         (common-lisp:error ":principal-id is required"))
+                        (principal-type :initarg :principal-type :type
+                         (common-lisp:or principal-type common-lisp:null)
+                         :accessor
+                         %delete-account-assignment-request-principal-type
+                         :initform
+                         (common-lisp:error ":principal-type is required"))
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %delete-account-assignment-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (target-type :initarg :target-type :type
+                         (common-lisp:or target-type common-lisp:null)
+                         :accessor
+                         %delete-account-assignment-request-target-type
+                         :initform
+                         (common-lisp:error ":target-type is required"))
+                        (target-id :initarg :target-id :type
+                         (common-lisp:or target-id common-lisp:null) :accessor
+                         %delete-account-assignment-request-target-id :initform
+                         (common-lisp:error ":target-id is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %delete-account-assignment-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-account-assignment-request
                     'make-delete-account-assignment-request))
+ (common-lisp:defun make-delete-account-assignment-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key principal-id principal-type
+                     permission-set-arn target-type target-id instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-account-assignment-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -974,14 +1221,24 @@
                           delete-account-assignment-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-account-assignment-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-account-assignment-response-"))
-   (account-assignment-deletion-status common-lisp:nil :type
-    (common-lisp:or account-assignment-operation-status common-lisp:null)))
+ (common-lisp:defclass delete-account-assignment-response common-lisp:nil
+                       ((account-assignment-deletion-status :initarg
+                         :account-assignment-deletion-status :type
+                         (common-lisp:or account-assignment-operation-status
+                                         common-lisp:null)
+                         :accessor
+                         %delete-account-assignment-response-account-assignment-deletion-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'delete-account-assignment-response
                     'make-delete-account-assignment-response))
+ (common-lisp:defun make-delete-account-assignment-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-assignment-deletion-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-account-assignment-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1006,18 +1263,30 @@
                           delete-account-assignment-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-inline-policy-from-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-inline-policy-from-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null)))
+ (common-lisp:defclass delete-inline-policy-from-permission-set-request
+                       common-lisp:nil
+                       ((permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %delete-inline-policy-from-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %delete-inline-policy-from-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-inline-policy-from-permission-set-request
                     'make-delete-inline-policy-from-permission-set-request))
+ (common-lisp:defun make-delete-inline-policy-from-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-inline-policy-from-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1048,14 +1317,18 @@
                           delete-inline-policy-from-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-inline-policy-from-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-inline-policy-from-permission-set-response-")))
+ (common-lisp:defclass delete-inline-policy-from-permission-set-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-inline-policy-from-permission-set-response
                     'make-delete-inline-policy-from-permission-set-response))
+ (common-lisp:defun make-delete-inline-policy-from-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-inline-policy-from-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1072,17 +1345,24 @@
                           delete-inline-policy-from-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-instance-access-control-attribute-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-instance-access-control-attribute-configuration-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null)))
+ (common-lisp:defclass
+  delete-instance-access-control-attribute-configuration-request
+  common-lisp:nil
+  ((instance-arn :initarg :instance-arn :type
+    (common-lisp:or instance-arn common-lisp:null) :accessor
+    %delete-instance-access-control-attribute-configuration-request-instance-arn
+    :initform (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list
    'delete-instance-access-control-attribute-configuration-request
    'make-delete-instance-access-control-attribute-configuration-request))
+ (common-lisp:defun make-delete-instance-access-control-attribute-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-instance-access-control-attribute-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1106,15 +1386,20 @@
                           delete-instance-access-control-attribute-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-instance-access-control-attribute-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-instance-access-control-attribute-configuration-response-")))
+ (common-lisp:defclass
+  delete-instance-access-control-attribute-configuration-response
+  common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list
    'delete-instance-access-control-attribute-configuration-response
    'make-delete-instance-access-control-attribute-configuration-response))
+ (common-lisp:defun make-delete-instance-access-control-attribute-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-instance-access-control-attribute-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1131,16 +1416,28 @@
                           delete-instance-access-control-attribute-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-permission-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null)))
+ (common-lisp:defclass delete-permission-set-request common-lisp:nil
+                       ((permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %delete-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %delete-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-permission-set-request
                     'make-delete-permission-set-request))
+ (common-lisp:defun make-delete-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1171,12 +1468,18 @@
                           delete-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-permission-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-permission-set-response-")))
+ (common-lisp:defclass delete-permission-set-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-permission-set-response
                     'make-delete-permission-set-response))
+ (common-lisp:defun make-delete-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1193,18 +1496,30 @@
                           delete-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-permissions-boundary-from-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-permissions-boundary-from-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null)))
+ (common-lisp:defclass delete-permissions-boundary-from-permission-set-request
+                       common-lisp:nil
+                       ((permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %delete-permissions-boundary-from-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %delete-permissions-boundary-from-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-permissions-boundary-from-permission-set-request
                     'make-delete-permissions-boundary-from-permission-set-request))
+ (common-lisp:defun make-delete-permissions-boundary-from-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-permissions-boundary-from-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1235,14 +1550,18 @@
                           delete-permissions-boundary-from-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-permissions-boundary-from-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-delete-permissions-boundary-from-permission-set-response-")))
+ (common-lisp:defclass delete-permissions-boundary-from-permission-set-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-permissions-boundary-from-permission-set-response
                     'make-delete-permissions-boundary-from-permission-set-response))
+ (common-lisp:defun make-delete-permissions-boundary-from-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'delete-permissions-boundary-from-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1259,19 +1578,32 @@
                           delete-permissions-boundary-from-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-account-assignment-creation-status-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-account-assignment-creation-status-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (account-assignment-creation-request-id
-    (common-lisp:error ":account-assignment-creation-request-id is required")
-    :type (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:defclass describe-account-assignment-creation-status-request
+                       common-lisp:nil
+                       ((account-assignment-creation-request-id :initarg
+                         :account-assignment-creation-request-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %describe-account-assignment-creation-status-request-account-assignment-creation-request-id
+                         :initform
+                         (common-lisp:error
+                          ":account-assignment-creation-request-id is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %describe-account-assignment-creation-status-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-account-assignment-creation-status-request
                     'make-describe-account-assignment-creation-status-request))
+ (common-lisp:defun make-describe-account-assignment-creation-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-assignment-creation-request-id
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-account-assignment-creation-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1303,16 +1635,25 @@
                           describe-account-assignment-creation-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-account-assignment-creation-status-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-account-assignment-creation-status-response-"))
-   (account-assignment-creation-status common-lisp:nil :type
-    (common-lisp:or account-assignment-operation-status common-lisp:null)))
+ (common-lisp:defclass describe-account-assignment-creation-status-response
+                       common-lisp:nil
+                       ((account-assignment-creation-status :initarg
+                         :account-assignment-creation-status :type
+                         (common-lisp:or account-assignment-operation-status
+                                         common-lisp:null)
+                         :accessor
+                         %describe-account-assignment-creation-status-response-account-assignment-creation-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-account-assignment-creation-status-response
                     'make-describe-account-assignment-creation-status-response))
+ (common-lisp:defun make-describe-account-assignment-creation-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-assignment-creation-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-account-assignment-creation-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1337,19 +1678,32 @@
                           describe-account-assignment-creation-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-account-assignment-deletion-status-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-account-assignment-deletion-status-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (account-assignment-deletion-request-id
-    (common-lisp:error ":account-assignment-deletion-request-id is required")
-    :type (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:defclass describe-account-assignment-deletion-status-request
+                       common-lisp:nil
+                       ((account-assignment-deletion-request-id :initarg
+                         :account-assignment-deletion-request-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %describe-account-assignment-deletion-status-request-account-assignment-deletion-request-id
+                         :initform
+                         (common-lisp:error
+                          ":account-assignment-deletion-request-id is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %describe-account-assignment-deletion-status-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-account-assignment-deletion-status-request
                     'make-describe-account-assignment-deletion-status-request))
+ (common-lisp:defun make-describe-account-assignment-deletion-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-assignment-deletion-request-id
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-account-assignment-deletion-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1381,16 +1735,25 @@
                           describe-account-assignment-deletion-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-account-assignment-deletion-status-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-account-assignment-deletion-status-response-"))
-   (account-assignment-deletion-status common-lisp:nil :type
-    (common-lisp:or account-assignment-operation-status common-lisp:null)))
+ (common-lisp:defclass describe-account-assignment-deletion-status-response
+                       common-lisp:nil
+                       ((account-assignment-deletion-status :initarg
+                         :account-assignment-deletion-status :type
+                         (common-lisp:or account-assignment-operation-status
+                                         common-lisp:null)
+                         :accessor
+                         %describe-account-assignment-deletion-status-response-account-assignment-deletion-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-account-assignment-deletion-status-response
                     'make-describe-account-assignment-deletion-status-response))
+ (common-lisp:defun make-describe-account-assignment-deletion-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key account-assignment-deletion-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-account-assignment-deletion-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1415,17 +1778,24 @@
                           describe-account-assignment-deletion-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-instance-access-control-attribute-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-instance-access-control-attribute-configuration-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null)))
+ (common-lisp:defclass
+  describe-instance-access-control-attribute-configuration-request
+  common-lisp:nil
+  ((instance-arn :initarg :instance-arn :type
+    (common-lisp:or instance-arn common-lisp:null) :accessor
+    %describe-instance-access-control-attribute-configuration-request-instance-arn
+    :initform (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list
    'describe-instance-access-control-attribute-configuration-request
    'make-describe-instance-access-control-attribute-configuration-request))
+ (common-lisp:defun make-describe-instance-access-control-attribute-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-instance-access-control-attribute-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1449,25 +1819,42 @@
                           describe-instance-access-control-attribute-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-instance-access-control-attribute-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-instance-access-control-attribute-configuration-response-"))
-   (status common-lisp:nil :type
-    (common-lisp:or instance-access-control-attribute-configuration-status
-                    common-lisp:null))
-   (status-reason common-lisp:nil :type
+ (common-lisp:defclass
+  describe-instance-access-control-attribute-configuration-response
+  common-lisp:nil
+  ((instance-access-control-attribute-configuration :initarg
+    :instance-access-control-attribute-configuration :type
+    (common-lisp:or instance-access-control-attribute-configuration
+                    common-lisp:null)
+    :accessor
+    %describe-instance-access-control-attribute-configuration-response-instance-access-control-attribute-configuration
+    :initform common-lisp:nil)
+   (status-reason :initarg :status-reason :type
     (common-lisp:or
      instance-access-control-attribute-configuration-status-reason
-     common-lisp:null))
-   (instance-access-control-attribute-configuration common-lisp:nil :type
-    (common-lisp:or instance-access-control-attribute-configuration
-                    common-lisp:null)))
+     common-lisp:null)
+    :accessor
+    %describe-instance-access-control-attribute-configuration-response-status-reason
+    :initform common-lisp:nil)
+   (status :initarg :status :type
+    (common-lisp:or instance-access-control-attribute-configuration-status
+                    common-lisp:null)
+    :accessor
+    %describe-instance-access-control-attribute-configuration-response-status
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'describe-instance-access-control-attribute-configuration-response
    'make-describe-instance-access-control-attribute-configuration-response))
+ (common-lisp:defun make-describe-instance-access-control-attribute-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     instance-access-control-attribute-configuration
+                     status-reason status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-instance-access-control-attribute-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1506,19 +1893,32 @@
                           describe-instance-access-control-attribute-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-permission-set-provisioning-status-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-permission-set-provisioning-status-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (provision-permission-set-request-id
-    (common-lisp:error ":provision-permission-set-request-id is required")
-    :type (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:defclass describe-permission-set-provisioning-status-request
+                       common-lisp:nil
+                       ((provision-permission-set-request-id :initarg
+                         :provision-permission-set-request-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %describe-permission-set-provisioning-status-request-provision-permission-set-request-id
+                         :initform
+                         (common-lisp:error
+                          ":provision-permission-set-request-id is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %describe-permission-set-provisioning-status-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-permission-set-provisioning-status-request
                     'make-describe-permission-set-provisioning-status-request))
+ (common-lisp:defun make-describe-permission-set-provisioning-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key provision-permission-set-request-id
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-permission-set-provisioning-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1550,16 +1950,25 @@
                           describe-permission-set-provisioning-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-permission-set-provisioning-status-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-describe-permission-set-provisioning-status-response-"))
-   (permission-set-provisioning-status common-lisp:nil :type
-    (common-lisp:or permission-set-provisioning-status common-lisp:null)))
+ (common-lisp:defclass describe-permission-set-provisioning-status-response
+                       common-lisp:nil
+                       ((permission-set-provisioning-status :initarg
+                         :permission-set-provisioning-status :type
+                         (common-lisp:or permission-set-provisioning-status
+                                         common-lisp:null)
+                         :accessor
+                         %describe-permission-set-provisioning-status-response-permission-set-provisioning-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-permission-set-provisioning-status-response
                     'make-describe-permission-set-provisioning-status-response))
+ (common-lisp:defun make-describe-permission-set-provisioning-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-provisioning-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-permission-set-provisioning-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1584,16 +1993,29 @@
                           describe-permission-set-provisioning-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-permission-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null)))
+ (common-lisp:defclass describe-permission-set-request common-lisp:nil
+                       ((permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %describe-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %describe-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-permission-set-request
                     'make-describe-permission-set-request))
+ (common-lisp:defun make-describe-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1624,14 +2046,22 @@
                           describe-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-permission-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-permission-set-response-"))
-   (permission-set common-lisp:nil :type
-    (common-lisp:or permission-set common-lisp:null)))
+ (common-lisp:defclass describe-permission-set-response common-lisp:nil
+                       ((permission-set :initarg :permission-set :type
+                         (common-lisp:or permission-set common-lisp:null)
+                         :accessor
+                         %describe-permission-set-response-permission-set
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-permission-set-response
                     'make-describe-permission-set-response))
+ (common-lisp:defun make-describe-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'describe-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1655,22 +2085,36 @@
                           describe-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (detach-customer-managed-policy-reference-from-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-detach-customer-managed-policy-reference-from-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (customer-managed-policy-reference
-    (common-lisp:error ":customer-managed-policy-reference is required") :type
-    (common-lisp:or customer-managed-policy-reference common-lisp:null)))
+ (common-lisp:defclass
+  detach-customer-managed-policy-reference-from-permission-set-request
+  common-lisp:nil
+  ((customer-managed-policy-reference :initarg
+    :customer-managed-policy-reference :type
+    (common-lisp:or customer-managed-policy-reference common-lisp:null)
+    :accessor
+    %detach-customer-managed-policy-reference-from-permission-set-request-customer-managed-policy-reference
+    :initform
+    (common-lisp:error ":customer-managed-policy-reference is required"))
+   (permission-set-arn :initarg :permission-set-arn :type
+    (common-lisp:or permission-set-arn common-lisp:null) :accessor
+    %detach-customer-managed-policy-reference-from-permission-set-request-permission-set-arn
+    :initform (common-lisp:error ":permission-set-arn is required"))
+   (instance-arn :initarg :instance-arn :type
+    (common-lisp:or instance-arn common-lisp:null) :accessor
+    %detach-customer-managed-policy-reference-from-permission-set-request-instance-arn
+    :initform (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list
    'detach-customer-managed-policy-reference-from-permission-set-request
    'make-detach-customer-managed-policy-reference-from-permission-set-request))
+ (common-lisp:defun make-detach-customer-managed-policy-reference-from-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key customer-managed-policy-reference
+                     permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'detach-customer-managed-policy-reference-from-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1709,15 +2153,20 @@
                           detach-customer-managed-policy-reference-from-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (detach-customer-managed-policy-reference-from-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-detach-customer-managed-policy-reference-from-permission-set-response-")))
+ (common-lisp:defclass
+  detach-customer-managed-policy-reference-from-permission-set-response
+  common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list
    'detach-customer-managed-policy-reference-from-permission-set-response
    'make-detach-customer-managed-policy-reference-from-permission-set-response))
+ (common-lisp:defun make-detach-customer-managed-policy-reference-from-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'detach-customer-managed-policy-reference-from-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1734,20 +2183,37 @@
                           detach-customer-managed-policy-reference-from-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (detach-managed-policy-from-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-detach-managed-policy-from-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (managed-policy-arn (common-lisp:error ":managed-policy-arn is required")
-    :type (common-lisp:or managed-policy-arn common-lisp:null)))
+ (common-lisp:defclass detach-managed-policy-from-permission-set-request
+                       common-lisp:nil
+                       ((managed-policy-arn :initarg :managed-policy-arn :type
+                         (common-lisp:or managed-policy-arn common-lisp:null)
+                         :accessor
+                         %detach-managed-policy-from-permission-set-request-managed-policy-arn
+                         :initform
+                         (common-lisp:error ":managed-policy-arn is required"))
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %detach-managed-policy-from-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %detach-managed-policy-from-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'detach-managed-policy-from-permission-set-request
                     'make-detach-managed-policy-from-permission-set-request))
+ (common-lisp:defun make-detach-managed-policy-from-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key managed-policy-arn permission-set-arn
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'detach-managed-policy-from-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1785,14 +2251,18 @@
                           detach-managed-policy-from-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (detach-managed-policy-from-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-detach-managed-policy-from-permission-set-response-")))
+ (common-lisp:defclass detach-managed-policy-from-permission-set-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'detach-managed-policy-from-permission-set-response
                     'make-detach-managed-policy-from-permission-set-response))
+ (common-lisp:defun make-detach-managed-policy-from-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'detach-managed-policy-from-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1810,17 +2280,30 @@
    common-lisp:nil))
 (common-lisp:deftype duration () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-inline-policy-for-permission-set-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-inline-policy-for-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null)))
+ (common-lisp:defclass get-inline-policy-for-permission-set-request
+                       common-lisp:nil
+                       ((permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %get-inline-policy-for-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %get-inline-policy-for-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-inline-policy-for-permission-set-request
                     'make-get-inline-policy-for-permission-set-request))
+ (common-lisp:defun make-get-inline-policy-for-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-inline-policy-for-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1851,15 +2334,24 @@
                           get-inline-policy-for-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-inline-policy-for-permission-set-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-inline-policy-for-permission-set-response-"))
-   (inline-policy common-lisp:nil :type
-    (common-lisp:or permission-set-policy-document common-lisp:null)))
+ (common-lisp:defclass get-inline-policy-for-permission-set-response
+                       common-lisp:nil
+                       ((inline-policy :initarg :inline-policy :type
+                         (common-lisp:or permission-set-policy-document
+                                         common-lisp:null)
+                         :accessor
+                         %get-inline-policy-for-permission-set-response-inline-policy
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-inline-policy-for-permission-set-response
                     'make-get-inline-policy-for-permission-set-response))
+ (common-lisp:defun make-get-inline-policy-for-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key inline-policy)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-inline-policy-for-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1883,18 +2375,30 @@
                           get-inline-policy-for-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-permissions-boundary-for-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-permissions-boundary-for-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null)))
+ (common-lisp:defclass get-permissions-boundary-for-permission-set-request
+                       common-lisp:nil
+                       ((permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %get-permissions-boundary-for-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %get-permissions-boundary-for-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'get-permissions-boundary-for-permission-set-request
                     'make-get-permissions-boundary-for-permission-set-request))
+ (common-lisp:defun make-get-permissions-boundary-for-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-permissions-boundary-for-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1925,16 +2429,24 @@
                           get-permissions-boundary-for-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-permissions-boundary-for-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-get-permissions-boundary-for-permission-set-response-"))
-   (permissions-boundary common-lisp:nil :type
-    (common-lisp:or permissions-boundary common-lisp:null)))
+ (common-lisp:defclass get-permissions-boundary-for-permission-set-response
+                       common-lisp:nil
+                       ((permissions-boundary :initarg :permissions-boundary
+                         :type
+                         (common-lisp:or permissions-boundary common-lisp:null)
+                         :accessor
+                         %get-permissions-boundary-for-permission-set-response-permissions-boundary
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-permissions-boundary-for-permission-set-response
                     'make-get-permissions-boundary-for-permission-set-response))
+ (common-lisp:defun make-get-permissions-boundary-for-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permissions-boundary)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'get-permissions-boundary-for-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1960,16 +2472,27 @@
    common-lisp:nil))
 (common-lisp:deftype id () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (instance-access-control-attribute-configuration (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-instance-access-control-attribute-configuration-"))
-   (access-control-attributes
-    (common-lisp:error ":access-control-attributes is required") :type
-    (common-lisp:or access-control-attribute-list common-lisp:null)))
+ (common-lisp:defclass instance-access-control-attribute-configuration
+                       common-lisp:nil
+                       ((access-control-attributes :initarg
+                         :access-control-attributes :type
+                         (common-lisp:or access-control-attribute-list
+                                         common-lisp:null)
+                         :accessor
+                         %instance-access-control-attribute-configuration-access-control-attributes
+                         :initform
+                         (common-lisp:error
+                          ":access-control-attributes is required"))))
  (common-lisp:export
   (common-lisp:list 'instance-access-control-attribute-configuration
                     'make-instance-access-control-attribute-configuration))
+ (common-lisp:defun make-instance-access-control-attribute-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key access-control-attributes)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'instance-access-control-attribute-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2008,15 +2531,23 @@
                            (trivial-types:proper-list instance-metadata))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (instance-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-instance-metadata-"))
-   (instance-arn common-lisp:nil :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (identity-store-id common-lisp:nil :type
-    (common-lisp:or id common-lisp:null)))
+ (common-lisp:defclass instance-metadata common-lisp:nil
+                       ((identity-store-id :initarg :identity-store-id :type
+                         (common-lisp:or id common-lisp:null) :accessor
+                         %instance-metadata-identity-store-id :initform
+                         common-lisp:nil)
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %instance-metadata-instance-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'instance-metadata 'make-instance-metadata))
+ (common-lisp:defun make-instance-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identity-store-id instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'instance-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input instance-metadata))
    (common-lisp:append))
@@ -2050,20 +2581,40 @@
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-account-assignment-creation-status-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-account-assignment-creation-status-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (filter common-lisp:nil :type
-    (common-lisp:or operation-status-filter common-lisp:null)))
+ (common-lisp:defclass list-account-assignment-creation-status-request
+                       common-lisp:nil
+                       ((filter :initarg :filter :type
+                         (common-lisp:or operation-status-filter
+                                         common-lisp:null)
+                         :accessor
+                         %list-account-assignment-creation-status-request-filter
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-account-assignment-creation-status-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-account-assignment-creation-status-request-max-results
+                         :initform common-lisp:nil)
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %list-account-assignment-creation-status-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-account-assignment-creation-status-request
                     'make-list-account-assignment-creation-status-request))
+ (common-lisp:defun make-list-account-assignment-creation-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key filter next-token max-results
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-account-assignment-creation-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2108,17 +2659,31 @@
                           list-account-assignment-creation-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-account-assignment-creation-status-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-account-assignment-creation-status-response-"))
-   (account-assignments-creation-status common-lisp:nil :type
-    (common-lisp:or account-assignment-operation-status-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-account-assignment-creation-status-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-account-assignment-creation-status-response-next-token
+                         :initform common-lisp:nil)
+                        (account-assignments-creation-status :initarg
+                         :account-assignments-creation-status :type
+                         (common-lisp:or
+                          account-assignment-operation-status-list
+                          common-lisp:null)
+                         :accessor
+                         %list-account-assignment-creation-status-response-account-assignments-creation-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-account-assignment-creation-status-response
                     'make-list-account-assignment-creation-status-response))
+ (common-lisp:defun make-list-account-assignment-creation-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     account-assignments-creation-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-account-assignment-creation-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2150,20 +2715,40 @@
                           list-account-assignment-creation-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-account-assignment-deletion-status-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-account-assignment-deletion-status-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (filter common-lisp:nil :type
-    (common-lisp:or operation-status-filter common-lisp:null)))
+ (common-lisp:defclass list-account-assignment-deletion-status-request
+                       common-lisp:nil
+                       ((filter :initarg :filter :type
+                         (common-lisp:or operation-status-filter
+                                         common-lisp:null)
+                         :accessor
+                         %list-account-assignment-deletion-status-request-filter
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-account-assignment-deletion-status-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-account-assignment-deletion-status-request-max-results
+                         :initform common-lisp:nil)
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %list-account-assignment-deletion-status-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-account-assignment-deletion-status-request
                     'make-list-account-assignment-deletion-status-request))
+ (common-lisp:defun make-list-account-assignment-deletion-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key filter next-token max-results
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-account-assignment-deletion-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2208,17 +2793,31 @@
                           list-account-assignment-deletion-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-account-assignment-deletion-status-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-account-assignment-deletion-status-response-"))
-   (account-assignments-deletion-status common-lisp:nil :type
-    (common-lisp:or account-assignment-operation-status-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-account-assignment-deletion-status-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-account-assignment-deletion-status-response-next-token
+                         :initform common-lisp:nil)
+                        (account-assignments-deletion-status :initarg
+                         :account-assignments-deletion-status :type
+                         (common-lisp:or
+                          account-assignment-operation-status-list
+                          common-lisp:null)
+                         :accessor
+                         %list-account-assignment-deletion-status-response-account-assignments-deletion-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-account-assignment-deletion-status-response
                     'make-list-account-assignment-deletion-status-response))
+ (common-lisp:defun make-list-account-assignment-deletion-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     account-assignments-deletion-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-account-assignment-deletion-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2250,21 +2849,43 @@
                           list-account-assignment-deletion-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-account-assignments-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-account-assignments-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (account-id (common-lisp:error ":account-id is required") :type
-    (common-lisp:or target-id common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-account-assignments-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-account-assignments-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-account-assignments-request-max-results
+                         :initform common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %list-account-assignments-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or target-id common-lisp:null) :accessor
+                         %list-account-assignments-request-account-id :initform
+                         (common-lisp:error ":account-id is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %list-account-assignments-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-account-assignments-request
                     'make-list-account-assignments-request))
+ (common-lisp:defun make-list-account-assignments-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results permission-set-arn
+                     account-id instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-account-assignments-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2316,15 +2937,28 @@
                           list-account-assignments-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-account-assignments-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-account-assignments-response-"))
-   (account-assignments common-lisp:nil :type
-    (common-lisp:or account-assignment-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-account-assignments-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-account-assignments-response-next-token
+                         :initform common-lisp:nil)
+                        (account-assignments :initarg :account-assignments
+                         :type
+                         (common-lisp:or account-assignment-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-account-assignments-response-account-assignments
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-account-assignments-response
                     'make-list-account-assignments-response))
+ (common-lisp:defun make-list-account-assignments-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token account-assignments)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-account-assignments-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2355,23 +2989,46 @@
                           list-account-assignments-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-accounts-for-provisioned-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-accounts-for-provisioned-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (provisioning-status common-lisp:nil :type
-    (common-lisp:or provisioning-status common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-accounts-for-provisioned-permission-set-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-accounts-for-provisioned-permission-set-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-accounts-for-provisioned-permission-set-request-max-results
+                         :initform common-lisp:nil)
+                        (provisioning-status :initarg :provisioning-status
+                         :type
+                         (common-lisp:or provisioning-status common-lisp:null)
+                         :accessor
+                         %list-accounts-for-provisioned-permission-set-request-provisioning-status
+                         :initform common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %list-accounts-for-provisioned-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %list-accounts-for-provisioned-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-accounts-for-provisioned-permission-set-request
                     'make-list-accounts-for-provisioned-permission-set-request))
+ (common-lisp:defun make-list-accounts-for-provisioned-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     provisioning-status permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-accounts-for-provisioned-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2423,17 +3080,27 @@
                           list-accounts-for-provisioned-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-accounts-for-provisioned-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-accounts-for-provisioned-permission-set-response-"))
-   (account-ids common-lisp:nil :type
-    (common-lisp:or account-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-accounts-for-provisioned-permission-set-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-accounts-for-provisioned-permission-set-response-next-token
+                         :initform common-lisp:nil)
+                        (account-ids :initarg :account-ids :type
+                         (common-lisp:or account-list common-lisp:null)
+                         :accessor
+                         %list-accounts-for-provisioned-permission-set-response-account-ids
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-accounts-for-provisioned-permission-set-response
                     'make-list-accounts-for-provisioned-permission-set-response))
+ (common-lisp:defun make-list-accounts-for-provisioned-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token account-ids)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-accounts-for-provisioned-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2464,22 +3131,37 @@
                           list-accounts-for-provisioned-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-customer-managed-policy-references-in-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-customer-managed-policy-references-in-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass
+  list-customer-managed-policy-references-in-permission-set-request
+  common-lisp:nil
+  ((next-token :initarg :next-token :type
+    (common-lisp:or token common-lisp:null) :accessor
+    %list-customer-managed-policy-references-in-permission-set-request-next-token
+    :initform common-lisp:nil)
+   (max-results :initarg :max-results :type
+    (common-lisp:or max-results common-lisp:null) :accessor
+    %list-customer-managed-policy-references-in-permission-set-request-max-results
+    :initform common-lisp:nil)
+   (permission-set-arn :initarg :permission-set-arn :type
+    (common-lisp:or permission-set-arn common-lisp:null) :accessor
+    %list-customer-managed-policy-references-in-permission-set-request-permission-set-arn
+    :initform (common-lisp:error ":permission-set-arn is required"))
+   (instance-arn :initarg :instance-arn :type
+    (common-lisp:or instance-arn common-lisp:null) :accessor
+    %list-customer-managed-policy-references-in-permission-set-request-instance-arn
+    :initform (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list
    'list-customer-managed-policy-references-in-permission-set-request
    'make-list-customer-managed-policy-references-in-permission-set-request))
+ (common-lisp:defun make-list-customer-managed-policy-references-in-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results permission-set-arn
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-customer-managed-policy-references-in-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2524,18 +3206,31 @@
                           list-customer-managed-policy-references-in-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-customer-managed-policy-references-in-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-customer-managed-policy-references-in-permission-set-response-"))
-   (customer-managed-policy-references common-lisp:nil :type
-    (common-lisp:or customer-managed-policy-reference-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass
+  list-customer-managed-policy-references-in-permission-set-response
+  common-lisp:nil
+  ((next-token :initarg :next-token :type
+    (common-lisp:or token common-lisp:null) :accessor
+    %list-customer-managed-policy-references-in-permission-set-response-next-token
+    :initform common-lisp:nil)
+   (customer-managed-policy-references :initarg
+    :customer-managed-policy-references :type
+    (common-lisp:or customer-managed-policy-reference-list common-lisp:null)
+    :accessor
+    %list-customer-managed-policy-references-in-permission-set-response-customer-managed-policy-references
+    :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list
    'list-customer-managed-policy-references-in-permission-set-response
    'make-list-customer-managed-policy-references-in-permission-set-response))
+ (common-lisp:defun make-list-customer-managed-policy-references-in-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     customer-managed-policy-references)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-customer-managed-policy-references-in-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2567,14 +3262,23 @@
                           list-customer-managed-policy-references-in-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-instances-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-instances-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-instances-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-instances-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-instances-request-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-instances-request 'make-list-instances-request))
+ (common-lisp:defun make-list-instances-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-instances-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2605,14 +3309,23 @@
                           list-instances-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-instances-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-instances-response-"))
-   (instances common-lisp:nil :type
-    (common-lisp:or instance-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-instances-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-instances-response-next-token :initform
+                         common-lisp:nil)
+                        (instances :initarg :instances :type
+                         (common-lisp:or instance-list common-lisp:null)
+                         :accessor %list-instances-response-instances :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-instances-response 'make-list-instances-response))
+ (common-lisp:defun make-list-instances-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token instances)
+   (common-lisp:apply #'common-lisp:make-instance 'list-instances-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2643,20 +3356,40 @@
                           list-instances-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-managed-policies-in-permission-set-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-managed-policies-in-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-managed-policies-in-permission-set-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-managed-policies-in-permission-set-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-managed-policies-in-permission-set-request-max-results
+                         :initform common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %list-managed-policies-in-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %list-managed-policies-in-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-managed-policies-in-permission-set-request
                     'make-list-managed-policies-in-permission-set-request))
+ (common-lisp:defun make-list-managed-policies-in-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results permission-set-arn
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-managed-policies-in-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2701,17 +3434,29 @@
                           list-managed-policies-in-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-managed-policies-in-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-managed-policies-in-permission-set-response-"))
-   (attached-managed-policies common-lisp:nil :type
-    (common-lisp:or attached-managed-policy-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-managed-policies-in-permission-set-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-managed-policies-in-permission-set-response-next-token
+                         :initform common-lisp:nil)
+                        (attached-managed-policies :initarg
+                         :attached-managed-policies :type
+                         (common-lisp:or attached-managed-policy-list
+                                         common-lisp:null)
+                         :accessor
+                         %list-managed-policies-in-permission-set-response-attached-managed-policies
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-managed-policies-in-permission-set-response
                     'make-list-managed-policies-in-permission-set-response))
+ (common-lisp:defun make-list-managed-policies-in-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token attached-managed-policies)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-managed-policies-in-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2743,20 +3488,40 @@
                           list-managed-policies-in-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-permission-set-provisioning-status-request (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-permission-set-provisioning-status-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (filter common-lisp:nil :type
-    (common-lisp:or operation-status-filter common-lisp:null)))
+ (common-lisp:defclass list-permission-set-provisioning-status-request
+                       common-lisp:nil
+                       ((filter :initarg :filter :type
+                         (common-lisp:or operation-status-filter
+                                         common-lisp:null)
+                         :accessor
+                         %list-permission-set-provisioning-status-request-filter
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-permission-set-provisioning-status-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-permission-set-provisioning-status-request-max-results
+                         :initform common-lisp:nil)
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %list-permission-set-provisioning-status-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-permission-set-provisioning-status-request
                     'make-list-permission-set-provisioning-status-request))
+ (common-lisp:defun make-list-permission-set-provisioning-status-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key filter next-token max-results
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-permission-set-provisioning-status-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2801,17 +3566,31 @@
                           list-permission-set-provisioning-status-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-permission-set-provisioning-status-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-permission-set-provisioning-status-response-"))
-   (permission-sets-provisioning-status common-lisp:nil :type
-    (common-lisp:or permission-set-provisioning-status-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-permission-set-provisioning-status-response
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-permission-set-provisioning-status-response-next-token
+                         :initform common-lisp:nil)
+                        (permission-sets-provisioning-status :initarg
+                         :permission-sets-provisioning-status :type
+                         (common-lisp:or
+                          permission-set-provisioning-status-list
+                          common-lisp:null)
+                         :accessor
+                         %list-permission-set-provisioning-status-response-permission-sets-provisioning-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-permission-set-provisioning-status-response
                     'make-list-permission-set-provisioning-status-response))
+ (common-lisp:defun make-list-permission-set-provisioning-status-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token
+                     permission-sets-provisioning-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-permission-set-provisioning-status-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2843,23 +3622,45 @@
                           list-permission-set-provisioning-status-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-permission-sets-provisioned-to-account-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-permission-sets-provisioned-to-account-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (account-id (common-lisp:error ":account-id is required") :type
-    (common-lisp:or account-id common-lisp:null))
-   (provisioning-status common-lisp:nil :type
-    (common-lisp:or provisioning-status common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-permission-sets-provisioned-to-account-request
+                       common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-permission-sets-provisioned-to-account-request-next-token
+                         :initform common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor
+                         %list-permission-sets-provisioned-to-account-request-max-results
+                         :initform common-lisp:nil)
+                        (provisioning-status :initarg :provisioning-status
+                         :type
+                         (common-lisp:or provisioning-status common-lisp:null)
+                         :accessor
+                         %list-permission-sets-provisioned-to-account-request-provisioning-status
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %list-permission-sets-provisioned-to-account-request-account-id
+                         :initform
+                         (common-lisp:error ":account-id is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %list-permission-sets-provisioned-to-account-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-permission-sets-provisioned-to-account-request
                     'make-list-permission-sets-provisioned-to-account-request))
+ (common-lisp:defun make-list-permission-sets-provisioned-to-account-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results
+                     provisioning-status account-id instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-permission-sets-provisioned-to-account-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2911,17 +3712,27 @@
                           list-permission-sets-provisioned-to-account-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-permission-sets-provisioned-to-account-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-list-permission-sets-provisioned-to-account-response-"))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (permission-sets common-lisp:nil :type
-    (common-lisp:or permission-set-list common-lisp:null)))
+ (common-lisp:defclass list-permission-sets-provisioned-to-account-response
+                       common-lisp:nil
+                       ((permission-sets :initarg :permission-sets :type
+                         (common-lisp:or permission-set-list common-lisp:null)
+                         :accessor
+                         %list-permission-sets-provisioned-to-account-response-permission-sets
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-permission-sets-provisioned-to-account-response-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-permission-sets-provisioned-to-account-response
                     'make-list-permission-sets-provisioned-to-account-response))
+ (common-lisp:defun make-list-permission-sets-provisioned-to-account-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-sets next-token)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-permission-sets-provisioned-to-account-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -2952,17 +3763,29 @@
                           list-permission-sets-provisioned-to-account-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-permission-sets-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-permission-sets-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null)))
+ (common-lisp:defclass list-permission-sets-request common-lisp:nil
+                       ((max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-permission-sets-request-max-results
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-permission-sets-request-next-token :initform
+                         common-lisp:nil)
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %list-permission-sets-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-permission-sets-request
                     'make-list-permission-sets-request))
+ (common-lisp:defun make-list-permission-sets-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key max-results next-token instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-permission-sets-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3000,15 +3823,26 @@
                           list-permission-sets-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-permission-sets-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-permission-sets-response-"))
-   (permission-sets common-lisp:nil :type
-    (common-lisp:or permission-set-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-permission-sets-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-permission-sets-response-next-token :initform
+                         common-lisp:nil)
+                        (permission-sets :initarg :permission-sets :type
+                         (common-lisp:or permission-set-list common-lisp:null)
+                         :accessor
+                         %list-permission-sets-response-permission-sets
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-permission-sets-response
                     'make-list-permission-sets-response))
+ (common-lisp:defun make-list-permission-sets-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token permission-sets)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-permission-sets-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3039,17 +3873,32 @@
                           list-permission-sets-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or taggable-resource-arn common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-tags-for-resource-request-next-token :initform
+                         common-lisp:nil)
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or taggable-resource-arn
+                                         common-lisp:null)
+                         :accessor %list-tags-for-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token resource-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3087,14 +3936,25 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (next-token common-lisp:nil :type (common-lisp:or token common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or token common-lisp:null) :accessor
+                         %list-tags-for-resource-response-next-token :initform
+                         common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3130,13 +3990,19 @@
 (common-lisp:deftype max-results () 'common-lisp:integer)
 (common-lisp:deftype name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (operation-status-filter (:copier common-lisp:nil)
-      (:conc-name "struct-shape-operation-status-filter-"))
-   (status common-lisp:nil :type
-    (common-lisp:or status-values common-lisp:null)))
+ (common-lisp:defclass operation-status-filter common-lisp:nil
+                       ((status :initarg :status :type
+                         (common-lisp:or status-values common-lisp:null)
+                         :accessor %operation-status-filter-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'operation-status-filter 'make-operation-status-filter))
+ (common-lisp:defun make-operation-status-filter
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key status)
+   (common-lisp:apply #'common-lisp:make-instance 'operation-status-filter
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3160,21 +4026,40 @@
                           operation-status-filter))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (permission-set (:copier common-lisp:nil)
-      (:conc-name "struct-shape-permission-set-"))
-   (name common-lisp:nil :type
-    (common-lisp:or permission-set-name common-lisp:null))
-   (permission-set-arn common-lisp:nil :type
-    (common-lisp:or permission-set-arn common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or permission-set-description common-lisp:null))
-   (created-date common-lisp:nil :type (common-lisp:or date common-lisp:null))
-   (session-duration common-lisp:nil :type
-    (common-lisp:or duration common-lisp:null))
-   (relay-state common-lisp:nil :type
-    (common-lisp:or relay-state common-lisp:null)))
+ (common-lisp:defclass permission-set common-lisp:nil
+                       ((relay-state :initarg :relay-state :type
+                         (common-lisp:or relay-state common-lisp:null)
+                         :accessor %permission-set-relay-state :initform
+                         common-lisp:nil)
+                        (session-duration :initarg :session-duration :type
+                         (common-lisp:or duration common-lisp:null) :accessor
+                         %permission-set-session-duration :initform
+                         common-lisp:nil)
+                        (created-date :initarg :created-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %permission-set-created-date :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or permission-set-description
+                                         common-lisp:null)
+                         :accessor %permission-set-description :initform
+                         common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor %permission-set-permission-set-arn :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or permission-set-name common-lisp:null)
+                         :accessor %permission-set-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'permission-set 'make-permission-set))
+ (common-lisp:defun make-permission-set
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key relay-state session-duration created-date
+                     description permission-set-arn name)
+   (common-lisp:apply #'common-lisp:make-instance 'permission-set
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input permission-set))
    (common-lisp:append))
@@ -3239,22 +4124,43 @@
 (common-lisp:deftype permission-set-name () 'common-lisp:string)
 (common-lisp:deftype permission-set-policy-document () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (permission-set-provisioning-status (:copier common-lisp:nil)
-      (:conc-name "struct-shape-permission-set-provisioning-status-"))
-   (status common-lisp:nil :type
-    (common-lisp:or status-values common-lisp:null))
-   (request-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (account-id common-lisp:nil :type
-    (common-lisp:or account-id common-lisp:null))
-   (permission-set-arn common-lisp:nil :type
-    (common-lisp:or permission-set-arn common-lisp:null))
-   (failure-reason common-lisp:nil :type
-    (common-lisp:or reason common-lisp:null))
-   (created-date common-lisp:nil :type (common-lisp:or date common-lisp:null)))
+ (common-lisp:defclass permission-set-provisioning-status common-lisp:nil
+                       ((created-date :initarg :created-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %permission-set-provisioning-status-created-date
+                         :initform common-lisp:nil)
+                        (failure-reason :initarg :failure-reason :type
+                         (common-lisp:or reason common-lisp:null) :accessor
+                         %permission-set-provisioning-status-failure-reason
+                         :initform common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %permission-set-provisioning-status-permission-set-arn
+                         :initform common-lisp:nil)
+                        (account-id :initarg :account-id :type
+                         (common-lisp:or account-id common-lisp:null) :accessor
+                         %permission-set-provisioning-status-account-id
+                         :initform common-lisp:nil)
+                        (request-id :initarg :request-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %permission-set-provisioning-status-request-id
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status-values common-lisp:null)
+                         :accessor %permission-set-provisioning-status-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'permission-set-provisioning-status
                     'make-permission-set-provisioning-status))
+ (common-lisp:defun make-permission-set-provisioning-status
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-date failure-reason
+                     permission-set-arn account-id request-id status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'permission-set-provisioning-status
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3322,16 +4228,31 @@
                             permission-set-provisioning-status-metadata))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (permission-set-provisioning-status-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-permission-set-provisioning-status-metadata-"))
-   (status common-lisp:nil :type
-    (common-lisp:or status-values common-lisp:null))
-   (request-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (created-date common-lisp:nil :type (common-lisp:or date common-lisp:null)))
+ (common-lisp:defclass permission-set-provisioning-status-metadata
+                       common-lisp:nil
+                       ((created-date :initarg :created-date :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %permission-set-provisioning-status-metadata-created-date
+                         :initform common-lisp:nil)
+                        (request-id :initarg :request-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %permission-set-provisioning-status-metadata-request-id
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or status-values common-lisp:null)
+                         :accessor
+                         %permission-set-provisioning-status-metadata-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'permission-set-provisioning-status-metadata
                     'make-permission-set-provisioning-status-metadata))
+ (common-lisp:defun make-permission-set-provisioning-status-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-date request-id status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'permission-set-provisioning-status-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3369,15 +4290,27 @@
                           permission-set-provisioning-status-metadata))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (permissions-boundary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-permissions-boundary-"))
-   (customer-managed-policy-reference common-lisp:nil :type
-    (common-lisp:or customer-managed-policy-reference common-lisp:null))
-   (managed-policy-arn common-lisp:nil :type
-    (common-lisp:or managed-policy-arn common-lisp:null)))
+ (common-lisp:defclass permissions-boundary common-lisp:nil
+                       ((managed-policy-arn :initarg :managed-policy-arn :type
+                         (common-lisp:or managed-policy-arn common-lisp:null)
+                         :accessor %permissions-boundary-managed-policy-arn
+                         :initform common-lisp:nil)
+                        (customer-managed-policy-reference :initarg
+                         :customer-managed-policy-reference :type
+                         (common-lisp:or customer-managed-policy-reference
+                                         common-lisp:null)
+                         :accessor
+                         %permissions-boundary-customer-managed-policy-reference
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'permissions-boundary 'make-permissions-boundary))
+ (common-lisp:defun make-permissions-boundary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key managed-policy-arn
+                     customer-managed-policy-reference)
+   (common-lisp:apply #'common-lisp:make-instance 'permissions-boundary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input permissions-boundary))
    (common-lisp:append))
@@ -3405,20 +4338,41 @@
 (common-lisp:deftype principal-id () 'common-lisp:string)
 (common-lisp:deftype principal-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (provision-permission-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-provision-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (target-id common-lisp:nil :type
-    (common-lisp:or target-id common-lisp:null))
-   (target-type (common-lisp:error ":target-type is required") :type
-    (common-lisp:or provision-target-type common-lisp:null)))
+ (common-lisp:defclass provision-permission-set-request common-lisp:nil
+                       ((target-type :initarg :target-type :type
+                         (common-lisp:or provision-target-type
+                                         common-lisp:null)
+                         :accessor
+                         %provision-permission-set-request-target-type
+                         :initform
+                         (common-lisp:error ":target-type is required"))
+                        (target-id :initarg :target-id :type
+                         (common-lisp:or target-id common-lisp:null) :accessor
+                         %provision-permission-set-request-target-id :initform
+                         common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %provision-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %provision-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'provision-permission-set-request
                     'make-provision-permission-set-request))
+ (common-lisp:defun make-provision-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-type target-id permission-set-arn
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'provision-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3463,14 +4417,24 @@
                           provision-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (provision-permission-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-provision-permission-set-response-"))
-   (permission-set-provisioning-status common-lisp:nil :type
-    (common-lisp:or permission-set-provisioning-status common-lisp:null)))
+ (common-lisp:defclass provision-permission-set-response common-lisp:nil
+                       ((permission-set-provisioning-status :initarg
+                         :permission-set-provisioning-status :type
+                         (common-lisp:or permission-set-provisioning-status
+                                         common-lisp:null)
+                         :accessor
+                         %provision-permission-set-response-permission-set-provisioning-status
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'provision-permission-set-response
                     'make-provision-permission-set-response))
+ (common-lisp:defun make-provision-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permission-set-provisioning-status)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'provision-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3497,18 +4461,38 @@
 (common-lisp:deftype provision-target-type () 'common-lisp:string)
 (common-lisp:deftype provisioning-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-inline-policy-to-permission-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-inline-policy-to-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (inline-policy (common-lisp:error ":inline-policy is required") :type
-    (common-lisp:or permission-set-policy-document common-lisp:null)))
+ (common-lisp:defclass put-inline-policy-to-permission-set-request
+                       common-lisp:nil
+                       ((inline-policy :initarg :inline-policy :type
+                         (common-lisp:or permission-set-policy-document
+                                         common-lisp:null)
+                         :accessor
+                         %put-inline-policy-to-permission-set-request-inline-policy
+                         :initform
+                         (common-lisp:error ":inline-policy is required"))
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %put-inline-policy-to-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %put-inline-policy-to-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'put-inline-policy-to-permission-set-request
                     'make-put-inline-policy-to-permission-set-request))
+ (common-lisp:defun make-put-inline-policy-to-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key inline-policy permission-set-arn
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-inline-policy-to-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3546,13 +4530,18 @@
                           put-inline-policy-to-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-inline-policy-to-permission-set-response (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-inline-policy-to-permission-set-response-")))
+ (common-lisp:defclass put-inline-policy-to-permission-set-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'put-inline-policy-to-permission-set-response
                     'make-put-inline-policy-to-permission-set-response))
+ (common-lisp:defun make-put-inline-policy-to-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-inline-policy-to-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3569,21 +4558,39 @@
                           put-inline-policy-to-permission-set-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-permissions-boundary-to-permission-set-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-permissions-boundary-to-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (permissions-boundary
-    (common-lisp:error ":permissions-boundary is required") :type
-    (common-lisp:or permissions-boundary common-lisp:null)))
+ (common-lisp:defclass put-permissions-boundary-to-permission-set-request
+                       common-lisp:nil
+                       ((permissions-boundary :initarg :permissions-boundary
+                         :type
+                         (common-lisp:or permissions-boundary common-lisp:null)
+                         :accessor
+                         %put-permissions-boundary-to-permission-set-request-permissions-boundary
+                         :initform
+                         (common-lisp:error
+                          ":permissions-boundary is required"))
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %put-permissions-boundary-to-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor
+                         %put-permissions-boundary-to-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'put-permissions-boundary-to-permission-set-request
                     'make-put-permissions-boundary-to-permission-set-request))
+ (common-lisp:defun make-put-permissions-boundary-to-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key permissions-boundary permission-set-arn
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-permissions-boundary-to-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3622,14 +4629,18 @@
                           put-permissions-boundary-to-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-permissions-boundary-to-permission-set-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-put-permissions-boundary-to-permission-set-response-")))
+ (common-lisp:defclass put-permissions-boundary-to-permission-set-response
+                       common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'put-permissions-boundary-to-permission-set-response
                     'make-put-permissions-boundary-to-permission-set-response))
+ (common-lisp:defun make-put-permissions-boundary-to-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'put-permissions-boundary-to-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3667,13 +4678,22 @@
 (common-lisp:deftype service-quota-exceeded-message () 'common-lisp:string)
 (common-lisp:deftype status-values () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform
+                         (common-lisp:error ":value is required"))
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -3713,17 +4733,28 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or taggable-resource-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or taggable-resource-arn
+                                         common-lisp:null)
+                         :accessor %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %tag-resource-request-instance-arn :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -3755,11 +4786,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3790,17 +4825,30 @@
 (common-lisp:deftype token () 'common-lisp:string)
 (common-lisp:deftype uuid () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or taggable-resource-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or taggable-resource-arn
+                                         common-lisp:null)
+                         :accessor %untag-resource-request-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %untag-resource-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3838,11 +4886,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3859,23 +4911,35 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-instance-access-control-attribute-configuration-request
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-instance-access-control-attribute-configuration-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (instance-access-control-attribute-configuration
-    (common-lisp:error
-     ":instance-access-control-attribute-configuration is required")
-    :type
+ (common-lisp:defclass
+  update-instance-access-control-attribute-configuration-request
+  common-lisp:nil
+  ((instance-access-control-attribute-configuration :initarg
+    :instance-access-control-attribute-configuration :type
     (common-lisp:or instance-access-control-attribute-configuration
-                    common-lisp:null)))
+                    common-lisp:null)
+    :accessor
+    %update-instance-access-control-attribute-configuration-request-instance-access-control-attribute-configuration
+    :initform
+    (common-lisp:error
+     ":instance-access-control-attribute-configuration is required"))
+   (instance-arn :initarg :instance-arn :type
+    (common-lisp:or instance-arn common-lisp:null) :accessor
+    %update-instance-access-control-attribute-configuration-request-instance-arn
+    :initform (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list
    'update-instance-access-control-attribute-configuration-request
    'make-update-instance-access-control-attribute-configuration-request))
+ (common-lisp:defun make-update-instance-access-control-attribute-configuration-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key
+                     instance-access-control-attribute-configuration
+                     instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-instance-access-control-attribute-configuration-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3907,15 +4971,20 @@
                           update-instance-access-control-attribute-configuration-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-instance-access-control-attribute-configuration-response
-      (:copier common-lisp:nil)
-      (:conc-name
-       "struct-shape-update-instance-access-control-attribute-configuration-response-")))
+ (common-lisp:defclass
+  update-instance-access-control-attribute-configuration-response
+  common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list
    'update-instance-access-control-attribute-configuration-response
    'make-update-instance-access-control-attribute-configuration-response))
+ (common-lisp:defun make-update-instance-access-control-attribute-configuration-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-instance-access-control-attribute-configuration-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3932,22 +5001,42 @@
                           update-instance-access-control-attribute-configuration-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-permission-set-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-permission-set-request-"))
-   (instance-arn (common-lisp:error ":instance-arn is required") :type
-    (common-lisp:or instance-arn common-lisp:null))
-   (permission-set-arn (common-lisp:error ":permission-set-arn is required")
-    :type (common-lisp:or permission-set-arn common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or permission-set-description common-lisp:null))
-   (session-duration common-lisp:nil :type
-    (common-lisp:or duration common-lisp:null))
-   (relay-state common-lisp:nil :type
-    (common-lisp:or relay-state common-lisp:null)))
+ (common-lisp:defclass update-permission-set-request common-lisp:nil
+                       ((relay-state :initarg :relay-state :type
+                         (common-lisp:or relay-state common-lisp:null)
+                         :accessor %update-permission-set-request-relay-state
+                         :initform common-lisp:nil)
+                        (session-duration :initarg :session-duration :type
+                         (common-lisp:or duration common-lisp:null) :accessor
+                         %update-permission-set-request-session-duration
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or permission-set-description
+                                         common-lisp:null)
+                         :accessor %update-permission-set-request-description
+                         :initform common-lisp:nil)
+                        (permission-set-arn :initarg :permission-set-arn :type
+                         (common-lisp:or permission-set-arn common-lisp:null)
+                         :accessor
+                         %update-permission-set-request-permission-set-arn
+                         :initform
+                         (common-lisp:error ":permission-set-arn is required"))
+                        (instance-arn :initarg :instance-arn :type
+                         (common-lisp:or instance-arn common-lisp:null)
+                         :accessor %update-permission-set-request-instance-arn
+                         :initform
+                         (common-lisp:error ":instance-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'update-permission-set-request
                     'make-update-permission-set-request))
+ (common-lisp:defun make-update-permission-set-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key relay-state session-duration description
+                     permission-set-arn instance-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-permission-set-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -3999,12 +5088,18 @@
                           update-permission-set-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-permission-set-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-permission-set-response-")))
+ (common-lisp:defclass update-permission-set-response common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'update-permission-set-response
                     'make-update-permission-set-response))
+ (common-lisp:defun make-update-permission-set-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'update-permission-set-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

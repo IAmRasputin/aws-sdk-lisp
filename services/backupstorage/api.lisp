@@ -39,23 +39,43 @@
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (backup-object (:copier common-lisp:nil)
-      (:conc-name "struct-shape-backup-object-"))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (chunks-count common-lisp:nil :type
-    (common-lisp:or optional-long common-lisp:null))
-   (metadata-string common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum (common-lisp:error ":object-checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum-algorithm
-    (common-lisp:error ":object-checksum-algorithm is required") :type
-    (common-lisp:or summary-checksum-algorithm common-lisp:null))
-   (object-token (common-lisp:error ":object-token is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass backup-object common-lisp:nil
+                       ((object-token :initarg :object-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-object-object-token :initform
+                         (common-lisp:error ":object-token is required"))
+                        (object-checksum-algorithm :initarg
+                         :object-checksum-algorithm :type
+                         (common-lisp:or summary-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor %backup-object-object-checksum-algorithm
+                         :initform
+                         (common-lisp:error
+                          ":object-checksum-algorithm is required"))
+                        (object-checksum :initarg :object-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-object-object-checksum :initform
+                         (common-lisp:error ":object-checksum is required"))
+                        (metadata-string :initarg :metadata-string :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-object-metadata-string :initform
+                         common-lisp:nil)
+                        (chunks-count :initarg :chunks-count :type
+                         (common-lisp:or optional-long common-lisp:null)
+                         :accessor %backup-object-chunks-count :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %backup-object-name :initform
+                         (common-lisp:error ":name is required"))))
  (common-lisp:export (common-lisp:list 'backup-object 'make-backup-object))
+ (common-lisp:defun make-backup-object
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-token object-checksum-algorithm
+                     object-checksum metadata-string chunks-count name)
+   (common-lisp:apply #'common-lisp:make-instance 'backup-object
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input backup-object))
    (common-lisp:append))
@@ -109,19 +129,36 @@
                         ((aws-sdk/generator/shape::input backup-object))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (chunk (:copier common-lisp:nil) (:conc-name "struct-shape-chunk-"))
-   (index (common-lisp:error ":index is required") :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (length (common-lisp:error ":length is required") :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (checksum (common-lisp:error ":checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (checksum-algorithm (common-lisp:error ":checksum-algorithm is required")
-    :type (common-lisp:or data-checksum-algorithm common-lisp:null))
-   (chunk-token (common-lisp:error ":chunk-token is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass chunk common-lisp:nil
+                       ((chunk-token :initarg :chunk-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %chunk-chunk-token :initform
+                         (common-lisp:error ":chunk-token is required"))
+                        (checksum-algorithm :initarg :checksum-algorithm :type
+                         (common-lisp:or data-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor %chunk-checksum-algorithm :initform
+                         (common-lisp:error ":checksum-algorithm is required"))
+                        (checksum :initarg :checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %chunk-checksum :initform
+                         (common-lisp:error ":checksum is required"))
+                        (length :initarg :length :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %chunk-length :initform
+                         (common-lisp:error ":length is required"))
+                        (index :initarg :index :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %chunk-index :initform
+                         (common-lisp:error ":index is required"))))
  (common-lisp:export (common-lisp:list 'chunk 'make-chunk))
+ (common-lisp:defun make-chunk
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key chunk-token checksum-algorithm checksum
+                     length index)
+   (common-lisp:apply #'common-lisp:make-instance 'chunk
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input chunk))
    (common-lisp:append))
@@ -190,15 +227,23 @@
                     'data-already-exists-exception-checksum-algorithm)))
 (common-lisp:deftype data-checksum-algorithm () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-object-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-object-input-"))
-   (backup-job-id (common-lisp:error ":backup-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-name (common-lisp:error ":object-name is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass delete-object-input common-lisp:nil
+                       ((object-name :initarg :object-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-object-input-object-name :initform
+                         (common-lisp:error ":object-name is required"))
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %delete-object-input-backup-job-id :initform
+                         (common-lisp:error ":backup-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-object-input 'make-delete-object-input))
+ (common-lisp:defun make-delete-object-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-name backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-object-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-object-input))
    (common-lisp:append))
@@ -209,14 +254,22 @@
                         ((aws-sdk/generator/shape::input delete-object-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-chunk-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-chunk-input-"))
-   (storage-job-id (common-lisp:error ":storage-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (chunk-token (common-lisp:error ":chunk-token is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-chunk-input common-lisp:nil
+                       ((chunk-token :initarg :chunk-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-chunk-input-chunk-token :initform
+                         (common-lisp:error ":chunk-token is required"))
+                        (storage-job-id :initarg :storage-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-chunk-input-storage-job-id :initform
+                         (common-lisp:error ":storage-job-id is required"))))
  (common-lisp:export (common-lisp:list 'get-chunk-input 'make-get-chunk-input))
+ (common-lisp:defun make-get-chunk-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key chunk-token storage-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-chunk-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-chunk-input))
    (common-lisp:append))
@@ -227,19 +280,33 @@
                         ((aws-sdk/generator/shape::input get-chunk-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-chunk-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-chunk-output-"))
-   (data (common-lisp:error ":data is required") :type
-    (common-lisp:or payload-blob common-lisp:null))
-   (length (common-lisp:error ":length is required") :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (checksum (common-lisp:error ":checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (checksum-algorithm (common-lisp:error ":checksum-algorithm is required")
-    :type (common-lisp:or data-checksum-algorithm common-lisp:null)))
+ (common-lisp:defclass get-chunk-output common-lisp:nil
+                       ((checksum-algorithm :initarg :checksum-algorithm :type
+                         (common-lisp:or data-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor %get-chunk-output-checksum-algorithm
+                         :initform
+                         (common-lisp:error ":checksum-algorithm is required"))
+                        (checksum :initarg :checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-chunk-output-checksum :initform
+                         (common-lisp:error ":checksum is required"))
+                        (length :initarg :length :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %get-chunk-output-length :initform
+                         (common-lisp:error ":length is required"))
+                        (data :initarg :data :type
+                         (common-lisp:or payload-blob common-lisp:null)
+                         :accessor %get-chunk-output-data :initform
+                         (common-lisp:error ":data is required"))))
  (common-lisp:export
   (common-lisp:list 'get-chunk-output 'make-get-chunk-output))
+ (common-lisp:defun make-get-chunk-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key checksum-algorithm checksum length data)
+   (common-lisp:apply #'common-lisp:make-instance 'get-chunk-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-chunk-output))
    (common-lisp:append
@@ -268,18 +335,29 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input get-chunk-output))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'data)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'data))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-object-metadata-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-object-metadata-input-"))
-   (storage-job-id (common-lisp:error ":storage-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-token (common-lisp:error ":object-token is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass get-object-metadata-input common-lisp:nil
+                       ((object-token :initarg :object-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-object-metadata-input-object-token
+                         :initform
+                         (common-lisp:error ":object-token is required"))
+                        (storage-job-id :initarg :storage-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-object-metadata-input-storage-job-id
+                         :initform
+                         (common-lisp:error ":storage-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'get-object-metadata-input
                     'make-get-object-metadata-input))
+ (common-lisp:defun make-get-object-metadata-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-token storage-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'get-object-metadata-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -296,22 +374,45 @@
                           get-object-metadata-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-object-metadata-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-object-metadata-output-"))
-   (metadata-string common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (metadata-blob common-lisp:nil :type
-    (common-lisp:or payload-blob common-lisp:null))
-   (metadata-blob-length common-lisp:nil :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (metadata-blob-checksum common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (metadata-blob-checksum-algorithm common-lisp:nil :type
-    (common-lisp:or data-checksum-algorithm common-lisp:null)))
+ (common-lisp:defclass get-object-metadata-output common-lisp:nil
+                       ((metadata-blob-checksum-algorithm :initarg
+                         :metadata-blob-checksum-algorithm :type
+                         (common-lisp:or data-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor
+                         %get-object-metadata-output-metadata-blob-checksum-algorithm
+                         :initform common-lisp:nil)
+                        (metadata-blob-checksum :initarg
+                         :metadata-blob-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %get-object-metadata-output-metadata-blob-checksum
+                         :initform common-lisp:nil)
+                        (metadata-blob-length :initarg :metadata-blob-length
+                         :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor
+                         %get-object-metadata-output-metadata-blob-length
+                         :initform common-lisp:nil)
+                        (metadata-blob :initarg :metadata-blob :type
+                         (common-lisp:or payload-blob common-lisp:null)
+                         :accessor %get-object-metadata-output-metadata-blob
+                         :initform common-lisp:nil)
+                        (metadata-string :initarg :metadata-string :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %get-object-metadata-output-metadata-string
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-object-metadata-output
                     'make-get-object-metadata-output))
+ (common-lisp:defun make-get-object-metadata-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key metadata-blob-checksum-algorithm
+                     metadata-blob-checksum metadata-blob-length metadata-blob
+                     metadata-string)
+   (common-lisp:apply #'common-lisp:make-instance 'get-object-metadata-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -354,7 +455,8 @@
                         (
                          (aws-sdk/generator/shape::input
                           get-object-metadata-output))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'metadata-blob)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'metadata-blob))))
 (common-lisp:progn
  (common-lisp:define-condition illegal-argument-exception
      (backupstorage-error)
@@ -372,19 +474,32 @@
   (common-lisp:list 'kmsinvalid-key-usage-exception
                     'kmsinvalid-key-usage-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-chunks-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-chunks-input-"))
-   (storage-job-id (common-lisp:error ":storage-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-token (common-lisp:error ":object-token is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-chunks-input common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-chunks-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-chunks-input-max-results :initform
+                         common-lisp:nil)
+                        (object-token :initarg :object-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-chunks-input-object-token :initform
+                         (common-lisp:error ":object-token is required"))
+                        (storage-job-id :initarg :storage-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-chunks-input-storage-job-id :initform
+                         (common-lisp:error ":storage-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-chunks-input 'make-list-chunks-input))
+ (common-lisp:defun make-list-chunks-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results object-token
+                     storage-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-chunks-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-chunks-input))
    (common-lisp:append))
@@ -395,15 +510,23 @@
                         ((aws-sdk/generator/shape::input list-chunks-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-chunks-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-chunks-output-"))
-   (chunk-list (common-lisp:error ":chunk-list is required") :type
-    (common-lisp:or chunk-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-chunks-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-chunks-output-next-token :initform
+                         common-lisp:nil)
+                        (chunk-list :initarg :chunk-list :type
+                         (common-lisp:or chunk-list common-lisp:null) :accessor
+                         %list-chunks-output-chunk-list :initform
+                         (common-lisp:error ":chunk-list is required"))))
  (common-lisp:export
   (common-lisp:list 'list-chunks-output 'make-list-chunks-output))
+ (common-lisp:defun make-list-chunks-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token chunk-list)
+   (common-lisp:apply #'common-lisp:make-instance 'list-chunks-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-chunks-output))
    (common-lisp:append))
@@ -428,25 +551,47 @@
                         ((aws-sdk/generator/shape::input list-chunks-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-objects-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-objects-input-"))
-   (storage-job-id (common-lisp:error ":storage-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (starting-object-name common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (starting-object-prefix common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (created-before common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (created-after common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-objects-input common-lisp:nil
+                       ((created-after :initarg :created-after :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-objects-input-created-after :initform
+                         common-lisp:nil)
+                        (created-before :initarg :created-before :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-objects-input-created-before :initform
+                         common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-objects-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-objects-input-max-results :initform
+                         common-lisp:nil)
+                        (starting-object-prefix :initarg
+                         :starting-object-prefix :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-objects-input-starting-object-prefix
+                         :initform common-lisp:nil)
+                        (starting-object-name :initarg :starting-object-name
+                         :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-objects-input-starting-object-name
+                         :initform common-lisp:nil)
+                        (storage-job-id :initarg :storage-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-objects-input-storage-job-id :initform
+                         (common-lisp:error ":storage-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'list-objects-input 'make-list-objects-input))
+ (common-lisp:defun make-list-objects-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key created-after created-before next-token
+                     max-results starting-object-prefix starting-object-name
+                     storage-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'list-objects-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-objects-input))
    (common-lisp:append))
@@ -457,15 +602,23 @@
                         ((aws-sdk/generator/shape::input list-objects-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-objects-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-objects-output-"))
-   (object-list (common-lisp:error ":object-list is required") :type
-    (common-lisp:or object-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass list-objects-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %list-objects-output-next-token :initform
+                         common-lisp:nil)
+                        (object-list :initarg :object-list :type
+                         (common-lisp:or object-list common-lisp:null)
+                         :accessor %list-objects-output-object-list :initform
+                         (common-lisp:error ":object-list is required"))))
  (common-lisp:export
   (common-lisp:list 'list-objects-output 'make-list-objects-output))
+ (common-lisp:defun make-list-objects-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token object-list)
+   (common-lisp:apply #'common-lisp:make-instance 'list-objects-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-objects-output))
    (common-lisp:append))
@@ -500,31 +653,72 @@
   (common-lisp:list 'not-readable-input-stream-exception
                     'not-readable-input-stream-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (notify-object-complete-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-notify-object-complete-input-"))
-   (backup-job-id (common-lisp:error ":backup-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (upload-id (common-lisp:error ":upload-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum (common-lisp:error ":object-checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum-algorithm
-    (common-lisp:error ":object-checksum-algorithm is required") :type
-    (common-lisp:or summary-checksum-algorithm common-lisp:null))
-   (metadata-string common-lisp:nil :type
-    (common-lisp:or metadata-string common-lisp:null))
-   (metadata-blob common-lisp:nil :type
-    (common-lisp:or payload-blob common-lisp:null))
-   (metadata-blob-length common-lisp:nil :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (metadata-blob-checksum common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (metadata-blob-checksum-algorithm common-lisp:nil :type
-    (common-lisp:or data-checksum-algorithm common-lisp:null)))
+ (common-lisp:defclass notify-object-complete-input common-lisp:nil
+                       ((metadata-blob-checksum-algorithm :initarg
+                         :metadata-blob-checksum-algorithm :type
+                         (common-lisp:or data-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor
+                         %notify-object-complete-input-metadata-blob-checksum-algorithm
+                         :initform common-lisp:nil)
+                        (metadata-blob-checksum :initarg
+                         :metadata-blob-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %notify-object-complete-input-metadata-blob-checksum
+                         :initform common-lisp:nil)
+                        (metadata-blob-length :initarg :metadata-blob-length
+                         :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor
+                         %notify-object-complete-input-metadata-blob-length
+                         :initform common-lisp:nil)
+                        (metadata-blob :initarg :metadata-blob :type
+                         (common-lisp:or payload-blob common-lisp:null)
+                         :accessor %notify-object-complete-input-metadata-blob
+                         :initform common-lisp:nil)
+                        (metadata-string :initarg :metadata-string :type
+                         (common-lisp:or metadata-string common-lisp:null)
+                         :accessor
+                         %notify-object-complete-input-metadata-string
+                         :initform common-lisp:nil)
+                        (object-checksum-algorithm :initarg
+                         :object-checksum-algorithm :type
+                         (common-lisp:or summary-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor
+                         %notify-object-complete-input-object-checksum-algorithm
+                         :initform
+                         (common-lisp:error
+                          ":object-checksum-algorithm is required"))
+                        (object-checksum :initarg :object-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %notify-object-complete-input-object-checksum
+                         :initform
+                         (common-lisp:error ":object-checksum is required"))
+                        (upload-id :initarg :upload-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %notify-object-complete-input-upload-id
+                         :initform
+                         (common-lisp:error ":upload-id is required"))
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %notify-object-complete-input-backup-job-id
+                         :initform
+                         (common-lisp:error ":backup-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'notify-object-complete-input
                     'make-notify-object-complete-input))
+ (common-lisp:defun make-notify-object-complete-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key metadata-blob-checksum-algorithm
+                     metadata-blob-checksum metadata-blob-length metadata-blob
+                     metadata-string object-checksum-algorithm object-checksum
+                     upload-id backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'notify-object-complete-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -546,19 +740,36 @@
                         (
                          (aws-sdk/generator/shape::input
                           notify-object-complete-input))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'metadata-blob)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'metadata-blob))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (notify-object-complete-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-notify-object-complete-output-"))
-   (object-checksum (common-lisp:error ":object-checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum-algorithm
-    (common-lisp:error ":object-checksum-algorithm is required") :type
-    (common-lisp:or summary-checksum-algorithm common-lisp:null)))
+ (common-lisp:defclass notify-object-complete-output common-lisp:nil
+                       ((object-checksum-algorithm :initarg
+                         :object-checksum-algorithm :type
+                         (common-lisp:or summary-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor
+                         %notify-object-complete-output-object-checksum-algorithm
+                         :initform
+                         (common-lisp:error
+                          ":object-checksum-algorithm is required"))
+                        (object-checksum :initarg :object-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %notify-object-complete-output-object-checksum
+                         :initform
+                         (common-lisp:error ":object-checksum is required"))))
  (common-lisp:export
   (common-lisp:list 'notify-object-complete-output
                     'make-notify-object-complete-output))
+ (common-lisp:defun make-notify-object-complete-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-checksum-algorithm
+                     object-checksum)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'notify-object-complete-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -601,24 +812,45 @@
 (common-lisp:deftype payload-blob ()
   '(common-lisp:simple-array (common-lisp:unsigned-byte 8) (common-lisp:*)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-chunk-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-chunk-input-"))
-   (backup-job-id (common-lisp:error ":backup-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (upload-id (common-lisp:error ":upload-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (chunk-index (common-lisp:error ":chunk-index is required") :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (data (common-lisp:error ":data is required") :type
-    (common-lisp:or payload-blob common-lisp:null))
-   (length (common-lisp:error ":length is required") :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (checksum (common-lisp:error ":checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (checksum-algorithm (common-lisp:error ":checksum-algorithm is required")
-    :type (common-lisp:or data-checksum-algorithm common-lisp:null)))
+ (common-lisp:defclass put-chunk-input common-lisp:nil
+                       ((checksum-algorithm :initarg :checksum-algorithm :type
+                         (common-lisp:or data-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor %put-chunk-input-checksum-algorithm
+                         :initform
+                         (common-lisp:error ":checksum-algorithm is required"))
+                        (checksum :initarg :checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-chunk-input-checksum :initform
+                         (common-lisp:error ":checksum is required"))
+                        (length :initarg :length :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %put-chunk-input-length :initform
+                         (common-lisp:error ":length is required"))
+                        (data :initarg :data :type
+                         (common-lisp:or payload-blob common-lisp:null)
+                         :accessor %put-chunk-input-data :initform
+                         (common-lisp:error ":data is required"))
+                        (chunk-index :initarg :chunk-index :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %put-chunk-input-chunk-index :initform
+                         (common-lisp:error ":chunk-index is required"))
+                        (upload-id :initarg :upload-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-chunk-input-upload-id :initform
+                         (common-lisp:error ":upload-id is required"))
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-chunk-input-backup-job-id :initform
+                         (common-lisp:error ":backup-job-id is required"))))
  (common-lisp:export (common-lisp:list 'put-chunk-input 'make-put-chunk-input))
+ (common-lisp:defun make-put-chunk-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key checksum-algorithm checksum length data
+                     chunk-index upload-id backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'put-chunk-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-chunk-input))
    (common-lisp:append))
@@ -634,18 +866,30 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input put-chunk-input))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'data)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'data))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-chunk-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-chunk-output-"))
-   (chunk-checksum (common-lisp:error ":chunk-checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (chunk-checksum-algorithm
-    (common-lisp:error ":chunk-checksum-algorithm is required") :type
-    (common-lisp:or data-checksum-algorithm common-lisp:null)))
+ (common-lisp:defclass put-chunk-output common-lisp:nil
+                       ((chunk-checksum-algorithm :initarg
+                         :chunk-checksum-algorithm :type
+                         (common-lisp:or data-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor %put-chunk-output-chunk-checksum-algorithm
+                         :initform
+                         (common-lisp:error
+                          ":chunk-checksum-algorithm is required"))
+                        (chunk-checksum :initarg :chunk-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-chunk-output-chunk-checksum :initform
+                         (common-lisp:error ":chunk-checksum is required"))))
  (common-lisp:export
   (common-lisp:list 'put-chunk-output 'make-put-chunk-output))
+ (common-lisp:defun make-put-chunk-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key chunk-checksum-algorithm chunk-checksum)
+   (common-lisp:apply #'common-lisp:make-instance 'put-chunk-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-chunk-output))
    (common-lisp:append))
@@ -671,31 +915,65 @@
                         ((aws-sdk/generator/shape::input put-chunk-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-object-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-object-input-"))
-   (backup-job-id (common-lisp:error ":backup-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-name (common-lisp:error ":object-name is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (metadata-string common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (inline-chunk common-lisp:nil :type
-    (common-lisp:or payload-blob common-lisp:null))
-   (inline-chunk-length common-lisp:nil :type
-    (common-lisp:or common-lisp:integer common-lisp:null))
-   (inline-chunk-checksum common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (inline-chunk-checksum-algorithm common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum common-lisp:nil :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum-algorithm common-lisp:nil :type
-    (common-lisp:or summary-checksum-algorithm common-lisp:null))
-   (throw-on-duplicate common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null)))
+ (common-lisp:defclass put-object-input common-lisp:nil
+                       ((throw-on-duplicate :initarg :throw-on-duplicate :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %put-object-input-throw-on-duplicate
+                         :initform common-lisp:nil)
+                        (object-checksum-algorithm :initarg
+                         :object-checksum-algorithm :type
+                         (common-lisp:or summary-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor %put-object-input-object-checksum-algorithm
+                         :initform common-lisp:nil)
+                        (object-checksum :initarg :object-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-object-input-object-checksum :initform
+                         common-lisp:nil)
+                        (inline-chunk-checksum-algorithm :initarg
+                         :inline-chunk-checksum-algorithm :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor
+                         %put-object-input-inline-chunk-checksum-algorithm
+                         :initform common-lisp:nil)
+                        (inline-chunk-checksum :initarg :inline-chunk-checksum
+                         :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-object-input-inline-chunk-checksum
+                         :initform common-lisp:nil)
+                        (inline-chunk-length :initarg :inline-chunk-length
+                         :type
+                         (common-lisp:or common-lisp:integer common-lisp:null)
+                         :accessor %put-object-input-inline-chunk-length
+                         :initform common-lisp:nil)
+                        (inline-chunk :initarg :inline-chunk :type
+                         (common-lisp:or payload-blob common-lisp:null)
+                         :accessor %put-object-input-inline-chunk :initform
+                         common-lisp:nil)
+                        (metadata-string :initarg :metadata-string :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-object-input-metadata-string :initform
+                         common-lisp:nil)
+                        (object-name :initarg :object-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-object-input-object-name :initform
+                         (common-lisp:error ":object-name is required"))
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-object-input-backup-job-id :initform
+                         (common-lisp:error ":backup-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'put-object-input 'make-put-object-input))
+ (common-lisp:defun make-put-object-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key throw-on-duplicate
+                     object-checksum-algorithm object-checksum
+                     inline-chunk-checksum-algorithm inline-chunk-checksum
+                     inline-chunk-length inline-chunk metadata-string
+                     object-name backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'put-object-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-object-input))
    (common-lisp:append))
@@ -711,24 +989,47 @@
                           aws-sdk/generator/shape::value))))))
  (common-lisp:defmethod aws-sdk/generator/shape::input-payload
                         ((aws-sdk/generator/shape::input put-object-input))
-   (common-lisp:slot-value aws-sdk/generator/shape::input 'inline-chunk)))
+   (com.inuoe.jzon:stringify
+    (common-lisp:slot-value aws-sdk/generator/shape::input 'inline-chunk))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-object-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-object-output-"))
-   (inline-chunk-checksum
-    (common-lisp:error ":inline-chunk-checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (inline-chunk-checksum-algorithm
-    (common-lisp:error ":inline-chunk-checksum-algorithm is required") :type
-    (common-lisp:or data-checksum-algorithm common-lisp:null))
-   (object-checksum (common-lisp:error ":object-checksum is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-checksum-algorithm
-    (common-lisp:error ":object-checksum-algorithm is required") :type
-    (common-lisp:or summary-checksum-algorithm common-lisp:null)))
+ (common-lisp:defclass put-object-output common-lisp:nil
+                       ((object-checksum-algorithm :initarg
+                         :object-checksum-algorithm :type
+                         (common-lisp:or summary-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor %put-object-output-object-checksum-algorithm
+                         :initform
+                         (common-lisp:error
+                          ":object-checksum-algorithm is required"))
+                        (object-checksum :initarg :object-checksum :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-object-output-object-checksum :initform
+                         (common-lisp:error ":object-checksum is required"))
+                        (inline-chunk-checksum-algorithm :initarg
+                         :inline-chunk-checksum-algorithm :type
+                         (common-lisp:or data-checksum-algorithm
+                                         common-lisp:null)
+                         :accessor
+                         %put-object-output-inline-chunk-checksum-algorithm
+                         :initform
+                         (common-lisp:error
+                          ":inline-chunk-checksum-algorithm is required"))
+                        (inline-chunk-checksum :initarg :inline-chunk-checksum
+                         :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %put-object-output-inline-chunk-checksum
+                         :initform
+                         (common-lisp:error
+                          ":inline-chunk-checksum is required"))))
  (common-lisp:export
   (common-lisp:list 'put-object-output 'make-put-object-output))
+ (common-lisp:defun make-put-object-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-checksum-algorithm object-checksum
+                     inline-chunk-checksum-algorithm inline-chunk-checksum)
+   (common-lisp:apply #'common-lisp:make-instance 'put-object-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-object-output))
    (common-lisp:append))
@@ -802,17 +1103,28 @@
   (common-lisp:list 'service-unavailable-exception
                     'service-unavailable-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-object-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-object-input-"))
-   (backup-job-id (common-lisp:error ":backup-job-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (object-name (common-lisp:error ":object-name is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null))
-   (throw-on-duplicate common-lisp:nil :type
-    (common-lisp:or common-lisp:boolean common-lisp:null)))
+ (common-lisp:defclass start-object-input common-lisp:nil
+                       ((throw-on-duplicate :initarg :throw-on-duplicate :type
+                         (common-lisp:or common-lisp:boolean common-lisp:null)
+                         :accessor %start-object-input-throw-on-duplicate
+                         :initform common-lisp:nil)
+                        (object-name :initarg :object-name :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-object-input-object-name :initform
+                         (common-lisp:error ":object-name is required"))
+                        (backup-job-id :initarg :backup-job-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-object-input-backup-job-id :initform
+                         (common-lisp:error ":backup-job-id is required"))))
  (common-lisp:export
   (common-lisp:list 'start-object-input 'make-start-object-input))
+ (common-lisp:defun make-start-object-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key throw-on-duplicate object-name
+                     backup-job-id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-object-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-object-input))
    (common-lisp:append))
@@ -830,13 +1142,19 @@
                         ((aws-sdk/generator/shape::input start-object-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-object-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-object-output-"))
-   (upload-id (common-lisp:error ":upload-id is required") :type
-    (common-lisp:or common-lisp:string common-lisp:null)))
+ (common-lisp:defclass start-object-output common-lisp:nil
+                       ((upload-id :initarg :upload-id :type
+                         (common-lisp:or common-lisp:string common-lisp:null)
+                         :accessor %start-object-output-upload-id :initform
+                         (common-lisp:error ":upload-id is required"))))
  (common-lisp:export
   (common-lisp:list 'start-object-output 'make-start-object-output))
+ (common-lisp:defun make-start-object-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key upload-id)
+   (common-lisp:apply #'common-lisp:make-instance 'start-object-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-object-output))
    (common-lisp:append))

@@ -28,26 +28,48 @@
 (common-lisp:deftype date () 'common-lisp:string)
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (event (:copier common-lisp:nil) (:conc-name "struct-shape-event-"))
-   (event-id common-lisp:nil :type
-    (common-lisp:or string-type common-lisp:null))
-   (event-type (common-lisp:error ":eventtype is required") :type
-    (common-lisp:or string-type common-lisp:null))
-   (event-value common-lisp:nil :type
-    (common-lisp:or float-type common-lisp:null))
-   (item-id common-lisp:nil :type (common-lisp:or item-id common-lisp:null))
-   (properties common-lisp:nil :type
-    (common-lisp:or event-properties-json common-lisp:null))
-   (sent-at (common-lisp:error ":sentat is required") :type
-    (common-lisp:or date common-lisp:null))
-   (recommendation-id common-lisp:nil :type
-    (common-lisp:or recommendation-id common-lisp:null))
-   (impression common-lisp:nil :type
-    (common-lisp:or impression common-lisp:null))
-   (metric-attribution common-lisp:nil :type
-    (common-lisp:or metric-attribution common-lisp:null)))
+ (common-lisp:defclass event common-lisp:nil
+                       ((metric-attribution :initarg :|metricAttribution| :type
+                         (common-lisp:or metric-attribution common-lisp:null)
+                         :accessor %event-metric-attribution :initform
+                         common-lisp:nil)
+                        (impression :initarg :|impression| :type
+                         (common-lisp:or impression common-lisp:null) :accessor
+                         %event-impression :initform common-lisp:nil)
+                        (recommendation-id :initarg :|recommendationId| :type
+                         (common-lisp:or recommendation-id common-lisp:null)
+                         :accessor %event-recommendation-id :initform
+                         common-lisp:nil)
+                        (sent-at :initarg :|sentAt| :type
+                         (common-lisp:or date common-lisp:null) :accessor
+                         %event-sent-at :initform
+                         (common-lisp:error ":sentat is required"))
+                        (properties :initarg :|properties| :type
+                         (common-lisp:or event-properties-json
+                                         common-lisp:null)
+                         :accessor %event-properties :initform common-lisp:nil)
+                        (item-id :initarg :|itemId| :type
+                         (common-lisp:or item-id common-lisp:null) :accessor
+                         %event-item-id :initform common-lisp:nil)
+                        (event-value :initarg :|eventValue| :type
+                         (common-lisp:or float-type common-lisp:null) :accessor
+                         %event-event-value :initform common-lisp:nil)
+                        (event-type :initarg :|eventType| :type
+                         (common-lisp:or string-type common-lisp:null)
+                         :accessor %event-event-type :initform
+                         (common-lisp:error ":eventtype is required"))
+                        (event-id :initarg :|eventId| :type
+                         (common-lisp:or string-type common-lisp:null)
+                         :accessor %event-event-id :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'event 'make-event))
+ (common-lisp:defun make-event
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key metric-attribution impression
+                     recommendation-id sent-at properties item-id event-value
+                     event-type event-id)
+   (common-lisp:apply #'common-lisp:make-instance 'event
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input event))
    (common-lisp:append))
@@ -140,18 +162,26 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-input-exception
      (personalize-events-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-input-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-input-exception 'invalid-input-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (item (:copier common-lisp:nil) (:conc-name "struct-shape-item-"))
-   (item-id (common-lisp:error ":itemid is required") :type
-    (common-lisp:or string-type common-lisp:null))
-   (properties common-lisp:nil :type
-    (common-lisp:or item-properties common-lisp:null)))
+ (common-lisp:defclass item common-lisp:nil
+                       ((properties :initarg :|properties| :type
+                         (common-lisp:or item-properties common-lisp:null)
+                         :accessor %item-properties :initform common-lisp:nil)
+                        (item-id :initarg :|itemId| :type
+                         (common-lisp:or string-type common-lisp:null)
+                         :accessor %item-item-id :initform
+                         (common-lisp:error ":itemid is required"))))
  (common-lisp:export (common-lisp:list 'item 'make-item))
+ (common-lisp:defun make-item
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key properties item-id)
+   (common-lisp:apply #'common-lisp:make-instance 'item
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input item))
    (common-lisp:append))
@@ -185,14 +215,23 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype item-properties () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (metric-attribution (:copier common-lisp:nil)
-      (:conc-name "struct-shape-metric-attribution-"))
-   (event-attribution-source
-    (common-lisp:error ":eventattributionsource is required") :type
-    (common-lisp:or event-attribution-source common-lisp:null)))
+ (common-lisp:defclass metric-attribution common-lisp:nil
+                       ((event-attribution-source :initarg
+                         :|eventAttributionSource| :type
+                         (common-lisp:or event-attribution-source
+                                         common-lisp:null)
+                         :accessor %metric-attribution-event-attribution-source
+                         :initform
+                         (common-lisp:error
+                          ":eventattributionsource is required"))))
  (common-lisp:export
   (common-lisp:list 'metric-attribution 'make-metric-attribution))
+ (common-lisp:defun make-metric-attribution
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-attribution-source)
+   (common-lisp:apply #'common-lisp:make-instance 'metric-attribution
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input metric-attribution))
    (common-lisp:append))
@@ -211,18 +250,31 @@
                         ((aws-sdk/generator/shape::input metric-attribution))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-events-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-events-request-"))
-   (tracking-id (common-lisp:error ":trackingid is required") :type
-    (common-lisp:or string-type common-lisp:null))
-   (user-id common-lisp:nil :type (common-lisp:or user-id common-lisp:null))
-   (session-id (common-lisp:error ":sessionid is required") :type
-    (common-lisp:or string-type common-lisp:null))
-   (event-list (common-lisp:error ":eventlist is required") :type
-    (common-lisp:or event-list common-lisp:null)))
+ (common-lisp:defclass put-events-request common-lisp:nil
+                       ((event-list :initarg :|eventList| :type
+                         (common-lisp:or event-list common-lisp:null) :accessor
+                         %put-events-request-event-list :initform
+                         (common-lisp:error ":eventlist is required"))
+                        (session-id :initarg :|sessionId| :type
+                         (common-lisp:or string-type common-lisp:null)
+                         :accessor %put-events-request-session-id :initform
+                         (common-lisp:error ":sessionid is required"))
+                        (user-id :initarg :|userId| :type
+                         (common-lisp:or user-id common-lisp:null) :accessor
+                         %put-events-request-user-id :initform common-lisp:nil)
+                        (tracking-id :initarg :|trackingId| :type
+                         (common-lisp:or string-type common-lisp:null)
+                         :accessor %put-events-request-tracking-id :initform
+                         (common-lisp:error ":trackingid is required"))))
  (common-lisp:export
   (common-lisp:list 'put-events-request 'make-put-events-request))
+ (common-lisp:defun make-put-events-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key event-list session-id user-id
+                     tracking-id)
+   (common-lisp:apply #'common-lisp:make-instance 'put-events-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-events-request))
    (common-lisp:append))
@@ -261,15 +313,23 @@
                         ((aws-sdk/generator/shape::input put-events-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-items-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-items-request-"))
-   (dataset-arn (common-lisp:error ":datasetarn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (items (common-lisp:error ":items is required") :type
-    (common-lisp:or item-list common-lisp:null)))
+ (common-lisp:defclass put-items-request common-lisp:nil
+                       ((items :initarg :|items| :type
+                         (common-lisp:or item-list common-lisp:null) :accessor
+                         %put-items-request-items :initform
+                         (common-lisp:error ":items is required"))
+                        (dataset-arn :initarg :|datasetArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %put-items-request-dataset-arn :initform
+                         (common-lisp:error ":datasetarn is required"))))
  (common-lisp:export
   (common-lisp:list 'put-items-request 'make-put-items-request))
+ (common-lisp:defun make-put-items-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key items dataset-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'put-items-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-items-request))
    (common-lisp:append))
@@ -294,15 +354,23 @@
                         ((aws-sdk/generator/shape::input put-items-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (put-users-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-put-users-request-"))
-   (dataset-arn (common-lisp:error ":datasetarn is required") :type
-    (common-lisp:or arn common-lisp:null))
-   (users (common-lisp:error ":users is required") :type
-    (common-lisp:or user-list common-lisp:null)))
+ (common-lisp:defclass put-users-request common-lisp:nil
+                       ((users :initarg :|users| :type
+                         (common-lisp:or user-list common-lisp:null) :accessor
+                         %put-users-request-users :initform
+                         (common-lisp:error ":users is required"))
+                        (dataset-arn :initarg :|datasetArn| :type
+                         (common-lisp:or arn common-lisp:null) :accessor
+                         %put-users-request-dataset-arn :initform
+                         (common-lisp:error ":datasetarn is required"))))
  (common-lisp:export
   (common-lisp:list 'put-users-request 'make-put-users-request))
+ (common-lisp:defun make-put-users-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key users dataset-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'put-users-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input put-users-request))
    (common-lisp:append))
@@ -330,7 +398,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-in-use-exception
      (personalize-events-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-in-use-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-in-use-exception
@@ -338,20 +406,28 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (personalize-events-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception
                     'resource-not-found-exception-message)))
 (common-lisp:deftype string-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (user (:copier common-lisp:nil) (:conc-name "struct-shape-user-"))
-   (user-id (common-lisp:error ":userid is required") :type
-    (common-lisp:or string-type common-lisp:null))
-   (properties common-lisp:nil :type
-    (common-lisp:or user-properties common-lisp:null)))
+ (common-lisp:defclass user common-lisp:nil
+                       ((properties :initarg :|properties| :type
+                         (common-lisp:or user-properties common-lisp:null)
+                         :accessor %user-properties :initform common-lisp:nil)
+                        (user-id :initarg :|userId| :type
+                         (common-lisp:or string-type common-lisp:null)
+                         :accessor %user-user-id :initform
+                         (common-lisp:error ":userid is required"))))
  (common-lisp:export (common-lisp:list 'user 'make-user))
+ (common-lisp:defun make-user
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key properties user-id)
+   (common-lisp:apply #'common-lisp:make-instance 'user
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input user))
    (common-lisp:append))

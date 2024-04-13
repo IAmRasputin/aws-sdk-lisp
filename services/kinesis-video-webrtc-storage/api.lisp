@@ -28,7 +28,7 @@
 (common-lisp:progn
  (common-lisp:define-condition access-denied-exception
      (kinesis-video-webrtc-storage-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        access-denied-exception-message)))
  (common-lisp:export
   (common-lisp:list 'access-denied-exception 'access-denied-exception-message)))
@@ -36,7 +36,7 @@
 (common-lisp:progn
  (common-lisp:define-condition client-limit-exceeded-exception
      (kinesis-video-webrtc-storage-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        client-limit-exceeded-exception-message)))
  (common-lisp:export
   (common-lisp:list 'client-limit-exceeded-exception
@@ -44,20 +44,27 @@
 (common-lisp:progn
  (common-lisp:define-condition invalid-argument-exception
      (kinesis-video-webrtc-storage-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        invalid-argument-exception-message)))
  (common-lisp:export
   (common-lisp:list 'invalid-argument-exception
                     'invalid-argument-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (join-storage-session-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-join-storage-session-input-"))
-   (channel-arn (common-lisp:error ":channelarn is required") :type
-    (common-lisp:or channel-arn common-lisp:null)))
+ (common-lisp:defclass join-storage-session-input common-lisp:nil
+                       ((channel-arn :initarg :|channelArn| :type
+                         (common-lisp:or channel-arn common-lisp:null)
+                         :accessor %join-storage-session-input-channel-arn
+                         :initform
+                         (common-lisp:error ":channelarn is required"))))
  (common-lisp:export
   (common-lisp:list 'join-storage-session-input
                     'make-join-storage-session-input))
+ (common-lisp:defun make-join-storage-session-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key channel-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'join-storage-session-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -83,7 +90,7 @@
 (common-lisp:progn
  (common-lisp:define-condition resource-not-found-exception
      (kinesis-video-webrtc-storage-error)
-     ((message :initarg :message :initform common-lisp:nil :reader
+     ((message :initarg :|message| :initform common-lisp:nil :reader
        resource-not-found-exception-message)))
  (common-lisp:export
   (common-lisp:list 'resource-not-found-exception

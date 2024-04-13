@@ -37,22 +37,40 @@
                     'conflict-exception-reason)))
 (common-lisp:deftype conflict-exception-reason () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-rule-request-"))
-   (retention-period (common-lisp:error ":retention-period is required") :type
-    (common-lisp:or retention-period common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (resource-type (common-lisp:error ":resource-type is required") :type
-    (common-lisp:or resource-type common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null))
-   (lock-configuration common-lisp:nil :type
-    (common-lisp:or lock-configuration common-lisp:null)))
+ (common-lisp:defclass create-rule-request common-lisp:nil
+                       ((lock-configuration :initarg :lock-configuration :type
+                         (common-lisp:or lock-configuration common-lisp:null)
+                         :accessor %create-rule-request-lock-configuration
+                         :initform common-lisp:nil)
+                        (resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %create-rule-request-resource-tags :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %create-rule-request-resource-type :initform
+                         (common-lisp:error ":resource-type is required"))
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-rule-request-tags :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %create-rule-request-description :initform
+                         common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %create-rule-request-retention-period
+                         :initform
+                         (common-lisp:error ":retention-period is required"))))
  (common-lisp:export
   (common-lisp:list 'create-rule-request 'make-create-rule-request))
+ (common-lisp:defun make-create-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-configuration resource-tags
+                     resource-type tags description retention-period)
+   (common-lisp:apply #'common-lisp:make-instance 'create-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-rule-request))
    (common-lisp:append))
@@ -105,27 +123,52 @@
                         ((aws-sdk/generator/shape::input create-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (create-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-create-rule-response-"))
-   (identifier common-lisp:nil :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (retention-period common-lisp:nil :type
-    (common-lisp:or retention-period common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or rule-status common-lisp:null))
-   (lock-configuration common-lisp:nil :type
-    (common-lisp:or lock-configuration common-lisp:null))
-   (lock-state common-lisp:nil :type
-    (common-lisp:or lock-state common-lisp:null)))
+ (common-lisp:defclass create-rule-response common-lisp:nil
+                       ((lock-state :initarg :lock-state :type
+                         (common-lisp:or lock-state common-lisp:null) :accessor
+                         %create-rule-response-lock-state :initform
+                         common-lisp:nil)
+                        (lock-configuration :initarg :lock-configuration :type
+                         (common-lisp:or lock-configuration common-lisp:null)
+                         :accessor %create-rule-response-lock-configuration
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or rule-status common-lisp:null)
+                         :accessor %create-rule-response-status :initform
+                         common-lisp:nil)
+                        (resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %create-rule-response-resource-tags
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %create-rule-response-resource-type
+                         :initform common-lisp:nil)
+                        (tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %create-rule-response-tags :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %create-rule-response-description :initform
+                         common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %create-rule-response-retention-period
+                         :initform common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %create-rule-response-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'create-rule-response 'make-create-rule-response))
+ (common-lisp:defun make-create-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-state lock-configuration status
+                     resource-tags resource-type tags description
+                     retention-period identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'create-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input create-rule-response))
    (common-lisp:append))
@@ -199,13 +242,19 @@
                         ((aws-sdk/generator/shape::input create-rule-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-rule-request-"))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or rule-identifier common-lisp:null)))
+ (common-lisp:defclass delete-rule-request common-lisp:nil
+                       ((identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %delete-rule-request-identifier :initform
+                         (common-lisp:error ":identifier is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-rule-request 'make-delete-rule-request))
+ (common-lisp:defun make-delete-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-rule-request))
    (common-lisp:append))
@@ -216,11 +265,15 @@
                         ((aws-sdk/generator/shape::input delete-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-rule-response-")))
+ (common-lisp:defclass delete-rule-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-rule-response 'make-delete-rule-response))
+ (common-lisp:defun make-delete-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-rule-response))
    (common-lisp:append))
@@ -233,13 +286,19 @@
 (common-lisp:deftype description () 'common-lisp:string)
 (common-lisp:deftype error-message () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-rule-request-"))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or rule-identifier common-lisp:null)))
+ (common-lisp:defclass get-rule-request common-lisp:nil
+                       ((identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %get-rule-request-identifier :initform
+                         (common-lisp:error ":identifier is required"))))
  (common-lisp:export
   (common-lisp:list 'get-rule-request 'make-get-rule-request))
+ (common-lisp:defun make-get-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-rule-request))
    (common-lisp:append))
@@ -250,28 +309,53 @@
                         ((aws-sdk/generator/shape::input get-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (get-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-get-rule-response-"))
-   (identifier common-lisp:nil :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (retention-period common-lisp:nil :type
-    (common-lisp:or retention-period common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or rule-status common-lisp:null))
-   (lock-configuration common-lisp:nil :type
-    (common-lisp:or lock-configuration common-lisp:null))
-   (lock-state common-lisp:nil :type
-    (common-lisp:or lock-state common-lisp:null))
-   (lock-end-time common-lisp:nil :type
-    (common-lisp:or time-stamp common-lisp:null)))
+ (common-lisp:defclass get-rule-response common-lisp:nil
+                       ((lock-end-time :initarg :lock-end-time :type
+                         (common-lisp:or time-stamp common-lisp:null) :accessor
+                         %get-rule-response-lock-end-time :initform
+                         common-lisp:nil)
+                        (lock-state :initarg :lock-state :type
+                         (common-lisp:or lock-state common-lisp:null) :accessor
+                         %get-rule-response-lock-state :initform
+                         common-lisp:nil)
+                        (lock-configuration :initarg :lock-configuration :type
+                         (common-lisp:or lock-configuration common-lisp:null)
+                         :accessor %get-rule-response-lock-configuration
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or rule-status common-lisp:null)
+                         :accessor %get-rule-response-status :initform
+                         common-lisp:nil)
+                        (resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %get-rule-response-resource-tags :initform
+                         common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %get-rule-response-retention-period
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %get-rule-response-resource-type :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %get-rule-response-description :initform
+                         common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %get-rule-response-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'get-rule-response 'make-get-rule-response))
+ (common-lisp:defun make-get-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-end-time lock-state
+                     lock-configuration status resource-tags retention-period
+                     resource-type description identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'get-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input get-rule-response))
    (common-lisp:append))
@@ -353,21 +437,36 @@
   (common-lisp:list 'internal-server-exception
                     'internal-server-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-rules-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-rules-request-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or max-results common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null))
-   (resource-type (common-lisp:error ":resource-type is required") :type
-    (common-lisp:or resource-type common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null))
-   (lock-state common-lisp:nil :type
-    (common-lisp:or lock-state common-lisp:null)))
+ (common-lisp:defclass list-rules-request common-lisp:nil
+                       ((lock-state :initarg :lock-state :type
+                         (common-lisp:or lock-state common-lisp:null) :accessor
+                         %list-rules-request-lock-state :initform
+                         common-lisp:nil)
+                        (resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %list-rules-request-resource-tags :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %list-rules-request-resource-type :initform
+                         (common-lisp:error ":resource-type is required"))
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-rules-request-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or max-results common-lisp:null)
+                         :accessor %list-rules-request-max-results :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-rules-request 'make-list-rules-request))
+ (common-lisp:defun make-list-rules-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-state resource-tags resource-type
+                     next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-rules-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-rules-request))
    (common-lisp:append))
@@ -413,15 +512,23 @@
                         ((aws-sdk/generator/shape::input list-rules-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-rules-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-rules-response-"))
-   (rules common-lisp:nil :type
-    (common-lisp:or rule-summary-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or next-token common-lisp:null)))
+ (common-lisp:defclass list-rules-response common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or next-token common-lisp:null) :accessor
+                         %list-rules-response-next-token :initform
+                         common-lisp:nil)
+                        (rules :initarg :rules :type
+                         (common-lisp:or rule-summary-list common-lisp:null)
+                         :accessor %list-rules-response-rules :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-rules-response 'make-list-rules-response))
+ (common-lisp:defun make-list-rules-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token rules)
+   (common-lisp:apply #'common-lisp:make-instance 'list-rules-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-rules-response))
    (common-lisp:append))
@@ -446,14 +553,21 @@
                         ((aws-sdk/generator/shape::input list-rules-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or rule-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-request common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or rule-arn common-lisp:null) :accessor
+                         %list-tags-for-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-request
                     'make-list-tags-for-resource-request))
+ (common-lisp:defun make-list-tags-for-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -470,13 +584,21 @@
                           list-tags-for-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-response-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-response common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %list-tags-for-resource-response-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-response
                     'make-list-tags-for-resource-response))
+ (common-lisp:defun make-list-tags-for-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -500,13 +622,19 @@
                           list-tags-for-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lock-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lock-configuration-"))
-   (unlock-delay (common-lisp:error ":unlock-delay is required") :type
-    (common-lisp:or unlock-delay common-lisp:null)))
+ (common-lisp:defclass lock-configuration common-lisp:nil
+                       ((unlock-delay :initarg :unlock-delay :type
+                         (common-lisp:or unlock-delay common-lisp:null)
+                         :accessor %lock-configuration-unlock-delay :initform
+                         (common-lisp:error ":unlock-delay is required"))))
  (common-lisp:export
   (common-lisp:list 'lock-configuration 'make-lock-configuration))
+ (common-lisp:defun make-lock-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key unlock-delay)
+   (common-lisp:apply #'common-lisp:make-instance 'lock-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lock-configuration))
    (common-lisp:append))
@@ -524,15 +652,24 @@
                         ((aws-sdk/generator/shape::input lock-configuration))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lock-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lock-rule-request-"))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (lock-configuration (common-lisp:error ":lock-configuration is required")
-    :type (common-lisp:or lock-configuration common-lisp:null)))
+ (common-lisp:defclass lock-rule-request common-lisp:nil
+                       ((lock-configuration :initarg :lock-configuration :type
+                         (common-lisp:or lock-configuration common-lisp:null)
+                         :accessor %lock-rule-request-lock-configuration
+                         :initform
+                         (common-lisp:error ":lock-configuration is required"))
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %lock-rule-request-identifier :initform
+                         (common-lisp:error ":identifier is required"))))
  (common-lisp:export
   (common-lisp:list 'lock-rule-request 'make-lock-rule-request))
+ (common-lisp:defun make-lock-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-configuration identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'lock-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lock-rule-request))
    (common-lisp:append))
@@ -550,26 +687,49 @@
                         ((aws-sdk/generator/shape::input lock-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (lock-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-lock-rule-response-"))
-   (identifier common-lisp:nil :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (retention-period common-lisp:nil :type
-    (common-lisp:or retention-period common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or rule-status common-lisp:null))
-   (lock-configuration common-lisp:nil :type
-    (common-lisp:or lock-configuration common-lisp:null))
-   (lock-state common-lisp:nil :type
-    (common-lisp:or lock-state common-lisp:null)))
+ (common-lisp:defclass lock-rule-response common-lisp:nil
+                       ((lock-state :initarg :lock-state :type
+                         (common-lisp:or lock-state common-lisp:null) :accessor
+                         %lock-rule-response-lock-state :initform
+                         common-lisp:nil)
+                        (lock-configuration :initarg :lock-configuration :type
+                         (common-lisp:or lock-configuration common-lisp:null)
+                         :accessor %lock-rule-response-lock-configuration
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or rule-status common-lisp:null)
+                         :accessor %lock-rule-response-status :initform
+                         common-lisp:nil)
+                        (resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %lock-rule-response-resource-tags :initform
+                         common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %lock-rule-response-retention-period
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %lock-rule-response-resource-type :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %lock-rule-response-description :initform
+                         common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %lock-rule-response-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'lock-rule-response 'make-lock-rule-response))
+ (common-lisp:defun make-lock-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-state lock-configuration status
+                     resource-tags retention-period resource-type description
+                     identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'lock-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input lock-rule-response))
    (common-lisp:append))
@@ -651,14 +811,22 @@
                     'resource-not-found-exception-reason)))
 (common-lisp:deftype resource-not-found-exception-reason () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (resource-tag (:copier common-lisp:nil)
-      (:conc-name "struct-shape-resource-tag-"))
-   (resource-tag-key (common-lisp:error ":resource-tag-key is required") :type
-    (common-lisp:or resource-tag-key common-lisp:null))
-   (resource-tag-value common-lisp:nil :type
-    (common-lisp:or resource-tag-value common-lisp:null)))
+ (common-lisp:defclass resource-tag common-lisp:nil
+                       ((resource-tag-value :initarg :resource-tag-value :type
+                         (common-lisp:or resource-tag-value common-lisp:null)
+                         :accessor %resource-tag-resource-tag-value :initform
+                         common-lisp:nil)
+                        (resource-tag-key :initarg :resource-tag-key :type
+                         (common-lisp:or resource-tag-key common-lisp:null)
+                         :accessor %resource-tag-resource-tag-key :initform
+                         (common-lisp:error ":resource-tag-key is required"))))
  (common-lisp:export (common-lisp:list 'resource-tag 'make-resource-tag))
+ (common-lisp:defun make-resource-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-tag-value resource-tag-key)
+   (common-lisp:apply #'common-lisp:make-instance 'resource-tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input resource-tag))
    (common-lisp:append))
@@ -694,17 +862,32 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype resource-type () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (retention-period (:copier common-lisp:nil)
-      (:conc-name "struct-shape-retention-period-"))
-   (retention-period-value
-    (common-lisp:error ":retention-period-value is required") :type
-    (common-lisp:or retention-period-value common-lisp:null))
-   (retention-period-unit
-    (common-lisp:error ":retention-period-unit is required") :type
-    (common-lisp:or retention-period-unit common-lisp:null)))
+ (common-lisp:defclass retention-period common-lisp:nil
+                       ((retention-period-unit :initarg :retention-period-unit
+                         :type
+                         (common-lisp:or retention-period-unit
+                                         common-lisp:null)
+                         :accessor %retention-period-retention-period-unit
+                         :initform
+                         (common-lisp:error
+                          ":retention-period-unit is required"))
+                        (retention-period-value :initarg
+                         :retention-period-value :type
+                         (common-lisp:or retention-period-value
+                                         common-lisp:null)
+                         :accessor %retention-period-retention-period-value
+                         :initform
+                         (common-lisp:error
+                          ":retention-period-value is required"))))
  (common-lisp:export
   (common-lisp:list 'retention-period 'make-retention-period))
+ (common-lisp:defun make-retention-period
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key retention-period-unit
+                     retention-period-value)
+   (common-lisp:apply #'common-lisp:make-instance 'retention-period
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input retention-period))
    (common-lisp:append))
@@ -736,18 +919,30 @@
 (common-lisp:deftype rule-identifier () 'common-lisp:string)
 (common-lisp:deftype rule-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (rule-summary (:copier common-lisp:nil)
-      (:conc-name "struct-shape-rule-summary-"))
-   (identifier common-lisp:nil :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (retention-period common-lisp:nil :type
-    (common-lisp:or retention-period common-lisp:null))
-   (lock-state common-lisp:nil :type
-    (common-lisp:or lock-state common-lisp:null)))
+ (common-lisp:defclass rule-summary common-lisp:nil
+                       ((lock-state :initarg :lock-state :type
+                         (common-lisp:or lock-state common-lisp:null) :accessor
+                         %rule-summary-lock-state :initform common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %rule-summary-retention-period :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %rule-summary-description :initform
+                         common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %rule-summary-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'rule-summary 'make-rule-summary))
+ (common-lisp:defun make-rule-summary
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-state retention-period description
+                     identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'rule-summary
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input rule-summary))
    (common-lisp:append))
@@ -807,13 +1002,22 @@
 (common-lisp:deftype service-quota-exceeded-exception-reason ()
   'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag (:copier common-lisp:nil) (:conc-name "struct-shape-tag-"))
-   (key (common-lisp:error ":key is required") :type
-    (common-lisp:or tag-key common-lisp:null))
-   (value (common-lisp:error ":value is required") :type
-    (common-lisp:or tag-value common-lisp:null)))
+ (common-lisp:defclass tag common-lisp:nil
+                       ((value :initarg :value :type
+                         (common-lisp:or tag-value common-lisp:null) :accessor
+                         %tag-value :initform
+                         (common-lisp:error ":value is required"))
+                        (key :initarg :key :type
+                         (common-lisp:or tag-key common-lisp:null) :accessor
+                         %tag-key :initform
+                         (common-lisp:error ":key is required"))))
  (common-lisp:export (common-lisp:list 'tag 'make-tag))
+ (common-lisp:defun make-tag
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key value key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag))
    (common-lisp:append))
@@ -853,15 +1057,23 @@
                            (trivial-types:proper-list tag))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or rule-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-list common-lisp:null)))
+ (common-lisp:defclass tag-resource-request common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-list common-lisp:null) :accessor
+                         %tag-resource-request-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or rule-arn common-lisp:null) :accessor
+                         %tag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-request 'make-tag-resource-request))
+ (common-lisp:defun make-tag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-request))
    (common-lisp:append))
@@ -879,11 +1091,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-response-")))
+ (common-lisp:defclass tag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-response 'make-tag-resource-response))
+ (common-lisp:defun make-tag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -902,14 +1118,23 @@
 (common-lisp:deftype tag-value () 'common-lisp:string)
 (common-lisp:deftype time-stamp () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (unlock-delay (:copier common-lisp:nil)
-      (:conc-name "struct-shape-unlock-delay-"))
-   (unlock-delay-value (common-lisp:error ":unlock-delay-value is required")
-    :type (common-lisp:or unlock-delay-value common-lisp:null))
-   (unlock-delay-unit (common-lisp:error ":unlock-delay-unit is required")
-    :type (common-lisp:or unlock-delay-unit common-lisp:null)))
+ (common-lisp:defclass unlock-delay common-lisp:nil
+                       ((unlock-delay-unit :initarg :unlock-delay-unit :type
+                         (common-lisp:or unlock-delay-unit common-lisp:null)
+                         :accessor %unlock-delay-unlock-delay-unit :initform
+                         (common-lisp:error ":unlock-delay-unit is required"))
+                        (unlock-delay-value :initarg :unlock-delay-value :type
+                         (common-lisp:or unlock-delay-value common-lisp:null)
+                         :accessor %unlock-delay-unlock-delay-value :initform
+                         (common-lisp:error
+                          ":unlock-delay-value is required"))))
  (common-lisp:export (common-lisp:list 'unlock-delay 'make-unlock-delay))
+ (common-lisp:defun make-unlock-delay
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key unlock-delay-unit unlock-delay-value)
+   (common-lisp:apply #'common-lisp:make-instance 'unlock-delay
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input unlock-delay))
    (common-lisp:append))
@@ -936,13 +1161,19 @@
 (common-lisp:deftype unlock-delay-unit () 'common-lisp:string)
 (common-lisp:deftype unlock-delay-value () 'common-lisp:integer)
 (common-lisp:progn
- (common-lisp:defstruct
-     (unlock-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-unlock-rule-request-"))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or rule-identifier common-lisp:null)))
+ (common-lisp:defclass unlock-rule-request common-lisp:nil
+                       ((identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %unlock-rule-request-identifier :initform
+                         (common-lisp:error ":identifier is required"))))
  (common-lisp:export
   (common-lisp:list 'unlock-rule-request 'make-unlock-rule-request))
+ (common-lisp:defun make-unlock-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'unlock-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input unlock-rule-request))
    (common-lisp:append))
@@ -953,28 +1184,53 @@
                         ((aws-sdk/generator/shape::input unlock-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (unlock-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-unlock-rule-response-"))
-   (identifier common-lisp:nil :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (retention-period common-lisp:nil :type
-    (common-lisp:or retention-period common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or rule-status common-lisp:null))
-   (lock-configuration common-lisp:nil :type
-    (common-lisp:or lock-configuration common-lisp:null))
-   (lock-state common-lisp:nil :type
-    (common-lisp:or lock-state common-lisp:null))
-   (lock-end-time common-lisp:nil :type
-    (common-lisp:or time-stamp common-lisp:null)))
+ (common-lisp:defclass unlock-rule-response common-lisp:nil
+                       ((lock-end-time :initarg :lock-end-time :type
+                         (common-lisp:or time-stamp common-lisp:null) :accessor
+                         %unlock-rule-response-lock-end-time :initform
+                         common-lisp:nil)
+                        (lock-state :initarg :lock-state :type
+                         (common-lisp:or lock-state common-lisp:null) :accessor
+                         %unlock-rule-response-lock-state :initform
+                         common-lisp:nil)
+                        (lock-configuration :initarg :lock-configuration :type
+                         (common-lisp:or lock-configuration common-lisp:null)
+                         :accessor %unlock-rule-response-lock-configuration
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or rule-status common-lisp:null)
+                         :accessor %unlock-rule-response-status :initform
+                         common-lisp:nil)
+                        (resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %unlock-rule-response-resource-tags
+                         :initform common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %unlock-rule-response-retention-period
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %unlock-rule-response-resource-type
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %unlock-rule-response-description :initform
+                         common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %unlock-rule-response-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'unlock-rule-response 'make-unlock-rule-response))
+ (common-lisp:defun make-unlock-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-end-time lock-state
+                     lock-configuration status resource-tags retention-period
+                     resource-type description identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'unlock-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input unlock-rule-response))
    (common-lisp:append))
@@ -1048,15 +1304,23 @@
                         ((aws-sdk/generator/shape::input unlock-rule-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-request-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or rule-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-request common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-request-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or rule-arn common-lisp:null) :accessor
+                         %untag-resource-request-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-request 'make-untag-resource-request))
+ (common-lisp:defun make-untag-resource-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1073,11 +1337,15 @@
                           untag-resource-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-response-")))
+ (common-lisp:defclass untag-resource-response common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-response 'make-untag-resource-response))
+ (common-lisp:defun make-untag-resource-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1094,21 +1362,36 @@
                           untag-resource-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-rule-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-rule-request-"))
-   (identifier (common-lisp:error ":identifier is required") :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (retention-period common-lisp:nil :type
-    (common-lisp:or retention-period common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null)))
+ (common-lisp:defclass update-rule-request common-lisp:nil
+                       ((resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %update-rule-request-resource-tags :initform
+                         common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %update-rule-request-resource-type :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %update-rule-request-description :initform
+                         common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %update-rule-request-retention-period
+                         :initform common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %update-rule-request-identifier :initform
+                         (common-lisp:error ":identifier is required"))))
  (common-lisp:export
   (common-lisp:list 'update-rule-request 'make-update-rule-request))
+ (common-lisp:defun make-update-rule-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-tags resource-type description
+                     retention-period identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'update-rule-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-rule-request))
    (common-lisp:append))
@@ -1147,26 +1430,49 @@
                         ((aws-sdk/generator/shape::input update-rule-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (update-rule-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-update-rule-response-"))
-   (identifier common-lisp:nil :type
-    (common-lisp:or rule-identifier common-lisp:null))
-   (retention-period common-lisp:nil :type
-    (common-lisp:or retention-period common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (resource-type common-lisp:nil :type
-    (common-lisp:or resource-type common-lisp:null))
-   (resource-tags common-lisp:nil :type
-    (common-lisp:or resource-tags common-lisp:null))
-   (status common-lisp:nil :type (common-lisp:or rule-status common-lisp:null))
-   (lock-state common-lisp:nil :type
-    (common-lisp:or lock-state common-lisp:null))
-   (lock-end-time common-lisp:nil :type
-    (common-lisp:or time-stamp common-lisp:null)))
+ (common-lisp:defclass update-rule-response common-lisp:nil
+                       ((lock-end-time :initarg :lock-end-time :type
+                         (common-lisp:or time-stamp common-lisp:null) :accessor
+                         %update-rule-response-lock-end-time :initform
+                         common-lisp:nil)
+                        (lock-state :initarg :lock-state :type
+                         (common-lisp:or lock-state common-lisp:null) :accessor
+                         %update-rule-response-lock-state :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or rule-status common-lisp:null)
+                         :accessor %update-rule-response-status :initform
+                         common-lisp:nil)
+                        (resource-tags :initarg :resource-tags :type
+                         (common-lisp:or resource-tags common-lisp:null)
+                         :accessor %update-rule-response-resource-tags
+                         :initform common-lisp:nil)
+                        (resource-type :initarg :resource-type :type
+                         (common-lisp:or resource-type common-lisp:null)
+                         :accessor %update-rule-response-resource-type
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %update-rule-response-description :initform
+                         common-lisp:nil)
+                        (retention-period :initarg :retention-period :type
+                         (common-lisp:or retention-period common-lisp:null)
+                         :accessor %update-rule-response-retention-period
+                         :initform common-lisp:nil)
+                        (identifier :initarg :identifier :type
+                         (common-lisp:or rule-identifier common-lisp:null)
+                         :accessor %update-rule-response-identifier :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'update-rule-response 'make-update-rule-response))
+ (common-lisp:defun make-update-rule-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key lock-end-time lock-state status
+                     resource-tags resource-type description retention-period
+                     identifier)
+   (common-lisp:apply #'common-lisp:make-instance 'update-rule-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input update-rule-response))
    (common-lisp:append))

@@ -87,20 +87,37 @@
 (common-lisp:deftype request-id () 'common-lisp:string)
 (common-lisp:deftype sshpublic-key () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-sshpublic-key-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-sshpublic-key-request-"))
-   (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or instance-id common-lisp:null))
-   (instance-osuser (common-lisp:error ":instance-osuser is required") :type
-    (common-lisp:or instance-osuser common-lisp:null))
-   (sshpublic-key (common-lisp:error ":sshpublic-key is required") :type
-    (common-lisp:or sshpublic-key common-lisp:null))
-   (availability-zone common-lisp:nil :type
-    (common-lisp:or availability-zone common-lisp:null)))
+ (common-lisp:defclass send-sshpublic-key-request common-lisp:nil
+                       ((availability-zone :initarg :availability-zone :type
+                         (common-lisp:or availability-zone common-lisp:null)
+                         :accessor
+                         %send-sshpublic-key-request-availability-zone
+                         :initform common-lisp:nil)
+                        (sshpublic-key :initarg :sshpublic-key :type
+                         (common-lisp:or sshpublic-key common-lisp:null)
+                         :accessor %send-sshpublic-key-request-sshpublic-key
+                         :initform
+                         (common-lisp:error ":sshpublic-key is required"))
+                        (instance-osuser :initarg :instance-osuser :type
+                         (common-lisp:or instance-osuser common-lisp:null)
+                         :accessor %send-sshpublic-key-request-instance-osuser
+                         :initform
+                         (common-lisp:error ":instance-osuser is required"))
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or instance-id common-lisp:null)
+                         :accessor %send-sshpublic-key-request-instance-id
+                         :initform
+                         (common-lisp:error ":instance-id is required"))))
  (common-lisp:export
   (common-lisp:list 'send-sshpublic-key-request
                     'make-send-sshpublic-key-request))
+ (common-lisp:defun make-send-sshpublic-key-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key availability-zone sshpublic-key
+                     instance-osuser instance-id)
+   (common-lisp:apply #'common-lisp:make-instance 'send-sshpublic-key-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -145,15 +162,24 @@
                           send-sshpublic-key-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-sshpublic-key-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-sshpublic-key-response-"))
-   (request-id common-lisp:nil :type
-    (common-lisp:or request-id common-lisp:null))
-   (success common-lisp:nil :type (common-lisp:or success common-lisp:null)))
+ (common-lisp:defclass send-sshpublic-key-response common-lisp:nil
+                       ((success :initarg :success :type
+                         (common-lisp:or success common-lisp:null) :accessor
+                         %send-sshpublic-key-response-success :initform
+                         common-lisp:nil)
+                        (request-id :initarg :request-id :type
+                         (common-lisp:or request-id common-lisp:null) :accessor
+                         %send-sshpublic-key-response-request-id :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'send-sshpublic-key-response
                     'make-send-sshpublic-key-response))
+ (common-lisp:defun make-send-sshpublic-key-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key success request-id)
+   (common-lisp:apply #'common-lisp:make-instance 'send-sshpublic-key-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -184,18 +210,35 @@
                           send-sshpublic-key-response))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-serial-console-sshpublic-key-request (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-serial-console-sshpublic-key-request-"))
-   (instance-id (common-lisp:error ":instance-id is required") :type
-    (common-lisp:or instance-id common-lisp:null))
-   (serial-port common-lisp:nil :type
-    (common-lisp:or serial-port common-lisp:null))
-   (sshpublic-key (common-lisp:error ":sshpublic-key is required") :type
-    (common-lisp:or sshpublic-key common-lisp:null)))
+ (common-lisp:defclass send-serial-console-sshpublic-key-request
+                       common-lisp:nil
+                       ((sshpublic-key :initarg :sshpublic-key :type
+                         (common-lisp:or sshpublic-key common-lisp:null)
+                         :accessor
+                         %send-serial-console-sshpublic-key-request-sshpublic-key
+                         :initform
+                         (common-lisp:error ":sshpublic-key is required"))
+                        (serial-port :initarg :serial-port :type
+                         (common-lisp:or serial-port common-lisp:null)
+                         :accessor
+                         %send-serial-console-sshpublic-key-request-serial-port
+                         :initform common-lisp:nil)
+                        (instance-id :initarg :instance-id :type
+                         (common-lisp:or instance-id common-lisp:null)
+                         :accessor
+                         %send-serial-console-sshpublic-key-request-instance-id
+                         :initform
+                         (common-lisp:error ":instance-id is required"))))
  (common-lisp:export
   (common-lisp:list 'send-serial-console-sshpublic-key-request
                     'make-send-serial-console-sshpublic-key-request))
+ (common-lisp:defun make-send-serial-console-sshpublic-key-request
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key sshpublic-key serial-port instance-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'send-serial-console-sshpublic-key-request
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -233,15 +276,26 @@
                           send-serial-console-sshpublic-key-request))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (send-serial-console-sshpublic-key-response (:copier common-lisp:nil)
-      (:conc-name "struct-shape-send-serial-console-sshpublic-key-response-"))
-   (request-id common-lisp:nil :type
-    (common-lisp:or request-id common-lisp:null))
-   (success common-lisp:nil :type (common-lisp:or success common-lisp:null)))
+ (common-lisp:defclass send-serial-console-sshpublic-key-response
+                       common-lisp:nil
+                       ((success :initarg :success :type
+                         (common-lisp:or success common-lisp:null) :accessor
+                         %send-serial-console-sshpublic-key-response-success
+                         :initform common-lisp:nil)
+                        (request-id :initarg :request-id :type
+                         (common-lisp:or request-id common-lisp:null) :accessor
+                         %send-serial-console-sshpublic-key-response-request-id
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'send-serial-console-sshpublic-key-response
                     'make-send-serial-console-sshpublic-key-response))
+ (common-lisp:defun make-send-serial-console-sshpublic-key-response
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key success request-id)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'send-serial-console-sshpublic-key-response
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input

@@ -49,14 +49,20 @@
 (common-lisp:deftype clock-status () 'common-lisp:string)
 (common-lisp:deftype clock-target-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (cloud-watch-logs-log-group (:copier common-lisp:nil)
-      (:conc-name "struct-shape-cloud-watch-logs-log-group-"))
-   (log-group-arn common-lisp:nil :type
-    (common-lisp:or log-group-arn common-lisp:null)))
+ (common-lisp:defclass cloud-watch-logs-log-group common-lisp:nil
+                       ((log-group-arn :initarg :log-group-arn :type
+                         (common-lisp:or log-group-arn common-lisp:null)
+                         :accessor %cloud-watch-logs-log-group-log-group-arn
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'cloud-watch-logs-log-group
                     'make-cloud-watch-logs-log-group))
+ (common-lisp:defun make-cloud-watch-logs-log-group
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key log-group-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'cloud-watch-logs-log-group
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -87,17 +93,30 @@
  (common-lisp:export
   (common-lisp:list 'conflict-exception 'conflict-exception-message)))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-app-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-app-input-"))
-   (app (common-lisp:error ":app is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (domain (common-lisp:error ":domain is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass delete-app-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %delete-app-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %delete-app-input-domain :initform
+                         (common-lisp:error ":domain is required"))
+                        (app :initarg :app :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %delete-app-input-app :initform
+                         (common-lisp:error ":app is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-app-input 'make-delete-app-input))
+ (common-lisp:defun make-delete-app-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation domain app)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-app-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-app-input))
    (common-lisp:append))
@@ -108,11 +127,15 @@
                         ((aws-sdk/generator/shape::input delete-app-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-app-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-app-output-")))
+ (common-lisp:defclass delete-app-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-app-output 'make-delete-app-output))
+ (common-lisp:defun make-delete-app-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-app-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input delete-app-output))
    (common-lisp:append))
@@ -123,13 +146,21 @@
                         ((aws-sdk/generator/shape::input delete-app-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-simulation-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-simulation-input-"))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass delete-simulation-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %delete-simulation-input-simulation
+                         :initform
+                         (common-lisp:error ":simulation is required"))))
  (common-lisp:export
   (common-lisp:list 'delete-simulation-input 'make-delete-simulation-input))
+ (common-lisp:defun make-delete-simulation-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-simulation-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -146,11 +177,16 @@
                           delete-simulation-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (delete-simulation-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-delete-simulation-output-")))
+ (common-lisp:defclass delete-simulation-output common-lisp:nil
+                       common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'delete-simulation-output 'make-delete-simulation-output))
+ (common-lisp:defun make-delete-simulation-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'delete-simulation-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -167,17 +203,30 @@
                           delete-simulation-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-app-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-app-input-"))
-   (app (common-lisp:error ":app is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (domain (common-lisp:error ":domain is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass describe-app-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-app-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-app-input-domain :initform
+                         (common-lisp:error ":domain is required"))
+                        (app :initarg :app :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-app-input-app :initform
+                         (common-lisp:error ":app is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-app-input 'make-describe-app-input))
+ (common-lisp:defun make-describe-app-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation domain app)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-app-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input describe-app-input))
    (common-lisp:append))
@@ -188,27 +237,54 @@
                         ((aws-sdk/generator/shape::input describe-app-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-app-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-app-output-"))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (domain common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (endpoint-info common-lisp:nil :type
-    (common-lisp:or simulation-app-endpoint-info common-lisp:null))
-   (launch-overrides common-lisp:nil :type
-    (common-lisp:or launch-overrides common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (simulation common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or simulation-app-status common-lisp:null))
-   (target-status common-lisp:nil :type
-    (common-lisp:or simulation-app-target-status common-lisp:null)))
+ (common-lisp:defclass describe-app-output common-lisp:nil
+                       ((target-status :initarg :target-status :type
+                         (common-lisp:or simulation-app-target-status
+                                         common-lisp:null)
+                         :accessor %describe-app-output-target-status :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or simulation-app-status
+                                         common-lisp:null)
+                         :accessor %describe-app-output-status :initform
+                         common-lisp:nil)
+                        (simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-app-output-simulation :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-app-output-name :initform
+                         common-lisp:nil)
+                        (launch-overrides :initarg :launch-overrides :type
+                         (common-lisp:or launch-overrides common-lisp:null)
+                         :accessor %describe-app-output-launch-overrides
+                         :initform common-lisp:nil)
+                        (endpoint-info :initarg :endpoint-info :type
+                         (common-lisp:or simulation-app-endpoint-info
+                                         common-lisp:null)
+                         :accessor %describe-app-output-endpoint-info :initform
+                         common-lisp:nil)
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-app-output-domain :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %describe-app-output-description :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-app-output 'make-describe-app-output))
+ (common-lisp:defun make-describe-app-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-status status simulation name
+                     launch-overrides endpoint-info domain description)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-app-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input describe-app-output))
    (common-lisp:append))
@@ -275,14 +351,22 @@
                         ((aws-sdk/generator/shape::input describe-app-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-simulation-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-simulation-input-"))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass describe-simulation-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-simulation-input-simulation
+                         :initform
+                         (common-lisp:error ":simulation is required"))))
  (common-lisp:export
   (common-lisp:list 'describe-simulation-input
                     'make-describe-simulation-input))
+ (common-lisp:defun make-describe-simulation-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-simulation-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -299,36 +383,79 @@
                           describe-simulation-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (describe-simulation-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-describe-simulation-output-"))
-   (arn common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-arn common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (execution-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null))
-   (live-simulation-state common-lisp:nil :type
-    (common-lisp:or live-simulation-state common-lisp:null))
-   (logging-configuration common-lisp:nil :type
-    (common-lisp:or logging-configuration common-lisp:null))
-   (maximum-duration common-lisp:nil :type
-    (common-lisp:or time-to-live-string common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (role-arn common-lisp:nil :type (common-lisp:or role-arn common-lisp:null))
-   (schema-error common-lisp:nil :type
-    (common-lisp:or optional-string common-lisp:null))
-   (schema-s3location common-lisp:nil :type
-    (common-lisp:or s3location common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or simulation-status common-lisp:null))
-   (target-status common-lisp:nil :type
-    (common-lisp:or simulation-target-status common-lisp:null)))
+ (common-lisp:defclass describe-simulation-output common-lisp:nil
+                       ((target-status :initarg :target-status :type
+                         (common-lisp:or simulation-target-status
+                                         common-lisp:null)
+                         :accessor %describe-simulation-output-target-status
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or simulation-status common-lisp:null)
+                         :accessor %describe-simulation-output-status :initform
+                         common-lisp:nil)
+                        (schema-s3location :initarg :schema-s3location :type
+                         (common-lisp:or s3location common-lisp:null) :accessor
+                         %describe-simulation-output-schema-s3location
+                         :initform common-lisp:nil)
+                        (schema-error :initarg :schema-error :type
+                         (common-lisp:or optional-string common-lisp:null)
+                         :accessor %describe-simulation-output-schema-error
+                         :initform common-lisp:nil)
+                        (role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %describe-simulation-output-role-arn :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %describe-simulation-output-name :initform
+                         common-lisp:nil)
+                        (maximum-duration :initarg :maximum-duration :type
+                         (common-lisp:or time-to-live-string common-lisp:null)
+                         :accessor %describe-simulation-output-maximum-duration
+                         :initform common-lisp:nil)
+                        (logging-configuration :initarg :logging-configuration
+                         :type
+                         (common-lisp:or logging-configuration
+                                         common-lisp:null)
+                         :accessor
+                         %describe-simulation-output-logging-configuration
+                         :initform common-lisp:nil)
+                        (live-simulation-state :initarg :live-simulation-state
+                         :type
+                         (common-lisp:or live-simulation-state
+                                         common-lisp:null)
+                         :accessor
+                         %describe-simulation-output-live-simulation-state
+                         :initform common-lisp:nil)
+                        (execution-id :initarg :execution-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %describe-simulation-output-execution-id :initform
+                         common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %describe-simulation-output-description
+                         :initform common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %describe-simulation-output-creation-time :initform
+                         common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or sim-space-weaver-arn common-lisp:null)
+                         :accessor %describe-simulation-output-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'describe-simulation-output
                     'make-describe-simulation-output))
+ (common-lisp:defun make-describe-simulation-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-status status schema-s3location
+                     schema-error role-arn name maximum-duration
+                     logging-configuration live-simulation-state execution-id
+                     description creation-time arn)
+   (common-lisp:apply #'common-lisp:make-instance 'describe-simulation-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -439,13 +566,23 @@
    common-lisp:nil))
 (common-lisp:deftype description () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (domain (:copier common-lisp:nil) (:conc-name "struct-shape-domain-"))
-   (lifecycle common-lisp:nil :type
-    (common-lisp:or lifecycle-management-strategy common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass domain common-lisp:nil
+                       ((name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %domain-name :initform common-lisp:nil)
+                        (lifecycle :initarg :lifecycle :type
+                         (common-lisp:or lifecycle-management-strategy
+                                         common-lisp:null)
+                         :accessor %domain-lifecycle :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'domain 'make-domain))
+ (common-lisp:defun make-domain
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key name lifecycle)
+   (common-lisp:apply #'common-lisp:make-instance 'domain
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input domain))
    (common-lisp:append))
@@ -493,13 +630,19 @@
                            (trivial-types:proper-list non-empty-string))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (launch-overrides (:copier common-lisp:nil)
-      (:conc-name "struct-shape-launch-overrides-"))
-   (launch-commands common-lisp:nil :type
-    (common-lisp:or launch-command-list common-lisp:null)))
+ (common-lisp:defclass launch-overrides common-lisp:nil
+                       ((launch-commands :initarg :launch-commands :type
+                         (common-lisp:or launch-command-list common-lisp:null)
+                         :accessor %launch-overrides-launch-commands :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'launch-overrides 'make-launch-overrides))
+ (common-lisp:defun make-launch-overrides
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key launch-commands)
+   (common-lisp:apply #'common-lisp:make-instance 'launch-overrides
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input launch-overrides))
    (common-lisp:append))
@@ -518,18 +661,32 @@
    common-lisp:nil))
 (common-lisp:deftype lifecycle-management-strategy () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-apps-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-apps-input-"))
-   (domain common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (max-results common-lisp:nil :type
-    (common-lisp:or positive-integer common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or optional-string common-lisp:null))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass list-apps-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %list-apps-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or optional-string common-lisp:null)
+                         :accessor %list-apps-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or positive-integer common-lisp:null)
+                         :accessor %list-apps-input-max-results :initform
+                         common-lisp:nil)
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %list-apps-input-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'list-apps-input 'make-list-apps-input))
+ (common-lisp:defun make-list-apps-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation next-token max-results domain)
+   (common-lisp:apply #'common-lisp:make-instance 'list-apps-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-apps-input))
    (common-lisp:append))
@@ -540,15 +697,23 @@
                         ((aws-sdk/generator/shape::input list-apps-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-apps-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-apps-output-"))
-   (apps common-lisp:nil :type
-    (common-lisp:or simulation-app-list common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or optional-string common-lisp:null)))
+ (common-lisp:defclass list-apps-output common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or optional-string common-lisp:null)
+                         :accessor %list-apps-output-next-token :initform
+                         common-lisp:nil)
+                        (apps :initarg :apps :type
+                         (common-lisp:or simulation-app-list common-lisp:null)
+                         :accessor %list-apps-output-apps :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-apps-output 'make-list-apps-output))
+ (common-lisp:defun make-list-apps-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token apps)
+   (common-lisp:apply #'common-lisp:make-instance 'list-apps-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input list-apps-output))
    (common-lisp:append))
@@ -573,15 +738,23 @@
                         ((aws-sdk/generator/shape::input list-apps-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-simulations-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-simulations-input-"))
-   (max-results common-lisp:nil :type
-    (common-lisp:or positive-integer common-lisp:null))
-   (next-token common-lisp:nil :type
-    (common-lisp:or optional-string common-lisp:null)))
+ (common-lisp:defclass list-simulations-input common-lisp:nil
+                       ((next-token :initarg :next-token :type
+                         (common-lisp:or optional-string common-lisp:null)
+                         :accessor %list-simulations-input-next-token :initform
+                         common-lisp:nil)
+                        (max-results :initarg :max-results :type
+                         (common-lisp:or positive-integer common-lisp:null)
+                         :accessor %list-simulations-input-max-results
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-simulations-input 'make-list-simulations-input))
+ (common-lisp:defun make-list-simulations-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key next-token max-results)
+   (common-lisp:apply #'common-lisp:make-instance 'list-simulations-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -598,15 +771,23 @@
                           list-simulations-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-simulations-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-simulations-output-"))
-   (next-token common-lisp:nil :type
-    (common-lisp:or optional-string common-lisp:null))
-   (simulations common-lisp:nil :type
-    (common-lisp:or simulation-list common-lisp:null)))
+ (common-lisp:defclass list-simulations-output common-lisp:nil
+                       ((simulations :initarg :simulations :type
+                         (common-lisp:or simulation-list common-lisp:null)
+                         :accessor %list-simulations-output-simulations
+                         :initform common-lisp:nil)
+                        (next-token :initarg :next-token :type
+                         (common-lisp:or optional-string common-lisp:null)
+                         :accessor %list-simulations-output-next-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-simulations-output 'make-list-simulations-output))
+ (common-lisp:defun make-list-simulations-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulations next-token)
+   (common-lisp:apply #'common-lisp:make-instance 'list-simulations-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -637,14 +818,21 @@
                           list-simulations-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or sim-space-weaver-arn common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-input common-lisp:nil
+                       ((resource-arn :initarg :resource-arn :type
+                         (common-lisp:or sim-space-weaver-arn common-lisp:null)
+                         :accessor %list-tags-for-resource-input-resource-arn
+                         :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-input
                     'make-list-tags-for-resource-input))
+ (common-lisp:defun make-list-tags-for-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'list-tags-for-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -661,13 +849,21 @@
                           list-tags-for-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (list-tags-for-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-list-tags-for-resource-output-"))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass list-tags-for-resource-output common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %list-tags-for-resource-output-tags :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'list-tags-for-resource-output
                     'make-list-tags-for-resource-output))
+ (common-lisp:defun make-list-tags-for-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags)
+   (common-lisp:apply #'common-lisp:make-instance
+                      'list-tags-for-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -691,15 +887,24 @@
                           list-tags-for-resource-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (live-simulation-state (:copier common-lisp:nil)
-      (:conc-name "struct-shape-live-simulation-state-"))
-   (clocks common-lisp:nil :type
-    (common-lisp:or simulation-clock-list common-lisp:null))
-   (domains common-lisp:nil :type
-    (common-lisp:or domain-list common-lisp:null)))
+ (common-lisp:defclass live-simulation-state common-lisp:nil
+                       ((domains :initarg :domains :type
+                         (common-lisp:or domain-list common-lisp:null)
+                         :accessor %live-simulation-state-domains :initform
+                         common-lisp:nil)
+                        (clocks :initarg :clocks :type
+                         (common-lisp:or simulation-clock-list
+                                         common-lisp:null)
+                         :accessor %live-simulation-state-clocks :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'live-simulation-state 'make-live-simulation-state))
+ (common-lisp:defun make-live-simulation-state
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key domains clocks)
+   (common-lisp:apply #'common-lisp:make-instance 'live-simulation-state
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -730,12 +935,20 @@
                           live-simulation-state))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (log-destination (:copier common-lisp:nil)
-      (:conc-name "struct-shape-log-destination-"))
-   (cloud-watch-logs-log-group common-lisp:nil :type
-    (common-lisp:or cloud-watch-logs-log-group common-lisp:null)))
+ (common-lisp:defclass log-destination common-lisp:nil
+                       ((cloud-watch-logs-log-group :initarg
+                         :cloud-watch-logs-log-group :type
+                         (common-lisp:or cloud-watch-logs-log-group
+                                         common-lisp:null)
+                         :accessor %log-destination-cloud-watch-logs-log-group
+                         :initform common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'log-destination 'make-log-destination))
+ (common-lisp:defun make-log-destination
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key cloud-watch-logs-log-group)
+   (common-lisp:apply #'common-lisp:make-instance 'log-destination
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input log-destination))
    (common-lisp:append))
@@ -763,13 +976,19 @@
    aws-sdk/generator/shape::members))
 (common-lisp:deftype log-group-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (logging-configuration (:copier common-lisp:nil)
-      (:conc-name "struct-shape-logging-configuration-"))
-   (destinations common-lisp:nil :type
-    (common-lisp:or log-destinations common-lisp:null)))
+ (common-lisp:defclass logging-configuration common-lisp:nil
+                       ((destinations :initarg :destinations :type
+                         (common-lisp:or log-destinations common-lisp:null)
+                         :accessor %logging-configuration-destinations
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'logging-configuration 'make-logging-configuration))
+ (common-lisp:defun make-logging-configuration
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key destinations)
+   (common-lisp:apply #'common-lisp:make-instance 'logging-configuration
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -807,14 +1026,21 @@
                     'resource-not-found-exception-message)))
 (common-lisp:deftype role-arn () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (s3location (:copier common-lisp:nil)
-      (:conc-name "struct-shape-s3location-"))
-   (bucket-name common-lisp:nil :type
-    (common-lisp:or bucket-name common-lisp:null))
-   (object-key common-lisp:nil :type
-    (common-lisp:or object-key common-lisp:null)))
+ (common-lisp:defclass s3location common-lisp:nil
+                       ((object-key :initarg :object-key :type
+                         (common-lisp:or object-key common-lisp:null) :accessor
+                         %s3location-object-key :initform common-lisp:nil)
+                        (bucket-name :initarg :bucket-name :type
+                         (common-lisp:or bucket-name common-lisp:null)
+                         :accessor %s3location-bucket-name :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 's3location 'make-s3location))
+ (common-lisp:defun make-s3location
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key object-key bucket-name)
+   (common-lisp:apply #'common-lisp:make-instance 's3location
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input s3location))
    (common-lisp:append))
@@ -849,16 +1075,26 @@
 (common-lisp:deftype sim-space-weaver-arn () 'common-lisp:string)
 (common-lisp:deftype sim-space-weaver-resource-name () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (simulation-app-endpoint-info (:copier common-lisp:nil)
-      (:conc-name "struct-shape-simulation-app-endpoint-info-"))
-   (address common-lisp:nil :type
-    (common-lisp:or non-empty-string common-lisp:null))
-   (ingress-port-mappings common-lisp:nil :type
-    (common-lisp:or app-port-mappings common-lisp:null)))
+ (common-lisp:defclass simulation-app-endpoint-info common-lisp:nil
+                       ((ingress-port-mappings :initarg :ingress-port-mappings
+                         :type
+                         (common-lisp:or app-port-mappings common-lisp:null)
+                         :accessor
+                         %simulation-app-endpoint-info-ingress-port-mappings
+                         :initform common-lisp:nil)
+                        (address :initarg :address :type
+                         (common-lisp:or non-empty-string common-lisp:null)
+                         :accessor %simulation-app-endpoint-info-address
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'simulation-app-endpoint-info
                     'make-simulation-app-endpoint-info))
+ (common-lisp:defun make-simulation-app-endpoint-info
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key ingress-port-mappings address)
+   (common-lisp:apply #'common-lisp:make-instance 'simulation-app-endpoint-info
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -898,21 +1134,41 @@
                            (trivial-types:proper-list simulation-app-metadata))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (simulation-app-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-simulation-app-metadata-"))
-   (domain common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (simulation common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or simulation-app-status common-lisp:null))
-   (target-status common-lisp:nil :type
-    (common-lisp:or simulation-app-target-status common-lisp:null)))
+ (common-lisp:defclass simulation-app-metadata common-lisp:nil
+                       ((target-status :initarg :target-status :type
+                         (common-lisp:or simulation-app-target-status
+                                         common-lisp:null)
+                         :accessor %simulation-app-metadata-target-status
+                         :initform common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or simulation-app-status
+                                         common-lisp:null)
+                         :accessor %simulation-app-metadata-status :initform
+                         common-lisp:nil)
+                        (simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %simulation-app-metadata-simulation
+                         :initform common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %simulation-app-metadata-name :initform
+                         common-lisp:nil)
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %simulation-app-metadata-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'simulation-app-metadata 'make-simulation-app-metadata))
+ (common-lisp:defun make-simulation-app-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-status status simulation name
+                     domain)
+   (common-lisp:apply #'common-lisp:make-instance 'simulation-app-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -964,15 +1220,24 @@
                           simulation-app-metadata))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (simulation-app-port-mapping (:copier common-lisp:nil)
-      (:conc-name "struct-shape-simulation-app-port-mapping-"))
-   (actual common-lisp:nil :type (common-lisp:or port-number common-lisp:null))
-   (declared common-lisp:nil :type
-    (common-lisp:or port-number common-lisp:null)))
+ (common-lisp:defclass simulation-app-port-mapping common-lisp:nil
+                       ((declared :initarg :declared :type
+                         (common-lisp:or port-number common-lisp:null)
+                         :accessor %simulation-app-port-mapping-declared
+                         :initform common-lisp:nil)
+                        (actual :initarg :actual :type
+                         (common-lisp:or port-number common-lisp:null)
+                         :accessor %simulation-app-port-mapping-actual
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'simulation-app-port-mapping
                     'make-simulation-app-port-mapping))
+ (common-lisp:defun make-simulation-app-port-mapping
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key declared actual)
+   (common-lisp:apply #'common-lisp:make-instance 'simulation-app-port-mapping
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1005,15 +1270,23 @@
 (common-lisp:deftype simulation-app-status () 'common-lisp:string)
 (common-lisp:deftype simulation-app-target-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (simulation-clock (:copier common-lisp:nil)
-      (:conc-name "struct-shape-simulation-clock-"))
-   (status common-lisp:nil :type
-    (common-lisp:or clock-status common-lisp:null))
-   (target-status common-lisp:nil :type
-    (common-lisp:or clock-target-status common-lisp:null)))
+ (common-lisp:defclass simulation-clock common-lisp:nil
+                       ((target-status :initarg :target-status :type
+                         (common-lisp:or clock-target-status common-lisp:null)
+                         :accessor %simulation-clock-target-status :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or clock-status common-lisp:null)
+                         :accessor %simulation-clock-status :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'simulation-clock 'make-simulation-clock))
+ (common-lisp:defun make-simulation-clock
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-status status)
+   (common-lisp:apply #'common-lisp:make-instance 'simulation-clock
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input simulation-clock))
    (common-lisp:append))
@@ -1054,21 +1327,38 @@
                            (trivial-types:proper-list simulation-metadata))
    aws-sdk/generator/shape::members))
 (common-lisp:progn
- (common-lisp:defstruct
-     (simulation-metadata (:copier common-lisp:nil)
-      (:conc-name "struct-shape-simulation-metadata-"))
-   (arn common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-arn common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (status common-lisp:nil :type
-    (common-lisp:or simulation-status common-lisp:null))
-   (target-status common-lisp:nil :type
-    (common-lisp:or simulation-target-status common-lisp:null)))
+ (common-lisp:defclass simulation-metadata common-lisp:nil
+                       ((target-status :initarg :target-status :type
+                         (common-lisp:or simulation-target-status
+                                         common-lisp:null)
+                         :accessor %simulation-metadata-target-status :initform
+                         common-lisp:nil)
+                        (status :initarg :status :type
+                         (common-lisp:or simulation-status common-lisp:null)
+                         :accessor %simulation-metadata-status :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %simulation-metadata-name :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %simulation-metadata-creation-time :initform
+                         common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or sim-space-weaver-arn common-lisp:null)
+                         :accessor %simulation-metadata-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'simulation-metadata 'make-simulation-metadata))
+ (common-lisp:defun make-simulation-metadata
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key target-status status name creation-time
+                     arn)
+   (common-lisp:apply #'common-lisp:make-instance 'simulation-metadata
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input simulation-metadata))
    (common-lisp:append))
@@ -1116,22 +1406,42 @@
 (common-lisp:deftype simulation-status () 'common-lisp:string)
 (common-lisp:deftype simulation-target-status () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-app-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-app-input-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (domain (common-lisp:error ":domain is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (launch-overrides common-lisp:nil :type
-    (common-lisp:or launch-overrides common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass start-app-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-app-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-app-input-name :initform
+                         (common-lisp:error ":name is required"))
+                        (launch-overrides :initarg :launch-overrides :type
+                         (common-lisp:or launch-overrides common-lisp:null)
+                         :accessor %start-app-input-launch-overrides :initform
+                         common-lisp:nil)
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-app-input-domain :initform
+                         (common-lisp:error ":domain is required"))
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %start-app-input-description :initform
+                         common-lisp:nil)
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %start-app-input-client-token :initform
+                         common-lisp:nil)))
  (common-lisp:export (common-lisp:list 'start-app-input 'make-start-app-input))
+ (common-lisp:defun make-start-app-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation name launch-overrides domain
+                     description client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'start-app-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-app-input))
    (common-lisp:append))
@@ -1184,17 +1494,30 @@
                         ((aws-sdk/generator/shape::input start-app-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-app-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-app-output-"))
-   (domain common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (name common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (simulation common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass start-app-output common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-app-output-simulation :initform
+                         common-lisp:nil)
+                        (name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-app-output-name :initform
+                         common-lisp:nil)
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-app-output-domain :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-app-output 'make-start-app-output))
+ (common-lisp:defun make-start-app-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation name domain)
+   (common-lisp:apply #'common-lisp:make-instance 'start-app-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-app-output))
    (common-lisp:append))
@@ -1226,13 +1549,20 @@
                         ((aws-sdk/generator/shape::input start-app-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-clock-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-clock-input-"))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass start-clock-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-clock-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))))
  (common-lisp:export
   (common-lisp:list 'start-clock-input 'make-start-clock-input))
+ (common-lisp:defun make-start-clock-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation)
+   (common-lisp:apply #'common-lisp:make-instance 'start-clock-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-clock-input))
    (common-lisp:append))
@@ -1250,11 +1580,15 @@
                         ((aws-sdk/generator/shape::input start-clock-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-clock-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-clock-output-")))
+ (common-lisp:defclass start-clock-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'start-clock-output 'make-start-clock-output))
+ (common-lisp:defun make-start-clock-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'start-clock-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input start-clock-output))
    (common-lisp:append))
@@ -1265,24 +1599,45 @@
                         ((aws-sdk/generator/shape::input start-clock-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-simulation-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-simulation-input-"))
-   (client-token common-lisp:nil :type
-    (common-lisp:or client-token common-lisp:null))
-   (description common-lisp:nil :type
-    (common-lisp:or description common-lisp:null))
-   (maximum-duration common-lisp:nil :type
-    (common-lisp:or time-to-live-string common-lisp:null))
-   (name (common-lisp:error ":name is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (role-arn (common-lisp:error ":role-arn is required") :type
-    (common-lisp:or role-arn common-lisp:null))
-   (schema-s3location (common-lisp:error ":schema-s3location is required")
-    :type (common-lisp:or s3location common-lisp:null))
-   (tags common-lisp:nil :type (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass start-simulation-input common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %start-simulation-input-tags :initform
+                         common-lisp:nil)
+                        (schema-s3location :initarg :schema-s3location :type
+                         (common-lisp:or s3location common-lisp:null) :accessor
+                         %start-simulation-input-schema-s3location :initform
+                         (common-lisp:error ":schema-s3location is required"))
+                        (role-arn :initarg :role-arn :type
+                         (common-lisp:or role-arn common-lisp:null) :accessor
+                         %start-simulation-input-role-arn :initform
+                         (common-lisp:error ":role-arn is required"))
+                        (name :initarg :name :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %start-simulation-input-name :initform
+                         (common-lisp:error ":name is required"))
+                        (maximum-duration :initarg :maximum-duration :type
+                         (common-lisp:or time-to-live-string common-lisp:null)
+                         :accessor %start-simulation-input-maximum-duration
+                         :initform common-lisp:nil)
+                        (description :initarg :description :type
+                         (common-lisp:or description common-lisp:null)
+                         :accessor %start-simulation-input-description
+                         :initform common-lisp:nil)
+                        (client-token :initarg :client-token :type
+                         (common-lisp:or client-token common-lisp:null)
+                         :accessor %start-simulation-input-client-token
+                         :initform common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-simulation-input 'make-start-simulation-input))
+ (common-lisp:defun make-start-simulation-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags schema-s3location role-arn name
+                     maximum-duration description client-token)
+   (common-lisp:apply #'common-lisp:make-instance 'start-simulation-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1348,16 +1703,27 @@
                           start-simulation-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (start-simulation-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-start-simulation-output-"))
-   (arn common-lisp:nil :type
-    (common-lisp:or sim-space-weaver-arn common-lisp:null))
-   (creation-time common-lisp:nil :type
-    (common-lisp:or timestamp common-lisp:null))
-   (execution-id common-lisp:nil :type (common-lisp:or uuid common-lisp:null)))
+ (common-lisp:defclass start-simulation-output common-lisp:nil
+                       ((execution-id :initarg :execution-id :type
+                         (common-lisp:or uuid common-lisp:null) :accessor
+                         %start-simulation-output-execution-id :initform
+                         common-lisp:nil)
+                        (creation-time :initarg :creation-time :type
+                         (common-lisp:or timestamp common-lisp:null) :accessor
+                         %start-simulation-output-creation-time :initform
+                         common-lisp:nil)
+                        (arn :initarg :arn :type
+                         (common-lisp:or sim-space-weaver-arn common-lisp:null)
+                         :accessor %start-simulation-output-arn :initform
+                         common-lisp:nil)))
  (common-lisp:export
   (common-lisp:list 'start-simulation-output 'make-start-simulation-output))
+ (common-lisp:defun make-start-simulation-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key execution-id creation-time arn)
+   (common-lisp:apply #'common-lisp:make-instance 'start-simulation-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1395,16 +1761,29 @@
                           start-simulation-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-app-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-app-input-"))
-   (app (common-lisp:error ":app is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (domain (common-lisp:error ":domain is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass stop-app-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %stop-app-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))
+                        (domain :initarg :domain :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %stop-app-input-domain :initform
+                         (common-lisp:error ":domain is required"))
+                        (app :initarg :app :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %stop-app-input-app :initform
+                         (common-lisp:error ":app is required"))))
  (common-lisp:export (common-lisp:list 'stop-app-input 'make-stop-app-input))
+ (common-lisp:defun make-stop-app-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation domain app)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-app-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input stop-app-input))
    (common-lisp:append))
@@ -1436,10 +1815,14 @@
                         ((aws-sdk/generator/shape::input stop-app-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-app-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-app-output-")))
+ (common-lisp:defclass stop-app-output common-lisp:nil common-lisp:nil)
  (common-lisp:export (common-lisp:list 'stop-app-output 'make-stop-app-output))
+ (common-lisp:defun make-stop-app-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-app-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input stop-app-output))
    (common-lisp:append))
@@ -1450,13 +1833,20 @@
                         ((aws-sdk/generator/shape::input stop-app-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-clock-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-clock-input-"))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass stop-clock-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %stop-clock-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-clock-input 'make-stop-clock-input))
+ (common-lisp:defun make-stop-clock-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-clock-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input stop-clock-input))
    (common-lisp:append))
@@ -1474,11 +1864,15 @@
                         ((aws-sdk/generator/shape::input stop-clock-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-clock-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-clock-output-")))
+ (common-lisp:defclass stop-clock-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'stop-clock-output 'make-stop-clock-output))
+ (common-lisp:defun make-stop-clock-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-clock-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input stop-clock-output))
    (common-lisp:append))
@@ -1489,13 +1883,20 @@
                         ((aws-sdk/generator/shape::input stop-clock-output))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-simulation-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-simulation-input-"))
-   (simulation (common-lisp:error ":simulation is required") :type
-    (common-lisp:or sim-space-weaver-resource-name common-lisp:null)))
+ (common-lisp:defclass stop-simulation-input common-lisp:nil
+                       ((simulation :initarg :simulation :type
+                         (common-lisp:or sim-space-weaver-resource-name
+                                         common-lisp:null)
+                         :accessor %stop-simulation-input-simulation :initform
+                         (common-lisp:error ":simulation is required"))))
  (common-lisp:export
   (common-lisp:list 'stop-simulation-input 'make-stop-simulation-input))
+ (common-lisp:defun make-stop-simulation-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key simulation)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-simulation-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1519,11 +1920,15 @@
                           stop-simulation-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (stop-simulation-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-stop-simulation-output-")))
+ (common-lisp:defclass stop-simulation-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'stop-simulation-output 'make-stop-simulation-output))
+ (common-lisp:defun make-stop-simulation-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'stop-simulation-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
@@ -1555,15 +1960,23 @@
      (common-lisp:list
       (alexandria:alist-hash-table aws-sdk/generator/shape::key-values)))))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or sim-space-weaver-arn common-lisp:null))
-   (tags (common-lisp:error ":tags is required") :type
-    (common-lisp:or tag-map common-lisp:null)))
+ (common-lisp:defclass tag-resource-input common-lisp:nil
+                       ((tags :initarg :tags :type
+                         (common-lisp:or tag-map common-lisp:null) :accessor
+                         %tag-resource-input-tags :initform
+                         (common-lisp:error ":tags is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or sim-space-weaver-arn common-lisp:null)
+                         :accessor %tag-resource-input-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'tag-resource-input 'make-tag-resource-input))
+ (common-lisp:defun make-tag-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tags resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-input))
    (common-lisp:append))
@@ -1581,11 +1994,15 @@
                         ((aws-sdk/generator/shape::input tag-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (tag-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-tag-resource-output-")))
+ (common-lisp:defclass tag-resource-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'tag-resource-output 'make-tag-resource-output))
+ (common-lisp:defun make-tag-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'tag-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input tag-resource-output))
    (common-lisp:append))
@@ -1607,15 +2024,23 @@
   (common-lisp:list 'too-many-tags-exception 'too-many-tags-exception-message)))
 (common-lisp:deftype uuid () 'common-lisp:string)
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-input (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-input-"))
-   (resource-arn (common-lisp:error ":resource-arn is required") :type
-    (common-lisp:or sim-space-weaver-arn common-lisp:null))
-   (tag-keys (common-lisp:error ":tag-keys is required") :type
-    (common-lisp:or tag-key-list common-lisp:null)))
+ (common-lisp:defclass untag-resource-input common-lisp:nil
+                       ((tag-keys :initarg :tag-keys :type
+                         (common-lisp:or tag-key-list common-lisp:null)
+                         :accessor %untag-resource-input-tag-keys :initform
+                         (common-lisp:error ":tag-keys is required"))
+                        (resource-arn :initarg :resource-arn :type
+                         (common-lisp:or sim-space-weaver-arn common-lisp:null)
+                         :accessor %untag-resource-input-resource-arn :initform
+                         (common-lisp:error ":resource-arn is required"))))
  (common-lisp:export
   (common-lisp:list 'untag-resource-input 'make-untag-resource-input))
+ (common-lisp:defun make-untag-resource-input
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key tag-keys resource-arn)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-input
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         ((aws-sdk/generator/shape::input untag-resource-input))
    (common-lisp:append))
@@ -1626,11 +2051,15 @@
                         ((aws-sdk/generator/shape::input untag-resource-input))
    common-lisp:nil))
 (common-lisp:progn
- (common-lisp:defstruct
-     (untag-resource-output (:copier common-lisp:nil)
-      (:conc-name "struct-shape-untag-resource-output-")))
+ (common-lisp:defclass untag-resource-output common-lisp:nil common-lisp:nil)
  (common-lisp:export
   (common-lisp:list 'untag-resource-output 'make-untag-resource-output))
+ (common-lisp:defun make-untag-resource-output
+                    (
+                     common-lisp:&rest aws-sdk/generator/shape::args
+                     common-lisp:&key)
+   (common-lisp:apply #'common-lisp:make-instance 'untag-resource-output
+                      aws-sdk/generator/shape::args))
  (common-lisp:defmethod aws-sdk/generator/shape::input-headers
                         (
                          (aws-sdk/generator/shape::input
