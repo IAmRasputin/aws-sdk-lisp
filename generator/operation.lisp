@@ -58,10 +58,11 @@
         (let ((body (ensure-string (or body ""))))
           (when (= 0 (length body))
             (error "Unexpected error raised with status=~A" status))
-          (let* ((output (xmls-to-alist (xmls:parse-to-list body)))
+          (let* ((output (aget (xmls-to-alist (xmls:parse-to-list body)) "ErrorResponse"))
                  (error-alist (aget output "Error"))
                  (error-class (or (aget error-map (first (aget error-alist "Code")))
                                   'aws-error)))
+            (break)
             (error error-class
                    :code (first (aget error-alist "Code"))
                    :message (first (aget error-alist "Message"))
