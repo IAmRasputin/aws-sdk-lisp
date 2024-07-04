@@ -10,7 +10,9 @@
                 #:octets-to-string)
   (:export #:lispify
            #:gethash+
-           #:ensure-string))
+           #:ensure-string
+           #:load-service
+           #:aws-load))
 (in-package #:aws-sdk/utils)
 
 (defun lispify (value &optional (package *package*))
@@ -52,3 +54,6 @@
     (string value)
     (vector (babel:octets-to-string value))
     (stream (slurp-string-stream value))))
+
+(defmacro aws-load (service-name)
+  `(ql:quickload (format nil "aws-sdk/services/~a" ',service-name)))
